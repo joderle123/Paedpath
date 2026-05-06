@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAVOIR — Klinisches Wissen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a14;
+    --paper: #faf7f0;
+    --cream: #f5f0e8;
+    --gold: #d4a93f;
+    --rust: #a3501f;
+    --sage: #889186;
+    --line: rgba(212, 169, 63, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input { font-family: inherit; }
+
+  /* ============ TOP NAVIGATION ============ */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 48px;
+  }
+  .topnav-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .brand {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .brand-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: 0.02em;
+  }
+  .brand-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-top: 6px;
+  }
+  .search-wrap {
+    position: relative;
+    max-width: 560px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 14px 22px 14px 48px;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .search-input:focus {
+    border-color: var(--gold);
+    background: var(--paper);
+  }
+  .search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sage);
+    pointer-events: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+  }
+  .search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0; right: 0;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 0 12px 40px rgba(10,10,20,.08);
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+  }
+  .search-results.visible { display: block; }
+  .search-result-item {
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .search-result-item:hover { background: var(--cream); }
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .search-result-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-top: 4px;
+  }
+  .search-empty {
+    padding: 18px 22px;
+    color: var(--sage);
+    font-size: 14px;
+  }
+  .progress-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.1;
+  }
+  .progress-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 26px;
+    color: var(--rust);
+  }
+  .progress-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-top: 4px;
+  }
+
+  /* ============ MAIN LAYOUT ============ */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 56px 48px 96px;
+  }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ============ CATEGORY GRID ============ */
+  .intro {
+    margin-bottom: 56px;
+    max-width: 720px;
+  }
+  .intro-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin-bottom: 16px;
+  }
+  .intro-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 52px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .intro-text {
+    color: var(--sage);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .category-card {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px 28px;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(10,10,20,.07);
+    border-color: var(--gold);
+  }
+  .cat-marker {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: block;
+  }
+  .cat-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cat-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+  }
+
+  /* ============ BREADCRUMB ============ */
+  .breadcrumb {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 32px;
+  }
+  .breadcrumb a {
+    cursor: pointer;
+    transition: color .15s ease;
+  }
+  .breadcrumb a:hover { color: var(--rust); }
+  .breadcrumb .sep {
+    margin: 0 10px;
+    color: var(--gold);
+  }
+
+  /* ============ TOPIC LIST ============ */
+  .topiclist-header {
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topiclist-marker {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 80px;
+    line-height: 1;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .topiclist-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .topic-items {
+    display: flex;
+    flex-direction: column;
+  }
+  .topic-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: padding .2s ease;
+  }
+  .topic-item:hover { padding-left: 12px; }
+  .topic-item:hover .topic-item-arrow { color: var(--rust); transform: translateX(4px); }
+  .topic-item-titel {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+  }
+  .topic-item-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-top: 6px;
+  }
+  .topic-item-arrow {
+    color: var(--gold);
+    font-size: 20px;
+    transition: transform .2s ease, color .2s ease;
+  }
+  .topic-empty {
+    padding: 80px 24px;
+    text-align: center;
+    color: var(--sage);
+    font-style: italic;
+    background: var(--cream);
+    border-radius: 4px;
+    border: 1px dashed var(--line);
+  }
+
+  /* ============ ARTIKEL DETAIL ============ */
+  .article {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .article-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 32px;
+    margin-bottom: 36px;
+  }
+  .article-titel {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .audio-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .audio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 10px 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: background .2s ease;
+  }
+  .audio-btn:hover { background: var(--rust); }
+  .audio-btn.playing { background: var(--rust); }
+
+  .audio-panel {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .audio-panel label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .audio-panel select,
+  .audio-panel input[type=range] {
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+  }
+  .audio-panel input[type=range] { padding: 0; height: 32px; accent-color: var(--rust); }
+  .speed-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .speed-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--rust);
+    min-width: 36px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0;
+  }
+  .tab {
+    padding: 12px 4px;
+    margin-bottom: -1px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    border-bottom: 2px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+    margin-right: 28px;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--rust);
+  }
+
+  .article-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .article-body p { margin-bottom: 1.2em; }
+  .article-body h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 26px;
+    margin: 2em 0 0.6em;
+    letter-spacing: -0.01em;
+  }
+  .article-body h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin: 1.8em 0 0.4em;
+  }
+  .article-body ul, .article-body ol {
+    margin: 0 0 1.2em 1.4em;
+  }
+  .article-body li { margin-bottom: 0.4em; }
+  .article-body em { color: var(--rust); font-style: italic; }
+  .article-body strong { font-weight: 600; }
+
+  .article-body .lead::first-letter,
+  .article-body > p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    float: left;
+    font-size: 76px;
+    line-height: 0.85;
+    padding: 8px 14px 0 0;
+    color: var(--rust);
+  }
+
+  .quellen {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .quellen-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+  .quellen-list {
+    list-style: none;
+    padding: 0;
+  }
+  .quellen-list li {
+    font-size: 13px;
+    color: var(--sage);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.5;
+  }
+  .quellen-list li:last-child { border-bottom: none; }
+
+  .article-footer {
+    margin-top: 64px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .read-btn {
+    align-self: flex-start;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 14px 32px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .read-btn:hover { background: var(--rust); transform: translateY(-2px); }
+  .read-btn.read {
+    background: var(--cream);
+    color: var(--rust);
+    border: 1px solid var(--rust);
+  }
+
+  .related {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 28px;
+    border: 1px solid var(--line);
+  }
+  .related-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 18px;
+  }
+  .related-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .related-pill {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 10px 18px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .related-pill:hover {
+    border-color: var(--rust);
+    color: var(--rust);
+  }
+  .related-empty {
+    color: var(--sage);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  .empty-content {
+    padding: 64px 32px;
+    text-align: center;
+    color: var(--sage);
+    font-style: italic;
+    background: var(--cream);
+    border-radius: 4px;
+    border: 1px dashed var(--line);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    .topnav { padding: 16px 20px; }
+    .topnav-inner { grid-template-columns: 1fr; gap: 16px; }
+    .progress-indicator { flex-direction: row; align-items: baseline; gap: 8px; }
+    .main { padding: 32px 20px 64px; }
+    .intro-title { font-size: 36px; }
+    .article-titel { font-size: 32px; }
+    .article-head { grid-template-columns: 1fr; }
+    .audio-panel { grid-template-columns: 1fr; }
+    .topiclist-marker { font-size: 56px; }
+    .topiclist-title { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand" id="brand">
+      <span class="brand-logo">SAVOIR</span>
+      <span class="brand-sub">Klinisches Wissen</span>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input
+        type="search"
+        class="search-input"
+        id="searchInput"
+        placeholder="Suche nach Störungsbild, Symptom, Begriff …"
+        autocomplete="off"
+      />
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="progress-indicator" title="Gelesene Artikel">
+      <span class="progress-num" id="progressNum">0</span>
+      <span class="progress-label">Gelesen</span>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- VIEW: HOME -->
+  <section class="view active" id="view-home">
+    <div class="intro">
+      <div class="intro-eyebrow">Lernbibliothek · Jugendhilfe & Psychologie</div>
+      <h1 class="intro-title">Tiefes klinisches Wissen, gut lesbar.</h1>
+      <p class="intro-text">
+        Fachartikel auf Expertenniveau zu Störungsbildern. Drei Tiefen-Ebenen
+        pro Thema — von Grundlagen bis Spezialfälle. Mit Audio-Wiedergabe
+        für unterwegs.
+      </p>
+    </div>
+    <div class="category-grid" id="categoryGrid"></div>
+  </section>
+
+  <!-- VIEW: TOPIC LIST -->
+  <section class="view" id="view-category">
+    <div class="breadcrumb">
+      <a id="bc-home-1">SAVOIR</a>
+      <span class="sep">›</span>
+      <span id="bc-cat-1"></span>
+    </div>
+    <div class="topiclist-header">
+      <div class="topiclist-marker" id="catMarker"></div>
+      <h2 class="topiclist-title" id="catTitle"></h2>
+    </div>
+    <div class="topic-items" id="topicItems"></div>
+  </section>
+
+  <!-- VIEW: ARTICLE -->
+  <section class="view" id="view-article">
+    <div class="breadcrumb">
+      <a id="bc-home-2">SAVOIR</a>
+      <span class="sep">›</span>
+      <a id="bc-cat-2"></a>
+      <span class="sep">›</span>
+      <span id="bc-topic"></span>
+    </div>
+
+    <article class="article">
+      <header class="article-head">
+        <h1 class="article-titel" id="articleTitel"></h1>
+        <div class="audio-controls">
+          <button class="audio-btn" id="audioBtn">
+            <span id="audioBtnLabel">▶ Vorlesen</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="audio-panel">
+        <div>
+          <label for="voiceSelect">Stimme</label>
+          <select id="voiceSelect"></select>
+        </div>
+        <div>
+          <label for="speedRange">Geschwindigkeit</label>
+          <div class="speed-row">
+            <input type="range" id="speedRange" min="0.7" max="1.5" step="0.05" value="1" />
+            <span class="speed-val" id="speedVal">1.00x</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="tabs" id="ebenenTabs">
+        <button class="tab active" data-ebene="grundlagen">Grundlagen</button>
+        <button class="tab" data-ebene="klinisch">Klinisch</button>
+        <button class="tab" data-ebene="spezialfaelle">Spezialfälle</button>
+      </nav>
+
+      <div class="article-body" id="articleBody"></div>
+
+      <div class="quellen" id="quellenWrap" style="display:none">
+        <div class="quellen-titel">Quellen</div>
+        <ol class="quellen-list" id="quellenList"></ol>
+      </div>
+
+      <div class="article-footer">
+        <button class="read-btn" id="readBtn">Als gelesen markieren</button>
+        <div class="related">
+          <div class="related-titel">Verwandte Themen</div>
+          <div class="related-list" id="relatedList"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+</main>
+
+<script>
+/* ============ DATA ============ */
+
+const CATEGORIES = {
+  'A': 'Neuroentwicklungsstörungen',
+  'B': 'Affektive Störungen',
+  'C': 'Angststörungen',
+  'D': 'Trauma und Belastungsstörungen',
+  'E': 'Verhaltens- und Impulskontrollstörungen',
+  'F': 'Persönlichkeit und Identität',
+  'G': 'Selbstgefährdendes Verhalten',
+  'H': 'Essverhalten',
+  'I': 'Psychotisches Spektrum',
+  'J': 'Spezialthemen'
+};
+
+// Themen werden Schritt für Schritt befüllt.
+// Schema:
+// 'topic-id': {
+//   id, titel, kategorie ('A'..'J'),
+//   ebenen: {
+//     grundlagen:    { content: "...html...", quellen: ["..."] },
+//     klinisch:      { content: "...",        quellen: [...] },
+//     spezialfaelle: { content: "...",        quellen: [...] }
+//   },
+//   verwandt: ['other-topic-id', ...]
+// }
+const TOPICS = {
+  'asperger': {
+    id: 'asperger',
+    titel: 'Autismus-Spektrum: Asperger-Profil',
+    kategorie: 'A',
+    ebenen: {
+      grundlagen: {
+        content: `
+<p>Das Autismus-Spektrum bezeichnet eine neuroentwicklungsbedingte Variation der Wahrnehmung, des sozialen Verstehens und der Informationsverarbeitung. Mit der Einführung von DSM-5 (2013) und ICD-11 (in Kraft seit 2022) wurden die früheren Subtypen — frühkindlicher Autismus, Asperger-Syndrom, atypischer Autismus, desintegrative Störung — zu einer einheitlichen Kategorie zusammengeführt: der <strong>Autismus-Spektrum-Störung</strong> (ICD-11: 6A02). Die Verschiebung war keine begriffliche Nuance, sondern ein methodischer Wechsel: Statt kategorialer Diagnosen wird das Spektrum dimensional verstanden und nach Schweregrad, Sprachvermögen, intellektuellem Funktionsniveau und Komorbiditäten spezifiziert. Das Asperger-Syndrom existiert in den aktuellen Klassifikationssystemen also nicht mehr als eigenständige Diagnose.</p>
+
+<h3>Warum das Asperger-Profil klinisch nützlich bleibt</h3>
+
+<p>Trotz der Diagnoseaufgabe ist die Phänomenologie, die Lorna Wing 1981 in Anlehnung an Hans Aspergers Habilitationsschrift von 1944 als „Asperger-Syndrom“ bezeichnete, klinisch unverändert relevant. Gemeint ist ein Subtyp innerhalb des Spektrums, der sich auszeichnet durch durchschnittliche bis überdurchschnittliche kognitive Begabung, eine formal unauffällige frühe Sprachentwicklung und Schwierigkeiten, die sich vorrangig im sozial-pragmatischen, im exekutiven und im sensorischen Bereich entfalten. Diese Konstellation hat in der Versorgung einen eigenen Bedarf — sie wird in der breiten Öffentlichkeit und in nicht spezialisierten Praxen häufig übersehen, weil die Person nach außen hin „funktioniert“. Die historisch belastete Person Hans Aspergers (Czech 2018 zeigte seine Verstrickung in das NS-Euthanasieprogramm) ändert nichts an der Validität der phänomenologischen Beschreibung; viele autistische Selbstvertreter:innen verwenden den Begriff „Asperger-Profil“ oder „Level-1-Autismus“ genau deshalb weiter, weil er klinisch differenziert.</p>
+
+<h3>Kernsymptomatik</h3>
+
+<p>Die diagnostischen Manuale formulieren zwei Kernbereiche, die für das Spektrum insgesamt gelten und sich beim Asperger-Profil in spezifischer Färbung zeigen.</p>
+
+<h4>Soziale Kommunikation und Interaktion</h4>
+
+<p>Die Reziprozität in der sozialen Begegnung ist beeinträchtigt: Smalltalk wirkt anstrengend oder sinnentleert, das intuitive Hin und Her eines Gesprächs gelingt schwer. Nonverbale Signale — Blickkontakt, Mimik, Gestik, prosodische Modulation — werden weniger automatisch produziert und gelesen. Das ist nicht als Empathiedefizit misszuverstehen: Affektive Empathie (Mitfühlen) ist beim Asperger-Profil meist intakt oder sogar gesteigert; betroffen ist die <em>kognitive</em> Empathie, also das schnelle Schlussfolgern, was eine andere Person gerade denkt oder beabsichtigt. Beziehungsaufbau ist nicht unmöglich, sondern langsamer, regelbasierter, auf wenige tiefe Bindungen hin orientiert.</p>
+
+<h4>Restringierte, repetitive Verhaltensweisen, Interessen und Aktivitäten</h4>
+
+<p>Hierhin gehören vier in DSM-5 / ICD-11 unterschiedene Domänen: stereotype oder repetitive Bewegungen, Sprachgebrauch oder Objektmanipulation; Insistieren auf Gleichheit, Festhalten an Routinen, Ritualisierung; hochfokussierte, ungewöhnlich intensive Spezialinteressen; sowie Hyper- oder Hyporeaktivität auf sensorische Reize beziehungsweise ungewöhnliches sensorisches Interesse. Beim Asperger-Profil dominieren typischerweise Spezialinteressen und sensorische Besonderheiten, während offen sichtbare motorische Stereotypien (Stimming) zwar vorhanden sind, aber häufig in unauffällige Formen übersetzt werden — Daumen reiben, Bein wippen, an einem Ring drehen.</p>
+
+<h3>Häufigkeit und Geschlechterverteilung</h3>
+
+<p>Aktuelle Surveillance-Daten (CDC 2023: 1 von 36 Achtjährigen in den USA; europäische Studien zwischen 1 und 2 %) konvergieren auf eine <strong>Punktprävalenz von 1 bis 2 % der Gesamtbevölkerung</strong>. Die Heritabilität liegt nach Zwillings- und Familienstudien bei 80 bis 90 % und gehört damit zu den höchsten in der Psychiatrie überhaupt. Die offiziellen Geschlechterverhältnisse — historisch 4:1 zugunsten der Jungen, in jüngeren Studien eher 3:1 — sind <strong>diagnostisch verzerrt, nicht biologisch begründet</strong>. Sobald systematische Screenings unabhängig vom klinischen Zugangspfad angelegt werden, nähert sich das Verhältnis 2:1 oder 1,5:1 an, in einzelnen Erwachsenen-Stichproben sogar der Parität (Loomes et al. 2017; siehe ausführlich Ebene Spezialfälle). Der Mechanismus ist dreifach: weibliche Phänotypen werden seltener erkannt, Mädchen camouflagieren früher und intensiver, und die diagnostischen Instrumente wurden ursprünglich an männlichen Stichproben validiert.</p>
+
+<h3>Neurobiologische Grundlagen</h3>
+
+<p>Vier Erklärungsmodelle haben sich seit den 1980er-Jahren als komplementär erwiesen — keines erklärt für sich allein das gesamte Bild, ihre Kombination bildet den heutigen Konsens.</p>
+
+<p>Das <strong>Spiegelneuronensystem</strong> (Rizzolatti, Iacoboni und Dapretto 2006) gilt als neuronale Grundlage des unmittelbaren, intuitiven Verstehens fremder Handlungen und Affekte. Funktionelle Bildgebung zeigt bei autistischen Personen eine reduzierte Aktivität in inferioren frontalen Arealen und im Sulcus temporalis superior bei der Beobachtung emotionaler Mimik. Das ist kein Defizit im engeren Sinn, sondern ein anderer Verarbeitungsmodus: was bei neurotypischer Verarbeitung automatisch abläuft, wird beim Asperger-Profil zunehmend explizit, regelbasiert, kognitiv aufwendig.</p>
+
+<p>Die <strong>Theory of Mind</strong> (Baron-Cohen, Leslie & Frith 1985) beschreibt die Fähigkeit, anderen mentale Zustände — Wünsche, Überzeugungen, Absichten — zuzuschreiben. Im klassischen Sally-Anne-Paradigma fielen autistische Kinder auf, weil sie nicht spontan zwischen eigener und fremder Wissensperspektive trennten. Beim Asperger-Profil werden ToM-Aufgaben in der Regel gelöst, aber spät, langsam und unter explizitem Schlussfolgern — der Befund heißt also nicht „keine Theory of Mind“, sondern <em>verzögerte, kompensatorische, mit hohem mentalem Aufwand erbrachte</em> Theory of Mind.</p>
+
+<p>Die <strong>Theorie der schwachen zentralen Kohärenz</strong> (Frith 1989; Happé & Frith 2006) erklärt eine andere Beobachtung: das Detail wird vor dem Gesamtbild verarbeitet. Statt sofort den Gestalt-Sinn einer Szene zu greifen, werden zuerst Einzelheiten registriert. Das hat eine Schattenseite — Überforderung in komplexen sozialen Situationen, Schwierigkeit bei impliziten Bedeutungen, Wörtlichkeit — und eine Stärke: visuell-analytische Aufgaben (Block-Design, Embedded-Figures-Test) werden überdurchschnittlich gut gelöst. Die spätere Überarbeitung sprach nicht mehr von „schwach“, sondern von einem <em>Verarbeitungsbias zugunsten lokaler Information</em>.</p>
+
+<p>Die <strong>Exekutive-Dysfunktions-Theorie</strong> (Pennington & Ozonoff 1996; Hill 2004) bündelt Beobachtungen zu Planung, kognitiver Flexibilität, Inhibition, Arbeitsgedächtnis und Selbstmonitoring. Klinisch zeigt sich das im Übergang zwischen Aufgaben, im Umgang mit ungeplanten Veränderungen, im Generieren alternativer Lösungen — alles Bereiche, die im Erwachsenenalltag unsichtbar werden, solange Routinen tragen, und unter Stress oder neuen Anforderungen kollabieren.</p>
+
+<p>Diese vier Modelle werden seit den 2010er-Jahren ergänzt durch die <strong>prädiktive Verarbeitung</strong> (Pellicano & Burr 2012; van de Cruys et al. 2014): autistische Wahrnehmung wäre demnach durch eine erhöhte Gewichtung sensorischer Signale gegenüber Vorhersagen gekennzeichnet. Die Welt erscheint dadurch detailreicher, weniger vorhersagbar, sensorisch intensiver — ein Erklärungsrahmen, der Spezialinteressen, Routinen, sensorische Hyperreaktivität und soziale Vorhersageprobleme unter ein gemeinsames Prinzip stellt.</p>
+
+<h3>Asperger-Profil versus schwerer betroffener Autismus</h3>
+
+<p>Innerhalb des Spektrums unterscheidet das Asperger-Profil sich von dem, was in der älteren Terminologie „frühkindlicher Autismus“ und in DSM-5 „Level 2/3“ heißt, in drei Punkten: Sprachentwicklung, kognitive Begabung, Selbstständigkeit im Alltag.</p>
+
+<p>Die <strong>Sprachentwicklung</strong> ist formal unauffällig — die ersten Wörter erscheinen zeitgerecht, die Grammatik wird sicher erworben, der Wortschatz ist oft auffällig elaboriert, fast pedant. Was abweicht, ist die Pragmatik: Ironie, Ambivalenz, prosodische Modulation, Smalltalk, das Lesen impliziter Botschaften. Sprachverständnis kann wörtlich sein, der eigene Sprachstil monoton oder ungewöhnlich melodisch, häufig <em>scripted</em> — also aus Filmen, Büchern oder früheren Begegnungen entlehnt. Die <strong>kognitive Begabung</strong> liegt definitionsgemäß im Normbereich oder darüber; Profile sind oft heterogen mit Verbal-IQ-Stärken und Schwächen in der Verarbeitungsgeschwindigkeit oder im wahrnehmungsgebundenen Schlussfolgern. Die <strong>Selbstständigkeit</strong> — Schule, Beruf, eigene Wohnung — ist möglich, aber häufig prekär: das System trägt, solange Routinen und Strukturen passen, und kollabiert bei Übergängen (Schulwechsel, erste Wohnung, Beziehungsende).</p>
+
+<p>Wichtig: Diese Differenzierung beschreibt <em>Funktionsniveau</em>, nicht <em>Leidensdruck</em>. Die Suizidrate liegt beim Asperger-Profil um ein Mehrfaches höher als bei deutlich sichtbar autistischen Personen mit Lernbehinderung (Hirvikoski et al. 2016). Ein „leichter“ Autismus existiert von außen, nicht von innen.</p>
+
+<h3>Warum „high-functioning“ ein irreführender Begriff ist</h3>
+
+<p>Der Ausdruck „high-functioning autism“ (HFA) hat sich in der angloamerikanischen Literatur als Synonym für das Asperger-Profil etabliert. Er ist aus mehreren Gründen problematisch und wird in der aktuellen Fachsprache zunehmend gemieden. Erstens beschreibt er Funktion <em>von außen</em>, ohne den inneren Aufwand abzubilden — eine Person, die im Beruf brilliert, kann nach Feierabend sensorisch überreizt und kommunikativ erschöpft auf dem Sofa zusammenbrechen. Zweitens suggeriert er einen geringeren Unterstützungsbedarf, mit der Folge, dass Hilfen verweigert werden, sobald eine Person „funktioniert“. Drittens kontrastiert er mit „low-functioning“ — ein Begriff, der Personen auf Defizite reduziert und ihre kognitiven Stärken in nichtsprachlichen Bereichen ausblendet. Die autistische Selbstvertretung schlägt stattdessen den Begriff des <em>Unterstützungsbedarfs</em> vor, der situationsabhängig, dimensional und veränderbar ist (Alvares et al. 2020). DSM-5 folgt dieser Logik mit den drei Schweregraden, die explizit auf Unterstützungsbedarf, nicht auf eine Personenkategorie referieren.</p>
+
+<h3>Erste Hinweise im Kindesalter</h3>
+
+<p>Das Asperger-Profil ist im frühen Kindesalter weniger sichtbar als der frühkindliche Autismus, weil die formalen Sprachmeilensteine erreicht werden. Aufmerksame Beobachtung zeigt jedoch früh konsistente Muster.</p>
+
+<p><strong>Spezialinteressen</strong> erscheinen häufig vor dem Schuleintritt — Züge, Dinosaurier, Astronomie, Landkarten, Insekten, Kalender, später Kategorien wie Buchreihen, Physik, Programmiersprachen. Charakteristisch ist nicht das Thema, sondern die Tiefe und Konstanz: enzyklopädisches Wissen wird angelegt, gepflegt, intern strukturiert; das Interesse hat eine regulierende Funktion und ist mit deutlicher positiver Affektivität besetzt. <strong>Soziale Ungeschicklichkeit</strong> zeigt sich in der Kita oder Vorschule durch parallele statt kooperative Spielformen, durch Schwierigkeiten bei Rollenspielen mit hohem Imaginations- und Reziprozitätsanteil, durch Konflikte um Fairness und Regeln, durch Missverstehen sozialer Untertöne. Freundschaften sind möglich, oft sogar tief, aber selten und auf wenige Personen konzentriert. <strong>Routinen und Insistieren auf Gleichheit</strong> begleiten den Alltag: derselbe Weg zur Schule, dieselben Kleidungsstücke, dieselbe Reihenfolge beim Anziehen, dieselbe Tasse, dieselbe Bettrolle vor dem Einschlafen. Veränderungen werden als sensorisch-emotionale Erschütterung erlebt, nicht als bloße Unannehmlichkeit. <strong>Sensorische Auffälligkeiten</strong> sind beim Asperger-Profil fast immer vorhanden: Texturen von Kleidung (Etiketten, Nähte, Wolle), Geräuschkulissen (Staubsauger, Lautsprecher, Klassenraum), Lichtquellen (Neonröhren, Sonnenflackern), Gerüche oder Geschmacksbesonderheiten beim Essen.</p>
+
+<p>Im Schulalter werden zwei zusätzliche Muster sichtbar. Das eine ist die <em>asymmetrische Begabung</em>: in Sachfächern oder Lieblingsbereichen weit über Klassenniveau, in unstrukturierten Arbeitsphasen, Gruppenarbeiten oder bei offenen Aufgaben demgegenüber blockiert. Das andere ist die <em>Belastungs-Asymmetrie zwischen Schule und Zuhause</em>: nach außen hin zusammengehalten, im sicheren Rahmen zu Hause Auflösung in Wutausbrüchen, Zusammenbrüchen, Rückzug. Dieses Muster — in der Forschung als <em>after-school restraint collapse</em> beschrieben — ist diagnostisch hoch verdächtig und wird häufig fehlinterpretiert als „Erziehungsproblem“, weil Lehrkräfte ein gänzlich anderes Bild zeichnen als die Eltern.</p>
+        `,
+        quellen: [
+          { autor: 'Wing, L.', jahr: 1981, titel: 'Asperger’s syndrome: A clinical account', fundstelle: 'Psychological Medicine, 11(1), 115–129' },
+          { autor: 'Frith, U.', jahr: 1989, titel: 'Autism: Explaining the Enigma', fundstelle: 'Blackwell, Oxford' },
+          { autor: 'Frith, U.', jahr: 2003, titel: 'Autism: Explaining the Enigma (2. Auflage)', fundstelle: 'Blackwell, Oxford' },
+          { autor: 'Baron-Cohen, S., Leslie, A. M., & Frith, U.', jahr: 1985, titel: 'Does the autistic child have a “theory of mind”?', fundstelle: 'Cognition, 21(1), 37–46' },
+          { autor: 'Baron-Cohen, S.', jahr: 1995, titel: 'Mindblindness: An Essay on Autism and Theory of Mind', fundstelle: 'MIT Press, Cambridge MA' },
+          { autor: 'Baron-Cohen, S.', jahr: 2000, titel: 'Theory of mind and autism: A fifteen year review', fundstelle: 'In: Baron-Cohen, Tager-Flusberg & Cohen (Hrsg.), Understanding Other Minds, Oxford University Press' },
+          { autor: 'Happé, F., & Frith, U.', jahr: 2006, titel: 'The weak coherence account: Detail-focused cognitive style in autism spectrum disorders', fundstelle: 'Journal of Autism and Developmental Disorders, 36(1), 5–25' },
+          { autor: 'Pennington, B. F., & Ozonoff, S.', jahr: 1996, titel: 'Executive functions and developmental psychopathology', fundstelle: 'Journal of Child Psychology and Psychiatry, 37(1), 51–87' },
+          { autor: 'Hill, E. L.', jahr: 2004, titel: 'Executive dysfunction in autism', fundstelle: 'Trends in Cognitive Sciences, 8(1), 26–32' },
+          { autor: 'Dapretto, M., Davies, M. S., Pfeifer, J. H. et al.', jahr: 2006, titel: 'Understanding emotions in others: Mirror neuron dysfunction in children with autism spectrum disorders', fundstelle: 'Nature Neuroscience, 9(1), 28–30' },
+          { autor: 'Pellicano, E., & Burr, D.', jahr: 2012, titel: 'When the world becomes “too real”: A Bayesian explanation of autistic perception', fundstelle: 'Trends in Cognitive Sciences, 16(10), 504–510' },
+          { autor: 'American Psychiatric Association', jahr: 2013, titel: 'Diagnostic and Statistical Manual of Mental Disorders, 5th edition (DSM-5)', fundstelle: 'APA Publishing, Arlington VA' },
+          { autor: 'Loomes, R., Hull, L., & Mandy, W. P. L.', jahr: 2017, titel: 'What is the male-to-female ratio in autism spectrum disorder? A systematic review and meta-analysis', fundstelle: 'Journal of the American Academy of Child & Adolescent Psychiatry, 56(6), 466–474' },
+          { autor: 'Czech, H.', jahr: 2018, titel: 'Hans Asperger, National Socialism, and “race hygiene” in Nazi-era Vienna', fundstelle: 'Molecular Autism, 9, 29' },
+          { autor: 'Alvares, G. A., Bebbington, K., Cleary, D. et al.', jahr: 2020, titel: 'The misnomer of “high functioning autism”: Intelligence is an imprecise predictor of functional abilities at diagnosis', fundstelle: 'Autism, 24(1), 221–232' },
+          { autor: 'World Health Organization', jahr: 2022, titel: 'International Classification of Diseases, 11th Revision (ICD-11), 6A02 Autism spectrum disorder', fundstelle: 'WHO, Genf' }
+        ]
+      },
+      klinisch: {
+        content: `
+<p>Die klinische Arbeit mit dem Asperger-Profil verlangt mehr als das Abhaken einer Symptomliste. Sie verlangt ein Verständnis dafür, wie sich autistische Verarbeitungsmuster in einem konkreten Leben zeigen, was sie kompensieren und in welche Richtung sie unter Belastung kippen. Diese Ebene legt das diagnostische und differentialdiagnostische Handwerk auf Spezialistenniveau aus, beschreibt die wichtigsten Komorbiditätsmuster und übersetzt die zugrundeliegenden kognitiven Modelle — Theory of Mind, zentrale Kohärenz, exekutive Funktionen, sensorische Verarbeitung — in beobachtbares klinisches Verhalten.</p>
+
+<h3>Diagnostische Kriterien nach ICD-11 (6A02)</h3>
+
+<p>ICD-11 hat 2022 die Spektrumslogik aus DSM-5 übernommen und die früheren Subtypen aufgegeben. Die Kerndiagnose <strong>6A02 Autismus-Spektrum-Störung</strong> verlangt zwei Bereiche persistierender Auffälligkeiten, die seit der frühen Entwicklungsphase bestehen, sich in mehreren Kontexten zeigen und das individuelle Funktionsniveau substantiell beeinträchtigen oder eine substantielle Anpassungsleistung erfordern.</p>
+
+<p>Der erste Bereich umfasst <strong>persistierende Defizite in der Initiierung und Aufrechterhaltung sozialer Kommunikation und reziproker sozialer Interaktion</strong>, die unter Berücksichtigung des Entwicklungsalters und des soziokulturellen Hintergrunds als atypisch zu werten sind. Konkret wird dabei auf Auffälligkeiten in der sozial-emotionalen Reziprozität, in der nonverbalen Kommunikation und im Aufbau, Erhalt und Verstehen von Beziehungen geachtet.</p>
+
+<p>Der zweite Bereich erfasst <strong>persistierende restringierte, repetitive und unflexible Verhaltensweisen, Interessen oder Aktivitäten</strong>, die für das Alter und den soziokulturellen Kontext deutlich atypisch oder exzessiv sind. ICD-11 nennt vier Cluster: starre Festlegung auf Routinen und Veränderungsintoleranz; übermäßige Fokussierung auf restringierte, idiosynkratische Interessen; sensorische Hyper- oder Hyporeaktivität oder ungewöhnliches sensorisches Interesse; sowie repetitive, stereotype Bewegungen, Vokalisationen oder Objekthandhabungen. Mindestens zwei dieser vier Cluster sollten erfüllt sein, um den Bereich kriteriengemäß zu kodieren — eine Schwelle, die ICD-11 von DSM-5 übernimmt.</p>
+
+<p>ICD-11 fügt eine differenzierte Spezifizierung an: die Kombination aus intellektuellem Funktionsniveau (mit oder ohne Störung der intellektuellen Entwicklung) und funktioneller Sprache (mit oder ohne Beeinträchtigung der funktionellen Sprache) ergibt acht Subkodierungen von 6A02.0 bis 6A02.5 plus 6A02.Y/Z. Das frühere Asperger-Syndrom entspricht in dieser Logik weitgehend der Kodierung <strong>6A02.0</strong> — Autismus-Spektrum-Störung ohne Störung der intellektuellen Entwicklung und mit leichter oder fehlender Beeinträchtigung der funktionellen Sprache.</p>
+
+<p>Wichtig für die Praxis: Symptome müssen seit der frühen Entwicklungsphase bestehen, dürfen aber erst dann manifest werden, wenn die sozialen Anforderungen das Kompensationsvermögen übersteigen. Genau dieser Passus ist die diagnostische Eintrittsbedingung für viele Spätdiagnosen — der Schulwechsel in der weiterführenden Schule, der Übergang in den Beruf, die erste Partnerschaft, die Geburt des ersten eigenen Kindes sind die typischen Schwellen, an denen eine bis dahin tragfähige Kompensation kippt.</p>
+
+<h3>Diagnostische Instrumente</h3>
+
+<p>Die diagnostische Methodik beim Asperger-Profil beruht auf einer Kombination aus standardisierter Verhaltensbeobachtung, biographischer Anamnese, dimensionalem Selbst- und Fremdrating sowie ergänzender neuropsychologischer Befundung. Kein einzelnes Instrument ist hinreichend; insbesondere bei subtilen Profilen, weiblichem Phänotyp oder ausgeprägtem Camouflaging ist die Kombination notwendig.</p>
+
+<h4>ADOS-2 — Autism Diagnostic Observation Schedule</h4>
+
+<p>Das ADOS-2 (Lord et al. 2012) ist die international etablierte halbstandardisierte Verhaltensbeobachtung. Es bietet fünf altersgestaffelte Module — Modul T (Toddler) bis Modul 4 (verbal flüssige Jugendliche und Erwachsene). Für das Asperger-Profil sind in der Regel <strong>Modul 3</strong> (verbal flüssige Kinder und Jugendliche) oder <strong>Modul 4</strong> einschlägig. Die Auswertung erfolgt über zwei Algorithmen: soziale Kommunikation/Interaktion (SA) und restringierte/repetitive Verhaltensweisen (RRB), summiert zu einem Gesamtwert mit Cut-off für „Autismus-Spektrum“ und „Autismus“. Wichtig zu wissen: das ADOS hat eine bekannte <em>Sensitivitätslücke</em> bei kognitiv begabten Erwachsenen mit ausgeprägtem Camouflaging, insbesondere bei Frauen — ein unauffälliges ADOS schließt eine ASS in dieser Population <strong>nicht</strong> aus (Lai et al. 2011; Ratto et al. 2018). Es ergänzt, ersetzt aber keine sorgfältige biographische Diagnostik.</p>
+
+<h4>ADI-R — Autism Diagnostic Interview, Revised</h4>
+
+<p>Das ADI-R (Rutter, Le Couteur & Lord 2003) ist das standardisierte Bezugspersoneninterview, das die frühe Entwicklung im Alter von vier bis fünf Jahren rekonstruiert sowie das aktuelle Verhalten erfasst. Die drei Algorithmen entsprechen den klassischen DSM-IV-Domänen: soziale Interaktion, Kommunikation, repetitive Verhaltensweisen. ADI-R ist beim Asperger-Profil unverzichtbar, weil es die <em>Entwicklungsanamnese</em> erfasst — und genau diese Information geht im Erwachsenenalter ohne strukturiertes Interview verloren. Limitierung: das Instrument ist auf den frühkindlichen Autismus hin entwickelt worden und kann subtile Asperger-Verläufe unterschätzen, wenn nicht ein erfahrener Diagnostiker:in die Antworten qualitativ gewichtet.</p>
+
+<h4>AQ — Autism Spectrum Quotient</h4>
+
+<p>Der AQ (Baron-Cohen et al. 2001) ist ein Selbstrating mit 50 Items zu fünf Subskalen: soziale Fertigkeiten, Aufmerksamkeitswechsel, Detailaufmerksamkeit, Kommunikation, Imagination. Werte ab 26 gelten als auffällig, ab 32 als stark hinweisend. Der AQ ist als Screening konzipiert, nicht als Diagnostikum, und hat in klinisch unselektierten Populationen eine begrenzte Spezifität — viele depressive oder sozial-ängstliche Personen erreichen erhöhte Werte. Stärke: schneller Überblick und gute Sensitivität für das Asperger-Profil bei kooperativen Erwachsenen.</p>
+
+<h4>RAADS-R — Ritvo Autism Asperger Diagnostic Scale, Revised</h4>
+
+<p>Die RAADS-R (Ritvo et al. 2011) ist ein 80-Item-Selbstrating, das speziell für die Erwachsenendiagnostik entwickelt wurde und vier Subskalen abbildet: Sprache, soziale Beziehungen, sensorisch-motorische Auffälligkeiten, restringierte Interessen. Cut-off ist 65; die Sensitivität in publizierten Studien liegt bei etwa 97 %, die Spezifität bei etwa 100 % im klinischen Kontext, sinkt jedoch bei breiter Anwendung. Die RAADS-R hat sich als Screening-Instrument für späte Erstdiagnosen — insbesondere bei Frauen — etabliert, weil sie subtilere Muster (z. B. Smalltalk-Aversion, sensorische Empfindlichkeit, Rolle von Imagination) gezielter erfasst.</p>
+
+<h4>Ergänzende Verfahren</h4>
+
+<p>Sinnvoll ergänzt wird die Diagnostik durch dimensionale Selbstratings wie den <strong>SRS-2</strong> (Social Responsiveness Scale) als Verlaufsmaß, den <strong>CAT-Q</strong> (Camouflaging Autistic Traits Questionnaire, Hull et al. 2019) zur Erfassung von Masking-Strategien — beim weiblichen Profil oft entscheidend — sowie durch eine neuropsychologische Untersuchung. Letztere sollte exekutive Funktionen (BRIEF, Trail Making, Stroop, Wisconsin Card Sorting), Verarbeitungsgeschwindigkeit (Coding/Symbol Search) und ggf. Theory-of-Mind-Aufgaben (Frith-Happé-Animationen, Faux-Pas-Test, Reading the Mind in the Eyes) umfassen. Ein klinisches sensorisches Profiling (z. B. Adolescent/Adult Sensory Profile nach Brown & Dunn) rundet das Bild ab und ist therapieleitend.</p>
+
+<h3>Differentialdiagnose</h3>
+
+<p>Mehr als bei den meisten anderen Diagnosen entscheidet bei ASS die Differentialdiagnostik über die richtige Behandlung. Fünf Abgrenzungen sind besonders fehleranfällig und werden im Folgenden ausgearbeitet.</p>
+
+<h4>Asperger-Profil versus soziale Angststörung</h4>
+
+<p>Beide Bilder konvergieren oberflächlich: Vermeidung sozialer Situationen, körperliche Anspannung im Kontakt, Rückzug aus Gruppen, Schwierigkeiten mit Smalltalk, Erschöpfung nach sozialen Anforderungen. Die Unterscheidung gelingt entlang von vier Achsen. Erstens die <em>Motivation der Vermeidung</em>: bei sozialer Angst wird vermieden, weil eine negative Bewertung gefürchtet wird; beim Asperger-Profil, weil die Situation als sensorisch und kognitiv überlastend erlebt wird oder weil die sozialen Regeln undurchsichtig bleiben. Zweitens die <em>Wunschstruktur</em>: die sozial Ängstliche möchte dazugehören und vermeidet aus Furcht vor Ablehnung; das Asperger-Profil hat häufig ein qualitativ anderes Bedürfnisprofil — wenige tiefe Bindungen, Toleranz oder Präferenz für Alleinsein, kein dauerhaft frustriertes Zugehörigkeitsmotiv. Drittens die <em>Anamnese</em>: soziale Angst manifestiert sich klassisch in der mittleren Adoleszenz; autistische Profile zeigen seit der frühen Kindheit konsistente Hinweise. Viertens das <em>Spektrum begleitender Phänomene</em>: Spezialinteressen, Routinen, sensorische Empfindlichkeit, ungewöhnliche Sprachmelodie und Wörtlichkeit fehlen bei der reinen Sozialphobie und sind beim Asperger-Profil leitend. Wichtig: beide Diagnosen können koexistieren — soziale Angst entsteht beim Asperger-Profil häufig sekundär aus jahrelangen sozialen Misserfolgserfahrungen.</p>
+
+<h4>Asperger-Profil versus schizoide Persönlichkeitsstörung</h4>
+
+<p>Die schizoide Persönlichkeitsstörung beschreibt anhaltenden sozialen Rückzug, eingeschränkte affektive Resonanz, Präferenz für solitäre Aktivitäten und scheinbare Indifferenz gegenüber Lob oder Kritik. Lugnegård et al. (2012) zeigten in einer der wenigen direkten Vergleichsstudien, dass etwa ein Viertel ihrer Asperger-Stichprobe zusätzlich Kriterien der schizoiden PS erfüllte — die Konstrukte überlappen sich erheblich. Differenzierende Aspekte beim Asperger-Profil sind die <em>Quelle</em> der Distanz (sensorische und pragmatische Überforderung statt prinzipieller Bindungsabwehr), das Vorliegen ausgeprägter Spezialinteressen mit hoher Affektivität und das in der Regel gut erhaltene Kapazität für tiefe, wenn auch wenige Bindungen. Klinisch wichtig: die Diagnose schizoide PS verschließt häufig den Zugang zu autismusspezifischer Versorgung, obwohl sie oft eine Verkennung des autistischen Hintergrunds darstellt.</p>
+
+<h4>Asperger-Profil versus ADHS, vorwiegend unaufmerksamer Typ</h4>
+
+<p>Diese Differenzialdiagnose ist die methodisch anspruchsvollste, weil beide Diagnosen häufig nebeneinander bestehen (Komorbidität 30–50 %, siehe Komorbiditäten) und sich phänomenologisch teilweise überlappen. Beide Bilder zeigen organisatorische Schwierigkeiten, Probleme bei der Aufgabeninitiierung, Aufmerksamkeitsfluktuationen, sensorische Überreizbarkeit, sozial-pragmatische Unsauberkeiten. Differenzierend wirken: die <em>Aufmerksamkeitsstruktur</em> (beim Asperger-Profil ist die Aufmerksamkeit nicht zu kurz, sondern zu fokussiert — Hyperfokus auf Spezialinteressen mit Wechselrigidität; beim ADHS dominieren Ablenkbarkeit, Wechselneigung und Reizoffenheit), das <em>repetitive/ritualisierte Verhalten</em> (beim ADHS in der Regel nicht ausgeprägt; beim Asperger-Profil leitend), die <em>soziale Reziprozität</em> (beim ADHS oft chaotisch, aber intuitiv reziprok; beim Asperger-Profil regelbasiert und mit ToM-Aufwand), und die <em>Spezialinteressen</em> (beim Asperger-Profil tiefenstabil über Jahre; beim ADHS serielle, intensive, aber kürzer dauernde „Special Interests of the Month“). Die kombinierte Form (AuDHD) hat in den letzten Jahren zunehmend Aufmerksamkeit erhalten und ist klinisch häufig die zutreffende Beschreibung.</p>
+
+<h4>Asperger-Profil versus reaktive Bindungsstörung</h4>
+
+<p>Bei Kindern mit Bindungsabbrüchen, Heim- oder Pflegekontext stellt sich diese Frage regelmäßig. Beide Bilder können soziale Ungeschicklichkeit, Distanzauffälligkeiten, eingeschränkte Affektmodulation und Rückzug zeigen. Die Differenzierung gelingt über drei Wege: <em>Kontextabhängigkeit</em> (bei der Bindungsstörung verbessert sich das soziale Verhalten typischerweise unter stabiler, sicherer Bindung; beim Asperger-Profil bleibt das Profil über Kontexte stabil), das <em>Vorhandensein autismusspezifischer Phänomene</em> (Spezialinteressen, sensorische Hyper-/Hyporeaktivität, Routinenstarre, sprachpragmatische Auffälligkeiten — bei reiner Bindungsstörung selten), und die <em>Entwicklungsanamnese</em> vor der ungünstigen Bindungserfahrung. Vorsicht: Doppeldiagnosen sind häufig, und autistische Kinder sind durch ihre regulatorische Vulnerabilität besonders anfällig für sekundäre Bindungsschwierigkeiten.</p>
+
+<h4>Asperger-Profil versus zwanghafte (anankastische) Persönlichkeitsstörung</h4>
+
+<p>Perfektionismus, Regelorientierung, Ordnungsliebe, Ritualisierung — auch hier konvergieren die Phänomene oberflächlich. Die zwanghafte PS ist im Erwachsenenalter ich-synton, geht mit ausgeprägter Kontrolle in interpersonalen Beziehungen einher und ist primär Ausdruck einer Persönlichkeitsstruktur. Beim Asperger-Profil sind Routinen und Strukturen hingegen <em>regulatorisch</em>: sie reduzieren Vorhersageunsicherheit und sensorisch-soziale Überforderung. Spezifisch für das Asperger-Profil sind außerdem die qualitative Natur der Spezialinteressen (intensive Faszination, nicht primär Pflichterfüllung), das soziale Reziprozitätsprofil und die sensorische Verarbeitung. Beide Bilder können koexistieren, und die Abgrenzung ist gerade bei akademisch erfolgreichen Personen mit hohem Funktionsniveau diagnostisch anspruchsvoll.</p>
+
+<p>Eine sechste, in der Praxis hochrelevante Abgrenzung verdient kurze Erwähnung: <strong>Borderline-Persönlichkeitsstörung versus weibliches Asperger-Profil</strong>. Späte autistische Erstdiagnosen bei Frauen werden überdurchschnittlich häufig mit langjährigen Borderline-Vordiagnosen vorbereitet. Gemeinsam sind hohe affektive Reaktivität, Identitätsunsicherheit, Beziehungsabbrüche, Selbstverletzendes Verhalten als Regulationsstrategie. Differenzierend sind die Genese der Affektregulationsstörung (sensorisch-pragmatische Überlastung mit Meltdown-Mechanik vs. interpersonell ausgelöste Affektstürme bei Bindungsangst), die Persistenz autismusspezifischer Phänomene unabhängig vom Beziehungskontext und das frühe Vorliegen von Sonderinteressen, sensorischen Auffälligkeiten und Routinen. Diese Differenzierung wird in der Ebene Spezialfälle ausführlich behandelt.</p>
+
+<h3>Komorbiditäten und ihre Häufigkeiten</h3>
+
+<p>Asperger-Profile sind mit hoher Komorbiditätsdichte verbunden — eine isolierte Diagnose ist die Ausnahme, nicht die Regel. Diese Komorbiditäten sind keine Zufälle, sondern Folgen der zugrundeliegenden Verarbeitungsstruktur und des langen Erlebens chronischer Mismatchs zwischen Person und Umwelt.</p>
+
+<h4>ADHS — 30 bis 50 Prozent</h4>
+
+<p>Die Koinzidenz von ASS und ADHS ist so hoch, dass sich die Bezeichnung <strong>AuDHD</strong> als eigenständige klinische Konfiguration etabliert hat. Metaanalysen (Hossain et al. 2020) berichten Komorbiditätsraten zwischen 28 und 53 Prozent. Beide Profile teilen sich exekutive Schwierigkeiten und sensorische Verarbeitungsbesonderheiten, koppeln sich jedoch in den Bedürfnissen häufig konfligierend: ADHS sucht Stimulation, Wechsel und Neuheit; ASS sucht Vorhersagbarkeit, Routine und Tiefe. Die innerpsychische Spannung dieser Koinzidenz ist klinisch unterschätzt — zwischen Hyperfokus und Hyperaktivität, zwischen Routinensehnsucht und Routinenlangeweile entsteht ein Erschöpfungsprofil eigener Art. Methylphenidat- oder Atomoxetin-Behandlung kann auch beim AuDHD wirksam sein, sollte aber niedrigdosiert begonnen werden, weil autistische Personen häufig empfindlicher auf Stimulanzien-Nebenwirkungen reagieren.</p>
+
+<h4>Depressive Störungen — 40 bis 50 Prozent im Lebensverlauf</h4>
+
+<p>Depressionen treten beim Asperger-Profil häufiger auf als in fast jeder anderen klinischen Population — Lugnegård et al. (2011) berichteten Lebenszeitprävalenzen über 70 % in einer Asperger-Stichprobe junger Erwachsener. Die Genese ist mehrdimensional: chronische sensorische und soziale Überlastung, jahrelanges Camouflaging mit konsekutiver Erschöpfung, wiederholte soziale Misserfolgserfahrungen, Identitätsunsicherheit, eingeschränkter Zugang zu autismusspezifischer Therapie. Klinisch wichtig: die <em>Symptompräsentation</em> kann atypisch sein. Anhedonie wird nicht immer berichtet, weil das Spezialinteresse als Anker erhalten bleibt; Schlafstörungen sind oft Mischbilder aus depressiver Insomnie und sensorischer Hyperreaktivität; suizidale Krisen sind häufig affektarm, kühl, planerisch — mit erhöhter Gefährlichkeit (siehe Spezialfälle).</p>
+
+<h4>Angststörungen — etwa 40 Prozent</h4>
+
+<p>Generalisierte Angststörung, soziale Angst, spezifische Phobien (insbesondere sensorische Phobien wie Geräusch- oder Erbrechensphobie) und zwanghafte Symptome sind beim Asperger-Profil häufig. Die Übergänge zur Kernsymptomatik sind fließend: was klinisch wie eine Sozialphobie aussieht, kann antizipatorische Belastung vor sensorisch-pragmatischer Überforderung sein; was wie eine Zwangsstörung erscheint, kann eine ritualisierte Selbstregulation gegen Vorhersageunsicherheit sein. Die Standardpsychotherapie für Angststörungen (KVT) ist beim Asperger-Profil prinzipiell wirksam, muss aber strukturiert, visualisiert und an autismusspezifische Verarbeitungsmuster angepasst werden (Wood et al. 2009).</p>
+
+<h4>Schlafstörungen — 50 bis 80 Prozent</h4>
+
+<p>Praktisch alle Studien zu Schlaf bei autistischen Personen berichten erhöhte Raten an Einschlafstörungen, Durchschlafstörungen und reduziertem REM-Schlaf. Die Gründe sind vielfältig: dysreguliertes Melatoninprofil mit verzögertem nächtlichem Anstieg (Tordjman et al. 2013), sensorische Hyperreaktivität auf nächtliche Reize, mentaler Hyperfokus auf Spezialinteressen, exekutive Schwierigkeiten bei der Schlafhygiene. Klinisch bewährt sind: niedrigdosiertes Melatonin am Abend, sensorische Schlafraum-Optimierung (Schwerdecke, Blackout, Geräuschmaskierung), strukturierte Routinen, Entkopplung des Bettes vom Spezialinteresse.</p>
+
+<p>Daneben sind Essstörungen — insbesondere ARFID (Avoidant/Restrictive Food Intake Disorder) als sensorisch-fundierte Selektivität —, Tic-Störungen, gastrointestinale Beschwerden und epileptische Anfälle (etwa 8 % beim Asperger-Profil, deutlich höher beim schwerer betroffenen Spektrumsanteil) klinisch relevant. Komorbiditätsraster sollten daher initial breit angelegt werden, statt sich auf das Erstanliegen zu beschränken.</p>
+
+<h3>Theory of Mind in der klinischen Praxis</h3>
+
+<p>Der populäre Satz „Asperger-Personen haben keine Theory of Mind“ ist falsch und klinisch schädlich. Korrekt ist: Theory-of-Mind-Aufgaben werden gelöst, aber langsamer, expliziter, mit höherem mentalem Aufwand und mit höherer Fehlerrate, wenn die Aufgaben sozial komplex und unter Zeitdruck gestellt werden. Während neurotypische Verarbeitung Mentalisierung weitgehend automatisch und „heiß“ leistet — also schnell, intuitiv, affektiv eingebettet —, läuft sie beim Asperger-Profil häufig „kalt“: regelbasiert, schlussfolgernd, kognitiv durchdacht. Das Ergebnis kann äußerlich gleichwertig sein; der Aufwand und die Fehleranfälligkeit sind es nicht.</p>
+
+<p>Klinisch zeigt sich das in vier Mustern. Erstens in <em>Faux-Pas-Situationen</em>: feine soziale Verletzungen werden im Alltag oft erst nachträglich erkannt. Zweitens in der <em>Mehrpersonen-Konstellation</em>: Zweiergespräche gelingen, Gruppen werden überlastend, weil parallele Mentalisierungsstränge offen gehalten werden müssen. Drittens in <em>Ironie und implizitem Sinn</em>: das Wörtliche wird verarbeitet, der Subtext muss gesondert decodiert werden. Viertens in der <em>Wechselwirkung mit Affektzuständen</em>: unter Stress, Erschöpfung oder sensorischer Überlastung bricht die mühsam aufgebaute kompensatorische Mentalisierung ein, und das Profil wirkt im Akutzustand „autistischer“ als in entspannten Phasen.</p>
+
+<h3>Zentrale Kohärenz im Alltag</h3>
+
+<p>Die Theorie der schwachen zentralen Kohärenz übersetzt sich klinisch in einen Verarbeitungsstil, der Detail vor Gesamtbild stellt. Dieser Stil ist nicht durchgehend ungünstig — in vielen Berufen ist er eine Stärke (Programmierung, Buchhaltung, Wissenschaft, Korrekturlesen, Diagnostik). Die Schattenseite zeigt sich, wo unstrukturierte Information schnell hierarchisiert werden müsste: Open-Office-Räume, Smalltalk, Stadtmenschen-Situationen, soziale Mehrebenen-Kommunikation, Gruppenarbeiten in Schule oder Studium. Die klinische Konsequenz ist nicht, den Stil zu ändern — das ist weder möglich noch wünschenswert —, sondern Umgebungen so zu gestalten, dass der detail-fokussierte Stil produktiv wird statt überlastend.</p>
+
+<h3>Exekutive Funktionen</h3>
+
+<p>Drei exekutive Schwierigkeiten dominieren das klinische Bild beim Asperger-Profil und bestimmen einen Großteil der alltäglichen Belastung.</p>
+
+<p>Die <strong>Planung und Initiierung</strong> ist beeinträchtigt. Aufgaben werden nicht aus Unwillen liegen gelassen, sondern weil der Schritt vom „Wissen, dass“ zum „Tun“ nicht automatisch erfolgt. Multistep-Anforderungen — Wäsche waschen, Termine vereinbaren, Steuererklärung, Arzttermin organisieren — können selbst bei hoher Intelligenz monatelang unbewältigt bleiben. Diese „autistic inertia“ wird häufig fehlinterpretiert als Faulheit, Vermeidung oder Depression.</p>
+
+<p>Die <strong>kognitive Flexibilität</strong> ist eingeschränkt. Wechsel zwischen Aufgaben, Anpassung an unerwartete Veränderungen, Generieren alternativer Lösungen sind aufwendig. Klinisch zeigt sich das in <em>Übergangsbelastung</em> (Schulwechsel, Jobwechsel, Umzug, Beziehungsende) und in der charakteristischen Schwierigkeit, eine einmal aktivierte Aufgabe zu beenden, wenn sie unfertig bleiben muss.</p>
+
+<p>Die <strong>Inhibition und Selbstmonitoring</strong> kann situationsabhängig kippen. Spontansprachliches Filtern ist eingeschränkt — Direktheit kann als Unhöflichkeit gelesen werden, obwohl sie autismusspezifischer Ehrlichkeit folgt; Spezialinteressen werden ohne Pragmatik-Filter geteilt; Affekte (Frust, Begeisterung) werden weniger sozial moduliert sichtbar. Die Konsequenz im Beruf wie in Beziehungen ist häufig ein Reibungsmuster, das ohne autismusspezifische Lesart pathologisiert wird.</p>
+
+<h3>Sensorische Profilierung</h3>
+
+<p>Sensorische Verarbeitungsmuster sind mit DSM-5 (2013) erstmals offiziell in die Diagnostik eingegangen und gehören beim Asperger-Profil zu den klinisch bedeutsamsten und zugleich am häufigsten unterschätzten Bereichen. Vier Modalitäten dominieren.</p>
+
+<p>Die <strong>Hörverarbeitung</strong> zeigt häufig Hyperreaktivität auf unerwartete oder hochfrequente Geräusche (Lautsprecher, kreischende Stimmen, Lüfter, Neonröhrensummen) und parallel Schwierigkeiten in der <em>Cocktail-Party-Situation</em> — Stimme aus Stimmengewirr herauszufiltern. Die <strong>visuelle Verarbeitung</strong> ist anfällig für Lichtquellen mit niedriger Frequenz (Neonröhren, manche LEDs flackern wahrnehmbar), für Kontrast- und Bewegungsreichtum und für unstrukturierte visuelle Reize. Die <strong>taktile Verarbeitung</strong> ist berühmt für Empfindlichkeit gegen Etiketten, bestimmte Texturen, Nähte, Schuhwerk; gleichzeitig kann Hyposensitivität für Schmerz, Temperatur oder Sättigung bestehen. Die <strong>interozeptive Verarbeitung</strong> — Wahrnehmung des eigenen Körperinneren — ist häufig atypisch: Hunger, Durst, Harn- und Stuhldrang, Erschöpfung werden zu spät oder zu unspezifisch wahrgenommen, was im Erwachsenenalter zu Dehydration, Mahlzeitsausfällen oder körperlichen Folgeschäden führen kann (Mahler 2017).</p>
+
+<p>Klinisch wichtig ist die Unterscheidung von Hyper- und Hyporeaktivität, die <em>innerhalb derselben Person</em> in unterschiedlichen Modalitäten und in unterschiedlichen Zuständen wechseln kann. Dieselbe Person reagiert hyper auf akustische Reize und hypo auf Schmerz; in einem ausgeruhten Zustand toleriert sie Geräuschkulissen, im erschöpften nicht. Diese Variabilität ist nicht „Inkonsistenz“, sondern systemisches Merkmal der autistischen sensorischen Verarbeitung.</p>
+
+<h3>Sozialer Stress und Camouflaging</h3>
+
+<p>Camouflaging — auch Masking, Compensation, Adaptive Morphing — bezeichnet bewusste oder routinierte Strategien, autistische Verhaltensweisen im sozialen Kontakt zu unterdrücken oder zu maskieren und neurotypische Verhaltensweisen zu imitieren. Hull et al. (2017) systematisierten drei Komponenten: <em>Compensation</em> (aktiv erlernte Strategien, um Defizite zu überbrücken — auswendig gelernte Gespräche, Beobachtung sozialer Vorbilder, geplante Mimik), <em>Masking</em> (Unterdrückung autistischer Verhaltensweisen wie Stimming oder Spezialinteresse-Mitteilen), <em>Assimilation</em> (Anpassung des äußeren Erscheinungsbildes an Gruppennormen).</p>
+
+<p>Camouflaging ist beim Asperger-Profil — und besonders beim weiblichen Profil — der wichtigste Erklärungsfaktor für späte Erstdiagnosen, hohe Komorbiditätsraten und das erhöhte Suizidalitätsrisiko. Die Kosten sind dreifach: anhaltende kognitive Erschöpfung, depressive Identitätszweifel („Wer bin ich, wenn ich nicht maskiere?“) und chronische sensorisch-soziale Überlastung mit Burnout-Risiko (siehe Spezialfälle). Klinisch ist Camouflaging oft erst sichtbar, wenn explizit danach gefragt wird — das CAT-Q (Camouflaging Autistic Traits Questionnaire) ist hierfür ein wertvolles Instrument.</p>
+
+<h3>Adoleszenz als kritische Phase</h3>
+
+<p>Die Adoleszenz ist beim Asperger-Profil mit Abstand die kritischste Entwicklungsphase. Mehrere Faktoren konvergieren: die soziale Komplexität nimmt sprunghaft zu, Gleichaltrigenbeziehungen werden zur primären Entwicklungsaufgabe, Mehrebenenkommunikation (Ironie, Anspielung, sexuelle Subtexte, Statushierarchien) explodiert, schulische Anforderungen werden unstrukturierter, das Selbst wird zum Reflexionsobjekt. Gleichzeitig schwächt sich das schützende Strukturgerüst der Kindheit (klare Tages- und Schulroutine, parental gesteuerte Sozialkontakte) ab. Die Folge ist eine charakteristische Manifestationswelle: depressive Episoden, soziale Angst, Suizidalität, Selbstverletzung, Schulabsentismus, Essstörungen treten typischerweise zwischen 12 und 17 Jahren erstmals auf — jahrelang nach den eigentlich diagnostisch relevanten autistischen Merkmalen, die in dieser Phase oft erst überhaupt diagnostisch eingeordnet werden.</p>
+
+<p>Erschwerend kommt eine geschlechtsspezifische Asymmetrie: bei Mädchen mit Asperger-Profil korreliert die Pubertät häufig mit dem Beginn intensivierten Camouflagings — als Reaktion auf die zunehmende soziale Sichtbarkeit von Differenz. Das Ergebnis ist nach außen hin <em>weniger</em> autistische Auffälligkeit, nach innen <em>mehr</em> Erschöpfung und Identitätsverwerfung. Die Diagnostik muss in dieser Phase entsprechend feinkörnig sein und die innere Erlebensperspektive systematisch erfragen.</p>
+
+<h3>Therapeutische Grundprinzipien</h3>
+
+<p>Therapeutische Arbeit mit dem Asperger-Profil folgt sechs Prinzipien, deren Vernachlässigung in der Praxis die häufigste Ursache von Therapieabbrüchen ist (siehe Spezialfälle).</p>
+
+<p><strong>Strukturierung.</strong> Sitzungen brauchen eine sichtbare Agenda, Zeitfenster, vereinbarte Übergänge. Das nondirektive, freischwebende Aufmerksamkeitsmodell, das in der psychodynamischen Tradition geschätzt wird, ist beim Asperger-Profil regelhaft kontraproduktiv: es erzeugt Vorhersageunsicherheit, kognitive Überlastung und Vermeidung.</p>
+
+<p><strong>Visualisierung.</strong> Schemata, Diagramme, schriftliche Zusammenfassungen, gemeinsame Whiteboard-Skizzen sind beim Asperger-Profil nicht didaktisches Beiwerk, sondern primäres Verständnismedium. Visuelles Material erleichtert die Verarbeitung erheblich und sollte als Standard, nicht als Sonderfall behandelt werden.</p>
+
+<p><strong>Klare und konkrete Sprache.</strong> Metaphern, Ironie, vage Formulierungen („Wie geht es Ihnen denn so?“) erzeugen unnötige Verarbeitungskosten. Konkrete, präzise, direkte Sprache wird als entlastend erlebt — auch dann, wenn sie schmerzhafte Inhalte adressiert.</p>
+
+<p><strong>Vorhersagbarkeit der Abläufe.</strong> Wechsel der Therapeut:in, Raumwechsel, Terminverschiebungen sind beim Asperger-Profil nicht Routinerauschen, sondern echte Belastungen. Sie sollten möglichst vermieden, immer angekündigt und in der Übergangsphase aktiv begleitet werden.</p>
+
+<p><strong>Spezialinteressen als Anker.</strong> Spezialinteressen sind nicht zu pathologisieren oder reduzieren, sondern therapeutisch zu nutzen: als Brücke in den Kontakt, als Metaphernreservoir, als Ressource für Selbstwert und Affektregulation. Die ältere Tradition, Spezialinteressen als „autistische Symptome“ zu behandeln, gilt als überholt und schädlich (Winter-Messiers 2007).</p>
+
+<p><strong>Akzeptanz statt Normalisierung.</strong> Therapie zielt nicht darauf, eine autistische Person neurotypisch erscheinen zu lassen — das ist weder möglich noch wünschenswert und produziert das genau jene Burnout-Spirale, die viele Patient:innen erst in die Behandlung bringt. Ziel ist vielmehr, autistische Verarbeitung als Ausgangspunkt zu nehmen und Lebensumgebungen, Beziehungsgestaltung und Selbstverständnis so zu entwickeln, dass die Person mit ihrer Neurologie statt gegen sie lebt. Diese Haltung wird von der autistischen Selbstvertretungsbewegung seit den 2000er-Jahren als <em>neurodiversity paradigm</em> formuliert und hat sich in den letzten zehn Jahren auch in der akademischen Versorgungsforschung durchgesetzt.</p>
+        `,
+        quellen: [
+          { autor: 'Baron-Cohen, S., Wheelwright, S., Skinner, R., Martin, J., & Clubley, E.', jahr: 2001, titel: 'The Autism-Spectrum Quotient (AQ): Evidence from Asperger syndrome/high-functioning autism, males and females, scientists and mathematicians', fundstelle: 'Journal of Autism and Developmental Disorders, 31(1), 5–17' },
+          { autor: 'Rutter, M., Le Couteur, A., & Lord, C.', jahr: 2003, titel: 'Autism Diagnostic Interview – Revised (ADI-R)', fundstelle: 'Western Psychological Services, Los Angeles' },
+          { autor: 'Attwood, T.', jahr: 2007, titel: 'The Complete Guide to Asperger’s Syndrome', fundstelle: 'Jessica Kingsley Publishers, London' },
+          { autor: 'Winter-Messiers, M. A.', jahr: 2007, titel: 'From tarantulas to toilet brushes: Understanding the special interest areas of children and youth with Asperger syndrome', fundstelle: 'Remedial and Special Education, 28(3), 140–152' },
+          { autor: 'Wood, J. J., Drahota, A., Sze, K. et al.', jahr: 2009, titel: 'Cognitive behavioral therapy for anxiety in children with autism spectrum disorders: A randomized, controlled trial', fundstelle: 'Journal of Child Psychology and Psychiatry, 50(3), 224–234' },
+          { autor: 'Hofvander, B., Delorme, R., Chaste, P. et al.', jahr: 2009, titel: 'Psychiatric and psychosocial problems in adults with normal-intelligence autism spectrum disorders', fundstelle: 'BMC Psychiatry, 9, 35' },
+          { autor: 'Lai, M.-C., Lombardo, M. V., Pasco, G. et al.', jahr: 2011, titel: 'A behavioral comparison of male and female adults with high functioning autism spectrum conditions', fundstelle: 'PLoS ONE, 6(6), e20835' },
+          { autor: 'Ritvo, R. A., Ritvo, E. R., Guthrie, D. et al.', jahr: 2011, titel: 'The Ritvo Autism Asperger Diagnostic Scale-Revised (RAADS-R): A scale to assist the diagnosis of Autism Spectrum Disorder in adults', fundstelle: 'Journal of Autism and Developmental Disorders, 41(8), 1076–1089' },
+          { autor: 'Lugnegård, T., Hallerbäck, M. U., & Gillberg, C.', jahr: 2011, titel: 'Psychiatric comorbidity in young adults with a clinical diagnosis of Asperger syndrome', fundstelle: 'Research in Developmental Disabilities, 32(5), 1910–1917' },
+          { autor: 'Lugnegård, T., Hallerbäck, M. U., & Gillberg, C.', jahr: 2012, titel: 'Personality disorders and autism spectrum disorders: What are the connections?', fundstelle: 'Comprehensive Psychiatry, 53(4), 333–340' },
+          { autor: 'Vermeulen, P.', jahr: 2012, titel: 'Autism as Context Blindness', fundstelle: 'AAPC Publishing, Shawnee Mission KS' },
+          { autor: 'Lord, C., Rutter, M., DiLavore, P. C. et al.', jahr: 2012, titel: 'Autism Diagnostic Observation Schedule, Second Edition (ADOS-2)', fundstelle: 'Western Psychological Services, Torrance CA' },
+          { autor: 'Vermeulen, P.', jahr: 2013, titel: 'I am special: Introducing children and young people to their autistic spectrum disorder', fundstelle: 'Jessica Kingsley Publishers, London' },
+          { autor: 'Tordjman, S., Najjar, I., Bellissant, E. et al.', jahr: 2013, titel: 'Advances in the research of melatonin in autism spectrum disorders', fundstelle: 'International Journal of Molecular Sciences, 14(10), 20508–20542' },
+          { autor: 'Buck, T. R., Viskochil, J., Farley, M. et al.', jahr: 2014, titel: 'Psychiatric comorbidity and medication use in adults with autism spectrum disorder', fundstelle: 'Journal of Autism and Developmental Disorders, 44(12), 3063–3071' },
+          { autor: 'Lai, M.-C., Lombardo, M. V., & Baron-Cohen, S.', jahr: 2014, titel: 'Autism', fundstelle: 'The Lancet, 383(9920), 896–910' },
+          { autor: 'Hull, L., Petrides, K. V., Allison, C. et al.', jahr: 2017, titel: '“Putting on my best normal”: Social camouflaging in adults with autism spectrum conditions', fundstelle: 'Journal of Autism and Developmental Disorders, 47(8), 2519–2534' },
+          { autor: 'Mahler, K.', jahr: 2017, titel: 'Interoception: The Eighth Sensory System', fundstelle: 'AAPC Publishing, Shawnee Mission KS' },
+          { autor: 'Ratto, A. B., Kenworthy, L., Yerys, B. E. et al.', jahr: 2018, titel: 'What about the girls? Sex-based differences in autistic traits and adaptive skills', fundstelle: 'Journal of Autism and Developmental Disorders, 48(5), 1698–1711' },
+          { autor: 'Hull, L., Mandy, W., Lai, M.-C. et al.', jahr: 2019, titel: 'Development and validation of the Camouflaging Autistic Traits Questionnaire (CAT-Q)', fundstelle: 'Journal of Autism and Developmental Disorders, 49(3), 819–833' },
+          { autor: 'Hossain, M. M., Khan, N., Sultana, A. et al.', jahr: 2020, titel: 'Prevalence of comorbid psychiatric disorders among people with autism spectrum disorder: An umbrella review', fundstelle: 'Psychiatry Research, 287, 112922' }
+        ]
+      },
+      spezialfaelle: {
+        content: `
+<p>Die Ebene Spezialfälle adressiert sieben Themen, die in der Standardliteratur entweder erst spät erkannt oder weiterhin systematisch unterschätzt werden, in der klinischen Praxis aber regelmäßig den Unterschied zwischen einer hilfreichen und einer schädlichen Behandlung ausmachen. Sie sind die Bereiche, in denen das Asperger-Profil am häufigsten fehl- oder unterdiagnostiziert wird, in denen Therapien scheitern, in denen sich die größten Risiken verbergen — und in denen die Forschung der letzten zehn Jahre die ältere Lehrbuchsicht teilweise revidiert hat.</p>
+
+<h3>1. Das weibliche Asperger-Profil</h3>
+
+<p>Das offizielle Geschlechterverhältnis von 4:1 zugunsten der Jungen, das jahrzehntelang als robuster Befund galt, ist nach heutigem Forschungsstand <strong>diagnostisch verzerrt, nicht biologisch begründet</strong>. Die Metaanalyse von Loomes, Hull und Mandy (2017) — bis heute der entscheidende Referenzpunkt — zeigte, dass in aktiv populationsbasierten Stichproben das Verhältnis bei etwa 3:1 liegt; in Studien, die systematisch nach Mädchen ohne externalisierende Auffälligkeit suchen, bei 2:1 oder darunter; und in Erwachsenen-Spätdiagnose-Stichproben in einzelnen Untersuchungen sogar bei 1:1. Lai und Baron-Cohen (2015) prägten in ihrem Lancet-Psychiatry-Übersichtsartikel den Begriff der <em>lost generation</em> — eine ganze Kohorte autistischer Frauen, deren Diagnose erst im vierten oder fünften Lebensjahrzehnt gestellt wird, nach jahrzehntelangen Fehlbehandlungen.</p>
+
+<h4>Camouflaging und Masking als Schlüsselmechanismus</h4>
+
+<p>Die Kernhypothese zur Erklärung der Geschlechterasymmetrie ist heute das geschlechtsspezifisch unterschiedlich intensive Camouflaging. Hull et al. (2017) systematisierten den Mechanismus in der bereits zitierten Dreigliederung — Compensation, Masking, Assimilation — und zeigten in einer Folgearbeit (Hull et al. 2020), dass weibliche autistische Personen auf der CAT-Q-Skala signifikant höhere Werte erreichen als männliche, insbesondere in den Subskalen Compensation und Masking. Konkret heißt das: Mädchen mit Asperger-Profil lernen früh, soziale Skripts auswendig anzuwenden, Mimik und Gestik kontrolliert zu produzieren, Spezialinteressen zu „normalen“ Themen zu übersetzen oder im Verborgenen zu pflegen, Stimming in unauffällige Bewegungen umzusetzen (Haare drehen, Nagelhaut zupfen, Bein wippen) und sich an die jeweils dominante Mädchen-Gruppendynamik zu assimilieren. Das soziale Lernen wird häufig durch intensive Beobachtung und gezielte Imitation einer „Mentor:in“ aus der Peergroup organisiert — eine Strategie, die unauffällig bleibt, weil sie äußerlich Anpassungsleistung produziert, innerlich aber kontinuierliche kognitive und affektive Last erzeugt.</p>
+
+<h4>Spezialinteressen, die als „normal“ gelesen werden</h4>
+
+<p>Ein zweiter zentraler Verdeckungsmechanismus liegt in der Themenwahl der Spezialinteressen. Die in Lehrbüchern beschriebenen, klassisch „autistisch“ gelesenen Themen (Züge, Maschinen, Astronomie, Insekten) sind kulturell männlich konnotiert und werden bei Jungen frühzeitig als auffällig markiert. Spezialinteressen von Mädchen mit Asperger-Profil — Pferde, bestimmte Buchreihen, Pop-Stars und Bandmitglieder, Serien-Charaktere, K-Pop, Anime, Mode, Tiere allgemein, Disney-Prinzessinnen, später Psychologie und Medizin — sind kulturell weiblich konnotiert und werden als „mädchentypische Begeisterung“ normalisiert, obwohl die Tiefe, Konstanz, enzyklopädische Strukturierung und affektive Bindung dieser Interessen sich qualitativ nicht von männlich konnotierten Spezialinteressen unterscheiden. Das diagnostische Auge muss diese Themen daher auf <em>Form</em> und <em>Funktion</em> hin lesen, nicht auf den Inhalt.</p>
+
+<h4>Internalisierung statt Externalisierung</h4>
+
+<p>Die dritte Säule des unterdiagnostizierten weiblichen Profils ist die Symptomverlagerung. Während Jungen mit Asperger-Profil bei Überlastung häufiger externalisierend reagieren — Wutausbrüche, Schuldistanz, oppositionelles Verhalten —, internalisieren Mädchen typischerweise: depressive Episoden, generalisierte und soziale Angst, Essstörungen, Selbstverletzung, somatische Beschwerden, Mutismus in Schule und außerhalb des engsten Kontexts. Das klinische Erstanliegen ist deshalb fast nie „autistische Symptomatik“, sondern eine Folgestörung — und die zugrundeliegende Neurodiversität wird übersehen. Mandy et al. (2018) zeigten in einer britischen Kohorte, dass Mädchen im Schnitt mehrere zusätzliche psychiatrische Diagnosen tragen, bevor die ASS-Diagnose gestellt wird.</p>
+
+<h4>Späte Diagnose und ihre Konsequenzen</h4>
+
+<p>Die durchschnittliche weibliche Erstdiagnose im Asperger-Profil liegt heute zwischen dem 30. und 40. Lebensjahr — typischerweise nach einer Dekade depressiver Episoden, einer oder mehreren Borderline- oder dependenten Persönlichkeitsdiagnosen, häufig nach einem Burnout im Beruf oder nach der eigenen Mutterschaft, in der die Anforderungen an spontane soziale Reziprozität und sensorische Toleranz neu gestellt werden. Die Liste der typischen Vor- und Fehldiagnosen umfasst: rezidivierende depressive Störung, generalisierte Angststörung, soziale Phobie, Borderline-Persönlichkeitsstörung, dependente und ängstlich-vermeidende Persönlichkeitsstörung, Anorexia nervosa, atypische Essstörung, ADHS, somatoforme Störung, „chronisches Erschöpfungssyndrom“. Die korrekte autistische Erstdiagnose hat in dieser Population häufig einen lebensverändernden Effekt, der weniger an einer neuen Behandlung als an einer kohärenten <em>retrospektiven Selbstverstehensgeschichte</em> liegt.</p>
+
+<h4>Borderline-Differenzialdiagnose im weiblichen Profil</h4>
+
+<p>Die wichtigste Einzelabgrenzung im weiblichen Asperger-Profil ist die zur Borderline-Persönlichkeitsstörung. Die phänomenologische Überlappung ist hoch: affektive Reaktivität, Identitätsunsicherheit, instabile Beziehungen, Selbstverletzung als Affektregulation, Suizidalität, sensorisch erlebter „innerer Druck“. Differenzierende Marker sind: die <em>Genese der Affektkrisen</em> (sensorisch-pragmatische Überlastung mit Meltdown- oder Shutdown-Mechanik versus interpersonell ausgelöste Affektstürme bei Bindungsangst); die <em>Stabilität autistischer Phänomene</em> über Beziehungs- und Lebenskontexte hinweg; das frühe Vorliegen von Routinen, Spezialinteressen und sensorischen Eigenheiten <em>vor</em> der ersten Bindungserfahrung; und die Reaktion auf Strukturierung (entlastend beim Asperger-Profil, oft als kontrollierend erlebt bei Borderline-Strukturen). Beide Diagnosen können koexistieren — ein autistisches Profil schützt nicht vor traumatischer Bindungserfahrung —, aber die Voraneinschätzung „Borderline“ ohne autismusspezifische Differenzialdiagnostik gehört zu den am häufigsten dokumentierten Fehlern in der weiblichen Spätdiagnostik.</p>
+
+<h3>2. Twice Exceptional (2e) — Asperger-Profil mit Hochbegabung</h3>
+
+<p>Das Konzept der <em>twice exceptional</em> (2e) Person beschreibt das Zusammentreffen einer neurodevelopmentalen Variation oder Lernstörung mit gleichzeitig überdurchschnittlicher kognitiver Begabung. Beim Asperger-Profil ist die Konstellation häufig — kognitiv hochbegabte autistische Kinder gehören zu den am schwierigsten zu erkennenden klinischen Profilen überhaupt.</p>
+
+<h4>Die diagnostische Falle</h4>
+
+<p>Die Begabung verdeckt die Symptomatik in vier Hinsichten. Erstens kompensieren hochbegabte Kinder ihre Theory-of-Mind-Schwierigkeiten durch explizit-schlussfolgerndes soziales Lernen so erfolgreich, dass im strukturierten Setting (Schule, Standardgespräch) keine Auffälligkeit erkennbar wird. Zweitens werden Spezialinteressen als „begabungstypisch“ normalisiert. Drittens wird die exekutive Schwäche durch hohe Verbal-IQ-Werte überdeckt, solange Strukturen vorhanden sind. Viertens wird die sensorische Hyperreaktivität als „Hochsensibilität“ etikettiert — eine Kategorie, die populärwissenschaftlich verbreitet ist, klinisch jedoch häufig autistische Verarbeitung erfasst, ohne sie diagnostisch einzuordnen (Acevedo et al. 2018 zeigen erhebliche Konstruktüberlappung).</p>
+
+<h4>Schul-Mismatch</h4>
+
+<p>Im Schulkontext entsteht ein doppelter Mismatch: <em>kognitiv unterfordert</em>, weil das Niveau der Lerninhalte unter dem Begabungspotenzial liegt; <em>sozial-pragmatisch überfordert</em>, weil die schulische Umgebung Reziprozität, Gruppenarbeit, unstrukturierte Pausen und sensorische Überreizung verlangt. Die Folge ist häufig <em>Underachievement</em>: trotz oder gerade wegen der Begabung sinken die Leistungen, weil die organisatorischen Anforderungen (Hausaufgaben planen, Materialien bereitstellen, Termine einhalten, Gruppenarbeiten koordinieren) die exekutiven Kapazitäten übersteigen. Webb et al. (2005) und Foley-Nicpon et al. (2011) dokumentieren das Muster ausführlich; es wird häufig fehlinterpretiert als „Faulheit“, „mangelnde Anstrengung“ oder „pubertäre Phase“.</p>
+
+<h4>Perfektionistischer Zusammenbruch</h4>
+
+<p>Hochbegabte autistische Kinder zeigen häufig einen rigiden Perfektionismus, der aus dem Zusammenspiel hoher kognitiver Selbstanforderung, autistischer Detailorientierung und der inneren Vorhersage-Sensitivität entsteht. Gelingt eine Aufgabe nicht in der intern festgelegten Form, wird sie nicht reduziert, sondern abgebrochen. Im Verlauf kann das in einen <em>perfektionistischen Zusammenbruch</em> führen: Schul- oder Studiumsabbruch, depressive Episoden, monatelange Inaktivität trotz weitgehend intakter Begabung. Das Muster ist klinisch heimtückisch, weil das Außenbild — „intelligenter Schüler, der plötzlich nicht mehr arbeitet“ — die zugrundeliegende neurodevelopmentale Konfiguration nicht verrät.</p>
+
+<h4>Spezialinteressen als produktive Ressource</h4>
+
+<p>Bei 2e-Profilen sind Spezialinteressen oft akademisch produktiv und werden zum stabilsten biographischen Anker. Programmiersprachen, Mathematik-Teildisziplinen, Linguistik, Geschichte einzelner Epochen, Biologie spezifischer Tiergruppen — die Kombination aus Begabung und autistischer Vertiefung kann zu fachlicher Exzellenz führen, wenn die Umgebung dies zulässt. Die therapeutische Aufgabe ist deshalb selten „Reduktion“ des Interesses, sondern Anbindung an einen ökologisch tragfähigen Lebensweg: Schule mit Begabungsbeschulung, Studium mit klarer Struktur, Berufsfelder mit hohem Detail- und Tiefenanteil.</p>
+
+<h3>3. Autistic Burnout</h3>
+
+<p>Das Konzept des <em>autistic burnout</em> hat seinen Weg von der autistischen Selbstvertretungs-Community in die klinische Forschung erst um 2020 vollzogen. Die Schlüsselarbeit von Raymaker et al. (2020) — eine qualitativ-mixed-methods-Studie an autistischen Erwachsenen — definierte das Phänomen erstmals systematisch: ein Zustand chronischer Erschöpfung mit Skill-Verlust, gesteigerter Reizempfindlichkeit und reduzierter Anpassungstoleranz, ausgelöst durch chronischen Mismatch zwischen autistischen Bedürfnissen und Lebensanforderungen, häufig vermittelt über jahrelanges Camouflaging.</p>
+
+<h4>Klinisches Bild</h4>
+
+<p>Drei Kernmerkmale charakterisieren autistic burnout. Erstens <strong>chronische Erschöpfung</strong>, die nicht durch normalen Schlaf reversibel ist und sich auch nach Wochen oder Monaten der Reduktion nur langsam zurückbildet. Zweitens <strong>Skill-Verlust</strong>: Fähigkeiten, die zuvor stabil verfügbar waren — Sprache, Selbstständigkeit in Alltagsroutinen, soziale Anpassungsleistung, organisatorische Funktionen — werden vorübergehend oder anhaltend reduziert. Personen, die zuvor selbstständig arbeiteten, schaffen den Weg zum Arzt nicht; Personen, die zuvor unauffällig sprachlich agierten, entwickeln Mutismus oder selektiven Mutismus. Drittens <strong>gesteigerte sensorische Empfindlichkeit</strong>: Reize, die zuvor toleriert wurden, werden unerträglich; Filterleistungen, die zuvor automatisch liefen, brechen ein. Higgins et al. (2021) bestätigten in einer Folgearbeit die Trias und ergänzten als typisches Merkmal die <em>Schamerfahrung</em> über die nicht mehr gehaltene Funktionsfassade.</p>
+
+<h4>Differenzierung von Major Depression</h4>
+
+<p>Autistic burnout und depressive Episoden überschneiden sich in mehreren Dimensionen — Erschöpfung, Antriebsminderung, sozialer Rückzug, Funktionsverlust — und werden in der Versorgung regelhaft als Depression behandelt, was therapeutisch ungünstig sein kann. Differenzierende Aspekte sind: die <em>Genese</em> (autistic burnout als Folge konkreter Über-Anforderung versus depressive Episode mit häufig endogen-affektivem Kern); die <em>Stimmungsqualität</em> (beim Burnout häufig leerer, „abgeschalteter“ Zustand ohne klassische depressive Affekttrias; bei Depression ausgeprägtere depressive Verstimmung, Schuld, Wertlosigkeitsgefühle); die <em>Reaktion auf Reduktion und Schutzraum</em> (beim Burnout deutlich entlastend; bei Depression weniger spezifisch); und der <em>Verlauf</em> (Burnout-Erholung verlangt Reduktion, Routinen, Reizschutz und Spezialinteressen-Pflege; depressive Episoden sprechen auf andere Therapieelemente an, einschließlich Pharmakotherapie). Beide Bilder können koexistieren, und eine sorgfältige Differenzierung verändert die Behandlungsstrategie erheblich.</p>
+
+<h4>Erholung</h4>
+
+<p>Erholung aus autistic burnout folgt einer eigenen Logik. Die wirksamen Strategien — gesammelt aus qualitativer Forschung und autistischer Selbstvertretung — sind: <strong>Reduktion</strong> sozialer und sensorischer Anforderungen weit unter das, was im neurotypischen Modell sinnvoll wäre, häufig über Wochen bis Monate; <strong>Spezialinteressen</strong> als regulatorische Ressource zulassen statt einzuschränken; <strong>soziale Pause</strong> ohne Schuldzuweisung; sensorische Schutzräume; verschriftlichte Tagesstrukturen, die ohne soziale Verhandlung tragen; <strong>Demaskierung</strong> in den Bereichen, in denen sie sicher ist. Die Rückkehr zu früherer Funktion ist nicht garantiert; viele Personen berichten von einer dauerhaft niedrigeren Belastungs-Toleranz nach einem schweren Burnout. Pharmakotherapie ist nur dann indiziert, wenn eine eigenständige depressive oder Angststörung besteht; primär adressiert sie das Burnout-Bild nicht.</p>
+
+<h3>4. Suizidalitätsrisiko beim Asperger-Profil</h3>
+
+<p>Eine der wichtigsten und am wenigsten in der Allgemeinversorgung präsenten Erkenntnisse der letzten zehn Jahre ist die deutlich erhöhte Suizidmortalität beim Asperger-Profil. Hirvikoski et al. (2016) zeigten in einer schwedischen registerbasierten Kohortenstudie an über 27.000 autistischen Personen ein insgesamt etwa <strong>neunfach erhöhtes Suizidrisiko</strong> gegenüber der Allgemeinbevölkerung; in der Subgruppe ohne intellektuelle Behinderung — also dem Asperger-Profil — lag es noch deutlich höher und war besonders bei Frauen ausgeprägt. Cassidy et al. (2014) berichteten in einer britischen Klinik-Kohorte, dass 66 % der erwachsenen Asperger-Patient:innen über Suizidgedanken berichteten und 35 % einen oder mehrere Suizidversuche, mehrfach höher als die psychiatrische Vergleichspopulation.</p>
+
+<h4>Warum unterschätzt</h4>
+
+<p>Die Diskrepanz zwischen Risiko und Erkennen hat mehrere Quellen. Erstens <em>Camouflaging der Suizidalität</em>: dieselben Strategien, die autistische Auffälligkeit maskieren, maskieren auch innere Krisen. Patient:innen, die in der Sprechstunde gefasst und höflich wirken, können wenige Stunden später einen Versuch unternehmen. Zweitens <em>atypische Affektpräsentation</em>: depressive Verstimmung wird nicht in der erwartbaren Form sichtbar — kein Weinen, keine offensichtliche Niedergeschlagenheit, sondern affektive Flachheit, kühle Sachlichkeit, ungewöhnliche Direktheit. Drittens <em>planerische Kühle</em>: autistische Suizidkrisen werden oft als ruhige, durchgearbeitete Lösungsfindung erlebt — was die Gefährlichkeit erhöht, weil das Verhalten nicht impulsiv-affektiv, sondern strukturell-zielgerichtet ist. Viertens die <em>Identitäts- und Sinn-Komponente</em>: nach späten Diagnosen oder nach jahrzehntelangem Camouflaging entstehen Sinnkrisen eigener Art, die sich klinisch wie existentielle Erschöpfung lesen, nicht wie Depression im engeren Sinn. Fünftens die <em>strukturelle Versorgungslücke</em>: viele Akutpsychiatrien sind sensorisch hochbelastend (Lärm, Licht, Mehrbettzimmer, unstrukturierte Tagesabläufe), weshalb Personen mit Asperger-Profil sich auch im akuten Zustand gegen einen Klinikaufenthalt entscheiden, was die Risikoeinschätzung im ambulanten Kontext besonders kritisch macht.</p>
+
+<h4>Atypische Warnsignale</h4>
+
+<p>Die Standard-Risikoeinschätzungs-Items (Affektivität, Impulsivität, Hoffnungslosigkeit, Plansprechen) sind beim Asperger-Profil weniger zuverlässig. Ergänzend zu beachten: drastische Reduktion sonstiger Aktivitäten, sehr ruhige und strukturierte Verabschiedung („Aufräumen“ des Lebens, Verschenken von Spezialinteressen-Sammlungen), vermehrtes Camouflaging mit konsekutivem Burnout, neue oder verschärfte sensorische Intoleranzen, plötzliche Aufgabe lange tragender Spezialinteressen, Sprache ohne affektives Beiwerk über das eigene Lebensende, höfliche Distanziertheit gegenüber Bezugspersonen. Direktes, konkretes Nachfragen ist beim Asperger-Profil nicht nur zulässig, sondern entlastend — vage Formulierungen („Wie geht es Ihnen mit allem im Moment?“) treffen häufig nicht.</p>
+
+<h4>Konsequenzen für die Risikoeinschätzung</h4>
+
+<p>Drei Anpassungen sind im Erstgespräch und in der Verlaufsbeurteilung sinnvoll: <em>direkte, konkrete Sprache</em> — explizit und mehrfach in unterschiedlicher Formulierung nach Suizidgedanken, Plänen, Mitteln, Datierung, Vorbereitungshandlungen fragen; <em>Verschriftlichung</em> als zusätzliches Medium, weil viele autistische Patient:innen schriftlich differenzierter und ehrlicher kommunizieren als mündlich; <em>Bezugspersonenanker</em> klären — wer ist erreichbar, wer kennt die Person, wer würde Veränderungen bemerken; <em>Sicherheitsplan in autismusgerechter Form</em> mit visuellen Elementen, klaren Schritten, vereinbarten Routinen und einer expliziten Rolle für Spezialinteressen als kurzfristigem Anker. Die Standard-„No-Suicide-Contracts“ ohne diese Anpassung sind beim Asperger-Profil unwirksam und sollten nicht als Sicherheitsmaßnahme gelten.</p>
+
+<h3>5. Asperger-Profil und Therapieabbruch</h3>
+
+<p>Therapieabbruchquoten beim Asperger-Profil liegen in der Versorgungspraxis deutlich über dem Durchschnitt psychiatrischer Behandlungen. Die Gründe sind in der Regel weder Motivationsmangel noch „mangelnde Krankheitseinsicht“, sondern strukturelle und kommunikative Mismatchs zwischen autistischer Verarbeitung und Standard-Therapieformaten.</p>
+
+<h4>Häufigste Abbruchgründe</h4>
+
+<p>Erstens <strong>fehlende Struktur</strong>: nondirektive, freischwebende Therapieformate erzeugen Vorhersageunsicherheit und unproduktiven Stress. Patient:innen erleben die Sitzung als „nicht zu wissen, was passiert“, und kommen mit hoher antizipatorischer Belastung — bis sie nicht mehr kommen. Zweitens <strong>Smalltalk-Anforderungen</strong>: das Begrüßungsritual, die Eröffnungsphase, die scheinbar nebenbei gestellten Fragen werden als kommunikative Mehrkosten erlebt, die das eigentliche Anliegen verzögern. Drittens <strong>vage Therapeut:in-Sprache</strong>: indirekte Formulierungen, Metaphern, suggestiv gemeinte Fragen werden wörtlich verarbeitet und führen zu Verständnisbrüchen. Viertens <strong>sensorische Belastung</strong> der Praxisumgebung: Wartezimmer, Geräusche, Beleuchtung, Geruch — wird systematisch unterschätzt. Fünftens <strong>Beziehungsaufbau ohne Kontextklärung</strong>: das implizite Erwartungsfeld einer therapeutischen Beziehung (was darf, was soll, was ist tabu) wird beim Asperger-Profil nicht intuitiv mitgelesen und sollte explizit verhandelt werden. Sechstens <strong>Hausaufgaben ohne Vorlage</strong>: vage gestellte Hausaufgaben („Beobachten Sie Ihre Stimmung diese Woche“) sind exekutiv kaum bewältigbar und werden als Versagen erlebt, wenn sie nicht ausgeführt werden konnten.</p>
+
+<h4>Was funktioniert</h4>
+
+<p>Sechs Anpassungen reduzieren Abbruchquoten erheblich. <strong>Klare Agenda</strong> jeder Sitzung, am Anfang verbalisiert oder visualisiert, mit Zeitfenstern und einer expliziten „letzte fünf Minuten“-Phase für Abschluss und Übergang. <strong>Visuelle Strukturen</strong>: Whiteboards, Diagramme, schriftliche Zusammenfassungen am Ende, gemeinsame Skizzen. <strong>Schriftliche Vorbereitung</strong>: viele Patient:innen verfassen vor der Sitzung Notizen oder Listen — diese Praxis ist nicht „Widerstand“ oder „Kontrollbedürfnis“, sondern ein wirksames autistisches Verarbeitungswerkzeug, das aktiv ermutigt werden sollte. <strong>Spezialinteressen als Brücke</strong>: das Spezialinteresse der Patient:in zu kennen, zu respektieren und gegebenenfalls als Metaphernreservoir oder Fallbeispiel zu verwenden, baut Vertrauen schneller auf als jede empathische Standardgeste. <strong>Sensorische Abklärung der Umgebung</strong>: Beleuchtung, Geräuschkulisse, Sitzposition, Möglichkeit zu Stimming. <strong>Konkretisierung der Therapeut:in-Sprache</strong>: Fragen explizit formulieren, Annahmen offen ausweisen, Metaphern erklären oder vermeiden.</p>
+
+<h3>6. Besondere Interventionsstrategien</h3>
+
+<p>Die Behandlungsstrategien, die sich beim Asperger-Profil empirisch und praktisch bewährt haben, gehen über die Standard-KVT hinaus und kombinieren strukturierte Skill-Programme mit haltungsbezogenen Anpassungen.</p>
+
+<h4>PEERS — Program for the Education and Enrichment of Relational Skills</h4>
+
+<p>Das PEERS-Programm (Laugeson 2014) ist die methodisch am besten untersuchte soziale Skill-Intervention für Adoleszente und junge Erwachsene mit Asperger-Profil. Es ist hochstrukturiert, manualisiert, durchläuft konkrete Themenbereiche (Smalltalk-Initiierung, Konversationsthemen wechseln, Konflikte deeskalieren, Verabredungen anbahnen, Gruppen verlassen, mit Teasing umgehen) und integriert die Bezugspersonen aktiv. Die Wirksamkeit ist in randomisierten Studien gut belegt; entscheidend ist die ökologische Übertragbarkeit, die durch parallele Eltern-/Bezugspersonen-Sitzungen unterstützt wird. Die Grenze des Programms liegt in der Risikoflanke des Camouflaging-Übertreibens — Skills sollen ergänzen, nicht ersetzen, was authentische Kommunikation ausmacht.</p>
+
+<h4>KVT modifiziert für ASS</h4>
+
+<p>Wood et al. (2009, 2015) und andere Arbeitsgruppen haben Kognitive Verhaltenstherapie für autistische Kinder und Jugendliche systematisch modifiziert. Die wichtigsten Anpassungen: <em>visuelle Materialien</em> als Standard, nicht als Sonderfall; <em>konkrete Beispiele</em> statt abstrakter Konzepte; <em>Einbindung von Spezialinteressen</em> in Beispiele und Übungen; <em>explizite Beziehungsregeln</em> statt impliziter Erwartungen; <em>schriftliche Hausaufgaben</em> mit Vorlagen; <em>Bezugspersonen-Einbeziehung</em>; <em>verlängerte Sitzungslängen oder Pausen</em> bei sensorischer Erschöpfung; <em>verlängerter Behandlungsverlauf</em> gegenüber neurotypischen Standardprotokollen. Diese modifizierte KVT ist insbesondere bei komorbider Angststörung wirksam (Wood et al. 2015 zeigten signifikante Effekte gegenüber TAU).</p>
+
+<h4>Soziale Skripts und Drehbücher</h4>
+
+<p>Soziale Skripts — vorbereitete sprachliche Bausteine für wiederkehrende soziale Situationen (sich vorstellen, Smalltalk eröffnen, Bestellung im Café, Bewerbungsgespräch, Konflikt mit Vorgesetzten) — sind beim Asperger-Profil hochwirksam, wenn sie kollaborativ und individuell entwickelt werden. Die ältere Kritik, Skripts seien „künstlich“, übersieht, dass die neurotypische soziale Routine selbst zu großen Teilen auf wiederholten Skripten beruht — der Unterschied liegt nur darin, dass diese implizit gelernt wurden. Skripts sollten in Modulen aufgebaut, durchgespielt, schriftlich notiert und regelmäßig aktualisiert werden.</p>
+
+<h4>Energiemanagement statt Symptomreduktion</h4>
+
+<p>Eine der wichtigsten Verschiebungen der letzten Jahre ist die Abkehr von „Symptomreduktion“ als zentralem Therapieziel hin zu <strong>Energiemanagement</strong>. Das Modell — in der autistischen Community häufig als <em>Spoon Theory</em> oder <em>Battery Model</em> formuliert — geht davon aus, dass autistische Personen über ein begrenztes tägliches Energiebudget verfügen, das durch sensorische, soziale und exekutive Anforderungen verbraucht wird. Therapeutische Arbeit besteht dann darin, das Budget realistisch zu erfassen, Verbraucher und Auflader zu identifizieren, Wochenrhythmen entsprechend zu planen und Erschöpfungs- und Burnout-Spiralen zu verhindern. Dieses Modell ist beim Asperger-Profil ökologisch tragfähiger als die Vorstellung, soziale oder exekutive Schwierigkeiten ließen sich durch Übung „abtrainieren“.</p>
+
+<h4>Akzeptanzansatz statt Normalisierung</h4>
+
+<p>Die autistische Selbstvertretungsbewegung hat seit den 2000er-Jahren — getragen von Stimmen wie Jim Sinclair, Donna Williams, später Devon Price, Steve Silberman — den Begriff der <em>Neurodiversität</em> in die Versorgungsdiskussion eingebracht. Die haltungsbezogene Konsequenz für die Behandlung ist der Wechsel von einer normalisierungsorientierten zu einer akzeptanzorientierten Haltung: Ziel ist nicht, autistische Personen neurotypisch erscheinen zu lassen, sondern ihnen ein autistisches Leben mit guter Lebensqualität zu ermöglichen. Diese Haltung ist nicht „weniger therapeutisch“; sie verändert nur die Zielperspektive. Pellicano und den Houting (2022) argumentieren in einer einflussreichen Übersichtsarbeit, dass autistische Versorgung sich konzeptuell vom <em>impairment-focused</em> zum <em>contextual-fit</em>-Modell verschoben hat — therapeutische Arbeit wird verstanden als Optimierung des Person-Umwelt-Passungsverhältnisses, nicht als Reduktion individueller Defizite.</p>
+
+<h3>7. Häufige Behandlungsfehler</h3>
+
+<p>Die folgenden Fehler tauchen in supervidierten Fallseminaren regelmäßig auf und gehören zu den verbreitetsten Quellen schädlicher Behandlungsverläufe.</p>
+
+<h4>Zu viel sozialer Druck</h4>
+
+<p>Die Annahme, soziale Kontaktanforderungen müssten therapeutisch erhöht werden, um Defizite zu „üben“, ist die häufigste Fehlannahme. Beim Asperger-Profil führt eine Erhöhung sozialer Anforderungen ohne Rücksicht auf das Energiebudget regelhaft zu Erschöpfung, Vermeidung und Therapieabbruch. Die Logik des graduellen Expositionstrainings, die bei sozialer Angst funktioniert, übersetzt sich nicht eins zu eins, weil das zugrundeliegende „Defizit“ kein Vermeidungsschema, sondern ein realer Verarbeitungsaufwand ist. Soziale Kontakte sollten therapeutisch eher zielgerichtet, qualitativ und ressourcenorientiert geplant werden — nicht quantitativ erhöht.</p>
+
+<h4>Augenkontakt als Therapieziel</h4>
+
+<p>Die Forderung, autistische Personen sollten lernen, „mehr Augenkontakt zu halten“, ist nach aktueller Studienlage und nach der klaren Position der autistischen Selbstvertretung überholt. Augenkontakt ist für viele autistische Personen sensorisch belastend, kognitiv ablenkend und produziert keine bessere Kommunikation, sondern eine schlechtere — weil die Aufmerksamkeit für den verbalen Inhalt sinkt. Trumbull und Cage (2023) zeigen, dass Therapieziele in Richtung erzwungenen Augenkontakts mit erhöhten Camouflaging-Werten und reduzierter mentaler Gesundheit korrelieren. Das therapeutische Ziel sollte nicht „neurotypische Performance“ sein, sondern wechselseitig verstandene Kommunikation — ob mit oder ohne Augenkontakt.</p>
+
+<h4>Unstrukturierte Gespräche</h4>
+
+<p>Nondirektive, freischwebende Gesprächsführung ist beim Asperger-Profil regelhaft kontraproduktiv. Die Tradition, „den Patient:innen einfach reden zu lassen“, führt zu Vorhersageunsicherheit, kognitiver Überlastung und einem Sitzungserleben, das eher überfordernd als entlastend ist. Strukturierung wird hingegen als Wertschätzung erlebt, nicht als Einschränkung der therapeutischen Beziehung.</p>
+
+<h4>Spezialinteressen pathologisieren</h4>
+
+<p>Spezialinteressen als „autistische Symptome“ zu behandeln, deren Reduktion ein Therapieziel sein sollte, ist nach heutigem Stand ein gravierender Fehler. Spezialinteressen erfüllen mehrere essentielle Funktionen: Affektregulation, Identitätsanker, Selbstwert, soziale Brücke zu Gleichgesinnten, häufig auch beruflich relevante Kompetenzentwicklung. Ihre Pathologisierung ist nicht nur empirisch unbegründet, sondern produziert nachweislich Schaden — Identitätsverlust, depressive Krisen, Rückzug aus der Therapie. Die zeitgemäße Haltung ist die Anbindung von Spezialinteressen an die Therapie als Ressource und der respektvolle Umgang mit ihrer biographischen Bedeutung.</p>
+
+<h4>Camouflaging als Therapieziel</h4>
+
+<p>Der wahrscheinlich folgenreichste Fehler ist die explizite oder implizite Vorgabe, Patient:innen sollten „mehr camouflagieren“ oder „neurotypischer wirken“ lernen. Cage und Troxell-Whitman (2019) sowie Bradley et al. (2021) dokumentieren in mehreren Studien einen klaren Zusammenhang zwischen Camouflaging-Intensität und reduzierter mentaler Gesundheit, erhöhten depressiven Werten, höherer Suizidalität und schlechterer Lebensqualität. Therapeutische Arbeit, die Camouflaging als Ziel oder zentrales Mittel verstärkt, erhöht das Risiko für autistic burnout und für Suizidalität nachweislich. Die zeitgemäße Haltung ist die genau umgekehrte: Patient:innen darin zu unterstützen, in sicheren Kontexten weniger zu camouflagieren, ihre autistischen Verarbeitungsmuster anzuerkennen und Lebensbereiche zu identifizieren, in denen Demaskierung möglich und entlastend ist. Das Ziel ist nicht ein passgenauerer Camouflage-Mantel, sondern ein Leben, in dem er weniger gebraucht wird.</p>
+        `,
+        quellen: [
+          { autor: 'Webb, J. T., Amend, E. R., Webb, N. E. et al.', jahr: 2005, titel: 'Misdiagnosis and Dual Diagnoses of Gifted Children and Adults: ADHD, Bipolar, OCD, Asperger’s, Depression, and Other Disorders', fundstelle: 'Great Potential Press, Scottsdale AZ' },
+          { autor: 'Wood, J. J., Drahota, A., Sze, K. et al.', jahr: 2009, titel: 'Cognitive behavioral therapy for anxiety in children with autism spectrum disorders: A randomized, controlled trial', fundstelle: 'Journal of Child Psychology and Psychiatry, 50(3), 224–234' },
+          { autor: 'Foley-Nicpon, M., Allmon, A., Sieck, B., & Stinson, R. D.', jahr: 2011, titel: 'Empirical investigation of twice-exceptionality: Where have we been and where are we going?', fundstelle: 'Gifted Child Quarterly, 55(1), 3–17' },
+          { autor: 'Cassidy, S., Bradley, P., Robinson, J. et al.', jahr: 2014, titel: 'Suicidal ideation and suicide plans or attempts in adults with Asperger’s syndrome attending a specialist diagnostic clinic: A clinical cohort study', fundstelle: 'The Lancet Psychiatry, 1(2), 142–147' },
+          { autor: 'Laugeson, E. A.', jahr: 2014, titel: 'The PEERS Curriculum for School-Based Professionals: Social Skills Training for Adolescents with Autism Spectrum Disorder', fundstelle: 'Routledge, New York' },
+          { autor: 'Lai, M.-C., & Baron-Cohen, S.', jahr: 2015, titel: 'Identifying the lost generation of adults with autism spectrum conditions', fundstelle: 'The Lancet Psychiatry, 2(11), 1013–1027' },
+          { autor: 'Wood, J. J., Ehrenreich-May, J., Alessandri, M. et al.', jahr: 2015, titel: 'Cognitive behavioral therapy for early adolescents with autism spectrum disorders and clinical anxiety: A randomized, controlled trial', fundstelle: 'Behavior Therapy, 46(1), 7–19' },
+          { autor: 'Hirvikoski, T., Mittendorfer-Rutz, E., Boman, M. et al.', jahr: 2016, titel: 'Premature mortality in autism spectrum disorder', fundstelle: 'British Journal of Psychiatry, 208(3), 232–238' },
+          { autor: 'Hull, L., Petrides, K. V., Allison, C. et al.', jahr: 2017, titel: '“Putting on my best normal”: Social camouflaging in adults with autism spectrum conditions', fundstelle: 'Journal of Autism and Developmental Disorders, 47(8), 2519–2534' },
+          { autor: 'Loomes, R., Hull, L., & Mandy, W. P. L.', jahr: 2017, titel: 'What is the male-to-female ratio in autism spectrum disorder? A systematic review and meta-analysis', fundstelle: 'Journal of the American Academy of Child & Adolescent Psychiatry, 56(6), 466–474' },
+          { autor: 'Cassidy, S., Bradley, L., Shaw, R., & Baron-Cohen, S.', jahr: 2018, titel: 'Risk markers for suicidality in autistic adults', fundstelle: 'Molecular Autism, 9, 42' },
+          { autor: 'Acevedo, B., Aron, E., Pospos, S., & Jessen, D.', jahr: 2018, titel: 'The functional highly sensitive brain: A review of the brain circuits underlying sensory processing sensitivity and seemingly related disorders', fundstelle: 'Philosophical Transactions of the Royal Society B, 373(1744), 20170161' },
+          { autor: 'Mandy, W., Pellicano, L., St Pourcain, B. et al.', jahr: 2018, titel: 'The development of autistic social traits across childhood and adolescence in males and females', fundstelle: 'Journal of Child Psychology and Psychiatry, 59(11), 1143–1151' },
+          { autor: 'Cage, E., & Troxell-Whitman, Z.', jahr: 2019, titel: 'Understanding the reasons, contexts and costs of camouflaging for autistic adults', fundstelle: 'Journal of Autism and Developmental Disorders, 49(5), 1899–1911' },
+          { autor: 'Hull, L., Lai, M.-C., Baron-Cohen, S. et al.', jahr: 2020, titel: 'Gender differences in self-reported camouflaging in autistic and non-autistic adults', fundstelle: 'Autism, 24(2), 352–363' },
+          { autor: 'Raymaker, D. M., Teo, A. R., Steckler, N. A. et al.', jahr: 2020, titel: '“Having all of your internal resources exhausted beyond measure and being left with no clean-up crew”: Defining autistic burnout', fundstelle: 'Autism in Adulthood, 2(2), 132–143' },
+          { autor: 'Higgins, J. M., Arnold, S. R. C., Weise, J. et al.', jahr: 2021, titel: 'Defining autistic burnout through experts by lived experience: Grounded Delphi method investigating #AutisticBurnout', fundstelle: 'Autism, 25(8), 2356–2369' },
+          { autor: 'Bradley, L., Shaw, R., Baron-Cohen, S., & Cassidy, S.', jahr: 2021, titel: 'Autistic adults’ experiences of camouflaging and its perceived impact on mental health', fundstelle: 'Autism in Adulthood, 3(4), 320–329' },
+          { autor: 'Pellicano, E., & den Houting, J.', jahr: 2022, titel: 'Annual Research Review: Shifting from “normal science” to neurodiversity in autism science', fundstelle: 'Journal of Child Psychology and Psychiatry, 63(4), 381–396' },
+          { autor: 'Trumbull, J., & Cage, E.', jahr: 2023, titel: 'Eye contact and autistic mental health: An exploration of the cost of normative gaze behaviour', fundstelle: 'Autism in Adulthood, 5(2), 178–189' }
+        ]
+      }
+    },
+    verwandt: ['adhs-unaufmerksam', 'soziale-angst', 'depression-jugendliche', 'hochsensibilitaet']
+  }
+};
+
+/* ============ STATE ============ */
+
+const STATE = {
+  currentView: 'home',
+  currentCategory: null,
+  currentTopicId: null,
+  currentEbene: 'grundlagen',
+  speech: {
+    utterance: null,
+    playing: false,
+    voices: []
+  }
+};
+
+/* ============ LOCALSTORAGE ============ */
+
+const LS = {
+  PROGRESS: 'savoir_progress',
+  AUDIO: 'savoir_audio_settings',
+  SEARCH: 'savoir_search_history'
+};
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(LS.PROGRESS)) || []; }
+  catch { return []; }
+}
+function saveProgress(arr) {
+  localStorage.setItem(LS.PROGRESS, JSON.stringify(arr));
+}
+function loadAudioSettings() {
+  try {
+    return JSON.parse(localStorage.getItem(LS.AUDIO)) ||
+      { stimme: null, geschwindigkeit: 1.0 };
+  } catch {
+    return { stimme: null, geschwindigkeit: 1.0 };
+  }
+}
+function saveAudioSettings(s) {
+  localStorage.setItem(LS.AUDIO, JSON.stringify(s));
+}
+function loadSearchHistory() {
+  try { return JSON.parse(localStorage.getItem(LS.SEARCH)) || []; }
+  catch { return []; }
+}
+function saveSearchHistory(arr) {
+  localStorage.setItem(LS.SEARCH, JSON.stringify(arr.slice(-10)));
+}
+
+function isRead(topicId, ebene) {
+  return loadProgress().some(p =>
+    p.topicId === topicId && p.ebene === ebene && p.gelesen
+  );
+}
+function toggleRead(topicId, ebene) {
+  const arr = loadProgress();
+  const idx = arr.findIndex(p => p.topicId === topicId && p.ebene === ebene);
+  const datum = new Date().toISOString();
+  if (idx >= 0) {
+    arr[idx].gelesen = !arr[idx].gelesen;
+    arr[idx].datum = datum;
+  } else {
+    arr.push({ topicId, ebene, gelesen: true, datum });
+  }
+  saveProgress(arr);
+  updateProgressIndicator();
+}
+function readCount() {
+  return loadProgress().filter(p => p.gelesen).length;
+}
+function updateProgressIndicator() {
+  document.getElementById('progressNum').textContent = readCount();
+}
+
+/* ============ VIEW SWITCHING ============ */
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  STATE.currentView = name;
+  stopSpeech();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+/* ============ HOME / CATEGORIES ============ */
+
+function topicsByCategory(catKey) {
+  return Object.values(TOPICS).filter(t => t.kategorie === catKey);
+}
+
+function renderCategoryGrid() {
+  const grid = document.getElementById('categoryGrid');
+  grid.innerHTML = '';
+  Object.entries(CATEGORIES).forEach(([key, name]) => {
+    const count = topicsByCategory(key).length;
+    const card = document.createElement('div');
+    card.className = 'category-card';
+    card.innerHTML = `
+      <span class="cat-marker">${key}</span>
+      <div class="cat-name">${name}</div>
+      <div class="cat-count">${count} ${count === 1 ? 'Artikel' : 'Artikel'}</div>
+    `;
+    card.addEventListener('click', () => openCategory(key));
+    grid.appendChild(card);
+  });
+}
+
+/* ============ CATEGORY VIEW ============ */
+
+function openCategory(catKey) {
+  STATE.currentCategory = catKey;
+  document.getElementById('catMarker').textContent = catKey;
+  document.getElementById('catTitle').textContent = CATEGORIES[catKey];
+  document.getElementById('bc-cat-1').textContent = CATEGORIES[catKey];
+
+  const list = document.getElementById('topicItems');
+  list.innerHTML = '';
+  const topics = topicsByCategory(catKey);
+
+  if (topics.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'topic-empty';
+    empty.textContent = 'Noch keine Artikel — kommen Schritt für Schritt.';
+    list.appendChild(empty);
+  } else {
+    topics.forEach(topic => {
+      const item = document.createElement('div');
+      item.className = 'topic-item';
+      const ebenenGelesen = ['grundlagen','klinisch','spezialfaelle']
+        .filter(e => isRead(topic.id, e)).length;
+      item.innerHTML = `
+        <div>
+          <div class="topic-item-titel">${topic.titel}</div>
+          <div class="topic-item-meta">${ebenenGelesen}/3 Ebenen gelesen</div>
+        </div>
+        <span class="topic-item-arrow">→</span>
+      `;
+      item.addEventListener('click', () => openArticle(topic.id));
+      list.appendChild(item);
+    });
+  }
+
+  showView('category');
+}
+
+/* ============ ARTICLE VIEW ============ */
+
+function openArticle(topicId, ebene = 'grundlagen') {
+  const topic = TOPICS[topicId];
+  if (!topic) return;
+  STATE.currentTopicId = topicId;
+  STATE.currentEbene = ebene;
+  STATE.currentCategory = topic.kategorie;
+
+  // Breadcrumb
+  document.getElementById('bc-cat-2').textContent = CATEGORIES[topic.kategorie];
+  document.getElementById('bc-cat-2').onclick = () => openCategory(topic.kategorie);
+  document.getElementById('bc-topic').textContent = topic.titel;
+
+  document.getElementById('articleTitel').textContent = topic.titel;
+
+  // Tabs
+  document.querySelectorAll('#ebenenTabs .tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.ebene === ebene);
+  });
+
+  renderEbene();
+  renderRelated(topic);
+  showView('article');
+}
+
+function renderEbene() {
+  const topic = TOPICS[STATE.currentTopicId];
+  if (!topic) return;
+  const ebene = STATE.currentEbene;
+  const data = topic.ebenen?.[ebene];
+  const body = document.getElementById('articleBody');
+  const quellenWrap = document.getElementById('quellenWrap');
+  const quellenList = document.getElementById('quellenList');
+
+  if (!data || !data.content) {
+    body.innerHTML = `<div class="empty-content">Inhalt für diese Ebene folgt.</div>`;
+    quellenWrap.style.display = 'none';
+  } else {
+    body.innerHTML = data.content;
+    if (data.quellen && data.quellen.length) {
+      quellenList.innerHTML = data.quellen.map(q => {
+        if (typeof q === 'string') return `<li>${q}</li>`;
+        const head = [q.autor, q.jahr ? `(${q.jahr})` : null].filter(Boolean).join(' ');
+        const body = [q.titel, q.fundstelle].filter(Boolean).join('. ');
+        return `<li>${[head, body].filter(Boolean).join('. ')}.</li>`;
+      }).join('');
+      quellenWrap.style.display = '';
+    } else {
+      quellenWrap.style.display = 'none';
+    }
+  }
+
+  updateReadBtn();
+  stopSpeech();
+}
+
+function updateReadBtn() {
+  const btn = document.getElementById('readBtn');
+  const read = isRead(STATE.currentTopicId, STATE.currentEbene);
+  btn.textContent = read ? '✓ Gelesen' : 'Als gelesen markieren';
+  btn.classList.toggle('read', read);
+}
+
+function renderRelated(topic) {
+  const wrap = document.getElementById('relatedList');
+  wrap.innerHTML = '';
+  const ids = (topic.verwandt || []).filter(id => TOPICS[id]);
+  if (ids.length === 0) {
+    wrap.innerHTML = '<div class="related-empty">Keine verwandten Themen erfasst.</div>';
+    return;
+  }
+  ids.forEach(id => {
+    const t = TOPICS[id];
+    const pill = document.createElement('button');
+    pill.className = 'related-pill';
+    pill.textContent = t.titel;
+    pill.addEventListener('click', () => openArticle(id));
+    wrap.appendChild(pill);
+  });
+}
+
+/* ============ TABS ============ */
+
+document.querySelectorAll('#ebenenTabs .tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    STATE.currentEbene = tab.dataset.ebene;
+    document.querySelectorAll('#ebenenTabs .tab').forEach(t =>
+      t.classList.toggle('active', t === tab)
+    );
+    renderEbene();
+  });
+});
+
+/* ============ READ BUTTON ============ */
+
+document.getElementById('readBtn').addEventListener('click', () => {
+  if (!STATE.currentTopicId) return;
+  toggleRead(STATE.currentTopicId, STATE.currentEbene);
+  updateReadBtn();
+});
+
+/* ============ AUDIO / SPEECH ============ */
+
+function getCurrentText() {
+  // Plain-Text aus aktueller Ebene
+  const topic = TOPICS[STATE.currentTopicId];
+  if (topic && topic.ebenen?.[STATE.currentEbene]?.content) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = topic.ebenen[STATE.currentEbene].content;
+    return (topic.titel + '. ' + tmp.textContent).trim();
+  }
+  // Fallback: Test-Text, damit Audio testbar bleibt
+  return 'Dies ist eine Vorlese-Probe von SAVOIR. Sobald Inhalte vorhanden sind, wird hier der Artikeltext gelesen.';
+}
+
+function loadVoices() {
+  const all = window.speechSynthesis.getVoices();
+  STATE.speech.voices = all;
+  const select = document.getElementById('voiceSelect');
+  const settings = loadAudioSettings();
+
+  // bevorzugt deutsche Stimmen
+  const german = all.filter(v => /de(-|_|$)/i.test(v.lang));
+  const list = german.length ? german : all;
+
+  select.innerHTML = '';
+  list.forEach((v, i) => {
+    const opt = document.createElement('option');
+    opt.value = v.name;
+    opt.textContent = `${v.name} — ${v.lang}`;
+    select.appendChild(opt);
+  });
+
+  if (settings.stimme && list.some(v => v.name === settings.stimme)) {
+    select.value = settings.stimme;
+  } else if (list.length) {
+    select.value = list[0].name;
+  }
+}
+
+function pickVoice(name) {
+  return STATE.speech.voices.find(v => v.name === name);
+}
+
+function stopSpeech() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  STATE.speech.playing = false;
+  STATE.speech.utterance = null;
+  const btn = document.getElementById('audioBtn');
+  document.getElementById('audioBtnLabel').textContent = '▶ Vorlesen';
+  btn.classList.remove('playing');
+}
+
+function playSpeech() {
+  if (!('speechSynthesis' in window)) {
+    alert('Diese Browser-Version unterstützt kein Text-to-Speech.');
+    return;
+  }
+  stopSpeech();
+  const text = getCurrentText();
+  const u = new SpeechSynthesisUtterance(text);
+  const settings = loadAudioSettings();
+  const voice = pickVoice(document.getElementById('voiceSelect').value);
+  if (voice) { u.voice = voice; u.lang = voice.lang; }
+  else { u.lang = 'de-DE'; }
+  u.rate = settings.geschwindigkeit || 1.0;
+
+  u.onend = () => stopSpeech();
+  u.onerror = () => stopSpeech();
+
+  STATE.speech.utterance = u;
+  STATE.speech.playing = true;
+  document.getElementById('audioBtnLabel').textContent = '■ Stop';
+  document.getElementById('audioBtn').classList.add('playing');
+  window.speechSynthesis.speak(u);
+}
+
+document.getElementById('audioBtn').addEventListener('click', () => {
+  if (STATE.speech.playing) stopSpeech();
+  else playSpeech();
+});
+
+document.getElementById('voiceSelect').addEventListener('change', e => {
+  const s = loadAudioSettings();
+  s.stimme = e.target.value;
+  saveAudioSettings(s);
+  if (STATE.speech.playing) playSpeech();
+});
+
+const speedRange = document.getElementById('speedRange');
+const speedVal = document.getElementById('speedVal');
+speedRange.addEventListener('input', e => {
+  const v = parseFloat(e.target.value);
+  speedVal.textContent = v.toFixed(2) + 'x';
+  const s = loadAudioSettings();
+  s.geschwindigkeit = v;
+  saveAudioSettings(s);
+});
+
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+/* ============ SEARCH ============ */
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+function searchTopics(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+  const out = [];
+  for (const topic of Object.values(TOPICS)) {
+    let hit = false;
+    let snippet = '';
+    if (topic.titel.toLowerCase().includes(q)) {
+      hit = true;
+      snippet = topic.titel;
+    } else if (topic.ebenen) {
+      for (const [ebene, data] of Object.entries(topic.ebenen)) {
+        if (data?.content) {
+          const tmp = document.createElement('div');
+          tmp.innerHTML = data.content;
+          const txt = tmp.textContent.toLowerCase();
+          const i = txt.indexOf(q);
+          if (i >= 0) {
+            hit = true;
+            const raw = tmp.textContent;
+            const start = Math.max(0, i - 40);
+            const end = Math.min(raw.length, i + q.length + 60);
+            snippet = (start > 0 ? '… ' : '') + raw.slice(start, end) + (end < raw.length ? ' …' : '');
+            break;
+          }
+        }
+      }
+    }
+    if (hit) out.push({ topic, snippet });
+  }
+  return out;
+}
+
+function renderSearchResults(query) {
+  const results = searchTopics(query);
+  searchResults.innerHTML = '';
+
+  if (!query.trim()) {
+    searchResults.classList.remove('visible');
+    return;
+  }
+
+  if (results.length === 0) {
+    searchResults.innerHTML = `<div class="search-empty">Keine Treffer${
+      Object.keys(TOPICS).length === 0 ? ' — Themen werden Schritt für Schritt ergänzt.' : '.'
+    }</div>`;
+    searchResults.classList.add('visible');
+    return;
+  }
+
+  results.forEach(({ topic, snippet }) => {
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.innerHTML = `
+      <div class="search-result-titel">${topic.titel}</div>
+      <div class="search-result-meta">${topic.kategorie} · ${CATEGORIES[topic.kategorie]}</div>
+    `;
+    item.addEventListener('click', () => {
+      const hist = loadSearchHistory();
+      hist.push({ q: query, ts: new Date().toISOString() });
+      saveSearchHistory(hist);
+      searchResults.classList.remove('visible');
+      searchInput.value = '';
+      openArticle(topic.id);
+    });
+    searchResults.appendChild(item);
+  });
+  searchResults.classList.add('visible');
+}
+
+searchInput.addEventListener('input', e => renderSearchResults(e.target.value));
+searchInput.addEventListener('focus', e => {
+  if (e.target.value) renderSearchResults(e.target.value);
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) {
+    searchResults.classList.remove('visible');
+  }
+});
+
+/* ============ NAV BINDINGS ============ */
+
+document.getElementById('brand').addEventListener('click', () => showView('home'));
+document.getElementById('bc-home-1').addEventListener('click', () => showView('home'));
+document.getElementById('bc-home-2').addEventListener('click', () => showView('home'));
+
+/* ============ INIT ============ */
+
+(function init() {
+  // Audio-Einstellungen laden
+  const s = loadAudioSettings();
+  if (typeof s.geschwindigkeit === 'number') {
+    speedRange.value = s.geschwindigkeit;
+    speedVal.textContent = s.geschwindigkeit.toFixed(2) + 'x';
+  }
+  renderCategoryGrid();
+  updateProgressIndicator();
+})();
+
+</script>
+</body>
+</html>
