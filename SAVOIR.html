@@ -549,6 +549,787 @@
     color: inherit;
   }
 
+  /* Tabs flex-wrap mit 6 Items */
+  .tabs { flex-wrap: wrap; row-gap: 4px; }
+  .tab { margin-right: 22px; }
+
+  /* Praxis-Tab */
+  .tab-praxis { color: var(--rust); }
+  .tab-praxis::before {
+    content: '⚙';
+    margin-right: 6px;
+    font-size: 12px;
+    vertical-align: middle;
+  }
+  .tab-praxis.active {
+    color: var(--rust);
+    border-bottom-color: var(--rust);
+  }
+
+  /* Testen-Tab */
+  .tab-testen { color: var(--sage); }
+  .tab-testen::before {
+    content: '◐';
+    margin-right: 6px;
+    font-size: 11px;
+    vertical-align: middle;
+  }
+  .tab-testen.active {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  /* Drop-Cap in Praxis und Testen unterdrücken */
+  .article-body > .praxis:first-child::first-letter,
+  .article-body > .testen:first-child::first-letter,
+  .article-body .praxis p::first-letter,
+  .article-body .testen p::first-letter {
+    font-family: inherit; font-weight: inherit; float: none;
+    font-size: inherit; line-height: inherit; padding: 0; color: inherit;
+  }
+
+  /* ============ PRAXIS ============ */
+  .praxis {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 32px 28px;
+  }
+  .praxis-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 8px;
+  }
+  .praxis-intro {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 28px;
+    max-width: 560px;
+  }
+  .praxis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .praxis-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .praxis-card.full { grid-column: 1 / -1; }
+  .praxis-card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .praxis-card-icon {
+    color: var(--gold);
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .praxis-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    flex: 1;
+  }
+  .praxis-card-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+  }
+
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 1.45;
+    cursor: pointer;
+    border-bottom: 1px solid var(--line);
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item input[type=checkbox] {
+    margin-top: 4px;
+    accent-color: var(--rust);
+    cursor: pointer;
+  }
+  .checklist-item.done {
+    color: var(--sage);
+    text-decoration: line-through;
+  }
+  .praxis-card-action {
+    margin-top: 14px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    cursor: pointer;
+  }
+  .praxis-card-action:hover { color: var(--rust); border-color: var(--rust); }
+
+  .profil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .profil-field { display: flex; flex-direction: column; }
+  .profil-field.full { grid-column: 1 / -1; }
+  .profil-field label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+  .profil-field select,
+  .profil-field input,
+  .profil-field textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+  }
+  .profil-field textarea { resize: vertical; min-height: 64px; }
+  .profil-saved {
+    margin-top: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    min-height: 14px;
+  }
+
+  .phrase-group { margin-bottom: 18px; }
+  .phrase-group:last-child { margin-bottom: 0; }
+  .phrase-group-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 8px;
+  }
+  .phrase-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .phrase-item:last-child { border-bottom: none; }
+  .phrase-text {
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    line-height: 1.45;
+  }
+  .phrase-copy {
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .phrase-copy:hover { color: var(--rust); border-color: var(--rust); }
+  .phrase-copy.copied { color: var(--gold); border-color: var(--gold); }
+
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 78px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-time {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    padding-top: 2px;
+  }
+  .timeline-content {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .timeline-note {
+    width: 100%;
+    margin-top: 8px;
+    background: var(--cream);
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    resize: vertical;
+    min-height: 36px;
+    outline: none;
+  }
+  .timeline-note:focus { border-style: solid; border-color: var(--gold); }
+
+  .crisis-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .crisis-step:last-child { border-bottom: none; }
+  .crisis-step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--rust);
+    line-height: 1;
+  }
+  .crisis-step-text strong { display: block; margin-bottom: 2px; }
+
+  .info-text-block { margin-bottom: 22px; }
+  .info-text-block:last-child { margin-bottom: 0; }
+  .info-text-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .info-text-toolbar input {
+    flex: 1;
+    min-width: 120px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    outline: none;
+  }
+  .info-text-preview {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 14px 18px;
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .info-text-copy {
+    margin-top: 10px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .info-text-copy:hover { background: var(--rust); }
+  .info-text-copy.copied { background: var(--gold); color: var(--ink); }
+
+  /* ============ TESTEN ============ */
+  .testen { display: flex; flex-direction: column; gap: 28px; }
+
+  .lern-manager {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 24px 28px;
+  }
+  .lern-manager-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+  .lern-manager-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .lern-manager-sub {
+    color: var(--sage);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .lern-manager-cta {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 12px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .lern-manager-cta:hover { background: var(--rust); }
+  .lern-manager-done {
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .testen-modes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .mode-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease;
+    text-align: left;
+    display: block;
+    width: 100%;
+  }
+  .mode-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .mode-card.done {
+    background: var(--cream);
+    border-color: var(--gold);
+  }
+  .mode-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .mode-card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+  }
+  .mode-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .mode-card-state {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-top: 4px;
+  }
+  .mode-card.done .mode-card-state { color: var(--rust); }
+  .mode-card.done::after {
+    content: '✓';
+    float: right;
+    color: var(--gold);
+    font-size: 18px;
+    margin-top: -28px;
+  }
+
+  .test-back {
+    background: transparent;
+    border: none;
+    color: var(--sage);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 18px;
+  }
+  .test-back:hover { color: var(--rust); }
+
+  /* Schnellprüfung */
+  .quiz-q {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .quiz-q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+  .quiz-q-text {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .quiz-q-input {
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+    outline: none;
+    resize: vertical;
+    min-height: 44px;
+  }
+  .quiz-q-input:focus { border-color: var(--gold); }
+  .quiz-q-input.correct { border-color: var(--gold); background: rgba(212,169,63,0.06); }
+  .quiz-q-input.wrong { border-color: var(--rust); background: rgba(163,80,31,0.04); }
+  .quiz-q-feedback {
+    margin-top: 8px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .quiz-q-feedback.correct {
+    background: rgba(212, 169, 63, 0.1);
+    border-left: 3px solid var(--gold);
+  }
+  .quiz-q-feedback.wrong {
+    background: rgba(163, 80, 31, 0.06);
+    border-left: 3px solid var(--rust);
+  }
+  .quiz-q-feedback strong { color: var(--rust); }
+  .quiz-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .quiz-submit, .quiz-restart {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 12px 26px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .quiz-submit:hover, .quiz-restart:hover { background: var(--rust); }
+  .quiz-result {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 22px 26px;
+    margin-bottom: 22px;
+    border-left: 4px solid var(--gold);
+  }
+  .quiz-result-score {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 500;
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .quiz-result-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+  }
+
+  /* Karteikarten */
+  .flashcard-progress {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .flashcard {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 44px 32px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .flashcard.flipped { background: var(--cream); border-color: var(--gold); }
+  .flashcard-side {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+  .flashcard-text {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.5;
+  }
+  .flashcard-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .flashcard-btn {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 12px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .flashcard-btn:hover { background: var(--cream); }
+  .flashcard-btn.again { color: var(--rust); }
+  .flashcard-btn.again:hover { border-color: var(--rust); }
+  .flashcard-btn.hard { color: var(--sage); }
+  .flashcard-btn.hard:hover { border-color: var(--sage); }
+  .flashcard-btn.good { color: var(--gold); }
+  .flashcard-btn.good:hover { border-color: var(--gold); }
+  .flashcard-empty {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 64px 32px;
+    text-align: center;
+    color: var(--sage);
+    font-style: italic;
+  }
+  .flashcard-empty strong {
+    display: block;
+    font-style: normal;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  /* Szenario */
+  .szenario-vignette {
+    background: var(--cream);
+    border-left: 4px solid var(--rust);
+    padding: 20px 24px;
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.55;
+    font-style: italic;
+    margin-bottom: 28px;
+    border-radius: 0 4px 4px 0;
+  }
+  .szenario-step-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+  .szenario-q {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .szenario-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .szenario-option {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14.5px;
+    line-height: 1.45;
+    text-align: left;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .szenario-option:hover { border-color: var(--gold); }
+  .szenario-option.chosen { border-color: var(--rust); }
+  .szenario-option.best { border-color: var(--gold); background: rgba(212,169,63,0.1); }
+  .szenario-option.wrong { border-color: var(--rust); background: rgba(163,80,31,0.06); }
+  .szenario-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--rust);
+    margin-right: 10px;
+  }
+  .szenario-feedback {
+    background: rgba(212, 169, 63, 0.08);
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+  .szenario-feedback strong { color: var(--rust); }
+  .szenario-next {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 12px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .szenario-next:hover { background: var(--rust); }
+
+  /* Reflexion */
+  .reflexion-q { margin-bottom: 32px; }
+  .reflexion-q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .reflexion-q-text {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .reflexion-textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: inherit;
+    font-size: 14.5px;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 130px;
+    outline: none;
+  }
+  .reflexion-textarea:focus { border-color: var(--gold); }
+
+  .topic-gelernt-badge {
+    color: var(--gold);
+    font-size: 16px;
+    line-height: 1;
+    margin-left: 8px;
+  }
+  .topic-item-titel-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .gelernt-master {
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 18px 22px;
+    margin-bottom: 32px;
+  }
+  .gelernt-master-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+  .gelernt-master-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gelernt-master-item {
+    background: var(--paper);
+    border: 1px solid var(--gold);
+    border-radius: 100px;
+    padding: 6px 14px 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--ink);
+    transition: background .2s ease;
+  }
+  .gelernt-master-item:hover { background: rgba(212, 169, 63, 0.12); }
+  .gelernt-master-check {
+    color: var(--gold);
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .praxis-grid { grid-template-columns: 1fr; }
+    .testen-modes { grid-template-columns: 1fr; }
+    .profil-grid { grid-template-columns: 1fr; }
+    .timeline-row { grid-template-columns: 1fr; gap: 4px; }
+    .praxis { padding: 22px 18px; }
+  }
+
   .quellen {
     margin-top: 56px;
     padding-top: 28px;
@@ -704,6 +1485,7 @@
         für unterwegs.
       </p>
     </div>
+    <div id="gelerntMaster"></div>
     <div class="category-grid" id="categoryGrid"></div>
   </section>
 
@@ -760,6 +1542,8 @@
         <button class="tab" data-ebene="grundlagen">Grundlagen</button>
         <button class="tab" data-ebene="klinisch">Klinisch</button>
         <button class="tab" data-ebene="spezialfaelle">Spezialfälle</button>
+        <button class="tab tab-praxis" data-ebene="praxis">Praxis</button>
+        <button class="tab tab-testen" data-ebene="testen">Testen</button>
       </nav>
 
       <div class="article-body" id="articleBody"></div>
@@ -1096,6 +1880,194 @@ const TOPICS = {
         quellen: [
           { autor: 'Raymaker, D. M., Teo, A. R., Steckler, N. A. et al.', jahr: 2020, titel: '“Having all of your internal resources exhausted beyond measure and being left with no clean-up crew”: Defining autistic burnout', fundstelle: 'Autism in Adulthood, 2(2), 132–143' }
         ]
+      },
+      praxis: {
+        vorSitzung: [
+          'Ist der Raum sensorisch okay? Licht, Geräusche, Geruch geprüft?',
+          'Ist die Agenda für heute schriftlich fixiert?',
+          'Habe ich Pausen-Möglichkeiten eingeplant (alle 15–20 Minuten)?',
+          'Ist ein visueller Anker vorhanden (Whiteboard, Skizzenpapier)?',
+          'Habe ich einen Spezialinteresse-Anker zur Hand?',
+          'Gibt es eine klare Ende-Markierung (Timer, Signal)?'
+        ],
+        klientProfilSchema: [
+          { key: 'vorankuendigung', label: 'Vorankündigung nötig', type: 'select', options: ['—', '1 Tag im Voraus', '1 Stunde im Voraus', '5 Minuten im Voraus', 'keine'] },
+          { key: 'smalltalk',       label: 'Smalltalk-Handling',  type: 'select', options: ['—', 'weglassen', 'minimal', 'strukturiert (mit Übergang)'] },
+          { key: 'augenkontakt',    label: 'Augenkontakt',        type: 'select', options: ['—', 'bevorzugt', 'neutral', 'vermeidend', 'stressauslösend'] },
+          { key: 'kommunikation',   label: 'Bevorzugte Kommunikation', type: 'select', options: ['—', 'sprechen', 'schreiben', 'zeichnen', 'Mix'] },
+          { key: 'spezialinteressen', label: 'Spezialinteressen als Brücke', type: 'textarea', full: true, placeholder: 'z. B. Pferde, Anatomie, K-Pop-Band XY …' },
+          { key: 'trigger',         label: 'Sensorische Trigger', type: 'textarea', full: true, placeholder: 'z. B. Neonlicht, Parfüm, Stuhlquietschen …' },
+          { key: 'tabuworte',       label: 'Worte die er/sie nicht mag', type: 'textarea', full: true, placeholder: 'z. B. „Verhalten“, „Symptom“, „normal“ …' }
+        ],
+        phrasen: [
+          { group: 'Bei Erstkontakt', items: [
+            'Hier ist, was wir heute machen. Wenn etwas nicht passt, sag es mir.',
+            'Du musst nicht in die Augen schauen. Schau wohin es für dich okay ist.'
+          ]},
+          { group: 'Bei Überforderung', items: [
+            'Ich sehe, du brauchst eine Pause. Ich schweige jetzt zwei Minuten.',
+            'Was hier passiert, ist viel. Wir können das langsamer machen.'
+          ]},
+          { group: 'Bei Spezialinteresse', items: [
+            'Erzähl mir mehr darüber — ich höre wirklich zu.'
+          ]},
+          { group: 'Bei emotionaler Zumutung', items: [
+            'Ich sehe, dass etwas in dir passiert. Du musst nicht erklären, was.'
+          ]},
+          { group: 'Bei Konflikten mit Eltern oder Schule', items: [
+            'Ich erkläre dir, wie ich das verstehe. Dann sagst du mir, was nicht stimmt.'
+          ]},
+          { group: 'Bei Abschluss', items: [
+            'Wir hören in 5 Minuten auf. Was möchtest du noch sagen?'
+          ]}
+        ],
+        timeline: [
+          { time: '0–5 min',   text: 'Ankommen, Agenda zeigen' },
+          { time: '5–15 min',  text: 'Hauptteil 1 — klar abgegrenztes Thema' },
+          { time: '15–20 min', text: 'Pause oder Spezialinteresse-Brücke' },
+          { time: '20–35 min', text: 'Hauptteil 2 — zweites Thema' },
+          { time: '35–40 min', text: 'Konsolidierung schriftlich' },
+          { time: '40–50 min', text: 'Plan für nächstes Mal, sichtbares Ende' }
+        ],
+        krise: [
+          { titel: 'Erkennen', text: 'Stille, repetitive Bewegungen, Stimme verändert sich, Augen schließen sich, Stimming nimmt zu.' },
+          { titel: 'Sofort entlasten', text: 'Sprechen reduzieren. Stimme leiser. Augenkontakt unterbrechen.' },
+          { titel: 'Sensorisch reduzieren', text: 'Licht dimmen. Geräuschquellen minimieren. Wenn möglich Raum kurz wechseln.' },
+          { titel: 'Verbal nicht drängen', text: 'Schweigen ist okay — auch fünf bis zehn Minuten lang.' },
+          { titel: 'Wenn Sprache zurückkommt', text: 'Strukturiert weitermachen. Nicht emotional aufladen, nicht sofort interpretieren.' },
+          { titel: 'Sitzung verkürzen', text: 'Kein Durchhalten erzwingen. Ein klarer Abschluss ist besser als Vollzeit-Erschöpfung.' },
+          { titel: 'Auslöser dokumentieren', text: 'Notiere für die nächste Sitzung, was vorher passiert ist.' }
+        ],
+        elternText: 'Liebe Eltern von {klient},\n\ndas Asperger-Profil — heute Teil des Autismus-Spektrums — beschreibt eine andere Art, die Welt wahrzunehmen. Es ist keine Krankheit, sondern ein Verarbeitungsstil, der bestimmte Stärken und bestimmte Belastungen mit sich bringt.\n\nWas zu Hause hilft:\n• Routinen wertschätzen — sie sind Schutz vor sensorischer Überlastung, nicht Sturheit.\n• Vorhersagbarkeit erhöhen. Wechsel ankündigen, möglichst mit Zeitangabe.\n• Spezialinteressen ernst nehmen — sie sind Selbstregulation und Kompetenzkeim.\n• Nach der Schule eine Erholungszeit einplanen, in der nichts verlangt wird.\n• Sensorisch entlasten: Etiketten heraus, Schwerdecke, Geräuschmaskierung beim Schlafen.\n\nWas möglichst zu vermeiden ist:\n• Sozialen Druck erhöhen, um „mehr zu üben“ — das verstärkt das Problem.\n• Augenkontakt einfordern.\n• Wutausbrüche als Erziehungsfehler werten — sie sind oft Erschöpfungs-Kollaps nach einem Schultag voller Filterleistung.\n\nWann meldet ihr euch bei mir: bei plötzlichem Skill-Verlust, neuer Schulverweigerung, wachsendem Rückzug, suizidalen Andeutungen oder wenn ihr unsicher seid, ob etwas „normal“ ist.\n\nMit kollegialem Gruß,\n{fachkraft}',
+        schulText: 'Liebe Lehrkräfte,\n\n{klient} hat ein Asperger-Profil im Autismus-Spektrum. Das heißt: Wahrnehmung, soziale Verarbeitung und exekutive Funktionen laufen anders als bei den meisten Schüler:innen — nicht schlechter, anders.\n\nAnpassungen, die wirklich helfen:\n• Klare schriftliche Aufgabenstellung — keine vagen Aufträge.\n• Vorankündigung bei Plan- oder Raumwechsel.\n• Pausenrückzugsmöglichkeit (ruhiger Raum, Bibliothek, Lehrerzimmerfenster).\n• Sensorische Anpassungen: Sitzplatz fern von Lärmquellen, kein Neonflackern.\n• Gruppenarbeiten in Zweiergruppen statt großer Teams.\n• Kein Augenkontakt einfordern.\n\nBitte nicht tun:\n• Soziale Spiele oder Smalltalk-Übungen als Pflicht.\n• Spezialinteressen abwerten oder als „Ablenkung“ behandeln.\n• Erschöpfungs-Verhalten („starrt vor sich hin“) als Trotz interpretieren.\n\nRealistische Erwartung: {klient} wird in strukturierten Aufgaben oft sehr gute Leistungen zeigen, in unstrukturierten Übergangsmomenten aber Unterstützung brauchen. Tagesleistung kann stark schwanken — abhängig von sensorischer Last und sozialem Aufwand.\n\nBei Overload-Situationen: Reizflut reduzieren, nicht ansprechen, Pause anbieten, Sitzung später strukturiert auswerten.\n\nBei Fragen melde ich mich gern.\n\n{fachkraft}'
+      },
+      testen: {
+        schnellpruefung: [
+          { frage: 'Camouflaging ist häufiger bei ___ und führt oft zu ___ Diagnose.',
+            schluessel: [ ['frauen','mädchen','weiblich'], ['spät','verzög','jahre später'] ],
+            loesung: 'Frauen / Mädchen — späte oder verzögerte Diagnose.' },
+          { frage: 'Was ist der häufigste Behandlungsfehler bei Autistic Burnout?',
+            schluessel: [ ['aktivier','mehr anstrengung','mehr leisten','mehr machen','verhaltensaktivier'] ],
+            loesung: 'Aktivierung verlangen statt Reduktion. SSRI ohne Burnout-Erkennung kann zusätzlich schaden.' },
+          { frage: 'Welche Komorbidität wird bei Asperger besonders häufig übersehen — und welcher Anteil der Klient:innen hat sie?',
+            schluessel: [ ['adhs','audhd','aufmerksamkeit'], ['drittel','30','50','hälfte','halfte'] ],
+            loesung: 'ADHS / AuDHD — bei etwa einem Drittel bis zur Hälfte aller Asperger-Klient:innen.' },
+          { frage: 'Was sagen Eltern eines Mädchens mit unerkanntem Asperger oft im Erstgespräch?',
+            schluessel: [ ['zuhause','zu hause','ganz normal','anderer mensch','daheim'] ],
+            loesung: '„Zu Hause ist sie eigentlich ganz normal“ — die Schwierigkeiten zeigen sich erst dort, wo das Maskieren nachlässt.' },
+          { frage: 'Wie hoch ist das Suizidrisiko bei Asperger verglichen mit der Allgemeinbevölkerung?',
+            schluessel: [ ['9','neun','9-fach','9 fach','neunfach'] ],
+            loesung: 'Etwa neunfach erhöht (Hirvikoski et al. 2016).' },
+          { frage: 'Welche drei sensorischen Bereiche prüfst du vor einer Sitzung mit einem Asperger-Klienten?',
+            schluessel: [ ['licht'], ['geräusch','lärm','laut','akustik'], ['geruch','duft','parfum','parfüm'] ],
+            loesung: 'Licht, Geräusche, Geruch.' },
+          { frage: 'Warum scheitert klassische KVT oft bei Asperger plus Depression?',
+            schluessel: [ ['aktivier','sozial','überlast','smalltalk','unstrukturiert','nicht strukturiert','theory of mind','metaph','indirekt'] ],
+            loesung: 'Standard-Verhaltensaktivierung und „mehr soziale Kontakte“ erhöhen genau die Last, die zur Depression geführt hat. Gespräche sind oft zu unstrukturiert; emotionale Sprache und Metaphern nicht zugänglich.' },
+          { frage: 'Was ist Twice Exceptional?',
+            schluessel: [ ['begab','hochbegab','iq','intelligen'] ],
+            loesung: 'Asperger-Profil plus Hochbegabung. Beide Profile tarnen sich gegenseitig — diagnostisch hochheikel.' },
+          { frage: 'Wie beendest du eine Sitzung mit einem Asperger-Klienten richtig?',
+            schluessel: [ ['vorankündigung','voran','5 min','fünf min','timer','sichtbar','ende','markier','klar','signal'] ],
+            loesung: 'Klare, sichtbare Ende-Markierung — z. B. „in 5 Minuten hören wir auf“, Timer, fester Schluss-Satz.' },
+          { frage: 'Welche Erstgesprächs-Frage öffnet bei Asperger-Verdacht oft Türen?',
+            schluessel: [ ['laut','sensorisch','aufwand','müde','erschöpf','allein','geburtstag','klassenarbeit','geräusch','stoff'] ],
+            loesung: 'Z. B. „Wie laut ist die Welt für dich?“ oder „Was ist anstrengender — Klassenarbeit oder Geburtstagsfeier?“ — Fragen nach Aufwand und Sensorik, nicht nach Symptomen.' }
+        ],
+        karteikarten: [
+          { id: 'a1',  v: 'Was unterscheidet Autistic Burnout von Major Depression klinisch?',
+                       r: 'Burnout entsteht durch chronisches Camouflaging und Reizüberlastung. Symptome: Skill-Verlust, zunehmende sensorische Empfindlichkeit, Erschöpfung. Behandlung: Reduktion, nicht Aktivierung. SSRI hilft oft nicht, manchmal schadet er.' },
+          { id: 'a2',  v: 'Welche fünf Erstgesprächs-Fragen funktionieren bei Asperger-Verdacht?',
+                       r: '1. „Wie laut ist die Welt für dich?“  2. „Was würdest du machen, ohne gestört zu werden?“  3. „Klassenarbeit oder Geburtstagsfeier — was ist anstrengender?“  4. „Was ist anders, wenn du allein bist?“  5. „Welche Geräusche, Stoffe, Lichter musst du vermeiden?“' },
+          { id: 'a3',  v: 'Asperger plus ADHS — wie häufig und was ist der therapeutische Konflikt?',
+                       r: 'Etwa 30–50 % Komorbidität (AuDHD). Konflikt: Asperger braucht Routine und Vorhersagbarkeit, ADHS braucht Wechsel und Stimulation. Lösung: Struktur, in die Wechsel eingebaut sind. Stimulanzien niedriger dosiert.' },
+          { id: 'a4',  v: 'Warum ist das offizielle 4:1-Geschlechterverhältnis bei Asperger irreführend?',
+                       r: 'Diagnostisch verzerrt, nicht biologisch. Mädchen camouflagieren früher, ihre Spezialinteressen werden als „Mädchenphase“ normalisiert, sie internalisieren statt zu externalisieren. Tatsächliches Verhältnis liegt bei 2:1 oder darunter; in Erwachsenen-Spätdiagnosen oft Parität.' },
+          { id: 'a5',  v: 'Was ist Camouflaging — und welche drei Komponenten?',
+                       r: 'Strategien, autistische Verhaltensweisen zu unterdrücken. Drei Komponenten: Compensation (auswendig gelernte Skripts), Masking (Stimming unterdrücken, Spezialinteresse verstecken), Assimilation (sich an Gruppennormen anpassen). Hoher kognitiver und affektiver Preis.' },
+          { id: 'a6',  v: 'Welche Diagnosen tragen autistische Frauen häufig vor der Asperger-Erstdiagnose?',
+                       r: 'Borderline, rezidivierende Depression, soziale Angst, Anorexie, ängstlich-vermeidende PS, somatoforme Störung. „Lost generation“ (Lai & Baron-Cohen 2015): Erstdiagnose oft erst zwischen 30 und 45.' },
+          { id: 'a7',  v: 'Warum ist „Theory of Mind ist beim Asperger-Profil nicht abwesend, sondern verzögert“ wichtig?',
+                       r: 'ToM-Aufgaben werden gelöst, aber langsamer, expliziter, mit höherem mentalem Aufwand. Sie kollabiert unter Stress, Erschöpfung und sensorischer Überlastung — nicht im Ruhezustand. „Kalt“ statt „heiß“ verarbeitet.' },
+          { id: 'a8',  v: 'Was beschreibt „schwache zentrale Kohärenz“ klinisch?',
+                       r: 'Detail wird vor Gesamtbild verarbeitet. In der Praxis: das Wandbild bemerken sie sofort, das verzweifelte Gesicht der Mutter dahinter nicht. Vorteil bei detail-fokussierten Aufgaben, Nachteil bei impliziten sozialen Kontexten.' },
+          { id: 'a9',  v: 'Welche sensorischen Modalitäten sind bei Asperger besonders häufig betroffen?',
+                       r: 'Hörverarbeitung (Hyperreaktivität, Cocktail-Party-Filter schwach); taktil (Etiketten, Texturen, Nähte); interozeptiv (Hunger, Durst, Erschöpfung werden zu spät bemerkt); visuell (Neonflackern, Bewegungsreichtum).' },
+          { id: 'a10', v: 'Soziale Angst vs. Asperger — was ist der entscheidende Unterscheidungs-Marker?',
+                       r: 'Wunschstruktur. Sozialphobie will dazugehören und fürchtet Bewertung. Asperger findet Sozialkontakt einfach kognitiv und sensorisch zu teuer; das Bedürfnis nach Zugehörigkeit ist anders strukturiert. Beide können koexistieren.' },
+          { id: 'a11', v: 'Schizoide Persönlichkeitsstörung vs. Asperger — was übersieht man oft?',
+                       r: 'Schizoid ist erworbene Bindungsabwehr; Asperger ist andere Verarbeitung von Anfang an. Wenn der Klient als Kind klare Spezialinteressen, sensorische Eigenheiten und Routinenstarre hatte — wahrscheinlich Asperger, jahrzehntelang falsch gelesen.' },
+          { id: 'a12', v: 'Reaktive Bindungsstörung vs. Asperger — wie unterscheidest du?',
+                       r: 'Bindungsstörung verbessert sich unter sicherer Bindung; Asperger nicht. Frag: Wann erschienen die ersten sensorischen Eigenheiten, Routinen, Spezialinteressen — vor oder nach der Pflegeunterbringung? Vor: Asperger.' },
+          { id: 'a13', v: 'Borderline vs. weibliches Asperger — was ist die Trennlinie der Affektkrisen?',
+                       r: 'Borderline-Krisen sind interpersonell ausgelöst (Bindungsangst). Asperger-Meltdowns sind sensorisch oder pragmatisch ausgelöst (Reizüberflutung, Unvorhersehbarkeit). Frag nach Sensorik, Spezialinteressen, Camouflaging-Geschichte.' },
+          { id: 'a14', v: 'Welche atypischen Warnsignale für Suizidalität bei Asperger musst du erkennen?',
+                       r: 'Sehr ruhige, sortierte Sprache über das eigene Lebensende. „Aufräumen“ — Sammlungen verschenken, Spezialinteressen abgeben. Drastische Aktivitätsreduktion. Höfliche Distanzierung. Kühle planerische Logik statt impulsiver Affekt — gefährlicher, nicht ungefährlicher.' },
+          { id: 'a15', v: 'Wie fragst du Suizidalität bei einem Asperger-Klienten richtig ab?',
+                       r: 'Direkt, konkret, mehrfach: „Haben Sie Suizidgedanken?“, „Wie konkret?“, „Methode?“, „Etwas vorbereitet?“, „Wann zuletzt?“. Bei Sprachschwierigkeit: schriftlich anbieten. Vage Fragen reichen nicht.' },
+          { id: 'a16', v: 'Twice Exceptional — warum sind diese Kinder besonders schwer zu erkennen?',
+                       r: 'Begabung verdeckt Asperger und Asperger verdeckt Begabung. Spezialinteressen wirken als „Begabungs-Feature“. Underachievement durch exekutive Last wird als „Faulheit“ gelesen. Perfektionistischer Zusammenbruch als typische Adoleszenzkrise.' },
+          { id: 'a17', v: 'AuDHD — was funktioniert in der Behandlung?',
+                       r: 'Routinen, in die Wechsel eingebaut sind. Wochenstrukturen mit wiederkehrenden Slots, innerhalb derer Wechsel möglich sind. Stimulanzien niedrig dosieren, langsam aufdosieren, engmaschig befragen. Höhere Erschöpfungsgefahr — mehr Schutz.' },
+          { id: 'a18', v: 'Welches sind die häufigsten Gründe, warum Asperger-Klienten Therapie abbrechen?',
+                       r: 'Fehlende Struktur (nondirektive Formate); Smalltalk-Anforderungen; vage Therapeut:in-Sprache; sensorische Belastung der Praxisumgebung; unklare Beziehungsregeln; vage Hausaufgaben. Es liegt fast nie am Klienten.' },
+          { id: 'a19', v: 'Was machst du strukturell anders, damit Asperger-Klient:innen in der Therapie bleiben?',
+                       r: 'Klare Agenda zu Beginn (zwei Minuten explizit). Visuelle Strukturen — Whiteboard, schriftliche Zusammenfassung. Schriftliche Vorbereitung ermutigen. Konkrete Sprache. Sensorische Raumabklärung. Hausaufgaben mit Vorlagen.' },
+          { id: 'a20', v: 'Wie startest du das Elterngespräch bei Asperger-Verdacht?',
+                       r: 'Nicht mit dem Wort „Autismus“ beginnen. Erst konkrete Beobachtungen beschreiben — sensorische Eigenheiten, Pausenbelastung, Spezialinteresse — bis Eltern selbst nicken. Erst dann den Begriff einführen.' },
+          { id: 'a21', v: 'Ein Elternteil sagt im Diagnosegespräch „das bin ja ich“ — wie reagierst du?',
+                       r: 'Diese Situation ist heilig. Nicht „dann sollten wir Sie auch diagnostizieren“. Sondern: „Das kommt häufig vor. Vielleicht erklärt es Ihnen jetzt einiges. Wenn Sie das vertiefen wollen, kann ich Sie weiterleiten — aber das hat keine Eile.“' },
+          { id: 'a22', v: 'Was sind die drei typischen emotionalen Phasen nach einer Asperger-Diagnose?',
+                       r: '1. Erleichterung — die Geschichte macht endlich Sinn. 2. Trauer — um die unverstandenen Jahre und zerbrochenen Beziehungen. 3. Identitätsumbau — „Wer bin ich, wenn ich das jetzt weiß?“. Ressourcen, nicht Therapie, geben.' },
+          { id: 'a23', v: 'Welche fünf Behandlungsfehler vermeidest du bei Asperger?',
+                       r: '1. Zu viel sozialer Druck. 2. Augenkontakt als Therapieziel. 3. Unstrukturierte Gespräche. 4. Spezialinteressen pathologisieren. 5. Camouflaging als Ziel oder Mittel verstärken.' },
+          { id: 'a24', v: 'Bei „zu Hause ist sie eigentlich ganz normal“ — was ist deine erste klinische Hypothese?',
+                       r: '„After-school restraint collapse“. Das Kind hält in der Schule und kollabiert daheim. Klassisches Asperger-Muster, vor allem bei Mädchen. Frag nach Erschöpfung, Mahlzeiten, Wochenenden — nicht nach Erziehung.' },
+          { id: 'a25', v: 'Mit welchem Satz endest du das erste Gespräch nach gestellter Asperger-Diagnose?',
+                       r: '„Es ist nichts kaputt. Wir bauen jetzt etwas, das passt.“ Verschiebt den Rahmen von Defizit zu Person-Umwelt-Passung — und gibt der Familie eine Richtung.' }
+        ],
+        szenario: {
+          vignette: 'Mira, 14, kommt zum dritten Mal. Sehr leise. Mutter sagt vorher am Telefon: „Sie weint jeden Sonntagabend, will Montag nicht in die Schule.“ Mira sitzt jetzt vor dir. Augen unten. Sie sagt nichts. Es vergehen 90 Sekunden Stille.',
+          entscheidungen: [
+            {
+              frage: 'Was tust du in dieser Situation?',
+              optionen: [
+                { letter: 'A', text: 'Aktiv nachfragen: „Was beschäftigt dich gerade?“' },
+                { letter: 'B', text: 'Strukturierten Einstieg geben: „Wir haben heute eine halbe Stunde. Letzte Woche haben wir über X gesprochen. Sollen wir da weitermachen oder etwas anderes?“' },
+                { letter: 'C', text: 'Schweigen aushalten und warten — Mira soll selbst entscheiden, wann sie spricht.' }
+              ],
+              beste: 'B',
+              begruendung: 'Bei Asperger-Verdacht (die Sonntagabend-Erschöpfung deutet darauf hin) ist ein strukturierter Einstieg mit Wahlmöglichkeit hilfreicher als eine offene Frage. Schweigen kann sinnvoll sein, aber 90 Sekunden ist schon eine Weile — Struktur schafft Sicherheit. Direkte Frage A würde Mira oft mit „weiß nicht“ beantworten.'
+            },
+            {
+              frage: 'Mira sagt nach deiner Strukturierung: „Mir ist letzte Woche etwas in der Pause passiert. Aber ich kann das nicht erzählen.“ Was machst du?',
+              optionen: [
+                { letter: 'A', text: '„Versuch es einfach. Es ist sicher hier.“ — Sie ermutigen, doch zu sprechen.' },
+                { letter: 'B', text: '„Du musst nichts erzählen, was du nicht kannst. Möchtest du es schreiben oder zeichnen, statt zu sprechen?“ — Alternativen anbieten.' },
+                { letter: 'C', text: '„Okay. Sag mir, wann du bereit bist.“ — Thema abschließen, anderes anfangen.' }
+              ],
+              beste: 'B',
+              begruendung: 'Viele Asperger-Klient:innen können Inhalte schriftlich oder zeichnerisch zugänglich machen, die mündlich blockiert sind. Option A erhöht den Druck. Option C lässt die Person allein mit dem, was sie eigentlich erzählen möchte. B respektiert die Verarbeitungsweise und öffnet einen anderen Kanal.'
+            },
+            {
+              frage: 'Es ist 5 Minuten vor Sitzungsende. Mira hat dir aufgeschrieben, dass sie in der Pause beleidigt wurde. Sie wirkt erschöpft. Wie schließt du die Sitzung?',
+              optionen: [
+                { letter: 'A', text: '„Das ist wichtig — wir sollten heute weiter darüber sprechen, ich verlängere die Sitzung um 15 Minuten.“' },
+                { letter: 'B', text: '„In 5 Minuten hören wir auf. Du hast etwas Wichtiges aufgeschrieben — danke. Beim nächsten Mal nehmen wir es als ersten Punkt, wenn du willst. Bis dahin: brauchst du heute Abend etwas Bestimmtes?“' },
+                { letter: 'C', text: '„Wir sind durch für heute. Sag deiner Mutter Bescheid, wenn du Hilfe brauchst.“' }
+              ],
+              beste: 'B',
+              begruendung: 'Vorhersehbares Ende ist beim Asperger-Profil entlastend, nicht ablehnend. Option A bricht die zugesagte Zeitstruktur — kontraproduktiv für eine erschöpfte Klientin. Option C ist abrupt und schiebt die Verantwortung weiter. B wahrt Struktur, würdigt das schriftliche Material und öffnet konkrete Hilfe für den Abend.'
+            }
+          ]
+        },
+        reflexion: {
+          fragen: [
+            'Hast du in den letzten Monaten einen Schüler oder eine Klientin gehabt, bei der du jetzt — nach diesem Modul — Asperger vermuten würdest? Was waren die Anzeichen, die du damals nicht eingeordnet hast?',
+            'Welche der gelernten Erstgesprächs-Fragen würdest du beim nächsten Verdachtsfall ausprobieren? Warum gerade diese?',
+            'Was nimmst du konkret in deine Arbeit mit — eine Sache, die du ab nächster Woche anders machst?'
+          ]
+        }
       }
     },
     verwandt: ['adhs-unaufmerksam', 'soziale-angst', 'depression-jugendliche', 'hochsensibilitaet']
@@ -1121,8 +2093,45 @@ const STATE = {
 const LS = {
   PROGRESS: 'savoir_progress',
   AUDIO: 'savoir_audio_settings',
-  SEARCH: 'savoir_search_history'
+  SEARCH: 'savoir_search_history',
+  PRAXIS: 'savoir_praxis_state',
+  TESTEN: 'savoir_test_progress'
 };
+
+function loadPraxisState(topicId) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.PRAXIS)) || {};
+    return all[topicId] || {};
+  } catch { return {}; }
+}
+function savePraxisState(topicId, state) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.PRAXIS)) || {};
+    all[topicId] = state;
+    localStorage.setItem(LS.PRAXIS, JSON.stringify(all));
+  } catch {}
+}
+function loadTestState(topicId) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.TESTEN)) || {};
+    return all[topicId] || {};
+  } catch { return {}; }
+}
+function saveTestState(topicId, state) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.TESTEN)) || {};
+    all[topicId] = state;
+    localStorage.setItem(LS.TESTEN, JSON.stringify(all));
+  } catch {}
+}
+function escHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function applyTpl(tpl, klient, fachkraft) {
+  return tpl.replace(/\{klient\}/g, klient).replace(/\{fachkraft\}/g, fachkraft);
+}
 
 function loadProgress() {
   try { return JSON.parse(localStorage.getItem(LS.PROGRESS)) || []; }
@@ -1182,6 +2191,7 @@ function showView(name) {
   document.getElementById('view-' + name).classList.add('active');
   STATE.currentView = name;
   stopSpeech();
+  if (name === 'home') renderGelerntMaster();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
@@ -1205,6 +2215,29 @@ function renderCategoryGrid() {
     `;
     card.addEventListener('click', () => openCategory(key));
     grid.appendChild(card);
+  });
+  renderGelerntMaster();
+}
+
+function renderGelerntMaster() {
+  const wrap = document.getElementById('gelerntMaster');
+  if (!wrap) return;
+  const gelernt = Object.values(TOPICS).filter(t => isTopicGelernt(loadTestState(t.id)));
+  if (gelernt.length === 0) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `
+    <div class="gelernt-master">
+      <div class="gelernt-master-title">Deine gelernten Themen · ${gelernt.length}</div>
+      <div class="gelernt-master-list">
+        ${gelernt.map(t => `
+          <button class="gelernt-master-item" data-topic="${escHtml(t.id)}">
+            <span class="gelernt-master-check">✓</span>${escHtml(t.titel)}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  wrap.querySelectorAll('[data-topic]').forEach(btn => {
+    btn.addEventListener('click', () => openArticle(btn.dataset.topic));
   });
 }
 
@@ -1231,10 +2264,14 @@ function openCategory(catKey) {
       item.className = 'topic-item';
       const ebenenGelesen = ['quintessenz','grundlagen','klinisch','spezialfaelle']
         .filter(e => isRead(topic.id, e)).length;
+      const gelernt = isTopicGelernt(loadTestState(topic.id));
       item.innerHTML = `
         <div>
-          <div class="topic-item-titel">${topic.titel}</div>
-          <div class="topic-item-meta">${ebenenGelesen}/4 Ebenen gelesen</div>
+          <div class="topic-item-titel-row">
+            <span class="topic-item-titel">${topic.titel}</span>
+            ${gelernt ? '<span class="topic-gelernt-badge" title="Als gelernt markiert">✓</span>' : ''}
+          </div>
+          <div class="topic-item-meta">${ebenenGelesen}/4 Ebenen gelesen${gelernt ? ' · gelernt' : ''}</div>
         </div>
         <span class="topic-item-arrow">→</span>
       `;
@@ -1254,6 +2291,10 @@ function openArticle(topicId, ebene = 'quintessenz') {
   STATE.currentTopicId = topicId;
   STATE.currentEbene = ebene;
   STATE.currentCategory = topic.kategorie;
+  STATE.testenView = 'overview';
+  STATE.flashcardFlipped = false;
+  STATE.szenarioStep = null;
+  STATE.uebenAlle = false;
 
   // Breadcrumb
   document.getElementById('bc-cat-2').textContent = CATEGORIES[topic.kategorie];
@@ -1276,31 +2317,795 @@ function renderEbene() {
   const topic = TOPICS[STATE.currentTopicId];
   if (!topic) return;
   const ebene = STATE.currentEbene;
-  const data = topic.ebenen?.[ebene];
   const body = document.getElementById('articleBody');
   const quellenWrap = document.getElementById('quellenWrap');
   const quellenList = document.getElementById('quellenList');
+  const audioPanel = document.querySelector('.audio-panel');
+  const audioCtrls = document.querySelector('.audio-controls');
+  const readBtn = document.getElementById('readBtn');
 
-  if (!data || !data.content) {
-    body.innerHTML = `<div class="empty-content">Inhalt für diese Ebene folgt.</div>`;
-    quellenWrap.style.display = 'none';
+  // Defaults zurücksetzen
+  quellenWrap.style.display = 'none';
+  audioPanel.style.display = '';
+  audioCtrls.style.display = '';
+  readBtn.style.display = '';
+
+  if (ebene === 'praxis') {
+    renderPraxis(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+  } else if (ebene === 'testen') {
+    renderTesten(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
   } else {
-    body.innerHTML = data.content;
-    if (data.quellen && data.quellen.length) {
-      quellenList.innerHTML = data.quellen.map(q => {
-        if (typeof q === 'string') return `<li>${q}</li>`;
-        const head = [q.autor, q.jahr ? `(${q.jahr})` : null].filter(Boolean).join(' ');
-        const body = [q.titel, q.fundstelle].filter(Boolean).join('. ');
-        return `<li>${[head, body].filter(Boolean).join('. ')}.</li>`;
-      }).join('');
-      quellenWrap.style.display = '';
+    const data = topic.ebenen?.[ebene];
+    if (!data || !data.content) {
+      body.innerHTML = `<div class="empty-content">Inhalt für diese Ebene folgt.</div>`;
     } else {
-      quellenWrap.style.display = 'none';
+      body.innerHTML = data.content;
+      if (data.quellen && data.quellen.length) {
+        quellenList.innerHTML = data.quellen.map(q => {
+          if (typeof q === 'string') return `<li>${q}</li>`;
+          const head = [q.autor, q.jahr ? `(${q.jahr})` : null].filter(Boolean).join(' ');
+          const tail = [q.titel, q.fundstelle].filter(Boolean).join('. ');
+          return `<li>${[head, tail].filter(Boolean).join('. ')}.</li>`;
+        }).join('');
+        quellenWrap.style.display = '';
+      }
     }
+    updateReadBtn();
   }
 
-  updateReadBtn();
   stopSpeech();
+}
+
+/* ============ PRAXIS-RENDERER ============ */
+
+function renderPraxis(topic, container) {
+  const data = topic.ebenen?.praxis;
+  if (!data) {
+    container.innerHTML = '<div class="empty-content">Praxis-Modul für dieses Thema folgt.</div>';
+    return;
+  }
+  const ps = loadPraxisState(topic.id);
+  if (!Array.isArray(ps.vorSitzung) || ps.vorSitzung.length !== data.vorSitzung.length) {
+    ps.vorSitzung = data.vorSitzung.map(() => false);
+  }
+  ps.profil = ps.profil || {};
+  ps.timelineNotizen = ps.timelineNotizen || {};
+
+  container.innerHTML = `
+    <section class="praxis">
+      <div class="praxis-eyebrow">Praxis · Werkzeuge</div>
+      <div class="praxis-intro">Sechs Werkzeuge für die konkrete Sitzungsarbeit. Alles wird lokal in deinem Browser gespeichert.</div>
+      <div class="praxis-grid">
+        ${renderPraxisVorSitzung(data, ps)}
+        ${renderPraxisProfil(data, ps)}
+        ${renderPraxisPhrasen(data)}
+        ${renderPraxisTimeline(data, ps)}
+        ${renderPraxisKrise(data)}
+        ${renderPraxisInfoTexte(data, ps)}
+      </div>
+    </section>
+  `;
+  bindPraxisEvents(topic, data, ps);
+}
+
+function renderPraxisVorSitzung(data, ps) {
+  const items = data.vorSitzung.map((text, i) => `
+    <li class="checklist-item ${ps.vorSitzung[i] ? 'done' : ''}">
+      <input type="checkbox" ${ps.vorSitzung[i] ? 'checked' : ''} data-tool="vorSitzung" data-idx="${i}">
+      <span>${escHtml(text)}</span>
+    </li>
+  `).join('');
+  return `
+    <div class="praxis-card">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">1</span>
+        <div class="praxis-card-title">Vor der Sitzung</div>
+        <div class="praxis-card-sub">Checkliste</div>
+      </div>
+      <ul class="checklist">${items}</ul>
+      <button class="praxis-card-action" data-tool="vorSitzung-reset">Zurücksetzen</button>
+    </div>
+  `;
+}
+
+function renderPraxisProfil(data, ps) {
+  const fields = data.klientProfilSchema.map(f => {
+    const v = ps.profil[f.key] || '';
+    let input = '';
+    if (f.type === 'select') {
+      input = `<select data-tool="profil" data-key="${f.key}">${
+        f.options.map(o => {
+          const val = (o === '—') ? '' : o;
+          const sel = (val === v) ? 'selected' : '';
+          return `<option value="${escHtml(val)}" ${sel}>${escHtml(o)}</option>`;
+        }).join('')
+      }</select>`;
+    } else if (f.type === 'textarea') {
+      input = `<textarea data-tool="profil" data-key="${f.key}" placeholder="${escHtml(f.placeholder || '')}">${escHtml(v)}</textarea>`;
+    }
+    return `<div class="profil-field ${f.full ? 'full' : ''}"><label>${escHtml(f.label)}</label>${input}</div>`;
+  }).join('');
+  return `
+    <div class="praxis-card">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">2</span>
+        <div class="praxis-card-title">Klient-Profil</div>
+        <div class="praxis-card-sub">Pro Thema gespeichert</div>
+      </div>
+      <div class="profil-grid">${fields}</div>
+      <div class="profil-saved" data-tool="profil-saved"></div>
+    </div>
+  `;
+}
+
+function renderPraxisPhrasen(data) {
+  const groups = data.phrasen.map(g => `
+    <div class="phrase-group">
+      <div class="phrase-group-title">${escHtml(g.group)}</div>
+      ${g.items.map(p => `
+        <div class="phrase-item">
+          <div class="phrase-text">„${escHtml(p)}“</div>
+          <button class="phrase-copy" data-tool="copy-phrase" data-text="${escHtml(p)}">Kopieren</button>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">3</span>
+        <div class="praxis-card-title">Gesprächs-Phrasen</div>
+        <div class="praxis-card-sub">Erprobte Formulierungen</div>
+      </div>
+      ${groups}
+    </div>
+  `;
+}
+
+function renderPraxisTimeline(data, ps) {
+  const rows = data.timeline.map((row, i) => `
+    <li class="timeline-row">
+      <div class="timeline-time">${escHtml(row.time)}</div>
+      <div>
+        <div class="timeline-content">${escHtml(row.text)}</div>
+        <textarea class="timeline-note" data-tool="timeline-note" data-idx="${i}" placeholder="Notiz für nächste Sitzung …">${escHtml(ps.timelineNotizen[i] || '')}</textarea>
+      </div>
+    </li>
+  `).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">4</span>
+        <div class="praxis-card-title">Sitzungs-Struktur</div>
+        <div class="praxis-card-sub">50 min, Asperger-optimiert</div>
+      </div>
+      <ul class="timeline">${rows}</ul>
+    </div>
+  `;
+}
+
+function renderPraxisKrise(data) {
+  const steps = data.krise.map((s, i) => `
+    <div class="crisis-step">
+      <div class="crisis-step-num">${i+1}</div>
+      <div class="crisis-step-text"><strong>${escHtml(s.titel)}</strong>${escHtml(s.text)}</div>
+    </div>
+  `).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">5</span>
+        <div class="praxis-card-title">Krisen-Protokoll</div>
+        <div class="praxis-card-sub">Bei Overload während der Sitzung</div>
+      </div>
+      ${steps}
+    </div>
+  `;
+}
+
+function renderPraxisInfoTexte(data, ps) {
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">6</span>
+        <div class="praxis-card-title">Informations-Texte</div>
+        <div class="praxis-card-sub">Personalisierbar, kopierbar</div>
+      </div>
+      ${renderInfoBlock('eltern', 'Für Eltern', data.elternText, ps)}
+      ${renderInfoBlock('schul',  'Für Lehrer:innen / Schule', data.schulText, ps)}
+    </div>
+  `;
+}
+
+function renderInfoBlock(key, title, template, ps) {
+  const klient    = ps[key+'Klient']    || '';
+  const fachkraft = ps[key+'Fachkraft'] || '';
+  const rendered  = applyTpl(template, klient || '[Klient:in]', fachkraft || '[Fachkraft]');
+  return `
+    <div class="info-text-block">
+      <div class="phrase-group-title">${escHtml(title)}</div>
+      <div class="info-text-toolbar">
+        <input type="text" data-tool="info" data-key="${key}Klient"    placeholder="Name Klient:in" value="${escHtml(klient)}">
+        <input type="text" data-tool="info" data-key="${key}Fachkraft" placeholder="Dein Name"      value="${escHtml(fachkraft)}">
+      </div>
+      <div class="info-text-preview" data-info-preview="${key}">${escHtml(rendered)}</div>
+      <button class="info-text-copy" data-tool="copy-info" data-key="${key}">Text kopieren</button>
+    </div>
+  `;
+}
+
+function bindPraxisEvents(topic, data, ps) {
+  const root = document.getElementById('articleBody');
+
+  root.querySelectorAll('input[data-tool="vorSitzung"]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const i = parseInt(e.target.dataset.idx, 10);
+      ps.vorSitzung[i] = e.target.checked;
+      savePraxisState(topic.id, ps);
+      e.target.closest('.checklist-item').classList.toggle('done', e.target.checked);
+    });
+  });
+
+  const resetBtn = root.querySelector('button[data-tool="vorSitzung-reset"]');
+  if (resetBtn) resetBtn.addEventListener('click', () => {
+    ps.vorSitzung = data.vorSitzung.map(() => false);
+    savePraxisState(topic.id, ps);
+    renderEbene();
+  });
+
+  root.querySelectorAll('[data-tool="profil"]').forEach(el => {
+    const handler = () => {
+      ps.profil[el.dataset.key] = el.value;
+      savePraxisState(topic.id, ps);
+      const note = root.querySelector('[data-tool="profil-saved"]');
+      if (note) {
+        note.textContent = '✓ gespeichert';
+        clearTimeout(window.__profilSavedTimer);
+        window.__profilSavedTimer = setTimeout(() => { note.textContent = ''; }, 1800);
+      }
+    };
+    el.addEventListener('change', handler);
+    if (el.tagName === 'TEXTAREA') el.addEventListener('input', handler);
+  });
+
+  root.querySelectorAll('[data-tool="copy-phrase"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      navigator.clipboard?.writeText(btn.dataset.text);
+      btn.classList.add('copied');
+      const orig = btn.textContent;
+      btn.textContent = 'Kopiert ✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 1800);
+    });
+  });
+
+  root.querySelectorAll('[data-tool="timeline-note"]').forEach(ta => {
+    ta.addEventListener('input', () => {
+      const i = parseInt(ta.dataset.idx, 10);
+      ps.timelineNotizen[i] = ta.value;
+      savePraxisState(topic.id, ps);
+    });
+  });
+
+  root.querySelectorAll('[data-tool="info"]').forEach(input => {
+    input.addEventListener('input', () => {
+      ps[input.dataset.key] = input.value;
+      savePraxisState(topic.id, ps);
+      const groupKey = input.dataset.key.startsWith('eltern') ? 'eltern' : 'schul';
+      const preview = root.querySelector(`[data-info-preview="${groupKey}"]`);
+      if (preview) {
+        const tpl = groupKey === 'eltern' ? data.elternText : data.schulText;
+        const klient    = ps[groupKey+'Klient']    || '[Klient:in]';
+        const fachkraft = ps[groupKey+'Fachkraft'] || '[Fachkraft]';
+        preview.textContent = applyTpl(tpl, klient, fachkraft);
+      }
+    });
+  });
+
+  root.querySelectorAll('[data-tool="copy-info"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.key;
+      const tpl = key === 'eltern' ? data.elternText : data.schulText;
+      const klient    = ps[key+'Klient']    || '[Klient:in]';
+      const fachkraft = ps[key+'Fachkraft'] || '[Fachkraft]';
+      navigator.clipboard?.writeText(applyTpl(tpl, klient, fachkraft));
+      btn.classList.add('copied');
+      const orig = btn.textContent;
+      btn.textContent = 'Kopiert ✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 1800);
+    });
+  });
+}
+
+/* ============ TESTEN-RENDERER ============ */
+
+const SR_INTERVALS = [1, 3, 7, 14, 30, 90]; // Tage
+
+function initKarteikarten(cards) {
+  const now = Date.now();
+  return cards.map(c => ({
+    karteId: c.id,
+    intervallTage: 0,
+    naechsteWiederholung: now,
+    schwierigkeit: null,
+    lastSeen: null
+  }));
+}
+
+function semCheck(input, schluessel) {
+  const inp = (input || '').toLowerCase();
+  return schluessel.every(group => group.some(kw => inp.includes(kw.toLowerCase())));
+}
+
+function fmtDate(ts) {
+  if (!ts) return '';
+  return new Date(ts).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+function isTopicGelernt(ts) {
+  return !!(
+    ts?.schnellpruefung?.completed &&
+    ts?.szenario?.completed &&
+    ts?.reflexion?.completed &&
+    Array.isArray(ts?.karteikarten) &&
+    ts.karteikarten.every(k => k.schwierigkeit != null)
+  );
+}
+
+function dueKarten(ts) {
+  return (ts?.karteikarten || []).filter(k => k.naechsteWiederholung <= Date.now()).length;
+}
+
+function chooseNextMode(ts) {
+  if (!ts.schnellpruefung?.completed) {
+    return { mode: 'schnellpruefung',
+             headline: 'Beginne mit der Schnellprüfung',
+             sub: 'Zehn Fragen, semantische Auswertung. Etwa fünf bis acht Minuten.' };
+  }
+  const due = dueKarten(ts);
+  if (due > 0) {
+    return { mode: 'karteikarten',
+             headline: `${due} Karteikarte${due === 1 ? '' : 'n'} warten auf Wiederholung`,
+             sub: 'Spaced Repetition — kurze, regelmäßige Sessions wirken am besten.' };
+  }
+  const dPru = (Date.now() - (ts.schnellpruefung.datum || 0)) / 86400000;
+  if (dPru >= 7 && !ts.szenario?.completed) {
+    return { mode: 'szenario',
+             headline: 'Bereit für das klinische Szenario',
+             sub: 'Eine Fall-Vignette mit drei Entscheidungspunkten. Etwa zehn Minuten.' };
+  }
+  if (!ts.szenario?.completed) {
+    return { mode: 'szenario',
+             headline: 'Klinisches Szenario',
+             sub: 'Wenn du willst, kannst du es schon angehen — sonst sind die Karteikarten dran.' };
+  }
+  if (!ts.reflexion?.completed) {
+    return { mode: 'reflexion',
+             headline: 'Reflexion zum Abschluss',
+             sub: 'Drei offene Fragen — was nimmst du in die Praxis mit?' };
+  }
+  if (isTopicGelernt(ts)) {
+    return { mode: null, done: true,
+             headline: 'Als gelernt markiert ✓',
+             sub: 'Karteikarten werden weiterhin nach Spaced-Repetition-Plan wiederholt.' };
+  }
+  return { mode: 'karteikarten',
+           headline: 'Bleib am Ball',
+           sub: 'Karteikarten zur Vertiefung — auch bevor sie fällig sind.' };
+}
+
+function renderTesten(topic, container) {
+  const data = topic.ebenen?.testen;
+  if (!data) {
+    container.innerHTML = '<div class="empty-content">Testen-Modul für dieses Thema folgt.</div>';
+    return;
+  }
+  const ts = loadTestState(topic.id);
+  ts.schnellpruefung = ts.schnellpruefung || {};
+  if (!Array.isArray(ts.karteikarten) || ts.karteikarten.length !== data.karteikarten.length) {
+    ts.karteikarten = initKarteikarten(data.karteikarten);
+  }
+  ts.szenario = ts.szenario || {};
+  ts.reflexion = ts.reflexion || { antworten: {} };
+  saveTestState(topic.id, ts);
+
+  if (!STATE.testenView) STATE.testenView = 'overview';
+
+  switch (STATE.testenView) {
+    case 'schnellpruefung': return renderModusSchnellpruefung(topic, data, ts, container);
+    case 'karteikarten':    return renderModusKarteikarten(topic, data, ts, container);
+    case 'szenario':        return renderModusSzenario(topic, data, ts, container);
+    case 'reflexion':       return renderModusReflexion(topic, data, ts, container);
+    default:                return renderTestenOverview(topic, data, ts, container);
+  }
+}
+
+function renderTestenOverview(topic, data, ts, container) {
+  const next = chooseNextMode(ts);
+  const due = dueKarten(ts);
+  const allKartenSeen = ts.karteikarten.every(k => k.schwierigkeit != null);
+  const modes = [
+    { key: 'schnellpruefung', num: '01', title: 'Schnellprüfung',
+      state: ts.schnellpruefung?.completed
+        ? `${ts.schnellpruefung.score}/${data.schnellpruefung.length} · ${fmtDate(ts.schnellpruefung.datum)}`
+        : `${data.schnellpruefung.length} Items · semantische Auswertung`,
+      done: !!ts.schnellpruefung?.completed },
+    { key: 'karteikarten', num: '02', title: 'Karteikarten',
+      state: due > 0 ? `${due} fällig zur Wiederholung` : `${data.karteikarten.length} Karten · Spaced Repetition`,
+      done: allKartenSeen },
+    { key: 'szenario', num: '03', title: 'Klinisches Szenario',
+      state: ts.szenario?.completed ? `Abgeschlossen · ${fmtDate(ts.szenario.datum)}` : `${data.szenario.entscheidungen.length} Entscheidungspunkte`,
+      done: !!ts.szenario?.completed },
+    { key: 'reflexion', num: '04', title: 'Reflexion',
+      state: ts.reflexion?.completed ? `Abgeschlossen · ${fmtDate(ts.reflexion.datum)}` : `${data.reflexion.fragen.length} offene Fragen`,
+      done: !!ts.reflexion?.completed }
+  ];
+
+  container.innerHTML = `
+    <section class="testen">
+      <div class="lern-manager">
+        <div class="lern-manager-eyebrow">Lern-Manager · Empfehlung</div>
+        <div class="lern-manager-headline">${escHtml(next.headline)}</div>
+        <div class="lern-manager-sub">${escHtml(next.sub)}</div>
+        ${next.done
+          ? `<span class="lern-manager-done">Gelernt-Status erreicht</span>`
+          : (next.mode ? `<button class="lern-manager-cta" data-tool="testen-go" data-mode="${next.mode}">Loslegen</button>` : '')}
+      </div>
+      <div class="testen-modes">
+        ${modes.map(m => `
+          <button class="mode-card ${m.done ? 'done' : ''}" data-tool="testen-go" data-mode="${m.key}">
+            <div class="mode-card-head"><span class="mode-card-num">Modus ${m.num}</span></div>
+            <div class="mode-card-title">${escHtml(m.title)}</div>
+            <div class="mode-card-state">${escHtml(m.state)}</div>
+          </button>
+        `).join('')}
+      </div>
+    </section>
+  `;
+
+  container.querySelectorAll('[data-tool="testen-go"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      STATE.testenView = btn.dataset.mode;
+      renderEbene();
+    });
+  });
+}
+
+function renderModusSchnellpruefung(topic, data, ts, container) {
+  const items = data.schnellpruefung;
+  const sp = ts.schnellpruefung;
+  if (!Array.isArray(sp.draft) || sp.draft.length !== items.length) sp.draft = items.map(() => '');
+  const evaluated = !!sp.evaluated;
+
+  const qs = items.map((q, i) => {
+    const ans = sp.draft[i] || '';
+    let cls = '', feedback = '';
+    if (evaluated) {
+      const ok = semCheck(ans, q.schluessel);
+      cls = ok ? 'correct' : 'wrong';
+      feedback = `<div class="quiz-q-feedback ${cls}">
+        <strong>${ok ? 'Richtig.' : 'Noch nicht.'}</strong> ${escHtml(q.loesung)}
+      </div>`;
+    }
+    return `
+      <div class="quiz-q">
+        <div class="quiz-q-num">Frage ${i+1} / ${items.length}</div>
+        <div class="quiz-q-text">${escHtml(q.frage)}</div>
+        <textarea class="quiz-q-input ${cls}" data-tool="quiz-input" data-idx="${i}" ${evaluated ? 'readonly' : ''} placeholder="Antwort in eigenen Worten …">${escHtml(ans)}</textarea>
+        ${feedback}
+      </div>
+    `;
+  }).join('');
+
+  const resultBlock = evaluated ? `
+    <div class="quiz-result">
+      <div class="quiz-result-score">${sp.score} / ${items.length}</div>
+      <div class="quiz-result-label">Ergebnis Schnellprüfung</div>
+    </div>` : '';
+
+  container.innerHTML = `
+    <section class="testen">
+      <button class="test-back" data-tool="testen-back">← Übersicht</button>
+      ${resultBlock}
+      <h3 style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;margin-bottom:20px;letter-spacing:-0.01em;">Schnellprüfung</h3>
+      ${qs}
+      <div class="quiz-actions">
+        ${evaluated
+          ? `<button class="quiz-restart" data-tool="quiz-restart">Nochmal versuchen</button>`
+          : `<button class="quiz-submit" data-tool="quiz-submit">Auswerten</button>`}
+      </div>
+    </section>
+  `;
+
+  container.querySelector('[data-tool="testen-back"]')?.addEventListener('click', () => {
+    STATE.testenView = 'overview';
+    renderEbene();
+  });
+
+  container.querySelectorAll('[data-tool="quiz-input"]').forEach(ta => {
+    ta.addEventListener('input', () => {
+      const i = parseInt(ta.dataset.idx, 10);
+      sp.draft[i] = ta.value;
+      saveTestState(topic.id, ts);
+    });
+  });
+
+  container.querySelector('[data-tool="quiz-submit"]')?.addEventListener('click', () => {
+    let score = 0;
+    items.forEach((q, i) => { if (semCheck(sp.draft[i] || '', q.schluessel)) score++; });
+    sp.evaluated = true;
+    sp.completed = true;
+    sp.score = score;
+    sp.datum = Date.now();
+    saveTestState(topic.id, ts);
+    renderEbene();
+  });
+
+  container.querySelector('[data-tool="quiz-restart"]')?.addEventListener('click', () => {
+    sp.draft = items.map(() => '');
+    sp.evaluated = false;
+    saveTestState(topic.id, ts);
+    renderEbene();
+  });
+}
+
+function renderModusKarteikarten(topic, data, ts, container) {
+  const cards = data.karteikarten;
+  const cardById = Object.fromEntries(cards.map(c => [c.id, c]));
+  const now = Date.now();
+
+  let queue = ts.karteikarten
+    .filter(k => k.naechsteWiederholung <= now)
+    .sort((a, b) => a.naechsteWiederholung - b.naechsteWiederholung);
+
+  if (queue.length === 0 && STATE.uebenAlle) {
+    queue = ts.karteikarten.slice()
+      .sort((a, b) => a.naechsteWiederholung - b.naechsteWiederholung);
+  }
+
+  if (queue.length === 0) {
+    const allReviewed = ts.karteikarten.every(k => k.schwierigkeit != null);
+    const nextK = ts.karteikarten.slice().sort((a, b) => a.naechsteWiederholung - b.naechsteWiederholung)[0];
+    const daysUntilNext = nextK ? Math.max(0, Math.ceil((nextK.naechsteWiederholung - now) / 86400000)) : 0;
+    container.innerHTML = `
+      <section class="testen">
+        <button class="test-back" data-tool="testen-back">← Übersicht</button>
+        <div class="flashcard-empty">
+          <strong>Keine Karten fällig.</strong>
+          ${allReviewed
+            ? `Nächste Wiederholung in ${daysUntilNext} Tag${daysUntilNext === 1 ? '' : 'en'}.`
+            : `Du hast alle aktuell fälligen Karten beantwortet.`}
+          <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+            <button class="lern-manager-cta" data-tool="ueben-alle">Trotzdem üben</button>
+            <button class="praxis-card-action" data-tool="testen-back">Zur Übersicht</button>
+          </div>
+        </div>
+      </section>
+    `;
+    container.querySelectorAll('[data-tool="testen-back"]').forEach(b =>
+      b.addEventListener('click', () => { STATE.testenView = 'overview'; STATE.uebenAlle = false; renderEbene(); })
+    );
+    container.querySelector('[data-tool="ueben-alle"]')?.addEventListener('click', () => {
+      STATE.uebenAlle = true;
+      renderEbene();
+    });
+    return;
+  }
+
+  const stateCard = queue[0];
+  const card = cardById[stateCard.karteId];
+  if (!card) {
+    ts.karteikarten = ts.karteikarten.filter(k => k.karteId !== stateCard.karteId);
+    saveTestState(topic.id, ts);
+    return renderEbene();
+  }
+  const flipped = !!STATE.flashcardFlipped;
+  const total = ts.karteikarten.length;
+  const remaining = queue.length;
+
+  container.innerHTML = `
+    <section class="testen">
+      <button class="test-back" data-tool="testen-back">← Übersicht</button>
+      <div class="flashcard-progress">Noch ${remaining} von ${total} · Intervall ${stateCard.intervallTage} ${stateCard.intervallTage === 1 ? 'Tag' : 'Tage'}</div>
+      <div class="flashcard ${flipped ? 'flipped' : ''}" data-tool="flashcard-flip">
+        <div class="flashcard-side">${flipped ? 'Antwort' : 'Frage'}</div>
+        <div class="flashcard-text">${escHtml(flipped ? card.r : card.v)}</div>
+        ${!flipped ? `<div style="margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.18em;color:var(--sage);">Klicken zum Aufdecken</div>` : ''}
+      </div>
+      ${flipped ? `
+        <div class="flashcard-buttons">
+          <button class="flashcard-btn again" data-tool="kk-rate" data-rating="again">Wusste ich nicht</button>
+          <button class="flashcard-btn hard"  data-tool="kk-rate" data-rating="hard">Schwer</button>
+          <button class="flashcard-btn good"  data-tool="kk-rate" data-rating="good">Wusste ich</button>
+        </div>` : ''}
+    </section>
+  `;
+
+  container.querySelector('[data-tool="testen-back"]')?.addEventListener('click', () => {
+    STATE.testenView = 'overview';
+    STATE.uebenAlle = false;
+    STATE.flashcardFlipped = false;
+    renderEbene();
+  });
+  container.querySelector('[data-tool="flashcard-flip"]')?.addEventListener('click', () => {
+    STATE.flashcardFlipped = !STATE.flashcardFlipped;
+    renderEbene();
+  });
+  container.querySelectorAll('[data-tool="kk-rate"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const rating = btn.dataset.rating;
+      const day = 86400000;
+      if (rating === 'again') {
+        stateCard.intervallTage = 1;
+      } else if (rating === 'hard') {
+        stateCard.intervallTage = 3;
+      } else {
+        const i = SR_INTERVALS.indexOf(stateCard.intervallTage);
+        const nextI = i >= 0 ? Math.min(i + 1, SR_INTERVALS.length - 1) : 0;
+        stateCard.intervallTage = SR_INTERVALS[nextI];
+      }
+      stateCard.naechsteWiederholung = Date.now() + stateCard.intervallTage * day;
+      stateCard.schwierigkeit = rating;
+      stateCard.lastSeen = Date.now();
+      saveTestState(topic.id, ts);
+      STATE.flashcardFlipped = false;
+      renderEbene();
+    });
+  });
+}
+function renderModusSzenario(topic, data, ts, container) {
+  const sc = data.szenario;
+  const sz = ts.szenario;
+  if (!Array.isArray(sz.entscheidungen)) sz.entscheidungen = [];
+
+  const totalSteps = sc.entscheidungen.length;
+  if (STATE.szenarioStep == null) {
+    STATE.szenarioStep = sz.entscheidungen.length;
+  }
+  let step = STATE.szenarioStep;
+
+  if (step >= totalSteps) {
+    const score = sz.entscheidungen
+      .filter((e, i) => e && e.gewaehlt === sc.entscheidungen[i].beste).length;
+    if (!sz.completed) {
+      sz.completed = true;
+      sz.datum = Date.now();
+      saveTestState(topic.id, ts);
+    }
+    const verdict = score === totalSteps
+      ? 'Alle Entscheidungen optimal. Du hast die Asperger-spezifische Lese- und Reaktionsstruktur verinnerlicht.'
+      : score >= Math.ceil(totalSteps * 0.6)
+        ? 'Solider Verlauf. Schau dir die Begründungen noch einmal an — vor allem die Entscheidung, die nicht optimal war.'
+        : 'Wiederhole das Szenario in ein paar Tagen. Die Begründungen zeigen das Asperger-spezifische Muster.';
+    container.innerHTML = `
+      <section class="testen">
+        <button class="test-back" data-tool="testen-back">← Übersicht</button>
+        <div class="quiz-result">
+          <div class="quiz-result-score">${score} / ${totalSteps}</div>
+          <div class="quiz-result-label">Beste Entscheidungen getroffen</div>
+        </div>
+        <p style="font-family:'Fraunces',serif;font-size:17px;line-height:1.55;margin-bottom:18px;">${escHtml(verdict)}</p>
+        <div class="quiz-actions">
+          <button class="quiz-restart" data-tool="szenario-restart">Nochmal durchgehen</button>
+        </div>
+      </section>
+    `;
+    container.querySelector('[data-tool="testen-back"]')?.addEventListener('click', () => {
+      STATE.testenView = 'overview';
+      STATE.szenarioStep = null;
+      renderEbene();
+    });
+    container.querySelector('[data-tool="szenario-restart"]')?.addEventListener('click', () => {
+      sz.entscheidungen = [];
+      saveTestState(topic.id, ts);
+      STATE.szenarioStep = 0;
+      renderEbene();
+    });
+    return;
+  }
+
+  const ent = sc.entscheidungen[step];
+  const previous = sz.entscheidungen[step];
+  const isAnswered = !!previous;
+
+  const options = ent.optionen.map(o => {
+    let cls = '';
+    if (isAnswered) {
+      if (o.letter === ent.beste) cls = 'best';
+      else if (o.letter === previous.gewaehlt) cls = 'wrong';
+    }
+    return `
+      <button class="szenario-option ${cls}" data-tool="szenario-pick" data-letter="${o.letter}" ${isAnswered ? 'disabled' : ''}>
+        <span class="szenario-letter">${o.letter}</span>${escHtml(o.text)}
+      </button>
+    `;
+  }).join('');
+
+  const feedback = isAnswered ? `
+    <div class="szenario-feedback">
+      <strong>${previous.gewaehlt === ent.beste ? 'Beste Wahl.' : `Nicht optimal. Beste Wahl: ${ent.beste}.`}</strong>
+      ${escHtml(ent.begruendung)}
+    </div>
+    <button class="szenario-next" data-tool="szenario-next">${step + 1 < totalSteps ? 'Nächste Entscheidung' : 'Szenario abschließen'}</button>
+  ` : '';
+
+  container.innerHTML = `
+    <section class="testen">
+      <button class="test-back" data-tool="testen-back">← Übersicht</button>
+      ${step === 0 ? `<div class="szenario-vignette">${escHtml(sc.vignette)}</div>` : ''}
+      <div class="szenario-step-num">Entscheidung ${step + 1} / ${totalSteps}</div>
+      <div class="szenario-q">${escHtml(ent.frage)}</div>
+      <div class="szenario-options">${options}</div>
+      ${feedback}
+    </section>
+  `;
+
+  container.querySelector('[data-tool="testen-back"]')?.addEventListener('click', () => {
+    STATE.testenView = 'overview';
+    STATE.szenarioStep = null;
+    renderEbene();
+  });
+  container.querySelectorAll('[data-tool="szenario-pick"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sz.entscheidungen[step] = { gewaehlt: btn.dataset.letter };
+      saveTestState(topic.id, ts);
+      renderEbene();
+    });
+  });
+  container.querySelector('[data-tool="szenario-next"]')?.addEventListener('click', () => {
+    STATE.szenarioStep = step + 1;
+    renderEbene();
+  });
+}
+
+function renderModusReflexion(topic, data, ts, container) {
+  const fragen = data.reflexion.fragen;
+  const rf = ts.reflexion;
+  if (!rf.antworten) rf.antworten = {};
+
+  const qs = fragen.map((f, i) => `
+    <div class="reflexion-q">
+      <div class="reflexion-q-num">Frage ${i+1} / ${fragen.length}</div>
+      <div class="reflexion-q-text">${escHtml(f)}</div>
+      <textarea class="reflexion-textarea" data-tool="reflexion-input" data-idx="${i}" placeholder="Deine Antwort …">${escHtml(rf.antworten[i] || '')}</textarea>
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <section class="testen">
+      <button class="test-back" data-tool="testen-back">← Übersicht</button>
+      <h3 style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;margin-bottom:8px;letter-spacing:-0.01em;">Reflexion</h3>
+      <p style="color:var(--sage);font-size:14px;margin-bottom:24px;line-height:1.5;">Drei offene Fragen — deine Antworten bleiben lokal in deinem Browser.</p>
+      ${qs}
+      <div class="quiz-actions">
+        <button class="quiz-submit" data-tool="reflexion-finish">${rf.completed ? 'Aktualisieren' : 'Reflexion abschließen'}</button>
+      </div>
+      ${rf.completed ? `<div class="profil-saved" style="margin-top:14px;color:var(--gold);">✓ Abgeschlossen am ${fmtDate(rf.datum)}</div>` : ''}
+    </section>
+  `;
+
+  container.querySelector('[data-tool="testen-back"]')?.addEventListener('click', () => {
+    STATE.testenView = 'overview';
+    renderEbene();
+  });
+  container.querySelectorAll('[data-tool="reflexion-input"]').forEach(ta => {
+    ta.addEventListener('input', () => {
+      const i = parseInt(ta.dataset.idx, 10);
+      rf.antworten[i] = ta.value;
+      saveTestState(topic.id, ts);
+    });
+  });
+  container.querySelector('[data-tool="reflexion-finish"]')?.addEventListener('click', () => {
+    rf.completed = true;
+    rf.datum = Date.now();
+    saveTestState(topic.id, ts);
+    renderEbene();
+  });
 }
 
 function updateReadBtn() {
