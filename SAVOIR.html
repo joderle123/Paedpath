@@ -434,6 +434,22 @@
     color: var(--ink);
     border-bottom-color: var(--rust);
   }
+  .tab-quintessenz {
+    color: var(--gold);
+    position: relative;
+  }
+  .tab-quintessenz::before {
+    content: '◆';
+    margin-right: 8px;
+    font-size: 8px;
+    vertical-align: middle;
+    color: var(--gold);
+  }
+  .tab-quintessenz:hover { color: var(--rust); }
+  .tab-quintessenz.active {
+    color: var(--rust);
+    border-bottom-color: var(--gold);
+  }
 
   .article-body {
     font-size: 17px;
@@ -472,6 +488,65 @@
     line-height: 0.85;
     padding: 8px 14px 0 0;
     color: var(--rust);
+  }
+
+  /* Quintessenz — Postkarte aus dem Thema */
+  .quintessenz {
+    border-left: 4px solid var(--gold);
+    padding: 8px 0 8px 36px;
+    margin-left: 4px;
+  }
+  .quintessenz .q-block {
+    margin-bottom: 64px;
+  }
+  .quintessenz .q-block:last-child { margin-bottom: 8px; }
+  .quintessenz .q-block-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin: 0 0 26px 0;
+  }
+  .quintessenz .q-text,
+  .quintessenz .q-list p {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .quintessenz .q-text { margin: 0; }
+  .quintessenz .q-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .quintessenz .q-list p {
+    margin: 0;
+    padding-left: 24px;
+    position: relative;
+  }
+  .quintessenz .q-list p::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  /* Drop-Cap in Quintessenz unterdrücken */
+  .article-body > .quintessenz:first-child::first-letter,
+  .article-body .quintessenz p::first-letter {
+    font-family: inherit;
+    font-weight: inherit;
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    color: inherit;
   }
 
   .quellen {
@@ -681,7 +756,8 @@
       </div>
 
       <nav class="tabs" id="ebenenTabs">
-        <button class="tab active" data-ebene="grundlagen">Grundlagen</button>
+        <button class="tab tab-quintessenz active" data-ebene="quintessenz">Quintessenz</button>
+        <button class="tab" data-ebene="grundlagen">Grundlagen</button>
         <button class="tab" data-ebene="klinisch">Klinisch</button>
         <button class="tab" data-ebene="spezialfaelle">Spezialfälle</button>
       </nav>
@@ -738,6 +814,40 @@ const TOPICS = {
     titel: 'Autismus-Spektrum: Asperger-Profil',
     kategorie: 'A',
     ebenen: {
+      quintessenz: {
+        content: `
+<section class="quintessenz">
+  <div class="q-block">
+    <div class="q-block-title">Das Wesentliche</div>
+    <p class="q-text">Das Asperger-Profil ist ein neurobiologisch begründetes Wahrnehmungs- und Verarbeitungsmuster, kein Funktionsdefizit. Die meisten Schwierigkeiten, die in der Versorgung sichtbar werden, sind sekundäre Folgen eines chronischen Mismatchs zwischen autistischer Verarbeitung und einer neurotypisch getakteten Umwelt — nicht der Verarbeitung selbst. Wer mit dem Asperger-Profil arbeitet, muss zuerst lernen, die Welt aus dieser Perspektive zu sehen, bevor er sinnvoll an ihr verändern kann.</p>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Was du wissen musst</div>
+    <div class="q-list">
+      <p>Camouflaging ist häufiger als das, was klinisch als Asperger sichtbar wird — besonders bei Mädchen, Frauen und kognitiv begabten Personen. Es ist die teuerste autistische Verhaltensweise, weil sie die Person selbst kostet.</p>
+      <p>Autistic Burnout ist nicht Depression. Beides kann nebeneinander stehen, aber die Behandlung unterscheidet sich grundlegend: Burnout braucht Reduktion, sensorische Schutzräume und Spezialinteressen — keine Aktivierung.</p>
+      <p>Spezialinteressen sind keine Symptome, die zu reduzieren wären, sondern die wichtigste Selbstregulationsressource und oft die stabilste biographische Linie. Wer sie pathologisiert, behandelt schädlich.</p>
+      <p>Theory of Mind ist beim Asperger-Profil nicht abwesend, sondern verzögert, kompensatorisch und kognitiv aufwendig. Sie kollabiert unter Stress, Erschöpfung und sensorischer Überlastung — nicht im Ruhezustand.</p>
+      <p>Das offizielle Geschlechterverhältnis von 4:1 zugunsten der Jungen ist diagnostisch verzerrt, nicht biologisch begründet. Die wahre Verteilung liegt näher an 2:1, in Erwachsenen-Spätdiagnosen oft bei Parität.</p>
+      <p>Die Suizidmortalität ist beim Asperger-Profil etwa neunfach erhöht. Standard-Risikoindikatoren erfassen sie schlecht, weil affektive Kühle, Camouflaging und planerische Klarheit täuschen.</p>
+      <p>„High-functioning“ beschreibt Funktion von außen, nicht inneren Aufwand. Wer im Beruf brilliert, kann zu Hause sensorisch und kommunikativ kollabieren — und diese Asymmetrie ist die Regel, nicht die Ausnahme.</p>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Was du im Hinterkopf behältst</div>
+    <div class="q-list">
+      <p>Bei Therapieabbruch zuerst die Struktur prüfen, nicht die Motivation. Nondirektive Formate scheitern am Asperger-Profil, nicht umgekehrt.</p>
+      <p>Wenn Eltern sagen „zu Hause ist sie eigentlich ganz normal“, frag nach Masking und nach dem after-school restraint collapse — nicht nach Erziehung.</p>
+      <p>Eine späte Borderline-Diagnose bei einer kognitiv begabten Frau mit lebenslanger sozialer Erschöpfung verdient zuerst eine autismusspezifische Differenzialdiagnose, bevor sie behandelt wird.</p>
+      <p>Suizidalität ist neunfach erhöht — auch wenn der Affekt ruhig, höflich und sortiert wirkt. Gerade dann.</p>
+    </div>
+  </div>
+</section>
+        `,
+        quellen: []
+      },
       grundlagen: {
         content: `
 <p>Das Autismus-Spektrum bezeichnet eine neuroentwicklungsbedingte Variation der Wahrnehmung, des sozialen Verstehens und der Informationsverarbeitung. Mit der Einführung von DSM-5 (2013) und ICD-11 (in Kraft seit 2022) wurden die früheren Subtypen — frühkindlicher Autismus, Asperger-Syndrom, atypischer Autismus, desintegrative Störung — zu einer einheitlichen Kategorie zusammengeführt: der <strong>Autismus-Spektrum-Störung</strong> (ICD-11: 6A02). Die Verschiebung war keine begriffliche Nuance, sondern ein methodischer Wechsel: Statt kategorialer Diagnosen wird das Spektrum dimensional verstanden und nach Schweregrad, Sprachvermögen, intellektuellem Funktionsniveau und Komorbiditäten spezifiziert. Das Asperger-Syndrom existiert in den aktuellen Klassifikationssystemen also nicht mehr als eigenständige Diagnose.</p>
@@ -1157,7 +1267,7 @@ const STATE = {
   currentView: 'home',
   currentCategory: null,
   currentTopicId: null,
-  currentEbene: 'grundlagen',
+  currentEbene: 'quintessenz',
   speech: {
     utterance: null,
     playing: false,
@@ -1278,12 +1388,12 @@ function openCategory(catKey) {
     topics.forEach(topic => {
       const item = document.createElement('div');
       item.className = 'topic-item';
-      const ebenenGelesen = ['grundlagen','klinisch','spezialfaelle']
+      const ebenenGelesen = ['quintessenz','grundlagen','klinisch','spezialfaelle']
         .filter(e => isRead(topic.id, e)).length;
       item.innerHTML = `
         <div>
           <div class="topic-item-titel">${topic.titel}</div>
-          <div class="topic-item-meta">${ebenenGelesen}/3 Ebenen gelesen</div>
+          <div class="topic-item-meta">${ebenenGelesen}/4 Ebenen gelesen</div>
         </div>
         <span class="topic-item-arrow">→</span>
       `;
@@ -1297,7 +1407,7 @@ function openCategory(catKey) {
 
 /* ============ ARTICLE VIEW ============ */
 
-function openArticle(topicId, ebene = 'grundlagen') {
+function openArticle(topicId, ebene = 'quintessenz') {
   const topic = TOPICS[topicId];
   if (!topic) return;
   STATE.currentTopicId = topicId;
