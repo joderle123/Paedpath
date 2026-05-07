@@ -1190,6 +1190,37 @@
     border-left: 3px solid var(--rust);
   }
   .quiz-q-feedback strong { color: var(--rust); }
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 0 4px;
+  }
+  .quiz-option {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: left;
+    color: var(--ink);
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .quiz-option:hover { border-color: var(--gold); }
+  .quiz-option.chosen { border-color: var(--rust); background: rgba(163,80,31,0.04); }
+  .quiz-option.best { border-color: var(--gold); background: rgba(212,169,63,0.1); }
+  .quiz-option.wrong { border-color: var(--rust); background: rgba(163,80,31,0.06); }
+  .quiz-option:disabled { cursor: default; }
+  .quiz-option .szenario-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--rust);
+    margin-right: 10px;
+  }
   .quiz-actions {
     display: flex;
     gap: 12px;
@@ -2548,6 +2579,217 @@ const TOPICS = {
             ]
           }
         ]
+      },
+      testen: {
+        schnellpruefung: [
+          {
+            frage: 'Warum wird ADHS unaufmerksam bei Mädchen besonders oft übersehen?',
+            optionen: [
+              { letter: 'A', text: 'Weil Mädchen seltener betroffen sind' },
+              { letter: 'B', text: 'Weil sie früh gelernt haben zu kompensieren — auf Kosten chronischer Erschöpfung' },
+              { letter: 'C', text: 'Weil weibliches ADHS ein anderes neurologisches Substrat hat' },
+              { letter: 'D', text: 'Weil bei ihnen die Symptome erst ab Pubertät auftreten' }
+            ],
+            beste: 'B',
+            begruendung: 'Kompensation durch Mehrarbeit ist der Schlüssel. Häufigkeit ist gleich (A falsch). Substrat ist nicht anders, nur Präsentation (C falsch). Symptome sind oft seit dem Kindergarten da, werden aber erst spät erkannt (D falsch).'
+          },
+          {
+            frage: 'Was ist Time Blindness konkret?',
+            optionen: [
+              { letter: 'A', text: 'Eine Lernschwäche bei Mathematik' },
+              { letter: 'B', text: 'Die Unfähigkeit, Zeit zu planen' },
+              { letter: 'C', text: 'Zeit ist nicht spürbar — es gibt nur „jetzt" und „nicht jetzt"' },
+              { letter: 'D', text: 'Eine Schlafstörung mit verändertem Wachrhythmus' }
+            ],
+            beste: 'C',
+            begruendung: 'Barkleys Konzept beschreibt die fehlende innere Zeitwahrnehmung. Planung scheitert daran (B ist Symptom, nicht Definition). A und D sind Verwechslungen mit Dyskalkulie und zirkadianer Rhythmusstörung.'
+          },
+          {
+            frage: 'Welche Aussage zu Stimulanzien bei ADHS unaufmerksam trifft zu?',
+            optionen: [
+              { letter: 'A', text: 'Sie wirken nur bei der hyperaktiven Form' },
+              { letter: 'B', text: 'Sie wirken auch bei der unaufmerksamen Form gleich gut' },
+              { letter: 'C', text: 'Sie sind bei nicht-hyperaktiven Klienten kontraindiziert' },
+              { letter: 'D', text: 'Sie wirken nur in Kombination mit Verhaltenstherapie' }
+            ],
+            beste: 'B',
+            begruendung: 'Häufiger Lehrer-Mythos: „Mein Schüler ist ja ruhig, der braucht keine Medikamente." Stimulanzien adressieren das Kerndefizit (Aufmerksamkeitsregulation, exekutive Funktionen) — egal ob Hyperaktivität sichtbar ist oder nicht.'
+          },
+          {
+            frage: 'Eine 14-jährige Klientin ist chronisch erschöpft, hat zunehmend Konzentrationsprobleme, ist gereizt und zieht sich zurück. Was ist die wichtigste differentialdiagnostische Unterscheidung?',
+            optionen: [
+              { letter: 'A', text: 'Schilddrüsenunterfunktion versus Eisenmangel' },
+              { letter: 'B', text: 'Depression versus ADHS unaufmerksam (lange kompensiert)' },
+              { letter: 'C', text: 'Borderline versus normale Pubertät' },
+              { letter: 'D', text: 'Soziale Angst versus Schulverweigerung' }
+            ],
+            beste: 'B',
+            begruendung: 'Kompensiertes ADHS bei Mädchen führt nach Jahren zu Erschöpfung und sekundärer Depression. Behandlung der Depression ohne ADHS-Diagnostik bleibt oft erfolglos. A wäre routinemäßige somatische Abklärung. C und D sind andere Differentialdiagnosen, hier nicht führend.'
+          },
+          {
+            frage: 'Was ist Rejection Sensitive Dysphoria?',
+            optionen: [
+              { letter: 'A', text: 'Eine Form der Borderline-Störung' },
+              { letter: 'B', text: 'Eine extreme emotionale Reaktion auf wahrgenommene Zurückweisung, häufig bei ADHS' },
+              { letter: 'C', text: 'Eine Variante der sozialen Angststörung' },
+              { letter: 'D', text: 'Eine Begleiterscheinung jeder Adoleszenz' }
+            ],
+            beste: 'B',
+            begruendung: 'RSD ist ein klinisches Phänomen, das stark mit ADHS assoziiert ist und oft als Borderline fehldiagnostiziert wird (A häufiger Fehler). Soziale Angst hat ein anderes Phänomen — Vermeidung statt extreme Reaktion (C falsch). Nicht jeder Adoleszent reagiert so intensiv (D falsch).'
+          },
+          {
+            frage: 'Welche Konzentrationsproblematik weist eher auf ADHS als auf Depression hin?',
+            optionen: [
+              { letter: 'A', text: 'Konzentration nur in spannenden Situationen erhalten' },
+              { letter: 'B', text: 'Konzentration generell verlangsamt' },
+              { letter: 'C', text: 'Konzentration nur am Abend gestört' },
+              { letter: 'D', text: 'Konzentration durch innere Unruhe blockiert' }
+            ],
+            beste: 'A',
+            begruendung: 'Hyperfokus bei Spezialinteressen ist ADHS-typisch. Bei Depression ist Konzentration durchgängig reduziert (B). Tageszeitliche Schwankungen (C) deuten eher auf Schlafstörung. Innere Unruhe als Konzentrationsblocker (D) ist eher Angst.'
+          },
+          {
+            frage: 'Was ist die häufigste klinische Falle bei der Behandlung einer chronisch depressiven jungen Frau?',
+            optionen: [
+              { letter: 'A', text: 'Antidepressiva zu früh ansetzen' },
+              { letter: 'B', text: 'Schlafhygiene zu vernachlässigen' },
+              { letter: 'C', text: 'Eine zugrundeliegende ADHS unaufmerksam zu übersehen' },
+              { letter: 'D', text: 'Die Therapiefrequenz zu niedrig zu wählen' }
+            ],
+            beste: 'C',
+            begruendung: 'Frauen mit unerkanntem ADHS, die jahrelang kompensiert haben, entwickeln häufig sekundäre Depression. Die Depression bessert sich nie wirklich, solange das ADHS nicht erkannt ist. Die anderen Punkte sind weniger spezifische Probleme.'
+          },
+          {
+            frage: 'Eine Mutter sagt im Erstgespräch über ihre 12-jährige Tochter: „Sie verträumt sich seit dem Kindergarten." Was ist die klinisch sinnvollste erste Hypothese?',
+            optionen: [
+              { letter: 'A', text: 'Eine kreative Persönlichkeit' },
+              { letter: 'B', text: 'ADHS unaufmerksam' },
+              { letter: 'C', text: 'Eine dissoziative Tendenz' },
+              { letter: 'D', text: 'Eine Lernstörung' }
+            ],
+            beste: 'B',
+            begruendung: '„Verträumt seit dem Kindergarten" ist ein Schlüsselsatz für die unaufmerksame Form. Die anderen Optionen sind weniger wahrscheinlich oder nicht durch diesen Satz nahegelegt.'
+          },
+          {
+            frage: 'Was ist der Hauptgrund, warum „mehr Disziplin" und „mehr Erinnern" bei ADHS unaufmerksam meist nicht hilft?',
+            optionen: [
+              { letter: 'A', text: 'Weil die Klienten nicht intelligent genug sind' },
+              { letter: 'B', text: 'Weil Disziplin innere Zeitwahrnehmung voraussetzt — die bei ADHS fehlt' },
+              { letter: 'C', text: 'Weil die Eltern es falsch umsetzen' },
+              { letter: 'D', text: 'Weil die Motivation grundsätzlich fehlt' }
+            ],
+            beste: 'B',
+            begruendung: 'Time Blindness bedeutet, dass Zeit nicht spürbar ist. Disziplin ist ein zeitbasiertes Konzept („ich tue jetzt was, weil später etwas wichtig ist"). Wenn die Zeitwahrnehmung fehlt, ist Disziplin nicht nutzbar. Externe Anker funktionieren stattdessen.'
+          },
+          {
+            frage: 'Welche Komorbidität bei ADHS unaufmerksam wird oft als eigenständige Diagnose missverstanden, sollte aber zuerst ADHS-Behandlung anstoßen?',
+            optionen: [
+              { letter: 'A', text: 'Depression' },
+              { letter: 'B', text: 'Soziale Angst' },
+              { letter: 'C', text: 'Cannabiskonsum als Selbstmedikation' },
+              { letter: 'D', text: 'Lernstörung' }
+            ],
+            beste: 'C',
+            begruendung: 'Cannabiskonsum bei Adoleszenten mit ADHS ist oft Selbstmedikation. Suchtbehandlung ohne ADHS-Behandlung scheitert meist. Wenn das ADHS gut behandelt ist, fällt der Konsum oft von alleine. A, B, D können auch Komorbiditäten sein, sind aber nicht der typische „Versuch zur Selbstregulation".'
+          }
+        ],
+        karteikarten: [
+          { id: 'u1', v: 'Was ist der Kernunterschied zwischen ADHS unaufmerksam und Depression bei chronisch erschöpften jungen Frauen?',
+            r: 'Bei ADHS unaufmerksam ist die Erschöpfung Folge chronischer Kompensation — Energie ist da, wird aber durch ständiges Mehr-Anstrengen verbraucht. Bei Depression fehlt die Energie selbst. Hyperfokus bei Spezialinteressen ist möglich bei ADHS, nicht bei Depression.' },
+          { id: 'u2', v: 'Welche fünf Erstgesprächs-Fragen funktionieren bei ADHS-Verdacht?',
+            r: '1. Wie lange sitzt du vor uninteressanten Aufgaben, bevor du anfängst? 2. Hast du Dinge, die du chronisch verlierst? 3. Wenn jemand dir drei Sachen gleichzeitig sagt — wie viele kommen an? 4. Hast du am Wochenende vergessen, was am Montag ist? 5. Wenn du um 19 Uhr aufhören wolltest und es ist 20:30 — wie ist das passiert?' },
+          { id: 'u3', v: 'Was ist Time Blindness und welche drei klinischen Konsequenzen folgen?',
+            r: 'Zeit ist nicht spürbar — nur „jetzt" und „nicht jetzt". Konsequenzen: Pläne funktionieren nicht (Plan existiert in einer nicht spürbaren Zeit-Realität); zwischen „ich sollte anfangen" und „Notfall" gibt es fast nichts; externe Anker (Timer, Visual Timer, Pomodoro) sind notwendig, nicht Luxus.' },
+          { id: 'u4', v: 'Wie unterscheidet sich Konzentrationsstörung bei ADHS unaufmerksam von Konzentrationsstörung bei Angst?',
+            r: 'Bei Angst ist Konzentration durch innere Unruhe gestört — der Klient versucht zu folgen, kann aber nicht. Bei ADHS ist die Aufmerksamkeit einfach woanders, oft ohne Anstrengung den Fokus zu halten.' },
+          { id: 'u5', v: 'Wie häufig ist die Komorbidität ADHS plus Asperger und was ist der therapeutische Konflikt?',
+            r: 'Etwa ein Drittel bis zur Hälfte aller Asperger-Klient:innen hat auch ADHS. Therapeutischer Konflikt: Asperger braucht maximale Struktur und Vorhersehbarkeit, ADHS braucht Flexibilität und Bewegung. Lösung: hochstrukturierter Rahmen mit eingebauten Bewegungs-Pausen und sensorischen Anpassungen.' },
+          { id: 'u6', v: 'Was ist Rejection Sensitive Dysphoria und warum ist sie klinisch wichtig bei ADHS?',
+            r: 'Extreme emotionale Reaktion auf wahrgenommene Zurückweisung, Kritik oder Ablehnung. Häufig bei ADHS, oft als Borderline fehldiagnostiziert. Aufklärung allein („das ist neurologisch, nicht Charakter") wirkt therapeutisch. ADHS-Behandlung reduziert RSD-Intensität.' },
+          { id: 'u7', v: 'Warum ist die Empfehlung „mehr Disziplin" bei ADHS nicht nur unwirksam, sondern schädlich?',
+            r: 'Disziplin setzt Zeitwahrnehmung voraus. Bei Time Blindness fehlt diese — Disziplin ist neurologisch nicht verfügbar. Die Aufforderung führt zu chronischer Beschämung („ich kann nicht mal das Einfachste"), die über Jahre Selbstwert zerstört.' },
+          { id: 'u8', v: 'Welche Aussage einer Mutter ist klassischer Hinweis auf unaufmerksames ADHS bei der Tochter?',
+            r: '„Sie ist eigentlich klug, aber …" oder „Sie verträumt sich seit dem Kindergarten." Beide deuten auf Diskrepanz zwischen Begabung und Leistung — und auf ein seit langem bestehendes Muster.' },
+          { id: 'u9', v: 'Welche Stimulanzien-Aussage stimmt bei der unaufmerksamen Form?',
+            r: 'Stimulanzien (Methylphenidat, Lisdexamfetamin) wirken auch bei der unaufmerksamen Form genauso gut wie bei der hyperaktiven. Häufige Eltern-Sorge „mein Kind ist ja ruhig, braucht keine Medikamente" beruht auf Missverständnis.' },
+          { id: 'u10', v: 'Was ist der erste Schritt, wenn ein Klient mit ADHS chronisch zu spät kommt?',
+            r: 'Externe Zeitanker einbauen — keine inneren Appelle. Konkret: Visual Timer, Pomodoro, Wecker für Vorlaufzeiten. Plus: dem Klienten und den Eltern Time Blindness erklären. Schuldzuschreibung muss fallen.' },
+          { id: 'u11', v: 'Wie unterscheiden sich ADHS unaufmerksam und hochbegabt-unterforderter Schüler bei der Konzentration?',
+            r: 'Beide können bei spannenden Themen stundenlang fokussieren. Unterschied: Bei Hochbegabung kann sich der Klient mit Mühe auch zu uninteressanten Aufgaben zwingen. Bei ADHS ist das oft nicht möglich. Differentialdiagnostisch: testpsychologische Abklärung beider plus klinisches Bild.' },
+          { id: 'u12', v: 'Was passiert, wenn ADHS unaufmerksam bis ins Erwachsenenalter unbehandelt bleibt?',
+            r: 'Chronische Selbstwertprobleme, gestörte Schlaf-Wach-Rhythmen, Beziehungskonflikte (Vergesslichkeit, Unzuverlässigkeit), Burnout-Geschichten, oft lange Depressionsbehandlung, die nie wirklich greift, weil das ADHS nicht erkannt ist.' },
+          { id: 'u13', v: 'Welche drei Domänen sind bei ADHS zentral betroffen (jenseits der Aufmerksamkeit)?',
+            r: 'Arbeitsgedächtnis (mehrere Dinge gleichzeitig halten), exekutive Funktionen (Planen, Anfangen, Wechseln, Durchhalten), Zeitwahrnehmung (Time Blindness).' },
+          { id: 'u14', v: 'Was ist der häufigste Fehler bei der Behandlung einer ADHS-Komorbidität mit Cannabis?',
+            r: 'Suchtbehandlung primär ansetzen, statt zuerst ADHS zu behandeln. Bei behandeltem ADHS fällt der Konsum oft von alleine, weil die Selbstmedikations-Funktion wegfällt.' },
+          { id: 'u15', v: 'Was siehst du bei einem Schüler mit ADHS plus Hochbegabung in der Mittelstufe?',
+            r: 'Erste Risse — Hochbegabung kompensiert ADHS-Defizite nicht mehr ausreichend. Hausaufgaben werden zum Drama, Noten fallen, Selbstbild bricht ein. Oft Beginn von Vermeidungsverhalten und sekundärer Depression.' },
+          { id: 'u16', v: 'Welche Sitzungs-Struktur funktioniert bei einem ADHS-Klienten in einer 50-Minuten-Sitzung?',
+            r: 'Maximal zwei Hauptthemen mit visuellen Ankern. Bewegungs-Pause nach 15 Minuten. Schriftliche Konsolidierung. Konkreter Plan für die Woche mit externen Ankern. Sichtbares Ende.' },
+          { id: 'u17', v: 'Was ist die wichtigste Aufklärung für Eltern bei ADHS unaufmerksam?',
+            r: 'Time Blindness ist neurologisch, nicht Charakter. Mehr Erinnern und mehr Drängen helfen meist nicht. Externe Anker funktionieren. Schuldzuschreibung muss fallen — sonst entsteht Selbstwertschaden über Jahre.' },
+          { id: 'u18', v: 'Wie gehst du mit einem Klienten um, der nach einer beiläufigen Bemerkung in eine zweistündige Krise kippt?',
+            r: 'Vermutlich Rejection Sensitive Dysphoria. Validieren, ohne übermäßig zu beschwichtigen. Externalisieren („das ist dein RSD, neurologisch"). Erst regulieren, dann reden. Nicht in Inhalts-Diskussion einsteigen, solange die emotionale Welle aktiv ist.' },
+          { id: 'u19', v: 'Was kannst du als Fachkraft über ADHS-Medikamente kommunizieren — und was nicht?',
+            r: 'Du kannst kommunizieren: dass die Wirkung meist innerhalb von Tagen sichtbar ist, dass keine Persönlichkeitsveränderung passiert, dass bei korrekter Anwendung keine Sucht entsteht, dass behandeltes ADHS sogar späteren Substanzkonsum reduziert. Nicht deine Domäne: Dosierung, Wahl des Präparats, Nebenwirkungs-Management.' },
+          { id: 'u20', v: 'Was ist die häufigste Ursache, wenn eine Mutter chronisch die Strukturen für ihr ADHS-Kind nicht halten kann?',
+            r: 'Sie hat oft selbst unerkanntes ADHS. Familiäre Häufung ist hoch. Manchmal ist die wichtigste Intervention: Mutter zur eigenen Diagnostik überweisen. Das verändert die ganze Familie.' },
+          { id: 'u21', v: 'Welche drei Anpassungen für Lehrkräfte sind bei ADHS unaufmerksam evidenzbasiert wirksam?',
+            r: 'Sitzplatz vorne (weniger ablenkende Reize zwischen Lehrer und Schüler); schriftliche Anweisungen zusätzlich zu mündlichen (Arbeitsgedächtnis entlasten); kurze Lerneinheiten mit Bewegungspausen (exekutive Funktionen aufladen).' },
+          { id: 'u22', v: 'Wenn ein 14-jähriger Klient sagt „ich bin einfach faul" — was ist die klinisch sinnvolle erste Reaktion?',
+            r: 'Externalisieren und neu rahmen. „Was du Faulheit nennst, ist häufig ein neurologisches Defizit der Selbstanfang-Funktion. Das fühlt sich an wie Faulheit, ist aber etwas anderes." Diese Umdeutung allein ist oft die erste therapeutische Intervention.' },
+          { id: 'u23', v: 'Was ist der erste Hinweis auf RSD im Erstgespräch?',
+            r: 'Beschreibung emotionaler Reaktionen, die im Verhältnis zur Situation übertrieben wirken. Schmerz wird oft körperlich beschrieben („es zerreißt mich"). Folgt typisch auf soziale Bewertung oder Leistungssituationen.' },
+          { id: 'u24', v: 'Warum sind chronisch zu spät kommende ADHS-Klienten keine „Disziplin-Frage"?',
+            r: 'Time Blindness führt dazu, dass Vorlaufzeit nicht gespürt wird. Der Klient erlebt ehrlich „ich hatte noch Zeit", bis er plötzlich keine mehr hat. Lösung: externe Anker mit Vorwarnungen (15-Minuten-Wecker, Visual Timer auf dem Schreibtisch).' },
+          { id: 'u25', v: 'Was ist die langfristige Konsequenz eines Lebens mit chronisch beschämtem ADHS?',
+            r: 'Tausende negative Botschaften mehr als andere Kinder bis zum 12. Lebensjahr („Pass auf!", „Konzentrier dich!"). Folge: chronische Beschämung, Selbstbild als „faul" oder „dumm". Gelernte Erfahrung — nicht durch schnelle Reframings veränderbar. Therapie braucht Geduld.' }
+        ],
+        szenario: {
+          vignette: 'Sara, 13, kommt zum Erstgespräch. Mutter berichtet: „Sie ist klug, aber bringt nichts heim. Hausaufgaben sind ein Drama. Sie sitzt drei Stunden am Schreibtisch und schafft nichts. Letzte Woche hatte sie eine Sechs in Mathe — und in der Stunde danach hat sie geweint, gesagt, sie sei dumm und wollte nicht mehr in die Schule." Sara sitzt jetzt vor dir. Sie spielt mit ihrem Ärmel. Sie sagt: „Ich weiß nicht, warum ich hier bin. Mama sagt, ich muss mich mehr anstrengen."',
+          entscheidungen: [
+            {
+              frage: 'Was ist deine erste klinische Hypothese — und wie steigst du in die Anamnese ein?',
+              optionen: [
+                { letter: 'A', text: 'Pubertätskrise — frage nach sozialen Beziehungen.' },
+                { letter: 'B', text: 'Beginnende Depression nach Versagensgefühlen — frage nach Stimmung und Schlaf.' },
+                { letter: 'C', text: 'Mögliches ADHS unaufmerksam mit sekundärer Beschämung — frage nach Konzentrations-Mustern und ob das schon länger besteht.' },
+                { letter: 'D', text: 'Ängstliche Vermeidung — frage nach Schulängsten.' }
+              ],
+              beste: 'C',
+              begruendung: 'Die Kombination aus „klug, aber bringt nichts heim", drei Stunden ohne Ergebnis am Schreibtisch und intensiver emotionaler Reaktion auf Schulversagen weist stark auf ADHS unaufmerksam hin — möglicherweise mit RSD. Die Reaktion auf die Sechs ist nicht nur traurig, sondern intensiv und körperlich beschrieben. B könnte sekundär dazukommen, ist aber nicht primäre Hypothese. A und D sind weniger spezifisch.'
+            },
+            {
+              frage: 'Sara sagt: „Ich versuche es ja. Ich sitze stundenlang da. Aber irgendwie macht mein Kopf das nicht. Ich bin einfach dumm." Was tust du?',
+              optionen: [
+                { letter: 'A', text: 'Beruhigen: „Du bist nicht dumm. Du musst nur Strategien finden."' },
+                { letter: 'B', text: 'Externalisieren und reframen: „Was du Dumm-Sein nennst, könnte ein neurologisches Defizit der Selbstanfang-Funktion sein. Das fühlt sich an wie Versagen — ist aber etwas anderes."' },
+                { letter: 'C', text: 'Vertiefen: „Erzähl mir, wie das genau ist, wenn du versuchst zu lernen."' },
+                { letter: 'D', text: 'Weiter zur Anamnese: „Wann hat das alles angefangen?"' }
+              ],
+              beste: 'B',
+              begruendung: 'Externalisierung ist hier therapeutisch zentral — der Klientin Selbstwert sofort entlasten und die Erfahrung neu rahmen. Das ist nicht Beruhigung (A), sondern klinisch-erklärende Intervention. C wäre wertvoll als nächster Schritt direkt nach der Externalisierung. D verpasst den Moment der Selbstwert-Erklärung.'
+            },
+            {
+              frage: 'Am Ende der Sitzung — was ist die wichtigste Information, die du der Mutter mitgibst?',
+              optionen: [
+                { letter: 'A', text: 'Sara braucht mehr emotionale Unterstützung zu Hause.' },
+                { letter: 'B', text: 'Wir machen ADHS-Diagnostik beim Kinderpsychiater und arbeiten parallel an Selbstwert.' },
+                { letter: 'C', text: 'Es ist eine Pubertätsphase, die vorbeigeht.' },
+                { letter: 'D', text: 'Mehr Disziplin und feste Lernzeiten würden helfen.' }
+              ],
+              beste: 'B',
+              begruendung: 'Klinische Verdachtsdiagnose rechtfertigt strukturierte weitere Diagnostik. Parallel kann therapeutisch an Selbstwert und Externalisierung gearbeitet werden. A ist nicht falsch, aber unvollständig. C und D sind klinisch problematisch — D verstärkt das zugrundeliegende Problem.'
+            }
+          ]
+        },
+        reflexion: {
+          fragen: [
+            'Hast du in den letzten Monaten eine Klientin oder einen Klienten gehabt, bei dem du jetzt — nach diesem Modul — ADHS unaufmerksam vermuten würdest? Was waren die Anzeichen, die du damals nicht eingeordnet hast?',
+            'Welche der gelernten Erstgesprächs-Fragen würdest du beim nächsten Verdachtsfall ausprobieren? Warum gerade diese?',
+            'Wie würdest du einer Mutter erklären, dass ihre Tochter eventuell ADHS unaufmerksam hat — ohne dass die Mutter sich beschuldigt fühlt? Schreibe konkret, was du sagen würdest.'
+          ]
+        }
       }
     },
     verwandt: ['asperger', 'depression-jugendliche', 'angststoerung-generalisiert', 'borderline-entwicklung', 'lernstoerungen']
@@ -3534,6 +3776,11 @@ function renderTestenOverview(topic, data, ts, container) {
   });
 }
 
+function quizItemCorrect(q, ans) {
+  if (Array.isArray(q.optionen)) return ans === q.beste;
+  return semCheck(ans || '', q.schluessel);
+}
+
 function renderModusSchnellpruefung(topic, data, ts, container) {
   const items = data.schnellpruefung;
   const sp = ts.schnellpruefung;
@@ -3542,19 +3789,49 @@ function renderModusSchnellpruefung(topic, data, ts, container) {
 
   const qs = items.map((q, i) => {
     const ans = sp.draft[i] || '';
-    let cls = '', feedback = '';
-    if (evaluated) {
-      const ok = semCheck(ans, q.schluessel);
-      cls = ok ? 'correct' : 'wrong';
-      feedback = `<div class="quiz-q-feedback ${cls}">
-        <strong>${ok ? 'Richtig.' : 'Noch nicht.'}</strong> ${escHtml(q.loesung)}
-      </div>`;
+    let body = '', feedback = '';
+
+    if (Array.isArray(q.optionen)) {
+      // Multiple Choice
+      const isCorrect = ans === q.beste;
+      body = `<div class="quiz-options">${
+        q.optionen.map(o => {
+          let cls = '';
+          const chosen = ans === o.letter;
+          if (evaluated) {
+            if (o.letter === q.beste) cls = 'best';
+            else if (chosen) cls = 'wrong';
+          } else if (chosen) {
+            cls = 'chosen';
+          }
+          return `<button class="quiz-option ${cls}" data-tool="quiz-option" data-q="${i}" data-letter="${o.letter}" ${evaluated ? 'disabled' : ''}>
+            <span class="szenario-letter">${o.letter}</span>${escHtml(o.text)}
+          </button>`;
+        }).join('')
+      }</div>`;
+      if (evaluated) {
+        feedback = `<div class="quiz-q-feedback ${isCorrect ? 'correct' : 'wrong'}">
+          <strong>${isCorrect ? 'Richtig.' : `Nicht ganz. Richtig wäre ${q.beste}.`}</strong> ${escHtml(q.begruendung)}
+        </div>`;
+      }
+    } else {
+      // Lückentext (Asperger-Format)
+      let cls = '';
+      if (evaluated) {
+        const ok = semCheck(ans, q.schluessel);
+        cls = ok ? 'correct' : 'wrong';
+        feedback = `<div class="quiz-q-feedback ${cls}">
+          <strong>${ok ? 'Richtig.' : 'Noch nicht.'}</strong> ${escHtml(q.loesung)}
+        </div>`;
+      }
+      body = `<textarea class="quiz-q-input ${cls}" data-tool="quiz-input" data-idx="${i}" ${evaluated ? 'readonly' : ''} placeholder="Antwort in eigenen Worten …">${escHtml(ans)}</textarea>`;
     }
+
     return `
       <div class="quiz-q">
         <div class="quiz-q-num">Frage ${i+1} / ${items.length}</div>
         <div class="quiz-q-text">${escHtml(q.frage)}</div>
-        <textarea class="quiz-q-input ${cls}" data-tool="quiz-input" data-idx="${i}" ${evaluated ? 'readonly' : ''} placeholder="Antwort in eigenen Worten …">${escHtml(ans)}</textarea>
+        ${body}
         ${feedback}
       </div>
     `;
@@ -3593,9 +3870,18 @@ function renderModusSchnellpruefung(topic, data, ts, container) {
     });
   });
 
+  container.querySelectorAll('[data-tool="quiz-option"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.dataset.q, 10);
+      sp.draft[i] = btn.dataset.letter;
+      saveTestState(topic.id, ts);
+      renderEbene();
+    });
+  });
+
   container.querySelector('[data-tool="quiz-submit"]')?.addEventListener('click', () => {
     let score = 0;
-    items.forEach((q, i) => { if (semCheck(sp.draft[i] || '', q.schluessel)) score++; });
+    items.forEach((q, i) => { if (quizItemCorrect(q, sp.draft[i])) score++; });
     sp.evaluated = true;
     sp.completed = true;
     sp.score = score;
