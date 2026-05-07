@@ -716,6 +716,35 @@
     outline: none;
   }
   .profil-field textarea { resize: vertical; min-height: 64px; }
+  .profil-field .scale-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .profil-field .scale-row input[type=range] {
+    flex: 1;
+    accent-color: var(--rust);
+    background: var(--cream);
+    height: 28px;
+  }
+  .profil-field .scale-label-min,
+  .profil-field .scale-label-max {
+    font-size: 10px;
+    color: var(--sage);
+    white-space: nowrap;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .profil-field .scale-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--rust);
+    margin-top: 4px;
+    text-align: right;
+    letter-spacing: 0.1em;
+  }
   .profil-saved {
     margin-top: 10px;
     font-family: 'IBM Plex Mono', monospace;
@@ -829,6 +858,121 @@
     line-height: 1;
   }
   .crisis-step-text strong { display: block; margin-bottom: 2px; }
+
+  /* Krise im sectioned Modus (z. B. RSD-Protokoll) */
+  .krise-section { margin-bottom: 22px; }
+  .krise-section:last-child { margin-bottom: 0; }
+  .krise-section-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .krise-section-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: krise-num;
+  }
+  .krise-section-items li {
+    padding: 6px 0 6px 22px;
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+  }
+  .krise-section-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+  .krise-section-numbered li {
+    padding: 8px 0 8px 32px;
+    counter-increment: krise-num;
+  }
+  .krise-section-numbered li::before {
+    content: counter(krise-num);
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--rust);
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    top: 4px;
+  }
+  .krise-section-items li strong {
+    display: inline;
+    margin-right: 4px;
+  }
+
+  /* Struktur-Werkstatt */
+  .struktur-bereich { margin-bottom: 20px; }
+  .struktur-bereich:last-child { margin-bottom: 0; }
+  .struktur-bereich-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .struktur-bereich-desc {
+    font-size: 13px;
+    color: var(--sage);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .struktur-bereich textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+  }
+  .struktur-bereich textarea:focus { border-color: var(--gold); }
+
+  /* Timeline-Hinweise */
+  .timeline-hinweise {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .timeline-hinweise-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .timeline-hinweise ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .timeline-hinweise li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 4px 0 4px 18px;
+    position: relative;
+  }
+  .timeline-hinweise li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: var(--gold);
+    font-size: 7px;
+  }
 
   .info-text-block { margin-bottom: 22px; }
   .info-text-block:last-child { margin-bottom: 0; }
@@ -2298,6 +2442,112 @@ const TOPICS = {
           { autor: 'Dodson, W.', jahr: 2016, titel: 'Emotional Regulation, ADHD, and Rejection Sensitive Dysphoria', fundstelle: 'ADDitude Magazine, klinisch-konzeptueller Beitrag' },
           { autor: 'Faraone, S. V., Asherson, P., Banaschewski, T. et al.', jahr: 2015, titel: 'Attention-deficit/hyperactivity disorder', fundstelle: 'Nature Reviews Disease Primers, 1, 15020' }
         ]
+      },
+      praxis: {
+        intro: 'Sechs Werkzeuge für die Sitzungsarbeit mit ADHS-Klient:innen — kognitives Profil, externe Strukturen, Aufklärungstexte, Sitzungs-Timeline, RSD-Protokoll. Alles wird lokal in deinem Browser gespeichert.',
+        werkzeuge: [
+          {
+            kind: 'profil',
+            titel: 'Kognitives Profil des Klienten',
+            sub: 'Skala 1–5 + Freitext, pro Klient gespeichert',
+            schema: [
+              { key: 'tb_skala', label: 'Time Blindness — Termine werden chronisch nicht eingehalten, ohne dass der Klient es will',
+                type: 'scale', min: 1, max: 5, minLabel: 'gar nicht', maxLabel: 'sehr', full: true },
+              { key: 'awg_skala', label: 'Arbeitsgedächtnis — mehrteilige Anweisungen gehen verloren',
+                type: 'scale', min: 1, max: 5, minLabel: 'gar nicht', maxLabel: 'sehr', full: true },
+              { key: 'init_skala', label: 'Selbstanfangs-Problem — Aufgaben anfangen ist schwerer als sie durchzuführen',
+                type: 'scale', min: 1, max: 5, minLabel: 'gar nicht', maxLabel: 'sehr', full: true },
+              { key: 'hf_skala', label: 'Hyperfokus — bei Spezialinteressen kann er stundenlang konzentriert bleiben',
+                type: 'scale', min: 1, max: 5, minLabel: 'gar nicht', maxLabel: 'sehr', full: true },
+              { key: 'abl_skala', label: 'Ablenkung — Geräusche und Bewegungen unterbrechen jede Konzentration',
+                type: 'scale', min: 1, max: 5, minLabel: 'gar nicht', maxLabel: 'sehr', full: true },
+              { key: 'ueg_skala', label: 'Übergangs-Schwierigkeiten — Wechsel zwischen Aktivitäten kostet besondere Mühe',
+                type: 'scale', min: 1, max: 5, minLabel: 'gar nicht', maxLabel: 'sehr', full: true },
+              { key: 'trigger', label: 'Bekannte Trigger für Konzentrationsverlust',
+                type: 'textarea', full: true, placeholder: 'z. B. Fluorlicht, Hintergrundgespräche, Hunger, ungeklärte soziale Situation …' },
+              { key: 'hilft', label: 'Was hilft erfahrungsgemäß',
+                type: 'textarea', full: true, placeholder: 'z. B. Kopfhörer, kurz aufstehen, Snack, Pomodoro-Timer …' },
+              { key: 'spezialinteressen_adhs', label: 'Spezialinteressen, die als Energiequelle dienen',
+                type: 'textarea', full: true, placeholder: 'z. B. Bahn-Fahrpläne, K-Pop, Zeichnen, Programmieren …' },
+              { key: 'medikation', label: 'Aktuelle Medikation und Wirkung',
+                type: 'textarea', full: true, placeholder: 'z. B. Methylphenidat retard 30 mg morgens, Wirkung gut bis ca. 16:00; abends Rebound-Reizbarkeit …' }
+            ]
+          },
+          {
+            kind: 'struktur',
+            titel: 'Externe Struktur-Werkstatt',
+            sub: 'Time Blindness extern überbrücken — drei Bereiche',
+            bereiche: [
+              { key: 'morgen', titel: 'A · Morgen-Routine',
+                beschreibung: 'Was muss zwischen Aufwachen und Schule passieren? Pro Schritt: erwartete Dauer, externer Anker (Wecker, Visual Timer, Liste an der Tür).',
+                placeholder: '06:30 — Wecker (Bett verlassen, sofort Licht an)\n06:35 — Toilette + Waschen (Visual Timer 5 min)\n06:40 — Anziehen (Kleidung am Vorabend bereitgelegt)\n06:50 — Frühstück (Eieruhr 10 min)\n07:05 — Schultasche kontrollieren (Checkliste an der Tür)\n07:15 — Aus dem Haus' },
+              { key: 'hausaufgaben', titel: 'B · Hausaufgaben-Struktur',
+                beschreibung: 'Wann, wo, wie lange Pomodoro-Blöcke, welche Pausen, welche Belohnung danach.',
+                placeholder: 'Ort: derselbe Schreibtisch, freier Tisch, Handy in der Küche\nZeit: 16:00–17:30, Pomodoro 25 min Arbeit / 5 min Pause\nPausen: aufstehen, trinken, kurz an die frische Luft\nBelohnung danach: 30 min Lieblingsbeschäftigung ohne schlechtes Gewissen' },
+              { key: 'woche', titel: 'C · Wochen-Anker',
+                beschreibung: 'Welche fixen Punkte hat die Woche (Sport, Lerngruppe, Familienessen)? Wo werden Aufgaben sichtbar gemacht (Whiteboard, App, Wandkalender)?',
+                placeholder: 'Mo 17:00 Sport-Training\nMi 18:30 Lerngruppe\nFr 19:00 Familienessen\nWandkalender im Flur — alle Termine eingetragen, jeden Sonntagabend gemeinsam aktualisiert\nDigital: Familien-Kalender-App mit Erinnerung 1 Stunde vorher' }
+            ]
+          },
+          {
+            kind: 'info-text',
+            titel: 'Eltern-Aufklärungstext: Time Blindness',
+            sub: 'Personalisierbar, kopierbar',
+            textKey: 'eltern',
+            text: 'Liebe Eltern von {klient},\n\nSie sind hier, weil {klient} chronisch zu spät kommt, Termine vergisst, Aufgaben nicht beendet. Sie haben es schon mit Erinnern versucht, mit Drängen, mit klaren Konsequenzen — und es ist immer wieder dasselbe. Sie zweifeln vielleicht an sich, vielleicht an Ihrem Kind. Beides ist nicht angebracht.\n\nWas bei {klient} läuft, ist Time Blindness — ein neurologisches Merkmal, das bei ADHS sehr häufig ist. Das heißt: Zeit ist für Ihr Kind nicht spürbar. Es gibt nur „jetzt" und „nicht jetzt". Eine Stunde fühlt sich an wie zehn Minuten. Nächste Woche fühlt sich an wie nie. Eine Aufgabe, die in zwei Wochen fertig sein muss, ist gefühlt nicht real, bis sie morgen ist. Dann ist Panik. Das ist nicht Faulheit. Das ist eine andere Art, wie das Gehirn Zeit verarbeitet.\n\nWarum mehr Erinnern und mehr Drängen meist nicht hilft: Sie greifen damit auf der Ebene an, auf der Ihr Kind ohnehin schon kämpft. Es weiß, dass es zu spät ist. Es kann sich nicht zwingen zu spüren, was es nicht spürt. Mehr Druck führt zu Scham, Scham führt zu Vermeidung, Vermeidung führt zu noch mehr Verspätungen.\n\nWas wirklich funktioniert, sind externe Zeitanker. Visual Timer (Sanduhr-Apps oder physische Sanduhren), die zeigen, wie viel Zeit noch bleibt. Pomodoro-Timer (25 min arbeiten, 5 min Pause). Sichtbare Wanduhren mit deutlichem Sekundenzeiger. Wecker mit konkreten Zwischenmarken („in 10 Minuten gehen wir"). Eine Checkliste an der Tür für die Morgens-Routine. Ein gemeinsam aktualisierter Wandkalender mit allen Wochenterminen.\n\nDie Schuldzuschreibung muss fallen — bei Ihnen wie bei Ihrem Kind. Erst wenn die Beschämung weg ist, können die externen Strukturen tragen. Vorher ist jeder neue Plan eine neue Möglichkeit zu versagen.\n\nErste Schritte für zu Hause: gemeinsam einen Visual Timer für die Hausaufgaben einführen. Eine Morgens-Checkliste an die Wohnungstür hängen. Den Sonntagabend zum festen Wochenkalender-Ritual machen. Klein anfangen — Time Blindness verschwindet nicht, aber sie wird mit externer Unterstützung handhabbar.\n\nBei Fragen melde ich mich gern.\n\n{fachkraft}'
+          },
+          {
+            kind: 'info-text',
+            titel: 'Lehrer-Aufklärungstext',
+            sub: 'Personalisierbar, kopierbar',
+            textKey: 'schul',
+            text: 'Liebe Lehrkräfte,\n\n{klient} ist nicht unmotiviert. Was Sie als Verträumtheit, Schludrigkeit oder fehlende Anstrengung erleben, ist die Folge eines neurologischen Verarbeitungsmusters. {klient} hat ADHS in der vorwiegend unaufmerksamen Form — die ohne Hyperaktivität, die deshalb leicht übersehen wird.\n\nWas bei {klient} anders läuft: Das Arbeitsgedächtnis ist überlastbar (drei gleichzeitige Anweisungen sind oft eine zu viel), die Initiation ist erschwert (zwischen „ich sollte anfangen" und „ich fange an" liegt eine echte neurologische Hürde), und die Zeitwahrnehmung ist anders (eine Stunde fühlt sich an wie zehn Minuten — Time Blindness). Das alles ist nicht durch mehr Wille kompensierbar.\n\nAnpassungen, die wirklich helfen:\n• Sitzplatz vorne, fern von Fenstern und Türen — reduziert visuelle Ablenkung erheblich.\n• Schriftliche Anweisungen zusätzlich zu mündlichen — am besten kurz, eine pro Zeile.\n• Hausaufgaben in Etappen, nicht als Block. Pomodoro-Logik ist ideal: 20 Minuten arbeiten, 5 Minuten Pause.\n• Visuelle Strukturen — Wochenplan an der Tafel, Checkliste auf dem Tisch, Visual Timer für Klassenarbeiten.\n• Bewegungs-Pausen sind Voraussetzung für Konzentration in der zweiten Hälfte, nicht Belohnung.\n• Bei Tagträumen freundlich am Namen ansprechen, ohne vor der Klasse zu beschämen — eine kurze Berührung am Schreibtisch wirkt oft besser als ein lauter Aufruf.\n\nBitte nicht tun:\n• Vor der Klasse beschämen („wieder mal nicht aufgepasst"). Das verstärkt RSD-Reaktionen und untergräbt das Vertrauen.\n• Hausaufgaben als Bestrafung erhöhen — bei ADHS produziert das Vermeidung, nicht Lernen.\n• Den Satz „du musst dich nur konzentrieren". Genau das kann {klient} nicht auf Knopfdruck.\n\nRealistische Erwartung: Verbesserung ist möglich und passiert oft schnell, sobald die Diagnose gestellt und (falls nötig) Medikation eingestellt ist. Aber sie braucht Zeit. Tagesleistung kann stark schwanken — ein guter Tag ist nicht der Beweis, dass an einem schlechten „mehr drin gewesen wäre".\n\nBei Fragen oder Beobachtungen melde ich mich gern. Ihre Rückmeldung aus dem Schulalltag ist diagnostisch wertvoll.\n\n{fachkraft}'
+          },
+          {
+            kind: 'timeline',
+            titel: 'Sitzungs-Struktur für ADHS',
+            sub: '50 min mit Bewegungs-Pause',
+            rows: [
+              { time: '0–3 min',   text: 'Ankommen, kurze Übersicht heute (max. drei Punkte)' },
+              { time: '3–15 min',  text: 'Hauptteil 1 — klar abgegrenztes Thema, mit visuellem Anker (Whiteboard / Skizze)' },
+              { time: '15–20 min', text: 'Bewegungs-Pause oder Spezialinteresse-Brücke' },
+              { time: '20–32 min', text: 'Hauptteil 2 — zweites Thema' },
+              { time: '32–37 min', text: 'Konsolidierung — schriftlich, was wir gemacht haben' },
+              { time: '37–45 min', text: 'Konkreter Plan für die Woche, externe Anker definieren' },
+              { time: '45–50 min', text: 'Sichtbares Ende mit Vorschau auf nächste Sitzung' }
+            ],
+            hinweise: [
+              'Maximale Themen-Komplexität: zwei Hauptthemen pro Sitzung.',
+              'Visuelle Anker (Whiteboard, Skizze) sind keine Option, sondern Pflicht.',
+              'Bewegungs-Pause ist kein Luxus, sondern Voraussetzung für die zweite Sitzungshälfte.'
+            ]
+          },
+          {
+            kind: 'krise',
+            titel: 'RSD-Protokoll',
+            sub: 'Bei Rejection Sensitive Dysphoria-Krise',
+            abschnitte: [
+              { titel: 'Erkennen — typische Auslöser', items: [
+                'Beiläufige kritische Bemerkung der Fachkraft.',
+                'Schlechte Nachricht aus der Schule am Vortag.',
+                'Konflikt mit Peer in der Pause.',
+                'Gefühl in der Sitzung, „nicht ernst genommen zu werden".'
+              ]},
+              { titel: 'Reaktion in der Sitzung', numbered: true, items: [
+                { titel: 'Validieren ohne übermäßig zu beschwichtigen.', text: '„Das, was du fühlst, ist real, und ich nehme es ernst." Nicht: „Das ist doch nicht so schlimm."' },
+                { titel: 'Externalisieren.', text: '„Das ist dein RSD. Es ist neurologisch, nicht Charakter." Allein das senkt oft die Wellenhöhe spürbar.' },
+                { titel: 'Nicht in die Inhalts-Diskussion einsteigen.', text: 'Die emotionale Welle muss erst abklingen. Inhaltliche Klärung kommt später, sonst eskaliert es.' },
+                { titel: 'Erdung anbieten.', text: 'Atmen, kurz aufstehen, Glas Wasser, Hände unter kühles Wasser. Konkrete körperliche Anker.' },
+                { titel: 'Erst wenn die Welle abgeklungen ist: Inhalt besprechen.', text: 'Nicht vorher. Selbst wenn es zehn Minuten Wartezeit kostet.' }
+              ]},
+              { titel: 'Reaktion zwischen Sitzungen — wenn Eltern berichten', items: [
+                'Eltern aufklären, dass es RSD ist und keine „Übertreibung". Allein dieses Wissen reduziert Familien-Konflikt.',
+                'Konkrete Strategie für zu Hause: erst regulieren, dann reden. Reihenfolge nicht umkehren.',
+                'Sicherheits-Check: Wenn RSD mit Suizidgedanken einhergeht, sauber abklären — bei ADHS ist die Kombination häufig genug, um es nicht zu überspringen.'
+              ]}
+            ]
+          }
+        ]
       }
     },
     verwandt: ['asperger', 'depression-jugendliche', 'angststoerung-generalisiert', 'borderline-entwicklung', 'lernstoerungen']
@@ -2601,27 +2851,56 @@ function renderPraxis(topic, container) {
     return;
   }
   const ps = loadPraxisState(topic.id);
-  if (!Array.isArray(ps.vorSitzung) || ps.vorSitzung.length !== data.vorSitzung.length) {
-    ps.vorSitzung = data.vorSitzung.map(() => false);
-  }
   ps.profil = ps.profil || {};
   ps.timelineNotizen = ps.timelineNotizen || {};
+  ps.struktur = ps.struktur || {};
 
+  let cardsHtml = '';
+  if (Array.isArray(data.werkzeuge)) {
+    // Flexibles Format
+    const checklistWz = data.werkzeuge.find(w => w.kind === 'checklist');
+    if (checklistWz && (!Array.isArray(ps.vorSitzung) || ps.vorSitzung.length !== checklistWz.items.length)) {
+      ps.vorSitzung = checklistWz.items.map(() => false);
+    }
+    cardsHtml = data.werkzeuge.map((w, i) => renderWerkzeugCard(w, ps, i + 1)).join('');
+  } else {
+    // Backward-Compat (Asperger-Fixformat)
+    if (!Array.isArray(ps.vorSitzung) || ps.vorSitzung.length !== data.vorSitzung.length) {
+      ps.vorSitzung = data.vorSitzung.map(() => false);
+    }
+    cardsHtml = `
+      ${renderPraxisVorSitzung(data, ps)}
+      ${renderPraxisProfil(data, ps)}
+      ${renderPraxisPhrasen(data)}
+      ${renderPraxisTimeline(data, ps)}
+      ${renderPraxisKrise(data)}
+      ${renderPraxisInfoTexte(data, ps)}
+    `;
+  }
+
+  const intro = data.intro || 'Konkrete Werkzeuge für die Sitzungsarbeit. Alles wird lokal in deinem Browser gespeichert.';
   container.innerHTML = `
     <section class="praxis">
       <div class="praxis-eyebrow">Praxis · Werkzeuge</div>
-      <div class="praxis-intro">Sechs Werkzeuge für die konkrete Sitzungsarbeit. Alles wird lokal in deinem Browser gespeichert.</div>
-      <div class="praxis-grid">
-        ${renderPraxisVorSitzung(data, ps)}
-        ${renderPraxisProfil(data, ps)}
-        ${renderPraxisPhrasen(data)}
-        ${renderPraxisTimeline(data, ps)}
-        ${renderPraxisKrise(data)}
-        ${renderPraxisInfoTexte(data, ps)}
-      </div>
+      <div class="praxis-intro">${escHtml(intro)}</div>
+      <div class="praxis-grid">${cardsHtml}</div>
     </section>
   `;
   bindPraxisEvents(topic, data, ps);
+}
+
+function renderWerkzeugCard(w, ps, num) {
+  switch (w.kind) {
+    case 'checklist':  return renderWzChecklist(w, ps, num);
+    case 'profil':     return renderWzProfil(w, ps, num);
+    case 'phrasen':    return renderWzPhrasen(w, num);
+    case 'timeline':   return renderWzTimeline(w, ps, num);
+    case 'krise':      return renderWzKrise(w, num);
+    case 'info-text':  return renderWzInfoText(w, ps, num);
+    case 'info-texte': return renderWzInfoTexte(w, ps, num);
+    case 'struktur':   return renderWzStruktur(w, ps, num);
+    default: return '';
+  }
 }
 
 function renderPraxisVorSitzung(data, ps) {
@@ -2759,7 +3038,7 @@ function renderInfoBlock(key, title, template, ps) {
   const rendered  = applyTpl(template, klient || '[Klient:in]', fachkraft || '[Fachkraft]');
   return `
     <div class="info-text-block">
-      <div class="phrase-group-title">${escHtml(title)}</div>
+      ${title ? `<div class="phrase-group-title">${escHtml(title)}</div>` : ''}
       <div class="info-text-toolbar">
         <input type="text" data-tool="info" data-key="${key}Klient"    placeholder="Name Klient:in" value="${escHtml(klient)}">
         <input type="text" data-tool="info" data-key="${key}Fachkraft" placeholder="Dein Name"      value="${escHtml(fachkraft)}">
@@ -2770,8 +3049,225 @@ function renderInfoBlock(key, title, template, ps) {
   `;
 }
 
+/* === Werkzeug-Renderer für werkzeuge[]-Format === */
+
+function renderWzChecklist(w, ps, num) {
+  const items = w.items.map((text, i) => `
+    <li class="checklist-item ${ps.vorSitzung[i] ? 'done' : ''}">
+      <input type="checkbox" ${ps.vorSitzung[i] ? 'checked' : ''} data-tool="vorSitzung" data-idx="${i}">
+      <span>${escHtml(text)}</span>
+    </li>
+  `).join('');
+  return `
+    <div class="praxis-card">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      <ul class="checklist">${items}</ul>
+      <button class="praxis-card-action" data-tool="vorSitzung-reset">Zurücksetzen</button>
+    </div>
+  `;
+}
+
+function renderProfilField(f, ps) {
+  const v = ps.profil[f.key];
+  let input = '';
+  if (f.type === 'select') {
+    input = `<select data-tool="profil" data-key="${f.key}">${
+      f.options.map(o => {
+        const val = (o === '—') ? '' : o;
+        const sel = (val === (v || '')) ? 'selected' : '';
+        return `<option value="${escHtml(val)}" ${sel}>${escHtml(o)}</option>`;
+      }).join('')
+    }</select>`;
+  } else if (f.type === 'textarea') {
+    input = `<textarea data-tool="profil" data-key="${f.key}" placeholder="${escHtml(f.placeholder || '')}">${escHtml(v || '')}</textarea>`;
+  } else if (f.type === 'scale') {
+    const min = f.min || 1, max = f.max || 5;
+    const value = (v === undefined || v === '' || v === null) ? Math.ceil((min + max) / 2) : parseInt(v, 10);
+    input = `
+      <div class="scale-row">
+        <span class="scale-label-min">${escHtml(f.minLabel || 'gar nicht')}</span>
+        <input type="range" min="${min}" max="${max}" step="1" value="${value}" data-tool="profil-scale" data-key="${f.key}">
+        <span class="scale-label-max">${escHtml(f.maxLabel || 'sehr')}</span>
+      </div>
+      <div class="scale-value" data-scale-display="${f.key}">${value} / ${max}</div>
+    `;
+  }
+  return `<div class="profil-field ${f.full ? 'full' : ''}"><label>${escHtml(f.label)}</label>${input}</div>`;
+}
+
+function renderWzProfil(w, ps, num) {
+  const fields = w.schema.map(f => renderProfilField(f, ps)).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      <div class="profil-grid">${fields}</div>
+      <div class="profil-saved" data-tool="profil-saved"></div>
+    </div>
+  `;
+}
+
+function renderWzPhrasen(w, num) {
+  const groups = w.gruppen.map(g => `
+    <div class="phrase-group">
+      <div class="phrase-group-title">${escHtml(g.group)}</div>
+      ${g.items.map(p => `
+        <div class="phrase-item">
+          <div class="phrase-text">„${escHtml(p)}"</div>
+          <button class="phrase-copy" data-tool="copy-phrase" data-text="${escHtml(p)}">Kopieren</button>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      ${groups}
+    </div>
+  `;
+}
+
+function renderWzTimeline(w, ps, num) {
+  const rows = w.rows.map((row, i) => `
+    <li class="timeline-row">
+      <div class="timeline-time">${escHtml(row.time)}</div>
+      <div>
+        <div class="timeline-content">${escHtml(row.text)}</div>
+        <textarea class="timeline-note" data-tool="timeline-note" data-idx="${i}" placeholder="Notiz für nächste Sitzung …">${escHtml(ps.timelineNotizen[i] || '')}</textarea>
+      </div>
+    </li>
+  `).join('');
+  const hinweise = Array.isArray(w.hinweise) && w.hinweise.length ? `
+    <div class="timeline-hinweise">
+      <div class="timeline-hinweise-titel">Hinweise</div>
+      <ul>${w.hinweise.map(h => `<li>${escHtml(h)}</li>`).join('')}</ul>
+    </div>
+  ` : '';
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      <ul class="timeline">${rows}</ul>
+      ${hinweise}
+    </div>
+  `;
+}
+
+function renderWzKrise(w, num) {
+  let body = '';
+  if (Array.isArray(w.abschnitte)) {
+    body = w.abschnitte.map(a => {
+      const items = a.items.map(it => {
+        if (typeof it === 'string') return `<li>${escHtml(it)}</li>`;
+        return `<li><strong>${escHtml(it.titel)}</strong> ${escHtml(it.text)}</li>`;
+      }).join('');
+      return `
+        <div class="krise-section">
+          <div class="krise-section-titel">${escHtml(a.titel)}</div>
+          <ol class="krise-section-items ${a.numbered ? 'krise-section-numbered' : ''}">${items}</ol>
+        </div>
+      `;
+    }).join('');
+  } else if (Array.isArray(w.schritte)) {
+    body = w.schritte.map((s, i) => `
+      <div class="crisis-step">
+        <div class="crisis-step-num">${i+1}</div>
+        <div class="crisis-step-text"><strong>${escHtml(s.titel)}</strong>${escHtml(s.text)}</div>
+      </div>
+    `).join('');
+  }
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      ${body}
+    </div>
+  `;
+}
+
+function renderWzInfoText(w, ps, num) {
+  return `
+    <div class="praxis-card">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      ${renderInfoBlock(w.textKey, '', w.text, ps)}
+    </div>
+  `;
+}
+
+function renderWzInfoTexte(w, ps, num) {
+  const bloecke = w.bloecke.map(b => renderInfoBlock(b.key, b.titel, b.text, ps)).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      ${bloecke}
+    </div>
+  `;
+}
+
+function renderWzStruktur(w, ps, num) {
+  const bereiche = w.bereiche.map(b => {
+    const v = ps.struktur[b.key] || '';
+    return `
+      <div class="struktur-bereich">
+        <div class="struktur-bereich-titel">${escHtml(b.titel)}</div>
+        <div class="struktur-bereich-desc">${escHtml(b.beschreibung)}</div>
+        <textarea data-tool="struktur" data-key="${b.key}" placeholder="${escHtml(b.placeholder || '')}">${escHtml(v)}</textarea>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="praxis-card full">
+      <div class="praxis-card-head">
+        <span class="praxis-card-icon">${num}</span>
+        <div class="praxis-card-title">${escHtml(w.titel)}</div>
+        <div class="praxis-card-sub">${escHtml(w.sub || '')}</div>
+      </div>
+      ${bereiche}
+    </div>
+  `;
+}
+
 function bindPraxisEvents(topic, data, ps) {
   const root = document.getElementById('articleBody');
+
+  // Lookup für Info-Text-Templates (neues und altes Format)
+  const textsByKey = {};
+  if (Array.isArray(data.werkzeuge)) {
+    data.werkzeuge.forEach(w => {
+      if (w.kind === 'info-text' && w.textKey) textsByKey[w.textKey] = w.text;
+      if (w.kind === 'info-texte' && Array.isArray(w.bloecke)) {
+        w.bloecke.forEach(b => { textsByKey[b.key] = b.text; });
+      }
+    });
+  } else {
+    if (data.elternText) textsByKey.eltern = data.elternText;
+    if (data.schulText)  textsByKey.schul  = data.schulText;
+  }
 
   root.querySelectorAll('input[data-tool="vorSitzung"]').forEach(cb => {
     cb.addEventListener('change', e => {
@@ -2784,9 +3280,41 @@ function bindPraxisEvents(topic, data, ps) {
 
   const resetBtn = root.querySelector('button[data-tool="vorSitzung-reset"]');
   if (resetBtn) resetBtn.addEventListener('click', () => {
-    ps.vorSitzung = data.vorSitzung.map(() => false);
+    let items;
+    if (Array.isArray(data.werkzeuge)) {
+      const cl = data.werkzeuge.find(w => w.kind === 'checklist');
+      items = cl ? cl.items : [];
+    } else {
+      items = data.vorSitzung || [];
+    }
+    ps.vorSitzung = items.map(() => false);
     savePraxisState(topic.id, ps);
     renderEbene();
+  });
+
+  // Skala-Felder (Profil)
+  root.querySelectorAll('[data-tool="profil-scale"]').forEach(input => {
+    input.addEventListener('input', () => {
+      const v = parseInt(input.value, 10);
+      ps.profil[input.dataset.key] = v;
+      savePraxisState(topic.id, ps);
+      const display = root.querySelector(`[data-scale-display="${input.dataset.key}"]`);
+      if (display) display.textContent = v + ' / ' + input.max;
+      const note = root.querySelector('[data-tool="profil-saved"]');
+      if (note) {
+        note.textContent = '✓ gespeichert';
+        clearTimeout(window.__profilSavedTimer);
+        window.__profilSavedTimer = setTimeout(() => { note.textContent = ''; }, 1800);
+      }
+    });
+  });
+
+  // Struktur-Werkstatt (Textareas pro Bereich)
+  root.querySelectorAll('[data-tool="struktur"]').forEach(ta => {
+    ta.addEventListener('input', () => {
+      ps.struktur[ta.dataset.key] = ta.value;
+      savePraxisState(topic.id, ps);
+    });
   });
 
   root.querySelectorAll('[data-tool="profil"]').forEach(el => {
@@ -2826,10 +3354,10 @@ function bindPraxisEvents(topic, data, ps) {
     input.addEventListener('input', () => {
       ps[input.dataset.key] = input.value;
       savePraxisState(topic.id, ps);
-      const groupKey = input.dataset.key.startsWith('eltern') ? 'eltern' : 'schul';
+      const groupKey = input.dataset.key.replace(/Klient$|Fachkraft$/, '');
       const preview = root.querySelector(`[data-info-preview="${groupKey}"]`);
       if (preview) {
-        const tpl = groupKey === 'eltern' ? data.elternText : data.schulText;
+        const tpl = textsByKey[groupKey] || '';
         const klient    = ps[groupKey+'Klient']    || '[Klient:in]';
         const fachkraft = ps[groupKey+'Fachkraft'] || '[Fachkraft]';
         preview.textContent = applyTpl(tpl, klient, fachkraft);
@@ -2840,7 +3368,7 @@ function bindPraxisEvents(topic, data, ps) {
   root.querySelectorAll('[data-tool="copy-info"]').forEach(btn => {
     btn.addEventListener('click', () => {
       const key = btn.dataset.key;
-      const tpl = key === 'eltern' ? data.elternText : data.schulText;
+      const tpl = textsByKey[key] || '';
       const klient    = ps[key+'Klient']    || '[Klient:in]';
       const fachkraft = ps[key+'Fachkraft'] || '[Fachkraft]';
       navigator.clipboard?.writeText(applyTpl(tpl, klient, fachkraft));
