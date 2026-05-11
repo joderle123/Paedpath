@@ -4503,8 +4503,9 @@ const SYMPTOM_DATA_ASPERGER = {
 // Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
 // für Platzhalter-Pills in "Verwandte Module".
 const PLANNED_SYMPTOM_TITLES = {
-  'alexithymie':       'Alexithymie',
-  'mobbing-asperger':  'Mobbing bei Asperger'
+  'alexithymie':                 'Alexithymie',
+  'mobbing-asperger':            'Mobbing bei Asperger',
+  'einziger-freund-verlustangst': 'Einziger Freund — Verlustangst und Abhängigkeit'
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -4854,6 +4855,92 @@ SYMPTOM_DATA_ASPERGER['regulativ'].push({
   ],
   verwandt: ['meltdown-vs-shutdown', 'schul-overload-sensorisch', 'alexithymie']
 });
+SYMPTOM_DATA_ASPERGER['sozial'].push({
+  id: 'keine-freunde',
+  titel: 'Klient hat keine echten Freunde — Isolation versus selbstgewählte Distanz',
+  ueberschrift: 'Klient hat keine echten Freunde — <em>Isolation</em> versus <em>selbstgewählte Distanz</em>',
+  bloecke: [
+    {
+      titel: '01 · Das übersehene Problem',
+      inhalt: `<p>„Er hat keine Freunde" ist einer der häufigsten Sätze in Erstgesprächen mit Eltern autistischer Adoleszenter. Und einer der missverstandensten. Eltern und Lehrkräfte behandeln Freundlosigkeit fast immer als Problem, das gelöst werden muss. Mehr soziale Aktivitäten, mehr Gruppenarbeiten, Sozialkompetenz-Training. Schulen schicken den Klienten in Pausen mit Mitschülern auf den Hof. „Geh und red mit den anderen."</p>
+                <p>Das funktioniert manchmal — und manchmal verschlimmert es alles. Die entscheidende Frage ist nicht <em>„wie bekommt er Freunde"</em>, sondern: <em>leidet er an Einsamkeit — oder leidet seine Umwelt an seinem Anderssein?</em></p>
+                <p>Diese Unterscheidung ist nicht akademisch. Sie bestimmt, was du tust — und was du nicht tust.</p>`
+    },
+    {
+      titel: '02 · Die drei Haupt-Profile',
+      inhalt: `<p><strong>Profil 1 — Echte, schmerzhafte Isolation.</strong></p>
+                <p>Der Klient will Freunde, will Verbindung, will dazugehören. Er versteht aber die sozialen Codes nicht oder nicht ausreichend. Er versucht und scheitert, versucht und scheitert. Er ist einsam, weiß es, leidet darunter.</p>
+                <p>Was du siehst: Traurigkeit, wenn das Thema kommt. Sehnsucht in der Beschreibung von Mitschüler:innen. Versuche, die schiefgegangen sind und ihn beschämt haben. Manchmal sekundäre Depression durch chronische Isolation.</p>
+                <p><strong>Profil 2 — Soziale Sättigung mit kleiner Auswahl.</strong></p>
+                <p>Der Klient hat einen oder zwei Menschen, die für ihn funktionieren. Vielleicht ein Mitschüler mit ähnlichen Interessen. Vielleicht ein Cousin. Vielleicht ein älterer Mensch. Mit diesen Personen ist er zufrieden. Mehr braucht er nicht. Mehr will er nicht.</p>
+                <p>Was du siehst: keine Klage über Einsamkeit. Klarer Stolz auf die bestehende Verbindung. Soziale Müdigkeit nach Gruppenaktivitäten. Erleichterung über strukturierte Pausenzeit allein.</p>
+                <p><strong>Profil 3 — Bewusste Selbstdistanzierung.</strong></p>
+                <p>Der Klient hat versucht und entschieden, dass soziale Interaktion mit Gleichaltrigen mehr kostet, als sie bringt. Er hat sich rausgezogen. Er hat Frieden mit seinem Spezialinteresse, mit Online-Verbindungen, manchmal mit Erwachsenen-Bezugspersonen.</p>
+                <p>Was du siehst: nüchterne Beschreibung ohne Traurigkeit. Manchmal sogar mit Erleichterung. Klare Sätze wie „die Pause war früher die schlimmste Zeit, jetzt bleibe ich in der Bibliothek und das ist viel besser".</p>
+                <p>Diese drei Profile brauchen drei unterschiedliche Antworten von dir. Das ist der Kern dieses Moduls.</p>`
+    },
+    {
+      titel: '03 · Wie du den Unterschied erkennst',
+      inhalt: `<p>Sechs Fragen, die das Profil klären — direkt an den Klienten, nicht an die Eltern. Die Eltern haben oft eine andere Wahrnehmung als der Klient selbst.</p>
+                <p><strong>Frage 1:</strong> „Wenn du an deine Pause in der Schule denkst — was passiert da gerade?"<br>
+                Profil 1: „Ich stehe alleine herum, und alle anderen haben jemand." Profil 2: „Ich rede mit X über unser Spiel." Profil 3: „Ich gehe in die Bibliothek, und das ist gut."</p>
+                <p><strong>Frage 2:</strong> „Wenn du nach Hause kommst — bist du froh, dass der Schultag vorbei ist?"<br>
+                Profil 1: „Ja, weil es schlimm war." Profil 2: „Ja, weil ich müde bin von Menschen — auch wenn es okay war." Profil 3: „Ja, weil ich zuhause endlich Ruhe habe."</p>
+                <p><strong>Frage 3:</strong> „Wenn du dir wünschen könntest, dass etwas anders ist mit anderen Schüler:innen — was wäre das?"<br>
+                Profil 1: „Dass ich auch jemand hätte. Dass jemand mich einlädt." Profil 2: „Eigentlich nichts. Es ist okay so." Profil 3: „Dass sie mich in Ruhe lassen würden."</p>
+                <p><strong>Frage 4:</strong> „Wann fühlst du dich am wohlsten in deinem Tag?"<br>
+                Profil 1: Beschreibung enthält oft eine soziale Komponente („wenn jemand mit mir lacht"). Profil 2: Eine Mischung aus allein und mit der gewählten Person. Profil 3: Ausschließlich Allein-Aktivitäten.</p>
+                <p><strong>Frage 5:</strong> „Hattest du mal Freund:innen — und dann waren sie weg?"<br>
+                Profil 1: Oft Geschichte von verlorenen Verbindungen mit Schmerz. Profil 2: Keine relevante Verlustgeschichte. Profil 3: Vielleicht — aber ohne aktuellen Schmerz.</p>
+                <p><strong>Frage 6:</strong> „Wenn jemand morgen sagen würde, du musst jeden Tag eine Stunde mit drei anderen Schüler:innen verbringen — was wäre dein Gedanke?"<br>
+                Profil 1: „Das wäre vielleicht gut. Vielleicht würde jemand mich mögen." Profil 2: „Kommt drauf an, wer und was wir machen." Profil 3: „Das wäre die Hölle."</p>`
+    },
+    {
+      titel: '04 · Was du bei Profil 1 tust',
+      inhalt: `<p>Hier ist Intervention indiziert — aber spezifisch.</p>
+                <p><strong>Sozialkompetenz-Training für autistische Adoleszente.</strong> Nicht generisches Sozialtraining. Spezielle Programme wie <em>PEERS</em> (Program for the Education and Enrichment of Relational Skills, Laugeson) sind evidenzbasiert wirksam. Strukturiert, regelbasiert, mit klaren Skripten.</p>
+                <p><strong>Verbindungs-Möglichkeiten schaffen, wo die sensorischen und sozialen Bedingungen passen.</strong> Nicht Schul-Pause. Sondern strukturierte Aktivität mit klarem Rahmen, gemeinsamem Interesse, begrenzter Personenzahl. Tabletop-Gaming-Gruppe, Programmier-AG, Aquaristik-Verein. Ein Spezialinteresse wird zum sozialen Anker.</p>
+                <p><strong>Online-Verbindungen ernst nehmen.</strong> Für viele autistische Adoleszente sind Online-Freundschaften echte Freundschaften. Discord-Communities, Spezialinteresse-Foren, Online-Gaming mit Stammgruppe. Diese Verbindungen sind nicht zweitklassig. Sie sind oft die einzige Form, in der soziale Verbindung ohne sensorische Überlastung möglich ist.</p>
+                <p><strong>Eltern und Schule aufklären: ein Freund reicht.</strong> Das Konzept „Freundeskreis" ist neurotypisch geprägt. Ein einziger guter Freund deckt das menschliche Bedürfnis nach Verbindung ab. Mehr ist nicht besser.</p>
+                <p>Was du nicht tust: in soziale Situationen zwingen, Pausen-Begleitung organisieren ohne den Klienten zu fragen, Schulausflug-Pflicht erzwingen, Klassenfahrt-Druck. Das verstärkt das Problem.</p>`
+    },
+    {
+      titel: '05 · Was du bei Profil 2 tust',
+      inhalt: `<p>Wenig. Und das ist die richtige Antwort.</p>
+                <p>Die bestehende Verbindung würdigen und schützen. Wenn der Klient einen Freund hat — sorge dafür, dass diese Verbindung Raum bekommt. Eltern aufklären, dass dieser eine Freund nicht „zu wenig" ist, sondern genau das, was er braucht.</p>
+                <p>Was du dich fragst: <strong>gibt es Risiken bei dieser einzigen Verbindung?</strong> Häufige Risiken bei der „einziger Freund"-Konstellation:</p>
+                <ul>
+                  <li>Schul- oder Wohnortwechsel als existenzielle Krise.</li>
+                  <li>Konflikt mit diesem einen Freund als isolatorische Bedrohung.</li>
+                  <li>Abhängigkeits-Dynamik (siehe verwandtes Modul).</li>
+                  <li>Begrenzte Resilienz, wenn diese Verbindung wegbricht.</li>
+                </ul>
+                <p>Du kannst proaktiv daran arbeiten, dass parallel zur einen Verbindung noch eine zweite, optionale Verbindungs-Quelle besteht. Online-Community. Geschwister-Beziehung. Bezugsperson in der Schule. Diese müssen nicht „Freunde" sein — sie müssen existieren als Fallback.</p>
+                <p>Was du nicht tust: die bestehende Verbindung problematisieren, mehr Freund:innen fordern, soziale Erweiterung erzwingen.</p>`
+    },
+    {
+      titel: '06 · Was du bei Profil 3 tust',
+      inhalt: `<p>Das ist das Profil, das Eltern und Schulen am meisten beunruhigt — und wo du am häufigsten gegen den Anpassungs-Druck arbeiten musst.</p>
+                <p>Klinisch ehrlich: ein autistischer Adoleszent, der bewusst eine soziale Distanz wählt, weil sie für ihn funktioniert, ist <strong>nicht behandlungsbedürftig</strong>. Er ist angepasst an seine eigenen Bedürfnisse. Das ist gesund.</p>
+                <p>Was du tust: die Wahl respektieren und kommunizieren. Eltern aufklären: <em>„Ihr Sohn hat eine bewusste Entscheidung getroffen, die seine Lebensqualität verbessert hat. Die Aufgabe ist nicht, ihn umzustimmen — die Aufgabe ist, seine Wahl zu unterstützen."</em></p>
+                <p>Schule aufklären: das Konzept „soziale Inklusion" wird hier missverstanden. Soziale Inklusion bedeutet, dass <em>Optionen</em> existieren, nicht dass Teilnahme erzwungen wird. Ein Klient, der die Bibliothek-Pause wählt, ist nicht ausgeschlossen — er hat eine andere Option gewählt.</p>
+                <p>Was du im Auge behältst: <strong>ist diese Wahl wirklich frei?</strong> Manchmal ist Profil 3 in Wahrheit Profil 1 mit abgewandtem Schmerz. Der Klient hat gelernt, nicht mehr zu hoffen, weil Hoffnung weh tut. Wenn du diesen Verdacht hast, frage direkt: „Hast du es versucht und dann aufgegeben?" Wenn ja — dann ist es verlagerter Profil 1.</p>
+                <p>Längerfristig im Auge behalten: <strong>Übergänge</strong>. Mit 18, mit Schulabschluss, mit Wohnort-Wechsel — kann das gewählte Distanz-Modell brechen. Vorbereitung auf diese Übergänge ist klinisch sinnvoll auch bei zufriedenen Profil-3-Klienten.</p>`
+    },
+    {
+      titel: '07 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Soziale Isolation bei einem autistischen Adoleszenten hat nicht immer den Hauptgrund, den du zuerst denkst. Prüfe Folgendes:</p>
+                <p><strong>Soziale Angststörung komorbid.</strong> Bei autistischen Klient:innen ist soziale Angststörung häufig. Unterscheidung: bei sozialer Angst wäre Verbindung gewünscht, aber Angst verhindert sie. Bei autistischer Distanz ist Verbindung selbst nicht gewünscht oder nicht möglich. Behandlung anders.</p>
+                <p><strong>Depression mit sozialem Rückzug.</strong> Wenn die Isolation neu aufgetreten ist (nicht seit Kindheit) und mit anderen depressiven Symptomen einhergeht — Depression ist der primäre Faktor, nicht Asperger. Behandle Depression.</p>
+                <p><strong>Selektiver Mutismus.</strong> Bei Klient:innen, die nonverbal in sozialen Situationen, aber zuhause sprechen — separate Diagnose mit eigener Behandlung. Komorbidität mit Asperger möglich.</p>
+                <p><strong>Mobbing-Vermeidung.</strong> Manchmal ist das, was als „selbstgewählte Distanz" beschrieben wird, tatsächlich Vermeidung einer feindlichen Umgebung. Wenn Mitschüler den Klienten ablehnen oder mobben, ist Rückzug eine rationale Selbstschutz-Strategie. Behandlung nicht beim Klienten, sondern beim System.</p>
+                <p><strong>Bindungsstörung.</strong> Bei Klient:innen mit Heim- oder Pflegekontext kann, was wie Asperger-Distanz aussieht, tatsächlich bindungsbedingt sein. Vorsichtig differenzieren. Behandlung anders.</p>
+                <p><strong>Traumafolgestörung.</strong> Bei Klient:innen mit interpersoneller Trauma-Geschichte ist soziale Distanz oft trauma-induziert, nicht autistisch-präferiert. Behandlung folgt Trauma-Logik.</p>`
+    }
+  ],
+  verwandt: ['einziger-freund-verlustangst', 'mobbing-asperger', 'burnout-vs-depression']
+});
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
 function renderPlan(topic, container) {
@@ -4985,7 +5072,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 4 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 5 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
