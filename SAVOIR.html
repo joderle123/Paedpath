@@ -595,6 +595,36 @@
 
   /* ============ PLAN ============ */
   .plan { display: flex; flex-direction: column; gap: 24px; }
+
+  .plan-subnav {
+    display: inline-flex;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px;
+    gap: 2px;
+    margin-bottom: 4px;
+    width: fit-content;
+  }
+  .plan-subnav-btn {
+    background: transparent;
+    border: none;
+    border-radius: 100px;
+    padding: 10px 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+  }
+  .plan-subnav-btn:hover { color: var(--ink); }
+  .plan-subnav-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
   .plan-eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -922,6 +952,343 @@
     color: var(--sage);
     font-style: italic;
     margin-bottom: 24px;
+  }
+
+  /* Symptom-Fokus */
+  .sym-prompt {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 14px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .sym-search-wrap {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .sym-search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sage);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    pointer-events: none;
+  }
+  .sym-search {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 14px 22px 14px 48px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .sym-search:focus {
+    border-color: var(--gold);
+    background: var(--paper);
+  }
+  .sym-search-results {
+    margin-bottom: 28px;
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 14px 18px;
+  }
+  .sym-search-empty {
+    margin-bottom: 28px;
+    padding: 14px 18px;
+    background: var(--cream);
+    border-left: 3px solid var(--sage);
+    border-radius: 0 4px 4px 0;
+    color: var(--sage);
+    font-size: 14px;
+    font-style: italic;
+  }
+  .sym-search-hit {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .sym-search-hit:last-child { border-bottom: none; }
+  .sym-search-hit-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .sym-search-hit-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-top: 4px;
+  }
+
+  .sym-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .sym-category {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    text-align: left;
+    color: var(--ink);
+  }
+  .sym-category:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(10,10,20,.06);
+  }
+  .sym-category-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .sym-category-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .sym-category-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+  }
+  .sym-category-count.has-modules {
+    color: var(--gold);
+  }
+
+  /* Symptom-Liste */
+  .sym-listenkopf {
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sym-listenkopf-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin-bottom: 8px;
+  }
+  .sym-listenkopf-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .sym-liste {
+    display: flex;
+    flex-direction: column;
+  }
+  .sym-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: padding-left .2s ease;
+  }
+  .sym-item:hover { padding-left: 10px; }
+  .sym-item:hover .sym-item-arrow { color: var(--rust); transform: translateX(4px); }
+  .sym-item-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .sym-item-arrow {
+    color: var(--gold);
+    font-size: 18px;
+    transition: transform .2s ease, color .2s ease;
+  }
+  .sym-empty-categories {
+    padding: 36px 28px;
+    text-align: center;
+    background: var(--cream);
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+    margin-top: 24px;
+    color: var(--sage);
+    font-style: italic;
+  }
+  .sym-empty-categories strong {
+    display: block;
+    font-style: normal;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .sym-progress-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    margin-top: 20px;
+  }
+
+  /* Symptom-Detail */
+  .sym-detail-head {
+    margin-bottom: 32px;
+  }
+  .sym-detail-breadcrumb {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 12px;
+  }
+  .sym-detail-breadcrumb .sep { color: var(--gold); margin: 0 8px; }
+  .sym-detail-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .sym-detail-titel em {
+    color: var(--rust);
+    font-style: italic;
+  }
+
+  .sym-block {
+    padding: 28px 0;
+    border-top: 1px solid var(--gold);
+  }
+  .sym-block:first-of-type { border-top: none; padding-top: 8px; }
+  .sym-block-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .sym-block-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin-bottom: 18px;
+  }
+  .sym-block.differential {
+    background: rgba(212,169,63,0.08);
+    border-left: 4px solid var(--gold);
+    border-top: none;
+    border-radius: 0 4px 4px 0;
+    padding: 22px 26px;
+    margin: 28px 0;
+  }
+  .sym-block.differential .sym-block-titel {
+    color: var(--rust);
+  }
+  .sym-prose {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .sym-prose p { margin-bottom: 1em; }
+  .sym-prose p:last-child { margin-bottom: 0; }
+  .sym-prose ul, .sym-prose ol {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    counter-reset: sym-ol-num;
+  }
+  .sym-prose ul li, .sym-prose ol li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .sym-prose ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+  .sym-prose ol li {
+    counter-increment: sym-ol-num;
+  }
+  .sym-prose ol li::before {
+    content: counter(sym-ol-num) '.';
+    position: absolute;
+    left: 0;
+    font-family: 'Fraunces', serif;
+    color: var(--rust);
+    font-weight: 500;
+  }
+  .sym-prose strong { color: var(--ink); font-weight: 600; }
+  .sym-prose em { color: var(--rust); font-style: italic; }
+
+  .sym-verwandt {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .sym-verwandt-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 14px;
+  }
+  .sym-verwandt-liste {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sym-verwandt-pill {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--ink);
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .sym-verwandt-pill:hover {
+    border-color: var(--rust);
+    color: var(--rust);
+  }
+  .sym-verwandt-pill.placeholder {
+    cursor: default;
+    color: var(--sage);
+    font-style: italic;
+  }
+  .sym-verwandt-pill.placeholder:hover {
+    border-color: var(--line);
+    color: var(--sage);
   }
 
   /* Drop-Cap in Praxis, Testen und Plan unterdrücken */
@@ -3387,6 +3754,10 @@ function openArticle(topicId, ebene = 'quintessenz') {
   STATE.szenarioStep = null;
   STATE.uebenAlle = false;
   STATE.planView = 'faktoren';
+  STATE.planMode = 'profil';
+  STATE.symptomKategorie = null;
+  STATE.symptomId = null;
+  STATE.symptomSearch = '';
 
   // Breadcrumb
   document.getElementById('bc-cat-2').textContent = CATEGORIES[topic.kategorie];
@@ -4111,17 +4482,399 @@ const FAKTOREN_SCHEMA = [
   }
 ];
 
+const SYMPTOM_KATEGORIEN = [
+  { id: 'lern-leistung', titel: 'Lern- und Leistungssymptome', geplant: 12 },
+  { id: 'sozial',        titel: 'Soziale Symptome',           geplant: 8 },
+  { id: 'sensorisch',    titel: 'Sensorische und regulative Symptome', geplant: 6 },
+  { id: 'emotional',     titel: 'Emotionale Symptome',        geplant: 6 },
+  { id: 'familie',       titel: 'Familiäre Situationen',      geplant: 5 },
+  { id: 'diagnostisch',  titel: 'Diagnostische Fragen',       geplant: 8 },
+  { id: 'pharma',        titel: 'Pharmakologische Fragen',    geplant: 5 },
+  { id: 'institution',   titel: 'Institutionelle Fragen',     geplant: 6 }
+];
+
+const SYMPTOM_DATA_ASPERGER = {
+  'lern-leistung': [],
+  'sozial':        [],
+  'sensorisch':    [],
+  'emotional':     [],
+  'familie':       [],
+  'diagnostisch':  [],
+  'pharma':        [],
+  'institution':   []
+};
+SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
+  id: 'iq-hoch-rechnen-schreiben',
+  titel: 'Klient hat hohen IQ, kann aber kaum rechnen oder schreiben',
+  ueberschrift: 'Hochbegabter Asperger, aber kann nicht rechnen oder schreiben — das ist <em>Twice Exceptional</em> plus Teilleistungsstörung',
+  bloecke: [
+    {
+      titel: '01 · Das Grundphänomen verstehen',
+      inhalt: `<p>Das ist ein Lehrbuchfall für <strong>Twice Exceptional (2e)</strong> — Hochbegabung und Teilleistungsstörung im selben Kopf. Ein Gesamt-IQ von 140 ist immer eine Mittelung, und gerade bei Asperger sind Profil-Spreizungen von 40 bis 60 Punkten zwischen den WISC- oder WAIS-Indizes völlig normal.</p>
+                <p>Typisches Muster: <strong>VCI</strong> (Verbales Verständnis) und <strong>FRI</strong> (Fluides Schlussfolgern) bei 145–160, Arbeitsgedächtnis bei 90–110, Verarbeitungsgeschwindigkeit bei 80–100.</p>
+                <p>Was das heißt: brillantes konzeptuelles Denken, aber das „Hilfsarbeitssystem" kommt nicht mit. Das ist nicht Faulheit, nicht mangelnde Motivation, nicht Versagen. Das ist ein Mismatch zwischen High-End-Hardware und schwacher Peripherie.</p>`
+    },
+    {
+      titel: '02 · Warum er nicht rechnen kann',
+      inhalt: `<p>Rechenfertigkeit hängt am <em>Sulcus intraparietalis</em> — nicht am verbalen IQ. Dyskalkulie kann komplett unabhängig vom Gesamt-IQ bestehen.</p>
+                <p>Dazu kommt bei ASS oft ein <strong>prozedurales Automatisierungsdefizit</strong>: deklaratives Wissen ist top — er weiß, <em>wie</em> Addition funktioniert, kann sie konzeptuell erklären — aber Faktenabruf (Einmaleins, Additionsfakten) wurde nie automatisiert.</p>
+                <p>Wenn der direkte Abruf fehlt, fällt man zwangsläufig auf entwicklungsgeschichtlich frühere Strategien zurück. Daher die Finger. Das ist kein Trotz, das ist funktionale Kompensation.</p>`
+    },
+    {
+      titel: '03 · Warum er keinen Satz schreibt',
+      inhalt: `<p>Schreiben ist Hochlast-Multitasking: Idee plus Syntax plus Orthografie plus Grafomotorik plus Selbstmonitoring, alles parallel über das Arbeitsgedächtnis.</p>
+                <p>Wenn nur eine Komponente nicht automatisiert ist, kollabiert die ganze Kette. Drei mögliche Engpässe, oft kombiniert:</p>
+                <ul>
+                  <li><strong>Dysgrafie oder DCD</strong> (Developmental Coordination Disorder): Über die Hälfte der Asperger-Population hat motorische Koordinationsstörungen. Handschrift bindet so viel Kapazität, dass für den Inhalt nichts bleibt.</li>
+                  <li><strong>Exekutive Dysfunktion</strong>: Satzplanung braucht Sequenzierung, Inhibition, Set-Shifting. Bei IQ 140 hat er Ideen im Übermaß — und kann sie nicht linearisieren.</li>
+                  <li><strong>Perfektionismus-Lähmung</strong>: Er weiß, wie es klingen sollte, kommt aber nicht hin. Daraus entstehen Vermeidung und Blockade.</li>
+                </ul>`
+    },
+    {
+      titel: '04 · Diagnostischer Reality-Check',
+      inhalt: `<p>Fünf konkrete Schritte, die das schnell aufdecken:</p>
+                <ol>
+                  <li>Lass ihn frei reden oder diktieren. Ist der mündliche Output qualitativ deutlich besser als der schriftliche, sitzt das Problem in Motorik oder exekutiven Funktionen — nicht in der Sprache selbst.</li>
+                  <li>Index-Spreizung im WISC-V oder WAIS-IV anschauen, nicht den Gesamtwert. Wenn da 40 bis 60 Punkte zwischen VCI und Arbeitsgedächtnis liegen, ist die Diagnose fast gestellt.</li>
+                  <li>Rechentest: <strong>ZAREKI-R</strong> oder <strong>HRT 1–4</strong> (falls Niveau passt). Trenne Faktenabruf von konzeptuellem Rechnen. Bei diesem Profil typisch: konzeptuell hoch, Abruf am Boden.</li>
+                  <li><strong>M-ABC-2</strong> oder zumindest grafomotorisches Screening. Klärt Dysgrafie und DCD ab.</li>
+                  <li>Lehrer- und Elternfragebogen zu exekutiven Funktionen: <strong>BRIEF</strong>. Zeigt Sequenzierung, Inhibition und Arbeitsplanung im Alltagskontext.</li>
+                </ol>`
+    },
+    {
+      titel: '05 · Was du sofort tust',
+      inhalt: `<p>Praktisch hilft fast immer:</p>
+                <ul>
+                  <li>Laptop statt Handschrift.</li>
+                  <li>Spracheingabe für Textproduktion.</li>
+                  <li>Taschenrechner-Erlaubnis bei allen Aufgaben, die nicht explizit Faktenabruf testen.</li>
+                  <li>Mündliche Prüfungsformate als Alternative.</li>
+                </ul>
+                <p>Das sind keine Tricks. Das ist Nachteilsausgleich für genau dieses Profil. Sobald die Engpässe umgangen sind, sieht man oft, wozu die 140 wirklich fähig sind.</p>
+                <p>Wichtig für die Eltern-Kommunikation: das ist nicht „Erleichterung", sondern medizinische Notwendigkeit. Wer einem Klienten mit Beinprothese verbietet, sie zu benutzen, wäre absurd. Hier ist es dasselbe Prinzip — nur dass die Prothese ein Laptop ist.</p>`
+    },
+    {
+      titel: '06 · Was du langfristig im Auge behältst',
+      inhalt: `<p><strong>Selbstwert.</strong> Ein hochbegabter junger Mann, der über Jahre wegen seiner Schwächen beschämt wurde — auch und gerade, weil er gleichzeitig brillant ist — entwickelt oft das härteste Selbstbild aller 2e-Profile. „Ich bin klug — also muss meine Inkompetenz Charakterversagen sein." Diese Logik muss aufgelöst werden.</p>
+                <p><strong>Berufliche Perspektive.</strong> Mit diesem Profil sind Universitäten möglich — aber nicht jede Studienform. Frontalvorlesungen mit Schreibklausuren sind ungeeignet. Online-Studium, Spracheingabe, mündliche Prüfungen und projektbasierte Formate funktionieren oft sehr gut.</p>`
+    },
+    {
+      titel: '07 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Wenn der mündliche Output <em>auch</em> schlecht ist und es nicht nur an der Schriftform liegt: dann ist es nicht 2e mit Teilleistungsstörung, dann musst du Folgendes prüfen:</p>
+                <ul>
+                  <li>Selektiver Mutismus.</li>
+                  <li>Schwere Depression mit psychomotorischer Verlangsamung.</li>
+                  <li>Beginnende Psychose (selten in dieser Konstellation, aber bei plötzlichem Einbruch zu erwägen).</li>
+                  <li>Substanzkonsum, besonders chronischer Cannabiskonsum.</li>
+                </ul>
+                <p>Aber wenn er mündlich klar denkt und reden kann — und nur das Schreiben blockiert ist — dann ist es das, was oben beschrieben wurde. Mit hoher Wahrscheinlichkeit.</p>`
+    }
+  ],
+  verwandt: []
+});
+// >>> SYMPTOM_DATA_ASPERGER_ANKER
+
 function renderPlan(topic, container) {
   const ps = loadPlanState(topic.id);
   if (!ps.faktoren) ps.faktoren = {};
 
   if (!STATE.planView) STATE.planView = 'faktoren';
+  if (!STATE.planMode) STATE.planMode = 'profil';
+
+  if (STATE.planMode === 'symptom') {
+    renderSymptomFokus(topic, container);
+    return;
+  }
 
   if (STATE.planView === 'output' && ps.generiert) {
     renderPlanOutput(topic, ps, container);
   } else {
     renderPlanFaktoren(topic, ps, container);
   }
+}
+
+function planSubnavHtml() {
+  return `
+    <div class="plan-subnav">
+      <button class="plan-subnav-btn ${STATE.planMode === 'profil' ? 'active' : ''}" data-tool="plan-mode" data-mode="profil">Profil-Plan</button>
+      <button class="plan-subnav-btn ${STATE.planMode === 'symptom' ? 'active' : ''}" data-tool="plan-mode" data-mode="symptom">Symptom-Fokus</button>
+    </div>
+  `;
+}
+
+function bindPlanSubnav(topic) {
+  document.querySelectorAll('[data-tool="plan-mode"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      STATE.planMode = btn.dataset.mode;
+      STATE.symptomKategorie = null;
+      STATE.symptomId = null;
+      STATE.symptomSearch = '';
+      renderEbene();
+    });
+  });
+}
+
+/* === SYMPTOM-FOKUS === */
+
+function getSymptomData(topicId) {
+  if (topicId === 'asperger') return SYMPTOM_DATA_ASPERGER;
+  return null;
+}
+
+function findSymptomById(symData, id) {
+  if (!symData) return null;
+  for (const k of Object.keys(symData)) {
+    const hit = symData[k].find(s => s.id === id);
+    if (hit) return { symptom: hit, kategorie: k };
+  }
+  return null;
+}
+
+function renderSymptomFokus(topic, container) {
+  if (STATE.symptomId) {
+    renderSymptomDetail(topic, container);
+  } else if (STATE.symptomKategorie) {
+    renderSymptomListe(topic, container);
+  } else {
+    renderSymptomOverview(topic, container);
+  }
+}
+
+function symptomSearch(symData, query) {
+  const q = (query || '').trim().toLowerCase();
+  if (!q || !symData) return [];
+  const out = [];
+  for (const katId of Object.keys(symData)) {
+    for (const s of symData[katId]) {
+      const titel = (s.titel || '').toLowerCase();
+      const inhalt = (s.bloecke || []).map(b => (b.titel || '') + ' ' + (b.inhalt || '')).join(' ').toLowerCase();
+      if (titel.includes(q) || inhalt.includes(q)) {
+        out.push({ kategorieId: katId, symptom: s });
+      }
+    }
+  }
+  return out;
+}
+
+function renderSymptomOverview(topic, container) {
+  const symData = getSymptomData(topic.id);
+  const sq = STATE.symptomSearch || '';
+  const hits = sq.trim() ? symptomSearch(symData, sq) : null;
+
+  const kategorienHtml = SYMPTOM_KATEGORIEN.map(k => {
+    const items = (symData && symData[k.id]) ? symData[k.id] : [];
+    const has = items.length > 0;
+    return `
+      <button class="sym-category" data-tool="sym-open-kat" data-kat="${k.id}">
+        <div class="sym-category-num">Kategorie</div>
+        <div class="sym-category-titel">${escHtml(k.titel)}</div>
+        <div class="sym-category-count ${has ? 'has-modules' : ''}">${has ? items.length + ' Modul' + (items.length === 1 ? '' : 'e') + ' · ' + k.geplant + ' geplant' : 'Module folgen schrittweise · ' + k.geplant + ' geplant'}</div>
+      </button>
+    `;
+  }).join('');
+
+  let searchResultsHtml = '';
+  if (hits !== null) {
+    if (hits.length === 0) {
+      searchResultsHtml = `<div class="sym-search-empty">Keine Treffer für „${escHtml(sq)}". Mehr Module folgen — bisher ist nur ein Symptom (Lern- und Leistung) ausgearbeitet.</div>`;
+    } else {
+      searchResultsHtml = `<div class="sym-search-results">${
+        hits.map(h => {
+          const kat = SYMPTOM_KATEGORIEN.find(k => k.id === h.kategorieId);
+          return `<div class="sym-search-hit" data-tool="sym-open-symptom" data-kat="${h.kategorieId}" data-id="${escHtml(h.symptom.id)}">
+            <div class="sym-search-hit-titel">${escHtml(h.symptom.titel)}</div>
+            <div class="sym-search-hit-meta">${escHtml(kat ? kat.titel : '')}</div>
+          </div>`;
+        }).join('')
+      }</div>`;
+    }
+  }
+
+  container.innerHTML = `
+    <section class="plan">
+      ${planSubnavHtml()}
+      <div>
+        <div class="plan-eyebrow">Symptom-Fokus · Asperger-Profil</div>
+        <div class="sym-prompt">Was beschäftigt dich an diesem Klienten?</div>
+      </div>
+      <div class="sym-search-wrap">
+        <span class="sym-search-icon">⌕</span>
+        <input type="search" class="sym-search" placeholder="z. B. „rechnen", „Rückzug", „Schlaf", „Medikation" …" value="${escHtml(sq)}" data-tool="sym-search">
+      </div>
+      ${searchResultsHtml}
+      <div class="sym-categories">${kategorienHtml}</div>
+      <div class="sym-progress-note">Aktuell 1 von 56 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+    </section>
+  `;
+  bindPlanSubnav(topic);
+  bindSymptomOverviewEvents(topic);
+}
+
+function bindSymptomOverviewEvents(topic) {
+  const root = document.getElementById('articleBody');
+
+  root.querySelector('[data-tool="sym-search"]')?.addEventListener('input', e => {
+    STATE.symptomSearch = e.target.value;
+    // Live-re-render mit Fokus-Erhaltung
+    const cursor = e.target.selectionStart;
+    renderEbene();
+    const newInput = document.querySelector('[data-tool="sym-search"]');
+    if (newInput) {
+      newInput.focus();
+      try { newInput.setSelectionRange(cursor, cursor); } catch (e) {}
+    }
+  });
+
+  root.querySelectorAll('[data-tool="sym-open-kat"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      STATE.symptomKategorie = btn.dataset.kat;
+      STATE.symptomId = null;
+      renderEbene();
+    });
+  });
+
+  root.querySelectorAll('[data-tool="sym-open-symptom"]').forEach(el => {
+    el.addEventListener('click', () => {
+      STATE.symptomKategorie = el.dataset.kat;
+      STATE.symptomId = el.dataset.id;
+      renderEbene();
+    });
+  });
+}
+
+function renderSymptomListe(topic, container) {
+  const symData = getSymptomData(topic.id);
+  const katId = STATE.symptomKategorie;
+  const kat = SYMPTOM_KATEGORIEN.find(k => k.id === katId);
+  const items = (symData && symData[katId]) ? symData[katId] : [];
+
+  const liste = items.length === 0
+    ? `<div class="sym-empty-categories">
+        <strong>Modul noch nicht ausgearbeitet.</strong>
+        Symptom-Module für „${escHtml(kat ? kat.titel : '')}" kommen schrittweise dazu (${kat ? kat.geplant : 0} geplant).
+      </div>`
+    : `<div class="sym-liste">${
+        items.map(s => `
+          <div class="sym-item" data-tool="sym-open-symptom" data-kat="${katId}" data-id="${escHtml(s.id)}">
+            <div class="sym-item-titel">${escHtml(s.titel)}</div>
+            <span class="sym-item-arrow">→</span>
+          </div>
+        `).join('')
+      }</div>
+      <div class="sym-progress-note">${items.length} von ${kat ? kat.geplant : 0} geplanten Modulen ausgearbeitet — weitere folgen.</div>`;
+
+  container.innerHTML = `
+    <section class="plan">
+      ${planSubnavHtml()}
+      <button class="test-back" data-tool="sym-back-overview">← Kategorien</button>
+      <div class="sym-listenkopf">
+        <div class="sym-listenkopf-eyebrow">Symptom-Fokus · Kategorie</div>
+        <div class="sym-listenkopf-titel">${escHtml(kat ? kat.titel : '')}</div>
+      </div>
+      ${liste}
+    </section>
+  `;
+  bindPlanSubnav(topic);
+  bindSymptomListeEvents(topic);
+}
+
+function bindSymptomListeEvents(topic) {
+  const root = document.getElementById('articleBody');
+  root.querySelector('[data-tool="sym-back-overview"]')?.addEventListener('click', () => {
+    STATE.symptomKategorie = null;
+    STATE.symptomId = null;
+    renderEbene();
+  });
+  root.querySelectorAll('[data-tool="sym-open-symptom"]').forEach(el => {
+    el.addEventListener('click', () => {
+      STATE.symptomKategorie = el.dataset.kat;
+      STATE.symptomId = el.dataset.id;
+      renderEbene();
+    });
+  });
+}
+
+function renderSymptomDetail(topic, container) {
+  const symData = getSymptomData(topic.id);
+  const hit = findSymptomById(symData, STATE.symptomId);
+  if (!hit) {
+    container.innerHTML = `
+      <section class="plan">
+        ${planSubnavHtml()}
+        <button class="test-back" data-tool="sym-back-overview">← Kategorien</button>
+        <div class="empty-content">Symptom nicht gefunden.</div>
+      </section>
+    `;
+    bindPlanSubnav(topic);
+    document.querySelector('[data-tool="sym-back-overview"]')?.addEventListener('click', () => {
+      STATE.symptomKategorie = null; STATE.symptomId = null; renderEbene();
+    });
+    return;
+  }
+  const symptom = hit.symptom;
+  const kat = SYMPTOM_KATEGORIEN.find(k => k.id === hit.kategorie);
+
+  const bloeckeHtml = (symptom.bloecke || []).map(b => `
+    <div class="sym-block ${b.differential ? 'differential' : ''}">
+      <div class="sym-block-titel">${escHtml(b.titel)}</div>
+      <div class="sym-prose">${b.inhalt}</div>
+    </div>
+  `).join('');
+
+  // Verwandte Module: nutze explizit gesetzte verwandt-IDs falls vorhanden,
+  // sonst andere Symptome aus derselben Kategorie + bis 5 Symptome insgesamt.
+  let verwandteIds = Array.isArray(symptom.verwandt) ? symptom.verwandt.slice() : [];
+  const sameKat = (symData[hit.kategorie] || []).filter(s => s.id !== symptom.id);
+  sameKat.forEach(s => { if (!verwandteIds.includes(s.id)) verwandteIds.push(s.id); });
+
+  const verwandtePills = verwandteIds.slice(0, 5).map(id => {
+    const v = findSymptomById(symData, id);
+    if (!v) return '';
+    return `<button class="sym-verwandt-pill" data-tool="sym-open-symptom" data-kat="${v.kategorie}" data-id="${escHtml(v.symptom.id)}">${escHtml(v.symptom.titel)}</button>`;
+  }).filter(Boolean).join('');
+
+  const verwandteHtml = verwandtePills.length
+    ? `<div class="sym-verwandt">
+        <div class="sym-verwandt-titel">Verwandte Module</div>
+        <div class="sym-verwandt-liste">${verwandtePills}</div>
+      </div>`
+    : `<div class="sym-verwandt">
+        <div class="sym-verwandt-titel">Verwandte Module</div>
+        <div class="sym-verwandt-liste">
+          <span class="sym-verwandt-pill placeholder">Weitere Module folgen schrittweise.</span>
+        </div>
+      </div>`;
+
+  container.innerHTML = `
+    <section class="plan">
+      ${planSubnavHtml()}
+      <button class="test-back" data-tool="sym-back-liste">← ${escHtml(kat ? kat.titel : 'Zurück')}</button>
+      <div class="sym-detail-head">
+        <div class="sym-detail-breadcrumb">Symptom-Fokus<span class="sep">›</span>${escHtml(kat ? kat.titel : '')}</div>
+        <h2 class="sym-detail-titel">${symptom.ueberschrift || escHtml(symptom.titel)}</h2>
+      </div>
+      ${bloeckeHtml}
+      ${verwandteHtml}
+    </section>
+  `;
+  bindPlanSubnav(topic);
+  bindSymptomDetailEvents(topic);
+}
+
+function bindSymptomDetailEvents(topic) {
+  const root = document.getElementById('articleBody');
+  root.querySelector('[data-tool="sym-back-liste"]')?.addEventListener('click', () => {
+    STATE.symptomId = null;
+    renderEbene();
+  });
+  root.querySelectorAll('[data-tool="sym-open-symptom"]').forEach(el => {
+    el.addEventListener('click', () => {
+      STATE.symptomKategorie = el.dataset.kat;
+      STATE.symptomId = el.dataset.id;
+      renderEbene();
+    });
+  });
 }
 
 function renderPlanFaktoren(topic, ps, container) {
@@ -4158,6 +4911,7 @@ function renderPlanFaktoren(topic, ps, container) {
 
   container.innerHTML = `
     <section class="plan">
+      ${planSubnavHtml()}
       <div>
         <div class="plan-eyebrow">Klinischer Plan · Asperger-Profil</div>
         <div class="plan-intro">Klicke die Faktoren an, die deinen Klienten beschreiben. Der Plan wird daraus generiert — mit Risikoprofil, Therapieansatz, vier Phasen, Schul-Strategie und Eskalationsindikatoren.</div>
@@ -4173,6 +4927,7 @@ function renderPlanFaktoren(topic, ps, container) {
   `;
 
   bindPlanFaktorenEvents(topic, ps);
+  bindPlanSubnav(topic);
 }
 
 function renderPlanOutput(topic, ps, container) {
@@ -4181,6 +4936,7 @@ function renderPlanOutput(topic, ps, container) {
   if (!muster) {
     container.innerHTML = `
       <section class="plan">
+        ${planSubnavHtml()}
         <button class="test-back" data-tool="plan-back-faktoren">← Faktoren anpassen</button>
         <div class="plan-empty-match">
           <strong style="display:block;font-family:'Fraunces',serif;font-size:20px;color:var(--ink);margin-bottom:8px;font-style:normal;">Kein klares Hauptmuster erkannt.</strong>
@@ -4212,6 +4968,7 @@ function renderPlanOutput(topic, ps, container) {
 
   container.innerHTML = `
     <section class="plan">
+      ${planSubnavHtml()}
       <button class="test-back" data-tool="plan-back-faktoren">← Faktoren anpassen</button>
 
       <div class="plan-output-header">
@@ -4281,6 +5038,7 @@ function renderPlanOutput(topic, ps, container) {
     </section>
   `;
   bindPlanOutputEvents(topic, ps);
+  bindPlanSubnav(topic);
 }
 
 function bindPlanOutputEvents(topic, ps) {
