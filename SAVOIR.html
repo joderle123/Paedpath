@@ -566,6 +566,20 @@
     border-bottom-color: var(--rust);
   }
 
+  /* Plan-Tab — klinischer Konsil-Stil */
+  .tab-plan { color: var(--ink); }
+  .tab-plan::before {
+    content: '⊕';
+    margin-right: 6px;
+    font-size: 13px;
+    vertical-align: middle;
+    color: var(--rust);
+  }
+  .tab-plan.active {
+    color: var(--rust);
+    border-bottom-color: var(--rust);
+  }
+
   /* Testen-Tab */
   .tab-testen { color: var(--sage); }
   .tab-testen::before {
@@ -579,11 +593,344 @@
     border-bottom-color: var(--gold);
   }
 
-  /* Drop-Cap in Praxis und Testen unterdrücken */
+  /* ============ PLAN ============ */
+  .plan { display: flex; flex-direction: column; gap: 24px; }
+  .plan-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .plan-intro {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.45;
+    margin-bottom: 16px;
+    max-width: 620px;
+    color: var(--ink);
+  }
+  .plan-faktoren {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .plan-bereich {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 20px;
+  }
+  .plan-bereich.full { grid-column: 1 / -1; }
+  .plan-bereich-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 4px;
+  }
+  .plan-bereich-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .plan-bereich-sub {
+    font-size: 12px;
+    color: var(--sage);
+    margin-top: -8px;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  @media (max-width: 768px) {
+    .plan-faktoren { grid-template-columns: 1fr; }
+  }
+
+  .plan-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .plan-options.inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .plan-option {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    color: var(--ink);
+    transition: border-color .15s ease, background .15s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .plan-option:hover {
+    border-color: var(--gold);
+    background: var(--paper);
+  }
+  .plan-option.selected {
+    border-color: var(--rust);
+    background: rgba(163,80,31,0.06);
+  }
+  .plan-option.selected::before {
+    content: '✓';
+    color: var(--rust);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .plan-option.inline-pill {
+    border-radius: 100px;
+    padding: 8px 18px;
+    flex: 0 0 auto;
+  }
+  .plan-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .plan-generate-btn {
+    background: var(--rust);
+    color: var(--paper);
+    border-radius: 100px;
+    padding: 14px 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    border: none;
+    transition: background .2s ease;
+  }
+  .plan-generate-btn:hover { background: var(--ink); }
+  .plan-generate-btn:disabled {
+    background: var(--sage);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .plan-reset-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--sage);
+    border-radius: 100px;
+    padding: 10px 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+  }
+  .plan-reset-btn:hover { color: var(--rust); border-color: var(--rust); }
+  .plan-progress-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--sage);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Plan-Output */
+  .plan-output { display: flex; flex-direction: column; gap: 0; }
+  .plan-output-header {
+    margin-bottom: 8px;
+  }
+  .plan-output-pattern {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .plan-output-title {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .plan-output-meta {
+    color: var(--sage);
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
+  .plan-block {
+    padding: 32px 0;
+    border-top: 1px solid var(--gold);
+  }
+  .plan-block:first-of-type { border-top: none; padding-top: 0; }
+  .plan-block-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .plan-block-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 22px;
+    letter-spacing: -0.01em;
+  }
+  .plan-subblock {
+    margin-bottom: 22px;
+  }
+  .plan-subblock:last-child { margin-bottom: 0; }
+  .plan-subblock-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+  .plan-prose {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .plan-prose p { margin-bottom: 0.9em; }
+  .plan-prose p:last-child { margin-bottom: 0; }
+  .plan-prose ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.9em;
+  }
+  .plan-prose ul li {
+    padding: 4px 0 4px 22px;
+    position: relative;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .plan-prose ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+  .plan-prose strong { color: var(--ink); font-weight: 600; }
+  .plan-prose em { color: var(--rust); font-style: italic; }
+
+  /* Risiko-Stufen */
+  .plan-risiko-stufe {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    border-left: 4px solid var(--line);
+    background: var(--cream);
+    border-radius: 0 4px 4px 0;
+  }
+  .plan-risiko-stufe:last-child { margin-bottom: 0; }
+  .plan-risiko-stufe.kritisch { border-left-color: var(--rust); background: rgba(163,80,31,0.06); }
+  .plan-risiko-stufe.hoch { border-left-color: var(--gold); background: rgba(212,169,63,0.08); }
+  .plan-risiko-stufe.mittel { border-left-color: var(--sage); }
+  .plan-risiko-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+  }
+  .plan-risiko-stufe.kritisch .plan-risiko-label { color: var(--rust); }
+  .plan-risiko-stufe.hoch .plan-risiko-label { color: var(--rust); }
+  .plan-risiko-stufe.mittel .plan-risiko-label { color: var(--sage); }
+
+  /* Phasen */
+  .plan-phase {
+    margin-bottom: 24px;
+    padding-bottom: 22px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .plan-phase:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .plan-phase-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .plan-phase-num {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .plan-phase-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+  }
+  .plan-phase-dauer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+  }
+
+  /* Notizen */
+  .plan-notizen {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .plan-notizen-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 12px;
+  }
+  .plan-notizen textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 140px;
+    outline: none;
+  }
+  .plan-notizen textarea:focus { border-color: var(--gold); }
+
+  .plan-empty-match {
+    background: var(--cream);
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+    padding: 36px 28px;
+    text-align: center;
+    color: var(--sage);
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  /* Drop-Cap in Praxis, Testen und Plan unterdrücken */
   .article-body > .praxis:first-child::first-letter,
   .article-body > .testen:first-child::first-letter,
+  .article-body > .plan:first-child::first-letter,
   .article-body .praxis p::first-letter,
-  .article-body .testen p::first-letter {
+  .article-body .testen p::first-letter,
+  .article-body .plan p::first-letter {
     font-family: inherit; font-weight: inherit; float: none;
     font-size: inherit; line-height: inherit; padding: 0; color: inherit;
   }
@@ -1717,6 +2064,7 @@
         <button class="tab" data-ebene="grundlagen">Grundlagen</button>
         <button class="tab" data-ebene="klinisch">Klinisch</button>
         <button class="tab" data-ebene="spezialfaelle">Spezialfälle</button>
+        <button class="tab tab-plan" data-ebene="plan">Plan</button>
         <button class="tab tab-praxis" data-ebene="praxis">Praxis</button>
         <button class="tab tab-testen" data-ebene="testen">Testen</button>
       </nav>
@@ -2817,7 +3165,8 @@ const LS = {
   AUDIO: 'savoir_audio_settings',
   SEARCH: 'savoir_search_history',
   PRAXIS: 'savoir_praxis_state',
-  TESTEN: 'savoir_test_progress'
+  TESTEN: 'savoir_test_progress',
+  PLAN: 'savoir_plans'
 };
 
 function loadPraxisState(topicId) {
@@ -2844,6 +3193,26 @@ function saveTestState(topicId, state) {
     const all = JSON.parse(localStorage.getItem(LS.TESTEN)) || {};
     all[topicId] = state;
     localStorage.setItem(LS.TESTEN, JSON.stringify(all));
+  } catch {}
+}
+function loadPlanState(topicId) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.PLAN)) || {};
+    return all[topicId] || { faktoren: {}, notizen: '', generiert: null };
+  } catch { return { faktoren: {}, notizen: '', generiert: null }; }
+}
+function savePlanState(topicId, state) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.PLAN)) || {};
+    all[topicId] = state;
+    localStorage.setItem(LS.PLAN, JSON.stringify(all));
+  } catch {}
+}
+function resetPlanState(topicId) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS.PLAN)) || {};
+    delete all[topicId];
+    localStorage.setItem(LS.PLAN, JSON.stringify(all));
   } catch {}
 }
 function escHtml(s) {
@@ -3017,6 +3386,7 @@ function openArticle(topicId, ebene = 'quintessenz') {
   STATE.flashcardFlipped = false;
   STATE.szenarioStep = null;
   STATE.uebenAlle = false;
+  STATE.planView = 'faktoren';
 
   // Breadcrumb
   document.getElementById('bc-cat-2').textContent = CATEGORIES[topic.kategorie];
@@ -3059,6 +3429,11 @@ function renderEbene() {
     readBtn.style.display = 'none';
   } else if (ebene === 'testen') {
     renderTesten(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+  } else if (ebene === 'plan') {
+    renderPlan(topic, body);
     audioPanel.style.display = 'none';
     audioCtrls.style.display = 'none';
     readBtn.style.display = 'none';
@@ -3619,6 +3994,1032 @@ function bindPraxisEvents(topic, data, ps) {
       btn.textContent = 'Kopiert ✓';
       setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 1800);
     });
+  });
+}
+
+/* ============ PLAN-MODUL ============ */
+
+const FAKTOREN_SCHEMA = [
+  {
+    id: 'alter', titel: 'Alter', art: 'single', layout: 'inline',
+    optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]
+  },
+  {
+    id: 'geschlecht', titel: 'Geschlecht', art: 'single', layout: 'inline',
+    optionen: [
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'weiblich',  text: 'weiblich' },
+      { val: 'divers',    text: 'divers / non-binär' }
+    ]
+  },
+  {
+    id: 'profil', titel: 'Präsentations-Profil', art: 'single', full: true,
+    sub: 'Welcher Subtyp beschreibt diesen Klienten am ehesten?',
+    optionen: [
+      { val: 'klassisch',       text: 'Klassisch sichtbar — Routinen offensichtlich, Spezialinteresse erkennbar, soziale Schwierigkeiten von außen klar' },
+      { val: 'camoufliert',     text: 'Camoufliert — passt sich an, kopiert Sprache, wirkt sozial okay, erschöpft sich heimlich' },
+      { val: '2e',              text: 'Twice Exceptional — hochbegabt + Asperger, Begabung verdeckt Symptomatik' },
+      { val: 'internalisierend', text: 'Weiblich-internalisierend — höflich, fleißig, perfektionistisch, sekundäre Depression/Angst' }
+    ]
+  },
+  {
+    id: 'komorbiditaeten', titel: 'Komorbiditäten', art: 'multi', full: true,
+    sub: 'Mehrfachauswahl. „Keine" deaktiviert die anderen Optionen nicht — überprüfe dein Bild.',
+    optionen: [
+      { val: 'adhs',         text: 'ADHS — kombiniertes AuDHD-Profil' },
+      { val: 'depression',   text: 'Depression — aktuell oder in Vorgeschichte' },
+      { val: 'angst',        text: 'Angststörung (sozial / generalisiert / spezifisch)' },
+      { val: 'trauma',       text: 'Trauma-Hintergrund' },
+      { val: 'nssi',         text: 'Selbstverletzung — aktiv oder in Vorgeschichte' },
+      { val: 'substanz',     text: 'Substanzkonsum' },
+      { val: 'essstoerung',  text: 'Essstörung' },
+      { val: 'schlaf',       text: 'Schlafstörung' },
+      { val: 'keine',        text: 'Keine bekannten Komorbiditäten' }
+    ]
+  },
+  {
+    id: 'sensorisch', titel: 'Sensorisches Profil', art: 'multi', full: true,
+    sub: 'Mehrfachauswahl. Sensorik bestimmt Sitzungsraum und Schul-Strategie.',
+    optionen: [
+      { val: 'geraeusche',  text: 'Hypersensitiv gegen Geräusche' },
+      { val: 'licht',       text: 'Hypersensitiv gegen Licht' },
+      { val: 'beruehrung',  text: 'Hypersensitiv gegen Berührung' },
+      { val: 'gerueche',    text: 'Hypersensitiv gegen Gerüche' },
+      { val: 'textur',      text: 'Hypersensitiv gegen Geschmack / Textur' },
+      { val: 'hypo',        text: 'Hyposensitiv / Sensation Seeking' },
+      { val: 'overload',    text: 'Sensorischer Overload aktuell präsent' },
+      { val: 'unklar',      text: 'Sensorisches Profil unklar' }
+    ]
+  },
+  {
+    id: 'kognitiv', titel: 'Kognitives Profil', art: 'single', full: true,
+    optionen: [
+      { val: 'hochbegabt',  text: 'Hochbegabung (IQ > 130 oder Verdacht)' },
+      { val: 'durchschnitt', text: 'Durchschnittlich begabt' },
+      { val: 'awg-schwach', text: 'Arbeitsgedächtnis-Schwäche dominant' },
+      { val: 'lrs',         text: 'Lernstörung gleichzeitig (Dyslexie / Dyskalkulie)' },
+      { val: 'sprach',      text: 'Sprachverarbeitung beeinträchtigt' },
+      { val: 'unklar',      text: 'Profil unklar / nicht abgeklärt' }
+    ]
+  },
+  {
+    id: 'schule', titel: 'Schulsituation', art: 'single', full: true,
+    optionen: [
+      { val: 'regulaer-ok',     text: 'Regulär, läuft ohne größere Probleme' },
+      { val: 'regulaer-probl',  text: 'Regulär, mit chronischen Problemen' },
+      { val: 'verweigerung',    text: 'Schulverweigerung aktuell' },
+      { val: 'reduziert',       text: 'Reduzierte Anwesenheit' },
+      { val: 'sondersetting',   text: 'Sonderschule / Spezialsetting' },
+      { val: 'hausunterricht',  text: 'Hausunterricht' },
+      { val: 'abbruch',         text: 'Schulabbruch in den letzten 12 Monaten' }
+    ]
+  },
+  {
+    id: 'familie', titel: 'Familiensituation', art: 'multi', full: true,
+    sub: 'Mehrfachauswahl.',
+    optionen: [
+      { val: 'intakt-unter',   text: 'Intakte Familie, unterstützend' },
+      { val: 'intakt-konflikt', text: 'Intakte Familie, hochkonfliktreich' },
+      { val: 'getrennt',       text: 'Eltern getrennt' },
+      { val: 'heim',           text: 'Heim oder Pflegefamilie' },
+      { val: 'elternteil-asd', text: 'Ein Elternteil im Spektrum (erkannt oder Verdacht)' },
+      { val: 'geschwister-asd', text: 'Geschwister im Spektrum' },
+      { val: 'eltern-belastet', text: 'Eltern selbst aktuell psychisch belastet' }
+    ]
+  },
+  {
+    id: 'akut', titel: 'Akute Faktoren und Vorgeschichte', art: 'multi', full: true,
+    sub: 'Mehrfachauswahl. Diese Faktoren überschreiben oft andere Empfehlungen.',
+    optionen: [
+      { val: 'suizid-aktuell',  text: 'Suizidgedanken aktuell' },
+      { val: 'suizid-vorgesch', text: 'Suizidversuch in Vorgeschichte' },
+      { val: 'nssi-aktiv',      text: 'Selbstverletzung aktiv' },
+      { val: 'burnout',         text: 'Autistic Burnout aktuell' },
+      { val: 'erstkontakt',     text: 'Erstkontakt mit Hilfesystem' },
+      { val: 'therapie-abbr',   text: 'Vorherige Therapie abgebrochen' },
+      { val: 'mehrere-gescheit', text: 'Mehrere Therapien gescheitert' },
+      { val: 'parallel-psych',  text: 'Aktuell parallel in psychiatrischer Behandlung' },
+      { val: 'med-stimul',      text: 'Medikation: Stimulanzien' },
+      { val: 'med-ssri',        text: 'Medikation: SSRI' },
+      { val: 'med-antipsy',     text: 'Medikation: Antipsychotika' },
+      { val: 'keine',           text: 'Keine besonderen Faktoren' }
+    ]
+  }
+];
+
+function renderPlan(topic, container) {
+  const ps = loadPlanState(topic.id);
+  if (!ps.faktoren) ps.faktoren = {};
+
+  if (!STATE.planView) STATE.planView = 'faktoren';
+
+  if (STATE.planView === 'output' && ps.generiert) {
+    renderPlanOutput(topic, ps, container);
+  } else {
+    renderPlanFaktoren(topic, ps, container);
+  }
+}
+
+function renderPlanFaktoren(topic, ps, container) {
+  const bereicheHtml = FAKTOREN_SCHEMA.map((b, i) => {
+    const aktuell = ps.faktoren[b.id];
+    const sub = b.sub ? `<div class="plan-bereich-sub">${escHtml(b.sub)}</div>` : '';
+    const optionen = b.optionen.map(o => {
+      const isInline = b.layout === 'inline';
+      let selected = false;
+      if (b.art === 'single') selected = aktuell === o.val;
+      else if (b.art === 'multi') selected = Array.isArray(aktuell) && aktuell.includes(o.val);
+      return `<button type="button" class="plan-option ${isInline ? 'inline-pill' : ''} ${selected ? 'selected' : ''}"
+        data-tool="plan-option" data-bereich="${b.id}" data-art="${b.art}" data-val="${escHtml(o.val)}">
+        ${escHtml(o.text)}
+      </button>`;
+    }).join('');
+    return `
+      <div class="plan-bereich ${b.full ? 'full' : ''}">
+        <div class="plan-bereich-num">Bereich ${String(i+1).padStart(2,'0')}</div>
+        <div class="plan-bereich-titel">${escHtml(b.titel)}</div>
+        ${sub}
+        <div class="plan-options ${b.layout === 'inline' ? 'inline' : ''}">${optionen}</div>
+      </div>
+    `;
+  }).join('');
+
+  const minRequired = ['alter','geschlecht','profil'];
+  const ready = minRequired.every(k => ps.faktoren[k]);
+  const ausgefuellt = FAKTOREN_SCHEMA.filter(b => {
+    const v = ps.faktoren[b.id];
+    if (b.art === 'single') return !!v;
+    return Array.isArray(v) && v.length > 0;
+  }).length;
+
+  container.innerHTML = `
+    <section class="plan">
+      <div>
+        <div class="plan-eyebrow">Klinischer Plan · Asperger-Profil</div>
+        <div class="plan-intro">Klicke die Faktoren an, die deinen Klienten beschreiben. Der Plan wird daraus generiert — mit Risikoprofil, Therapieansatz, vier Phasen, Schul-Strategie und Eskalationsindikatoren.</div>
+      </div>
+      <div class="plan-faktoren">${bereicheHtml}</div>
+      <div class="plan-actions">
+        <button class="plan-generate-btn" data-tool="plan-generate" ${ready ? '' : 'disabled'}>Plan generieren</button>
+        <button class="plan-reset-btn" data-tool="plan-reset-faktoren">Alles zurücksetzen</button>
+        <span class="plan-progress-note">${ausgefuellt} von ${FAKTOREN_SCHEMA.length} Bereichen angefasst${ready ? '' : ' · mindestens Alter, Geschlecht und Profil nötig'}</span>
+      </div>
+      ${ps.generiert ? `<div class="plan-progress-note" style="margin-top:8px;">Letzter Plan generiert am ${fmtDate(ps.generiert)} · <a style="cursor:pointer;color:var(--rust);text-decoration:underline;" data-tool="plan-show-existing">erneut anzeigen</a></div>` : ''}
+    </section>
+  `;
+
+  bindPlanFaktorenEvents(topic, ps);
+}
+
+function renderPlanOutput(topic, ps, container) {
+  const muster = generatePlan(topic, ps);
+
+  if (!muster) {
+    container.innerHTML = `
+      <section class="plan">
+        <button class="test-back" data-tool="plan-back-faktoren">← Faktoren anpassen</button>
+        <div class="plan-empty-match">
+          <strong style="display:block;font-family:'Fraunces',serif;font-size:20px;color:var(--ink);margin-bottom:8px;font-style:normal;">Kein klares Hauptmuster erkannt.</strong>
+          Die Faktoren-Kombination passt zu keinem der hinterlegten Muster. Versuche, weitere Faktoren zu spezifizieren — oder fasse deinen Klienten in den Notizen unten frei zusammen.
+        </div>
+        <div class="plan-notizen">
+          <div class="plan-notizen-titel">Klinische Notizen</div>
+          <textarea data-tool="plan-notizen" placeholder="Freie Notizen zu diesem Klienten — bleibt lokal in deinem Browser.">${escHtml(ps.notizen || '')}</textarea>
+        </div>
+      </section>
+    `;
+    bindPlanOutputEvents(topic, ps);
+    return;
+  }
+
+  const b = muster.bloecke;
+  const phasen = (b.phasen || []).map((p, i) => `
+    <div class="plan-phase">
+      <div class="plan-phase-head">
+        <span class="plan-phase-num">${i+1}</span>
+        <span class="plan-phase-titel">${escHtml(p.titel)}</span>
+        <span class="plan-phase-dauer">${escHtml(p.dauer || '')}</span>
+      </div>
+      ${p.ziele ? `<div class="plan-subblock"><div class="plan-subblock-titel">Ziele</div><div class="plan-prose">${p.ziele}</div></div>` : ''}
+      ${p.was ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du tust</div><div class="plan-prose">${p.was}</div></div>` : ''}
+      ${p.eintritt ? `<div class="plan-subblock"><div class="plan-subblock-titel">Übergang zur nächsten Phase</div><div class="plan-prose">${p.eintritt}</div></div>` : ''}
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <section class="plan">
+      <button class="test-back" data-tool="plan-back-faktoren">← Faktoren anpassen</button>
+
+      <div class="plan-output-header">
+        <div class="plan-output-pattern">Erkanntes Muster</div>
+        <div class="plan-output-title">${escHtml(muster.name)}</div>
+        <div class="plan-output-meta">Generiert am ${fmtDate(ps.generiert)}. Der Plan ist ein Konsil-Vorschlag — passe ihn anhand deiner Klient:innen-Kenntnis an.</div>
+      </div>
+
+      <div class="plan-block">
+        <div class="plan-block-num">Block 01</div>
+        <div class="plan-block-titel">Was du siehst</div>
+        ${b.profil ? `<div class="plan-subblock"><div class="plan-subblock-titel">Profil-Erkennung</div><div class="plan-prose">${b.profil}</div></div>` : ''}
+        ${b.wichtig ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was klinisch besonders wichtig ist</div><div class="plan-prose">${b.wichtig}</div></div>` : ''}
+        ${b.vergleich ? `<div class="plan-subblock"><div class="plan-subblock-titel">Vergleich mit ähnlichen Profilen</div><div class="plan-prose">${b.vergleich}</div></div>` : ''}
+      </div>
+
+      <div class="plan-block">
+        <div class="plan-block-num">Block 02</div>
+        <div class="plan-block-titel">Risiko-Profil</div>
+        ${b.risikoKritisch ? `<div class="plan-risiko-stufe kritisch"><div class="plan-risiko-label">Kritisch · sofort handeln</div><div class="plan-prose">${b.risikoKritisch}</div></div>` : ''}
+        ${b.risikoHoch ? `<div class="plan-risiko-stufe hoch"><div class="plan-risiko-label">Hoch · in den nächsten Wochen managen</div><div class="plan-prose">${b.risikoHoch}</div></div>` : ''}
+        ${b.risikoMittel ? `<div class="plan-risiko-stufe mittel"><div class="plan-risiko-label">Mittel · langfristig</div><div class="plan-prose">${b.risikoMittel}</div></div>` : ''}
+      </div>
+
+      <div class="plan-block">
+        <div class="plan-block-num">Block 03</div>
+        <div class="plan-block-titel">Therapieansatz-Empfehlung</div>
+        ${b.ansatzHaupt ? `<div class="plan-subblock"><div class="plan-subblock-titel">Hauptansatz</div><div class="plan-prose">${b.ansatzHaupt}</div></div>` : ''}
+        ${b.ansatzTust ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du tust</div><div class="plan-prose">${b.ansatzTust}</div></div>` : ''}
+        ${b.ansatzNicht ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du nicht tust — und warum</div><div class="plan-prose">${b.ansatzNicht}</div></div>` : ''}
+        ${b.ansatzFrequenz ? `<div class="plan-subblock"><div class="plan-subblock-titel">Frequenz und Dauer</div><div class="plan-prose">${b.ansatzFrequenz}</div></div>` : ''}
+      </div>
+
+      <div class="plan-block">
+        <div class="plan-block-num">Block 04</div>
+        <div class="plan-block-titel">Behandlungsplan in vier Phasen</div>
+        ${phasen || '<div class="plan-prose"><em>Phasen nicht definiert für dieses Muster.</em></div>'}
+      </div>
+
+      <div class="plan-block">
+        <div class="plan-block-num">Block 05</div>
+        <div class="plan-block-titel">Schul-Strategie</div>
+        ${b.schuleKommunikation ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du der Schule kommunizierst</div><div class="plan-prose">${b.schuleKommunikation}</div></div>` : ''}
+        ${b.schuleAnpassungen ? `<div class="plan-subblock"><div class="plan-subblock-titel">Konkrete Anpassungen</div><div class="plan-prose">${b.schuleAnpassungen}</div></div>` : ''}
+        ${b.schuleNicht ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du nicht empfiehlst</div><div class="plan-prose">${b.schuleNicht}</div></div>` : ''}
+        ${b.schuleWer ? `<div class="plan-subblock"><div class="plan-subblock-titel">Wer im Schul-System wichtig ist</div><div class="plan-prose">${b.schuleWer}</div></div>` : ''}
+        ${b.schuleFrequenz ? `<div class="plan-subblock"><div class="plan-subblock-titel">Frequenz des Austauschs</div><div class="plan-prose">${b.schuleFrequenz}</div></div>` : ''}
+      </div>
+
+      <div class="plan-block">
+        <div class="plan-block-num">Block 06</div>
+        <div class="plan-block-titel">Eskalations-Indikatoren</div>
+        ${b.eskFrequenz ? `<div class="plan-subblock"><div class="plan-subblock-titel">Wann erhöhst du die Sitzungs-Frequenz</div><div class="plan-prose">${b.eskFrequenz}</div></div>` : ''}
+        ${b.eskKjp ? `<div class="plan-subblock"><div class="plan-subblock-titel">Wann überweist du zur Psychiatrie / KJP</div><div class="plan-prose">${b.eskKjp}</div></div>` : ''}
+        ${b.eskKlinik ? `<div class="plan-subblock"><div class="plan-subblock-titel">Wann ist eine Klinik indiziert</div><div class="plan-prose">${b.eskKlinik}</div></div>` : ''}
+      </div>
+
+      <div class="plan-notizen">
+        <div class="plan-notizen-titel">Klinische Notizen — für diesen Klienten</div>
+        <textarea data-tool="plan-notizen" placeholder="Was passt für deinen Klienten besonders? Was anders? Was beobachtest du beim Umsetzen?">${escHtml(ps.notizen || '')}</textarea>
+      </div>
+
+      <div class="plan-actions" style="margin-top:24px;">
+        <button class="plan-reset-btn" data-tool="plan-back-faktoren">Faktoren anpassen</button>
+        <button class="plan-reset-btn" data-tool="plan-reset-all">Plan zurücksetzen</button>
+      </div>
+    </section>
+  `;
+  bindPlanOutputEvents(topic, ps);
+}
+
+function bindPlanOutputEvents(topic, ps) {
+  const root = document.getElementById('articleBody');
+
+  root.querySelectorAll('[data-tool="plan-back-faktoren"]').forEach(b =>
+    b.addEventListener('click', () => { STATE.planView = 'faktoren'; renderEbene(); })
+  );
+
+  root.querySelector('[data-tool="plan-reset-all"]')?.addEventListener('click', () => {
+    if (!confirm('Plan und Notizen komplett zurücksetzen?')) return;
+    resetPlanState(topic.id);
+    STATE.planView = 'faktoren';
+    renderEbene();
+  });
+
+  root.querySelector('[data-tool="plan-notizen"]')?.addEventListener('input', e => {
+    ps.notizen = e.target.value;
+    savePlanState(topic.id, ps);
+  });
+}
+
+/* PLAN_MUSTER — Reihenfolge bestimmt Priorität bei matchPattern (höherer Score gewinnt) */
+const PLAN_MUSTER_ASPERGER = [];
+PLAN_MUSTER_ASPERGER.push({
+  id: 'maedchen-camoufliert-burnout',
+  name: 'Mädchen, camoufliert, Burnout',
+  matcher: (f) => {
+    let s = 0;
+    if (f.geschlecht === 'weiblich') s += 30;
+    if (f.profil === 'camoufliert' || f.profil === 'internalisierend') s += 30;
+    if (has(f.akut, 'burnout')) s += 40;
+    if (has(f.komorbiditaeten, 'depression')) s += 10;
+    return s >= 70 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast vor dir eine junge Frau im Autismus-Spektrum, die seit Jahren kompensiert hat — und deren System jetzt zusammengebrochen ist. Was du als „Depression" diagnostiziert bekommst oder selbst zuerst denkst, ist hier oft die Folge, nicht die Ursache. Die Hauptintervention ist nicht Aktivierung, sondern Reduktion. Wer hier mit Verhaltensaktivierung kommt, macht es schlimmer.</p>`,
+    wichtig: `<ul>
+      <li>Burnout-Symptomatik mit Skill-Verlust unterscheiden von Major Depression (siehe Spezialfälle).</li>
+      <li>SSRI hilft hier oft nicht und kann das überforderte System weiter überlasten — Indikation mit KJP klären.</li>
+      <li>Camouflaging muss explizit thematisiert werden — sonst macht die Klientin in Therapie genau das weiter, was sie krank gemacht hat.</li>
+      <li>Suizidalität ist bei autistischen Frauen mit Burnout deutlich erhöht (Cassidy et al. 2018). Bei jeder Sitzung explizit fragen.</li>
+    </ul>`,
+    vergleich: `<p>Bei klassisch sichtbarem Asperger würdest du sofort mit Psychoedukation und Strukturierung beginnen. Bei diesem Profil beginnst du mit <em>Erlaubnis zur Reduktion</em>. Erst wenn die Erschöpfung abklingt, kannst du an sozialen Skills arbeiten — vorher verstärkst du Camouflaging.</p>`,
+
+    risikoKritisch: `<p>Suizidrisiko deutlich erhöht (ASS allgemein ≈ 9-fach, weiblich plus Burnout zusätzlicher Risikofaktor). Bei jeder Sitzung explizit nach konkreten Gedanken, Methode, Vorbereitung fragen. Eltern über atypische Warnsignale aufklären: kühle Ruhe statt offene Verzweiflung, „Aufräumen" von Sammlungen, höfliche Verabschiedungen.</p>`,
+    risikoHoch: `<p>Pseudo-Compliance — sie wird in der Sitzung freundlich, kooperativ und scheinbar zustimmend sein, weiter camouflagieren, dir die richtigen Antworten geben. Du musst explizit erlauben, dass sie unangenehm sein darf. Frag direkt nach körperlichen Erschöpfungs-Zeichen, nicht nach „Stimmung".</p>`,
+    risikoMittel: `<p>Re-Pathologisierung bei späteren Therapie-Kontakten, die „Funktionieren" als Ziel haben — verstärkt das Grundproblem. Langfristig autistische Identität als Ressource aufbauen, nicht als Defizit.</p>`,
+
+    ansatzHaupt: `<p>Acceptance- und Energiemanagement-orientierte Therapie mit autistic-affirmative Haltung. <strong>Nicht</strong> Standard-KVT mit Behavioral Activation als Erstlinie. <strong>Nicht</strong> klassische Expositionstherapie. Wenn Trauma-Anteile bestehen, zuerst stabilisieren.</p>`,
+    ansatzTust: `<p>Energiebudget visualisieren (Spoon Theory als gemeinsame Sprache). Recovery-Aktivitäten identifizieren. Spezialinteressen als regulative Ressource etablieren. Camouflaging-Bewusstsein über mehrere Sitzungen aufbauen. Schriftliche Kommunikation explizit ermöglichen.</p>`,
+    ansatzNicht: `<p>Keine Forderung nach „mehr Aktivität". Keine Übungsempfehlungen, die noch mehr Performance verlangen. Soziale-Skills-Training nicht in Phase 1 — verstärkt sonst Camouflaging. Compliance nicht loben — sie ist hier das Problem, nicht die Lösung.</p>`,
+    ansatzFrequenz: `<p>Anfangs wöchentlich, aber <strong>30 Minuten</strong> statt 50 (Burnout-Toleranz). Schriftliche Vorbereitung explizit ermöglichen. Nach Stabilisierung zweiwöchentlich.</p>`,
+
+    phasen: [
+      {
+        titel: 'Erlaubnis zur Reduktion',
+        dauer: 'Wochen 1–6',
+        ziele: `<ul><li>Therapeutische Allianz aufbauen.</li><li>Rahmen für radikale Reduktion schaffen.</li><li>Suizidalität explizit adressieren und stabilisieren.</li><li>Eltern psychoedukativ involvieren.</li></ul>`,
+        was: `<p><strong>Sitzungen 1–2:</strong> Strukturierte Anamnese, Burnout-Konzept einführen, Sicherheits-Check, Sicherheitsplan in autismusgerechter Form.</p>
+              <p><strong>Sitzungen 3–4:</strong> Eltern-Gespräch (mit Klientin gemeinsam oder parallel). Aufklärung: Burnout ist real, ist nicht Faulheit, braucht Reduktion. Schule wird informiert — reduziertes Pensum, kein „mehr Anstrengung".</p>
+              <p><strong>Sitzungen 5–6:</strong> Energiebudget gemeinsam erarbeiten. Was kostet Energie, was gibt Energie. Erster Recovery-Plan.</p>`,
+        eintritt: `<p>Klientin spürt erste Erholung. Schul-Reduktion umgesetzt. Suizidalität stabil oder rückläufig.</p>`
+      },
+      {
+        titel: 'Verstehen und profilieren',
+        dauer: 'Wochen 6–12',
+        ziele: `<ul><li>Autistisches Selbstbild aufbauen — affirmativ, nicht defizitär.</li><li>Camouflaging bewusst machen, ohne es als „Fehler" zu rahmen.</li><li>Sensorisches Profil und soziale Erschöpfungspunkte mappen.</li></ul>`,
+        was: `<p>Psychoedukation zu Autismus aus autistic-affirmative Perspektive (Camouflaging, Burnout, Stimming, Spezialinteressen als Selbstregulation). Identifikation eigener Routinen, sensorischer Eigenheiten, „safe spaces". Reflexion, was Camouflaging gekostet hat — in welcher Beziehung, in welchem Kontext.</p>
+              <p><em>Wichtig:</em> Nicht Camouflaging „abgewöhnen", sondern bewusst machen und Wahlmöglichkeit schaffen.</p>`,
+        eintritt: `<p>Klientin hat eigenes Verständnis ihres Profils. Erste Erfahrungen mit „unmasked" Momenten in sicherer Umgebung.</p>`
+      },
+      {
+        titel: 'Skills und Selbstadvokatie',
+        dauer: 'Monate 3–9',
+        ziele: `<ul><li>Funktionierende Strategien aufbauen, die nicht auf Camouflaging beruhen.</li><li>Eigene Bedürfnisse benennen und kommunizieren können.</li><li>Soziale Strategien, die Energie sparen statt verbrauchen.</li></ul>`,
+        was: `<p>Konkrete Skills für Alltag: Pausen, Grenzen, Ablehnung. Selbstadvokatie in Schule und Familie modellieren und üben. Komorbide Depression bessert sich oft mit der ASS-Behandlung — wenn nicht, gezielt mitbehandeln.</p>`,
+        eintritt: `<p>Stabile Routinen. Reduzierte Erschöpfung. Wiederkehrende Interessen, erste tragfähige Verbindungen.</p>`
+      },
+      {
+        titel: 'Konsolidierung und Übergang',
+        dauer: 'Monate 9–12',
+        ziele: `<ul><li>Rückfall-Resilienz aufbauen.</li><li>Frühwarnzeichen-Plan schreiben.</li><li>Übergang in selbständige Begleitung.</li></ul>`,
+        was: `<p>Rückfallplan gemeinsam schreiben (Frühwarnzeichen, sofortige Reduktions-Strategien, Ressourcen). Frequenz schrittweise reduzieren. Booster-Sitzungen alle 6–8 Wochen.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Wir haben es hier mit einer jungen Frau im Autismus-Spektrum zu tun, die nach jahrelanger Überanpassung in einem Erschöpfungszustand ist. Die Behandlung erfordert eine deutliche Reduktion der Anforderungen, nicht eine Erhöhung. Dies ist medizinisch notwendig, keine Bequemlichkeit."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Reduziertes Pensum (Stundenanzahl, Fächeranzahl).</li>
+      <li>Schriftliche Anweisungen zusätzlich zu mündlichen.</li>
+      <li>Rückzugsraum bei sensorischem Overload.</li>
+      <li>Soziale Anforderungen reduzieren — kein Gruppen-Zwang, Pausenfreiheit.</li>
+      <li>Klare, feste Ansprechperson im Schul-System.</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>„Mehr Anstrengung" — verschlimmert Burnout.</li>
+      <li>„Soziales Training" als Pflicht — verstärkt Camouflaging.</li>
+      <li>Klassische Klassenraum-Integration ohne sensorische Anpassungen.</li>
+    </ul>`,
+    schuleWer: `<p>Eine feste Ansprechperson (Klassenleitung oder Schulpsychologin), nicht wechselnde Lehrkräfte. Bei jüngerer Adoleszenz Schulleitung mit einbeziehen.</p>`,
+    schuleFrequenz: `<p>Alle 4–6 Wochen mit fester Ansprechperson. Schriftlich, gemeinsam mit Klientin formuliert — sie liest mit, korrigiert, gibt frei.</p>`,
+
+    eskFrequenz: `<p>Wenn Erschöpfung trotz Reduktion zunimmt. Wenn Suizidgedanken intensiver oder konkreter werden. Wenn Schul-Anpassungen nicht greifen oder Eltern destabilisieren.</p>`,
+    eskKjp: `<p>Bei akuter Suizidalität mit Plan oder Mitteln. Bei psychotischen Symptomen (selten, aber möglich bei extremem Burnout). Bei jeder offenen Medikamenten-Frage, die geklärt werden muss.</p>`,
+    eskKlinik: `<p>Bei Suizidversuch. Bei kompletter Schul- und Sozialverweigerung mit medizinischer Verschlechterung (Gewichtsverlust, Dehydration, Mutismus außerhalb Familie).</p>`
+  }
+});
+PLAN_MUSTER_ASPERGER.push({
+  id: 'audhd-schulverweigerung',
+  name: 'AuDHD-Profil mit Schulverweigerung',
+  matcher: (f) => {
+    let s = 0;
+    if (has(f.komorbiditaeten, 'adhs')) s += 35;
+    if (f.schule === 'verweigerung' || f.schule === 'abbruch') s += 35;
+    if (f.schule === 'reduziert') s += 20;
+    if (f.profil === 'klassisch' || f.profil === '2e') s += 10;
+    if (f.geschlecht === 'maennlich') s += 5;
+    return s >= 60 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast vor dir einen Klienten, bei dem zwei neurologische Andersheiten kollidieren — und die Schule ist der Ort, wo beides am stärksten zum Tragen kommt. Die Schule ist für ihn doppelte Belastung: Asperger braucht Struktur und Vorhersehbarkeit, ADHS braucht Bewegung und Stimulation. Standardsetting liefert beides nicht gleichzeitig. Schulverweigerung ist die funktionale Antwort auf ein unlösbares Dilemma — nicht Ungehorsam.</p>`,
+    wichtig: `<ul>
+      <li>Schulverweigerung als Symptom verstehen, nicht moralisch verhandeln.</li>
+      <li>Stimulanzien-Frage zentral: kann sehr helfen, kann aber bei ASS-Anteil sensorische Reizoffenheit verstärken — engmaschig befragen.</li>
+      <li>Sekundäre Beschämung über Jahre — der Selbstwert ist oft tiefer erschüttert als bei reinem Asperger oder reinem ADHS.</li>
+      <li>RSD (Rejection Sensitive Dysphoria) häufig komorbid und Borderline-fehldiagnostiziert.</li>
+    </ul>`,
+    vergleich: `<p>Bei reiner Schulverweigerung mit sozialer Angst würdest du graduierte Exposition machen. Bei diesem Profil arbeitest du erst an Sensorik und Struktur — sonst exponierst du gegen ein System, das ihn tatsächlich überfordert. Die „Phobie" wäre dann keine, sondern eine adäquate Reaktion.</p>`,
+
+    risikoKritisch: `<p>Chronischer Schulabbruch mit sozialer Isolation. Sekundäre Depression mit suizidalen Anteilen. Bei extremer Frustration: Wutausbrüche, seltener Selbstverletzung. Bei aktiver Suizidalität KJP-Anbindung sofort.</p>`,
+    risikoHoch: `<p>Stimulanzien-Reaktion bei ASS-Klienten unklar — die ersten zwei bis vier Wochen engmaschig beobachten (sensorische Hyperreaktivität, Schlaf, Reizbarkeit). Familiendynamik unter chronischem Stress: Eltern erschöpft, Geschwister-Konflikt eskaliert, Konflikt-Eskalations-Spirale.</p>`,
+    risikoMittel: `<p>Langfristige Bildungswege werden hier geprägt. Beruflicher Werdegang. Sozialer Anschluss in Adoleszenz und früher Erwachsenenzeit. Späterer Cannabis-Konsum als Selbstmedikation.</p>`,
+
+    ansatzHaupt: `<p>Strukturierte, hochbedarfsorientierte Behandlung. Modifizierte KVT mit ASS-Anpassungen plus ADHS-spezifische Selbstmanagement-Komponenten. Stark eltern- und schul-bezogen. Engmaschige Kooperation mit KJP wegen Medikamentenfrage.</p>`,
+    ansatzTust: `<p>Sensorisches Profil und Reiz-Toleranz mappen. Externe Strukturen mit eingebauten Bewegungs-Elementen aufbauen. Schul-Setting aktiv mitgestalten — eventuell Schulwechsel oder Spezialsetting prüfen. Spezialinteresse als Lern-Hebel nutzen.</p>`,
+    ansatzNicht: `<p>Keine reine Konfrontation mit „der Schule, in der er war". Keine klassische Expositions-Hierarchie ohne Berücksichtigung der sensorischen Realität. Keine moralische Verhandlung über Schulpflicht — das eskaliert nur.</p>`,
+    ansatzFrequenz: `<p>Wöchentlich, 50 Minuten. Plus monatliches Schul-Gespräch. Plus Eltern-Termine im 4-Wochen-Rhythmus. Insgesamt sehr betreuungsintensiv in den ersten 3 Monaten.</p>`,
+
+    phasen: [
+      {
+        titel: 'Entlastung und Diagnostik',
+        dauer: 'Wochen 1–6',
+        ziele: `<ul><li>Druck aus dem System nehmen.</li><li>Diagnostik vervollständigen (falls ADHS noch nicht bestätigt: Überweisung).</li><li>Beziehung ohne Schul-Druck aufbauen.</li></ul>`,
+        was: `<p>Strukturierte Anamnese. Spezialinteresse als Brücke nutzen. Sensorisches Profil dokumentieren. Eltern-Termine mit klarer Botschaft: <strong>vorübergehende Schul-Reduktion oder -Pause ist medizinisch begründet</strong> und kein Erziehungsversagen.</p>`,
+        eintritt: `<p>Akute Krise abgeklungen. Diagnostik klar (oder in Klärung). Sensorisches Profil bekannt.</p>`
+      },
+      {
+        titel: 'System verstehen',
+        dauer: 'Wochen 6–12',
+        ziele: `<ul><li>Schul-Setting genau verstehen — was funktioniert nicht, was wäre möglich?</li><li>Klärung: Anpassungen in aktueller Schule realistisch oder Wechsel notwendig?</li></ul>`,
+        was: `<p>Schul-Beobachtung oder detaillierte Beschreibung durch Klient. Lehrer-Gespräch (mit Einverständnis). Eventuelle Schul-Alternativen prüfen (Privatschule, Sonderpädagogik, Online-Lernen). Medikamenten-Probelauf in enger Abstimmung mit KJP.</p>`,
+        eintritt: `<p>Klare Schul-Strategie. Medikamenten-Frage geklärt oder Probelauf gestartet.</p>`
+      },
+      {
+        titel: 'Wiedereingliederung',
+        dauer: 'Monate 3–9',
+        ziele: `<ul><li>Schrittweise Rückkehr in tragfähige Schulstruktur.</li><li>Skills für Selbstmanagement: Time-Blocking, externe Anker, Pausen-Strategien.</li><li>Selbstwert wiederaufbauen.</li></ul>`,
+        was: `<p>Sehr kleine Schritte, klar definierte Stunden. Konkrete Strategien bei sensorischen Triggern. Erfolge dokumentieren. Spezialinteresse als Lern-Hebel in mindestens einem Fach.</p>`,
+        eintritt: `<p>Stabile Schul-Anwesenheit auf reduziertem oder angepasstem Niveau. Reduzierte Vermeidungs-Symptomatik.</p>`
+      },
+      {
+        titel: 'Konsolidierung',
+        dauer: 'Monate 9–12',
+        ziele: `<ul><li>Strategien automatisieren.</li><li>Längerfristige Bildungs- und Berufsplanung.</li><li>Selbstadvokatie aufbauen.</li></ul>`,
+        was: `<p>Rückfallplan. Schul-Übergänge planen (neues Schuljahr, Übergang zu Lehre, Praktikum). Frequenz schrittweise reduzieren.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Dieser Schüler hat zwei neurologische Profile, die sich in normalen Schul-Settings widersprechen. Asperger verlangt Struktur, Vorhersehbarkeit, sensorische Reduktion. ADHS verlangt Bewegung, kurze Einheiten, externe Anker. Beides ist gleichzeitig möglich — aber es braucht Anpassungen, nicht mehr Disziplin."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Fixer Sitzplatz vorne (Asperger) mit Steh-Möglichkeit oder Sitzball (ADHS).</li>
+      <li>Kurze Einheiten mit fest eingeplanten Bewegungs-Pausen.</li>
+      <li>Schriftliche Anweisungen zusätzlich zu mündlichen.</li>
+      <li>Sensorische Reduktion (Kopfhörer erlaubt, sitzplatzfern von Lärmquellen).</li>
+      <li>Externe Zeit-Anker auf dem Tisch (Visual Timer).</li>
+      <li>Rückzugsraum bei Overload.</li>
+      <li>Klarer Wochenplan, vorhersehbare Abläufe, Vorankündigung von Wechseln.</li>
+      <li>Spezialinteresse als Anker in mindestens einem Fach.</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>„Mehr Disziplin" — neurologisch nicht verfügbar.</li>
+      <li>Strafen für Time Blindness — verstärkt Selbstwertschaden.</li>
+      <li>Gruppen-Projekte ohne Strukturierung und ohne klare Rollen.</li>
+      <li>Öffentliches Beschämen bei Aufmerksamkeitsausfällen — provoziert RSD-Krisen.</li>
+    </ul>`,
+    schuleWer: `<p>Klassenleitung als Hauptansprechperson. Bei jüngeren auch Schulleitung. SPOS oder Schulpsychologie einbeziehen, wenn Anpassungen formal erforderlich sind.</p>`,
+    schuleFrequenz: `<p>Monatlich in den ersten 3 Monaten, dann alle 6 Wochen. Bei Eskalation jederzeit.</p>`,
+
+    eskFrequenz: `<p>Wenn Schul-Anwesenheit kippt. Wenn Aggression zunimmt. Wenn Substanzkonsum auftritt oder eskaliert. Wenn RSD-Krisen häufiger werden.</p>`,
+    eskKjp: `<p>Bei Stimulanzien-Frage (zwingend). Bei akuter Depression mit suizidaler Anteilen. Bei Verdacht auf zusätzliche Diagnose (Tic-Störung, OCD).</p>`,
+    eskKlinik: `<p>Bei Schulabbruch mit sozialer Komplett-Verweigerung über mehr als drei Monate trotz aller ambulanten Maßnahmen. Bei Suizidversuch.</p>`
+  }
+});
+PLAN_MUSTER_ASPERGER.push({
+  id: '2e-depression',
+  name: 'Twice Exceptional mit sekundärer Depression',
+  matcher: (f) => {
+    let s = 0;
+    if (f.profil === '2e' || f.kognitiv === 'hochbegabt') s += 35;
+    if (has(f.komorbiditaeten, 'depression')) s += 30;
+    if (f.schule === 'regulaer-probl' || f.schule === 'reduziert' || f.schule === 'abbruch') s += 15;
+    if (has(f.akut, 'mehrere-gescheit') || has(f.akut, 'therapie-abbr')) s += 10;
+    return s >= 50 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast einen hochbegabten Jugendlichen mit Asperger vor dir, dessen Begabung das ASS-Profil jahrelang verdeckt hat — bis das Kompensationsbudget aufgebraucht war. Was du jetzt als Depression siehst, ist die Erschöpfung nach Jahren des „ich bin doch klug, also muss ich es schaffen". Das Selbstbild „ich bin halt schnell" ist eingebrochen — und damit die ganze Identitäts-Architektur.</p>`,
+    wichtig: `<ul>
+      <li>Depression nicht isoliert behandeln — sie ist Folge des Schul-Mismatches und der eingebrochenen Begabungs-Identität.</li>
+      <li>Begabungs-affirmierende Sprache von Anfang an: „Du bist nicht weniger klug geworden — du brauchst andere Strukturen, damit deine Begabung tragen kann."</li>
+      <li>Perfektionistischer Zusammenbruch häufig — bei dem ersten gescheiterten Versuch kippt der ganze Selbstwert.</li>
+      <li>Schul-Mismatch ist meist der Hebel: Spezialschule, Springen, Begabungs-Förderung prüfen.</li>
+    </ul>`,
+    vergleich: `<p>Bei reiner Depression bei Hochbegabten würdest du auf Sinn-Krise und Überforderung schauen. Hier kommt der ASS-Anteil dazu: die soziale Erschöpfung in der Schule, das Spezialinteresse, das nicht mehr Energie gibt, weil es als „Flucht" beschämt wurde. Du arbeitest <em>parallel</em> an Schul-Setting, Selbstwert und Spezialinteresse.</p>`,
+
+    risikoKritisch: `<p>Suizidalität ernst nehmen. Bei Hochbegabten gepaart mit Asperger und Depression ist das Risiko deutlich erhöht — nicht durch Impulsivität, sondern durch planerische Kühle nach längerem Identitäts-Einbruch. Direkt und mehrfach nach konkreten Gedanken fragen.</p>`,
+    risikoHoch: `<p>Kompletter Schulabbruch mit sozialer Isolation. Substanzkonsum als Selbstmedikation (Cannabis bei Erschöpfung, manchmal Stimulanzien bei „ich muss leistungsfähig sein"). Verlust des Spezialinteresses als Ressource — dann fehlt der wichtigste Anker.</p>`,
+    risikoMittel: `<p>Langfristige Bildungs- und Berufsidentität wird hier geprägt. Wenn die Sinn-Krise nicht aufgelöst wird, bleibt sie als chronische Unter-Erfüllung. Beziehungs-Aufbau in Adoleszenz oft schwer — Peer-Gruppe fehlt, Erwachsene sind „zu langsam".</p>`,
+
+    ansatzHaupt: `<p>Begabungs-affirmierende, autistic-affirmative Therapie mit gleichzeitiger Schul-System-Arbeit. KVT-Elemente zur Stimmungsregulation, aber primär identitäts- und kontext-orientiert. Wenn klassische Schule nicht passt: Schul-Alternative prüfen ist Therapieziel, nicht Nebensache.</p>`,
+    ansatzTust: `<p>Spezialinteresse als Identitäts-Anker rehabilitieren („das war nie Flucht, das war Selbstregulation"). Hochbegabungs-Diagnostik abklären, wenn nicht vorhanden. Schul-Alternativen recherchieren und mit Familie besprechen. Peer-Kontakt zu anderen 2e-Jugendlichen suchen (online-Communities sind oft tragfähig).</p>`,
+    ansatzNicht: `<p>Keine reine Stimmungsaktivierung („mach was Schönes mit Freunden"). Keine Begabungs-Verkleinerung („du bist halt sensibel"). Keine vorschnelle medikamentöse Behandlung der Depression — erst klären, ob Schul-Reduktion die Stimmung anhebt.</p>`,
+    ansatzFrequenz: `<p>Wöchentlich, 50 Minuten. Bei Schul-Krise Eltern-Termine im Wechsel. Nach Stabilisierung zweiwöchentlich.</p>`,
+
+    phasen: [
+      {
+        titel: 'Krisenstabilisierung und Bestandsaufnahme',
+        dauer: 'Wochen 1–6',
+        ziele: `<ul><li>Suizidalität abklären und stabilisieren.</li><li>Schul-Druck akut reduzieren.</li><li>Begabungs-Bild rehabilitieren.</li></ul>`,
+        was: `<p>Sicherheits-Check, Sicherheitsplan. Eltern-Gespräch: aktuelle Schul-Situation pausieren oder reduzieren, ohne dass es als „Aufgeben" gerahmt wird. Erste begabungs-affirmierende Gespräche mit Klient.</p>`,
+        eintritt: `<p>Suizidalität stabil. Akuter Schul-Druck reduziert. Klient hat erste Erfahrung, dass „du musst nicht mehr" möglich ist.</p>`
+      },
+      {
+        titel: 'Profil und Schul-Alternativen klären',
+        dauer: 'Wochen 6–12',
+        ziele: `<ul><li>Hochbegabungs-Diagnostik (wenn nicht vorhanden).</li><li>ASS-Anteil sauber benennen und in Identität integrieren.</li><li>Realistische Schul-Optionen sondieren.</li></ul>`,
+        was: `<p>Psychoedukation: 2e als anerkannte Konstellation. Schul-Optionen mit Familie und Klient diskutieren: angepasstes Setting in aktueller Schule, Spezialschule, Springen, Begabungsförderung, eventuell Homeschooling als Übergang.</p>`,
+        eintritt: `<p>Klare Schul-Strategie für nächsten Schritt. Diagnose-Bild vollständig.</p>`
+      },
+      {
+        titel: 'Aufbau und Selbstadvokatie',
+        dauer: 'Monate 3–9',
+        ziele: `<ul><li>Funktionierendes Schul-Setting etablieren.</li><li>Selbstadvokatie üben — eigene Bedürfnisse benennen können.</li><li>Spezialinteresse als produktiven Anker entwickeln.</li></ul>`,
+        was: `<p>Konkrete Anpassungen umsetzen. Erfolge dokumentieren. Eventuell Peer-Kontakt fördern (2e-Communities, Spezialinteresse-Treffen, online-Mentor). Komorbide Depression bessert sich in der Regel mit dem Schul-Mismatch.</p>`,
+        eintritt: `<p>Stabile Schul-Anwesenheit. Stimmung deutlich gebessert. Wiederkehrendes Spezialinteresse mit positiver Affektivität.</p>`
+      },
+      {
+        titel: 'Konsolidierung und Übergang',
+        dauer: 'Monate 9–12',
+        ziele: `<ul><li>Langfristige Bildungsplanung.</li><li>Frühwarnzeichen-Plan.</li><li>Frequenz reduzieren.</li></ul>`,
+        was: `<p>Rückfallplan mit Klient und Familie. Berufsorientierung im Hinblick auf 2e-Stärken. Booster-Sitzungen alle 6–8 Wochen.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Dieser Schüler ist im Autismus-Spektrum <em>und</em> hochbegabt. Diese Konstellation heißt Twice Exceptional. Die Begabung verlangt herausforderndes Material; das ASS-Profil verlangt Struktur, Vorhersehbarkeit und sensorische Anpassungen. Standard-Förderung deckt nur eine Seite ab — und die andere bricht ein."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Begabungs-adäquates Material — Akzeleration, Enrichment, Springen prüfen.</li>
+      <li>Sensorisch ruhiger Sitzplatz, schriftliche Anweisungen zusätzlich.</li>
+      <li>Spezialinteresse als Lern-Hebel in mindestens einem Fach.</li>
+      <li>Bei sehr hohen Begabungs-Werten: Spezialschule oder enge Begabungs-Förderung.</li>
+      <li>Soziale Anforderungen reduziert, kein erzwungenes Gruppen-Setting.</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>„Er soll erst mal die einfachen Aufgaben machen" — verstärkt Underachievement und Beschämung.</li>
+      <li>Begabungs-Wettbewerbe als Pflicht — Performance-Druck wirkt destruktiv.</li>
+      <li>Lehrer-Witz über Verträumtheit — verstärkt RSD-Risiko.</li>
+    </ul>`,
+    schuleWer: `<p>Klassenleitung plus Begabungs-Förder-Ansprechperson (falls vorhanden). Bei größeren Anpassungen Schulleitung einbeziehen.</p>`,
+    schuleFrequenz: `<p>Alle 4–6 Wochen, eng in der Phase der Schul-Neugestaltung (zweiwöchentlich für 2–3 Monate, falls nötig).</p>`,
+
+    eskFrequenz: `<p>Bei Verschlechterung der Stimmung. Bei neuer oder verstärkter suizidaler Ideation. Bei Schul-Eskalation oder Abbruchdruck.</p>`,
+    eskKjp: `<p>Bei mittelgradiger bis schwerer Depression mit fehlender Besserung trotz Schul-Reduktion. Bei suizidaler Krise. Bei Frage nach Antidepressiva.</p>`,
+    eskKlinik: `<p>Bei Suizidversuch. Bei kompletter Verweigerung über mehr als drei Monate trotz ambulanter Maßnahmen.</p>`
+  }
+});
+
+PLAN_MUSTER_ASPERGER.push({
+  id: 'asperger-nssi',
+  name: 'Asperger mit aktiver Selbstverletzung',
+  matcher: (f) => {
+    let s = 0;
+    if (has(f.akut, 'nssi-aktiv') || has(f.komorbiditaeten, 'nssi')) s += 40;
+    if (f.profil === 'camoufliert' || f.profil === 'internalisierend') s += 20;
+    if (f.geschlecht === 'weiblich') s += 10;
+    if (has(f.akut, 'burnout')) s += 10;
+    return s >= 50 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast einen Klienten im Spektrum vor dir, der sich selbst verletzt — und das ist hier fast immer ein Regulations-Symptom, kein Borderline-Symptom. Die Selbstverletzung dient meistens dazu, einen sensorischen, exekutiven oder sozial-pragmatischen Overload zu beenden, der sonst nicht endet. Bei vielen Klient:innen ist es die einzige verfügbare Notbremse. Du arbeitest deshalb nicht primär an „der Selbstverletzung" — du arbeitest an dem, was sie nötig macht.</p>`,
+    wichtig: `<ul>
+      <li>Funktionsbasierte Analyse: in welcher Situation, mit welchem inneren Zustand, mit welchem Effekt danach. Das ist die Diagnostik, die zählt.</li>
+      <li>Borderline-Differentialdiagnose ist nötig — aber NSSI bei Asperger ist meist sensorisch/exekutiv ausgelöst, nicht interpersonell-bindungsbezogen.</li>
+      <li>Burnout abklären — bei akuter NSSI ist oft ein Erschöpfungs-Zustand der Hintergrund.</li>
+      <li>Sensorische Alternativen sind wirksamer als kognitive Umstrukturierung.</li>
+    </ul>`,
+    vergleich: `<p>Bei Borderline-NSSI würdest du DBT-Skills und Validierung in den Vordergrund stellen. Hier nimmst du DBT-Elemente (Skills, sensorisches Notfallset) <em>ohne</em> das Borderline-Framing. Statt „Bindungsangst regulieren" geht es um „Reiz-Überlast endet ohne diesen Schnitt nicht".</p>`,
+
+    risikoKritisch: `<p>Eskalation der NSSI-Schwere (tiefere Schnitte, gefährlichere Methoden, Verbrennungen). Suizidalität klar abgrenzen — direkt und mehrfach fragen, nicht nur nach Gedanken, sondern nach Plan, Methode, Vorbereitung. Bei Hinweisen auf Suizidalität sofort höhere Versorgungsstufe einbeziehen.</p>`,
+    risikoHoch: `<p>Verstärkungs-Spirale: NSSI funktioniert kurzfristig, also wird sie häufiger eingesetzt. Soziales Verheimlichen verstärkt Camouflaging. Familie reagiert oft schockiert oder kontrollierend — das eskaliert das System.</p>`,
+    risikoMittel: `<p>Narben als langfristige Identitäts-Marker. Selbstwert-Beschädigung („ich bin die mit den Schnitten"). Bei chronischem Verlauf: Substanzkonsum als Selbstmedikation.</p>`,
+
+    ansatzHaupt: `<p>Funktions-orientierter Ansatz mit DBT-Skills-Elementen, eingebettet in ASS-affirmative Haltung. Sensorische Alternativen entwickeln. Burnout abklären und ggf. zuerst behandeln. Familie psychoedukativ einbeziehen, ohne sie zu Kontroll-Instanz zu machen.</p>`,
+    ansatzTust: `<p>Funktions-Analyse: NSSI als Information lesen — was ist der Trigger, was ist der Effekt? Sensorisches Notfall-Set zusammenstellen (Eis, Druck, Geräusch-Reduktion, körperliche Bewegung). Trigger-Reduktion im Alltag (Schule, Familie, sensorische Umgebung). DBT-Skills ASS-modifiziert vermitteln.</p>`,
+    ansatzNicht: `<p>Kein „No-Self-Harm-Contract" als zentrale Intervention — wirkt bei ASS-NSSI selten und produziert Beschämung. Keine Versuche, die NSSI vor den Eltern zu „verstecken" als Therapieziel. Keine reine Borderline-Behandlung, die das eigentliche Profil verfehlt.</p>`,
+    ansatzFrequenz: `<p>Wöchentlich. Bei akuter Phase eventuell zweiwöchentlich plus telefonische Erreichbarkeit. Sicherheits-Plan in autismusgerechter Form.</p>`,
+
+    phasen: [
+      {
+        titel: 'Sicherheit und Funktions-Analyse',
+        dauer: 'Wochen 1–6',
+        ziele: `<ul><li>Akute Sicherheit gewährleisten.</li><li>Funktions-Analyse der NSSI gemeinsam erarbeiten.</li><li>Erste sensorische Alternativen ausprobieren.</li></ul>`,
+        was: `<p>Strukturierte Anamnese mit Fokus auf Trigger-Kette. Sensorisches und exekutives Profil mappen. Eltern-Gespräch: Aufklärung, dass NSSI hier oft Regulations-Versuch ist, nicht Manipulation.</p>`,
+        eintritt: `<p>Erste sensorische Alternativen funktionieren in mindestens einer Trigger-Situation. Akute Eskalation gestoppt.</p>`
+      },
+      {
+        titel: 'Trigger-Reduktion und Skills',
+        dauer: 'Wochen 6–12',
+        ziele: `<ul><li>Trigger im Alltag (Schule, Familie) reduzieren.</li><li>DBT-Skills ASS-modifiziert aufbauen.</li><li>Burnout-Anteile mitbehandeln.</li></ul>`,
+        was: `<p>Schul-Anpassungen umsetzen (sensorische Reduktion, Pausen, Pensum). Familien-Kommunikation neu strukturieren. Konkrete Skills mit visuellen Hilfsmitteln üben.</p>`,
+        eintritt: `<p>NSSI-Frequenz reduziert. Klient kann mindestens eine Alternative in akuten Momenten anwenden.</p>`
+      },
+      {
+        titel: 'Identität und Selbstadvokatie',
+        dauer: 'Monate 3–9',
+        ziele: `<ul><li>Autistische Identität ohne NSSI-Anker aufbauen.</li><li>Selbstadvokatie in Schule und Familie.</li><li>Camouflaging-Bewusstsein erweitern.</li></ul>`,
+        was: `<p>Autistic-affirmative Identitätsarbeit. Eigene Bedürfnisse benennen lernen. Bei weiblichen Klientinnen: Camouflaging und Burnout-Risiko thematisieren.</p>`,
+        eintritt: `<p>Stabile Phase ohne aktive NSSI über mindestens 4 Wochen. Sensorisches und exekutives Selbstmanagement etabliert.</p>`
+      },
+      {
+        titel: 'Konsolidierung',
+        dauer: 'Monate 9–12',
+        ziele: `<ul><li>Rückfall-Resilienz.</li><li>Frühwarnzeichen-Plan.</li><li>Übergang in selbständige Begleitung.</li></ul>`,
+        was: `<p>Rückfallplan mit konkretem Notfall-Pfad. Frequenz reduzieren. Booster-Sitzungen.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Wir arbeiten mit einer Klient:in im Autismus-Spektrum, die unter Überlastungs-Bedingungen zur Selbstverletzung greift. Das ist hier kein Aufmerksamkeits- oder Bindungs-Verhalten — es ist ein Notfall-Regulationsmittel. Wir reduzieren die Trigger; die Schul-Anpassungen sind Teil der Therapie."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Sensorisch ruhigerer Sitzplatz, Rückzugsraum bei Overload.</li>
+      <li>Pausenregelung mit Wahlrecht (allein oder mit fester Bezugsperson).</li>
+      <li>Schriftliche Anweisungen zusätzlich, klare Strukturen.</li>
+      <li>Klare Ansprechperson im Konfliktfall.</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>Öffentliche Thematisierung der Selbstverletzung — extrem destabilisierend.</li>
+      <li>„Kontrollen" der Arme im Schulalltag — verletzt Würde, eskaliert das Verhalten.</li>
+      <li>Erhöhung sozialer Anforderungen als „Integration".</li>
+    </ul>`,
+    schuleWer: `<p>Eine geschulte, fest vereinbarte Ansprechperson — Schulpsychologin oder vertrauensvolle Lehrkraft. Niemand sonst informiert ohne Einverständnis.</p>`,
+    schuleFrequenz: `<p>Anfangs alle 4 Wochen, dann alle 6–8 Wochen.</p>`,
+
+    eskFrequenz: `<p>Bei zunehmender NSSI-Schwere oder -Frequenz. Bei suizidalen Anteilen. Bei familiärem Eskalations-Anstieg.</p>`,
+    eskKjp: `<p>Bei suizidaler Ideation mit Plan. Bei Verschlechterung trotz ambulanter Maßnahmen. Bei Frage nach pharmakologischer Unterstützung (z. B. bei komorbider Depression mit klarer Indikation).</p>`,
+    eskKlinik: `<p>Bei Suizidversuch. Bei medizinisch relevanten NSSI-Verletzungen mit fehlender Steuerungsfähigkeit. Bei akuter, nicht ambulant haltbarer Krise.</p>`
+  }
+});
+PLAN_MUSTER_ASPERGER.push({
+  id: 'asperger-trauma',
+  name: 'Asperger mit Trauma-Hintergrund',
+  matcher: (f) => {
+    let s = 0;
+    if (has(f.komorbiditaeten, 'trauma')) s += 45;
+    if (has(f.akut, 'nssi-aktiv') || has(f.akut, 'suizid-vorgesch')) s += 10;
+    if (has(f.familie, 'heim') || has(f.familie, 'getrennt') || has(f.familie, 'intakt-konflikt')) s += 10;
+    return s >= 45 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast eine Klient:in im Spektrum mit Trauma-Geschichte vor dir — und das ist eine der diagnostisch heikelsten Konstellationen. Komplextrauma und Asperger teilen sich Symptome (sozialer Rückzug, Affekt-Dysregulation, Reizüberempfindlichkeit, Vermeidungsverhalten) und werden in der Versorgung regelmäßig verwechselt. Das heißt: du musst <em>beide</em> sehen und behandelst sie in einer klaren Reihenfolge — erst Stabilisierung, dann ASS-spezifische Arbeit.</p>`,
+    wichtig: `<ul>
+      <li>Differential: was war zuerst da? Spezialinteressen, sensorische Eigenheiten, Routinen seit Kindergarten → ASS-Anteil. Symptom-Anstieg nach bekanntem Ereignis → Trauma-Anteil. Meistens beides.</li>
+      <li>Keine konfrontative Trauma-Arbeit (EMDR, NET) ohne Spezial-Ausbildung und ohne stabile Ressourcen.</li>
+      <li>Sensorische Trigger und Trauma-Trigger können sich überlappen — sorgfältig differenzieren, sonst behandelst du das Falsche.</li>
+      <li>Die autistische Reiz-Empfindlichkeit erhöht Trauma-Risiko nach belastenden Ereignissen substanziell.</li>
+    </ul>`,
+    vergleich: `<p>Bei reinem Trauma ohne ASS würdest du nach Stabilisierung in eine Trauma-Konfrontations-Phase wechseln. Bei diesem Profil verlängerst du die Stabilisierungs-Phase substanziell, baust ASS-spezifische Anker (Routinen, Spezialinteresse, sensorische Schutzräume) und führst Trauma-Arbeit nur in kleinen, sorgfältig dosierten Schritten durch.</p>`,
+
+    risikoKritisch: `<p>Re-Traumatisierung durch unsachgemäße Konfrontation. Suizidalität bei Trauma+ASS klar erhöht. Dissoziative Krisen, die sensorisch ausgelöst sein können. Bei suizidalen Anteilen sofort KJP-Anbindung.</p>`,
+    risikoHoch: `<p>Diagnostische Verwirrung: Trauma-Symptome werden als ASS gelesen oder umgekehrt — beides verfehlt die Behandlung. Bei NSSI: Funktion klären (Trauma-Flashback abbrechen vs. sensorische Notbremse vs. Affekt-Regulation).</p>`,
+    risikoMittel: `<p>Chronifizierung beider Profile, wenn nicht differenziert behandelt. Beziehungs-Aufbau schwer — sowohl Trauma als auch ASS erschweren Vertrauen, kombiniert braucht es deutlich länger.</p>`,
+
+    ansatzHaupt: `<p>Phasen-orientierte Trauma-Behandlung (nach Herman / Reddemann) plus ASS-affirmative Haltung. Stabilisierung steht klar vor Konfrontation. Wenn EMDR/NET indiziert: Überweisung an traumaspezifisch ausgebildete Kolleg:in mit ASS-Erfahrung.</p>`,
+    ansatzTust: `<p>Sicherheitsorte erarbeiten (innerlich und äußerlich, sensorisch konkret). Spezialinteresse als Ressource etablieren. Triggern-Mapping mit Differenzierung sensorisch/Trauma. Skills für Affekt-Regulation in ASS-modifizierter Form (visuell, schriftlich, körperbasiert).</p>`,
+    ansatzNicht: `<p>Keine konfrontative Imaginations-Arbeit in Phase 1. Keine offene Trauma-Anamnese in Sitzung 1 — das kann re-traumatisieren. Keine EMDR ohne entsprechende Ausbildung und stabilen Rahmen.</p>`,
+    ansatzFrequenz: `<p>Wöchentlich, längere Begleitung (oft 12–24 Monate). Bei akuter Krise telefonische Erreichbarkeit klären. Sicherheitsplan in autismusgerechter Form.</p>`,
+
+    phasen: [
+      {
+        titel: 'Sicherheit und Ressourcen',
+        dauer: 'Wochen 1–8',
+        ziele: `<ul><li>Akute Sicherheit gewährleisten.</li><li>Sensorische und psychische Sicherheitsorte aufbauen.</li><li>Beziehung in autismusgerechtem Tempo aufbauen — ohne Trauma-Anamnese zu forcieren.</li></ul>`,
+        was: `<p>Strukturierte Anamnese mit Fokus auf <em>aktuelle</em> Sicherheit, nicht auf Vergangenheit. Spezialinteresse als Brücke. Sicherheitsplan. Bei Wohnsituation mit weiterer Gefährdung: Klärung mit Jugendhilfe.</p>`,
+        eintritt: `<p>Klient:in hat mindestens einen tragfähigen Sicherheitsanker. Akute Krisen sind ambulant haltbar.</p>`
+      },
+      {
+        titel: 'Differential und Mapping',
+        dauer: 'Wochen 8–16',
+        ziele: `<ul><li>Differenzieren: was ist ASS, was ist Trauma, was ist beides?</li><li>Trigger-Mapping erweitern.</li><li>Skills für Affekt-Regulation aufbauen.</li></ul>`,
+        was: `<p>Behutsame Anamnese-Vertiefung. Trigger-Tagebuch mit visuellen Hilfen. ASS-modifizierte DBT-Skills oder Achtsamkeits-Elemente, sofern sensorisch verträglich.</p>`,
+        eintritt: `<p>Klare Trigger-Karte. Stabile Affekt-Regulation in mindestens den meisten Alltagssituationen.</p>`
+      },
+      {
+        titel: 'Verarbeitung (sofern indiziert)',
+        dauer: 'Monate 4–12',
+        ziele: `<ul><li>Trauma-Inhalte verarbeiten — in passender Methode, ggf. mit spezialisierter Co-Therapie.</li><li>Autistische Identität neben Trauma-Identität aufbauen.</li></ul>`,
+        was: `<p>Imaginative Verfahren oder narrative Arbeit sehr klein dosiert. Bei klassischer EMDR/NET-Indikation: Überweisung an Spezialist:in oder gemeinsame Co-Behandlung.</p>`,
+        eintritt: `<p>Reduzierte intrusive Symptomatik. Wiederkehrendes Sicherheits-Gefühl.</p>`
+      },
+      {
+        titel: 'Integration und Übergang',
+        dauer: 'Monate 12–18+',
+        ziele: `<ul><li>Stabilität konsolidieren.</li><li>Rückfall-Resilienz.</li><li>Übergang in seltenere Begleitung.</li></ul>`,
+        was: `<p>Rückfallplan. Frequenz reduzieren. Booster-Sitzungen bei Belastung. Bei jüngeren Klient:innen: Übergangsbegleitung an Erwachsenen-Versorgung planen.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Diese Schüler:in lebt mit zwei Belastungen gleichzeitig — einem autistischen Verarbeitungsstil und einer Trauma-Geschichte. Beides braucht Vorhersehbarkeit, Sicherheit und sensorische Reduktion. Konflikte oder Überforderung können dissoziative Reaktionen auslösen, die wie Verweigerung aussehen, aber etwas anderes sind."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Hochstrukturierter Schul-Alltag mit klaren Ansprechpersonen.</li>
+      <li>Rückzugsraum, sensorische Reduktion, schriftliche Anweisungen.</li>
+      <li>Trigger-bewusste Pausenregelung.</li>
+      <li>Notfall-Plan für dissoziative Phasen mit Schulpsychologie.</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>Konfrontative oder „klärende" Gespräche über schwierige Themen vor der Klasse.</li>
+      <li>Disziplinarische Maßnahmen bei Verweigerung ohne Klärung der Hintergründe.</li>
+      <li>Erzwungene Integration in Gruppen-Settings mit hoher Reiz-Dichte.</li>
+    </ul>`,
+    schuleWer: `<p>Schulpsychologie als Hauptansprechperson plus Klassenleitung. Bei jüngerer Adoleszenz Schulleitung informieren.</p>`,
+    schuleFrequenz: `<p>Alle 4 Wochen, eng vernetzt mit Jugendhilfe (falls beteiligt).</p>`,
+
+    eskFrequenz: `<p>Bei Zunahme intrusiver Symptome. Bei dissoziativen Krisen. Bei NSSI- oder Suizidaler Eskalation.</p>`,
+    eskKjp: `<p>Bei suizidaler Krise. Bei schweren dissoziativen Zuständen. Bei Frage nach Pharmakotherapie (z. B. bei begleitender Depression mit klarer Indikation).</p>`,
+    eskKlinik: `<p>Bei Suizidversuch. Bei dissoziativen Zuständen mit fehlender Steuerungsfähigkeit. Bei akuter Re-Traumatisierung mit Eigen- oder Fremdgefährdung.</p>`
+  }
+});
+
+PLAN_MUSTER_ASPERGER.push({
+  id: 'asperger-heim',
+  name: 'Asperger im Heim- oder Pflegekontext',
+  matcher: (f) => {
+    let s = 0;
+    if (has(f.familie, 'heim')) s += 45;
+    if (has(f.komorbiditaeten, 'trauma')) s += 10;
+    if (has(f.akut, 'mehrere-gescheit') || has(f.akut, 'therapie-abbr')) s += 10;
+    return s >= 40 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du arbeitest mit einer Jugendlichen im Spektrum, die in einem Heim oder einer Pflegefamilie lebt. Das ist eine doppelte Vulnerabilität: ASS plus Bindungs-Brüche. Die Symptome (Distanz, soziale Ungeschicklichkeit, eingeschränkte Affektmodulation) werden oft als „Bindungsstörung" gerahmt — und das ist meistens nur ein Teil der Wahrheit. Beides ist da. Die wichtigste therapeutische Konstante ist Vorhersehbarkeit, nicht Beziehung um jeden Preis.</p>`,
+    wichtig: `<ul>
+      <li>Doppelte Diagnostik nötig: ASS und Bindungsthematik klar benennen, nicht ineinander auflösen.</li>
+      <li>Routinen und Bezugspersonen im Heim sind <em>therapeutisches Setting</em>. Wenn die wechseln, kippt vieles.</li>
+      <li>Spezialinteresse als sicherer Anker — oft das stabilste in einer instabilen Lebensgeschichte.</li>
+      <li>Beziehungs-Erwartungen realistisch halten — eine erzwungene Beziehung re-traumatisiert.</li>
+    </ul>`,
+    vergleich: `<p>Bei reiner reaktiver Bindungsstörung würdest du Bezugspersonen-Arbeit und langsamen Vertrauensaufbau in den Vordergrund stellen. Hier kommt der ASS-Anteil dazu: sensorische Anpassungen, Spezialinteresse, Vorhersehbarkeit sind nicht „nett-zu-haben", sondern Voraussetzung. Bindungs-Arbeit ohne diese Basis verstärkt Camouflaging oder Rückzug.</p>`,
+
+    risikoKritisch: `<p>Suizidalität bei dieser Konstellation deutlich erhöht. Selbstverletzung als Notfall-Regulation häufig. Bei Heimwechsel: Krisen-Eskalation einplanen.</p>`,
+    risikoHoch: `<p>Beziehungs-Abbrüche im Heim (Wechsel von Bezugspersonen, Standort-Wechsel) sind klinisch hochrelevante Ereignisse. Bei jeder Veränderung im Setting Begleit-Sitzungen verdichten.</p>`,
+    risikoMittel: `<p>Übergang in die Erwachsenen-Versorgung („Care leaver"): häufig massiver Strukturverlust. Frühzeitig planen — am besten ab dem 16. Lebensjahr.</p>`,
+
+    ansatzHaupt: `<p>Hochstrukturierte, niedrigfrequente, langfristige Begleitung. Bezugspersonen im Heim psychoedukativ schulen — sie sind die wichtigste therapeutische Ressource. Spezialinteresse als Identitäts-Anker. Keine Bindungs-Erzwingung.</p>`,
+    ansatzTust: `<p>Mit den Bezugspersonen im Heim ein gemeinsames ASS-Verständnis aufbauen. Routinen sichern und schriftlich dokumentieren. Sensorische Anpassungen im Wohn-Setting. Spezialinteresse als Brücke pflegen. Bei Übergängen: Vorbereitungs-Sitzungen.</p>`,
+    ansatzNicht: `<p>Keine erzwungene Bindungs-Übung. Kein Erwartungs-Druck auf „therapeutische Beziehung" in den ersten Monaten. Keine konfrontativen Gespräche über die eigene Geschichte ohne Vorbereitung.</p>`,
+    ansatzFrequenz: `<p>Wöchentlich oder zweiwöchentlich, je nach Stabilität. Plus regelmäßige Termine mit Heim-Bezugsperson. Langfristige Begleitung (oft mehrjährig).</p>`,
+
+    phasen: [
+      {
+        titel: 'Setting verstehen, Bezugspersonen schulen',
+        dauer: 'Wochen 1–8',
+        ziele: `<ul><li>Aktuelles Setting genau verstehen.</li><li>Bezugspersonen psychoedukativ schulen.</li><li>Vertrauensaufbau ohne Erwartungs-Druck.</li></ul>`,
+        was: `<p>Anamnese strukturiert. Spezialinteresse als Brücke. Bezugspersonen-Gespräch zu ASS-Grundlagen (Routinen, Sensorik, Camouflaging). Vorhersehbarer Sitzungs-Rahmen etablieren.</p>`,
+        eintritt: `<p>Vertrauensbasis erste Schritte. Bezugspersonen haben grundlegendes ASS-Verständnis.</p>`
+      },
+      {
+        titel: 'Routinen sichern, sensorisches Profil etablieren',
+        dauer: 'Wochen 8–20',
+        ziele: `<ul><li>Klare Routinen im Heim umsetzen.</li><li>Sensorisches Profil dokumentieren und im Alltag integrieren.</li><li>Spezialinteresse pflegen, nicht reduzieren.</li></ul>`,
+        was: `<p>Schriftliche Routinen, sensorische Anpassungen im Zimmer, klare Ansprechpersonen für verschiedene Themen.</p>`,
+        eintritt: `<p>Routinen tragen über mehrere Wochen. Sensorische Belastung im Alltag reduziert.</p>`
+      },
+      {
+        titel: 'Identität und Selbstadvokatie',
+        dauer: 'Monate 5–18',
+        ziele: `<ul><li>Autistische Identität als Anker aufbauen.</li><li>Eigene Bedürfnisse benennen können.</li><li>Übergang vorbereiten (Schule, Lehre, eigene Wohnung).</li></ul>`,
+        was: `<p>Autistic-affirmative Identitätsarbeit. Selbstadvokatie üben. Bei Annäherung an 18: Care-leaver-Übergang frühzeitig planen, Versorgungsnetz aufbauen.</p>`,
+        eintritt: `<p>Klient:in kann eigene Bedürfnisse formulieren. Beziehungs-Stabilität zu mindestens einer Person.</p>`
+      },
+      {
+        titel: 'Übergang in Erwachsenen-Versorgung',
+        dauer: 'Monate 18+',
+        ziele: `<ul><li>Care-leaver-Phase begleiten.</li><li>Strukturverlust abfedern.</li><li>Tragfähige Erwachsenen-Versorgung etablieren.</li></ul>`,
+        was: `<p>Konkrete Übergaben an Erwachsenen-Psychiatrie / -Therapie / Wohnsetting. Booster-Sitzungen über den 18. Geburtstag hinaus, sofern möglich.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Diese Schüler:in lebt in einem Heim- oder Pflegekontext und hat ein Asperger-Profil. Die Kombination braucht hohe Vorhersehbarkeit, eine feste Ansprechperson und enge Abstimmung mit dem Wohnsetting. Bei Auffälligkeiten ist Kontakt zur Heim-Bezugsperson zentral, nicht nur zu den Eltern."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Schul-Routinen schriftlich fixiert, mit Heim abgesprochen.</li>
+      <li>Sensorische Anpassungen, Rückzugsraum.</li>
+      <li>Klarer Ansprechpartner für Konflikte oder Krisen.</li>
+      <li>Vorankündigung von Wechseln (Lehrer:innen-Wechsel, Klassenfahrten).</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>Klassen-Eltern-Erwartungs-Setting („alle Eltern kommen zur Aufführung") ohne Rücksicht auf Heim-Realität.</li>
+      <li>Therapie-Empfehlungen oder Kritik ohne Rücksprache mit Heim.</li>
+      <li>Erwartung an „normale" soziale Integration auf hohem Niveau.</li>
+    </ul>`,
+    schuleWer: `<p>Klassenleitung plus Schulpsychologie plus Heim-Bezugsperson. Eltern (falls vorhanden) je nach Sorgerecht/Realität.</p>`,
+    schuleFrequenz: `<p>Alle 4–6 Wochen mit allen Beteiligten. Bei Übergängen oder Krisen häufiger.</p>`,
+
+    eskFrequenz: `<p>Bei Wechsel im Heim-Setting. Bei akuter NSSI- oder Suizidaler Eskalation. Bei sozialen oder schulischen Krisen.</p>`,
+    eskKjp: `<p>Bei Suizidalität. Bei medikamentöser Frage. Bei akuter Eskalation, die ambulant nicht mehr haltbar ist.</p>`,
+    eskKlinik: `<p>Bei Suizidversuch. Bei akuter Krise mit Gefährdung von sich oder anderen. Bei zusammenbrechendem Wohn-Setting.</p>`
+  }
+});
+PLAN_MUSTER_ASPERGER.push({
+  id: 'asperger-parental-asd',
+  name: 'Asperger mit Elternteil im Spektrum',
+  matcher: (f) => {
+    let s = 0;
+    if (has(f.familie, 'elternteil-asd')) s += 40;
+    if (has(f.familie, 'geschwister-asd')) s += 10;
+    if (has(f.familie, 'eltern-belastet')) s += 10;
+    if (has(f.akut, 'mehrere-gescheit') || has(f.akut, 'therapie-abbr')) s += 5;
+    return s >= 40 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast einen Klienten im Spektrum vor dir — und mindestens ein Elternteil ist selbst im Spektrum (diagnostiziert oder nicht). Diese Familien-Konstellation ist häufig (ASS ist hochheritabel) und klinisch wertvoll: die familiäre Kommunikation hat oft schon eigene autismusgerechte Strukturen entwickelt — manchmal sehr passgenau, manchmal eskaliert auf eine Weise, die nur Insider verstehen. Deine Arbeit hier ist auch Familien-Arbeit, immer in respektvollem Modus gegenüber dem autistischen Elternteil.</p>`,
+    wichtig: `<ul>
+      <li>Eltern-Diagnostik nicht aufdrängen — anbieten, wenn Hinweise im Gespräch erscheinen. „Das kommt häufig vor, vielleicht erklärt es Ihnen einiges."</li>
+      <li>Kommunikation in der Familie nutzt oft andere Codes — direkt, sachlich, manchmal hart wirkend. Das ist nicht Konflikt, sondern Stil.</li>
+      <li>Konflikt-Eskalationen entstehen oft, wenn beide gleichzeitig sensorisch oder pragmatisch überlastet sind — kein klassisches Beziehungs-Problem.</li>
+      <li>Die Selbsterfahrung des Elternteils kann therapeutische Ressource sein („ich war auch so") — wenn sie nicht dominant wird.</li>
+    </ul>`,
+    vergleich: `<p>Bei klassischer Asperger-Behandlung würdest du eine standardisierte Eltern-Schulung machen. Hier passt du sie an: weniger Allgemein-Aufklärung, mehr Kooperation auf Augenhöhe. Der autistische Elternteil kennt vieles intuitiv und kann Co-Therapeut werden, wenn das Setting es zulässt.</p>`,
+
+    risikoKritisch: `<p>Übersehen einer Krise des autistischen Elternteils — chronische Erschöpfung, sekundäre Depression. Wenn der Elternteil kippt, fehlt die wichtigste Stütze des Klienten. Direkt nach elterlicher Erschöpfung fragen.</p>`,
+    risikoHoch: `<p>Familien-Konflikt-Eskalationen, wenn sensorische oder pragmatische Trigger nicht erkannt werden. Beide reagieren gleichzeitig, niemand kann mehr regulieren. Eskalations-Spirale ohne klassische Bindungs-Dynamik.</p>`,
+    risikoMittel: `<p>Identifikations-Druck („du bist wie ich") kann Klient einengen. Langfristig brauchen Klient und Elternteil getrennte autistische Identitäten, nicht eine geteilte.</p>`,
+
+    ansatzHaupt: `<p>Familien-orientierte ASS-Behandlung mit Respekt vor der bestehenden Familien-Kultur. Eltern-Diagnostik anbieten, nicht aufzwingen. Ressourcen-Arbeit: was funktioniert in dieser Familie schon?</p>`,
+    ansatzTust: `<p>Familien-Anamnese mit beiden Elternteilen, wenn möglich. Kommunikations-Codes der Familie verstehen und respektieren. Eltern-Bewusstsein für die eigene Erschöpfung anregen. Klare therapeutische Sprache — direkt, präzise, ohne Therapeuten-Vagheit.</p>`,
+    ansatzNicht: `<p>Keine implizite Pathologisierung des autistischen Elternteils. Keine Forderung nach „mehr emotionalem Ausdruck" im klassischen Therapie-Sinne. Keine Überrumpelung mit Diagnose-Hypothesen.</p>`,
+    ansatzFrequenz: `<p>Wöchentlich oder zweiwöchentlich. Regelmäßige Familien-Sitzungen mit Eltern und Klient gemeinsam, je nach Akzeptanz.</p>`,
+
+    phasen: [
+      {
+        titel: 'Kennenlernen der Familien-Kultur',
+        dauer: 'Wochen 1–6',
+        ziele: `<ul><li>Beziehung zum Klienten und zur Familie aufbauen.</li><li>Familien-Kommunikationsstil verstehen.</li><li>Akute Themen klären.</li></ul>`,
+        was: `<p>Erste Sitzungen mit Klient. Familien-Sitzung mit Eltern. Beobachtung: wie kommunizieren sie miteinander? Was funktioniert, was eskaliert? Akute Anliegen direkt benennen.</p>`,
+        eintritt: `<p>Vertrauensbasis. Familien-Kultur verstanden.</p>`
+      },
+      {
+        titel: 'Psychoedukation respektvoll',
+        dauer: 'Wochen 6–12',
+        ziele: `<ul><li>Gemeinsame ASS-Sprache in der Familie etablieren.</li><li>Bei Hinweisen: Eltern-Diagnostik anbieten.</li><li>Konflikt-Trigger identifizieren.</li></ul>`,
+        was: `<p>Psychoedukation gemeinsam mit Familie. Wenn ein Elternteil sich erkennt: „Das kommt häufig vor. Wenn Sie das vertiefen wollen, kann ich Sie weiterleiten." Konflikt-Trigger sammeln und sensorisch oder exekutiv kontextualisieren.</p>`,
+        eintritt: `<p>Familie hat gemeinsame Sprache. Konflikt-Trigger benannt.</p>`
+      },
+      {
+        titel: 'Strukturen aufbauen und Selbstadvokatie',
+        dauer: 'Monate 3–9',
+        ziele: `<ul><li>Familien-Strukturen anpassen, die Konflikte reduzieren.</li><li>Selbstadvokatie des Klienten aufbauen.</li><li>Eltern-Erschöpfung beobachten und mit-adressieren.</li></ul>`,
+        was: `<p>Konkrete Routinen, sensorische Anpassungen im Haushalt, Schul-Strategie. Bei elterlicher Erschöpfung: Entlastungs-Angebote (Eltern-Therapie, Selbsthilfegruppen).</p>`,
+        eintritt: `<p>Familien-Konflikte reduziert. Klient kann eigene Bedürfnisse formulieren.</p>`
+      },
+      {
+        titel: 'Konsolidierung',
+        dauer: 'Monate 9–12',
+        ziele: `<ul><li>Rückfall-Resilienz für die Familie.</li><li>Übergang zu seltenerer Begleitung.</li></ul>`,
+        was: `<p>Rückfallplan. Frequenz reduzieren. Booster-Sitzungen bei Belastungs-Spitzen.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„In dieser Familie ist nicht nur das Kind im Spektrum, sondern wahrscheinlich auch ein Elternteil. Die Familie hat eigene autismusgerechte Kommunikationsformen entwickelt. Bei Kontakt bitte sachlich, direkt und schriftlich — das funktioniert hier besser als emotionale Eltern-Gespräche."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Schriftliche Kommunikation mit Eltern bevorzugen.</li>
+      <li>Termine schriftlich, mit klarem Agenda-Punkten.</li>
+      <li>Anpassungen für den Klienten wie üblich (Sitzplatz, Routinen, sensorisch).</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>Eltern-Gespräche mit emotional offener Form ohne Vorabklärung.</li>
+      <li>Telefonische Spontan-Kontakte ohne schriftliche Voranmeldung.</li>
+    </ul>`,
+    schuleWer: `<p>Klassenleitung als Hauptansprechperson. Bei mehreren Themen Schulpsychologie einbeziehen.</p>`,
+    schuleFrequenz: `<p>Alle 6–8 Wochen, schriftliche Updates auch zwischendurch.</p>`,
+
+    eskFrequenz: `<p>Bei familiärer Krise (Eltern-Erschöpfung, Beziehungs-Konflikt der Eltern). Bei Schul-Krise. Bei akuter Symptom-Verschlechterung.</p>`,
+    eskKjp: `<p>Bei suizidaler Krise des Klienten. Bei Frage nach Pharmakotherapie. Bei zusätzlicher Diagnostik-Frage.</p>`,
+    eskKlinik: `<p>Bei akuter Eigen- oder Fremdgefährdung. Bei zusammenbrechendem Familien-System ohne ambulante Stabilisierungs-Möglichkeit.</p>`
+  }
+});
+
+PLAN_MUSTER_ASPERGER.push({
+  id: 'asperger-funktional',
+  name: 'Adoleszenter Asperger ohne Komorbiditäten',
+  matcher: (f) => {
+    let s = 0;
+    if (has(f.komorbiditaeten, 'keine')) s += 25;
+    const keineKrise = !hasAny(f.akut || [], ['suizid-aktuell','suizid-vorgesch','nssi-aktiv','burnout','mehrere-gescheit']);
+    if (keineKrise) s += 20;
+    if (f.schule === 'regulaer-ok' || f.schule === 'regulaer-probl') s += 10;
+    if (has(f.familie, 'intakt-unter')) s += 10;
+    if (f.profil === 'klassisch' || f.profil === 'camoufliert') s += 5;
+    return s >= 50 ? s : 0;
+  },
+  bloecke: {
+    profil: `<p>Du hast eine:n Jugendliche:n im Spektrum vor dir, die oder der grundsätzlich funktional aufgestellt ist — keine akuten Komorbiditäten, stabile Schule, unterstützende Familie. In Begleitungs-Settings ist das selten, und es geht hier fast nie um Symptom-Reduktion. Es geht um Identitäts-Arbeit, Selbstadvokatie und Vorbereitung auf den Übergang ins Erwachsenenleben. Das ist klinisch unspektakulär — aber präventiv eines der wertvollsten Settings.</p>`,
+    wichtig: `<ul>
+      <li>Identitäts-Themen sind hier zentral: „Was bedeutet es für mich, autistisch zu sein?"</li>
+      <li>Camouflaging-Risiko im Auge behalten — auch bei aktuell stabiler Lage kann sich später Burnout entwickeln, wenn unbewusst maskiert wird.</li>
+      <li>Übergänge sind die kritischen Punkte: Schulwechsel, Berufsorientierung, erste Beziehung, Auszug.</li>
+      <li>Spezialinteresse als Identitäts- und Berufs-Ressource etablieren.</li>
+    </ul>`,
+    vergleich: `<p>Bei einem Klienten in akuter Krise stehen Reduktion und Stabilisierung im Vordergrund. Hier verschiebt sich der Fokus auf Selbstverständnis, Selbstadvokatie und Lebensgestaltung. Du arbeitest weniger an „dem Problem" — du arbeitest an „wie kann dieses Leben tragen, mit allem, was du bist".</p>`,
+
+    risikoKritisch: `<p>Niedrig im Aktuellen — aber nie ignorieren: bei autistischen Adoleszenten ist Suizidalität auch ohne sichtbare Krise erhöht. Standardmäßig direkt fragen.</p>`,
+    risikoHoch: `<p>Camouflaging in der Adoleszenz, das später (mit 20–30) zu Burnout führt. Identifikations-Druck mit autistischen Communities, die nicht passen. Vereinsamung in Übergängen (Studium, neue Stadt, Auszug).</p>`,
+    risikoMittel: `<p>Beziehungs-Themen in der frühen Erwachsenenzeit. Berufswahl-Themen — autistische Stärken oft erst im richtigen Setting voll zur Geltung.</p>`,
+
+    ansatzHaupt: `<p>Autistic-affirmative Identitäts- und Selbstadvokatie-Arbeit. Niedrigfrequent, langfristig. Begleitung über Übergänge hinweg statt klassische „Therapie".</p>`,
+    ansatzTust: `<p>Selbstverständnis aufbauen: Stärken-Profil, Spezialinteressen, sensorisches Profil, Energiebudget. Selbstadvokatie üben — in Schule, Familie, später Beruf. Camouflaging-Bewusstsein als Präventiv-Wissen. Übergänge proaktiv planen.</p>`,
+    ansatzNicht: `<p>Keine erzwungene „Symptom-Arbeit", wenn keine Symptome belastend sind. Keine Forderung nach Identifikation mit einer bestimmten autistischen Community. Keine Pathologisierung von Stärken („das ist ja schon zwanghaft").</p>`,
+    ansatzFrequenz: `<p>Alle 3–4 Wochen, eventuell seltener. Vor Übergängen verdichten. Langfristige Begleitung, oft mehrere Jahre, mit großen Pausen möglich.</p>`,
+
+    phasen: [
+      {
+        titel: 'Selbstverständnis aufbauen',
+        dauer: 'Wochen 1–8',
+        ziele: `<ul><li>Beziehung aufbauen.</li><li>Eigenes ASS-Profil verstehen und respektieren.</li><li>Stärken-Profil sichtbar machen.</li></ul>`,
+        was: `<p>Anamnese mit Fokus auf Erleben und Selbstbild. Psychoedukation aus autistic-affirmative Perspektive. Spezialinteresse explizit würdigen.</p>`,
+        eintritt: `<p>Klient:in hat klares Verständnis des eigenen Profils.</p>`
+      },
+      {
+        titel: 'Selbstadvokatie aufbauen',
+        dauer: 'Wochen 8–20',
+        ziele: `<ul><li>Eigene Bedürfnisse benennen können.</li><li>Selbstadvokatie in Schule und Familie üben.</li><li>Camouflaging-Bewusstsein als Präventiv-Wissen.</li></ul>`,
+        was: `<p>Konkrete Situationen durchgehen: wo maskiere ich, wo bin ich ich selbst, was kostet was? Schul- und Familien-Skripte üben.</p>`,
+        eintritt: `<p>Klient:in kann in mindestens einer Situation pro Woche Selbstadvokatie üben.</p>`
+      },
+      {
+        titel: 'Übergänge planen',
+        dauer: 'Monate 5–12',
+        ziele: `<ul><li>Anstehende Übergänge proaktiv vorbereiten.</li><li>Berufsorientierung in Bezug auf autistische Stärken.</li><li>Soziale Strategien für neue Settings.</li></ul>`,
+        was: `<p>Konkrete Planung: Schulwechsel, Lehre, Studium, Praktikum. Spezialinteresse als Berufsanker. Vorbereitung auf eigene Wohnform.</p>`,
+        eintritt: `<p>Konkrete Übergangs-Strategie vorhanden.</p>`
+      },
+      {
+        titel: 'Langfristige Begleitung',
+        dauer: 'fortlaufend',
+        ziele: `<ul><li>Booster-Sitzungen vor und nach Übergängen.</li><li>Verfügbarkeit bei Belastungs-Spitzen.</li></ul>`,
+        was: `<p>Niedrigfrequente Begleitung über Jahre. Schwellen ohne Krise zulassen. Klient:in soll wissen, dass die Tür offen bleibt.</p>`,
+        eintritt: ''
+      }
+    ],
+
+    schuleKommunikation: `<p>„Diese:r Schüler:in ist im Autismus-Spektrum und aktuell gut funktional. Es geht nicht um Krisen-Management, sondern um Vorbereitung auf Übergänge. Ein paar Anpassungen jetzt verhindern später Probleme."</p>`,
+    schuleAnpassungen: `<ul>
+      <li>Bei Schulwechsel: Vorbereitungs-Gespräch mit neuer Schule.</li>
+      <li>Berufsorientierung mit Fokus auf Stärken-Profil.</li>
+      <li>Erlaubnis für Rückzug bei Bedarf, ohne Stigmatisierung.</li>
+    </ul>`,
+    schuleNicht: `<ul>
+      <li>Keine Sondermaßnahmen, wenn aktuell nicht nötig — wirkt patronisierend.</li>
+      <li>Keine ungebetene öffentliche Thematisierung.</li>
+    </ul>`,
+    schuleWer: `<p>Klassenleitung, bei Übergängen Schulpsychologie oder Berufsberatung.</p>`,
+    schuleFrequenz: `<p>Alle 3–4 Monate, vor Übergängen häufiger.</p>`,
+
+    eskFrequenz: `<p>Bei plötzlicher Symptom-Veränderung. Bei Burnout-Anzeichen. Bei sozialer Krise.</p>`,
+    eskKjp: `<p>Bei Auftreten relevanter Komorbiditäten. Bei suizidaler Krise. Bei Medikamenten-Frage.</p>`,
+    eskKlinik: `<p>Bei akuter Eigen- oder Fremdgefährdung. Bei plötzlichem Funktions-Einbruch mit Selbst- oder Fremdgefährdung.</p>`
+  }
+});
+// >>> PLAN_MUSTER_ASPERGER_ANKER
+
+function has(arr, val) { return Array.isArray(arr) && arr.includes(val); }
+function hasAny(arr, vals) { return Array.isArray(arr) && vals.some(v => arr.includes(v)); }
+
+function matchPattern(f) {
+  // Priorisierungs-Regeln — gibt erstes passendes Muster (sortiert nach Priorität).
+  const kandidaten = PLAN_MUSTER_ASPERGER
+    .map(m => ({ muster: m, score: m.matcher ? m.matcher(f) : 0 }))
+    .filter(k => k.score > 0)
+    .sort((a, b) => b.score - a.score);
+  return kandidaten.length > 0 ? kandidaten[0].muster : null;
+}
+
+function generatePlan(topic, ps) {
+  return matchPattern(ps.faktoren || {});
+}
+
+function bindPlanFaktorenEvents(topic, ps) {
+  const root = document.getElementById('articleBody');
+
+  root.querySelectorAll('[data-tool="plan-option"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const bereich = btn.dataset.bereich;
+      const val = btn.dataset.val;
+      const art = btn.dataset.art;
+      if (art === 'single') {
+        ps.faktoren[bereich] = (ps.faktoren[bereich] === val) ? null : val;
+      } else {
+        const cur = Array.isArray(ps.faktoren[bereich]) ? ps.faktoren[bereich].slice() : [];
+        const idx = cur.indexOf(val);
+        if (idx >= 0) cur.splice(idx, 1);
+        else cur.push(val);
+        ps.faktoren[bereich] = cur;
+      }
+      savePlanState(topic.id, ps);
+      renderEbene();
+    });
+  });
+
+  root.querySelector('[data-tool="plan-generate"]')?.addEventListener('click', () => {
+    ps.generiert = Date.now();
+    savePlanState(topic.id, ps);
+    STATE.planView = 'output';
+    renderEbene();
+  });
+
+  root.querySelector('[data-tool="plan-reset-faktoren"]')?.addEventListener('click', () => {
+    if (!confirm('Wirklich alle Faktoren und den generierten Plan zurücksetzen?')) return;
+    resetPlanState(topic.id);
+    STATE.planView = 'faktoren';
+    renderEbene();
+  });
+
+  root.querySelector('[data-tool="plan-show-existing"]')?.addEventListener('click', () => {
+    STATE.planView = 'output';
+    renderEbene();
   });
 }
 
