@@ -4483,25 +4483,21 @@ const FAKTOREN_SCHEMA = [
 ];
 
 const SYMPTOM_KATEGORIEN = [
-  { id: 'lern-leistung', titel: 'Lern- und Leistungssymptome', geplant: 12 },
-  { id: 'sozial',        titel: 'Soziale Symptome',           geplant: 8 },
-  { id: 'sensorisch',    titel: 'Sensorische und regulative Symptome', geplant: 6 },
-  { id: 'emotional',     titel: 'Emotionale Symptome',        geplant: 6 },
-  { id: 'familie',       titel: 'Familiäre Situationen',      geplant: 5 },
-  { id: 'diagnostisch',  titel: 'Diagnostische Fragen',       geplant: 8 },
-  { id: 'pharma',        titel: 'Pharmakologische Fragen',    geplant: 5 },
-  { id: 'institution',   titel: 'Institutionelle Fragen',     geplant: 6 }
+  { id: 'lern-leistung', titel: 'Lern- und Leistungssymptome', geplant: 1 },
+  { id: 'regulativ',     titel: 'Regulative Symptome',         geplant: 3 },
+  { id: 'sozial',        titel: 'Soziale Symptome',            geplant: 3 },
+  { id: 'emotional',     titel: 'Emotionale Symptome',         geplant: 2 },
+  { id: 'familie',       titel: 'Familiäre Situationen',       geplant: 2 },
+  { id: 'uebergaenge',   titel: 'Übergänge',                   geplant: 1 }
 ];
 
 const SYMPTOM_DATA_ASPERGER = {
   'lern-leistung': [],
+  'regulativ':     [],
   'sozial':        [],
-  'sensorisch':    [],
   'emotional':     [],
   'familie':       [],
-  'diagnostisch':  [],
-  'pharma':        [],
-  'institution':   []
+  'uebergaenge':   []
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -4704,7 +4700,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 1 von 56 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 1 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
