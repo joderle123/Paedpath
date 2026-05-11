@@ -4503,10 +4503,8 @@ const SYMPTOM_DATA_ASPERGER = {
 // Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
 // für Platzhalter-Pills in "Verwandte Module".
 const PLANNED_SYMPTOM_TITLES = {
-  'schul-overload-sensorisch': 'Schul-Overload (sensorisch)',
-  'autistic-burnout':          'Autistic Burnout',
-  'alexithymie':               'Alexithymie',
-  'mobbing-asperger':          'Mobbing bei Asperger'
+  'alexithymie':       'Alexithymie',
+  'mobbing-asperger':  'Mobbing bei Asperger'
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -4661,7 +4659,7 @@ SYMPTOM_DATA_ASPERGER['regulativ'].push({
                 <p><strong>Psychotisches Erleben.</strong> Ebenfalls selten, aber bei adoleszenten Klient:innen mit Asperger im Auge zu behalten. Wenn Shutdowns mit ungewöhnlicher Wahrnehmung, Beziehungserleben oder Gedanken-Inhalten verbunden sind, die nach der Episode bleiben — psychiatrische Abklärung.</p>`
     }
   ],
-  verwandt: ['schul-overload-sensorisch', 'autistic-burnout', 'alexithymie']
+  verwandt: ['schul-overload-sensorisch', 'burnout-vs-depression', 'alexithymie']
 });
 SYMPTOM_DATA_ASPERGER['regulativ'].push({
   id: 'schul-overload-sensorisch',
@@ -4759,7 +4757,102 @@ SYMPTOM_DATA_ASPERGER['regulativ'].push({
                 <p><strong>Tatsächlicher Schul-Mismatch.</strong> Manchmal ist die Schule einfach nicht passend — zu groß, zu laut, zu sozial-fordernd. Anpassungen helfen begrenzt. Setting-Wechsel ist dann die richtige Antwort, nicht weitere Optimierung am unpassenden Ort.</p>`
     }
   ],
-  verwandt: ['meltdown-vs-shutdown', 'autistic-burnout', 'mobbing-asperger']
+  verwandt: ['meltdown-vs-shutdown', 'burnout-vs-depression', 'mobbing-asperger']
+});
+SYMPTOM_DATA_ASPERGER['regulativ'].push({
+  id: 'burnout-vs-depression',
+  titel: 'Autistic Burnout versus Major Depression — die folgenreichste Differentialdiagnose',
+  ueberschrift: '<em>Autistic Burnout</em> versus <em>Major Depression</em> — die folgenreichste Differentialdiagnose',
+  bloecke: [
+    {
+      titel: '01 · Warum diese Unterscheidung alles verändert',
+      inhalt: `<p>Das ist die teuerste Fehldiagnose in der Arbeit mit autistischen Adoleszenten. Wenn du Burnout als Depression behandelst, machst du es schlimmer — und zwar systematisch.</p>
+                <p>Standard-Depressionsbehandlung beinhaltet Verhaltensaktivierung (mehr soziale Kontakte, mehr Aktivität, mehr Struktur) und oft SSRI. Beide Komponenten sind bei Autistic Burnout kontraindiziert. Aktivierung verstärkt die Erschöpfung. SSRI greift nicht am Mechanismus an und kann sensorische Überflutung verstärken.</p>
+                <p>Was passiert dann in der Praxis: der Klient kommt zur Behandlung mit Burnout, bekommt Diagnose Depression, bekommt Behandlung für Depression, wird schlechter, bekommt höhere Dosis oder zusätzliche Intervention, wird noch schlechter, landet in stationärer Behandlung. Dort wieder Aktivierung und Antidepressivum. Das Spiel kann Jahre dauern.</p>
+                <p>Wer dieses Modul versteht, verändert Behandlungsverläufe von zwei Jahren auf vier Monate.</p>`
+    },
+    {
+      titel: '02 · Das Phänomen Autistic Burnout',
+      inhalt: `<p>Erst seit etwa 2020 wissenschaftlich anerkannt. Raymaker et al. haben es in der ersten qualitativen Studie definiert. Davor war es in der autistischen Community seit Jahren bekannt — die Wissenschaft hat aufgeholt.</p>
+                <p><strong>Definition:</strong> Autistic Burnout ist ein Zustand chronischer Erschöpfung, der entsteht durch dauerhafte Überforderung des autistischen Nervensystems plus Camouflaging plus Mismatch zwischen Anforderungen und Fähigkeiten. Er dauert Wochen bis Jahre. Er erholt sich nicht durch Schlaf oder kurze Pausen.</p>
+                <p>Die drei Kern-Symptome:</p>
+                <ol>
+                  <li><strong>Erschöpfung</strong> — körperlich und mental, dauerhaft, nicht durch Erholung kompensierbar.</li>
+                  <li><strong>Skill-Verlust</strong> — Fähigkeiten, die früher gingen, gehen nicht mehr. Sprache, Selbstständigkeit, exekutive Funktionen, soziale Skills.</li>
+                  <li><strong>Sensorische Hypersensibilität</strong> — die Toleranz sinkt drastisch, vorher tolerierbare Reize werden unerträglich.</li>
+                </ol>
+                <p>Was du im klinischen Bild siehst: ein junger Mensch, der vor sechs Monaten in der Schule funktioniert hat, Freunde hatte, sich verbal differenziert ausdrückte. Jetzt: liegt zuhause, redet einsilbig, hält keine sensorische Belastung mehr aus, schafft die Schule nicht mehr.</p>`
+    },
+    {
+      titel: '03 · Das Phänomen Major Depression',
+      inhalt: `<p>Bei adoleszenter Major Depression sehen wir andere Kernsymptome:</p>
+                <p><strong>Anhedonie</strong> — Unfähigkeit, Freude zu empfinden. Aktivitäten, die früher Freude gemacht haben, fühlen sich leer an.</p>
+                <p><strong>Affektive Niedergeschlagenheit</strong> oder bei Adoleszenten häufig Reizbarkeit. Ein durchgehendes negatives Gefühl.</p>
+                <p><strong>Negatives Selbst- und Weltbild.</strong> Hoffnungslosigkeit. Schuldgefühle. Selbstabwertende Kognitionen („ich bin wertlos", „es wird nie besser").</p>
+                <p><strong>Schlafstörungen</strong> — meist Insomnie oder frühmorgendliches Erwachen.</p>
+                <p><strong>Appetitveränderungen.</strong></p>
+                <p><strong>Konzentrations- und Entscheidungsschwierigkeiten</strong> als sekundäre Symptome.</p>
+                <p><strong>Suizidgedanken</strong> — bei Adoleszenten in etwa 30 % der Fälle, oft mit aktivem Charakter (Pläne, Mittel-Recherche).</p>`
+    },
+    {
+      titel: '04 · Die fünf Unterscheidungen, die zählen',
+      inhalt: `<p><strong>Erste Unterscheidung — die Spezialinteressen.</strong></p>
+                <p>Bei Depression sind Spezialinteressen mit-betroffen. Was früher Freude gemacht hat, fühlt sich leer an. Der Klient hat keinen Antrieb, sich damit zu beschäftigen.</p>
+                <p>Bei Burnout sind Spezialinteressen oft das einzige, was noch funktioniert. Der Klient kann nichts anderes mehr, aber wenn du ihn nach seinem Spezialinteresse fragst, leuchtet etwas auf. Das ist diagnostisch hoch hilfreich.</p>
+                <p>Erstgesprächs-Frage: <em>„Was machst du, wenn du die Energie hast, etwas zu tun?"</em> Bei Depression: „Nichts, alles ist egal." Bei Burnout: „Mein Spezialinteresse — wenn ich mich nur darum kümmern müsste, könnte ich das."</p>
+                <p><strong>Zweite Unterscheidung — die sensorische Welt.</strong></p>
+                <p>Bei Depression bleibt die sensorische Verarbeitung weitgehend gleich. Geräusche, Lichter, Berührung sind nicht plötzlich anders.</p>
+                <p>Bei Burnout sind die Sinne überempfindlich geworden. Geräusche, die früher okay waren, sind jetzt unerträglich. Licht zu hell. Berührung zu viel. Das ist sehr spezifisch und sehr aussagekräftig.</p>
+                <p>Frage: <em>„Sind Geräusche oder Lichter in den letzten Monaten anders geworden?"</em> Bei Depression: „Nein, das ist nicht das Problem." Bei Burnout: „Ja, alles ist zu viel geworden."</p>
+                <p><strong>Dritte Unterscheidung — der Selbstbezug.</strong></p>
+                <p>Bei Depression ist das Selbstbild negativ. „Ich bin schuld." „Ich bin wertlos." „Ich verdiene nichts Besseres." Die Schuld liegt beim Klienten in seinem Erleben.</p>
+                <p>Bei Burnout ist das Selbstbild oft erschöpft, aber nicht schuldhaft. „Ich kann nicht mehr." „Das ist zu viel." „Die Welt funktioniert nicht für mich." Die Belastung liegt außen — der Klient erkennt das System als zu viel.</p>
+                <p><strong>Vierte Unterscheidung — die zeitliche Dynamik.</strong></p>
+                <p>Depression kann relativ akut auftreten, oft mit identifizierbarem Auslöser (Verlust, Konflikt, hormoneller Umbruch).</p>
+                <p>Burnout entwickelt sich oft über Jahre. Wenn du genau nachfragst, beschreibt der Klient eine zunehmende Erschöpfung über Monate, manchmal Jahre. Der akute Zusammenbruch ist nur das Sichtbarwerden eines schleichenden Prozesses.</p>
+                <p><strong>Fünfte Unterscheidung — der Skill-Verlust.</strong></p>
+                <p>Bei Depression bleiben Fähigkeiten grundsätzlich erhalten. Der Klient hat keine Lust, sie zu nutzen — aber er könnte.</p>
+                <p>Bei Burnout sind Fähigkeiten tatsächlich nicht mehr abrufbar. Sprache wird einfacher, Selbstständigkeit sinkt, soziale Skills verschwinden, Camouflaging-Fähigkeit bricht zusammen. Das ist nicht „nicht wollen" — das ist „nicht können".</p>`
+    },
+    {
+      titel: '05 · Die Komorbidität ist die Norm',
+      inhalt: `<p>Wichtig: in der Praxis kommt selten reines Burnout oder reine Depression vor. Die meisten Burnout-Klient:innen entwickeln sekundär eine depressive Symptomatik. Das ist klinisch nachvollziehbar — wer monatelang erschöpft ist, wer Skills verliert, wer die Welt nicht mehr versteht, wird verständlicherweise auch hoffnungslos.</p>
+                <p>Aber: die sekundäre Depression bei Burnout ist anders zu behandeln als primäre Major Depression. Sie löst sich oft auf, wenn das Burnout adressiert wird. SSRI greift hier am falschen Ende an.</p>
+                <p><strong>Die diagnostische Hierarchie:</strong> identifiziere den primären Mechanismus. Wenn der primäre Mechanismus Erschöpfung durch chronische Überforderung ist, behandle das. Sekundäre Symptome werden mit-besser.</p>
+                <p>Wenn der primäre Mechanismus echte affektive Störung ist (mit anhedonem Kern, mit Schuld-Kognitionen, ohne Skill-Verlust, ohne sensorische Verschiebung) — dann ist Depressionsbehandlung indiziert.</p>`
+    },
+    {
+      titel: '06 · Was du tust bei Burnout',
+      inhalt: `<p><strong>Reduktion auf allen Ebenen.</strong> Das ist der zentrale Behandlungs-Hebel. Nicht Aktivierung — Reduktion.</p>
+                <p><strong>Schule:</strong> massive Reduktion. Stundenanzahl runter. Bestimmte Fächer pausieren. Manchmal komplette Schul-Pause für Wochen bis Monate. Das ist nicht „nachgeben" — das ist medizinisch indiziert.</p>
+                <p><strong>Soziales:</strong> Anforderungen reduzieren. Keine Pflicht-Sozialkontakte. Keine Familien-Events erzwingen. Camouflaging explizit erlauben aufzuhören — auch wenn das bedeutet, dass er sich anders verhält als gewohnt.</p>
+                <p><strong>Sensorisches:</strong> Reize systematisch reduzieren. Geräuschdämmende Kopfhörer im Alltag. Reduziertes Licht. Sichere sensorisch-arme Räume.</p>
+                <p><strong>Spezialinteressen:</strong> aktivieren als Erholungsquelle. Das ist die Energie-Quelle, die noch funktioniert. Stundenlang Spezialinteresse ist nicht Symptom — es ist Therapie.</p>
+                <p><strong>Schlaf:</strong> nicht zu festen Zeiten zwingen. Der Burnout-Schlafrhythmus ist verschoben — das System braucht mehr Schlaf zu seltsamen Zeiten. Lass es.</p>
+                <p><strong>Zeitperspektive:</strong> Erholung dauert Monate bis Jahre. Nicht Wochen. Diese Erwartungs-Klarheit ist wichtig für Klient, Eltern, Schule.</p>`
+    },
+    {
+      titel: '07 · Was du tust bei Depression',
+      inhalt: `<p>Bei reiner Major Depression sind die Standard-evidenzbasierten Behandlungen wirksam — modifiziert für autistische Klient:innen.</p>
+                <p><strong>Verhaltensaktivierung</strong> — vorsichtig, in kleinen Schritten, nicht überfordernd. Schlüssel: Aktivieren von Aktivitäten, die der Klient früher als sinnvoll oder befriedigend erlebte.</p>
+                <p><strong>KVT</strong> — modifiziert. Direkter, strukturierter, weniger sokratisch. Klare Schritte. Visuelle Unterstützung. Spezialinteressen als Brücke einbauen.</p>
+                <p><strong>SSRI</strong> — wenn medikamentös indiziert. Fluoxetin als Erstwahl. Bei autistischen Klient:innen engmaschig beobachten — höhere Rate von Aktivierungssyndrom und atypischer Reaktion.</p>
+                <p>Psychoedukation. Soziales Aktivieren. Schlafhygiene. Suizidprävention strukturiert.</p>
+                <p>Wichtig: wenn unter Depressionsbehandlung der Klient schlechter wird statt besser — <em>Burnout-Diagnose überdenken</em>. Das ist oft der Indikator für Fehldiagnose.</p>`
+    },
+    {
+      titel: '08 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Es gibt weitere Differentialdiagnosen, die zu prüfen sind:</p>
+                <p><strong>Chronisches Fatigue-Syndrom (CFS/ME).</strong> Bei lang anhaltender Erschöpfung mit körperlichen Symptomen (Muskelschmerz, postexertionelle Malaise, Schlafstörungen) somatische Abklärung. Komorbidität mit ASS möglich.</p>
+                <p><strong>Hypothyreose und andere endokrine Störungen.</strong> Bei neu aufgetretener Erschöpfung mit Antriebsverlust immer Labordiagnostik anstoßen. Wird häufig vergessen.</p>
+                <p><strong>Eisenmangel und andere Mangelzustände.</strong> Bei Mädchen und jungen Frauen besonders zu beachten. Einfach zu prüfen, oft übersehen.</p>
+                <p><strong>Schlafstörung als primäres Phänomen.</strong> Wenn Schlaf chronisch fragmentiert ist (auch ohne dass der Klient es problematisiert), kann Erschöpfung primär schlafbedingt sein. Schlafanalyse bei klinischem Verdacht.</p>
+                <p><strong>Substanzkonsum.</strong> Cannabis bei autistischen Adoleszenten häufig zur Selbstmedikation. Bei chronischem Konsum entstehen Symptome, die wie Burnout aussehen, aber substanzbedingt sind. Direkter Konsum-Check.</p>
+                <p>Wenn nach gründlicher Differentialdiagnostik weiterhin unklar ist, ob Burnout oder Depression — <strong>beginne mit Reduktion</strong>. Wenn das System sich erholt, war es Burnout. Wenn nicht, war es Depression. Aktivierung als Erstmaßnahme ist immer riskanter — wenn du dich irrst, hast du Schaden angerichtet. Reduktion als Erstmaßnahme schadet nicht — auch eine Depression verträgt eine Pause.</p>`
+    }
+  ],
+  verwandt: ['meltdown-vs-shutdown', 'schul-overload-sensorisch', 'alexithymie']
 });
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
@@ -4892,7 +4985,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 3 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 4 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
