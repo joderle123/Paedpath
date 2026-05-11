@@ -4505,7 +4505,8 @@ const SYMPTOM_DATA_ASPERGER = {
 const PLANNED_SYMPTOM_TITLES = {
   'schul-overload-sensorisch': 'Schul-Overload (sensorisch)',
   'autistic-burnout':          'Autistic Burnout',
-  'alexithymie':               'Alexithymie'
+  'alexithymie':               'Alexithymie',
+  'mobbing-asperger':          'Mobbing bei Asperger'
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -4662,6 +4663,104 @@ SYMPTOM_DATA_ASPERGER['regulativ'].push({
   ],
   verwandt: ['schul-overload-sensorisch', 'autistic-burnout', 'alexithymie']
 });
+SYMPTOM_DATA_ASPERGER['regulativ'].push({
+  id: 'schul-overload-sensorisch',
+  titel: 'Klient kann den Schulalltag sensorisch nicht aushalten',
+  ueberschrift: 'Klient kann den Schulalltag sensorisch nicht aushalten',
+  bloecke: [
+    {
+      titel: '01 · Das unsichtbare Problem',
+      inhalt: `<p>Wenn ein Asperger-Klient sagt „ich kann nicht in die Schule" — und du fragst warum — bekommst du oft Antworten, die nicht ganz greifbar sind. „Es ist zu viel." „Ich weiß nicht warum." „Ich kann es nicht erklären." Das ist nicht Ausweichen. Das ist <em>Alexithymie</em> plus sensorische Überlastung — er erlebt es körperlich, kann es aber nicht in Worte fassen.</p>
+                <p>Was im Schul-Setting wirklich auf ihn einprasselt — und was für neurotypische Schüler:innen unsichtbar bleibt:</p>
+                <p>In einem normalen Klassenzimmer von 25 Schüler:innen entstehen etwa 60–80 Geräusche pro Minute. Filterbares Hintergrundrauschen für die meisten — Vordergrundlärm für Asperger-Klient:innen mit auditiver Hypersensibilität. Plus Leuchtstoffröhren, die mit 100 Hz flackern (für die meisten unsichtbar, für sensible Augen Stress). Plus Düfte (Parfum, Schweiß, Pausenbrote). Plus soziale Komplexität (24 Mitschüler:innen, deren Gesichter und Stimmungen gleichzeitig verarbeitet werden müssen). Plus körperliche Nähe in Pausen und Gängen.</p>
+                <p>Das ist nicht „ein bisschen anstrengend". Das ist eine sensorische Hochbelastung über sechs Stunden ohne Unterbrechung. Wer das nicht versteht, versteht nicht, warum manche Asperger-Klient:innen Schule nicht aushalten können.</p>`
+    },
+    {
+      titel: '02 · Wie du das Problem erfasst',
+      inhalt: `<p>Sensorische Anamnese strukturiert. Nicht „stört dich Lärm?" — das ist zu unspezifisch. Sondern domänen-spezifisch durchgehen:</p>
+                <p><strong>Auditiv:</strong> Welche Frequenzen sind unerträglich (oft hohe Frequenzen, Quietschen, mehrere Stimmen gleichzeitig)? Wie wirken sich Pausenglocke, Stühle-Rücken, Mensa-Geräusche aus? Kann er einer Stimme folgen, wenn andere im Hintergrund sprechen (Cocktail-Party-Effekt oft beeinträchtigt)?</p>
+                <p><strong>Visuell:</strong> Flackerlicht von Leuchtstoffröhren? Bewegung in der Klasse (andere Schüler:innen)? Komplexe Whiteboards mit vielen Farben? Sonnenlicht durchs Fenster auf dem Tisch?</p>
+                <p><strong>Olfaktorisch:</strong> Parfum von Mitschüler:innen? Reinigungsmittel? Essensgerüche aus der Mensa, die bis ins Klassenzimmer dringen? Schweiß nach Sport?</p>
+                <p><strong>Taktil:</strong> Stoffe der Kleidung (Schuluniform-Probleme häufig)? Berührung im Gedränge auf Gängen? Klebrige Tische? Bestimmte Sitzgelegenheiten?</p>
+                <p><strong>Vestibulär und propriozeptiv:</strong> Bewegung beim Schulwechsel? Treppen? Stühle, die kippeln?</p>
+                <p><strong>Sozial-kognitiv:</strong> Wie viele Klassenwechsel pro Tag? Wie viele unterschiedliche Lehrkräfte? Wie viele neue Räume?</p>
+                <p>Eine Stunde strukturierte Anamnese liefert mehr Information als drei Sitzungen „was ist los".</p>`
+    },
+    {
+      titel: '03 · Das Energie-Modell als Brücke',
+      inhalt: `<p>Erkläre dem Klienten und seiner Familie mit dem Konzept des Energiebudgets. Das ist die wirksamste Aufklärungs-Metapher.</p>
+                <p>Stell dir vor, jeder Mensch hat morgens 100 Energie-Einheiten. Für neurotypische Menschen kostet Schule vielleicht 30–40 Einheiten. Pause kostet 5. Mit Freunden sein gibt 10 Einheiten zurück.</p>
+                <p>Für Asperger-Klient:innen mit sensorischer Hypersensitivität sind die Zahlen anders. Allein die Geräuschkulisse einer Klasse kostet 40 Einheiten in einer Stunde. Soziale Anforderungen kommen oben drauf. Camouflaging kostet nochmal extra. Nach drei Stunden sind die 100 Einheiten verbraucht. Aber er muss noch drei Stunden bleiben.</p>
+                <p>Was passiert in der vierten Stunde? Das System läuft auf Reserve. Symptome verstärken sich (Stimming, Konzentrationsverlust, Reizbarkeit). In der fünften Stunde Vorbote-Phase. In der sechsten Stunde Meltdown oder Shutdown.</p>
+                <p>Dieses Modell macht für Eltern und Schule plötzlich verständlich, was vorher mysteriös war: <em>„Warum kollabiert er immer mittwochnachmittag?"</em> Weil Mittwoch sechs Stunden mit zwei Doppelstunden plus Sport-Lärm hat. Donnerstag hat nur vier Stunden. Donnerstag funktioniert.</p>`
+    },
+    {
+      titel: '04 · Drei Interventions-Ebenen',
+      inhalt: `<p><strong>Ebene 1 — Sensorische Reduktion in der bestehenden Schule</strong></p>
+                <p>Was du verhandeln kannst:</p>
+                <ul>
+                  <li>Sitzplatz hinten oder seitlich (weniger Bewegung im Sichtfeld) — oder ganz vorne (weniger Rücken anderer Schüler:innen zu beobachten).</li>
+                  <li>Noise-Cancelling-Kopfhörer erlaubt während Stillarbeit.</li>
+                  <li>Sonnenbrille bei Lichtempfindlichkeit erlaubt.</li>
+                  <li>Eigenes Mittagessen statt Mensa (Geruch und Lärm).</li>
+                  <li>Stille-Raum für Pausen (Bibliothek, leeres Klassenzimmer, Beratungsraum).</li>
+                  <li>Klassenwechsel fünf Minuten früher, um Gänge-Gedränge zu vermeiden.</li>
+                  <li>Sport-Befreiung bei Ball-Sport (zu viele unvorhersehbare Bewegungen).</li>
+                  <li>Eigenes Tisch-Layout (Trenn-Pinnwand zum Nachbarn).</li>
+                </ul>
+                <p>Diese Anpassungen sind in Luxemburg über das Inklusionsgesetz und Nachteilsausgleich grundsätzlich möglich. Schul-Psycholog:in und Direktion einbeziehen.</p>
+                <p><strong>Ebene 2 — Reduktion der Anwesenheits-Last</strong></p>
+                <p>Wenn Anpassungen nicht reichen, vor Krise:</p>
+                <ul>
+                  <li>Reduzierte Stundenzahl pro Tag.</li>
+                  <li>Späterer Schulbeginn (sensorisch erholter).</li>
+                  <li>Frühere Heimkehr.</li>
+                  <li>Bestimmte Fächer extern oder zuhause.</li>
+                  <li>4-Tage-Woche mit einem Erholungs-Tag.</li>
+                </ul>
+                <p>Das ist nicht „weniger leisten". Das ist Energiemanagement. Mit reduzierter Last bleibt Lernen möglich. Ohne Reduktion folgt Komplettausfall.</p>
+                <p><strong>Ebene 3 — Setting-Wechsel</strong></p>
+                <p>Wenn auch Reduktion nicht reicht:</p>
+                <ul>
+                  <li>Wechsel in eine kleinere Klasse (Privatschule, alternative Schulform).</li>
+                  <li>Hausunterricht zeitweise mit Schul-Anteilen.</li>
+                  <li>Online-Schule.</li>
+                  <li>Spezialisierte Einrichtung für autistische Lerner:innen (in Luxemburg begrenzt verfügbar, im Ausland teilweise).</li>
+                </ul>
+                <p>Setting-Wechsel ist nicht Versagen. Es ist Anpassung des Settings an das System statt umgekehrt.</p>`
+    },
+    {
+      titel: '05 · Die schwierige Konversation mit Schulen',
+      inhalt: `<p>Schulen reagieren oft skeptisch auf sensorische Anpassungen. Häufige Sätze, die du hören wirst — und mögliche Antworten:</p>
+                <p><em>„Andere Schüler:innen haben auch Geräusche und kommen klar."</em><br>
+                Antwort: „Das stimmt. Aber wir reden hier von neurologischer Hypersensibilität — das ist nicht Toleranz-Mangel. Es ist ein verändertes Nervensystem. Anpassung ist Nachteilsausgleich, wie eine Brille bei Sehschwäche."</p>
+                <p><em>„Wenn wir bei ihm Sonderregeln machen, wollen alle das."</em><br>
+                Antwort: „Mit medizinischer Begründung sind individuelle Anpassungen möglich und üblich. Das ist nicht Bevorzugung, das ist medizinische Notwendigkeit."</p>
+                <p><em>„Er muss lernen, damit umzugehen — sonst kommt er in der realen Welt nicht klar."</em><br>
+                Antwort: „Damit umgehen lernen geht. Nur nicht durch Aussetzen ohne Schutz. Das ist wie jemandem mit Asthma zu sagen, er solle lernen, mit Rauch klarzukommen, indem er in einer Bar arbeitet. Anpassung jetzt erlaubt Lernen in den nächsten Jahren."</p>
+                <p>Wichtig: geh ins Schulgespräch mit medizinischer Sprache, schriftlicher Begründung, klaren spezifischen Forderungen. <strong>Vagheit verliert. Spezifität gewinnt.</strong></p>`
+    },
+    {
+      titel: '06 · Was du mit dem Klienten arbeitest',
+      inhalt: `<p>Parallel zur System-Arbeit auch Selbstmanagement-Skills:</p>
+                <p><strong>Energie-Tracking lernen.</strong> Klient lernt, subjektive Belastung in Skala 0–10 zu erfassen. Erst im Nachhinein ausfüllen, später auch währenddessen. Das schafft Bewusstsein, das vorher fehlte.</p>
+                <p><strong>Frühwarnzeichen erkennen.</strong> Welche körperlichen Signale zeigen „ich komme an meine Grenze"? Bauchschmerzen? Spannung im Nacken? Hitze im Kopf? Diese individuellen Marker werden zum Frühwarnsystem.</p>
+                <p><strong>Rückzugs-Strategien.</strong> Welche Mini-Pausen sind möglich? Toilette als Rückzugsraum nutzen. Kopf auf den Tisch. Kopfhörer aufsetzen. Diese Strategien müssen geübt werden — im ruhigen Setting, nicht erst im Notfall.</p>
+                <p><strong>Kommunikations-Skills für eigene Bedürfnisse.</strong> Wie sagt er einer Lehrkraft „ich brauche eine Pause"? Vorbereitete Sätze. Karten zum Zeigen, wenn Sprache wegbricht. Vor-vereinbarte Signale.</p>`
+    },
+    {
+      titel: '07 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Wenn ein Klient „die Schule nicht aushält", ist nicht immer sensorische Überlastung der Hauptgrund. Prüfe Folgendes:</p>
+                <p><strong>Mobbing oder soziale Ausgrenzung.</strong> Manchmal wird „sensorisch überfordert" als sozial akzeptablere Beschreibung genutzt für „ich werde gemobbt und kann es nicht sagen". Bei Asperger-Klient:innen ist die soziale Erfassung oft hinter der sensorischen versteckt. Direkte Frage: „Wer ist im Klassenzimmer, wenn es schlimm wird? Was passiert genau zwischen den Geräuschen?"</p>
+                <p><strong>Schul-spezifische Angst oder PTBS.</strong> Wenn ein bestimmtes Ereignis (Vorlesen, Sport, Prüfung) konsistent auslöst, während andere Situationen okay sind — Angst- oder Trauma-Komponente prüfen. Ist nicht primär sensorisch, braucht andere Behandlung.</p>
+                <p><strong>Komorbide Depression.</strong> Bei sekundärer Depression nach langer Schul-Belastung wird Schul-Vermeidung oft als „sensorisch" beschrieben. Tatsächlich ist es Antriebslosigkeit plus Hoffnungslosigkeit. Behandlung anders: Depression adressieren, nicht nur Sensorik.</p>
+                <p><strong>Autistic Burnout.</strong> Wenn Sensorik plötzlich viel schlimmer wird als zuvor (vorher hat er es geschafft, jetzt nicht mehr), prüfe Burnout. Sensorische Toleranz sinkt im Burnout drastisch. Behandlung: Reduktion auf allen Ebenen, nicht nur Schule.</p>
+                <p><strong>Tatsächlicher Schul-Mismatch.</strong> Manchmal ist die Schule einfach nicht passend — zu groß, zu laut, zu sozial-fordernd. Anpassungen helfen begrenzt. Setting-Wechsel ist dann die richtige Antwort, nicht weitere Optimierung am unpassenden Ort.</p>`
+    }
+  ],
+  verwandt: ['meltdown-vs-shutdown', 'autistic-burnout', 'mobbing-asperger']
+});
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
 function renderPlan(topic, container) {
@@ -4793,7 +4892,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 2 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 3 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
