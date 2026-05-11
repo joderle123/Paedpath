@@ -4499,6 +4499,14 @@ const SYMPTOM_DATA_ASPERGER = {
   'familie':       [],
   'uebergaenge':   []
 };
+
+// Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
+// für Platzhalter-Pills in "Verwandte Module".
+const PLANNED_SYMPTOM_TITLES = {
+  'schul-overload-sensorisch': 'Schul-Overload (sensorisch)',
+  'autistic-burnout':          'Autistic Burnout',
+  'alexithymie':               'Alexithymie'
+};
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
   titel: 'Klient hat hohen IQ, kann aber kaum rechnen oder schreiben',
@@ -4568,6 +4576,91 @@ SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
     }
   ],
   verwandt: []
+});
+SYMPTOM_DATA_ASPERGER['regulativ'].push({
+  id: 'meltdown-vs-shutdown',
+  titel: 'Meltdown versus Shutdown — was du siehst und was zu tun ist',
+  ueberschrift: 'Meltdown versus Shutdown — was du siehst und was zu tun ist',
+  bloecke: [
+    {
+      titel: '01 · Warum diese Unterscheidung zentral ist',
+      inhalt: `<p>Meltdown und Shutdown werden im Alltag oft verwechselt — oder Shutdown wird gar nicht erkannt. Das hat klinische Konsequenzen: ein Meltdown bekommt meist Aufmerksamkeit (weil laut), ein Shutdown wird oft als „er ist halt verschlossen" abgetan. Dabei ist Shutdown der gefährlichere Zustand — neurologisch tiefer, oft mit Dissoziations-Anteilen, schwerer zu erholen.</p>
+                <p>Beide sind keine Verhaltens-Entscheidungen. Beide sind neurobiologische Reaktionen auf Überlastung — autonomes Nervensystem im Notmodus. Wer sie als „trotziges Verhalten" oder „manipulativ" interpretiert, macht alles schlimmer.</p>
+                <p>Polyvagale Einordnung kurz: Meltdown ist <strong>Sympathikus-Aktivierung</strong> (Kampf/Flucht). Shutdown ist <strong>dorsaler Vagus</strong> (Erstarrung/Kollaps). Das ist nicht akademisch — das bestimmt, was du im Moment tust.</p>`
+    },
+    {
+      titel: '02 · Das Grundphänomen Meltdown',
+      inhalt: `<p>Was du siehst: lautstarke emotionale Entladung. Schreien, Weinen, Schlagen, Treten, Dinge werfen, sich auf den Boden werfen. Bei älteren Adoleszenten oft kontrollierter nach außen — verbale Aggression, Türen knallen, plötzliches Verlassen des Raums. Kann zehn Minuten oder zwei Stunden dauern.</p>
+                <p>Was neurologisch passiert: das System hat seine Toleranzgrenze überschritten. Sensorische, soziale, kognitive oder emotionale Reize haben sich akkumuliert. Das limbische System überflutet den präfrontalen Cortex. Selbstregulation ist offline. Das Verhalten ist nicht mehr willentlich steuerbar — auch wenn es von außen so wirken kann.</p>
+                <p>Wichtiger Punkt: <em>ein Meltdown ist nicht ein Wutanfall.</em> Ein Wutanfall ist zielgerichtet — das Kind will etwas erreichen. Ein Meltdown ist nicht zielgerichtet. Das Kind will nur, dass es aufhört. Der Unterschied zeigt sich auch im Nachhinein: nach einem Wutanfall ist man mit dem Ergebnis beschäftigt. Nach einem Meltdown ist man erschöpft, beschämt, manchmal amnestisch für Teile der Episode.</p>`
+    },
+    {
+      titel: '03 · Das Grundphänomen Shutdown',
+      inhalt: `<p>Was du siehst: Rückzug nach innen. Sprache reduziert oder ganz weg. Augen geschlossen oder ins Leere starrend. Bewegungen verlangsamt oder eingefroren. Manchmal in Embryonalhaltung. Reagiert nicht oder verzögert auf Ansprache. Kann Stunden anhalten, bei chronischer Überlastung sogar Tage.</p>
+                <p>Was neurologisch passiert: das System hat aufgegeben, sich gegen die Überlastung zu wehren, und ist in den dorsal-vagalen Notmodus gewechselt. Energie wird auf Minimum gefahren. Das ist evolutionär die „tot stellen"-Reaktion. Bewusstsein kann eingeengt sein, dissoziative Anteile sind häufig. Schmerzempfindung reduziert. Manche Klient:innen beschreiben es im Nachhinein als „ich war nicht wirklich da".</p>
+                <p>Wichtiger Punkt: <em>Shutdown wird oft als depressive Verstimmung oder als oppositionelles Schweigen fehlinterpretiert.</em> Wenn du ein Kind im Shutdown ansprichst und es reagiert nicht — das ist nicht „er will nicht reden". Das ist neurologisch ein anderes System. Die Frage „warum redest du nicht mit mir?" verstärkt die Erstarrung weiter.</p>`
+    },
+    {
+      titel: '04 · Die stillen Vorboten',
+      inhalt: `<p>Beide Zustände kündigen sich an — wenn du weißt, worauf du achtest. Diese Phase nennt sich <strong>Rumble Phase</strong> (unruhige Vorphase) und dauert oft 5–30 Minuten. Wenn du hier eingreifen kannst, vermeidest du den vollen Meltdown oder Shutdown.</p>
+                <p><strong>Vorboten in Richtung Meltdown:</strong></p>
+                <ul>
+                  <li>Stimme wird lauter oder schneller.</li>
+                  <li>Bewegungen werden unkoordinierter.</li>
+                  <li>Sensorisches Stimming nimmt zu (Hand-Flapping, Schaukeln, repetitives Klopfen).</li>
+                  <li>Sprache wird repetitiv („ich kann nicht ich kann nicht ich kann nicht").</li>
+                  <li>Atmung wird flacher und schneller.</li>
+                  <li>Gesichtsfarbe verändert sich (oft röter).</li>
+                </ul>
+                <p><strong>Vorboten in Richtung Shutdown:</strong></p>
+                <ul>
+                  <li>Sprache wird langsamer, leiser, einsilbiger.</li>
+                  <li>Augenkontakt bricht komplett ab.</li>
+                  <li>Bewegungen werden minimiert.</li>
+                  <li>Antworten kommen verzögert.</li>
+                  <li>Klient zieht sich physisch zurück (in eine Ecke, unter einen Tisch, in einen Raum).</li>
+                  <li>Manche zeigen passives Stimming (langsames Wippen).</li>
+                </ul>
+                <p>Bei manchen Klient:innen wechseln die Vorboten — Meltdown kann in Shutdown übergehen, wenn die Aktivierung zu viel wird. Shutdown kann selten in Meltdown übergehen, wenn jemand das System durch falsche Intervention hochdrückt.</p>`
+    },
+    {
+      titel: '05 · Was du tust im Moment',
+      inhalt: `<p><strong>Im Meltdown:</strong></p>
+                <p>Erstes Ziel ist Sicherheit. Räume die Umgebung — gefährliche Gegenstände weg, anderen Personen Abstand verschaffen, Reize reduzieren (Licht, Geräusche). Wenn das Kind sich oder andere gefährdet, kann sanfte körperliche Begrenzung nötig sein — aber nur durch geschultes Personal und nur als letztes Mittel.</p>
+                <p>Sprich wenig. Wenn du sprichst: kurze, ruhige Sätze. „Ich bin hier. Du bist sicher." Niemals erklären, niemals diskutieren, niemals Konsequenzen androhen während des Meltdowns. Der präfrontale Cortex ist offline — Vernunftansprache geht ins Leere.</p>
+                <p>Augenkontakt nicht erzwingen. Augenkontakt im Meltdown ist Eskalation. Stehe seitlich, nicht frontal. Hände sichtbar, ruhige Atmung.</p>
+                <p>Sobald die Welle abklingt — und das passiert immer, oft schneller als man denkt — biete einen Rückzugsraum an. Wasser. Ein gewichtsbeschwertes Tuch. Stille.</p>
+                <p><strong>Im Shutdown:</strong></p>
+                <p>Erstes Ziel ist Reizreduktion. Licht dimmen, Geräusche weg. Andere Personen aus dem Raum. Decke anbieten. Sprich nur das Nötigste. Eine ruhige Stimme, die einmal sagt: „Ich bin hier, du bist sicher, ich frage gleich gar nichts" — das reicht.</p>
+                <p>Niemals den Klienten „wieder zurückholen" wollen durch Ansprache, Berührung oder Anregung. Das ist die häufigste und schädlichste Intervention. Shutdown ist Schutz — wer ihn unterbricht, zwingt das System zurück in Überforderung, oft mit Meltdown als Folge.</p>
+                <p>Geduld. Stunden, manchmal länger. Der Klient kommt zurück, wenn das System es erlaubt.</p>`
+    },
+    {
+      titel: '06 · Was du danach tust',
+      inhalt: `<p>Die Stunden und Tage nach einem Meltdown oder Shutdown sind klinisch entscheidend — werden aber meist verpasst.</p>
+                <p>Direkt danach: Scham und Erschöpfung sind hoch. Viele Klient:innen — besonders ältere Adoleszente — fühlen sich beschämt für das, was passiert ist. Vermeide jede moralische Kommentierung. Sage nicht „schon gut". Sage etwas wie: <em>„Das war heftig. Du brauchst jetzt Ruhe. Wir reden später."</em></p>
+                <p>Innerhalb von 24–48 Stunden — wenn der Klient wieder reguliert ist — kannst du gemeinsam analysieren. Nicht als Verhör. Als gemeinsames Verstehen.</p>
+                <p>Vier Leitfragen:</p>
+                <ol>
+                  <li>Was hat sich vorher aufgebaut? (Sensorisch, sozial, kognitiv, emotional.)</li>
+                  <li>Was war der konkrete Auslöser? (Oft eine Kleinigkeit, aber der letzte Tropfen.)</li>
+                  <li>Was hätte vorher geholfen? (Pause, Reizreduktion, andere Strategie.)</li>
+                  <li>Was hat im Moment selbst geholfen oder geschadet?</li>
+                </ol>
+                <p>Aus dieser Analyse entsteht der Präventions-Plan. Ohne diese Analyse wiederholen sich die Episoden, ohne dass jemand versteht, warum.</p>`
+    },
+    {
+      titel: '07 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Wenn Meltdown oder Shutdown ungewöhnlich häufig sind — mehrmals pro Woche oder Tag — prüfe Folgendes:</p>
+                <p><strong>Akute Überforderung als chronischer Zustand.</strong> Bedeutet: die Lebenssituation ist insgesamt nicht haltbar für das Nervensystem. Schul-Setting falsch, sensorische Belastung dauerhaft, soziale Anforderungen zu hoch. Lösung: Setting verändern, nicht Symptome behandeln.</p>
+                <p><strong>Autistic Burnout.</strong> Wenn nach Meltdowns die Erholung nicht mehr stattfindet — Skills verschwinden, sensorische Toleranz sinkt, Sprache reduziert — musst du Burnout als zugrundeliegende Diagnose erwägen. Andere Behandlung: Reduktion, nicht Intervention.</p>
+                <p><strong>Komplextrauma.</strong> Bei Klient:innen mit Trauma-Vorgeschichte können Meltdown- und Shutdown-Episoden traumatische Reaktionen sein, nicht primär ASS-Regulation. Wichtige Unterscheidung: trauma-bezogene Episoden sind trigger-spezifisch (bestimmte Reize, Erinnerungen), ASS-Episoden sind belastungs-akkumulativ (zu viel von allem).</p>
+                <p><strong>Epileptische Phänomene.</strong> Sehr selten, aber wichtig — Absencen, fokale Anfälle und postiktale Zustände können wie Shutdowns aussehen. Bei plötzlichen Episoden ohne erkennbare Belastung, bei automatischen Bewegungen während der Episode, bei Bewusstseinstrübung mit Amnesie für die Episode: neurologische Abklärung zwingend.</p>
+                <p><strong>Psychotisches Erleben.</strong> Ebenfalls selten, aber bei adoleszenten Klient:innen mit Asperger im Auge zu behalten. Wenn Shutdowns mit ungewöhnlicher Wahrnehmung, Beziehungserleben oder Gedanken-Inhalten verbunden sind, die nach der Episode bleiben — psychiatrische Abklärung.</p>`
+    }
+  ],
+  verwandt: ['schul-overload-sensorisch', 'autistic-burnout', 'alexithymie']
 });
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
@@ -4700,7 +4793,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 1 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 2 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
@@ -4826,9 +4919,12 @@ function renderSymptomDetail(topic, container) {
 
   const verwandtePills = verwandteIds.slice(0, 5).map(id => {
     const v = findSymptomById(symData, id);
-    if (!v) return '';
-    return `<button class="sym-verwandt-pill" data-tool="sym-open-symptom" data-kat="${v.kategorie}" data-id="${escHtml(v.symptom.id)}">${escHtml(v.symptom.titel)}</button>`;
-  }).filter(Boolean).join('');
+    if (v) {
+      return `<button class="sym-verwandt-pill" data-tool="sym-open-symptom" data-kat="${v.kategorie}" data-id="${escHtml(v.symptom.id)}">${escHtml(v.symptom.titel)}</button>`;
+    }
+    const niceTitel = PLANNED_SYMPTOM_TITLES[id] || id;
+    return `<span class="sym-verwandt-pill placeholder" title="Modul ist geplant, aber noch nicht ausgearbeitet">${escHtml(niceTitel)} · Modul folgt</span>`;
+  }).join('');
 
   const verwandteHtml = verwandtePills.length
     ? `<div class="sym-verwandt">
