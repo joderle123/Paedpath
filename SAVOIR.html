@@ -4503,9 +4503,8 @@ const SYMPTOM_DATA_ASPERGER = {
 // Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
 // für Platzhalter-Pills in "Verwandte Module".
 const PLANNED_SYMPTOM_TITLES = {
-  'alexithymie':                 'Alexithymie',
-  'mobbing-asperger':            'Mobbing bei Asperger',
-  'einziger-freund-verlustangst': 'Einziger Freund — Verlustangst und Abhängigkeit'
+  'alexithymie':       'Alexithymie',
+  'mobbing-asperger':  'Mobbing bei Asperger'
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -4941,6 +4940,91 @@ SYMPTOM_DATA_ASPERGER['sozial'].push({
   ],
   verwandt: ['einziger-freund-verlustangst', 'mobbing-asperger', 'burnout-vs-depression']
 });
+SYMPTOM_DATA_ASPERGER['sozial'].push({
+  id: 'einziger-freund-verlustangst',
+  titel: 'Klient hat einen einzigen Freund — und kann ihn nicht verlieren',
+  ueberschrift: 'Klient hat einen einzigen Freund — und kann ihn nicht verlieren',
+  bloecke: [
+    {
+      titel: '01 · Die Struktur des Problems',
+      inhalt: `<p>Ein autistischer Adoleszent, der einen einzigen Freund hat, hat etwas Wertvolles erreicht. Aber wenn dieser eine Freund gleichzeitig sein einziger sozialer Anker ist — sein einziges Modell für „ich gehöre dazu", seine einzige Quelle für Verbindung, sein einziger Beweis, dass er nicht unsichtbar ist — dann wird die Beziehung zur existenziellen Stütze.</p>
+                <p>Und existenzielle Stützen sind angstgeladen. Jeder Konflikt wird zur potenziellen Katastrophe. Jede beiläufige Bemerkung des Freundes wird zur Frage „mag er mich noch?". Jede Verzögerung im Antworten wird zur Krise. Jede neue Verbindung, die der Freund außerhalb knüpft, wird zur Bedrohung.</p>
+                <p>Das ist nicht „Klammern" im pathologischen Sinne. Das ist eine logische Reaktion auf eine asymmetrische Situation: für den Freund ist es eine von mehreren Freundschaften. Für deinen Klienten ist es die gesamte soziale Welt.</p>
+                <p>Diese <em>Asymmetrie</em> ist das eigentliche Problem. Sie zu verstehen ist der erste Schritt zur Behandlung.</p>`
+    },
+    {
+      titel: '02 · Was du im klinischen Bild siehst',
+      inhalt: `<p>Sechs typische Phänomene:</p>
+                <p><strong>Hypervigilanz gegenüber dem Freund.</strong> Der Klient analysiert jede Nachricht, jede Reaktion, jede Veränderung im Verhalten. Er kann minutengenau sagen, wann eine Antwort kürzer war als sonst. Diese Aufmerksamkeit ist erschöpfend.</p>
+                <p><strong>Krisen bei kleinen Konflikten.</strong> Eine Meinungsverschiedenheit wird zur Bedrohung. Ein Missverständnis wird zum Beziehungs-Ende. Suizid-Äußerungen nach Streit nicht selten — „wenn er mich nicht mehr will, dann hat alles keinen Sinn mehr."</p>
+                <p><strong>Eifersucht gegenüber neuen Kontakten des Freundes.</strong> Wenn der Freund mit jemand anderem etwas macht, erlebt der Klient das als Verlust. Er weiß rational, dass das nicht stimmt — aber das Gefühl ist überwältigend.</p>
+                <p><strong>Anpassungs-Druck auf sich selbst.</strong> Der Klient unterdrückt eigene Bedürfnisse, eigene Interessen, eigene Grenzen, um den Freund nicht zu verlieren. Er sagt zu Dingen ja, die ihn überlasten. Er widerspricht nicht, wenn er widersprechen möchte. Das ist Camouflaging in konzentrierter Form.</p>
+                <p><strong>Vermeidung von Streit, auch wenn berechtigt.</strong> Wenn der Freund etwas tut, das den Klienten verletzt, schweigt er. Konflikte werden gemieden, weil sie als existenziell bedrohlich erlebt werden.</p>
+                <p><strong>Schmerz bei Schulferien oder Trennungen.</strong> Was für andere Schüler:innen Erholung ist, ist für ihn Verlust. Sechs Wochen Sommerferien ohne den Freund können Zusammenbruch bedeuten.</p>`
+    },
+    {
+      titel: '03 · Warum genau dieses Muster bei Asperger',
+      inhalt: `<p>Drei Mechanismen zusammen:</p>
+                <p><strong>Erstens die Verbindungs-Knappheit.</strong> Wenn jemand seit Jahren erfahren hat, dass Verbindung schwer entsteht, selten gelingt, oft scheitert — dann ist jede existierende Verbindung kostbar in einer Weise, die neurotypische Menschen schwer verstehen. Was knapp ist, wird hochbewertet.</p>
+                <p><strong>Zweitens die kognitive Rigidität.</strong> Autistische Verarbeitung neigt zu Schwarz-Weiß-Denken in emotionalen Kategorien. „Wir sind Freunde" oder „wir sind keine Freunde mehr". Die graue Zwischenzone — wir sind Freunde, aber er hat heute keine Lust auf mich — ist schwer zu integrieren.</p>
+                <p><strong>Drittens die Theory-of-Mind-Limitierung.</strong> Es ist schwer einzuschätzen, was im anderen vorgeht. Wenn der Freund still ist — ist er müde, sauer, gestresst, denkt nach? Diese Mehrdeutigkeit ist angsterzeugend, weil sie nicht aufgelöst werden kann. Die plausibelste Hypothese im Stress-System ist immer die bedrohlichste: <em>„er ist sauer auf mich"</em>.</p>
+                <p>Diese drei Mechanismen zusammen produzieren ein System, das jede Verbindung mit zu viel Bedeutung belastet — und damit instabil macht.</p>`
+    },
+    {
+      titel: '04 · Was du im ersten Schritt tust',
+      inhalt: `<p>Nicht: die Freundschaft problematisieren. Nicht: dem Klienten sagen, er hänge zu sehr daran. Nicht: zu weiteren Kontakten drängen.</p>
+                <p>Sondern: <strong>die Asymmetrie sichtbar machen, ohne sie zu werten</strong>.</p>
+                <p>Konkretes Gespräch:</p>
+                <p>„Lass uns mal etwas anschauen. Für dich ist X der wichtigste Mensch außerhalb deiner Familie. Stimmt das?" — meist ja.</p>
+                <p>„Wie wichtig denkst du, bist du für X?" — Antwort oft unsicher.</p>
+                <p>„Wie viele Menschen gibt es für X, die so wichtig sind wie du?" — oft mehrere.</p>
+                <p>„Das heißt: für dich ist diese Verbindung 100 % deiner Außenwelt. Für X ist sie vielleicht 20 %. Das ist keine Schwäche von dir und keine Bösartigkeit von X. Das ist einfach so. Aber es bedeutet, dass die Verbindung für dich existenzieller ist."</p>
+                <p>Diese Bewusstmachung ist nicht Anklage. Sie ist Realitäts-Klärung. Viele Klient:innen erleben das als Erleichterung. Sie haben das Problem gespürt, aber nicht benennen können.</p>`
+    },
+    {
+      titel: '05 · Die therapeutische Strategie',
+      inhalt: `<p>Drei parallele Arbeitslinien:</p>
+                <p><strong>Linie 1 — Die existierende Freundschaft entlasten.</strong></p>
+                <p>Der Freund muss nicht alles sein. Die therapeutische Aufgabe: andere Anker aufbauen. Nicht als Ersatz — als zusätzliche Stützen.</p>
+                <p>Das können andere Menschen sein (Online-Communities, ein verständnisvoller Lehrer, ein Cousin). Das können aber auch nicht-menschliche Anker sein (ein Hobby, das ihn trägt, ein Tier, eine Routine, die ihm Halt gibt).</p>
+                <p>Das Ziel: wenn die Freundschaft mal wackelt, gibt es mehr als nur Abgrund.</p>
+                <p><strong>Linie 2 — Die Verlustangst direkt bearbeiten.</strong></p>
+                <p>Klassische Angst-Arbeit, modifiziert für autistische Kognition. Gedanken-Identifikation strukturiert. „Wenn er drei Stunden nicht antwortet — welche Gedanken kommen?" Antwort oft: „Er mag mich nicht mehr."</p>
+                <p>Realitäts-Check: „Wie oft ist das in den letzten sechs Monaten tatsächlich passiert?" Meistens nie.</p>
+                <p>Alternativ-Hypothesen entwickeln als feste Liste, die der Klient bei sich hat: <em>„Wenn er nicht antwortet, kann sein, dass er müde ist, dass er beschäftigt ist, dass er sein Handy nicht hat, dass er gerade keine Energie hat. Das hat nichts mit mir zu tun. Ich kann warten."</em></p>
+                <p><strong>Linie 3 — Konflikt-Skills aufbauen.</strong></p>
+                <p>Konflikte sind nicht das Ende. Konflikte sind normal. Aber autistische Adoleszente haben oft keine Skripte für Konflikt-Reparatur.</p>
+                <p>Was du übst: wie spricht man eine Verletzung an, ohne Streit zu eskalieren? Wie repariert man nach einem Streit? Wie lebt man mit unterschiedlichen Meinungen?</p>
+                <p>Konkrete Phrasen-Bibliothek: <em>„Wenn du das so sagst, fühle ich mich …"</em> · <em>„Ich brauche Zeit, um darüber nachzudenken."</em> · <em>„Ich verstehe das anders, aber das heißt nicht, dass wir nicht Freunde sind."</em></p>`
+    },
+    {
+      titel: '06 · Die Eltern-Arbeit',
+      inhalt: `<p>Eltern eines autistischen Adoleszenten mit einem einzigen Freund sind oft besorgt — und reagieren oft falsch.</p>
+                <p>Die häufigsten Eltern-Fehler:</p>
+                <ul>
+                  <li>Sie versuchen, weitere Freundschaften zu organisieren. „Wir laden mal Anna ein." Das funktioniert selten und kann die bestehende Freundschaft destabilisieren.</li>
+                  <li>Sie problematisieren die intensive Beziehung. „Du hängst zu sehr an Tim." Das verstärkt Scham und Heimlichkeit.</li>
+                  <li>Sie verbieten Kontakt nach Konflikten. Wenn Streit ausbricht und Eltern denken „diese Freundschaft schadet ihm", versuchen sie, Distanz zu erzwingen. Das wird katastrophal erlebt.</li>
+                </ul>
+                <p>Was du Eltern beibringst:</p>
+                <p><strong>Die Freundschaft anerkennen als Errungenschaft, nicht als Problem.</strong> „Es ist gut, dass Ihr Sohn Tim hat. Diese Verbindung ist wertvoll."</p>
+                <p><strong>Konflikte als Gelegenheit zur Skill-Entwicklung verstehen, nicht als Bedrohung.</strong> „Streit gehört dazu. Lass uns überlegen, wie er damit umgehen kann."</p>
+                <p><strong>Eigene Sorge ausdrücken, ohne die Beziehung zu beschädigen.</strong> „Ich sehe, wie wichtig Tim für dich ist. Ich mache mir manchmal Sorgen, wie sehr du leidest, wenn ihr Streit habt. Können wir darüber reden?"</p>
+                <p><strong>Parallel-Strukturen unterstützen, ohne sie zu erzwingen.</strong> „Online-Community? Lustig — erzähl mir davon."</p>`
+    },
+    {
+      titel: '07 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Klammerndes Verhalten bei Asperger-Adoleszenten kann auch andere Ursachen haben. Prüfe Folgendes:</p>
+                <p><strong>Frühkindliche Bindungsverletzung.</strong> Bei Klient:innen mit Heim-Hintergrund oder traumatischer Bindungsgeschichte kann die intensive Verklammerung mit einer Person desorganisiert-bindungsbedingt sein. Behandlung folgt Bindungs-Logik, nicht primär Asperger-Logik.</p>
+                <p><strong>Borderline-Entwicklung.</strong> Bei sehr instabilen, intensiven Beziehungen mit raschen Idealisierungs-Entwertungs-Zyklen, mit Suizid-Äußerungen bei Trennung, mit Identitätsdiffusion — Borderline als Ko-Diagnose erwägen. Komorbidität autistic + Borderline existiert und wird oft übersehen.</p>
+                <p><strong>Rejection Sensitive Dysphoria.</strong> Die intensive emotionale Reaktion auf wahrgenommene Zurückweisung kann RSD sein — typisch bei Asperger plus ADHS. Behandlung ergänzend mit RSD-spezifischen Strategien.</p>
+                <p><strong>Echte Liebesbeziehung versus Freundschaft.</strong> Bei Adoleszenten ist die Grenze zwischen sehr enger Freundschaft und romantischer Verliebtheit fließend. Wenn Verliebtheits-Aspekte vorhanden sind — Eifersucht auf neue Verbindungen, körperliche Sehnsucht, romantische Phantasien — andere therapeutische Behandlung. Vorsichtig differenzieren, ohne zu pathologisieren.</p>
+                <p><strong>Komorbide Depression.</strong> Wenn die Freundschaft die einzige Quelle für positives Erleben geworden ist, weil alles andere depressiv getönt ist — Depression ist das zugrundeliegende Problem. Behandle Depression, die Freundschafts-Dynamik entlastet sich oft mit.</p>`
+    }
+  ],
+  verwandt: ['keine-freunde', 'mobbing-asperger', 'burnout-vs-depression']
+});
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
 function renderPlan(topic, container) {
@@ -5072,7 +5156,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 5 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 6 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
