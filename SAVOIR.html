@@ -4503,7 +4503,7 @@ const SYMPTOM_DATA_ASPERGER = {
 // Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
 // für Platzhalter-Pills in "Verwandte Module".
 const PLANNED_SYMPTOM_TITLES = {
-  'alexithymie': 'Alexithymie'
+  'ploetzliche-suizidalitaet': 'Plötzliche Suizidalität'
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -5123,6 +5123,99 @@ SYMPTOM_DATA_ASPERGER['sozial'].push({
   ],
   verwandt: ['keine-freunde', 'einziger-freund-verlustangst', 'schul-overload-sensorisch', 'burnout-vs-depression']
 });
+SYMPTOM_DATA_ASPERGER['emotional'].push({
+  id: 'alexithymie',
+  titel: 'Klient kann eigene Emotionen nicht benennen — Alexithymie verstehen und damit arbeiten',
+  ueberschrift: 'Klient kann eigene Emotionen nicht benennen — <em>Alexithymie</em> verstehen und damit arbeiten',
+  bloecke: [
+    {
+      titel: '01 · Das Phänomen zuerst richtig verstehen',
+      inhalt: `<p>Wenn du einen autistischen Adoleszenten fragst „wie fühlst du dich gerade" und konsistent „ich weiß nicht" als Antwort bekommst — das ist nicht Vermeidung. Das ist nicht Trotz. Das ist nicht Therapie-Sabotage. Das ist Alexithymie.</p>
+                <p>Alexithymie ist eine Schwierigkeit in drei Domänen:</p>
+                <ul>
+                  <li>Eigene Emotionen identifizieren.</li>
+                  <li>Eigene Emotionen beschreiben.</li>
+                  <li>Innere Erlebnis-Welt von körperlichen Empfindungen unterscheiden.</li>
+                </ul>
+                <p>Die Prävalenz bei autistischen Klient:innen liegt bei etwa 50 Prozent — also bei jeder zweiten Person. Bei neurotypischen Klient:innen unter 10 Prozent. Wer mit autistischen Adoleszenten arbeitet, ohne Alexithymie zu kennen, scheitert systematisch in der emotionalen Arbeit.</p>
+                <p>Wichtig: Alexithymie ist nicht „keine Emotionen haben". Die Emotionen sind da — sie werden gefühlt, sie wirken auf das System, sie verändern Verhalten. Was fehlt, ist der Zugriff auf das, was gefühlt wird. Es ist wie ein Buch in einer Sprache, die man nicht kann — das Buch existiert, aber der Inhalt ist nicht zugänglich.</p>`
+    },
+    {
+      titel: '02 · Drei Ebenen der Störung',
+      inhalt: `<p>Bei Alexithymie ist gestört:</p>
+                <p><strong>Ebene 1 — Interozeption.</strong></p>
+                <p>Die Wahrnehmung von körperlichen Innen-Signalen. Der autistische Klient nimmt sein eigenes Herzklopfen weniger zuverlässig wahr. Hunger und Sättigung weniger gut. Muskelspannung weniger differenziert. Die körperlichen Marker, auf denen Emotionswahrnehmung aufbaut, sind weniger zugänglich.</p>
+                <p><strong>Ebene 2 — Differenzierung.</strong></p>
+                <p>Selbst wenn etwas wahrgenommen wird — die Unterscheidung verschiedener emotionaler Qualitäten ist schwer. „Ich fühle mich schlecht" — aber ist das Angst, Trauer, Wut, Erschöpfung, Übelkeit, Hunger? Diese Differenzierung passiert bei neurotypischen Menschen meist automatisch. Bei Alexithymie nicht.</p>
+                <p><strong>Ebene 3 — Verbalisierung.</strong></p>
+                <p>Selbst wenn die Differenzierung gelingt — die Übersetzung in Sprache fehlt. Es gibt kein verfügbares Vokabular. „Es ist wie etwas im Bauch" ist manchmal alles, was kommt. Nicht weil der Klient nicht reden kann — sondern weil die Verbindung zwischen Innen-Erlebnis und sprachlicher Repräsentation nicht etabliert ist.</p>`
+    },
+    {
+      titel: '03 · Was du im klinischen Bild siehst',
+      inhalt: `<p>Typische Phänomene:</p>
+                <p><strong>Standard-Antwort „ich weiß nicht"</strong> auf Befindlichkeitsfragen. Nicht ausweichend gemeint — ehrlich beschreibend.</p>
+                <p><strong>Beschreibungen, die körperlich bleiben.</strong> „Mein Bauch fühlt sich komisch an." „Mein Kopf ist heiß." Statt „ich bin traurig" oder „ich bin wütend".</p>
+                <p><strong>Emotionale Reaktionen, die „aus dem Nichts" kommen.</strong> Plötzliche Wutausbrüche oder Tränen ohne erkennbare Vorlauf-Phase. Vom Klienten beschrieben mit „es kam einfach so". Tatsächlich war Vorlauf da — aber nicht wahrgenommen.</p>
+                <p><strong>Schwierigkeit mit Emotionsfragen in der Therapie.</strong> Klassisches „wie fühlst du dich dabei?" geht ins Leere. Therapie kann an dieser Stelle blockieren.</p>
+                <p><strong>Diskrepanz zwischen sichtbarem Verhalten und Selbstbeschreibung.</strong> Du siehst, dass er weint — er sagt, er fühle nichts. Beides kann wahr sein. Der Körper reagiert, das Bewusstsein hat keinen Zugriff.</p>
+                <p><strong>Probleme bei Empathie für andere als unerwartete Folge.</strong> Ohne klare Innen-Wahrnehmung der eigenen Emotionen ist die Resonanz auf Emotionen anderer schwierig. Das wird oft als „Empathie-Defizit" beschrieben, ist aber eigentlich ein Vermittlungs-Problem.</p>`
+    },
+    {
+      titel: '04 · Die Folgen, wenn du es nicht adressierst',
+      inhalt: `<p>Wenn Alexithymie nicht erkannt wird, gehen verschiedene Dinge schief:</p>
+                <p><strong>Standard-Psychotherapie scheitert in der emotionalen Arbeit.</strong> Wenn die Methode auf Emotions-Identifikation aufbaut und der Klient keine Identifikation leisten kann, kann er nicht profitieren. Das wird oft als „Therapie-Resistenz" oder „fehlende Motivation" fehlinterpretiert.</p>
+                <p><strong>Suizidalität wird unterschätzt.</strong> Wenn ein Klient nicht sagen kann, dass er sich miserabel fühlt — weil er es nicht so erkennen kann — kann das eskalieren ohne Vorwarnung. Suizid-Äußerungen kommen dann scheinbar plötzlich.</p>
+                <p><strong>Selbstverletzung als Regulations-Strategie ohne Alternative.</strong> Wenn der Klient innere Spannung spürt, aber nicht benennen kann, was es ist, ist die direkte Schmerz-Erzeugung manchmal das Einzige, was funktioniert. Wenn Worte für Innen-Erleben fehlen, bleibt nur Handlung.</p>
+                <p><strong>Psychosomatische Beschwerden häufen sich.</strong> Was nicht emotional verarbeitet werden kann, manifestiert sich somatisch. Chronische Bauchschmerzen, Kopfschmerzen, Übelkeit ohne medizinischen Befund. Bei autistischen Adoleszenten mit Alexithymie besonders häufig.</p>
+                <p><strong>Beziehungen leiden, weil emotionale Kommunikation nicht funktioniert.</strong> Partner:innen, Eltern, Freund:innen verstehen nicht, warum der Klient nicht sagt, was er fühlt. Sie interpretieren als Verweigerung, was Unfähigkeit ist.</p>`
+    },
+    {
+      titel: '05 · Was du tust — Methode 1: Körper als Einstieg',
+      inhalt: `<p>Statt nach Emotionen zu fragen, frage nach körperlichen Empfindungen. Das ist eine Ebene zugänglicher.</p>
+                <p>Konkrete Fragen, die funktionieren:</p>
+                <ul>
+                  <li>„Wo in deinem Körper merkst du gerade etwas? Auch wenn es klein ist?"</li>
+                  <li>„Wenn du jetzt mit den Augen über deinen Körper gehst — Kopf, Brust, Bauch, Beine — wo ist etwas Besonderes?"</li>
+                  <li>„Hat dein Körper Temperatur? Heiß, kalt, warm, neutral?"</li>
+                  <li>„Spürst du Bewegung in dir? Schnelles oder Langsames?"</li>
+                  <li>„Ist etwas eng? Ist etwas weit? Ist etwas schwer?"</li>
+                </ul>
+                <p>Aus diesen körperlichen Beobachtungen entstehen mit der Zeit Verknüpfungen. <em>„Dieses Enge in der Brust hatte ich auch nach dem Gespräch mit Mama"</em> — das ist der Anfang von Emotions-Identifikation.</p>
+                <p>Diese Methode braucht Wochen bis Monate. Aber sie ist die zugänglichste Eingangstür.</p>`
+    },
+    {
+      titel: '06 · Was du tust — Methode 2: Kontext-Brücken',
+      inhalt: `<p>Frage nicht nach dem Gefühl direkt. Frage nach der Situation und arbeite rückwärts.</p>
+                <ul>
+                  <li>„Was hat heute Morgen vor der Schule was bei dir ausgelöst — auch wenn du nicht weißt, was es ist?"</li>
+                  <li>„Welche Situation diese Woche war anstrengend oder seltsam — egal warum?"</li>
+                  <li>„Wenn du an gestern denkst — gab es einen Moment, der hängengeblieben ist?"</li>
+                </ul>
+                <p>Aus der Situations-Beschreibung kann gemeinsam eine emotionale Hypothese entwickelt werden. <em>„Wenn jemand das zu mir sagt, würde ich vielleicht das fühlen — wie ist das für dich?"</em> Du bietest Möglichkeiten an. Du machst keinen Test. Der Klient entscheidet, ob es passt.</p>
+                <p>Diese Methode hat einen wichtigen Nebeneffekt: sie baut emotionales Vokabular auf. Mit der Zeit lernt der Klient Worte und Verknüpfungen, die vorher nicht verfügbar waren.</p>`
+    },
+    {
+      titel: '07 · Was du tust — Methode 3: Externes Mapping',
+      inhalt: `<p>Visuelle und strukturierte Hilfsmittel nutzen.</p>
+                <p><strong>Gefühlsräder.</strong> Diagramme mit emotionalen Begriffen in Kategorien strukturiert. Plutchik-Rad oder adaptierte Versionen. Der Klient zeigt auf das, was am nächsten dran ist — auch wenn er nicht selbst das Wort gefunden hätte. <em>Erkennen ist einfacher als Produzieren.</em></p>
+                <p><strong>Stimmungs-Tagebuch in vereinfachter Form.</strong> Nicht freier Text. Sondern Skalen. 1–10 Energie. 1–10 Anspannung. 1–10 Belastung. Über Wochen entstehen Muster, die diagnostisch und therapeutisch nutzbar sind.</p>
+                <p><strong>Spezialinteresse als Brücke.</strong> Wenn der Klient sich mit einem System auskennt — Pokémon, Naturgewalten, Maschinen — können emotionale Zustände durch Analogien aus dem System beschrieben werden. „Heute fühle ich mich wie Tornado-Warnstufe 3."</p>
+                <p><strong>Externe Beobachter einbeziehen.</strong> Eltern können oft beschreiben, was sie sehen. „Ich glaube, er war heute traurig — er hat anders gegessen." Diese Außen-Wahrnehmung kann mit dem Klienten besprochen werden als Hypothese, die er prüfen kann.</p>`
+    },
+    {
+      titel: '08 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Schwierigkeit, Emotionen zu benennen, ist nicht immer Alexithymie im autistischen Sinne. Prüfe Folgendes:</p>
+                <p><strong>Dissoziation.</strong> Bei Klient:innen mit Trauma-Geschichte kann die fehlende emotionale Wahrnehmung dissoziative Genese haben. Der Unterschied: Alexithymie ist chronisch und situations-unabhängig. Dissoziative Distanzierung schwankt — manchmal voll präsent, manchmal weg. Behandlung anders, trauma-informiert.</p>
+                <p><strong>Depressive Anhedonie kombiniert mit emotionaler Abstumpfung.</strong> Bei schwerer Depression kann die Emotionswahrnehmung subjektiv leer wirken. Unterschied: typisch depressive Begleitsymptome vorhanden, oft nicht chronisch, sondern phasisch. Behandlung: Depression adressieren, Alexithymie bessert sich oft mit.</p>
+                <p><strong>Schwierigkeit mit Sprache allgemein.</strong> Bei Klient:innen mit beeinträchtigten Sprach-Fähigkeiten kann die fehlende Verbalisierung emotionaler Zustände primär sprachlich bedingt sein — nicht primär alexithym. Differentialdiagnostik prüft beide Komponenten.</p>
+                <p><strong>Kulturelle und familiäre Faktoren.</strong> In manchen Familien wird über Emotionen nicht gesprochen. Der Klient hat keine Modelle, kein Vokabular, keine Erlaubnis. Das ist nicht Alexithymie im klinischen Sinne — das ist erlernte Unausdrückbarkeit. Behandlung anders, mit familiärem Kontext arbeiten.</p>
+                <p><strong>SSRI-induzierte emotionale Abstumpfung.</strong> Bei Klient:innen unter SSRI-Behandlung kann die Emotionswahrnehmung medikamentös gedämpft sein. Wenn das vor Medikament nicht bestand — mit verschreibendem Arzt sprechen.</p>
+                <p><strong>Mischformen sind häufig.</strong> Alexithymie plus Dissoziation plus erlernte Unausdrückbarkeit ist eine reale Konstellation bei autistischen Adoleszenten mit Trauma-Hintergrund und emotional verschlossenem Familien-System. Hier ist mehrgleisige Arbeit nötig.</p>`
+    }
+  ],
+  verwandt: ['meltdown-vs-shutdown', 'burnout-vs-depression', 'ploetzliche-suizidalitaet']
+});
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
 function renderPlan(topic, container) {
@@ -5254,7 +5347,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 7 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 8 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
