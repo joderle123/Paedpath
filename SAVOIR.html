@@ -4502,9 +4502,10 @@ const SYMPTOM_DATA_ASPERGER = {
 
 // Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
 // für Platzhalter-Pills in "Verwandte Module".
-const PLANNED_SYMPTOM_TITLES = {
-  'ploetzliche-suizidalitaet': 'Plötzliche Suizidalität'
-};
+// Aktuell leer; wird gefüllt, sobald ein Modul auf eine
+// geplante, aber noch nicht ausgearbeitete ID verweist.
+const PLANNED_SYMPTOM_TITLES = {};
+
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
   titel: 'Klient hat hohen IQ, kann aber kaum rechnen oder schreiben',
@@ -5216,6 +5217,135 @@ SYMPTOM_DATA_ASPERGER['emotional'].push({
   ],
   verwandt: ['meltdown-vs-shutdown', 'burnout-vs-depression', 'ploetzliche-suizidalitaet']
 });
+SYMPTOM_DATA_ASPERGER['emotional'].push({
+  id: 'ploetzliche-suizidalitaet',
+  titel: 'Klient äussert plötzlich Suizidalität — ohne erkennbare Vorzeichen',
+  ueberschrift: 'Klient äußert plötzlich Suizidalität — ohne erkennbare Vorzeichen',
+  bloecke: [
+    {
+      titel: '01 · Die Zahl, die du nie vergessen darfst',
+      inhalt: `<p>Hirvikoski et al. 2016: das Suizidrisiko bei autistischen Menschen ist <strong>neunfach erhöht</strong> gegenüber der Allgemeinbevölkerung. Bei autistischen Frauen sogar über dreizehnfach.</p>
+                <p>Cassidy et al. 2014: 66 Prozent der erwachsenen autistischen Klient:innen ohne Lernschwierigkeiten hatten Suizidgedanken im Verlauf ihres Lebens. 35 Prozent hatten Suizidversuche oder konkrete Pläne.</p>
+                <p>Diese Zahlen sind nicht akademisch. Sie verändern, wie du jede Sitzung mit autistischen Adoleszenten gestaltest. Suizidalität ist hier nicht seltene Komplikation — sie ist Standardrisiko.</p>
+                <p>Aber: die meisten Studien zeigen auch, dass Suizidalität bei autistischen Klient:innen oft anders verläuft als bei neurotypischen. <em>Plötzlicher. Mit weniger erkennbaren Warnzeichen. Mit höherer Letalität bei Versuchen.</em></p>
+                <p>Das ist der Kern dieses Moduls: warum es so wirkt, als ob es „plötzlich" kommt — und was du tun kannst, damit es dich nicht überrascht.</p>`
+    },
+    {
+      titel: '02 · Warum es plötzlich wirkt',
+      inhalt: `<p>Vier Mechanismen, die zusammen das Bild der „plötzlichen Suizidalität" produzieren:</p>
+                <p><strong>Erstens — Alexithymie.</strong> Wenn der Klient seinen zunehmenden inneren Druck nicht wahrnimmt und nicht benennt, kann er ihn auch nicht teilen. Was für neurotypische Menschen über Wochen als „Hoffnungslosigkeit-Erzählung" entwickelt wird, kommt hier ohne diese sprachliche Vorphase. Der Druck baut sich auf — aber unerkannt.</p>
+                <p><strong>Zweitens — Camouflaging.</strong> Viele autistische Adoleszente sind seit Jahren darin geübt, nach außen zu funktionieren, auch wenn innen Chaos ist. Die soziale Maske bleibt, auch wenn dahinter Suizidalität wächst. Bezugspersonen sehen nicht, was sie sehen müssten.</p>
+                <p><strong>Drittens — Schwarz-Weiß-Denken.</strong> Autistische Kognition neigt zu kategorischen Schlussfolgerungen. Wenn ein Problem unlösbar erscheint, gibt es weniger graue Zwischenzonen („ich finde irgendwie einen Weg") und schneller die binäre Schlussfolgerung („dann ist alles vorbei"). Diese kognitive Architektur beschleunigt suizidale Verarbeitung.</p>
+                <p><strong>Viertens — Impulsivität bei Komorbidität.</strong> Bei gleichzeitiger ADHS — was bei vielen autistischen Adoleszenten der Fall ist — kommt Impulsivität hinzu. Der Schritt von „ich will nicht mehr" zur Handlung kann sehr kurz sein. Stunden, manchmal Minuten.</p>
+                <p>Diese vier Mechanismen zusammen erklären, warum autistische Suizidalität oft scheinbar aus dem Nichts kommt. <em>Sie kommt nicht aus dem Nichts. Sie kommt aus dem Unsichtbaren.</em></p>`
+    },
+    {
+      titel: '03 · Die atypischen Warnzeichen',
+      inhalt: `<p>Standard-Suizid-Assessments fragen nach klassischen Warnzeichen: verbale Hinweise, Stimmungsverschlechterung, sozialer Rückzug, Hoffnungslosigkeits-Aussagen. Diese können fehlen bei autistischen Klient:innen. Stattdessen findest du:</p>
+                <p><strong>Plötzliche Ruhe nach einer Phase von Belastung.</strong> Wenn ein Klient wochenlang gestresst war und dann auffallend gelassen wirkt — das kann Erholung sein. Es kann aber auch sein, dass eine Entscheidung getroffen wurde und deshalb innere Ruhe entsteht. Bei autistischen Klient:innen ist diese paradoxe Ruhe besonders zu beachten.</p>
+                <p><strong>Konkrete Klärungs-Fragen über Tod oder Sterben.</strong> Nicht „ich will nicht mehr leben", sondern sachliche Fragen nach Methoden, nach Wirkmechanismen, nach medizinischen Details. Autistische Klient:innen nähern sich Themen oft über Recherche und Information. Diese sachliche Annäherung kann harmloser wirken, als sie ist.</p>
+                <p><strong>Plötzliches Aufräumen, Verschenken, Verabschieden.</strong> Wegen der Tendenz zur Strukturierung kann das Vorbereitungs-Verhalten bei autistischen Klient:innen strukturierter ablaufen als bei neurotypischen. Sammlungen werden weitergegeben, Räume aufgeräumt, Geschwister bekommen Geschenke. Das wird oft als „reife Phase" missverstanden.</p>
+                <p><strong>Schul-Burnout oder soziale Eskalation als Trigger.</strong> Bei autistischen Adoleszenten ist Mobbing einer der stärksten Suizidrisiko-Faktoren. Wenn ein Klient gerade eine besonders schwere Mobbing-Phase hatte oder wenn Schul-Belastung in einer Krise endete, ist das Risiko hoch.</p>
+                <p><strong>Verlust einer wichtigen Verbindung.</strong> Wenn die eine Freundschaft gebrochen ist (siehe Modul „Einziger Freund — Verlustangst"), kann das existenziell erlebt werden. Die emotionale Reaktion ist oft überproportional aus neurotypischer Sicht — aus autistischer Sicht angemessen.</p>
+                <p><strong>Veränderung in Spezialinteressen.</strong> Wenn ein Klient sein Spezialinteresse plötzlich aufgibt, weniger investiert, nichts mehr darüber sagt — das ist klinisch relevanter als Stimmungsverschlechterung. Das Spezialinteresse ist oft die letzte funktionierende Ressource. Wenn die wegbricht, ist das System schwer belastet.</p>`
+    },
+    {
+      titel: '04 · Wie du Suizidalität aktiv erfragst',
+      inhalt: `<p>Standard-Fragen wie „hast du Gedanken, dir etwas anzutun" können bei autistischen Klient:innen zu wörtlich genommen werden. „Etwas antun" ist vage. Konkretere Sprache funktioniert oft besser.</p>
+                <p>Konkrete Fragen, die bei autistischen Adoleszenten funktionieren:</p>
+                <ul>
+                  <li>„Hast du in den letzten Wochen darüber nachgedacht, dass du tot sein möchtest oder nicht mehr leben möchtest?"</li>
+                  <li>„Hast du dir schon vorgestellt, wie du sterben würdest — Methoden oder Wege?"</li>
+                  <li>„Hast du Mittel oder Möglichkeiten dazu?"</li>
+                  <li>„Wann zuletzt waren solche Gedanken da — gestern, heute, vor einer Stunde?"</li>
+                  <li>„Wenn diese Gedanken kommen — wie stark sind sie? Kannst du sie wegschieben oder bleiben sie?"</li>
+                  <li>„Gibt es etwas, was dich gerade davon abhält?"</li>
+                </ul>
+                <p>Direktheit ist kein Risiko — sie ist Schutz. Studien zeigen wiederholt: Suizidalität direkt ansprechen verschlechtert nichts. Was nicht angesprochen wird, kann nicht behandelt werden.</p>
+                <p>Bei autistischen Klient:innen kommt ein Vorteil hinzu: sie nehmen Fragen oft wörtlich und antworten oft ehrlicher als neurotypische Klient:innen, die soziale Erwünschtheit höher gewichten. <strong>Wenn du fragst und ein klares Ja kommt — glaub es.</strong></p>`
+    },
+    {
+      titel: '05 · Die proaktiven Monitoring-Strategien',
+      inhalt: `<p>Weil die klassischen Warnzeichen oft fehlen, brauchst du proaktive Strategien — nicht reaktive.</p>
+                <p><strong>Strategie 1 — Belastungs-Marker tracken.</strong></p>
+                <p>Belastung ist bei autistischen Adoleszenten besser messbar als Stimmung. Frage nicht nach Stimmung, frage nach Belastung. Konkret:</p>
+                <ul>
+                  <li>Sensorische Toleranz aktuell (besser, gleich, schlechter als sonst).</li>
+                  <li>Schul-Anwesenheit.</li>
+                  <li>Schlaf-Stunden.</li>
+                  <li>Aktivität in Spezialinteresse.</li>
+                  <li>Sozialer Kontakt (auch online).</li>
+                </ul>
+                <p>Wenn mehrere dieser Marker in Richtung Verschlechterung zeigen, ist das Suizidrisiko erhöht — auch wenn der Klient verbal das Gegenteil sagt.</p>
+                <p><strong>Strategie 2 — Bei jeder Sitzung Suizidalität abfragen.</strong></p>
+                <p>Nicht nur, wenn der Klient depressive Symptomatik zeigt. Bei jeder Sitzung. Routine. Macht es weniger dramatisch und senkt die Hemmschwelle.</p>
+                <p><em>„Ich frage das bei jedem Termin: hattest du in den letzten Tagen Gedanken, dir etwas anzutun?"</em></p>
+                <p><strong>Strategie 3 — Bezugspersonen einbeziehen, strukturiert.</strong></p>
+                <p>Eltern und manchmal Lehrkräfte sehen Veränderungen, die der Klient selbst nicht wahrnimmt. Sie sollen nicht überwachend sein. Aber sie sollen einen strukturierten Marker-Bogen haben. Konkrete Beobachtungen:</p>
+                <ul>
+                  <li>Aufräum-Verhalten Veränderungen.</li>
+                  <li>Veränderung im Spezialinteresse-Engagement.</li>
+                  <li>Aussagen über Tod, Sterben, Sinn.</li>
+                  <li>Geschenke-Verteilen, Abschiedsverhalten.</li>
+                  <li>Plötzliche Veränderungen im Schul-Verhalten.</li>
+                </ul>
+                <p><strong>Strategie 4 — Niedrige Schwelle für externe Kommunikation.</strong></p>
+                <p>Vereinbarung mit Klient und Eltern: bei jeder spürbaren Verschlechterung sofort melden, auch wenn unsicher. Lieber zwei Mal überreagieren als ein Mal zu spät kommen.</p>`
+    },
+    {
+      titel: '06 · Der strukturierte Sicherheitsplan',
+      inhalt: `<p>Bei jedem autistischen Adoleszenten mit erhöhtem Risiko ist ein Sicherheitsplan obligatorisch. Der Stanley-Brown-Sicherheitsplan ist Standard und funktioniert modifiziert auch bei autistischen Klient:innen.</p>
+                <p>Sechs Komponenten — modifiziert für Asperger:</p>
+                <ol>
+                  <li><strong>Frühwarnzeichen konkret und körperlich definiert.</strong> Nicht „wenn es mir schlecht geht", sondern „wenn ich nicht mehr in die Schule will", „wenn ich nichts mehr essen mag" oder „wenn ich nicht mehr Spezialinteresse mache". Konkret und beobachtbar.</li>
+                  <li><strong>Selbst-Strategien.</strong> Was kann der Klient selbst tun? Bei autistischen Klient:innen oft anders als neurotypisch. Spezialinteresse als Anker. Sensorische Regulation (Kopfhörer, Decke, dunkler Raum). Routinen-Sicherheit.</li>
+                  <li><strong>Ablenkungs-Aktivitäten.</strong> Sehr konkret aufgelistet. Drei bis fünf Aktivitäten, die machbar sind auch in Krise. Nicht abstrakt „etwas Schönes machen" — sondern „Folge X von Serie Y schauen", „Spezialinteresse-Forum lesen".</li>
+                  <li><strong>Personen, die kontaktiert werden können.</strong> Drei konkrete Namen mit Nummern. Bei autistischen Klient:innen oft eingeschränkter Kreis — das ist okay, solange klar ist, wer.</li>
+                  <li><strong>Professionelle Kontakte.</strong> Therapeut:in, Klinik-Notaufnahme, Krisendienst. Konkret mit Nummern und Adressen.</li>
+                  <li><strong>Mittel-Restriktion.</strong> Bei autistischen Klient:innen ähnlich wichtig wie bei allen — Medikamente sicher verwahrt, gefährliche Gegenstände kontrolliert. Eltern systematisch einbeziehen, ohne Misstrauen zu signalisieren.</li>
+                </ol>
+                <p>Wichtig: der Sicherheitsplan wird gemeinsam erstellt, ausgedruckt, dem Klienten mitgegeben, Eltern bekommen Kopie. Bei jedem Hinweis auf Verschlechterung wird er reaktiviert.</p>`
+    },
+    {
+      titel: '07 · Wann eskalieren',
+      inhalt: `<p>Klare Kriterien für Eskalation:</p>
+                <p><strong>Sofortige Klinik-Einweisung:</strong></p>
+                <ul>
+                  <li>Konkreter Plan plus Zugang zu Mittel plus Zeitperspektive.</li>
+                  <li>Aktiver Versuch eingestanden oder vermutet.</li>
+                  <li>Bezugspersonen können Sicherheit nicht gewährleisten.</li>
+                  <li>Klient distanziert sich von Sicherheitsabsprachen.</li>
+                </ul>
+                <p><strong>Erhöhung der Frequenz auf wöchentlich plus engmaschige telefonische Kontakte:</strong></p>
+                <ul>
+                  <li>Persistierende Suizidgedanken auch ohne Plan.</li>
+                  <li>Belastungs-Marker in Richtung Krise.</li>
+                  <li>Aktuelle Auslöser (Mobbing-Eskalation, Beziehungsbruch, Familien-Krise).</li>
+                  <li>Spezialinteresse als Ressource bricht weg.</li>
+                </ul>
+                <p><strong>Überweisung zur Kinder- und Jugendpsychiatrie ambulant:</strong></p>
+                <ul>
+                  <li>Erstmaliger Hinweis auf Suizidalität.</li>
+                  <li>Frage der medikamentösen Behandlung.</li>
+                  <li>Komplexe Komorbidität, die spezialisierte Diagnostik braucht.</li>
+                  <li>Bei Therapie-Stagnation.</li>
+                </ul>
+                <p>Nicht alleine arbeiten ist die Grundregel. Bei jedem Verdacht auf akute Suizidalität — Kolleg:innen einbeziehen, KJP einbeziehen, Klinik kontaktieren. <em>Verantwortung wird geteilt, nicht alleine getragen.</em></p>`
+    },
+    {
+      titel: '08 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Suizidäußerungen bei autistischen Adoleszenten können verschiedene Bedeutungen haben — alle ernst zu nehmen, aber unterschiedlich zu behandeln.</p>
+                <p><strong>Echte Suizidalität mit Handlungsdruck.</strong> Konkrete Vorstellungen, Methoden, Zeitperspektive. Höchste Priorität. Stanley-Brown-Plan aktivieren, oft KJP-Konsultation oder Klinik indiziert.</p>
+                <p><strong>Suizidale Ideation als Bewältigungs-Phantasie ohne Handlungsdruck.</strong> „Manchmal denke ich, es wäre einfacher, wenn ich nicht da wäre." Häufig bei autistischen Adoleszenten mit hoher Lebensbelastung. Trotzdem ernst nehmen, monitoren — aber andere Behandlungsschwere als akute Suizidalität.</p>
+                <p><strong>Sachliche Aussagen ohne emotionale Färbung.</strong> Manche autistische Klient:innen äußern Suizidalität so neutral, dass die emotionale Tiefe schwer einzuschätzen ist. Hier nicht das Risiko unterschätzen, weil keine Dramatik dabei ist. Das Wörtliche kann tödlich sein.</p>
+                <p><strong>Schwarz-Weiß-Reaktion auf akuten Konflikt.</strong> Bei Streit mit der Bezugsperson, bei Beziehungsbruch, bei Schul-Krise — kategorische Suizidäußerungen, ohne dass dauerhafte Hoffnungslosigkeit besteht. Akute Krise muss adressiert werden, aber Behandlungs-Logik ist eine andere als bei chronischer Suizidalität.</p>
+                <p><strong>Imitations-Effekte.</strong> Wenn ein Peer, eine fiktive Figur oder ein Online-Kontakt Suizidalität ausdrückt, können autistische Klient:innen Aussagen übernehmen, ohne dass die Emotion dahinter steht. Trotzdem prüfen, aber als Imitations-Phänomen unterscheidbar.</p>
+                <p><strong>Wenn unsicher: behandle wie akute Suizidalität.</strong> Die Kosten eines Fehlers in Richtung Unterschätzung sind zu hoch.</p>`
+    }
+  ],
+  verwandt: ['alexithymie', 'burnout-vs-depression', 'mobbing-asperger', 'einziger-freund-verlustangst']
+});
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
 function renderPlan(topic, container) {
@@ -5347,7 +5477,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 8 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 9 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
