@@ -4503,8 +4503,7 @@ const SYMPTOM_DATA_ASPERGER = {
 // Bekannte, aber noch nicht ausgearbeitete Symptom-Titel —
 // für Platzhalter-Pills in "Verwandte Module".
 const PLANNED_SYMPTOM_TITLES = {
-  'alexithymie':       'Alexithymie',
-  'mobbing-asperger':  'Mobbing bei Asperger'
+  'alexithymie': 'Alexithymie'
 };
 SYMPTOM_DATA_ASPERGER['lern-leistung'].push({
   id: 'iq-hoch-rechnen-schreiben',
@@ -5025,6 +5024,105 @@ SYMPTOM_DATA_ASPERGER['sozial'].push({
   ],
   verwandt: ['keine-freunde', 'mobbing-asperger', 'burnout-vs-depression']
 });
+SYMPTOM_DATA_ASPERGER['sozial'].push({
+  id: 'mobbing-asperger',
+  titel: 'Klient wird gemobbt — Asperger als Mobbing-Opfer',
+  ueberschrift: 'Klient wird gemobbt — Asperger als Mobbing-Opfer',
+  bloecke: [
+    {
+      titel: '01 · Die Zahl, die du im Kopf haben musst',
+      inhalt: `<p>Studien zur Mobbing-Prävalenz bei autistischen Adoleszenten zeigen Werte zwischen 60 und 90 Prozent. Das ist nicht „häufiger als andere". Das ist „praktisch alle". Bei neurotypischen Schüler:innen liegen die Vergleichswerte bei 10–25 Prozent.</p>
+                <p>Konkret heißt das: wenn ein autistischer Adoleszent in deiner Praxis sitzt und nicht von Mobbing berichtet, hast du erstens Glück gehabt — und zweitens musst du sehr gezielt nachfragen. Die wahrscheinlichste Erklärung dafür, dass nicht berichtet wird, ist nicht, dass es nicht stattfindet — sondern dass der Klient es entweder nicht als Mobbing erkennt, sich dafür schämt, oder gelernt hat, dass Berichten nichts bringt.</p>
+                <p>Diese Grundzahl verändert, wie du arbeitest. Mobbing ist nicht die seltene Ausnahme — es ist die unausgesprochene Standardbedingung autistischer Schul-Erfahrung.</p>`
+    },
+    {
+      titel: '02 · Warum sie besonders betroffen sind',
+      inhalt: `<p>Vier strukturelle Gründe:</p>
+                <p><strong>Sichtbarkeit der Andersartigkeit.</strong> Autistische Adoleszente fallen auf — anderes Sprechmuster, andere Reaktionen, andere Interessen, manchmal Stimming, manchmal soziale Ungeschicklichkeit. In adoleszenten Gruppen ist Konformität Überlebensstrategie. Wer auffällt, wird zur Zielscheibe.</p>
+                <p><strong>Schwierigkeit, subtile Aggression zu erkennen.</strong> Direktes körperliches Mobbing erkennen die meisten. Subtile Formen — sozialer Ausschluss, ironische Sprüche, Hinter-dem-Rücken-Lästern, Fake-Freundschaften, kalkulierte Demütigung in Gruppenchats — werden oft nicht erkannt oder nicht als Aggression eingeordnet.</p>
+                <p><strong>Schwierigkeit, sich zu wehren.</strong> Schlagfertige Konter brauchen schnelle soziale Verarbeitung. Asymmetrische Schlagfertigkeit zum Schutz braucht Erfahrung mit ähnlichen Situationen. Beides ist bei autistischen Adoleszenten oft unterentwickelt.</p>
+                <p><strong>Vulnerabilität durch Naivität.</strong> Viele autistische Adoleszente nehmen Worte wörtlich, vertrauen Versprechen, glauben gut gemeinte Erklärungen. Das macht sie attraktiv für täterische Dynamiken: „Komm in den Park, wir sind doch Freunde" — mit schlimmen Folgen. Provokationen zur Belustigung der Gruppe, dokumentiert auf dem Handy.</p>`
+    },
+    {
+      titel: '03 · Das Wahrnehmungs-Problem',
+      inhalt: `<p>Das klinisch wichtigste Phänomen: viele autistische Klient:innen erkennen Mobbing nicht als Mobbing. Sie interpretieren es als Eigenschuld, als normales soziales Verhalten oder als unverständliches Ereignis.</p>
+                <p>Typische Klienten-Aussagen:</p>
+                <ul>
+                  <li>„Das ist normal so."</li>
+                  <li>„Sie machen das, weil ich blöd bin."</li>
+                  <li>„Ich verstehe ihren Humor halt nicht."</li>
+                  <li>„Wenn ich besser wäre, würden sie das nicht machen."</li>
+                  <li>„Das ist halt so, wie es ist."</li>
+                </ul>
+                <p>Hinter diesen Sätzen steht oft jahrelange Erfahrung, die internalisiert wurde. Das Kind hat als Achtjähriger gelernt: <em>meine Andersartigkeit ist das Problem, nicht ihre Aggression.</em></p>
+                <p>Was du als Fachkraft tun musst: das Erlebte umbenennen. Konkret und ohne Schonung. <strong>„Das, was du beschreibst, ist Mobbing. Was sie tun, ist nicht okay, egal warum. Du bist nicht schuld."</strong></p>
+                <p>Diese Umbenennung ist therapeutisch wirksam. Sie trennt erlebtes Verhalten der anderen von eigener Schuld. Bei manchen Klient:innen verändert ein einziges solches Gespräch alles.</p>`
+    },
+    {
+      titel: '04 · Wie du Mobbing erfasst',
+      inhalt: `<p>Direkte Fragen funktionieren oft nicht — „wirst du gemobbt?" wird verneint, weil der Klient nicht als Mobbing einordnet. Indirekte Fragen funktionieren besser:</p>
+                <ul>
+                  <li>„Was passiert in der Pause? Erzähl mir ein Bild von deinem letzten Pausen-Tag."</li>
+                  <li>„Gibt es Mitschüler:innen, die dich oft ansprechen? Wie fühlt sich das danach an?"</li>
+                  <li>„Wenn du Klassenchat-Nachrichten bekommst — wie ist das? Liest du sie gerne?"</li>
+                  <li>„Gibt es jemand in der Klasse, vor dem du Angst hast? Auch wenn es vielleicht nicht logisch ist?"</li>
+                  <li>„Welcher Tag in der Woche ist der schlimmste in der Schule? Warum?"</li>
+                  <li>„Hast du Angst, dass jemand etwas mit dir macht — mit dem Handy filmt zum Beispiel?"</li>
+                </ul>
+                <p>Aus den Antworten ergibt sich das Bild. Achte auch auf <strong>Vermeidungs-Marker</strong>: bestimmte Orte gemieden, bestimmte Zeiten gemieden, bestimmte Mitschüler:innen vermieden. Diese Marker sprechen oft, bevor der Klient sprechen kann.</p>
+                <p>Cyber-Mobbing zusätzlich systematisch abfragen. Gruppenchats prüfen. Screenshot-Galerien des Klienten durchsehen, wenn er sie hat. Soziale Medien, wenn aktiv. Oft findet das Mobbing dort statt, wo Eltern und Lehrkräfte es nicht sehen.</p>`
+    },
+    {
+      titel: '05 · Die klinischen Folgen',
+      inhalt: `<p>Chronisches Mobbing über Jahre hat schwerwiegende Folgen — auch wenn der Klient sie nicht als Folgen des Mobbings benennen kann.</p>
+                <p><strong>Komplexe Traumafolge-Symptomatik.</strong> Hypervigilanz in sozialen Situationen, die nicht mehr bedrohlich sind. Schreckhaftigkeit. Albträume. Vermeidungs-Verhalten, das sich auf neue Situationen ausweitet.</p>
+                <p><strong>Depression mit besonderer Selbstabwertung.</strong> „Ich bin der Grund, warum Menschen mich nicht mögen." Diese Kognition wird zur Grundüberzeugung. Die Behandlung der Depression ohne das Mobbing zu adressieren, scheitert oft.</p>
+                <p><strong>Suizidalität.</strong> Bei autistischen Adoleszenten mit Mobbing-Geschichte ist das Suizidrisiko deutlich erhöht. Cassidy et al. zeigen erhöhte Werte bei autistischen Klient:innen mit interpersonellen negativen Erfahrungen. Das muss explizit adressiert werden.</p>
+                <p><strong>Schul-Vermeidung und Schulverweigerung.</strong> Manchmal das einzige rationale Verhalten — wenn der Schulort unsicher ist, ist Wegbleiben Selbstschutz. Wer das als „Schulangst" behandelt, ohne Mobbing zu sehen, behandelt das falsche Problem.</p>
+                <p><strong>Selbstverletzung als Regulations-Strategie.</strong> Bei chronischer sozialer Demütigung wird Selbstverletzung manchmal zum einzigen Weg, Schmerz auszudrücken. Wer das ohne Mobbing-Kontext behandelt, behandelt Symptom statt Ursache.</p>
+                <p><strong>Soziale Selbstdistanzierung als Lebensentscheidung.</strong> Manche autistische Erwachsene, die heute zurückgezogen leben, tun das, weil ihre adoleszente Erfahrung mit der sozialen Welt eine einzige Verletzungsserie war. Das hat lange Konsequenzen.</p>`
+    },
+    {
+      titel: '06 · Was du tust',
+      inhalt: `<p>Drei parallele Arbeitslinien:</p>
+                <p><strong>Linie 1 — Sicherheit herstellen.</strong></p>
+                <p>Das ist das erste Ziel und nicht verhandelbar. Solange das Mobbing weitergeht, ist alle andere therapeutische Arbeit wertloser. Was Sicherheit konkret bedeutet, hängt vom Fall ab:</p>
+                <p><em>Bei schweren Fällen:</em> Schulwechsel ist oft die richtige Antwort. Nicht als letztes Mittel — manchmal als erstes. Ein Schulwechsel ist nicht Versagen, er ist Schutz. Eltern und Schule wollen oft alle anderen Optionen probieren, bevor sie zum Schulwechsel kommen. Klinisch ist das oft umgekehrt richtig.</p>
+                <p><em>Bei mittelschweren Fällen:</em> strukturelle Anpassungen in der Schule. Aufsicht in Pausen-Situationen. Klare Anti-Mobbing-Maßnahmen mit Konsequenzen für Täter. Schulleitung muss involviert sein — Klassenlehrkraft allein reicht selten.</p>
+                <p><em>Bei leichten Fällen:</em> Bewusstmachung plus Skills. Aber: leichte Fälle bei autistischen Klient:innen haben oft trotzdem schwere Wirkung. Vorsicht mit der Einschätzung „ist ja nicht so schlimm".</p>
+                <p><strong>Linie 2 — Reframing und Validation.</strong></p>
+                <p>Den Klienten aus der Eigenschuld-Logik herausholen. Klare Sprache: <em>„Das, was sie tun, ist Aggression. Du bist nicht schuld. Andere Menschen würden anders reagieren. Aber das verändert nicht, dass ihr Verhalten falsch ist."</em></p>
+                <p>Diese Reframing-Arbeit muss wiederholt werden. Einmal sagen reicht nicht. Die internalisierte Selbstabwertung sitzt tief und kommt zurück.</p>
+                <p><strong>Linie 3 — Trauma-informierte Begleitung.</strong></p>
+                <p>Bei chronischem Mobbing entsteht Trauma. Trauma-informierte Arbeit heißt: nicht zu früh exponieren, nicht in soziale Situationen zwingen, die noch nicht sicher sind, Stabilisierung vor Verarbeitung.</p>
+                <p>Wenn klassische PTBS-Symptome vorhanden sind (Intrusionen, Vermeidung, Hyperarousal) — Trauma-spezialisierte Behandlung erwägen. Aber: EMDR oder Konfrontationstherapie nur durch entsprechend ausgebildete Fachkraft.</p>`
+    },
+    {
+      titel: '07 · Die Eltern- und Schul-Arbeit',
+      inhalt: `<p>Schul-Kommunikation ist hier oft schwierig. Schulen neigen dazu, Mobbing zu relativieren („Konflikt unter Schüler:innen", „auch er hat seinen Anteil", „in dem Alter ist das normal"). Diese Aussagen sind klinisch inakzeptabel und müssen direkt benannt werden.</p>
+                <p>Effektive Schul-Strategie:</p>
+                <ul>
+                  <li><strong>Schriftlich.</strong> Mündliche Vereinbarungen verpuffen. Schriftliche schaffen Verbindlichkeit.</li>
+                  <li><strong>Konkret.</strong> Nicht „wir achten besser darauf" — sondern „Lehrkraft X übernimmt Pausen-Aufsicht in Bereich Y."</li>
+                  <li><strong>Mit Konsequenzen für Täter.</strong> Anti-Mobbing-Maßnahmen ohne Konsequenzen sind wirkungslos.</li>
+                  <li><strong>Mit Zeitrahmen.</strong> Nicht „wir schauen mal" — sondern „in den nächsten zwei Wochen muss sich Folgendes geändert haben, sonst handeln wir weiter."</li>
+                </ul>
+                <p>Wenn die Schule nicht ausreichend reagiert — und das ist häufig — eskalieren. Schul-Inspektion. Schulwechsel. In schweren Fällen Anzeige. Das ist nicht „überreagieren" — das ist Schutz.</p>
+                <p><strong>Eltern-Arbeit:</strong> Eltern erleben Mobbing ihres Kindes als hochbelastend. Sie schwanken zwischen Wut auf die Schule, Sorge ums Kind, Selbstvorwürfen („hätten wir früher reagieren müssen"). Sie brauchen klare Strukturierung. Sie brauchen Erlaubnis, aktiv zu werden. Sie brauchen Information, dass radikale Maßnahmen — bis hin zum Schulwechsel — angemessen sind und nicht „überreagiert".</p>`
+    },
+    {
+      titel: '08 · Differentialdiagnostische Note',
+      differential: true,
+      inhalt: `<p>Nicht jedes berichtete oder vermutete Mobbing ist Mobbing im klinischen Sinne. Prüfe Folgendes:</p>
+                <p><strong>Verzerrte soziale Wahrnehmung.</strong> Bei autistischen Klient:innen kann die soziale Wahrnehmung neutrale Situationen als feindlich interpretieren. Wenn mehrere Klassenkamerad:innen lachen — meinen sie ihn? Manchmal ja, manchmal nein. Realitäts-Check behutsam durchführen: gibt es konkrete Aussagen, konkretes Verhalten, oder ist es Interpretation?</p>
+                <p><strong>Paranoid-anmutende Symptomatik.</strong> Bei beginnenden psychotischen Prozessen können Verfolgungs-Ideen entstehen, die wie Mobbing-Berichte klingen. Sehr selten, aber bei plötzlichem Beginn ohne kohärente Geschichte mit Bezug zur Realität prüfen.</p>
+                <p><strong>Soziale Angststörung als Hauptphänomen.</strong> Bei reiner sozialer Angst werden neutrale soziale Situationen als bedrohlich erlebt. Das ist nicht Mobbing — das ist Angst. Behandlung anders.</p>
+                <p><strong>Reaktive Aggression als wechselseitig.</strong> Manchmal ist das, was berichtet wird, tatsächlich Konflikt-Dynamik, wo beide Seiten beteiligt sind. Das ist nicht „Eigenschuld am Mobbing" — aber es ist klinisch relevant zu erkennen, ob der Klient selbst Teil einer Eskalations-Spirale ist.</p>
+                <p>Auch wenn diese Differentialdiagnosen vorkommen — die Default-Annahme bei autistischen Adoleszenten in sozialem Stress sollte sein: <strong>vermutlich Mobbing, bis das Gegenteil bewiesen ist.</strong> Nicht umgekehrt.</p>`
+    }
+  ],
+  verwandt: ['keine-freunde', 'einziger-freund-verlustangst', 'schul-overload-sensorisch', 'burnout-vs-depression']
+});
 // >>> SYMPTOM_DATA_ASPERGER_ANKER
 
 function renderPlan(topic, container) {
@@ -5156,7 +5254,7 @@ function renderSymptomOverview(topic, container) {
       </div>
       ${searchResultsHtml}
       <div class="sym-categories">${kategorienHtml}</div>
-      <div class="sym-progress-note">Aktuell 6 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
+      <div class="sym-progress-note">Aktuell 7 von 12 geplanten Modulen ausgearbeitet — weitere folgen schrittweise.</div>
     </section>
   `;
   bindPlanSubnav(topic);
