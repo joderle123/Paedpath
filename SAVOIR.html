@@ -410,6 +410,34 @@
     min-width: 36px;
   }
 
+  .bereich-nav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 4px;
+    background: var(--cream);
+    border-radius: 100px;
+    width: fit-content;
+  }
+  .bereich-btn {
+    padding: 10px 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    background: transparent;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: color .2s ease, background .2s ease;
+  }
+  .bereich-btn:hover { color: var(--ink); }
+  .bereich-btn.active {
+    color: var(--paper);
+    background: var(--ink);
+  }
+
   .tabs {
     display: flex;
     gap: 8px;
@@ -2426,6 +2454,12 @@
         </div>
       </div>
 
+      <nav class="bereich-nav" id="bereichNav" style="display:none">
+        <button class="bereich-btn active" data-bereich="wissen">Wissen</button>
+        <button class="bereich-btn" data-bereich="profil">Profil-Diagnose</button>
+        <button class="bereich-btn" data-bereich="handeln">Handeln</button>
+      </nav>
+
       <nav class="tabs" id="ebenenTabs">
         <button class="tab tab-quintessenz active" data-ebene="quintessenz">Quintessenz</button>
         <button class="tab" data-ebene="grundlagen">Grundlagen</button>
@@ -2685,19 +2719,11 @@ const TOPICS = {
 
 <h3>Twice Exceptional — das hochbegabte Asperger-Kind</h3>
 
-<p>Diese Kinder sind die schwierigsten zu erkennen. Begabung verdeckt Asperger, und Asperger verdeckt Begabung.</p>
+<p>Twice Exceptional bezeichnet die Kombination von Hochbegabung und Asperger-Profil im gleichen Klienten. Häufiger als angenommen — etwa fünf bis zehn Prozent der hochbegabten Adoleszenten haben gleichzeitig ein ASS-Profil. Charakteristisch ist die Profil-Spreizung im WISC-V mit 40 bis 60 Indexpunkten zwischen verbalem Verständnis und Arbeitsgedächtnis. Die Begabung verdeckt das ASS-Profil oft jahrelang — bis das Kompensationsbudget aufgebraucht ist und sekundäre Symptomatik (Depression, Burnout, Schulverweigerung) auftritt.</p>
 
-<p>Du siehst ein Kind, das früh las, mit acht Erwachsenenromane verschlingt, mit zehn über Quantenphysik redet. Das soziale Defizit fällt nicht auf, weil es als „Begabungs-Eigenheit“ gelesen wird — „spielt eben lieber mit älteren“, „in seinen Themen versunken“. Die Spezialinteressen sehen aus wie Begabung. Niemand fragt, ob die Tiefe vielleicht autistisch ist.</p>
+<p>Wenn du diesen Verdacht hast: geh in den Bereich <strong>Profil-Diagnose</strong> und kreuze die beobachtbaren Symptome an. Die App prüft, ob das Muster passt, und zeigt dir den passenden Behandlungs-Plan in <strong>Handeln</strong>.</p>
 
-<p>In der Schule entsteht ein doppelter Mismatch: kognitiv unterfordert, weil das Material zu leicht ist; sozial überfordert, weil Pause, Gruppenarbeit und Smalltalk dieselben Anforderungen stellen wie für jedes Asperger-Kind. Die Folge ist oft <em>Underachievement</em>: Eine Schülerin mit IQ 135 schreibt plötzlich Vieren, weil die exekutiven Anforderungen das Kapazitätslimit übersteigen. Lehrkräfte lesen das als „faul“. Eltern lesen das als „pubertär“. Niemand denkt an Asperger.</p>
-
-<p>Ein zweites Bild ist der perfektionistische Zusammenbruch. Hohe innere Standards aus Begabungs-Selbstanspruch und autistischer Detailorientierung. Wenn eine Aufgabe nicht in der intern festgelegten Form gelingt, wird sie nicht reduziert, sondern abgebrochen. In der Adoleszenz kann das in Schul- oder Studienabbruch münden, mit depressiver Episode, manchmal Suizidalität — bei einem Klienten, der von außen nichts als „Begabung“ gezeigt hat.</p>
-
-<p>Diagnostisch: Frag nicht nach Leistung, frag nach Aufwand. „Wie war die Pause für dich, als du schon lesen konntest?“ „Hast du Freunde gefunden?“ „Wie war der Übergang in die weiterführende Schule?“ Hochbegabte Asperger-Kinder beschreiben oft permanente soziale Nebenherigkeit, die sie kognitiv kompensiert haben — bis das nicht mehr ging.</p>
-
-<p>Therapeutisch: Begabung weder ignorieren noch überbewerten. Spezialinteressen werden hier oft akademisch produktiv und zum stabilsten biographischen Anker. Die Aufgabe ist, einen Weg zu bauen, in dem die Begabung produktiv wird, ohne dass die exekutive und soziale Last die Person überrollt — oft heißt das spezielle Schulformen, frühe Berufsorientierung, klare Strukturen mit Begabungsraum.</p>
-
-<p>Wenn du bei einem hochbegabten Kind mit unerklärlichem Underachievement, sozialer Außenseiterposition und sensorischer Empfindlichkeit Asperger ausschließen willst — du wirst meistens Asperger finden.</p>
+<p>Bei konkreten klinischen Symptomen (kann nicht schreiben trotz Begabung, sekundäre Depression, Schul-Mismatch): nutze in <strong>Handeln</strong> den Symptom-Fokus für pedopsychiater-tiefe Antworten zu einzelnen klinischen Fragen.</p>
 
 <h3>Asperger plus ADHS — das AuDHD-Problem</h3>
 
@@ -3916,12 +3942,49 @@ const STATE = {
   currentCategory: null,
   currentTopicId: null,
   currentEbene: 'quintessenz',
+  currentBereich: null,
   speech: {
     utterance: null,
     playing: false,
     voices: []
   }
 };
+
+/* Drei-Bereich-Struktur (aktuell nur für 'asperger'). Sub-Tabs pro Bereich.
+   Neue Ebene-IDs (symptom-auswahl etc.) werden in renderEbene auf bestehende renderPlan-Modi gemappt. */
+const BEREICH_STRUKTUR = {
+  asperger: {
+    wissen: [
+      { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
+      { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
+      { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
+      { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
+    ],
+    profil: [
+      { ebene: 'symptom-auswahl', label: 'Symptom-Auswahl', tabClass: 'tab-plan' },
+      { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
+    ],
+    handeln: [
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' },
+      { ebene: 'praxis', label: 'Praxis', tabClass: 'tab-praxis' },
+      { ebene: 'symptom-fokus', label: 'Symptom-Fokus', tabClass: 'tab-plan' }
+    ]
+  }
+};
+
+function hasBereichStruktur(topicId) {
+  return !!BEREICH_STRUKTUR[topicId];
+}
+
+function bereichForEbene(topicId, ebene) {
+  const s = BEREICH_STRUKTUR[topicId];
+  if (!s) return null;
+  for (const b of Object.keys(s)) {
+    if (s[b].some(t => t.ebene === ebene)) return b;
+  }
+  return null;
+}
 
 /* ============ LOCALSTORAGE ============ */
 
@@ -4146,6 +4209,7 @@ function openArticle(topicId, ebene = 'quintessenz') {
   if (!topic) return;
   STATE.currentTopicId = topicId;
   STATE.currentEbene = ebene;
+  STATE.currentBereich = null;
   STATE.currentCategory = topic.kategorie;
   STATE.testenView = 'overview';
   STATE.flashcardFlipped = false;
@@ -4164,14 +4228,70 @@ function openArticle(topicId, ebene = 'quintessenz') {
 
   document.getElementById('articleTitel').textContent = topic.titel;
 
-  // Tabs
-  document.querySelectorAll('#ebenenTabs .tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.ebene === ebene);
-  });
+  setupTopicNavigation(topic);
 
   renderEbene();
   renderRelated(topic);
   showView('article');
+}
+
+/* Setzt Bereich-Nav und Sub-Tabs auf — pro Topic.
+   Für Topics mit BEREICH_STRUKTUR: zeigt Drei-Bereich-Nav + dynamische Sub-Tabs.
+   Für andere: original 7-Tab-Layout, Bereich-Nav versteckt. */
+function setupTopicNavigation(topic) {
+  const bereichNav = document.getElementById('bereichNav');
+  const ebenenTabs = document.getElementById('ebenenTabs');
+
+  if (hasBereichStruktur(topic.id)) {
+    let bereich = bereichForEbene(topic.id, STATE.currentEbene);
+    if (!bereich) {
+      bereich = 'wissen';
+      STATE.currentEbene = BEREICH_STRUKTUR[topic.id][bereich][0].ebene;
+    }
+    STATE.currentBereich = bereich;
+
+    bereichNav.style.display = '';
+    bereichNav.querySelectorAll('.bereich-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.bereich === bereich);
+    });
+
+    const subTabs = BEREICH_STRUKTUR[topic.id][bereich];
+    ebenenTabs.innerHTML = subTabs.map(t =>
+      `<button class="tab ${t.tabClass}${t.ebene === STATE.currentEbene ? ' active' : ''}" data-ebene="${t.ebene}">${t.label}</button>`
+    ).join('');
+  } else {
+    STATE.currentBereich = null;
+    bereichNav.style.display = 'none';
+    ebenenTabs.innerHTML = `
+      <button class="tab tab-quintessenz" data-ebene="quintessenz">Quintessenz</button>
+      <button class="tab" data-ebene="grundlagen">Grundlagen</button>
+      <button class="tab" data-ebene="klinisch">Klinisch</button>
+      <button class="tab" data-ebene="spezialfaelle">Spezialfälle</button>
+      <button class="tab tab-plan" data-ebene="plan">Plan</button>
+      <button class="tab tab-praxis" data-ebene="praxis">Praxis</button>
+      <button class="tab tab-testen" data-ebene="testen">Testen</button>
+    `;
+    if (!STATE.currentEbene || ['symptom-auswahl','erkanntes-muster','behandlungs-plan','symptom-fokus'].includes(STATE.currentEbene)) {
+      STATE.currentEbene = 'quintessenz';
+    }
+    ebenenTabs.querySelectorAll('.tab').forEach(t =>
+      t.classList.toggle('active', t.dataset.ebene === STATE.currentEbene)
+    );
+  }
+
+  bindEbenenTabClicks();
+}
+
+function bindEbenenTabClicks() {
+  document.querySelectorAll('#ebenenTabs .tab').forEach(tab => {
+    tab.onclick = () => {
+      STATE.currentEbene = tab.dataset.ebene;
+      document.querySelectorAll('#ebenenTabs .tab').forEach(t =>
+        t.classList.toggle('active', t === tab)
+      );
+      renderEbene();
+    };
+  });
 }
 
 function renderEbene() {
@@ -4190,6 +4310,37 @@ function renderEbene() {
   audioPanel.style.display = '';
   audioCtrls.style.display = '';
   readBtn.style.display = '';
+
+  // Neue Pseudo-Ebenen aus Drei-Bereich-Struktur auf renderPlan-Modi mappen
+  if (ebene === 'symptom-auswahl') {
+    STATE.planMode = 'profil';
+    STATE.planView = 'faktoren';
+    renderPlan(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
+  if (ebene === 'erkanntes-muster' || ebene === 'behandlungs-plan') {
+    STATE.planMode = 'profil';
+    STATE.planView = 'output';
+    renderPlan(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
+  if (ebene === 'symptom-fokus') {
+    STATE.planMode = 'symptom';
+    renderPlan(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
 
   if (ebene === 'praxis') {
     renderPraxis(topic, body);
@@ -6060,6 +6211,8 @@ function renderPlan(topic, container) {
 }
 
 function planSubnavHtml() {
+  // Bei Topics mit Drei-Bereich-Struktur übernimmt die Bereich-Nav die Modus-Auswahl.
+  if (STATE.currentTopicId && hasBereichStruktur(STATE.currentTopicId)) return '';
   return `
     <div class="plan-subnav">
       <button class="plan-subnav-btn ${STATE.planMode === 'profil' ? 'active' : ''}" data-tool="plan-mode" data-mode="profil">Profil-Plan</button>
@@ -6513,13 +6666,24 @@ function bindPlanOutputEvents(topic, ps) {
   const root = document.getElementById('articleBody');
 
   root.querySelectorAll('[data-tool="plan-back-faktoren"]').forEach(b =>
-    b.addEventListener('click', () => { STATE.planView = 'faktoren'; renderEbene(); })
+    b.addEventListener('click', () => {
+      STATE.planView = 'faktoren';
+      if (hasBereichStruktur(topic.id)) {
+        STATE.currentEbene = 'symptom-auswahl';
+        setupTopicNavigation(topic);
+      }
+      renderEbene();
+    })
   );
 
   root.querySelector('[data-tool="plan-reset-all"]')?.addEventListener('click', () => {
     if (!confirm('Plan und Notizen komplett zurücksetzen?')) return;
     resetPlanState(topic.id);
     STATE.planView = 'faktoren';
+    if (hasBereichStruktur(topic.id)) {
+      STATE.currentEbene = 'symptom-auswahl';
+      setupTopicNavigation(topic);
+    }
     renderEbene();
   });
 
@@ -7332,6 +7496,11 @@ function bindPlanFaktorenEvents(topic, ps) {
     ps.generiert = Date.now();
     savePlanState(topic.id, ps);
     STATE.planView = 'output';
+    // In Drei-Bereich-Topics: zum Erkanntes-Muster-Tab in PROFIL-DIAGNOSE wechseln
+    if (hasBereichStruktur(topic.id)) {
+      STATE.currentEbene = 'erkanntes-muster';
+      setupTopicNavigation(topic);
+    }
     renderEbene();
   });
 
@@ -7339,11 +7508,19 @@ function bindPlanFaktorenEvents(topic, ps) {
     if (!confirm('Wirklich alle Faktoren und den generierten Plan zurücksetzen?')) return;
     resetPlanState(topic.id);
     STATE.planView = 'faktoren';
+    if (hasBereichStruktur(topic.id)) {
+      STATE.currentEbene = 'symptom-auswahl';
+      setupTopicNavigation(topic);
+    }
     renderEbene();
   });
 
   root.querySelector('[data-tool="plan-show-existing"]')?.addEventListener('click', () => {
     STATE.planView = 'output';
+    if (hasBereichStruktur(topic.id)) {
+      STATE.currentEbene = 'erkanntes-muster';
+      setupTopicNavigation(topic);
+    }
     renderEbene();
   });
 }
@@ -7904,13 +8081,20 @@ function renderRelated(topic) {
 }
 
 /* ============ TABS ============ */
+// Tab-Click-Handler werden in setupTopicNavigation/bindEbenenTabClicks dynamisch gebunden,
+// weil die Sub-Tabs pro Topic neu gerendert werden.
 
-document.querySelectorAll('#ebenenTabs .tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    STATE.currentEbene = tab.dataset.ebene;
-    document.querySelectorAll('#ebenenTabs .tab').forEach(t =>
-      t.classList.toggle('active', t === tab)
-    );
+/* ============ BEREICH-NAV ============ */
+document.querySelectorAll('#bereichNav .bereich-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!STATE.currentTopicId) return;
+    const topic = TOPICS[STATE.currentTopicId];
+    if (!topic || !hasBereichStruktur(topic.id)) return;
+    const bereich = btn.dataset.bereich;
+    STATE.currentBereich = bereich;
+    // Erste Ebene im neuen Bereich aktivieren
+    STATE.currentEbene = BEREICH_STRUKTUR[topic.id][bereich][0].ebene;
+    setupTopicNavigation(topic);
     renderEbene();
   });
 });
