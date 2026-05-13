@@ -4152,8 +4152,9 @@ const STATE = {
   }
 };
 
-/* Drei-Bereich-Struktur (aktuell nur für 'asperger'). Sub-Tabs pro Bereich.
-   Neue Ebene-IDs (symptom-auswahl etc.) werden in renderEbene auf bestehende renderPlan-Modi gemappt. */
+/* Drei-Bereich-Struktur. Sub-Tabs pro Bereich.
+   Neue Ebene-IDs (symptom-auswahl etc.) werden in renderEbene auf
+   bestehende renderPlan-Modi oder Placeholder-Renderer gemappt. */
 const BEREICH_STRUKTUR = {
   asperger: {
     wissen: [
@@ -4172,6 +4173,47 @@ const BEREICH_STRUKTUR = {
       { ebene: 'praxis', label: 'Praxis', tabClass: 'tab-praxis' },
       { ebene: 'symptom-fokus', label: 'Symptom-Fokus', tabClass: 'tab-plan' }
     ]
+  },
+  /* ADHS-unaufmerksam — Phase 1 der Drei-Bereich-Architektur.
+     WISSEN: bestehende fünf Wissens-Ebenen, identisch in Reihenfolge und Tab-Klassen zu Asperger.
+     PROFIL-DIAGNOSE: Platzhalter (Soll-Struktur kommt in Phase 2 — Symptom-basierte Erkennung der
+       acht ADHS-Muster mit Kontext-Fragen, Symptom-Kategorien wie Aufmerksamkeit/Exekutive,
+       Time-Blindness, RSD, Lern-Schul-Verhalten, Soziales, Affekt, Risiken,
+       Behandlungs-Geschichte, plus gewichtetem Muster-Scoring analog zu Asperger).
+     HANDELN: Platzhalter (Soll-Struktur kommt in Phase 3 und 4 — Behandlungs-Plan mit Mustern
+       analog Asperger (sechs Bloecke pro Muster, ausgebauter Schul-Strategie-Block),
+       Praxis-Werkzeuge (Inhalte bestehen in TOPICS['adhs-unaufmerksam'].ebenen.praxis und
+       werden in Phase 4 unter HANDELN integriert), Symptom-Fokus für pedopsychiater-tiefe
+       Antworten zu klinischen Einzelfragen).
+     Die Placeholder-Ebenen-IDs ('adhs-profil-placeholder', 'adhs-handeln-placeholder')
+     werden in renderEbene über einen generischen Placeholder-Renderer behandelt. */
+  'adhs-unaufmerksam': {
+    wissen: [
+      { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
+      { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
+      { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
+      { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
+    ],
+    profil: [
+      { ebene: 'adhs-profil-placeholder', label: 'Profil-Diagnose', tabClass: 'tab-plan' }
+    ],
+    handeln: [
+      { ebene: 'adhs-handeln-placeholder', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
+    ]
+  }
+};
+
+/* Placeholder-Texte für Bereiche, die noch nicht inhaltlich gebaut sind.
+   Pro Ebene-ID: Überschrift + Beschreibung des geplanten Inhalts. */
+const BEREICH_PLACEHOLDERS = {
+  'adhs-profil-placeholder': {
+    titel: 'Wird in Phase 2 gebaut',
+    text: 'Symptom-basierte Erkennung der acht ADHS-Muster — analog zur Asperger-Profil-Diagnose mit Kontext-Fragen (Alter, Geschlecht, Schulsituation, Familie), Symptom-Kategorien (Aufmerksamkeit / Exekutive, Time-Blindness, RSD, Lern-Schul-Verhalten, Soziales, Affekt, akute Risiken, Behandlungs-Geschichte) und gewichtetem Muster-Scoring mit CTA-Button zum Behandlungs-Plan. Bis dahin: nutze die Wissens-Ebenen für klinische Orientierung.'
+  },
+  'adhs-handeln-placeholder': {
+    titel: 'Wird in Phase 3 und 4 gebaut',
+    text: 'Behandlungs-Plan mit Mustern (analog Asperger: sechs Bloecke pro Muster mit ausgebauter Schul-Strategie), Praxis-Werkzeuge (bestehende Inhalte werden in Phase 4 unter HANDELN integriert), und Symptom-Fokus für pedopsychiater-tiefe Antworten zu klinischen Einzelfragen. Bis dahin: die Wissens-Ebenen tragen die klinische Tiefe; bestehende Praxis-Inhalte werden in Phase 4 reaktiviert.'
   }
 };
 
@@ -4514,6 +4556,21 @@ function renderEbene() {
   readBtn.style.display = '';
 
   // Neue Pseudo-Ebenen aus Drei-Bereich-Struktur auf Render-Funktionen mappen
+  if (BEREICH_PLACEHOLDERS[ebene]) {
+    const ph = BEREICH_PLACEHOLDERS[ebene];
+    body.innerHTML = `
+      <section class="plan">
+        <div class="plan-empty-match symdia-empty">
+          <strong>${escHtml(ph.titel)}</strong>
+          <p>${escHtml(ph.text)}</p>
+        </div>
+      </section>`;
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
   if (ebene === 'symptom-auswahl') {
     if (topic.id === 'asperger') {
       const ps = loadPlanState(topic.id);
