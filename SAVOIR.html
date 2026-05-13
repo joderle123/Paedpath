@@ -1169,6 +1169,65 @@
     margin-bottom: 16px;
   }
 
+  /* Profile-Übersicht (WISSEN) — Card-Grid aller 8 Muster */
+  .profile-uebersicht { display: block; }
+  .profil-intro {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 28px;
+  }
+  .profil-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .profil-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 22px 22px 24px;
+    transition: border-color .2s ease, transform .15s ease;
+  }
+  .profil-card:hover {
+    border-color: var(--ink);
+    border-left-color: var(--rust);
+  }
+  .profil-card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .profil-card-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 12px;
+    line-height: 1.25;
+  }
+  .profil-card-kurz {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .profil-cta-hint {
+    padding: 18px 22px;
+    background: var(--cream);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .profil-cta-hint p { margin: 0; }
+
   /* Schulgespräch-Vorlage (Block 5B) — kopierfähig, mit gold akzentuiertem linken Rand */
   .schule-vorlage {
     background: var(--cream);
@@ -4162,6 +4221,7 @@ const BEREICH_STRUKTUR = {
       { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
       { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
       { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'profile-uebersicht', label: 'Profile', tabClass: '' },
       { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
     ],
     profil: [
@@ -4556,6 +4616,18 @@ function renderEbene() {
   readBtn.style.display = '';
 
   // Neue Pseudo-Ebenen aus Drei-Bereich-Struktur auf Render-Funktionen mappen
+  if (ebene === 'profile-uebersicht') {
+    if (topic.id === 'asperger') {
+      renderProfileUebersicht(topic, body);
+    } else {
+      body.innerHTML = '<div class="empty-content">Profil-Übersicht für dieses Thema folgt.</div>';
+    }
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
   if (BEREICH_PLACEHOLDERS[ebene]) {
     const ph = BEREICH_PLACEHOLDERS[ebene];
     body.innerHTML = `
@@ -8137,6 +8209,37 @@ function generatePlan(topic, ps) {
     return results.length > 0 ? results[0].muster : null;
   }
   return matchPattern(ps.faktoren || {});
+}
+
+/* ============ PROFILE-ÜBERSICHT (WISSEN, Asperger) ============
+   Browsable Referenz aller acht Profil-Muster mit Kurz-Beschreibung —
+   ohne dass eine Symptom-Auswahl gemacht werden muss. Nutzt
+   PLAN_MUSTER_ASPERGER (Reihenfolge = Priorität) und MUSTER_KURZ_ASPERGER. */
+function renderProfileUebersicht(topic, container) {
+  const muster = (typeof PLAN_MUSTER_ASPERGER !== 'undefined') ? PLAN_MUSTER_ASPERGER : [];
+  if (!muster.length) {
+    container.innerHTML = '<div class="empty-content">Keine Profile definiert.</div>';
+    return;
+  }
+  const cards = muster.map((m, i) => {
+    const num = String(i + 1).padStart(2, '0');
+    const kurz = (typeof MUSTER_KURZ_ASPERGER !== 'undefined' && MUSTER_KURZ_ASPERGER[m.id]) || '';
+    return `
+      <article class="profil-card" data-muster-id="${escHtml(m.id)}">
+        <div class="profil-card-num">Muster ${num}</div>
+        <h3 class="profil-card-titel">${escHtml(m.name)}</h3>
+        <p class="profil-card-kurz">${escHtml(kurz)}</p>
+      </article>`;
+  }).join('');
+
+  container.innerHTML = `
+    <section class="profile-uebersicht">
+      <p class="profil-intro">Die acht Profil-Muster, die die Symptom-Diagnose unterscheidet. Browsable Referenz — nutze diese Übersicht, wenn du das passende Muster bereits identifiziert hast oder die Konstellationen systematisch lernen willst. Reihenfolge spiegelt die klinische Priorität bei Mehrfachtreffer.</p>
+      <div class="profil-grid">${cards}</div>
+      <div class="profil-cta-hint">
+        <p>Für die strukturierte Erkennung über Symptome: wechsle zu <strong>Profil-Diagnose · Symptom-Auswahl</strong>. Für volle Behandlungs-Tiefe pro Muster (sechs Bloecke inkl. Schul-Strategie): nach erfolgter Profil-Diagnose unter <strong>Handeln · Behandlungs-Plan</strong>.</p>
+      </div>
+    </section>`;
 }
 
 /* ============ SYMPTOM-DIAGNOSE-RENDERER (Phase 2, Asperger) ============ */
