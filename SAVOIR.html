@@ -1169,6 +1169,21 @@
     margin-bottom: 16px;
   }
 
+  /* Schulgespräch-Vorlage (Block 5B) — kopierfähig, mit gold akzentuiertem linken Rand */
+  .schule-vorlage {
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 24px 28px;
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink);
+    white-space: normal;
+  }
+  .schule-vorlage p { margin: 0 0 14px; }
+  .schule-vorlage p:last-child { margin-bottom: 0; }
+
   /* Symptom-Fokus */
   .sym-prompt {
     font-family: 'Fraunces', serif;
@@ -7091,11 +7106,12 @@ function renderPlanOutput(topic, ps, container) {
       <div class="plan-block">
         <div class="plan-block-num">Block 05</div>
         <div class="plan-block-titel">Schul-Strategie</div>
-        ${b.schuleKommunikation ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du der Schule kommunizierst</div><div class="plan-prose">${b.schuleKommunikation}</div></div>` : ''}
-        ${b.schuleAnpassungen ? `<div class="plan-subblock"><div class="plan-subblock-titel">Konkrete Anpassungen</div><div class="plan-prose">${b.schuleAnpassungen}</div></div>` : ''}
-        ${b.schuleNicht ? `<div class="plan-subblock"><div class="plan-subblock-titel">Was du nicht empfiehlst</div><div class="plan-prose">${b.schuleNicht}</div></div>` : ''}
-        ${b.schuleWer ? `<div class="plan-subblock"><div class="plan-subblock-titel">Wer im Schul-System wichtig ist</div><div class="plan-prose">${b.schuleWer}</div></div>` : ''}
-        ${b.schuleFrequenz ? `<div class="plan-subblock"><div class="plan-subblock-titel">Frequenz des Austauschs</div><div class="plan-prose">${b.schuleFrequenz}</div></div>` : ''}
+        ${b.schuleProblem ? `<div class="plan-subblock"><div class="plan-subblock-titel">5A · Das Problem im Schulsystem</div><div class="plan-prose">${b.schuleProblem}</div></div>` : ''}
+        ${b.schuleKommunikation ? `<div class="plan-subblock"><div class="plan-subblock-titel">5B · Schulgespräch-Vorlage</div><div class="schule-vorlage">${b.schuleKommunikation}</div></div>` : ''}
+        ${b.schuleAnpassungen ? `<div class="plan-subblock"><div class="plan-subblock-titel">5C · Konkrete Anpassungen mit Begründung</div><div class="plan-prose">${b.schuleAnpassungen}</div></div>` : ''}
+        ${b.schuleNicht ? `<div class="plan-subblock"><div class="plan-subblock-titel">5D · Was du nicht empfiehlst und warum</div><div class="plan-prose">${b.schuleNicht}</div></div>` : ''}
+        ${b.schuleWer ? `<div class="plan-subblock"><div class="plan-subblock-titel">5E · Wer im Schul-System wichtig ist</div><div class="plan-prose">${b.schuleWer}</div></div>` : ''}
+        ${(b.schuleFrequenz || b.schuleEskalation) ? `<div class="plan-subblock"><div class="plan-subblock-titel">5F · Frequenz und Eskalations-Pfad</div><div class="plan-prose">${b.schuleFrequenz || ''}${b.schuleEskalation || ''}</div></div>` : ''}
       </div>
 
       <div class="plan-block">
@@ -7228,27 +7244,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Wir haben es hier mit einer jungen Frau im Autismus-Spektrum zu tun, die nach jahrelanger Überanpassung in einem Erschöpfungszustand ist. Die Behandlung erfordert eine deutliche Reduktion der Anforderungen, nicht eine Erhöhung. Dies ist medizinisch notwendig, keine Bequemlichkeit."</p>
-      <p><strong>Konkrete Sätze fürs Schul-Gespräch:</strong></p>
-      <ul>
-        <li>„Was Sie als Verschlechterung sehen, ist eine medizinische Notwendigkeit zur Erholung. Wenn wir jetzt nicht reduzieren, riskieren wir Schulabbruch."</li>
-        <li>„Sie funktioniert in Ihrer Klasse, weil sie sich enorm anstrengt — und das wird sie nicht mehr lange können."</li>
-        <li>„Was bei anderen Schülerinnen als 'sich nicht zusammenreißen' wirken würde, ist hier neurologisch notwendige Erholung."</li>
-      </ul>`,
-    schuleAnpassungen: `<ul>
-      <li>Reduziertes Pensum (Stundenanzahl, Fächeranzahl).</li>
-      <li>Schriftliche Anweisungen zusätzlich zu mündlichen.</li>
-      <li>Rückzugsraum bei sensorischem Overload.</li>
-      <li>Soziale Anforderungen reduzieren — kein Gruppen-Zwang, Pausenfreiheit.</li>
-      <li>Klare, feste Ansprechperson im Schul-System.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>„Mehr Anstrengung" — verschlimmert Burnout.</li>
-      <li>„Soziales Training" als Pflicht — verstärkt Camouflaging.</li>
-      <li>Klassische Klassenraum-Integration ohne sensorische Anpassungen.</li>
-    </ul>`,
-    schuleWer: `<p>Eine feste Ansprechperson (Klassenleitung oder Schulpsychologin), nicht wechselnde Lehrkräfte. Bei jüngerer Adoleszenz Schulleitung mit einbeziehen.</p>`,
-    schuleFrequenz: `<p>Alle 4–6 Wochen mit fester Ansprechperson. Schriftlich, gemeinsam mit Klientin formuliert — sie liest mit, korrigiert, gibt frei.</p>`,
+    schuleProblem: `<p>Das Schulsystem ist auf neurotypische sensorische und soziale Verarbeitung kalibriert: 25 bis 30 Mitschülerinnen im selben Raum, neonbeleuchtete Klassenzimmer, ungeplante Pausen, ständige Übergänge zwischen Lehrkräften, Sport-Garderobe mit hoher sensorischer Belastung, Smalltalk-Anforderungen über sieben Stunden täglich. Was für andere Schülerinnen Hintergrund ist, ist für deine Klientin Vordergrund — jede dieser Bedingungen kostet Energie aus dem allostatischen Budget, das bereits aufgebraucht ist. Camouflaging verstärkt das Problem: sie strengt sich an, „normal" zu wirken, was bedeutet, dass die Lehrkräfte den Aufwand nicht sehen und entsprechend nicht reagieren. Die Schule wird damit zur primären Burnout-Quelle, und gleichzeitig zum Ort, an dem das Burnout nicht erkannt wird. Jede schulische Maßnahme muss von dieser Realität ausgehen: Anpassungen sind keine Bequemlichkeit, sondern medizinisch indizierte Reduktion einer pathogenen Reizdichte.</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klientin-Name] sprechen. Sie ist im Autismus-Spektrum — ein Profil, das bei Mädchen oft jahrelang unentdeckt bleibt, weil sie ihre Schwierigkeiten durch intensive Anstrengung kompensieren. Diese Anstrengung nennen wir Camouflaging. Sie ist nicht freiwillig und nicht steuerbar — sie ist eine automatische Strategie, die im Schulkontext besonders aktiviert wird.</p>
+      <p>Was Sie in Ihrer Klasse sehen — eine ruhige, höfliche, oft unauffällige Schülerin — ist das Ergebnis enormer interner Arbeit. Diese Arbeit verbraucht ein Energie-Budget, das wir aus den Burnout-Forschungen kennen: allostatische Belastung, die sich über Jahre aufbaut und irgendwann kollabiert. Genau in diesem Punkt ist [Klientin-Name] jetzt.</p>
+      <p>Was wir aus klinischer Sicht brauchen, ist eine deutliche Reduktion — nicht eine Erhöhung der Anforderungen. Reduziertes Pensum, sensorische Anpassungen, Erlaubnis zum Rückzug ohne Begründungszwang, klare und schriftliche Strukturen, eine feste Ansprechperson für sie. Wir reden hier über medizinisch indizierte Maßnahmen, nicht über pädagogische Sonderbehandlung. Wenn wir diese Reduktion jetzt nicht umsetzen, ist das wahrscheinliche Ergebnis Schulabbruch innerhalb von Monaten — oft mit suizidaler Krise.</p>
+      <p>Ich schlage vor, dass wir gemeinsam überlegen, welche Anpassungen in Ihrer Schule konkret möglich sind. Schriftliche Vereinbarung wäre hilfreich, damit auch Vertretungs-Lehrkräfte informiert sind.</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Reduziertes Pensum — Stundenanzahl, Fächeranzahl, Klausuren.</strong> Begründung: das Energie-Budget ist allostatisch real reduziert. Volle Schultage führen zu kaskadierender Erschöpfung, die sich am Wochenende nicht erholt. 20 bis 30 Prozent Reduktion in den ersten drei Monaten, dann schrittweise Wiederaufnahme nur bei Stabilisierung. Bei sehr akutem Burnout: zeitweise komplette Schulpause mit Hausunterricht.</li>
+      <li><strong>Sensorisch ruhiger Sitzplatz, Kopfhörer erlaubt.</strong> Begründung: sensorische Hypersensibilität verstärkt sich im Burnout — frühere Toleranz-Schwellen fallen weg. Ein Sitzplatz fern von Lärmquellen (Heizung, Fenster zur Straße, Klassen-Eingangstür) und Erlaubnis für Geräuschdämpfung reduzieren die kumulative Reizlast über den Tag.</li>
+      <li><strong>Rückzugsraum bei sensorischem oder sozialem Overload, ohne Begründungszwang.</strong> Begründung: das Erbitten-Müssen von Pausen ist selbst eine soziale Belastung. Eine still vereinbarte Geste oder ein Signal, das Rückzug ohne Worte ermöglicht, senkt die Schwelle. Praktisch: stille Bibliothek, Schulpsychologen-Büro, eigener Raum.</li>
+      <li><strong>Schriftliche Anweisungen zusätzlich zu mündlichen, klare Tages- und Wochenpläne.</strong> Begründung: Arbeitsgedächtnis-Belastung ist im Burnout deutlich reduziert. Was vorher mündlich aufgenommen wurde, wird jetzt nicht mehr behalten. Schriftliche Backup-Anweisung kompensiert das Defizit ohne Stigmatisierung.</li>
+      <li><strong>Soziale Pflichtkomponenten reduzieren — keine erzwungene Gruppenarbeit, keine Pflicht-Klassenpräsentationen.</strong> Begründung: Gruppen-Settings sind sensorisch und sozial-pragmatisch maximal anspruchsvoll. Bei einer Schülerin im Burnout ist das jeder einzelne Gruppentermin ein realer Rückschritt. Schriftliche Einzelarbeiten oder Tandem mit fester Person sind funktionale Alternativen.</li>
+      <li><strong>Feste Ansprechperson für sie, einmal pro Woche kurzes Check-in.</strong> Begründung: bei einer Person, die Schwierigkeiten selten spontan benennt, braucht es eine niedrigschwellige Routine-Begegnung. Fünf Minuten reichen — wichtiger ist die Verlässlichkeit. Lehrkraft oder Schulpsychologin, jemand mit klarer Schulung in ASS.</li>
+      <li><strong>Nachteilsausgleich bei Klausuren: Zeitverlängerung, getrennter Raum, schriftliche Aufgabenstellung.</strong> Begründung: unter Klausur-Zeitdruck bricht die Camouflage erst recht. Was die Schülerin außerhalb der Klausur kognitiv leisten kann, ist nicht das, was sie unter Druck abrufen kann. Zeitverlängerung von 25 bis 50 Prozent ist medizinisch begründet.</li>
+      <li><strong>Sport-Garderobe, Pausenhof-Geselligkeit, Klassenfahrten flexibel handhaben.</strong> Begründung: das sind die sensorisch und sozial belastendsten Schul-Situationen. Pflichtteilnahme ohne Anpassung verstärkt Burnout direkt. Alternativen wie individuelle Umkleide, alternative Pausenorte, freiwillige Klassenfahrtsteilnahme mit Begleitperson.</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>„Mehr Anstrengung", „Sie könnte ja, wenn sie wollte".</strong> Warum nicht: verkennt den allostatischen Mechanismus komplett. Anstrengung ist genau das, was sie seit Jahren maximal leistet — und genau das, was zum Burnout geführt hat. Diese Botschaft ist klinisch destruktiv und kann suizidale Krisen auslösen.</li>
+      <li><strong>Soziales-Kompetenz-Training als Pflichtteilnahme.</strong> Warum nicht: solche Programme zwingen zu noch mehr Camouflaging in einem Setting, das sie bereits maximal anstrengt. Das Ergebnis ist nicht Lernen, sondern Verstärkung des Mechanismus, der krank macht. Wenn überhaupt: freiwillig, im autismus-affirmativen Rahmen, später.</li>
+      <li><strong>Klassische Verhaltens-Verstärkungssysteme (Sterne, Punkte für Mitarbeit).</strong> Warum nicht: bei einer Schülerin im Burnout funktioniert externes Belohnungssystem nicht — sie hat die Energie nicht, das Verhalten zu produzieren, das belohnt wird. Sie erlebt die Sterne, die sie nicht bekommt, als zusätzliche Beschämung.</li>
+      <li><strong>Öffentliche Thematisierung in der Klasse („wir nehmen jetzt Rücksicht auf X").</strong> Warum nicht: zerstört Diskretion und intensiviert sozialen Druck. Anpassungen müssen leise und routiniert laufen, nicht als Klassenthema.</li>
+      <li><strong>Erhöhter Eltern-Kommunikationsdruck („sie soll mit Ihrer Tochter sprechen, dass sie...").</strong> Warum nicht: bei einer Klientin, die zuhause oft die einzige Erholung hat, verschiebt das den Burnout-Druck in die letzte verbleibende Schutzzone. Eltern-Kommunikation ja, aber direkt zwischen Schule und Familie ohne die Klientin zur Übersetzerin zu machen.</li>
+    </ol>`,
+    schuleWer: `<p>Eine feste Ansprechperson — idealerweise Schulpsychologin oder spezifisch geschulte Lehrkraft, nicht wechselnde Klassenlehrer. Bei jüngerer Adoleszenz Schulleitung mit einbeziehen, damit Anpassungen offiziell verankert sind und auch bei Schulkonferenzen nicht in Frage gestellt werden. SPOS (Service Psycho-Social et d'Accompagnement Scolaire) für institutionelle Begleitung in Luxemburg. Bei strukturellen Anpassungen Klassenkonferenz mit klarer schriftlicher Vereinbarung. Vertrauenslehrkraft als zusätzliche Anlaufstelle bei akuten Schultages-Krisen, mit klarem Eskalations-Protokoll an die Hauptansprechperson.</p>`,
+    schuleFrequenz: `<p>Alle 4 bis 6 Wochen Kontakt mit der festen Ansprechperson, schriftlich gemeinsam mit der Klientin formuliert — sie liest mit, korrigiert, gibt frei. In akuten Phasen zweiwöchentlich. Schriftliche Updates an Klassenleitung mit konkreten Beobachtungen, nicht globalen Einschätzungen.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule blockt:</strong></p>
+      <ol>
+        <li>Erste Stufe: schriftliche klinische Empfehlung an Klassenleitung — nicht mündliche Bitten, weil mündliche Vereinbarungen bei Wechsel verloren gehen.</li>
+        <li>Bei keiner Bewegung in vier Wochen: Schulpsychologie aktiv einbeziehen mit Verweis auf medizinische Indikation.</li>
+        <li>Bei weiterer Blockade: Schulleitung formell mit ausführlicher schriftlicher klinischer Stellungnahme, inklusive Risiko-Einschätzung Schulabbruch und Suizidalität.</li>
+        <li>Bei strukturellem Versagen des Settings: Schulwechsel oder Hausunterricht mit der Familie ernsthaft besprechen — manchmal ist das die einzige rettende Maßnahme.</li>
+        <li>Bei Verweigerung von Nachteilsausgleich trotz klarer Indikation: rechtliche Beratung möglich (Médiateur de la Convention relative aux droits de l'enfant in Luxemburg, vergleichbare Stellen in DE/BE).</li>
+      </ol>`,
 
     eskFrequenz: `<p>Wenn Erschöpfung trotz Reduktion zunimmt. Wenn Suizidgedanken intensiver oder konkreter werden. Wenn Schul-Anpassungen nicht greifen oder Eltern destabilisieren.</p>`,
     eskKjp: `<p>Bei akuter Suizidalität mit Plan oder Mitteln. Bei psychotischen Symptomen (selten, aber möglich bei extremem Burnout). Bei jeder offenen Medikamenten-Frage, die geklärt werden muss.</p>`,
@@ -7325,31 +7353,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Dieser Schüler hat zwei neurokognitive Profile, die sich in normalen Schul-Settings widersprechen. Asperger verlangt Struktur, Vorhersehbarkeit, sensorische Reduktion. ADHS verlangt Bewegung, kurze Einheiten, externe Anker. Beides ist gleichzeitig möglich — aber es braucht Anpassungen, nicht mehr Disziplin."</p>
-      <p><strong>Konkrete Sätze fürs Schul-Gespräch:</strong></p>
-      <ul>
-        <li>„Was Sie als Konzentrationsproblem sehen, ist neurokognitiv ein Time-Blindness-Defizit plus sensorische Überlastung. Beides ist nicht durch Wille kompensierbar."</li>
-        <li>„Wenn wir ihn ohne Anpassungen weiter ins normale Setting drücken, riskieren wir kompletten Schulabbruch innerhalb eines Jahres."</li>
-        <li>„Stimulanzien-Behandlung ist eingeleitet/in Klärung. Sie werden in den ersten Wochen möglicherweise Veränderungen sehen — bitte schriftlich rückkoppeln."</li>
-      </ul>`,
-    schuleAnpassungen: `<ul>
-      <li>Fixer Sitzplatz vorne (Asperger) mit Steh-Möglichkeit oder Sitzball (ADHS).</li>
-      <li>Kurze Einheiten mit fest eingeplanten Bewegungs-Pausen.</li>
-      <li>Schriftliche Anweisungen zusätzlich zu mündlichen.</li>
-      <li>Sensorische Reduktion (Kopfhörer erlaubt, sitzplatzfern von Lärmquellen).</li>
-      <li>Externe Zeit-Anker auf dem Tisch (Visual Timer).</li>
-      <li>Rückzugsraum bei Overload.</li>
-      <li>Klarer Wochenplan, vorhersehbare Abläufe, Vorankündigung von Wechseln.</li>
-      <li>Spezialinteresse als Anker in mindestens einem Fach.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>„Mehr Disziplin" — neurologisch nicht verfügbar.</li>
-      <li>Strafen für Time Blindness — verstärkt Selbstwertschaden.</li>
-      <li>Gruppen-Projekte ohne Strukturierung und ohne klare Rollen.</li>
-      <li>Öffentliches Beschämen bei Aufmerksamkeitsausfällen — provoziert RSD-Krisen.</li>
-    </ul>`,
-    schuleWer: `<p>Klassenleitung als Hauptansprechperson. Bei jüngeren auch Schulleitung. SPOS oder Schulpsychologie einbeziehen, wenn Anpassungen formal erforderlich sind.</p>`,
-    schuleFrequenz: `<p>Monatlich in den ersten 3 Monaten, dann alle 6 Wochen. Bei Eskalation jederzeit.</p>`,
+    schuleProblem: `<p>Das Schulsystem stellt für einen AuDHD-Klienten zwei sich widersprechende Anforderungen gleichzeitig: die ASS-Seite verlangt Vorhersehbarkeit, klare Routinen, sensorische Reduktion, ein Minimum an sozialen Übergängen. Die ADHS-Seite verlangt Bewegung, Wechsel, Stimulation, externe Anker statt innerer Disziplin. Der Standard-Klassenraum kann beide Anforderungen nicht gleichzeitig erfüllen — er ist auf eine mittlere neurokognitive Verarbeitung kalibriert, die hier strukturell nicht vorhanden ist. Hinzu kommt Time-Blindness: die innere Zeitwahrnehmung funktioniert nicht zuverlässig, was Morgen-Routinen, Hausaufgabenfristen und Stunden-Wechsel zur täglichen Krise macht. Schulverweigerung ist hier kein Erziehungsproblem und keine Schul-Phobie — sie ist die funktionale Antwort auf ein unlösbares Anforderungs-Dilemma. Die Aufgabe der Schul-Strategie ist nicht „Wiedereingliederung um jeden Preis", sondern ehrliche Setting-Analyse: passt das aktuelle Setting strukturell, oder ist ein Wechsel indiziert?</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klient-Name] sprechen. Wir haben hier eine doppelte neurokognitive Konstellation: Autismus-Spektrum kombiniert mit ADHS — in der Fachliteratur als AuDHD bezeichnet. Etwa ein Drittel bis die Hälfte aller Klienten mit Asperger-Profil erfüllt auch ADHS-Kriterien. Die Kombination ist keine Summe der beiden Diagnosen, sondern eine eigenständige Konstellation mit spezifischen Anforderungen.</p>
+      <p>Was Sie in Ihrer Klasse als Konzentrationsproblem oder als „könnte ja, wenn er wollte" wahrnehmen, hat einen neurokognitiven Hintergrund. Wir messen das im WISC-V oft als ausgeprägte Spreizung zwischen Verständnis und Verarbeitungsgeschwindigkeit, plus erhebliche Arbeitsgedächtnis-Limitierung. Zusätzlich liegt eine Time-Blindness vor — die innere Zeitwahrnehmung ist neurologisch reduziert, nicht durch Disziplin trainierbar.</p>
+      <p>Die Schulverweigerung, die Sie aktuell beobachten, ist aus klinischer Sicht eine funktionale Antwort: er versucht ein Setting zu vermeiden, das ihn strukturell überlastet. Wir haben die Stimulanzien-Frage mit der Kinder- und Jugendpsychiatrie eingeleitet — das wird in den nächsten Wochen vielleicht Veränderungen produzieren, sowohl positive wie auch sensorische Nebenwirkungen. Ich bitte Sie um schriftliche Rückmeldung, was Sie beobachten.</p>
+      <p>Was wir aus der Schule brauchen, sind konkrete Anpassungen, die beide Profile gleichzeitig adressieren: Struktur und Bewegung, Vorhersehbarkeit und Wechsel, sensorische Reduktion und externe Anker. Können wir gemeinsam überlegen, was in Ihrer Schule realistisch umsetzbar ist?"</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Sitzplatz vorne mit Steh-Möglichkeit, Sitzball oder Wackelkissen.</strong> Begründung: die ADHS-Seite braucht propriozeptive Bewegungs-Möglichkeit, die ASS-Seite braucht klaren festen Ankerpunkt. Vorne sitzen reduziert visuelle Ablenkung durch andere Schüler, Steh-Option ermöglicht stille Bewegung ohne Klassen-Störung.</li>
+      <li><strong>Kurze Lerneinheiten mit fest geplanten Bewegungs-Pausen, nicht nach Bedarf.</strong> Begründung: bei Time-Blindness funktioniert „pause wenn du sie brauchst" nicht — er merkt nicht, wann er pausieren müsste. Externe Strukturierung (alle 20 Minuten zwei Minuten Bewegung) trägt, weil sie nicht von innerer Wahrnehmung abhängt.</li>
+      <li><strong>Externe Zeit-Anker im Sichtfeld: Visual Timer, Pomodoro-Uhr, sichtbarer Stundenplan.</strong> Begründung: Time-Blindness ist neurokognitiv real — Aufgaben werden gestartet, ohne zu spüren, wann sie enden sollen. Sichtbare externe Zeitmesser kompensieren das Defizit. Pflicht, nicht Hilfsmittel — der Schüler kann ohne sie nicht zuverlässig im Stundenrhythmus arbeiten.</li>
+      <li><strong>Schriftliche Anweisungen zusätzlich zu mündlichen, klarer Wochenplan im Voraus.</strong> Begründung: Arbeitsgedächtnis-Schwäche bei AuDHD ist deutlich — zweite mündliche Anweisung verdrängt die erste. Schriftliche Backup-Anweisungen sind Nachteilsausgleich. Klare Vorankündigung von Stundenplan-Änderungen, Vertretungen, Klassenfahrten — Last-Minute-Wechsel destabilisieren die ASS-Seite.</li>
+      <li><strong>Sensorische Reduktion: Kopfhörer erlaubt, Sitzplatz fern von Lärmquellen, Rückzugsraum bei Overload.</strong> Begründung: Stimulanzien können die sensorische Reizoffenheit verstärken — was vorher tolerierbar war, kann jetzt überfordern. Sensorische Anpassung ist im AuDHD-Behandlungssetting Pflicht, nicht Komfort.</li>
+      <li><strong>Spezialinteresse als Lern-Anker in mindestens einem Fach.</strong> Begründung: bei Hyperfokus-Fähigkeit ist das Spezialinteresse die einzige Bedingung, unter der konzentrierte tiefe Arbeit möglich ist. Wenn eine Lehrkraft das Interesse in den Lehrstoff integrieren kann (Physik über Lieblings-Game, Geschichte über Lieblings-Epoche), entsteht der nachhaltigste Lerneffekt.</li>
+      <li><strong>Gruppenarbeiten mit klaren Rollen und schriftlicher Strukturierung.</strong> Begründung: ungeplante Gruppenarbeiten sind für AuDHD doppelt belastend — sozial-pragmatisch überfordernd plus exekutiv strukturlos. Mit klar definierten Rollen („du bist verantwortlich für X, schriftlich abgegeben bis Y") kompensieren wir beide Defizite.</li>
+      <li><strong>Nachteilsausgleich bei Klausuren: Zeitverlängerung 25-50 Prozent, getrennter Raum, schriftliche Aufgabenstellung.</strong> Begründung: schriftliche Produktion unter Zeitdruck ist bei AuDHD klassisch problematisch — die Inhalte sind im Kopf, aber die exekutive Funktion, sie geordnet aufs Papier zu bringen, ist limitiert. Zeitverlängerung misst das tatsächliche Können.</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>„Mehr Disziplin", „er soll sich zusammenreißen".</strong> Warum nicht: neurologisch nicht verfügbar. Disziplin wäre die Steuerung von Verhalten durch innere Strukturen — genau die fehlt teilweise. Diese Forderung ist klinisch wirkungslos und destruktiv für den Selbstwert.</li>
+      <li><strong>Strafen oder Konsequenzen für Time-Blindness-Folgen (verspätete Hausaufgaben, verlorenes Material).</strong> Warum nicht: bestraft ein neurologisches Defizit. Bei einem Klienten, der ohnehin jahrelange sekundäre Beschämung trägt, verstärkt das die Symptomatik massiv. Effektiver: Strukturen, die das Defizit kompensieren (geteilter Wochenplan mit Eltern, sichtbare Materialliste).</li>
+      <li><strong>Öffentliches Beschämen bei Aufmerksamkeitsausfällen.</strong> Warum nicht: provoziert Rejection Sensitive Dysphoria-Krisen — eine bei AuDHD häufige Komorbidität, die oft als Borderline fehldiagnostiziert wird. Ein einziger Lehrer-Witz vor der Klasse kann eine stundenlange interne Krise auslösen.</li>
+      <li><strong>Ungestrukturierte Gruppen-Projekte mit „macht das mal selbst".</strong> Warum nicht: kombiniert maximal exekutive Belastung mit maximaler sozial-pragmatischer Belastung. Das Ergebnis ist meist Aufgabe oder Konflikt, beides verstärkt das Schul-Mismatch.</li>
+      <li><strong>Klassenraum-Belohnungssysteme (Sterne, Token).</strong> Warum nicht: bei einem Klienten mit RSD und perfektionistischen Tendenzen produziert das Belohnungs-Vergleich mit Mitschülern Beschämung statt Motivation. Effektiver: individuelle, schriftliche Erfolgs-Dokumentation, mit dem Klienten direkt geteilt.</li>
+    </ol>`,
+    schuleWer: `<p>Klassenleitung als operative Hauptansprechperson — sie sieht den Klienten täglich und kann Anpassungen direkt umsetzen. Schulpsychologie für institutionelle Verankerung der Anpassungen und für Krisen-Intervention. Schulleitung bei jüngerer Adoleszenz und bei strukturellen Anpassungen, die formale Genehmigung brauchen. SPOS (Service Psycho-Social et d'Accompagnement Scolaire) in Luxemburg für längerfristige institutionelle Begleitung. Vertrauenslehrkraft als zusätzliche Anlaufstelle bei akuten Schultages-Krisen. Bei Stimulanzien-Einstellung: enge Koordination zwischen KJP, Klassenleitung und Eltern — die Schule beobachtet täglich, was die Familie und Praxis nicht sehen.</p>`,
+    schuleFrequenz: `<p>Monatlich in den ersten drei Monaten — diese Phase ist die instabilste und die mit den meisten Anpassungs-Iterationen. Danach alle sechs bis acht Wochen, sofern stabil. Bei Stimulanzien-Einstellung in den ersten zwei bis vier Wochen wöchentliche schriftliche Rückmeldung (kurze Mail genügt). Bei jeder Eskalation jederzeit. Schriftlich, nicht mündlich, weil mündliche Vereinbarungen bei Lehrer-Wechsel verloren gehen.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule blockt:</strong></p>
+      <ol>
+        <li>Erste Stufe: schriftliche klinische Empfehlung mit konkreten Anpassungen und Begründung an Klassenleitung — auch wenn schon mündlich besprochen, schriftliche Fixierung schafft Verbindlichkeit.</li>
+        <li>Bei Verweigerung: Schulpsychologie einbeziehen, eventuell formale ASS- und ADHS-Diagnosen schriftlich nachreichen, falls noch nicht erfolgt.</li>
+        <li>Bei strukturellem Blocken: Schulleitung formell mit ausführlicher schriftlicher Stellungnahme — inklusive klarer Risiko-Einschätzung (Schulabbruch innerhalb eines Jahres ist realistisch).</li>
+        <li>Schulwechsel-Frage ernsthaft prüfen: passt das aktuelle Setting strukturell? Wenn die Schule sehr groß ist, mit Frontalunterricht-Schwerpunkt und ohne Anpassungs-Tradition, ist oft ein Wechsel zu einem kleineren Setting (alternative Schulform, Sonderpädagogik, Online-Lernen) die einzige tragfähige Antwort.</li>
+        <li>Bei Verweigerung von Nachteilsausgleich trotz medizinischer Indikation: rechtliche Beratung (Médiateur de la Convention relative aux droits de l'enfant in Luxemburg).</li>
+      </ol>`,
 
     eskFrequenz: `<p>Wenn Schul-Anwesenheit kippt. Wenn Aggression zunimmt. Wenn Substanzkonsum auftritt oder eskaliert. Wenn RSD-Krisen häufiger werden.</p>`,
     eskKjp: `<p>Bei Stimulanzien-Frage (zwingend). Bei akuter Depression mit suizidalen Anteilen. Bei Verdacht auf zusätzliche Diagnose (Tic-Störung, OCD).</p>`,
@@ -7429,23 +7465,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Dieser Schüler ist im Autismus-Spektrum <em>und</em> hochbegabt. Diese Konstellation heißt Twice Exceptional. Die Begabung verlangt herausforderndes Material; das ASS-Profil verlangt Struktur, Vorhersehbarkeit und sensorische Anpassungen. Standard-Förderung deckt nur eine Seite ab — und die andere bricht ein. Im WISC-V sehen wir eine Spreizung von [X] Indexpunkten zwischen Verständnis und Verarbeitungsgeschwindigkeit. Das ist neurokognitiv real und nicht durch Anstrengung kompensierbar."</p>`,
-    schuleAnpassungen: `<ul>
-      <li>Begabungs-adäquates Material — Akzeleration, Enrichment, Springen prüfen.</li>
-      <li>Nachteilsausgleich bei Klausuren: Zeitverlängerung, getrennter Raum, schriftliche Aufgabenstellung.</li>
-      <li>Sensorisch ruhiger Sitzplatz, schriftliche Anweisungen zusätzlich zu mündlichen.</li>
-      <li>Spezialinteresse als Lern-Hebel in mindestens einem Fach.</li>
-      <li>Bei sehr hohen Begabungs-Werten: Spezialschule oder enge Begabungs-Förderung.</li>
-      <li>Soziale Anforderungen reduziert, kein erzwungenes Gruppen-Setting.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>„Er soll erst mal die einfachen Aufgaben machen" — verstärkt Underachievement und Beschämung.</li>
-      <li>Begabungs-Wettbewerbe als Pflicht — Performance-Druck wirkt destruktiv.</li>
-      <li>Lehrer-Witz über Verträumtheit oder Langsamkeit — verstärkt RSD-Risiko.</li>
-      <li>„Er soll sich mehr anstrengen" — die Anstrengung ist seit Jahren maximal.</li>
-    </ul>`,
-    schuleWer: `<p>Klassenleitung plus Begabungs-Förder-Ansprechperson (falls vorhanden). Bei größeren Anpassungen Schulleitung einbeziehen. Bei Nachteilsausgleich SPOS oder Schulpsychologie.</p>`,
-    schuleFrequenz: `<p>Alle 4–6 Wochen, eng in der Phase der Schul-Neugestaltung (zweiwöchentlich für 2–3 Monate, falls nötig).</p>`,
+    schuleProblem: `<p>Das Schulsystem ist auf Mittelfeld kalibriert. Hochbegabung wird nur dann ernst genommen, wenn der Schüler gleichzeitig in allen Bereichen funktioniert — also wenn Arbeitsgedächtnis und Verarbeitungsgeschwindigkeit mit der Begabung mithalten. Bei Twice Exceptional ist das nicht der Fall: im WISC-V zeigt sich eine Spreizung von 40 bis 60 Indexpunkten zwischen verbalem Verständnis (oft 145-160) und Arbeitsgedächtnis (oft 90-110). Der Klient wird in seinem stärksten Bereich (konzeptuelles Denken) unterfordert und in seinem schwächsten Bereich (Arbeitsgedächtnis, schriftliche Produktion unter Zeitdruck) überfordert. Beide Mismatches gleichzeitig führen zu chronischer Beschämung und schließlich zu Zusammenbruch. Die sekundäre Depression, die du jetzt siehst, ist Folge des Schul-Mismatches — und ohne Setting-Korrektur greift keine Stimmungsbehandlung.</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Frau Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klient-Name] sprechen. Aus klinischer Sicht haben wir hier eine spezifische Konstellation, die in der Pädagogik oft übersehen wird: Twice Exceptional. Das bedeutet Hochbegabung und Autismus-Spektrum-Störung im selben Kind. Etwa fünf bis zehn Prozent der hochbegabten Schüler haben diese Kombination — sie wird selten erkannt, weil die Begabung das ASS-Profil verdeckt.</p>
+      <p>In WISC-V-Profilen sehen wir hier typischerweise eine Spreizung von 40 bis 60 Indexpunkten zwischen verbalem Verständnis (oft 145-160) und Arbeitsgedächtnis (oft 90-110). Das erklärt, warum [Klient-Name] mündlich brillant ist und gleichzeitig bei schriftlichen Klausuren versagt. Das ist nicht mangelnde Anstrengung. Das ist ein neurokognitives Profil, das die Schule sichtbar machen muss.</p>
+      <p>Was wir brauchen, ist eine doppelte Anpassung. Die Begabung braucht herausforderndes Material — Akzeleration, Enrichment, oder eventuell Springen. Das ASS-Profil braucht Struktur, Vorhersehbarkeit und sensorische Anpassungen. Standard-Förderung deckt nur eine Seite ab — und die andere bricht ein. Das sehen wir aktuell als sekundäre Depression.</p>
+      <p>Können wir gemeinsam überlegen, wie das für [Klient-Name] in Ihrer Schule konkret aussehen kann?"</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Akzeleration, Enrichment oder Springen prüfen.</strong> Begründung: Unterforderung in der Begabungsdomäne führt zu Sinn-Krise und Underachievement. Bei Klienten mit Hochbegabung plus Asperger verstärkt die Unterforderung die Tendenz zum sozialen Rückzug — sie haben kein gemeinsames Erleben mit Mitschülern. Akzeleration ist hier nicht „Elite-Förderung", sondern Anpassung an das neurokognitive Profil.</li>
+      <li><strong>Nachteilsausgleich bei schriftlichen Klausuren.</strong> Begründung: bei WISC-V-Spreizung zwischen verbalem Verständnis und Verarbeitungsgeschwindigkeit ist schriftliche Produktion unter Zeitdruck nicht Indikator der Fähigkeit. Zeitverlängerung von 25 bis 50 Prozent, getrennter Raum, eventuell mündliche Prüfungsalternative — das misst, was der Klient wirklich kann.</li>
+      <li><strong>Spezialinteresse als Lern-Hebel in mindestens einem Fach.</strong> Begründung: Spezialinteressen sind bei autistischen Klienten neurokognitiv die stärksten Konzentrations-Ressourcen. Wenn eine Lehrkraft das Spezialinteresse in mindestens einem Fach als Lern-Anker nutzen kann, wird die volle Begabung oft zum ersten Mal sichtbar. Das ist nicht Bevorzugung — das ist neurokognitiv funktional.</li>
+      <li><strong>Sensorisch ruhiger Sitzplatz.</strong> Begründung: sensorische Hypersensibilität bei ASS führt zu kumulativer Reizüberlastung über den Schultag. Ein Sitzplatz mit reduzierter sensorischer Belastung reduziert diese kumulative Last. Bei 2e besonders wichtig, weil die Begabungs-Konzentration durch sensorische Reize sonst schneller zusammenbricht.</li>
+      <li><strong>Schriftliche Anweisungen zusätzlich zu mündlichen.</strong> Begründung: Arbeitsgedächtnis-Schwäche bei 2e bedeutet, dass mündliche Mehrschritt-Anweisungen verloren gehen. Nicht weil der Klient nicht zuhört — sondern weil die zweite Anweisung die erste verdrängt. Schriftliche Backup-Anweisung ist Nachteilsausgleich, nicht Bequemlichkeit.</li>
+      <li><strong>Reduzierte soziale Pflichtkomponenten.</strong> Begründung: Gruppenarbeiten, Klassen-Präsentationen, Pausen-Geselligkeit kosten bei ASS überproportional Energie. Bei 2e bedeutet das: die Energie für begabungsadäquates Lernen geht in soziale Anpassung verloren. Reduktion sozialer Pflichtkomponenten ermöglicht, dass die Begabung tragen kann.</li>
+      <li><strong>Bei sehr hohen Begabungswerten: Spezialschule prüfen.</strong> Begründung: bei Klienten mit Gesamt-IQ über 145 und gleichzeitig Asperger-Profil ist die Regelschule oft strukturell nicht passend — egal wie viele Anpassungen gemacht werden. Spezialschulen für Hochbegabte bieten oft das einzige tragfähige Setting.</li>
+      <li><strong>Begabungs-Coaching parallel zur schulischen Förderung.</strong> Begründung: 2e-Klienten brauchen oft jemanden außerhalb der Schule, der ihre Begabung spiegelt und fördert. Ein Mentor im Spezialinteresse, eine Begabungs-Beratungsstelle, eine Online-Community für 2e-Jugendliche.</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>„Erst mal die einfachen Aufgaben machen".</strong> Warum nicht: verstärkt Underachievement und Beschämung. Der Klient erlebt die einfachen Aufgaben als Beleidigung seiner Begabung und gleichzeitig als Versagen, wenn er sie nicht schnell genug erledigt (Arbeitsgedächtnis-Problem). Doppelter Schaden.</li>
+      <li><strong>Begabungs-Wettbewerbe als Pflicht.</strong> Warum nicht: Performance-Druck wirkt destruktiv bei perfektionistisch veranlagten 2e-Klienten. Bei einem gescheiterten Versuch kippt oft die ganze Begabungs-Identität — perfektionistischer Zusammenbruch ist klinisch ein typisches Eskalations-Bild.</li>
+      <li><strong>Lehrer-Witze über Verträumtheit oder Langsamkeit.</strong> Warum nicht: verstärkt Rejection Sensitive Dysphoria-Risiko. Ein öffentlicher Witz vor der Klasse über „wo bist du wieder mit deinen Gedanken" kann eine stundenlange interne Krise auslösen, die niemand sieht.</li>
+      <li><strong>Sozialkompetenz-Training als Pflichtteilnahme.</strong> Warum nicht: bei 2e-Klienten ist die Camouflaging-Last bereits hoch. Zusätzliches Sozial-Training in der Schule wird als beschämend erlebt und kostet Energie, die für Lernen fehlt.</li>
+      <li><strong>Klassische Verhaltens-Verstärkungssysteme.</strong> Warum nicht: bei hochbegabten ASS-Klienten oft kontraproduktiv. Sie durchschauen das System sofort und erleben es als infantilisierend. Wirkt entwertend statt motivierend.</li>
+    </ol>`,
+    schuleWer: `<p>Klassenleitung als operative Hauptansprechperson. Begabungs-Förder-Beauftragte, sofern in der Schule vorhanden — die wenigsten Klassenlehrer haben 2e-spezifische Schulung. Schulpsychologie für Diagnose-Kommunikation und Nachteilsausgleich-Verankerung. Schulleitung bei strukturellen Anpassungen (Akzeleration, Springen, Spezialfächer). Vertrauenslehrer als Anlaufstelle bei Krisen. SPOS Luxemburg für institutionelle Begleitung. Hierarchie: Klassenleitung zuerst, dann strukturell höher, wenn Anpassungen nicht greifen.</p>`,
+    schuleFrequenz: `<p>Erste zwei bis drei Monate: zweiwöchentliche schriftliche Updates an die Klassenleitung. Nach Stabilisierung: monatlich. Bei Krisen ad hoc. Schriftlich, nicht mündlich — schriftliche Vereinbarungen überleben Lehrer-Wechsel.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule blockt:</strong></p>
+      <ol>
+        <li>Klassenlehrkraft mit schriftlicher Empfehlung — nicht mündlich, weil mündliche Vereinbarungen bei Wechsel verloren gehen.</li>
+        <li>Bei keiner Bewegung innerhalb von vier Wochen: Schulpsychologie aktiv einbeziehen.</li>
+        <li>Bei Blockade: Schulleitung formell mit schriftlicher klinischer Stellungnahme, inklusive WISC-V-Profil-Hinweis (Spreizung explizit benennen) und Risiko-Einschätzung Suizidalität.</li>
+        <li>Bei strukturellem Versagen: Schulwechsel ernsthaft besprechen — Spezialschule, Privatschule mit Begabungs-Schwerpunkt, eventuell internationales System.</li>
+        <li>Bei Verweigerung von Nachteilsausgleich obwohl indiziert: rechtliche Beratung möglich (Médiateur de la Convention relative aux droits de l'enfant in Luxemburg, vergleichbare Stellen in DE/BE).</li>
+      </ol>`,
 
     eskFrequenz: `<p>Bei Verschlechterung der Stimmung. Bei neuer oder verstärkter suizidaler Ideation. Bei Schul-Eskalation oder Abbruchdruck. Bei Pseudo-Compliance, die in der Sitzung auffällt.</p>`,
     eskKjp: `<p>Bei mittelgradiger bis schwerer Depression mit fehlender Besserung trotz Schul-Reduktion. Bei suizidaler Krise. Bei Frage nach Antidepressiva nach 12 Wochen Setting-Korrektur ohne Besserung.</p>`,
@@ -7524,21 +7576,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Wir arbeiten mit einer Klient:in im Autismus-Spektrum, die unter Überlastungs-Bedingungen zur Selbstverletzung greift. Das ist hier kein Aufmerksamkeits- oder Bindungs-Verhalten — es ist ein Notfall-Regulationsmittel bei sensorischer und exekutiver Überlast. Wir reduzieren die Trigger; die Schul-Anpassungen sind Teil der Therapie, nicht Begünstigung."</p>`,
-    schuleAnpassungen: `<ul>
-      <li>Sensorisch ruhigerer Sitzplatz, Rückzugsraum bei Overload.</li>
-      <li>Pausenregelung mit Wahlrecht (allein oder mit fester Bezugsperson).</li>
-      <li>Schriftliche Anweisungen zusätzlich, klare Strukturen.</li>
-      <li>Klare Ansprechperson im Konfliktfall.</li>
-      <li>Diskretion zum Thema NSSI: keine öffentliche Thematisierung.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>Öffentliche Thematisierung der Selbstverletzung — extrem destabilisierend.</li>
-      <li>„Kontrollen" der Arme im Schulalltag — verletzt Würde, eskaliert das Verhalten.</li>
-      <li>Erhöhung sozialer Anforderungen als „Integration".</li>
-    </ul>`,
-    schuleWer: `<p>Eine geschulte, fest vereinbarte Ansprechperson — Schulpsychologin oder vertrauensvolle Lehrkraft. Niemand sonst informiert ohne Einverständnis.</p>`,
-    schuleFrequenz: `<p>Anfangs alle 4 Wochen, dann alle 6–8 Wochen.</p>`,
+    schuleProblem: `<p>Die Schule ist bei diesem Profil oft direkt mit der NSSI verkoppelt: sensorische Überlastung in lauten Klassenzimmern, sozial-pragmatischer Druck in Gruppen-Settings, exekutive Überforderung bei wechselnden Anforderungen — all das erzeugt genau die Übererregungs-Zustände, in denen die Selbstverletzung als Notbremse eingesetzt wird. Gleichzeitig sind viele Schulen schlecht vorbereitet auf NSSI-Klienten: typische Reaktionen sind Kontrollen, öffentliche Thematisierung, Suspendierungen — alles destabilisierend. Die Aufgabe der Schul-Strategie ist doppelt: einerseits die NSSI-Trigger im Schul-Alltag reduzieren (sensorisch, sozial, exekutiv), andererseits die Schule dazu bringen, die NSSI nicht als pädagogisches Problem zu behandeln, sondern als medizinisches Symptom, das durch Schutz und Diskretion nicht durch Konfrontation regulier wird. Sensorische Rückzugsräume, klare Vertrauensperson, Schul-Pflege im wörtlichen Sinn: die Schule wird zum Schutzraum gemacht, nicht zum Belastungsraum.</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klient:in-Name] sprechen — vertraulich und mit klarer Bitte um Diskretion. Wir arbeiten klinisch an einer Selbstverletzungs-Problematik, die im Kontext eines Autismus-Spektrum-Profils auftritt. Aus klinischer Sicht ist wichtig: das, was Sie eventuell beobachten — Narben, lange Ärmel im Sommer, Rückzug nach Konflikten — ist hier kein Aufmerksamkeits- oder Bindungs-Verhalten, sondern ein Notfall-Regulationsmittel bei sensorischer und exekutiver Überlast.</p>
+      <p>Bei autistischen Klienten ist NSSI typischerweise eine eskalierte Form der Selbstregulation: wenn die innere Reizverarbeitung in einen Übererregungs-Zustand kippt, den die Person nicht anders beenden kann, wird der körperliche Reiz zur Notbremse. Das hat eine ganz andere Funktion als bei einer Borderline-Symptomatik und braucht entsprechend eine andere schulische Reaktion.</p>
+      <p>Was wir aus der Schule brauchen: Diskretion (keine öffentliche Thematisierung, keine Kontrollen der Arme), sensorische Reduktion (ruhigerer Sitzplatz, Rückzugsraum), und eine fest vereinbarte Vertrauensperson, an die sich [Klient:in-Name] bei akuten Krisen wenden kann. Wir arbeiten parallel an alternativen Regulationsstrategien — die Schule kann viel dazu beitragen, indem sie die Trigger reduziert.</p>
+      <p>Ich bitte um vertrauliche Behandlung dieser Information. Können wir gemeinsam überlegen, was konkret in Ihrer Schule umsetzbar ist?"</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Sensorisch ruhigerer Sitzplatz, Kopfhörer erlaubt.</strong> Begründung: sensorische Überlastung ist bei diesem Profil ein primärer NSSI-Trigger. Reizreduktion im Klassenraum reduziert die Frequenz der Übererregungs-Zustände, die zur Selbstverletzung führen — und damit direkt die NSSI-Häufigkeit.</li>
+      <li><strong>Rückzugsraum bei Overload, ohne Begründungszwang, mit niedrigschwelliger Signal-Geste.</strong> Begründung: bei einem Klienten mit Alexithymie ist das Erbitten-Müssen einer Pause eine zusätzliche Belastung. Eine stille vereinbarte Geste (Handzeichen, Karte auf den Tisch) ermöglicht den Rückzug, bevor die Übererregung kippt. Das ist die wichtigste Einzel-Intervention.</li>
+      <li><strong>Eine fest vereinbarte Vertrauensperson als Anlaufstelle bei akuten Krisen.</strong> Begründung: Selbstverletzung passiert oft in Momenten akuter Übererregung, die wenige Minuten andauern. Wenn der Klient in diesen Minuten einen sicheren Ansprechpartner finden kann, der das Profil versteht und nicht pathologisierend reagiert, lässt sich der Akt oft verhindern. Idealerweise Schulpsychologin oder spezifisch geschulte Lehrkraft.</li>
+      <li><strong>Pausenregelung mit Wahlrecht (allein oder mit fester Bezugsperson).</strong> Begründung: Pausenhof-Geselligkeit ist sensorisch und sozial maximal belastend — genau das Setting, in dem NSSI-Trigger zusammenkommen. Erlaubnis, in der Bibliothek, im Schulpsychologen-Büro oder einem ruhigen Raum zu pausieren, entfernt einen Hauptauslöser.</li>
+      <li><strong>Schriftliche Anweisungen zusätzlich zu mündlichen, klare Strukturen.</strong> Begründung: exekutive Überforderung bei wechselnden mündlichen Anweisungen ist ein zusätzlicher NSSI-Trigger. Schriftliche Klarheit reduziert die Überlastung des Arbeitsgedächtnisses, die in akuten Momenten zur Eskalation beiträgt.</li>
+      <li><strong>Diskretion zur NSSI: keine öffentliche Thematisierung, keine Kontrollen.</strong> Begründung: Beschämung ist klinisch eine der stärksten NSSI-Eskalations-Bedingungen. Eine Schule, die offen oder kontrollierend reagiert, eskaliert die Symptomatik nahezu garantiert.</li>
+      <li><strong>Sport-Garderobe und Schwimm-Unterricht flexibel.</strong> Begründung: das sind die Settings, in denen Narben sichtbar werden — soziale Beschämung in der Garderobe ist ein klassischer Eskalations-Punkt. Einzelumkleide oder Ärmel-Toleranz ist medizinisch begründet.</li>
+      <li><strong>Notfall-Protokoll bei akuter NSSI-Krise im Schulkontext.</strong> Begründung: wenn der Klient sich im Schulalltag verletzt oder kurz davor ist, braucht es ein vorab abgestimmtes Protokoll: wohin geht er, wer wird informiert (Vertrauensperson, Eltern, Praxis), wer NICHT informiert wird (Klassenkameraden, andere Lehrer). Schriftlich, im Voraus mit Klient und Familie vereinbart.</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>Öffentliche Thematisierung der Selbstverletzung („wir reden in der Klasse darüber, wie es Schülern geht, die sich verletzen").</strong> Warum nicht: extrem destabilisierend. Zerstört Diskretion, produziert Beschämung, kann andere Schüler aktivieren. Bei autistischen Klienten besonders schädlich, weil sie soziale Beschämung körperlich nicht regulieren können.</li>
+      <li><strong>„Kontrollen" der Arme oder anderer Körperregionen im Schulalltag.</strong> Warum nicht: verletzt Würde, eskaliert das Verhalten (die Selbstverletzung wandert dann an versteckte Stellen, oft tiefer), und produziert eine misstrauische Beziehung zur Schule, die genau das verhindert, was wir brauchen — Sicherheit. Keine therapeutische Funktion.</li>
+      <li><strong>Erhöhung sozialer Anforderungen als „Integration".</strong> Warum nicht: bei einem Klienten, dessen NSSI primär sozial-pragmatisch und sensorisch getriggert ist, ist forcierte soziale Integration direkt eskalierend. „Integration" bei diesem Profil heißt: weniger soziale Pflichten, nicht mehr.</li>
+      <li><strong>Suspendierung oder disziplinarische Maßnahmen nach NSSI-Vorfall.</strong> Warum nicht: bestraft ein medizinisches Symptom. Verstärkt die Verzweiflung, die zur Tat geführt hat, und erhöht das Suizidrisiko. Schul-Pflege bedeutet hier: medizinische Krise, nicht Disziplinar-Frage.</li>
+      <li><strong>Information weiterer Lehrer ohne Einverständnis des Klienten.</strong> Warum nicht: zerstört das Vertrauen, das wir mühsam aufgebaut haben. Diskretion ist Teil der Behandlung — nur die fest vereinbarte Vertrauensperson weiß, andere nur auf Wunsch.</li>
+    </ol>`,
+    schuleWer: `<p>Eine einzige, geschulte und fest vereinbarte Vertrauensperson — idealerweise Schulpsychologin oder spezifisch in ASS und NSSI geschulte Lehrkraft. Diese Person ist die einzige im Schul-System, die das volle Bild kennt; weitere Personen werden nur mit Einverständnis des Klienten informiert. Klassenleitung wird informiert, dass „klinische Begleitung läuft, bitte Anpassungen umsetzen", ohne dass die NSSI explizit benannt wird. Schulleitung nur bei strukturellen Anpassungen, die formale Zustimmung brauchen. Eltern eng in alle Schul-Kommunikation einbezogen, mit klar geregelter Eskalations-Kette.</p>`,
+    schuleFrequenz: `<p>Anfangs alle vier Wochen mit der Vertrauensperson — eng vernetzt mit der laufenden Therapie. Nach Stabilisierung alle sechs bis acht Wochen. Bei akuter Krise oder Eskalation jederzeit, telefonisch oder per Termin. Schriftliche Notfall-Protokolle im Voraus mit allen Beteiligten geteilt.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule blockt oder kontraproduktiv reagiert:</strong></p>
+      <ol>
+        <li>Erste Stufe: direktes Gespräch mit der Schulpsychologie, schriftlich nachgereicht. Bei einer Schule ohne Schulpsychologie zuerst Klassenleitung, dann Schulleitung.</li>
+        <li>Bei Kontrollen oder öffentlicher Thematisierung trotz Bitte um Diskretion: sofortiges schriftliches Eskalations-Schreiben an Schulleitung mit klarer Botschaft, dass diese Praxis klinisch kontraindiziert ist und das Risiko erhöht.</li>
+        <li>Bei Suspendierung oder disziplinarischen Maßnahmen nach NSSI-Vorfall: formale Stellungnahme, dass das Verhalten medizinisch ist und disziplinarische Reaktion das Suizidrisiko erhöht.</li>
+        <li>Bei strukturellem Versagen: Schulwechsel ernsthaft prüfen, eventuell zu kleinerer Schule mit besserer NSSI-Erfahrung oder zeitweise Hausunterricht.</li>
+        <li>Bei medizinisch relevanten Verletzungen im Schul-Setting ohne adäquate Versorgung: meldepflichtige Schul-Aufsichts-Behörde, rechtliche Beratung.</li>
+      </ol>`,
 
     eskFrequenz: `<p>Bei zunehmender NSSI-Schwere oder -Frequenz. Bei suizidalen Anteilen. Bei familiärem Eskalations-Anstieg.</p>`,
     eskKjp: `<p>Bei suizidaler Ideation mit Plan. Bei Verschlechterung trotz ambulanter Maßnahmen. Bei Frage nach pharmakologischer Unterstützung (z. B. bei komorbider Depression mit klarer Indikation).</p>`,
@@ -7616,21 +7686,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Diese Schüler:in lebt mit zwei Belastungen gleichzeitig — einem autistischen Verarbeitungsstil und einer Trauma-Geschichte. Beides braucht Vorhersehbarkeit, Sicherheit und sensorische Reduktion. Konflikte oder Überforderung können dissoziative Reaktionen auslösen, die wie Verweigerung aussehen, aber etwas anderes sind. Die übliche schulische Konsequenz-Logik versagt hier — Strafe verstärkt die Symptomatik."</p>`,
-    schuleAnpassungen: `<ul>
-      <li>Hochstrukturierter Schul-Alltag mit klaren Ansprechpersonen.</li>
-      <li>Rückzugsraum, sensorische Reduktion, schriftliche Anweisungen.</li>
-      <li>Trigger-bewusste Pausenregelung.</li>
-      <li>Notfall-Plan für dissoziative Phasen mit Schulpsychologie.</li>
-      <li>Vorankündigung von Vertretungen, Wechseln, Klassenfahrten.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>Konfrontative oder „klärende" Gespräche über schwierige Themen vor der Klasse.</li>
-      <li>Disziplinarische Maßnahmen bei Verweigerung ohne Klärung der Hintergründe.</li>
-      <li>Erzwungene Integration in Gruppen-Settings mit hoher Reiz-Dichte.</li>
-    </ul>`,
-    schuleWer: `<p>Schulpsychologie als Hauptansprechperson plus Klassenleitung. Bei jüngerer Adoleszenz Schulleitung informieren.</p>`,
-    schuleFrequenz: `<p>Alle 4 Wochen, eng vernetzt mit Jugendhilfe (falls beteiligt).</p>`,
+    schuleProblem: `<p>Die Schule kann bei diesem Profil direkt re-traumatisierend wirken — und das oft, ohne dass jemand es bemerkt. Zwei Reizverarbeitungs-Profile überlagern sich: die autistische sensorische Hyperreaktivität, die schon im Schulalltag fragil ist, und die trauma-induzierte Hyperarousal-Antwort, die jeden potenziellen Auslöser amplifiziert. Konflikte mit Lehrkräften oder Mitschülern, laute Schulgänge, plötzliche Vertretungen, sensorische Belastungen wie Pausenhof oder Sport-Garderobe — all das kann nicht nur sensorisch überfordern, sondern auch biografisch-emotional triggern. Dissoziative Reaktionen werden dabei oft als Verweigerung gelesen, das Zusammenzucken bei einem Geräusch als „dramatisch sein". Die übliche schulische Konsequenz-Logik versagt hier komplett — disziplinarische Reaktion auf trauma-induziertes Verhalten verstärkt die Symptomatik direkt, nicht im übertragenen Sinn. Die Schul-Strategie hat eine Doppelaufgabe: Trigger reduzieren (sensorisch UND biografisch) und Schule als Sicherheitsraum etablieren — auch wenn das gegen die Standard-Schul-Logik geht.</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klient:in-Name] sprechen — vertraulich, mit der Bitte um besonders sensible Behandlung. [Klient:in-Name] lebt mit zwei klinisch relevanten Belastungen gleichzeitig: einem autistischen Verarbeitungsstil und einer Trauma-Geschichte. Beide Profile überschneiden sich in den Symptomen — Rückzug, plötzliche emotionale Reaktionen, sensorische Empfindlichkeit, Vermeidungsverhalten — und beide werden in der Schule oft missverstanden.</p>
+      <p>Was wir aus klinischer Sicht wissen: bestimmte Schul-Situationen können trauma-Trigger aktivieren, ohne dass das von außen sichtbar ist. Ein plötzlicher Geräuschpegel, eine bestimmte Stimmlage, ein Geruch, eine Konfliktdynamik in der Klasse, eine Lehrkraft, die laut wird — die Reaktion ist nicht „dramatisch", sondern eine neurobiologische Notfallantwort. Dissoziative Reaktionen können dann auftreten: Sprach-Verlust, scheinbare Verweigerung, leerer Blick, körperliche Starre. Das ist klinisch ein dissoziativer Zustand, kein Trotz.</p>
+      <p>Was wir aus der Schule brauchen: hochstrukturierte Routinen mit klaren Ansprechpersonen, sensorische Reduktion, ein vereinbartes Notfall-Protokoll für dissoziative Phasen, und — das ist zentral — keine konfrontative oder disziplinarische Reaktion auf Verhalten, das wir als trauma-induziert identifizieren. Konfliktklärungen vor der Klasse müssen vermieden werden, weil sie re-traumatisierend wirken können.</p>
+      <p>Bitte um vertrauliche Behandlung dieser Information. Können wir gemeinsam ein Schul-Setting entwerfen, das tragfähig ist?"</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Hochstrukturierter Schul-Alltag mit gleichbleibenden Bezugspersonen.</strong> Begründung: Vorhersehbarkeit ist die zentrale Sicherheitsbedingung für beide Profile. Trauma-Hyperarousal stabilisiert sich nur, wenn die Umgebung verlässlich bleibt; ASS-Klienten brauchen Routine ohnehin. Häufige Lehrer-Wechsel oder Stundenplan-Änderungen müssen schriftlich im Voraus angekündigt werden.</li>
+      <li><strong>Trigger-bewusste Pausenregelung, Rückzugsraum bei Bedarf.</strong> Begründung: Pausenhof, Mensa und Schulgänge sind die sensorisch und sozial unstrukturiertesten Orte — gleichzeitig die mit der höchsten Trigger-Wahrscheinlichkeit. Erlaubnis, in einem ruhigen Raum (Bibliothek, Psychologie-Büro) zu pausieren, ohne Begründung, reduziert Trigger-Exposition direkt.</li>
+      <li><strong>Notfall-Protokoll für dissoziative Phasen, schriftlich mit allen Beteiligten geteilt.</strong> Begründung: wenn ein dissoziativer Zustand auftritt, muss jeder Lehrer wissen: nicht ansprechen, nicht zur Aktion drängen, ruhig in den vereinbarten Sicherheitsraum begleiten, Vertrauensperson informieren. Ohne Protokoll passieren typische Fehler (laut werden, Druck aufbauen, vor der Klasse thematisieren), die den Zustand verschlimmern.</li>
+      <li><strong>Vorankündigung aller Wechsel: Vertretungen, Klassenfahrten, Tagesausflüge, Klausuren-Setting.</strong> Begründung: bei trauma-getriggerter Hypervigilanz sind unerwartete Veränderungen besonders destabilisierend. Schriftliche Vorankündigung mindestens 48 Stunden vorher gibt dem Klienten Zeit, sich vorzubereiten und entsprechende Selbstregulation zu aktivieren.</li>
+      <li><strong>Sensorische Anpassungen: Sitzplatz mit Wandrückenlage, Kopfhörer erlaubt, klare Sichtachsen auf Türen.</strong> Begründung: Hypervigilanz braucht Kontrolle über die Umgebung. Ein Sitzplatz mit Blick zur Tür reduziert die ständige Bedrohungs-Scanning-Last. Kopfhörer dämpfen unvorhersehbare Geräusche.</li>
+      <li><strong>Schriftliche Anweisungen, klare visuelle Strukturen.</strong> Begründung: unter Hyperarousal ist Arbeitsgedächtnis stark eingeschränkt. Mündliche Mehrschritt-Anweisungen werden nicht behalten. Schriftliche Klarheit ist Nachteilsausgleich.</li>
+      <li><strong>Eine fest vereinbarte Vertrauensperson, die das volle Bild kennt.</strong> Begründung: bei Trauma-plus-ASS braucht es einen Anker im Schul-System, der nicht pathologisierend reagiert und das Notfall-Protokoll umsetzen kann. Schulpsychologin oder spezifisch trauma-geschulte Lehrkraft.</li>
+      <li><strong>Sport-, Schwimm- und Musik-Unterricht flexibel handhaben.</strong> Begründung: körperliche Nähe, laute Geräusche, plötzliche Anweisungen — alles potenzielle Trigger. Einzelumkleide, Befreiung von bestimmten Aktivitäten in akuten Phasen ist medizinisch indiziert.</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>Konfrontative oder „klärende" Gespräche über schwierige Themen vor der Klasse.</strong> Warum nicht: re-traumatisierend. Das Setting der öffentlichen Konfrontation aktiviert bei Trauma-Klienten genau die Hilflosigkeit, die das ursprüngliche Trauma definiert hat. Klärungen passieren einzeln, mit der Vertrauensperson, in einem geschützten Raum.</li>
+      <li><strong>Disziplinarische Maßnahmen bei Verweigerung ohne Klärung der Hintergründe.</strong> Warum nicht: behandelt ein medizinisches Symptom als pädagogisches Problem. Bestraft den Klienten für etwas, das er nicht steuern kann, und zerstört das Sicherheitsgefühl in der Schule. Eskaliert das Verhalten regelmäßig.</li>
+      <li><strong>Erzwungene Integration in Gruppen-Settings mit hoher Reiz-Dichte (Klassenfahrt, Gruppen-Projekt, Klassen-Präsentationen).</strong> Warum nicht: kombiniert sensorische, soziale und potenziell biografisch-emotionale Belastung. Bei einem Klienten mit Trauma-Hintergrund ist das eine Eskalations-Garantie. Freiwilligkeit oder Anpassung ist Pflicht.</li>
+      <li><strong>Lehrer-Stimme laut werden lassen, in den Raum hineinrufen, körperliche Nähe ohne Vorwarnung.</strong> Warum nicht: alle drei sind klassische Trauma-Trigger, die unabhängig vom konkreten Inhalt aktivieren können. Bei Lehrkräften mit lauter Stimme ist eine Sitzplatz-Verlegung indiziert.</li>
+      <li><strong>Öffentliches Lob ebenso wie öffentliches Tadeln.</strong> Warum nicht: bei vielen Trauma-Klienten ist Aufmerksamkeit per se belastend — egal ob positiv oder negativ. Schriftliche Rückmeldung oder Einzelgespräch ist die sichere Form.</li>
+    </ol>`,
+    schuleWer: `<p>Schulpsychologie als Hauptansprechperson — sie hat in der Regel die beste Trauma-Schulung und kann das Notfall-Protokoll führen. Klassenleitung als operative Umsetzung im Alltag, mit klar definierten Anweisungen ohne dass sie die volle Anamnese kennen muss. Schulleitung bei jüngerer Adoleszenz und bei strukturellen Anpassungen formal einbeziehen. Vertrauenslehrer als zusätzliche Anlaufstelle, falls Schulpsychologin nicht täglich erreichbar ist. Bei beteiligter Jugendhilfe enge Vernetzung — Heim oder Pflegestelle muss mit Schule synchronisiert sein.</p>`,
+    schuleFrequenz: `<p>Alle vier Wochen Kontakt mit Schulpsychologie, eng vernetzt mit Jugendhilfe oder Wohn-Setting, falls beteiligt. Bei akuter Phase oder neuer Trigger-Situation öfter. Schriftliche Updates an Klassenleitung mit konkreten Beobachtungen, nicht globalen Einschätzungen.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule blockt oder kontraproduktiv reagiert:</strong></p>
+      <ol>
+        <li>Erste Stufe: schriftliche Empfehlung an Schulpsychologie mit Erklärung der Trauma-Plus-ASS-Konstellation und konkreten Anpassungen.</li>
+        <li>Bei Schulen ohne Trauma-Schulung: Angebot einer kurzen Aufklärungs-Einheit für die Klassenleitung, in der die spezifischen Trigger und Reaktionsmuster erklärt werden — ohne biografische Details des Klienten zu offenbaren.</li>
+        <li>Bei disziplinarischen Maßnahmen nach trauma-getriggerten Reaktionen: sofortige schriftliche Stellungnahme an Schulleitung mit klarer Botschaft, dass die Maßnahme klinisch kontraindiziert ist und das Symptom verstärkt.</li>
+        <li>Bei strukturellem Versagen: Schulwechsel oder zeitweise Hausunterricht ernsthaft prüfen — bei Trauma-Klienten ist das Setting-Match besonders wichtig, weil ein falsches Setting den Verlauf direkt verschlechtert.</li>
+        <li>Bei Verdacht auf Trauma-Auslöser im Schul-Personal: vertrauliche Klärung mit Schulleitung, Schulwechsel als Option.</li>
+      </ol>`,
 
     eskFrequenz: `<p>Bei Zunahme intrusiver Symptome. Bei dissoziativen Krisen. Bei NSSI- oder suizidaler Eskalation.</p>`,
     eskKjp: `<p>Bei suizidaler Krise. Bei schweren dissoziativen Zuständen. Bei Frage nach Pharmakotherapie (z. B. bei begleitender Depression mit klarer Indikation).</p>`,
@@ -7709,21 +7797,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Diese Schüler:in lebt in einem Heim- oder Pflegekontext und hat ein Asperger-Profil. Die Kombination braucht hohe Vorhersehbarkeit, eine feste Ansprechperson und enge Abstimmung mit dem Wohnsetting. Bei Auffälligkeiten ist Kontakt zur Heim-Bezugsperson zentral, nicht nur zu den Eltern. Bezugspersonen im Heim können wechseln — bitte schriftlich kommunizieren, damit Informationen nicht verloren gehen."</p>`,
-    schuleAnpassungen: `<ul>
-      <li>Schul-Routinen schriftlich fixiert, mit Heim abgesprochen.</li>
-      <li>Sensorische Anpassungen, Rückzugsraum.</li>
-      <li>Klarer Ansprechpartner für Konflikte oder Krisen.</li>
-      <li>Vorankündigung von Wechseln (Lehrer:innen-Wechsel, Klassenfahrten).</li>
-      <li>Bei klassenbezogenen Eltern-Erwartungen: realistische Alternativen für Heim-Kontext.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>Klassen-Eltern-Erwartungs-Setting („alle Eltern kommen zur Aufführung") ohne Rücksicht auf Heim-Realität.</li>
-      <li>Therapie-Empfehlungen oder Kritik ohne Rücksprache mit Heim.</li>
-      <li>Erwartung an „normale" soziale Integration auf hohem Niveau.</li>
-    </ul>`,
-    schuleWer: `<p>Klassenleitung plus Schulpsychologie plus Heim-Bezugsperson. Eltern (falls vorhanden) je nach Sorgerecht/Realität.</p>`,
-    schuleFrequenz: `<p>Alle 4–6 Wochen mit allen Beteiligten. Bei Übergängen oder Krisen häufiger.</p>`,
+    schuleProblem: `<p>Schule und Heim sind hier als gemeinsames System zu denken, nicht als zwei separate Lebenswelten. Beide Settings haben strukturelle Schwächen, die sich gegenseitig verstärken: das Heim bringt wechselnde Bezugspersonen (Schichtwechsel, Personalrotation, gelegentliche Stellen-Wechsel), die Schule bringt zusätzliche soziale Anforderungen und die Konfrontation mit Mitschülern, die in stabilen Familien aufwachsen. Klassen-Aktivitäten wie „alle Eltern kommen zur Aufführung" produzieren konkrete Beschämungs-Momente, die für andere Schüler bedeutungslos sind. Gleichzeitig fehlt der Schule oft die Information aus dem Heim-Kontext, was zu fehlgeleiteten pädagogischen Reaktionen führt. Die zentrale Strategie ist Schul-Heim-Schul-System-Denken: Bezugspersonen-Konstanz wo möglich, schriftliche Routinen, die Schichtwechsel überstehen, klare Kommunikationswege zwischen den Systemen. Bei jüngerer Adoleszenz ist die Schule oft der stabilste Ort im Leben des Klienten — sie zu schützen ist therapeutische Priorität.</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klient:in-Name] sprechen. Wir haben hier eine spezifische Lebenssituation, die für die schulische Begleitung wichtig ist: [Klient:in-Name] lebt aktuell in einem Heim- oder Pflegekontext und hat ein Asperger-Profil. Diese Kombination produziert doppelte Vulnerabilität — Bindungs-Brüche treffen auf ein neurokognitives Profil, das Vorhersehbarkeit braucht, und beide Faktoren reduzieren die Resilienz gegenüber schulischen Stressoren.</p>
+      <p>Was die Schule oft nicht weiß: Bezugspersonen im Heim können wechseln — Schichtdienst, Personalrotation, manchmal ganze Stellen-Wechsel. Bei [Klient:in-Name] heißt das, dass die Schule oft die stabilste Konstante im Leben ist. Genau deshalb ist die Konstanz schulischer Bezugspersonen — Klassenleitung, Vertrauenslehrer, Schulpsychologin — besonders wichtig.</p>
+      <p>Praktisch bitten wir um drei Dinge: erstens, alle Schul-Kommunikation schriftlich, damit Informationen Schichtwechsel im Heim überstehen. Zweitens, bei klassenbezogenen Aktivitäten, die Eltern voraussetzen (Aufführungen, Elternabende, Hospitations-Tage), bitte realistische Alternativen denken — Heim-Erzieherin als Ansprechpartner einbinden. Drittens, bei Konflikten oder Krisen bitte direkt Kontakt zur fest vereinbarten Heim-Bezugsperson, nicht nur zu Eltern, falls diese kein Sorgerecht haben.</p>
+      <p>Wir können gerne ein gemeinsames Treffen Schule-Heim-Praxis arrangieren, um die Schnittstellen zu klären."</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Schul-Routinen schriftlich fixiert, mit Heim abgesprochen, Schichtwechsel-fest.</strong> Begründung: bei Schicht-Rotation im Heim wechseln die Bezugspersonen alle paar Tage. Mündliche Vereinbarungen sind nach 48 Stunden oft nicht mehr im System. Schriftliche Schul-Routinen (Stundenplan, Hausaufgaben-Routine, Pausenregelung) ermöglichen es jeder neuen Schicht, das System weiterzuführen.</li>
+      <li><strong>Klare Hauptansprechperson in der Schule, möglichst über Schuljahre stabil.</strong> Begründung: bei wechselnden Heim-Bezugspersonen ist eine stabile schulische Bezugsperson oft die wichtigste Konstante. Klassenleitung oder Schulpsychologin idealerweise mehrjährig. Wechsel müssen gut vorbereitet werden.</li>
+      <li><strong>Sensorische Anpassungen, Rückzugsraum bei Overload.</strong> Begründung: bei autistischem Profil plus akkumulierter Bindungs-Belastung ist die sensorische Toleranz oft reduziert. Rückzugsraum mit niedrigschwelliger Erlaubnis senkt die Eskalations-Wahrscheinlichkeit.</li>
+      <li><strong>Vorankündigung aller Wechsel: Lehrkraft-Wechsel, Klassenfahrten, Tagesausflüge.</strong> Begründung: bei Klienten mit Bindungs-Belastung sind unangekündigte Veränderungen besonders destabilisierend, weil sie an die unkontrollierbaren Wechsel im Wohn-Setting erinnern. Schriftliche Vorankündigung mit Heim und Klient direkt.</li>
+      <li><strong>Klassen-Eltern-Aktivitäten mit realistischen Alternativen für Heim-Kontext.</strong> Begründung: „alle Eltern kommen zur Aufführung" produziert konkrete Beschämungs-Momente, wenn der Klient die einzige Person ohne Eltern ist. Erzieher-Teilnahme als gleichwertig akzeptieren, eventuell Schul-Aktivität so umgestalten, dass die Anwesenheit nicht zentral ist.</li>
+      <li><strong>Klare Eskalations-Kette bei Krisen: erst Heim-Bezugsperson, dann Eltern (falls Sorgerecht), dann Praxis.</strong> Begründung: typischer Schul-Fehler ist es, sofort Eltern zu kontaktieren, ohne zu wissen, ob diese überhaupt im Sorgerecht sind oder ob das Kind sie überhaupt sehen darf. Schriftliche Eskalations-Kette mit aktuellen Kontaktdaten ist Pflicht.</li>
+      <li><strong>Schriftliche Anweisungen, klare visuelle Strukturen.</strong> Begründung: Standard-ASS-Anpassung, hier besonders wichtig wegen der zusätzlichen exekutiven Belastung durch Wohn-Setting-Wechsel oder -Konflikte.</li>
+      <li><strong>Bei Annäherung an 18: Care-leaver-Schul-Übergangs-Plan.</strong> Begründung: der Übergang in die Erwachsenen-Versorgung ist klinisch ein Hochrisiko-Punkt. Schul- und Berufsorientierung muss ab 16 mit Heim, Schule und Klient gemeinsam geplant werden — wer übernimmt wann was, wenn der Heim-Kontext mit 18 endet?</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>Klassen-Eltern-Erwartungs-Setting („alle Eltern kommen zur Aufführung") ohne Rücksicht auf Heim-Realität.</strong> Warum nicht: produziert sichtbare Beschämung und verstärkt die Außenseiter-Position. Bei Klienten, die das ohnehin täglich erleben, kann das eine Krise auslösen. Alternativen denken ist Pflicht.</li>
+      <li><strong>Therapie-Empfehlungen oder Kritik an „der Familie" ohne Rücksprache mit Heim.</strong> Warum nicht: oft basieren solche Empfehlungen auf falschen Annahmen über das System. Lehrer, die „die Eltern müssen sich mehr kümmern" sagen, sprechen ins Leere, wenn die Eltern kein Sorgerecht haben. Die richtige Adresse ist die Heim-Bezugsperson.</li>
+      <li><strong>Erwartung an „normale" soziale Integration auf hohem Niveau.</strong> Warum nicht: bei doppelter Vulnerabilität (ASS plus Bindung) sind soziale Anforderungen besonders kostspielig. Standard-Integrations-Erwartungen sind hier ein Eskalations-Risiko.</li>
+      <li><strong>Vertrauliche Informationen ohne Einverständnis weitergeben.</strong> Warum nicht: bei Heim-Kontext-Klienten ist Privatsphäre besonders verletzlich. Klassenkameraden müssen nicht wissen, wo der Klient lebt; Lehrer müssen nicht alle Details kennen. Diskretion ist therapeutische Priorität.</li>
+      <li><strong>Disziplinarische Reaktion auf Schul-Verhaltens-Auffälligkeiten nach Heim-Wechsel.</strong> Warum nicht: Wechsel im Wohn-Setting sind klinisch wirksame Ereignisse, die das Schul-Verhalten für Wochen instabilisieren können. Pädagogische Reaktion ohne Kenntnis des Hintergrunds verstärkt die Krise.</li>
+    </ol>`,
+    schuleWer: `<p>Klassenleitung plus Schulpsychologie plus Heim-Bezugsperson — diese drei sind das Kern-Team. Eltern (falls vorhanden) je nach Sorgerecht und Realität — manchmal eng eingebunden, manchmal explizit ausgeschlossen. Schulleitung bei strukturellen Anpassungen oder formalen Care-leaver-Maßnahmen. Bei Annäherung an 18: zusätzlich Sozialarbeit und Eingliederungshilfe in das Schul-System integrieren. SPOS Luxemburg für institutionelle Begleitung. Wichtig: alle Bezugspersonen müssen schriftlich dokumentiert sein, mit aktuellen Kontaktdaten und Vertretungsregelung.</p>`,
+    schuleFrequenz: `<p>Alle vier bis sechs Wochen Trefen mit allen Beteiligten (Klassenleitung, Heim-Bezugsperson, Praxis), schriftliches Protokoll. Bei Übergängen (Schuljahreswechsel, Klassenwechsel, Heim-Wechsel) verdichten. Bei Krisen ad hoc. Schriftliche Kommunikation grundsätzlich, mit Verteiler an Heim und Praxis.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule blockt oder kontraproduktiv reagiert:</strong></p>
+      <ol>
+        <li>Erste Stufe: schriftliche Empfehlung an Klassenleitung mit Erklärung der Heim-Schul-Schnittstelle.</li>
+        <li>Bei keiner Bewegung: Schulpsychologie aktiv einbeziehen, Erläuterung der Care-leaver-Perspektive.</li>
+        <li>Bei strukturellen Konflikten: gemeinsames Treffen Schule-Heim-Praxis, eventuell mit Jugendamt oder Sozialdienst.</li>
+        <li>Bei Schul-Wechsel-Bedarf: koordinierte Übergangsplanung Schule-Heim-Praxis, schriftliche Übergabe an die neue Schule.</li>
+        <li>Bei Eingriff in das Wohn-Setting durch schulisches Verhalten (Schul-Konflikte, die Heim-Status gefährden): umgehende Stellungnahme an Jugendamt mit klinischer Einschätzung.</li>
+      </ol>`,
 
     eskFrequenz: `<p>Bei Wechsel im Heim-Setting. Bei akuter NSSI- oder suizidaler Eskalation. Bei sozialen oder schulischen Krisen.</p>`,
     eskKjp: `<p>Bei Suizidalität. Bei medikamentöser Frage. Bei akuter Eskalation, die ambulant nicht mehr haltbar ist.</p>`,
@@ -7802,18 +7908,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„In dieser Familie ist nicht nur das Kind im Spektrum, sondern wahrscheinlich auch ein Elternteil. Die Familie hat eigene autismusgerechte Kommunikationsformen entwickelt. Bei Kontakt bitte sachlich, direkt und schriftlich — das funktioniert hier besser als emotionale Eltern-Gespräche."</p>`,
-    schuleAnpassungen: `<ul>
-      <li>Schriftliche Kommunikation mit Eltern bevorzugen.</li>
-      <li>Termine schriftlich, mit klaren Agenda-Punkten.</li>
-      <li>Anpassungen für den Klienten wie üblich (Sitzplatz, Routinen, sensorisch).</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>Eltern-Gespräche mit emotional offener Form ohne Vorabklärung.</li>
-      <li>Telefonische Spontan-Kontakte ohne schriftliche Voranmeldung.</li>
-    </ul>`,
-    schuleWer: `<p>Klassenleitung als Hauptansprechperson. Bei mehreren Themen Schulpsychologie einbeziehen.</p>`,
-    schuleFrequenz: `<p>Alle 6–8 Wochen, schriftliche Updates auch zwischendurch.</p>`,
+    schuleProblem: `<p>Das Schulsystem ist auf eine bestimmte Form von Eltern-Schul-Kommunikation kalibriert: emotional offene Elterngespräche, telefonische Spontan-Kontakte, Smalltalk an Elternabenden, indirekte Botschaften zwischen den Zeilen. Bei Familien, in denen mindestens ein Elternteil selbst im Spektrum ist (häufig, weil ASS hochheritabel ist), funktioniert diese Kommunikationsform schlecht — und das wird oft als „die Eltern sind schwierig" oder „uninteressiert" gelesen, was klinisch falsch ist. Die Familie hat eigene autismusgerechte Codes entwickelt: direkt, sachlich, schriftlich, ohne emotionale Verpackung. Das ist Stärke, nicht Defizit. Die Schul-Strategie muss diese Codes respektieren — Eltern können hier Co-Therapeuten sein, wenn die Schule sie nicht durch unpassende Kommunikationsforderungen verliert. Gleichzeitig braucht die Schule Informationen über das Kind, nicht über die Eltern-Diagnose — was im Klassenraum hilft, ist die schul-spezifische Anpassung, nicht die Familien-Anamnese.</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung, sehr geehrte Schulpsychologie,</p>
+      <p>ich möchte mit Ihnen über [Klient-Name] und die Eltern-Schul-Kommunikation in dieser Familie sprechen. [Klient-Name] hat ein Asperger-Profil, und in der Familienanamnese gibt es starke Hinweise, dass mindestens ein Elternteil autistische Anteile teilt — das ist bei der Erblichkeit von ASS klinisch nicht ungewöhnlich.</p>
+      <p>Was das praktisch bedeutet: die Familie kommuniziert oft anders, als Schulen es gewohnt sind. Direkt, sachlich, faktenorientiert, ohne emotionale Verpackung. Wenn ein Elternteil auf eine Mitteilung sehr kurz und präzise antwortet, ist das nicht Distanziertheit — es ist effiziente autistische Kommunikation. Wenn auf Elternabenden Smalltalk nicht funktioniert, ist das nicht Desinteresse, sondern eine andere soziale Konfiguration.</p>
+      <p>Praktisch bitten wir um drei Anpassungen in der Schul-Kommunikation: erstens, bevorzugt schriftlich (E-Mail, kurze Notiz) statt telefonisch oder spontan. Zweitens, klare Agenda-Punkte vor jedem Gespräch — die Familie kann sich dann konkret vorbereiten. Drittens, direkte Botschaften statt indirekter Andeutungen — wenn etwas zu besprechen ist, bitte konkret benennen, nicht zwischen den Zeilen.</p>
+      <p>Im Gegenzug bekommen Sie eine sehr verlässliche Kommunikationspartnerschaft: diese Familie folgt Vereinbarungen genau, gibt konkrete Rückmeldung, und hat oft schon viel praktisches Wissen über das ASS-Profil ihres Kindes. Können wir auf dieser Basis arbeiten?"</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Schriftliche Kommunikation mit Eltern bevorzugen: E-Mail, Klassenheft, kurze Notizen.</strong> Begründung: schriftliche Kommunikation gibt autistischen Eltern Zeit zur Vorbereitung und passt zu ihrer Verarbeitungspräferenz. Schnelle telefonische Spontan-Kontakte überfordern oft sozial-pragmatisch.</li>
+      <li><strong>Termine mit klaren Agenda-Punkten und schriftlicher Voranmeldung.</strong> Begründung: ein Eltern-Gespräch mit unklarem Thema ist für autistische Eltern besonders belastend — sie können sich nicht vorbereiten und müssen in Echtzeit reagieren. Mit klarer Agenda kommt die volle Kompetenz zum Tragen.</li>
+      <li><strong>Direkte Botschaften statt indirekter Andeutungen.</strong> Begründung: „Wir machen uns ein bisschen Sorgen" wird wörtlich verstanden und nicht als Eskalations-Signal entschlüsselt. Konkret benennen, was Sache ist, mit klaren Beispielen, ist verlässlicher.</li>
+      <li><strong>Anpassungen für den Klienten wie üblich (Sitzplatz, Routinen, sensorisch).</strong> Begründung: die Schul-Strategie für das Kind folgt der Standard-Asperger-Logik. Das familiäre Profil ist Kontext, nicht primärer Faktor in der Klasse selbst. Was im Klassenraum passiert, ist unabhängig von der Eltern-Diagnose.</li>
+      <li><strong>Elternabende und Klassenfeste mit klarer Struktur ankündigen.</strong> Begründung: unstrukturierte soziale Schul-Events sind für autistische Eltern oft eine Hochbelastungs-Situation. Klare Agenda, Zeitplan, optionale Teilnahme an Smalltalk-Phasen — alles, was die soziale Last reduziert, erhöht die Wahrscheinlichkeit der Teilnahme.</li>
+      <li><strong>Eltern als Co-Therapeuten respektieren.</strong> Begründung: in diesen Familien hat der autistische Elternteil oft jahrelange Eigen-Erfahrung mit dem Profil und kennt die internen Mechanismen besser als jeder Lehrer. Eltern-Vorschläge ernst nehmen, nicht durch eine pädagogische Standard-Linse filtern.</li>
+      <li><strong>Bei nicht-autistischem Elternteil: Burnout-Risiko mitbedenken.</strong> Begründung: der nicht-autistische Elternteil leistet oft die „Übersetzungs-Arbeit" zwischen autistischem Partner und autistischem Kind, und auch zwischen Familie und Schule. Wenn die Schule diesen Elternteil chronisch überfordert mit unklaren Anfragen, erhöht das familiäres Eskalations-Risiko.</li>
+      <li><strong>Schul-Diagnostik-Ergebnisse mit fachlicher Sprache, nicht mit Verharmlosungen.</strong> Begründung: autistische Eltern nehmen fachliche Sprache präziser auf als pädagogische Vagheiten. „IQ 138 in VCI, 102 in PSI, Differenz klinisch relevant" ist informativer als „Ihr Kind hat eine besondere Begabung in manchen Bereichen".</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>Eltern-Gespräche mit emotional offener Form ohne Vorabklärung.</strong> Warum nicht: „Erzählen Sie mal, wie es Ihnen mit Ihrem Sohn geht" ist für autistische Eltern eine sozial-pragmatisch unmögliche Eröffnung. Konkrete Fragen, konkrete Themen — das funktioniert.</li>
+      <li><strong>Telefonische Spontan-Kontakte ohne schriftliche Voranmeldung.</strong> Warum nicht: unangekündigtes Telefonat zwingt zu Echtzeit-Reaktion auf unbekanntem Thema — überlastet sozial-pragmatisch. E-Mail oder schriftliche Voranfrage mit Antwortzeit-Erwartung.</li>
+      <li><strong>Implizite Erwartungen an Eltern-Engagement („Sie kommen doch auch zur Klassenaufführung?").</strong> Warum nicht: rhetorische Fragen werden wörtlich verstanden, und falls die Antwort ehrlich „nein" ist, wird das als Desinteresse gelesen. Klare Frage: „Können Sie teilnehmen, ja oder nein?" gibt klare Antwort.</li>
+      <li><strong>Implizite Botschaften zwischen den Zeilen.</strong> Warum nicht: kommen nicht an. Wenn die Schule ein Problem signalisieren will, muss sie es direkt benennen, sonst wird es nicht erkannt — und die Schule frustriert sich, weil „die Eltern reagieren ja nicht".</li>
+      <li><strong>Eltern-Diagnose-Vermutungen seitens der Schule.</strong> Warum nicht: nicht Aufgabe der Schule. Wenn die Schule den autistischen Anteil des Elternteils thematisiert, überschreitet sie eine Grenze und beschädigt die Kooperation. Der Therapeut adressiert das, wenn überhaupt, mit der Familie direkt.</li>
+    </ol>`,
+    schuleWer: `<p>Klassenleitung als Hauptansprechperson. Bei mehreren Themen oder strukturellen Anpassungen Schulpsychologie einbeziehen. Schulleitung nur bei formalen Anpassungen. Wichtig: möglichst wenige Wechsel-Kontakte — autistische Eltern bauen Kommunikations-Routinen zu einer bestimmten Person auf, die nicht beliebig austauschbar sind. Wenn ein Lehrkraft-Wechsel bevorsteht: gemeinsame Übergabe mit alter und neuer Person, schriftliche Dokumentation aller bestehenden Vereinbarungen.</p>`,
+    schuleFrequenz: `<p>Alle sechs bis acht Wochen schriftliche Updates an Eltern, mit klarer Struktur (was läuft, was Sorge macht, was als nächstes). Eltern-Termine alle zwei bis drei Monate, mit Agenda zwei Wochen vorher. Bei akuten Themen schriftliche Voranmeldung mit Themen-Punkten, dann zeitnahes Treffen.</p>`,
+    schuleEskalation: `<p><strong>Wenn die Schule-Eltern-Kommunikation entgleist:</strong></p>
+      <ol>
+        <li>Erste Stufe: Praxis-Vermittlung — Therapeut kann als „Übersetzer" zwischen Schul-Kommunikations-Erwartung und Familien-Kommunikations-Realität fungieren.</li>
+        <li>Bei dauerhaftem Konflikt: gemeinsames Treffen Schule-Eltern-Praxis mit klarer Agenda und Moderation, um Missverständnisse aufzulösen.</li>
+        <li>Bei Schule, die das Profil nicht akzeptiert: Schul-Wechsel ernsthaft prüfen — manche Schulen passen besser zu autistischen Familien-Kommunikations-Stilen als andere.</li>
+        <li>Bei Eltern-Erschöpfung des nicht-autistischen Elternteils: explizit thematisieren, eventuell Eltern-Therapie empfehlen.</li>
+        <li>Bei strukturellen Anpassungen, die die Schule verweigert: schriftliche klinische Stellungnahme an Schulleitung, eventuell rechtliche Beratung.</li>
+      </ol>`,
 
     eskFrequenz: `<p>Bei familiärer Krise (Eltern-Erschöpfung, Beziehungs-Konflikt der Eltern). Bei Schul-Krise. Bei akuter Symptom-Verschlechterung.</p>`,
     eskKjp: `<p>Bei suizidaler Krise des Klienten. Bei Frage nach Pharmakotherapie. Bei zusätzlicher Diagnostik-Frage.</p>`,
@@ -7893,18 +8020,39 @@ PLAN_MUSTER_ASPERGER.push({
       }
     ],
 
-    schuleKommunikation: `<p>„Diese:r Schüler:in ist im Autismus-Spektrum und aktuell gut funktional. Es geht nicht um Krisen-Management, sondern um Vorbereitung auf Übergänge. Ein paar Anpassungen jetzt verhindern später Probleme."</p>`,
-    schuleAnpassungen: `<ul>
-      <li>Bei Schulwechsel: Vorbereitungs-Gespräch mit neuer Schule.</li>
-      <li>Berufsorientierung mit Fokus auf Stärken-Profil.</li>
-      <li>Erlaubnis für Rückzug bei Bedarf, ohne Stigmatisierung.</li>
-    </ul>`,
-    schuleNicht: `<ul>
-      <li>Keine Sondermaßnahmen, wenn aktuell nicht nötig — wirkt patronisierend.</li>
-      <li>Keine ungebetene öffentliche Thematisierung.</li>
-    </ul>`,
-    schuleWer: `<p>Klassenleitung, bei Übergängen Schulpsychologie oder Berufsberatung.</p>`,
-    schuleFrequenz: `<p>Alle 3–4 Monate, vor Übergängen häufiger.</p>`,
+    schuleProblem: `<p>Bei einem stabilen Asperger-Profil ohne akute Komorbiditäten ist die schulische Lage paradox: weil aktuell „alles läuft", besteht das größte Risiko darin, dass präventive Maßnahmen unterlassen werden. Camouflaging ist hier oft automatisiert und unsichtbar — der Klient strengt sich an, normal zu wirken, was im Schul-Alltag scheinbar funktioniert, aber langfristig die Burnout-Inkubation produziert. Die Schule sieht eine unauffällige Schülerin oder einen unauffälligen Schüler und sieht keinen Anlass für Anpassungen. Die Aufgabe der Schul-Strategie ist hier nicht Krisen-Management, sondern präventive Architektur: rechtzeitig Anpassungen einbauen, bevor sie nötig werden; Übergänge proaktiv begleiten; Selbstadvokatie aufbauen, damit der Klient später eigene Bedürfnisse benennen kann. Minimal-invasiv bedeutet nicht „nichts tun", sondern „nur das, was wirklich greift, und das proaktiv".</p>`,
+    schuleKommunikation: `<p>„Sehr geehrte Klassenleitung,</p>
+      <p>ich möchte Sie kurz informieren, dass [Klient:in-Name] im Autismus-Spektrum ist. Aktuell ist die Lage stabil — sie/er funktioniert in der Klasse gut, hat keine akuten Symptome. Genau deshalb möchte ich nicht über Krisen sprechen, sondern über präventive Anpassungen.</p>
+      <p>Was wir aus der Klinik wissen: bei Klienten mit gut funktionierendem Asperger-Profil läuft im Hintergrund oft eine erhebliche Anstrengung — wir nennen das Camouflaging. Sie kompensieren ihre Verarbeitungs-Eigenheiten durch bewusste oder unbewusste Anpassung. Das funktioniert in der Adoleszenz oft erstaunlich lange, kann aber in der späten Adoleszenz oder im frühen Erwachsenenalter zu Burnout führen. Die Forschungslage dazu ist konvergent.</p>
+      <p>Praktisch heißt das: ich bitte um wenige, aber gut platzierte Anpassungen. Vor jedem Schulwechsel (Klassenwechsel, neue Schule, neue Lehrkraft) ein kurzes Vorbereitungs-Gespräch. Erlaubnis für Rückzug bei Bedarf, ohne Stigmatisierung — eine Möglichkeit, im Schultag mal fünf Minuten allein zu sein, ohne dass das pädagogisch interpretiert wird. Bei der Berufsorientierung Fokus auf das Stärken-Profil, nicht auf Defizite. Mehr brauchen wir aktuell nicht — und das sage ich explizit, weil zu viele Anpassungen patronisierend wirken können.</p>
+      <p>Bei jeder Veränderung in der Symptomatik melde ich mich direkt. Können wir auf dieser Basis arbeiten?"</p>`,
+    schuleAnpassungen: `<ol class="schule-anpassungen">
+      <li><strong>Information der Klassenleitung über das ASS-Profil, ohne öffentliche Thematisierung.</strong> Begründung: die Lehrkraft braucht das Wissen, um Verhalten richtig zu lesen — zum Beispiel um nicht zu interpretieren, dass Rückzug nach einer Konfliktdiskussion „Trotz" ist. Aber das Wissen bleibt bei der Lehrkraft; die Klasse erfährt es nicht aktiv.</li>
+      <li><strong>Vorbereitungs-Gespräche vor jedem Schul- oder Klassenwechsel.</strong> Begründung: Übergänge sind die kritischen Punkte bei stabilen Klienten. Ein 30-Minuten-Gespräch mit der neuen Lehrkraft, vor dem Schuljahresbeginn, kann viel später anstehende Krisen verhindern. Das ist die wichtigste Einzel-Maßnahme bei diesem Profil.</li>
+      <li><strong>Erlaubnis für Rückzug bei Bedarf, ohne Stigmatisierung.</strong> Begründung: auch bei stabilem Profil gibt es Tage mit höherer Reizdichte oder sozialer Belastung. Niederschwellige Rückzugs-Möglichkeit (Bibliothek, Schulpsychologen-Büro, ruhiger Raum) ist Burnout-Prävention. Wichtig: kein Akt, keine Begründung, kein pädagogisches Folgegespräch.</li>
+      <li><strong>Berufsorientierung mit Fokus auf Stärken-Profil und sensorisches Profil.</strong> Begründung: bei stabilen autistischen Klienten ist die Berufswahl der wichtigste langfristige Faktor. Eine Berufsorientierung, die das WISC-V-Profil ernst nimmt und Spezialinteresse als Berufs-Anker behandelt, kann den Lebenslauf entscheidend prägen. Standard-Berufsorientierung verfehlt diese Klienten oft.</li>
+      <li><strong>Nachteilsausgleich bei Klausuren auf Anfrage, nicht automatisch.</strong> Begründung: bei stabilem Profil ist Nachteilsausgleich nicht reflexartig nötig — es kann patronisierend wirken. Aber die Option muss klar verfügbar sein, falls der Klient es einfordert (Selbstadvokatie). Schulpsychologie kennt das Vorgehen.</li>
+      <li><strong>Klassen-Aktivitäten mit hoher sensorischer oder sozialer Last (Klassenfahrt, Schul-Disco) freiwillig.</strong> Begründung: bei stabilen Klienten kann die Teilnahme funktionieren, aber muss nicht. Pflicht-Teilnahme an reizdichten Events kann den ersten Burnout-Trigger setzen. Freiwilligkeit ist Prävention.</li>
+      <li><strong>Bei Annäherung an Schulabschluss: Übergangs-Begleitung intensivieren.</strong> Begründung: der Übergang in Studium, Lehre oder Beruf ist der klassische Burnout-Auslöser bei diesem Profil. Begleitung ab dem vorletzten Schuljahr, mit klarem Berufs-/Studien-Plan, reduziert das Risiko substanziell.</li>
+      <li><strong>Schul-Psychologie als bekannter Ansprechpartner verfügbar machen, ohne Pflicht-Termine.</strong> Begründung: der Klient soll wissen, dass es eine Anlaufstelle gibt, wenn er sie brauchen sollte. Vorab-Termin für ein Kennenlernen am Anfang des Schuljahres — danach „verfügbar wenn du willst". Niederschwellige Hilfe ohne Aufdrängen.</li>
+    </ol>`,
+    schuleNicht: `<ol class="schule-nicht">
+      <li><strong>Keine Sondermaßnahmen, wenn aktuell nicht nötig — wirkt patronisierend.</strong> Warum nicht: bei einem Klienten, der gut funktioniert, produzieren übermäßige Anpassungen das Gefühl, als „Sonderfall" behandelt zu werden. Das untergräbt Selbstvertrauen und macht spätere notwendige Anpassungen schwerer einzufordern. Minimal-invasiv ist Programm.</li>
+      <li><strong>Keine ungebetene öffentliche Thematisierung in der Klasse.</strong> Warum nicht: zerstört Diskretion und kann soziale Position des Klienten verändern. Wenn der Klient selbst seine Diagnose offen kommuniziert, ist das seine Wahl. Schule darf das nicht ohne Einverständnis tun.</li>
+      <li><strong>Keine Pflicht-Teilnahme an Sozialkompetenz-Training oder ASS-Gruppen.</strong> Warum nicht: bei stabilem Profil sind solche Maßnahmen meist nicht nur unnötig, sondern können Camouflaging verstärken — sie lehren explizit, soziale Codes zu performieren. Das ist genau der Mechanismus, der langfristig Burnout produziert.</li>
+      <li><strong>Keine routinemäßigen „Wie geht es dir?"-Termine ohne Anlass.</strong> Warum nicht: produziert Druck, etwas berichten zu müssen, obwohl gerade nichts ist. Verfügbar sein ja, aktiv abfragen nein. Niederschwelligkeit statt Pflicht-Routine.</li>
+      <li><strong>Keine Verallgemeinerung auf andere autistische Schüler.</strong> Warum nicht: Lehrkräfte neigen manchmal dazu, Erfahrungen mit einem ASS-Schüler auf andere zu übertragen. Jedes Profil ist anders — was bei diesem Klienten funktioniert, kann bei einem anderen genau falsch sein.</li>
+    </ol>`,
+    schuleWer: `<p>Klassenleitung als minimaler Hauptansprechpartner. Schulpsychologie als verfügbare, aber nicht aktiv aufgedrängte Ressource. Bei Übergängen Schulpsychologie oder Berufsberatung aktiv einbeziehen — das ist der Punkt, an dem Investition am meisten Wert hat. Schulleitung nur bei strukturellen Anpassungen. Keine erweiterte Helfer-Konferenz nötig, solange die Lage stabil ist.</p>`,
+    schuleFrequenz: `<p>Alle drei bis vier Monate kurzer schriftlicher Austausch mit der Klassenleitung — ein konkreter Status-Check, mehr nicht. Vor Übergängen (Schuljahreswechsel, Klassenwechsel, Lehrer-Wechsel, Übergang zu höherer Schule oder Lehre) verdichten auf monatliche Kontakte für zwei bis drei Monate. Bei jeder Symptom-Veränderung oder neuen Belastung sofort melden — niederschwelliger Zugang.</p>`,
+    schuleEskalation: `<p><strong>Wenn präventive Maßnahmen nicht umgesetzt werden:</strong></p>
+      <ol>
+        <li>Erste Stufe: schriftliche Erinnerung an die wenigen vereinbarten Anpassungen — bei stabilen Klienten werden Vereinbarungen oft vergessen, weil keine akute Symptomatik präsent ist.</li>
+        <li>Bei Schulwechsel ohne Vorbereitungs-Gespräch: aktiv von Klinikseite Kontakt zur neuen Schule herstellen, kurze schriftliche Übergabe.</li>
+        <li>Bei Auftreten erster Burnout-Anzeichen: sofort Frequenz erhöhen, Schul-Belastung neu bewerten, eventuell auf intensiveres Behandlungs-Profil umschalten (dann ist „Muster 8" nicht mehr die richtige Beschreibung).</li>
+        <li>Bei strukturellen Veränderungen im Schul-Setting (neuer Stundenplan mit mehr sozialer Last, neue Klassenstruktur), die das Profil destabilisieren könnten: proaktive Anpassungs-Anfrage.</li>
+        <li>Bei Übergangs-Krise vor Schulabschluss: Berufs-Beratung mit ASS-Schwerpunkt einbeziehen, eventuell zeitweise höhere Therapie-Frequenz.</li>
+      </ol>`,
 
     eskFrequenz: `<p>Bei plötzlicher Symptom-Veränderung. Bei Burnout-Anzeichen (auch leichten). Bei sozialer Krise.</p>`,
     eskKjp: `<p>Bei Auftreten relevanter Komorbiditäten. Bei suizidaler Krise. Bei Medikamenten-Frage.</p>`,
