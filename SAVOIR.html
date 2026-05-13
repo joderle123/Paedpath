@@ -4234,48 +4234,39 @@ const BEREICH_STRUKTUR = {
       { ebene: 'symptom-fokus', label: 'Symptom-Fokus', tabClass: 'tab-plan' }
     ]
   },
-  /* ADHS-unaufmerksam — Phase 1 der Drei-Bereich-Architektur.
-     WISSEN: bestehende fünf Wissens-Ebenen, identisch in Reihenfolge und Tab-Klassen zu Asperger.
-     PROFIL-DIAGNOSE: Platzhalter (Soll-Struktur kommt in Phase 2 — Symptom-basierte Erkennung der
-       acht ADHS-Muster mit Kontext-Fragen, Symptom-Kategorien wie Aufmerksamkeit/Exekutive,
-       Time-Blindness, RSD, Lern-Schul-Verhalten, Soziales, Affekt, Risiken,
-       Behandlungs-Geschichte, plus gewichtetem Muster-Scoring analog zu Asperger).
-     HANDELN: Platzhalter (Soll-Struktur kommt in Phase 3 und 4 — Behandlungs-Plan mit Mustern
-       analog Asperger (sechs Bloecke pro Muster, ausgebauter Schul-Strategie-Block),
-       Praxis-Werkzeuge (Inhalte bestehen in TOPICS['adhs-unaufmerksam'].ebenen.praxis und
-       werden in Phase 4 unter HANDELN integriert), Symptom-Fokus für pedopsychiater-tiefe
-       Antworten zu klinischen Einzelfragen).
-     Die Placeholder-Ebenen-IDs ('adhs-profil-placeholder', 'adhs-handeln-placeholder')
-     werden in renderEbene über einen generischen Placeholder-Renderer behandelt. */
+  /* ADHS-unaufmerksam — Phase 1 brachte die Architektur, Phase 2 befüllt PROFIL-DIAGNOSE.
+     WISSEN: fünf Wissens-Ebenen plus Profile-Übersicht (analog Asperger, sobald Phase-2-Daten da sind).
+     PROFIL-DIAGNOSE: zwei Sub-Tabs (Symptom-Auswahl + Erkanntes Muster), nutzt SYMPTOM_DIAGNOSE_ADHS
+       und MUSTER_KURZ_ADHS über die topic-aware Render-Funktionen.
+     HANDELN: einzelner Sub-Tab 'behandlungs-plan' — zeigt aktuell einen Platzhalter mit dem
+       Namen des aus der Symptom-Diagnose ermittelten Top-Musters (Bloecke kommen in Phase 3).
+       Praxis und Symptom-Fokus werden in Phase 4 ergänzt. */
   'adhs-unaufmerksam': {
     wissen: [
       { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
       { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
       { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
       { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'profile-uebersicht', label: 'Profile', tabClass: '' },
       { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
     ],
     profil: [
-      { ebene: 'adhs-profil-placeholder', label: 'Profil-Diagnose', tabClass: 'tab-plan' }
+      { ebene: 'symptom-auswahl', label: 'Symptom-Auswahl', tabClass: 'tab-plan' },
+      { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
     ],
     handeln: [
-      { ebene: 'adhs-handeln-placeholder', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
     ]
   }
 };
 
 /* Placeholder-Texte für Bereiche, die noch nicht inhaltlich gebaut sind.
-   Pro Ebene-ID: Überschrift + Beschreibung des geplanten Inhalts. */
-const BEREICH_PLACEHOLDERS = {
-  'adhs-profil-placeholder': {
-    titel: 'Wird in Phase 2 gebaut',
-    text: 'Symptom-basierte Erkennung der acht ADHS-Muster — analog zur Asperger-Profil-Diagnose mit Kontext-Fragen (Alter, Geschlecht, Schulsituation, Familie), Symptom-Kategorien (Aufmerksamkeit / Exekutive, Time-Blindness, RSD, Lern-Schul-Verhalten, Soziales, Affekt, akute Risiken, Behandlungs-Geschichte) und gewichtetem Muster-Scoring mit CTA-Button zum Behandlungs-Plan. Bis dahin: nutze die Wissens-Ebenen für klinische Orientierung.'
-  },
-  'adhs-handeln-placeholder': {
-    titel: 'Wird in Phase 3 und 4 gebaut',
-    text: 'Behandlungs-Plan mit Mustern (analog Asperger: sechs Bloecke pro Muster mit ausgebauter Schul-Strategie), Praxis-Werkzeuge (bestehende Inhalte werden in Phase 4 unter HANDELN integriert), und Symptom-Fokus für pedopsychiater-tiefe Antworten zu klinischen Einzelfragen. Bis dahin: die Wissens-Ebenen tragen die klinische Tiefe; bestehende Praxis-Inhalte werden in Phase 4 reaktiviert.'
-  }
-};
+   Pro Ebene-ID: Überschrift + Beschreibung des geplanten Inhalts. Wird via
+   BEREICH_PLACEHOLDERS[ebene]-Lookup in renderEbene aufgelöst. Aktuell leer —
+   ADHS-Profil-Diagnose ist in Phase 2 fertig; der Behandlungs-Plan-Platzhalter
+   für ADHS wird im 'behandlungs-plan'-Branch in renderEbene direkt gerendert,
+   weil er den dynamisch ermittelten Top-Muster-Namen einbinden muss. */
+const BEREICH_PLACEHOLDERS = {};
 
 function hasBereichStruktur(topicId) {
   return !!BEREICH_STRUKTUR[topicId];
@@ -4644,7 +4635,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'symptom-auswahl') {
-    if (topic.id === 'asperger') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam') {
       const ps = loadPlanState(topic.id);
       renderSymptomAuswahl(topic, ps, body);
     } else {
@@ -4659,7 +4650,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'erkanntes-muster') {
-    if (topic.id === 'asperger') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam') {
       const ps = loadPlanState(topic.id);
       renderErkanntesMuster(topic, ps, body);
     } else {
@@ -4676,7 +4667,7 @@ function renderEbene() {
   if (ebene === 'behandlungs-plan') {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
-    // Für Asperger: wenn keine Symptome ausgewählt, zur Symptom-Auswahl umleiten
+    // Asperger: volle Bloecke via renderPlan. ADHS: Phase-3-Platzhalter mit Top-Muster-Name.
     if (topic.id === 'asperger') {
       const ps = loadPlanState(topic.id);
       if (!Array.isArray(ps.symptome) || ps.symptome.length === 0) {
@@ -4704,6 +4695,52 @@ function renderEbene() {
         ps.generiert = Date.now();
         savePlanState(topic.id, ps);
       }
+      renderPlan(topic, body);
+      audioPanel.style.display = 'none';
+      audioCtrls.style.display = 'none';
+      readBtn.style.display = 'none';
+      stopSpeech();
+      return;
+    }
+    if (topic.id === 'adhs-unaufmerksam') {
+      const ps = loadPlanState(topic.id);
+      if (!Array.isArray(ps.symptome) || ps.symptome.length === 0) {
+        body.innerHTML = `
+          <section class="plan">
+            <div class="plan-empty-match symdia-empty">
+              <strong>Behandlungs-Plan braucht erst eine Profil-Diagnose.</strong>
+              <p>Geh zur <em>Symptom-Auswahl</em> in Profil-Diagnose und kreuze die beobachtbaren Symptome an.</p>
+              <button class="plan-generate-btn" data-tool="goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
+            </div>
+          </section>`;
+        document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
+          STATE.currentEbene = 'symptom-auswahl';
+          setupTopicNavigation(topic);
+          renderEbene();
+        });
+      } else {
+        const results = computeSymptomScores(ps, topic.id);
+        const topMuster = results.length > 0 ? results[0].muster : null;
+        const topName = topMuster ? topMuster.name : 'das erkannte Muster';
+        body.innerHTML = `
+          <section class="plan">
+            <div class="plan-empty-match symdia-empty">
+              <strong>Wird in Phase 3 gebaut.</strong>
+              <p>Behandlungs-Plan für <em>${escHtml(topName)}</em> — mit sechs Bloecken pro Muster (Profil-Erkennung, Risikoprofil, Therapieansatz, vier Phasen, ausgebaute Schul-Strategie, Eskalations-Indikatoren), analog zur Asperger-Implementierung. Bis dahin trägt die Wissens-Tiefe die klinische Orientierung; das Praxis-Modul und Symptom-Fokus folgen in Phase 4.</p>
+              <button class="plan-reset-btn" data-tool="goto-symptom-auswahl">← Symptom-Auswahl anpassen</button>
+            </div>
+          </section>`;
+        document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
+          STATE.currentEbene = 'symptom-auswahl';
+          setupTopicNavigation(topic);
+          renderEbene();
+        });
+      }
+      audioPanel.style.display = 'none';
+      audioCtrls.style.display = 'none';
+      readBtn.style.display = 'none';
+      stopSpeech();
+      return;
     }
     renderPlan(topic, body);
     audioPanel.style.display = 'none';
@@ -5588,12 +5625,23 @@ const SYMPTOM_DIAGNOSE_ASPERGER = {
 // damit Symptome demografische Kontext-Antworten klar dominieren.
 const SYMPTOM_WEIGHT_MULT = 5;
 
-function computeSymptomScores(ps) {
+/* Score-Berechnung pro Muster — topic-aware via Registry. Topic-ID optional,
+   default ist STATE.currentTopicId. Identische Scoring-Logik für alle Topics:
+   Symptom-Gewichte werden mit SYMPTOM_WEIGHT_MULT (=5) multipliziert; Kontext-Werte
+   werden roh aufaddiert (Asperger speichert sie raw, ADHS speichert sie vor-multipliziert).
+   Negativ-Symptome ziehen pro Vorkommen ab. */
+function computeSymptomScores(ps, topicId) {
+  topicId = topicId || (typeof STATE !== 'undefined' ? STATE.currentTopicId : null);
+  if (typeof symptomDiagnoseFor !== 'function') return [];
+  const diag = symptomDiagnoseFor(topicId);
+  const plan = planMusterFor(topicId);
+  if (!diag || !diag.musterScores) return [];
+
   const ctx = ps.kontext || {};
   const syms = ps.symptome || [];
   const out = [];
-  for (const musterId of Object.keys(SYMPTOM_DIAGNOSE_ASPERGER.musterScores)) {
-    const def = SYMPTOM_DIAGNOSE_ASPERGER.musterScores[musterId];
+  for (const musterId of Object.keys(diag.musterScores)) {
+    const def = diag.musterScores[musterId];
     let score = 0;
     if (def.kontext) {
       for (const k of Object.keys(def.kontext)) {
@@ -5612,9 +5660,7 @@ function computeSymptomScores(ps) {
       }
     }
     if (score > 0) {
-      const muster = (typeof PLAN_MUSTER_ASPERGER !== 'undefined')
-        ? PLAN_MUSTER_ASPERGER.find(m => m.id === musterId)
-        : null;
+      const muster = plan.find(m => m.id === musterId);
       if (muster) out.push({ muster, score });
     }
   }
@@ -5633,6 +5679,219 @@ const MUSTER_KURZ_ASPERGER = {
   'asperger-parental-asd': 'Mindestens ein Elternteil ist selbst im Spektrum (oft unentdeckt). Kommunikation respektvoll und direkt — die Familie hat eigene autismusgerechte Codes, die du nutzt statt zu pathologisierst.',
   'asperger-funktional': 'Stabiler adoleszenter Asperger ohne akute Komorbiditäten. Identitäts-Arbeit, Selbstadvokatie, Übergangs-Vorbereitung. Camouflaging-Audit als zentrale Prävention für späteren Burnout.'
 };
+
+/* ============ SYMPTOM-DIAGNOSE — ADHS, unaufmerksamer Typ (Phase 2) ============
+   Acht ADHS-Muster (M1–M8). Symptom-Gewichte 3/2/1 werden via SYMPTOM_WEIGHT_MULT (×5)
+   verstärkt. Kontext-Boost-Werte sind hier bereits vor-multipliziert gespeichert
+   (z. B. +1 boost → kontext-wert 5, +2 boost → kontext-wert 10), damit computeSymptomScores
+   unverändert über alle Topics laufen kann (Asperger nutzt raw kontext-werte ohne Multiplikator). */
+const SYMPTOM_DIAGNOSE_ADHS = {
+  kontextFragen: [
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'schulphase', titel: 'Schul-Phase', optionen: [
+      { val: 'grundschule', text: 'Grundschule (Klasse 1–4)' },
+      { val: 'mittelstufe', text: 'Mittelstufe (Klasse 5–8)' },
+      { val: 'sek-ii', text: 'Sekundarstufe II (Klasse 9–12+)' },
+      { val: 'uebergang', text: 'Übergang nach Schule' }
+    ]},
+    { id: 'kognitiv', titel: 'Kognitives Profil', optionen: [
+      { val: 'hochbegabt-diag', text: 'Hochbegabung diagnostiziert' },
+      { val: 'hinweise-begabung', text: 'Hinweise auf hohe Begabung' },
+      { val: 'unauffaellig', text: 'unauffällig' },
+      { val: 'hinweise-lern', text: 'Hinweise auf Lernschwierigkeiten' },
+      { val: 'unbekannt', text: 'unbekannt' }
+    ]},
+    { id: 'familien-adhs', titel: 'Familien-Anamnese ADHS', optionen: [
+      { val: 'eltern-diag', text: 'ADHS bei Elternteil diagnostiziert' },
+      { val: 'eltern-hinweise', text: 'Hinweise auf ADHS bei Elternteil' },
+      { val: 'nicht-bekannt', text: 'nicht bekannt' },
+      { val: 'unbekannt', text: 'unbekannt' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'kog', titel: 'Aufmerksamkeit und kognitive Prozesse', symptome: [
+      { id: 's1-1', text: 'Tagträumt in der Schule, driftet ab' },
+      { id: 's1-2', text: 'Beginnt Aufgaben, bricht sie ab bevor sie zu Ende sind' },
+      { id: 's1-3', text: 'Überhört direkte Ansprache, wenn vertieft' },
+      { id: 's1-4', text: 'Übersieht Details bei schriftlichen Aufgaben (careless errors)' },
+      { id: 's1-5', text: 'Hyperfokus auf Spezialinteresse möglich (Stunden am Stück)' }
+    ]},
+    { id: 'exec', titel: 'Exekutive Funktionen', symptome: [
+      { id: 's2-1', text: 'Verliert chronisch Materialien (Schlüssel, Hefte, Brille)' },
+      { id: 's2-2', text: 'Vergisst Hausaufgaben oder bringt sie nicht zurück' },
+      { id: 's2-3', text: 'Time-Blindness — chronisch zu spät trotz Willens' },
+      { id: 's2-4', text: 'Kann Aufgaben nicht priorisieren' },
+      { id: 's2-5', text: 'Verschiebt bis zur akuten Krise' },
+      { id: 's2-6', text: 'Zimmer oder Schreibtisch dauerhaft chaotisch' }
+    ]},
+    { id: 'schule', titel: 'Schul-Profil', symptome: [
+      { id: 's3-1', text: 'Mündlich brilliant, schriftlich blockiert' },
+      { id: 's3-2', text: 'Test-Versagen trotz vorhandenem Wissen' },
+      { id: 's3-3', text: 'Krise erst ab Mittelstufe oder nach Setting-Wechsel' },
+      { id: 's3-4', text: 'WISC-V-Spreizung: VCI hoch, Arbeitsgedächtnis und Verarbeitungsgeschwindigkeit niedrig' },
+      { id: 's3-5', text: 'Hausaufgaben „verschwinden" zwischen Heft und Lehrer' },
+      { id: 's3-6', text: 'Massive Leistungsschwankungen je nach Tagesform' }
+    ]},
+    { id: 'emo', titel: 'Emotion und Selbstwert', symptome: [
+      { id: 's4-1', text: 'Extreme emotionale Reaktion auf wahrgenommene Zurückweisung' },
+      { id: 's4-2', text: 'Scham nach Kritik hält tagelang an' },
+      { id: 's4-3', text: 'Chronische körperliche Erschöpfung' },
+      { id: 's4-4', text: 'Depressive Verstimmung sekundär nach Schul-Versagen' },
+      { id: 's4-5', text: 'Niedriges Selbstwertgefühl trotz objektiver Begabung' },
+      { id: 's4-6', text: 'Beschreibt sich selbst als „dumm" oder „faul"' }
+    ]},
+    { id: 'sozial', titel: 'Sozial und Beziehung', symptome: [
+      { id: 's5-1', text: 'Wenige stabile Freundschaften trotz sozialen Wunsches' },
+      { id: 's5-2', text: 'Unterbricht im Gespräch oder hört nicht zu' },
+      { id: 's5-3', text: 'Vergisst Verabredungen oder kommt verspätet' },
+      { id: 's5-4', text: 'Marker für Asperger zusätzlich vorhanden (Spezialinteressen mit System-Charakter, Routinen-Bedürfnis, sensorische Empfindlichkeit)' }
+    ]},
+    { id: 'verhalten', titel: 'Verhalten, Kompensation, Substanz', symptome: [
+      { id: 's6-1', text: 'Aktuelle Schulverweigerung' },
+      { id: 's6-2', text: 'Cannabis-Konsum berichtet' },
+      { id: 's6-3', text: 'Beschreibt Cannabis als „beruhigend" oder „konzentrationsfördernd"' },
+      { id: 's6-4', text: 'Extreme Aufgabenvermeidung' },
+      { id: 's6-5', text: 'Kompensatorische Hochleistung in begrenztem Bereich (auf Kosten des Nervensystems)' },
+      { id: 's6-6', text: 'Camouflaging — verhält sich angepasst, ist intern überfordert' },
+      { id: 's6-7', text: 'Familien-Struktur instabil, externe Strukturierung schwierig' }
+    ]},
+    { id: 'schlaf', titel: 'Schlaf und Körper', symptome: [
+      { id: 's7-1', text: 'Verschobener Schlafrhythmus (spät einschlafen, spät aufstehen)' },
+      { id: 's7-2', text: 'Morgens schwer aus dem Bett' },
+      { id: 's7-3', text: '„Zweiter Wind" am Abend, abendliche Hyperaktivität' },
+      { id: 's7-4', text: 'Gedankenrasen beim Einschlafen' },
+      { id: 's7-5', text: 'Müdigkeit tagsüber, wach abends' },
+      { id: 's7-6', text: 'Chronische körperliche Beschwerden ohne medizinisches Korrelat' }
+    ]}
+  ],
+  /* Pro Muster: Kontext-Werte (vor-multipliziert mit 5) und Symptom-Gewichte (3 stark, 2 mittel,
+     1 schwach, intern ×5 via SYMPTOM_WEIGHT_MULT). Mapping invertiert aus dem Spec — pro Symptom
+     wird dort eine Liste von Mustern angegeben; hier pro Muster aufgesammelt. */
+  musterScores: {
+    'adhs-maedchen-spaet': {
+      kontext: { geschlecht: { 'weiblich': 5 } },
+      symptome: {
+        's1-1': 3, 's1-2': 2, 's1-3': 1, 's1-4': 2,
+        's3-1': 2, 's3-2': 2, 's3-3': 3, 's3-4': 2, 's3-6': 2,
+        's4-1': 2, 's4-2': 2, 's4-3': 3, 's4-4': 2, 's4-5': 2, 's4-6': 3,
+        's6-5': 3, 's6-6': 3,
+        's7-5': 2, 's7-6': 3
+      }
+    },
+    'adhs-hochbegabt': {
+      kontext: { kognitiv: { 'hochbegabt-diag': 10, 'hinweise-begabung': 5 } },
+      symptome: {
+        's1-1': 2, 's1-2': 2, 's1-4': 3, 's1-5': 3,
+        's2-1': 1, 's2-2': 1, 's2-3': 1, 's2-4': 3, 's2-5': 2, 's2-6': 1,
+        's3-1': 3, 's3-2': 3, 's3-3': 3, 's3-4': 3, 's3-5': 1, 's3-6': 2,
+        's4-3': 2, 's4-5': 3, 's4-6': 2,
+        's6-5': 2
+      }
+    },
+    'adhs-audhd': {
+      kontext: {},
+      symptome: {
+        's1-3': 2, 's1-5': 3,
+        's5-1': 2, 's5-2': 1, 's5-4': 3,
+        's6-6': 2
+      }
+    },
+    'adhs-rsd': {
+      kontext: {},
+      symptome: {
+        's4-1': 3, 's4-2': 3, 's4-5': 2,
+        's6-2': 1, 's6-4': 2,
+        's7-4': 2
+      }
+    },
+    'adhs-depression-sekundaer': {
+      kontext: {},
+      symptome: {
+        's1-1': 1,
+        's2-2': 2, 's2-3': 1, 's2-5': 2,
+        's3-6': 2,
+        's4-1': 2, 's4-2': 2, 's4-3': 3, 's4-4': 3, 's4-5': 2, 's4-6': 3,
+        's5-1': 1, 's5-3': 1,
+        's6-1': 2, 's6-2': 1, 's6-4': 2,
+        's7-1': 2, 's7-4': 1, 's7-5': 2, 's7-6': 2
+      }
+    },
+    'adhs-cannabis': {
+      kontext: {},
+      symptome: {
+        's6-2': 3, 's6-3': 3,
+        's7-1': 2
+      }
+    },
+    'adhs-eltern-adhs': {
+      kontext: { 'familien-adhs': { 'eltern-diag': 10, 'eltern-hinweise': 5 } },
+      symptome: {
+        's2-1': 2, 's2-2': 2, 's2-3': 1, 's2-6': 2,
+        's3-5': 2,
+        's5-2': 1, 's5-3': 1,
+        's6-7': 3
+      }
+    },
+    'adhs-schulverweigerung': {
+      kontext: {},
+      symptome: {
+        's1-2': 2, 's1-5': 1,
+        's2-2': 2, 's2-3': 3, 's2-4': 2, 's2-5': 3,
+        's6-1': 3, 's6-4': 3,
+        's7-2': 2
+      }
+    }
+  }
+};
+
+/* Kurz-Beschreibungen pro ADHS-Muster (Output 'Erkanntes Muster').
+   Werden in Phase 3 auch in Block 1 und Block 3 des Behandlungs-Plans gespiegelt. */
+const MUSTER_KURZ_ADHS = {
+  'adhs-maedchen-spaet': 'Mädchen oder junge Frau, deren ADHS jahrelang unter Anpassung und Kompensation versteckt war — bis das System einbricht, oft erst in der Mittelstufe oder am Übergang. Hauptaufgabe: Spätdiagnose anerkennen, Camouflaging reduzieren, sekundäre Depression und Selbstwert-Schaden mitbehandeln.',
+  'adhs-hochbegabt': 'Hochbegabung plus ADHS — die Begabung kompensiert die Aufmerksamkeits-Defizite, bis die Anforderungen die Kompensation überholen. Klassischer Bruch in der Mittelstufe oder Oberstufe, mit Underachievement trotz objektiver Stärke. Setting-Korrektur und Nachteilsausgleich vor Stimmungs-Behandlung.',
+  'adhs-audhd': 'ADHS plus Autismus-Spektrum — widersprüchliche Bedürfnisse (Struktur vs. Wechsel, sensorische Reduktion vs. Stimulation) im selben Klienten. Standard-ADHS-Behandlung kann die ASS-Seite destabilisieren und umgekehrt. Doppelprofil sauber benennen, beide Profile in der Behandlung berücksichtigen.',
+  'adhs-rsd': 'ADHS mit ausgeprägter Rejection Sensitive Dysphoria — emotionale Reaktionen auf wahrgenommene Zurückweisung sind körperlich überwältigend und halten oft Tage an. Wird klinisch häufig als Borderline fehldiagnostiziert, ist aber neurokognitiv ein ADHS-Phänomen. Psychoedukation zur RSD entlastet oft sofort, Stimulanzien können die emotionale Reaktivität dämpfen.',
+  'adhs-depression-sekundaer': 'ADHS, dessen anhaltende Funktionsdefizite, soziale Misserfolge und Schul-Versagen über Jahre eine sekundäre Depression erzeugt haben. Setting-Korrektur und ADHS-Behandlung müssen vor oder zumindest parallel zur Depressions-Behandlung laufen — sonst greift kein Antidepressivum nachhaltig.',
+  'adhs-cannabis': 'ADHS-Klient nutzt Cannabis als selbst-entdeckte Beruhigungs- und Konzentrations-Strategie. Klinisch fast immer zwei Probleme gleichzeitig: unbehandeltes ADHS und Substanzgebrauchsproblematik. Direkter Konfrontations-Stil oft kontraproduktiv — Funktionsanalyse machen, dann ADHS-Behandlung als wirksames Substitut anbieten.',
+  'adhs-eltern-adhs': 'ADHS beim Klient und gleichzeitig bei mindestens einem Elternteil (häufig — Erblichkeit bei 70 bis 80 Prozent). Externe Strukturierung durch das familiäre System ist erschwert, weil der Elternteil selbst Time-Blindness und Organisations-Defizite hat. Familien-Setting muss explizit mitbehandelt werden, eventuell parallel Eltern-ADHS-Diagnostik anbieten.',
+  'adhs-schulverweigerung': 'ADHS, dessen exekutive und aufmerksamkeitsbezogene Defizite zu kumulativem Schul-Versagen geführt haben — der Klient verweigert jetzt aktiv die Schule als funktionale Antwort auf ein nicht mehr tragfähiges Setting. Wiedereingliederung nur mit echter Setting-Anpassung plus ADHS-Behandlung, nicht mit Druck.'
+};
+
+/* Minimale Muster-Liste (id + name) für ADHS-unaufmerksam — wird in Phase 3 um die
+   sechs Behandlungs-Bloecke pro Muster erweitert. Reihenfolge spiegelt klinische Priorität
+   bei Score-Gleichstand (sortiert von häufiger Falle bis seltener spezifischer Konstellation). */
+const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
+  { id: 'adhs-maedchen-spaet',         name: 'Mädchen mit ADHS-Spätdiagnose' },
+  { id: 'adhs-hochbegabt',             name: 'Hochbegabter Klient mit ADHS' },
+  { id: 'adhs-audhd',                  name: 'AuDHD — ADHS plus Asperger' },
+  { id: 'adhs-rsd',                    name: 'ADHS mit Rejection Sensitive Dysphoria' },
+  { id: 'adhs-depression-sekundaer',   name: 'ADHS mit sekundärer Depression' },
+  { id: 'adhs-cannabis',               name: 'ADHS mit Cannabis-Selbstmedikation' },
+  { id: 'adhs-eltern-adhs',            name: 'ADHS mit Eltern-ADHS' },
+  { id: 'adhs-schulverweigerung',      name: 'ADHS mit Schulverweigerung' }
+];
+
+/* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
+   Asperger-Pfad bleibt unverändert; ADHS wird zusätzlich ausgeliefert. */
+function symptomDiagnoseFor(topicId) {
+  if (topicId === 'asperger') return SYMPTOM_DIAGNOSE_ASPERGER;
+  if (topicId === 'adhs-unaufmerksam') return SYMPTOM_DIAGNOSE_ADHS;
+  return null;
+}
+function musterKurzFor(topicId) {
+  if (topicId === 'asperger') return MUSTER_KURZ_ASPERGER;
+  if (topicId === 'adhs-unaufmerksam') return MUSTER_KURZ_ADHS;
+  return {};
+}
+function planMusterFor(topicId) {
+  if (topicId === 'asperger' && typeof PLAN_MUSTER_ASPERGER !== 'undefined') return PLAN_MUSTER_ASPERGER;
+  if (topicId === 'adhs-unaufmerksam') return PLAN_MUSTER_ADHS_UNAUFMERKSAM;
+  return [];
+}
 
 const SYMPTOM_KATEGORIEN = [
   { id: 'lern-leistung', titel: 'Lern- und Leistungssymptome', geplant: 1 },
@@ -8205,7 +8464,7 @@ function matchPattern(f) {
 function generatePlan(topic, ps) {
   // Asperger: symptom-basiertes Matching (Phase 2)
   if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0) {
-    const results = computeSymptomScores(ps);
+    const results = computeSymptomScores(ps, topic.id);
     return results.length > 0 ? results[0].muster : null;
   }
   return matchPattern(ps.faktoren || {});
@@ -8216,14 +8475,15 @@ function generatePlan(topic, ps) {
    ohne dass eine Symptom-Auswahl gemacht werden muss. Nutzt
    PLAN_MUSTER_ASPERGER (Reihenfolge = Priorität) und MUSTER_KURZ_ASPERGER. */
 function renderProfileUebersicht(topic, container) {
-  const muster = (typeof PLAN_MUSTER_ASPERGER !== 'undefined') ? PLAN_MUSTER_ASPERGER : [];
+  const muster = planMusterFor(topic.id);
+  const kurzTable = musterKurzFor(topic.id);
   if (!muster.length) {
-    container.innerHTML = '<div class="empty-content">Keine Profile definiert.</div>';
+    container.innerHTML = '<div class="empty-content">Profil-Übersicht für dieses Thema folgt.</div>';
     return;
   }
   const cards = muster.map((m, i) => {
     const num = String(i + 1).padStart(2, '0');
-    const kurz = (typeof MUSTER_KURZ_ASPERGER !== 'undefined' && MUSTER_KURZ_ASPERGER[m.id]) || '';
+    const kurz = kurzTable[m.id] || '';
     return `
       <article class="profil-card" data-muster-id="${escHtml(m.id)}">
         <div class="profil-card-num">Muster ${num}</div>
@@ -8234,7 +8494,7 @@ function renderProfileUebersicht(topic, container) {
 
   container.innerHTML = `
     <section class="profile-uebersicht">
-      <p class="profil-intro">Die acht Profil-Muster, die die Symptom-Diagnose unterscheidet. Browsable Referenz — nutze diese Übersicht, wenn du das passende Muster bereits identifiziert hast oder die Konstellationen systematisch lernen willst. Reihenfolge spiegelt die klinische Priorität bei Mehrfachtreffer.</p>
+      <p class="profil-intro">Die ${muster.length === 8 ? 'acht' : muster.length} Profil-Muster, die die Symptom-Diagnose unterscheidet. Browsable Referenz — nutze diese Übersicht, wenn du das passende Muster bereits identifiziert hast oder die Konstellationen systematisch lernen willst. Reihenfolge spiegelt die klinische Priorität bei Mehrfachtreffer.</p>
       <div class="profil-grid">${cards}</div>
       <div class="profil-cta-hint">
         <p>Für die strukturierte Erkennung über Symptome: wechsle zu <strong>Profil-Diagnose · Symptom-Auswahl</strong>. Für volle Behandlungs-Tiefe pro Muster (sechs Bloecke inkl. Schul-Strategie): nach erfolgter Profil-Diagnose unter <strong>Handeln · Behandlungs-Plan</strong>.</p>
@@ -8242,12 +8502,16 @@ function renderProfileUebersicht(topic, container) {
     </section>`;
 }
 
-/* ============ SYMPTOM-DIAGNOSE-RENDERER (Phase 2, Asperger) ============ */
+/* ============ SYMPTOM-DIAGNOSE-RENDERER (Phase 2, topic-aware) ============ */
 
 function renderSymptomAuswahl(topic, ps, container) {
   ps.kontext = ps.kontext || {};
   ps.symptome = ps.symptome || [];
-  const data = SYMPTOM_DIAGNOSE_ASPERGER;
+  const data = symptomDiagnoseFor(topic.id);
+  if (!data) {
+    container.innerHTML = '<div class="empty-content">Symptom-Auswahl für dieses Thema folgt.</div>';
+    return;
+  }
 
   const kontextHtml = data.kontextFragen.map(f => `
     <div class="symdia-kontext-q">
@@ -8367,7 +8631,7 @@ function renderErkanntesMuster(topic, ps, container) {
     return;
   }
 
-  const results = computeSymptomScores(ps);
+  const results = computeSymptomScores(ps, topic.id);
   if (results.length === 0) {
     container.innerHTML = `
       <section class="plan">
@@ -8389,7 +8653,8 @@ function renderErkanntesMuster(topic, ps, container) {
   const top = results[0];
   const threshold = top.score * 0.7;
   const auchMoeglich = results.slice(1).filter(r => r.score >= threshold);
-  const kurz = MUSTER_KURZ_ASPERGER[top.muster.id] || '';
+  const kurzTable = musterKurzFor(topic.id);
+  const kurz = kurzTable[top.muster.id] || '';
 
   const auchHtml = auchMoeglich.length > 0 ? `
     <div class="symdia-auch">
