@@ -982,6 +982,193 @@
     margin-bottom: 24px;
   }
 
+  /* ===== Symptom-Diagnose (Phase 2) ===== */
+  .symdia-input { display: block; }
+  .symdia-kontext {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 24px 0 32px;
+    padding: 20px;
+    background: var(--cream);
+    border-radius: 4px;
+  }
+  .symdia-kontext-q { display: flex; flex-direction: column; gap: 10px; }
+  .symdia-kontext-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .symdia-kontext-options { display: flex; flex-wrap: wrap; gap: 6px; }
+  .symdia-kontext-btn {
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 100px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .symdia-kontext-btn:hover { border-color: var(--ink); }
+  .symdia-kontext-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .symdia-symptome {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .symdia-kat {
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+  }
+  .symdia-kat-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .symdia-sym-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 8px 24px;
+  }
+  .symdia-sym {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .15s ease;
+    line-height: 1.45;
+  }
+  .symdia-sym:hover { background: var(--cream); }
+  .symdia-sym input { position: absolute; opacity: 0; pointer-events: none; }
+  .symdia-sym-box {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--sage);
+    border-radius: 3px;
+    margin-top: 3px;
+    background: var(--paper);
+    position: relative;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .symdia-sym.checked .symdia-sym-box {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  .symdia-sym.checked .symdia-sym-box::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    width: 5px;
+    height: 10px;
+    border: solid var(--paper);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .symdia-sym-text { color: var(--ink); font-size: 14px; }
+  .symdia-sym.checked .symdia-sym-text { font-weight: 500; }
+
+  .symdia-actions { margin-top: 8px; }
+
+  /* Erkanntes Muster (kompakte Output-View) */
+  .symdia-result { display: block; }
+  .symdia-primary {
+    padding: 36px 32px;
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+  .symdia-primary-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+  .symdia-primary-titel {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  .symdia-primary-kurz {
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+  .symdia-primary-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+  }
+  .symdia-auch {
+    padding: 20px 24px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+  .symdia-auch-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 10px;
+  }
+  .symdia-auch-list { list-style: none; padding: 0; margin: 0; }
+  .symdia-auch-list li {
+    padding: 6px 0;
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .symdia-auch-pct {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--sage);
+    margin-left: 8px;
+  }
+  .symdia-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .symdia-cta-btn { padding: 14px 28px; font-size: 13px; }
+  .symdia-empty { text-align: left; }
+  .symdia-empty strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-style: normal;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .symdia-empty p {
+    font-style: normal;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
   /* Symptom-Fokus */
   .sym-prompt {
     font-family: 'Fraunces', serif;
@@ -4311,20 +4498,69 @@ function renderEbene() {
   audioCtrls.style.display = '';
   readBtn.style.display = '';
 
-  // Neue Pseudo-Ebenen aus Drei-Bereich-Struktur auf renderPlan-Modi mappen
+  // Neue Pseudo-Ebenen aus Drei-Bereich-Struktur auf Render-Funktionen mappen
   if (ebene === 'symptom-auswahl') {
-    STATE.planMode = 'profil';
-    STATE.planView = 'faktoren';
-    renderPlan(topic, body);
+    if (topic.id === 'asperger') {
+      const ps = loadPlanState(topic.id);
+      renderSymptomAuswahl(topic, ps, body);
+    } else {
+      STATE.planMode = 'profil';
+      STATE.planView = 'faktoren';
+      renderPlan(topic, body);
+    }
     audioPanel.style.display = 'none';
     audioCtrls.style.display = 'none';
     readBtn.style.display = 'none';
     stopSpeech();
     return;
   }
-  if (ebene === 'erkanntes-muster' || ebene === 'behandlungs-plan') {
+  if (ebene === 'erkanntes-muster') {
+    if (topic.id === 'asperger') {
+      const ps = loadPlanState(topic.id);
+      renderErkanntesMuster(topic, ps, body);
+    } else {
+      STATE.planMode = 'profil';
+      STATE.planView = 'output';
+      renderPlan(topic, body);
+    }
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
+  if (ebene === 'behandlungs-plan') {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
+    // Für Asperger: wenn keine Symptome ausgewählt, zur Symptom-Auswahl umleiten
+    if (topic.id === 'asperger') {
+      const ps = loadPlanState(topic.id);
+      if (!Array.isArray(ps.symptome) || ps.symptome.length === 0) {
+        body.innerHTML = `
+          <section class="plan">
+            <div class="plan-empty-match symdia-empty">
+              <strong>Behandlungs-Plan braucht erst eine Profil-Diagnose.</strong>
+              <p>Geh zur <em>Symptom-Auswahl</em> in Profil-Diagnose und kreuze die beobachtbaren Symptome deines Klienten an.</p>
+              <button class="plan-generate-btn" data-tool="goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
+            </div>
+          </section>`;
+        document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
+          STATE.currentEbene = 'symptom-auswahl';
+          setupTopicNavigation(topic);
+          renderEbene();
+        });
+        audioPanel.style.display = 'none';
+        audioCtrls.style.display = 'none';
+        readBtn.style.display = 'none';
+        stopSpeech();
+        return;
+      }
+      // Symptome vorhanden — Generiert-Marker setzen, damit renderPlanOutput läuft
+      if (!ps.generiert) {
+        ps.generiert = Date.now();
+        savePlanState(topic.id, ps);
+      }
+    }
     renderPlan(topic, body);
     audioPanel.style.display = 'none';
     audioCtrls.style.display = 'none';
@@ -5030,6 +5266,229 @@ const FAKTOREN_SCHEMA = [
     ]
   }
 ];
+
+/* Symptom-basierte Profil-Diagnose für Asperger (Phase 2).
+   Ersetzt die alte Faktoren-Eingabe für Asperger. Fachkraft kreuzt beobachtbare
+   Symptome an; computeSymptomScores ermittelt das wahrscheinliche Muster. */
+const SYMPTOM_DIAGNOSE_ASPERGER = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'divers', text: 'divers' }
+    ]},
+    { id: 'schule', titel: 'Schulsituation', optionen: [
+      { val: 'regulaer-ok', text: 'Regulär läuft' },
+      { val: 'regulaer-probl', text: 'Regulär Probleme' },
+      { val: 'verweigerung', text: 'Verweigerung' },
+      { val: 'sonderschule', text: 'Sonderschule' },
+      { val: 'abbruch', text: 'Abgebrochen' }
+    ]},
+    { id: 'familie', titel: 'Familiensituation', optionen: [
+      { val: 'intakt-unter', text: 'Intakt unterstützend' },
+      { val: 'intakt-konflikt', text: 'Intakt konfliktreich' },
+      { val: 'getrennt', text: 'Eltern getrennt' },
+      { val: 'heim', text: 'Heim / Pflege' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'lern', titel: 'Lern- und Leistungsverhalten', symptome: [
+      { id: 'mund-vs-schrift', text: 'Brilliert mündlich, versagt bei schriftlichen Klausuren' },
+      { id: 'kann-nicht-schreib', text: 'Kann nicht schreiben oder rechnen trotz erkennbarer Begabung' },
+      { id: 'koennte-wenn', text: 'Lehrer sagen „könnte ja wenn er wollte"' },
+      { id: 'schulverw-akut', text: 'Akute Schulverweigerung' },
+      { id: 'schul-probl-iq', text: 'Chronische Schul-Probleme trotz hoher Intelligenz' },
+      { id: 'verliert-material', text: 'Vergisst Hausaufgaben, verliert Material chronisch' },
+      { id: 'mittelstufe-bruch', text: 'Hat in Grundschule funktioniert, in der Mittelstufe Probleme' },
+      { id: 'detail-vs-alltag', text: 'Detail-Wissen in einem Thema enorm, Alltagsaufgaben schwer' }
+    ]},
+    { id: 'verhalten', titel: 'Verhalten und Stimmung', symptome: [
+      { id: 'haus-vs-schule', text: 'Zuhause anders als in der Schule' },
+      { id: 'sonntag-krise', text: 'Sonntagabends Bauchschmerzen oder Krisen vor der Schulwoche' },
+      { id: 'erschoepfung', text: 'Chronische Erschöpfung trotz okay-erscheinendem Alltag' },
+      { id: 'skill-verlust', text: 'Skill-Verlust beobachtbar (kann jetzt nicht mehr, was vorher ging)' },
+      { id: 'meltdown', text: 'Plötzliche emotionale Ausbrüche (Meltdowns)' },
+      { id: 'shutdown', text: 'Plötzliche Rückzüge mit Sprach-Verlust (Shutdowns)' },
+      { id: 'reizbarkeit', text: 'Akute Reizbarkeit oder Wutanfälle' },
+      { id: 'hyperfokus', text: 'Hyperfokus bei Spezialinteresse stundenlang möglich' },
+      { id: 'fokus-wechsel', text: 'Wechsel zwischen Hyperfokus und totaler Ablenkung' }
+    ]},
+    { id: 'sensorik', titel: 'Sensorik', symptome: [
+      { id: 'sens-ueberford-schule', text: 'Sensorische Überforderung in der Schule sichtbar' },
+      { id: 'reizreaktion', text: 'Reagiert stark auf Geräusche, Licht oder Berührung' },
+      { id: 'kleidung-essen', text: 'Bestimmte Kleidung oder Essen wird konsequent verweigert' }
+    ]},
+    { id: 'soziales', titel: 'Soziales', symptome: [
+      { id: 'keine-freunde', text: 'Hat keine echten Freunde' },
+      { id: 'klammert-freund', text: 'Klammert sich an einen einzigen Freund (Verlustangst)' },
+      { id: 'mobbing', text: 'Wird in der Schule gemobbt' },
+      { id: 'soz-codes', text: 'Versteht soziale Codes nicht (Witze, Ironie, implizite Botschaften)' }
+    ]},
+    { id: 'risiken', titel: 'Akute Risiken', symptome: [
+      { id: 'nssi-aktiv', text: 'Aktive Selbstverletzung sichtbar oder berichtet' },
+      { id: 'suizid-aktuell', text: 'Suizidgedanken aktuell' },
+      { id: 'suizid-vorgesch', text: 'Suizidversuch in der Vorgeschichte' },
+      { id: 'substanz', text: 'Substanzkonsum' },
+      { id: 'essstoerung', text: 'Essstörung' }
+    ]},
+    { id: 'familie-hg', titel: 'Familie und Hintergrund', symptome: [
+      { id: 'eltern-asd', text: 'Ein Elternteil zeigt selbst autistische Merkmale' },
+      { id: 'familie-direkt', text: 'Familie kommuniziert sehr direkt und sachlich' },
+      { id: 'heim-pflege', text: 'Heim- oder Pflegekontext' },
+      { id: 'lgbtiq-ablehn', text: 'LGBTIQ+ und Familie ablehnend' },
+      { id: 'trauma', text: 'Trauma in der Vorgeschichte bekannt' },
+      { id: 'hypervig', text: 'Hypervigilanz beobachtbar (schreckhaft, misstrauisch)' }
+    ]},
+    { id: 'behandlung', titel: 'Behandlungsgeschichte', symptome: [
+      { id: 'erstkontakt', text: 'Erstkontakt mit dem Hilfesystem' },
+      { id: 'mehrere-gescheit', text: 'Mehrere Therapien gescheitert' },
+      { id: 'parallel-psy', text: 'Aktuell parallel in psychiatrischer Behandlung' },
+      { id: 'med-stim', text: 'Medikation: Stimulanzien' },
+      { id: 'med-ssri', text: 'Medikation: SSRI' },
+      { id: 'med-andere', text: 'Medikation: andere' }
+    ]}
+  ],
+  /* Pro Muster: Kontext-Gewichte (Antwort → Punkte, 3-15) und Symptom-Gewichte (3 = stark, 2 = mittel, 1 = schwach,
+     intern *5 verstärkt — Symptome dominieren Demografie). 'negativ' subtrahiert Punkte pro angekreuztem Symptom. */
+  musterScores: {
+    'maedchen-camoufliert-burnout': {
+      kontext: {
+        geschlecht: { 'weiblich': 8 },
+        schule: { 'regulaer-probl': 3, 'reduziert': 3 }
+      },
+      symptome: {
+        'haus-vs-schule': 3, 'skill-verlust': 3, 'erschoepfung': 3,
+        'sonntag-krise': 2, 'sens-ueberford-schule': 2, 'mittelstufe-bruch': 2,
+        'reizbarkeit': 1, 'mehrere-gescheit': 1, 'shutdown': 1
+      }
+    },
+    'audhd-schulverweigerung': {
+      kontext: {
+        schule: { 'verweigerung': 12, 'abbruch': 8, 'regulaer-probl': 4 }
+      },
+      symptome: {
+        'schulverw-akut': 3, 'fokus-wechsel': 3, 'hyperfokus': 3,
+        'verliert-material': 2, 'sens-ueberford-schule': 2, 'koennte-wenn': 2,
+        'reizbarkeit': 1, 'schul-probl-iq': 1, 'med-stim': 1
+      }
+    },
+    '2e-depression': {
+      kontext: {
+        schule: { 'regulaer-probl': 3, 'abbruch': 4, 'reduziert': 4 }
+      },
+      symptome: {
+        'mund-vs-schrift': 3, 'kann-nicht-schreib': 3, 'detail-vs-alltag': 3,
+        'koennte-wenn': 2, 'mittelstufe-bruch': 2, 'schul-probl-iq': 2, 'reizbarkeit': 2,
+        'erschoepfung': 1, 'keine-freunde': 1, 'mehrere-gescheit': 1
+      }
+    },
+    'asperger-nssi': {
+      kontext: {},
+      symptome: {
+        'nssi-aktiv': 3, 'reizbarkeit': 3, 'skill-verlust': 3,
+        'suizid-aktuell': 2, 'substanz': 2, 'meltdown': 2,
+        'erschoepfung': 1, 'suizid-vorgesch': 1
+      }
+    },
+    'asperger-trauma': {
+      kontext: {
+        familie: { 'getrennt': 3, 'heim': 3, 'intakt-konflikt': 3 }
+      },
+      symptome: {
+        'trauma': 3, 'hypervig': 3, 'meltdown': 3,
+        'sens-ueberford-schule': 2, 'shutdown': 2,
+        'reizreaktion': 1
+      }
+    },
+    'asperger-heim': {
+      kontext: {
+        familie: { 'heim': 15 }
+      },
+      symptome: {
+        'heim-pflege': 3,
+        'mehrere-gescheit': 2, 'trauma': 2,
+        'skill-verlust': 1
+      }
+    },
+    'asperger-parental-asd': {
+      kontext: {},
+      symptome: {
+        'eltern-asd': 3, 'familie-direkt': 3,
+        'mehrere-gescheit': 1
+      }
+    },
+    'asperger-funktional': {
+      kontext: {
+        schule: { 'regulaer-ok': 8 },
+        familie: { 'intakt-unter': 5 }
+      },
+      symptome: {
+        'erstkontakt': 3,
+        'hyperfokus': 1
+      },
+      negativ: {
+        // Akute Risiken oder mehrfach gescheitert: sinkt der Score deutlich
+        symptome: ['nssi-aktiv', 'suizid-aktuell', 'suizid-vorgesch', 'erschoepfung', 'skill-verlust', 'mehrere-gescheit'],
+        proSymptom: -10
+      }
+    }
+  }
+};
+
+// Symptom-Gewichte 3/2/1 in der Datenstruktur werden intern *5 verstärkt,
+// damit Symptome demografische Kontext-Antworten klar dominieren.
+const SYMPTOM_WEIGHT_MULT = 5;
+
+function computeSymptomScores(ps) {
+  const ctx = ps.kontext || {};
+  const syms = ps.symptome || [];
+  const out = [];
+  for (const musterId of Object.keys(SYMPTOM_DIAGNOSE_ASPERGER.musterScores)) {
+    const def = SYMPTOM_DIAGNOSE_ASPERGER.musterScores[musterId];
+    let score = 0;
+    if (def.kontext) {
+      for (const k of Object.keys(def.kontext)) {
+        const v = ctx[k];
+        if (v && def.kontext[k][v]) score += def.kontext[k][v];
+      }
+    }
+    if (def.symptome) {
+      for (const sid of Object.keys(def.symptome)) {
+        if (syms.includes(sid)) score += def.symptome[sid] * SYMPTOM_WEIGHT_MULT;
+      }
+    }
+    if (def.negativ && Array.isArray(def.negativ.symptome)) {
+      for (const sid of def.negativ.symptome) {
+        if (syms.includes(sid)) score += def.negativ.proSymptom;
+      }
+    }
+    if (score > 0) {
+      const muster = (typeof PLAN_MUSTER_ASPERGER !== 'undefined')
+        ? PLAN_MUSTER_ASPERGER.find(m => m.id === musterId)
+        : null;
+      if (muster) out.push({ muster, score });
+    }
+  }
+  out.sort((a, b) => b.score - a.score);
+  return out;
+}
+
+/* Kurz-Beschreibungen für die kompakte Output-View (Erkanntes Muster). */
+const MUSTER_KURZ_ASPERGER = {
+  'maedchen-camoufliert-burnout': 'Mädchen oder junge Frau mit jahrelanger Camouflage, deren Kompensationsbudget aufgebraucht ist. Hauptintervention: radikale Reduktion, nicht Aktivierung. SSRI hier oft kontraindiziert.',
+  'audhd-schulverweigerung': 'Asperger plus ADHS mit Schulverweigerung als funktionale Antwort auf ein strukturelles Anforderungs-Dilemma. Stimulanzien-Frage und KJP-Anbindung in den ersten Wochen zentral.',
+  '2e-depression': 'Hochbegabt plus Asperger mit sekundärer Depression nach Jahren des Schul-Mismatches. Setting-Korrektur vor Stimmungs-Behandlung; Identitätsarbeit begabungs-affirmativ.',
+  'asperger-nssi': 'Selbstverletzung als Regulations-Symptom bei sensorischer und exekutiver Überlast plus Alexithymie — nicht als Borderline-Verhalten. Funktionsanalyse vor Intervention.',
+  'asperger-trauma': 'Komplextrauma plus Asperger — diagnostisch heikle Kombination, Symptom-Überlappung groß. Stabilisierung vor Konfrontation, deutlich verlängerte Phase 1.',
+  'asperger-heim': 'ASS plus Bindungs-Brüche im Heim- oder Pflegekontext. Vorhersehbarkeit und schriftliche Routinen wichtiger als erzwungene Bindung. Care-leaver-Übergang ab 16 mitplanen.',
+  'asperger-parental-asd': 'Mindestens ein Elternteil ist selbst im Spektrum (oft unentdeckt). Kommunikation respektvoll und direkt — die Familie hat eigene autismusgerechte Codes, die du nutzt statt zu pathologisierst.',
+  'asperger-funktional': 'Stabiler adoleszenter Asperger ohne akute Komorbiditäten. Identitäts-Arbeit, Selbstadvokatie, Übergangs-Vorbereitung. Camouflaging-Audit als zentrale Prävention für späteren Burnout.'
+};
 
 const SYMPTOM_KATEGORIEN = [
   { id: 'lern-leistung', titel: 'Lern- und Leistungssymptome', geplant: 1 },
@@ -7467,7 +7926,200 @@ function matchPattern(f) {
 }
 
 function generatePlan(topic, ps) {
+  // Asperger: symptom-basiertes Matching (Phase 2)
+  if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0) {
+    const results = computeSymptomScores(ps);
+    return results.length > 0 ? results[0].muster : null;
+  }
   return matchPattern(ps.faktoren || {});
+}
+
+/* ============ SYMPTOM-DIAGNOSE-RENDERER (Phase 2, Asperger) ============ */
+
+function renderSymptomAuswahl(topic, ps, container) {
+  ps.kontext = ps.kontext || {};
+  ps.symptome = ps.symptome || [];
+  const data = SYMPTOM_DIAGNOSE_ASPERGER;
+
+  const kontextHtml = data.kontextFragen.map(f => `
+    <div class="symdia-kontext-q">
+      <div class="symdia-kontext-titel">${escHtml(f.titel)}</div>
+      <div class="symdia-kontext-options">
+        ${f.optionen.map(o => `
+          <button class="symdia-kontext-btn ${ps.kontext[f.id] === o.val ? 'active' : ''}" data-tool="symdia-kontext" data-q="${f.id}" data-val="${escHtml(o.val)}">${escHtml(o.text)}</button>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const symHtml = data.symptomKategorien.map(kat => {
+    const items = kat.symptome.map(s => {
+      const checked = ps.symptome.includes(s.id);
+      return `
+        <label class="symdia-sym ${checked ? 'checked' : ''}">
+          <input type="checkbox" data-tool="symdia-sym" data-id="${escHtml(s.id)}" ${checked ? 'checked' : ''}>
+          <span class="symdia-sym-box" aria-hidden="true"></span>
+          <span class="symdia-sym-text">${escHtml(s.text)}</span>
+        </label>`;
+    }).join('');
+    return `
+      <div class="symdia-kat">
+        <div class="symdia-kat-titel">${escHtml(kat.titel)}</div>
+        <div class="symdia-sym-grid">${items}</div>
+      </div>`;
+  }).join('');
+
+  const totalSelected = ps.symptome.length;
+  const ready = totalSelected > 0;
+
+  container.innerHTML = `
+    <section class="plan symdia-input">
+      <div>
+        <div class="plan-eyebrow">Symptom-Auswahl · Asperger-Profil</div>
+        <div class="plan-intro">Wähle den Kontext und kreuze die beobachtbaren Symptome an. Die App leitet daraus das wahrscheinliche Profil-Muster ab — keine direkte Spezialdiagnose-Abfrage, sondern Symptom-zu-Muster-Matching.</div>
+      </div>
+
+      <div class="symdia-kontext">${kontextHtml}</div>
+
+      <div class="symdia-symptome">${symHtml}</div>
+
+      <div class="plan-actions symdia-actions">
+        <button class="plan-generate-btn" data-tool="symdia-auswerten" ${ready ? '' : 'disabled'}>Auswertung →</button>
+        <button class="plan-reset-btn" data-tool="symdia-reset">Alles zurücksetzen</button>
+        <span class="plan-progress-note">${totalSelected} Symptome angekreuzt${ready ? '' : ' · mindestens eines nötig'}</span>
+      </div>
+    </section>
+  `;
+
+  bindSymdiaInputEvents(topic, ps);
+}
+
+function bindSymdiaInputEvents(topic, ps) {
+  const root = document.getElementById('articleBody');
+
+  root.querySelectorAll('[data-tool="symdia-kontext"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.dataset.q;
+      const val = btn.dataset.val;
+      ps.kontext[q] = ps.kontext[q] === val ? null : val;
+      savePlanState(topic.id, ps);
+      renderEbene();
+    });
+  });
+
+  root.querySelectorAll('[data-tool="symdia-sym"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const id = cb.dataset.id;
+      const idx = ps.symptome.indexOf(id);
+      if (cb.checked && idx === -1) ps.symptome.push(id);
+      else if (!cb.checked && idx !== -1) ps.symptome.splice(idx, 1);
+      savePlanState(topic.id, ps);
+      renderEbene();
+    });
+  });
+
+  root.querySelector('[data-tool="symdia-auswerten"]')?.addEventListener('click', () => {
+    ps.generiert = Date.now();
+    savePlanState(topic.id, ps);
+    if (hasBereichStruktur(topic.id)) {
+      STATE.currentEbene = 'erkanntes-muster';
+      setupTopicNavigation(topic);
+    }
+    renderEbene();
+  });
+
+  root.querySelector('[data-tool="symdia-reset"]')?.addEventListener('click', () => {
+    if (!confirm('Alle Symptome und Kontext-Antworten zurücksetzen?')) return;
+    ps.kontext = {};
+    ps.symptome = [];
+    ps.generiert = null;
+    savePlanState(topic.id, ps);
+    renderEbene();
+  });
+}
+
+function renderErkanntesMuster(topic, ps, container) {
+  ps.symptome = ps.symptome || [];
+
+  if (ps.symptome.length === 0) {
+    container.innerHTML = `
+      <section class="plan">
+        <div class="plan-empty-match symdia-empty">
+          <strong>Noch keine Symptome ausgewählt.</strong>
+          <p>Geh zuerst zur <em>Symptom-Auswahl</em> und kreuze die beobachtbaren Symptome deines Klienten an.</p>
+          <button class="plan-generate-btn" data-tool="goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
+        </div>
+      </section>
+    `;
+    document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
+      STATE.currentEbene = 'symptom-auswahl';
+      setupTopicNavigation(topic);
+      renderEbene();
+    });
+    return;
+  }
+
+  const results = computeSymptomScores(ps);
+  if (results.length === 0) {
+    container.innerHTML = `
+      <section class="plan">
+        <div class="plan-empty-match symdia-empty">
+          <strong>Kein klares Muster erkannt.</strong>
+          <p>Die Symptom-Kombination passt zu keinem der hinterlegten Muster eindeutig. Wähle weitere Symptome aus oder geh direkt zum Behandlungs-Plan und arbeite mit freier Klinik.</p>
+          <button class="plan-reset-btn" data-tool="goto-symptom-auswahl">← Symptom-Auswahl anpassen</button>
+        </div>
+      </section>
+    `;
+    document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
+      STATE.currentEbene = 'symptom-auswahl';
+      setupTopicNavigation(topic);
+      renderEbene();
+    });
+    return;
+  }
+
+  const top = results[0];
+  const threshold = top.score * 0.7;
+  const auchMoeglich = results.slice(1).filter(r => r.score >= threshold);
+  const kurz = MUSTER_KURZ_ASPERGER[top.muster.id] || '';
+
+  const auchHtml = auchMoeglich.length > 0 ? `
+    <div class="symdia-auch">
+      <div class="symdia-auch-titel">Auch möglich</div>
+      <ul class="symdia-auch-list">
+        ${auchMoeglich.map(r => `
+          <li><strong>${escHtml(r.muster.name)}</strong> <span class="symdia-auch-pct">${Math.round(r.score / top.score * 100)}% Übereinstimmung</span></li>
+        `).join('')}
+      </ul>
+    </div>
+  ` : '';
+
+  container.innerHTML = `
+    <section class="plan symdia-result">
+      <div class="symdia-primary">
+        <div class="symdia-primary-eyebrow">Erkanntes Muster</div>
+        <h2 class="symdia-primary-titel">${escHtml(top.muster.name)}</h2>
+        <p class="symdia-primary-kurz">${escHtml(kurz)}</p>
+        <div class="symdia-primary-meta">Score ${top.score} · basierend auf ${ps.symptome.length} angekreuzten Symptomen</div>
+      </div>
+      ${auchHtml}
+      <div class="symdia-cta">
+        <button class="plan-generate-btn symdia-cta-btn" data-tool="goto-behandlungs-plan">Zum Behandlungs-Plan →</button>
+        <button class="plan-reset-btn" data-tool="goto-symptom-auswahl">← Symptom-Auswahl anpassen</button>
+      </div>
+    </section>
+  `;
+
+  document.querySelector('[data-tool="goto-behandlungs-plan"]')?.addEventListener('click', () => {
+    STATE.currentEbene = 'behandlungs-plan';
+    setupTopicNavigation(topic);
+    renderEbene();
+  });
+  document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
+    STATE.currentEbene = 'symptom-auswahl';
+    setupTopicNavigation(topic);
+    renderEbene();
+  });
 }
 
 function bindPlanFaktorenEvents(topic, ps) {
