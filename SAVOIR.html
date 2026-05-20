@@ -8025,9 +8025,254 @@ const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
       }
     }
   },
-  { id: 'adhs-cannabis',               name: 'ADHS mit Cannabis-Selbstmedikation',     bloecke: emptyAdhsBloecke() },
+  /* M6 — ADHS mit Cannabis-Selbstmedikation. Befüllt Prompt 8.
+     Klinische Eckpfeiler: cannabis als selbstmedikation häufig bei ADHS,
+     klient hat im moment recht und über zeit falsch — pharmakologisch
+     nachvollziehbar via endocannabinoid + dopaminerge wirkung. Klassische
+     behandlungs-falle: substanz zuerst, ADHS bleibt unbehandelt, rückfall.
+     Leitsatz: „du bist kein junkie — du bist jemand, der eine lösung
+     gefunden hat, die kurzfristig funktioniert. wir suchen eine bessere." */
+  {
+    id: 'adhs-cannabis',
+    name: 'ADHS mit Cannabis-Selbstmedikation',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit ADHS-Diagnose oder klaren Markern, regelmäßiger Cannabis-Konsum, beschreibt es als beruhigend oder konzentrationsfördernd. Schule und Familie sehen das Cannabis-Problem, übersehen die darunterliegende ADHS. Behandlung des Konsums ohne ADHS-Adressierung führt fast immer zum Rückfall. Wenn du das Erleben des Klienten nicht ernst nimmst, hast du die therapeutische Allianz verloren, bevor du angefangen hast.</p>`,
+        klinischWichtig: `<p>Den Selbstmedikations-Mechanismus musst du klar verstehen, sonst behandelst du an der falschen Stelle. Der Klient hat über Jahre die Erfahrung gemacht, dass sein Kopf nicht zur Ruhe kommt, dass er nicht einschlafen kann, dass Gedanken sich überlagern. Cannabis bietet ihm einen Zustand, den er sonst nicht erreichen kann — und subjektiv erlebt er das als hilfreich. Das ist nicht falsch wahrgenommen, es ist pharmakologisch nachvollziehbar.</p>
+          <p>Die klinische Aufgabe ist nicht, das Erleben zu bestreiten, sondern den Zeitrahmen zu verändern: das, was im Moment funktioniert, schadet über Wochen und Monate kumulativ. Exekutive Defizite verstärken sich, Motivation sinkt, kognitive Verarbeitung wird langsamer, und die Suchtentwicklung ist neurobiologisch belegt. Wenn du das Erleben des Klienten ernst nimmst und dann den Zeitrahmen verschiebst, hast du eine Chance auf echte Veränderung. Wenn du nur den Konsum problematisierst, bleibt der Klient in seinem inneren Konflikt allein — und konsumiert weiter, weil keine Alternative angeboten wird.</p>`,
+        vergleich: `<p><strong>Vs. primäre Cannabis-Konsumstörung:</strong> chronologische Reihenfolge entscheidet. War der Konsum vor den ADHS-Symptomen? Dann eher primär. Waren die ADHS-Symptome vor dem Konsum manifest? Dann eher Selbstmedikation. Die Behandlungs-Linie ist in den beiden Fällen fundamental unterschiedlich.</p>
+          <p><strong>Vs. M5 — sekundäre Depression:</strong> überlappende Profile. Cannabis kann auch depressive Symptomatik selbstmedikieren. Beide Achsen prüfen, oft koexistieren sie. Wenn beide vorliegen, ADHS zuerst behandeln — die Behandlungs-Reihenfolge gilt für beide Komorbiditäten.</p>
+          <p><strong>Vs. M8 — Schulverweigerung:</strong> häufige Komorbidität. Cannabis verstärkt die Schul-Vermeidung, Schul-Vermeidung erleichtert den Konsum (mehr Zeit, weniger äußere Kontrolle). Beide Achsen müssen parallel behandelt werden, sonst stabilisiert sich das Muster gegenseitig.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Cannabis-induzierte psychotische Episode, besonders bei Risikofaktoren (familiäre Belastung, hochpotente Sorten, früher Konsumbeginn)',
+          'Akute Suizidalität in Abstinenz-Phasen',
+          'Akute Selbstverletzung'
+        ],
+        hoch: [
+          'Beginnende oder bestehende Schulverweigerung',
+          'Sozialer Rückzug bei Eskalation des Konsums',
+          'Sekundäre Depression',
+          'Kognitive Verlangsamung mit Leistungs-Einbruch',
+          'Andere Substanzen ergänzend (Alkohol, Stimulanzien)'
+        ],
+        mittel: [
+          'Suchtentwicklung mit Toleranz-Aufbau',
+          'Berufs- und Beziehungs-Vermeidung',
+          'Identitätsfestigung als „Kiffer" mit Verlust anderer Selbst-Bilder'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>ADHS zuerst adressieren, nicht Substanzkonsum. Motivational Interviewing als Hauptmethode — konfrontatives Substanz-Programm scheitert bei diesem Profil. Bei verstandener und behandelter ADHS entsteht die Reduktions-Motivation oft von selbst. Medikations-Frage besonders kritisch — Stimulanzien können helfen, müssen aber mit Substanz-Kontext und KJP abgestimmt werden.</p>`,
+        begruendung: `<p>Wenn du dem Klienten sagst, er muss aufhören, hat er nichts mehr in der Hand gegen das, was Cannabis subjektiv besser macht. Wenn du ihm zeigst, dass die ADHS behandelbar ist, verliert Cannabis seinen Sinn. Diese Reihenfolge ist klinisch nicht verhandelbar bei diesem Profil.</p>`,
+        diagnostik: [
+          'Conners 3 für ADHS-Verifikation',
+          'Strukturierte Substanz-Anamnese (CRAFFT als kompaktes Screening, dann offene Anamnese ohne moralisierende Sprache)',
+          'Chronologische Klärung: was kam zuerst — ADHS-Marker oder Konsum',
+          'Urin-Screening nur in Absprache mit KJP und mit klarem therapeutischem Zweck, nicht kontrollierend',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'BRIEF für exekutives Profil'
+        ],
+        wasDuTust: [
+          '„Du hast recht, dass es im Moment hilft. Das bestreite ich nicht. Und über die Zeit kostet es dich was — daran arbeiten wir."',
+          '„Cannabis macht etwas für dich, was du sonst nicht hinkriegst. Wir suchen andere Wege, das gleiche zu erreichen."',
+          '„Ich werde dir nicht sagen, du musst aufhören. Ich werde dir helfen zu sehen, was du brauchst — und ob Cannabis das wirklich gibt."',
+          '„Wenn deine ADHS behandelt ist, brauchst du das Cannabis vielleicht nicht mehr. Lass uns das zuerst versuchen."',
+          '„Du bist kein Junkie. Du bist jemand, der eine Lösung gefunden hat, die kurzfristig funktioniert. Wir suchen eine bessere."'
+        ],
+        wasDuNichtTust: [
+          'Nicht das subjektive Erleben des Klienten bestreiten — zerstört die therapeutische Allianz sofort',
+          'Nicht konfrontatives Substanz-Programm anbieten — bei Selbstmedikations-Profil scheitert es',
+          'Nicht ADHS-Behandlung verweigern, bis Konsum aufhört — das ist die häufigste Fehl-Entscheidung im System und hält den Klienten in der Falle',
+          'Nicht Urin-Screening als Kontroll-Instrument einsetzen — zerstört Vertrauen, ist klinisch ineffektiv',
+          'Nicht Eltern als Drogen-Detektive instrumentalisieren — zerstört Familien-System'
+        ],
+        frequenz: `<p>Wöchentlich für mindestens zwölf Wochen, dann 14-tägig. Bei psychotischer Komponente engmaschiger und mit KJP-Anbindung.</p>`
+      },
+      vierPhasen: {
+        phase1: `Vertrauens-Aufbau. ADHS-Diagnostik abschließen oder verifizieren. Strukturierte Substanz-Anamnese ohne Moralisierung. Psychoedukation über den Selbstmedikations-Mechanismus. Eltern aufklären — sie sind meist Teil des Problems durch konfrontative Strategien, und müssen den Mechanismus verstehen, sonst läuft das Familien-System gegen die Therapie.`,
+        phase2: `ADHS-spezifische Behandlung beginnen. Medikations-Frage mit KJP klären — Stimulanzien können bei Cannabis-Konsum gegeben werden, brauchen aber Begleit-Monitoring. Erste Konsum-Reflexion ohne Reduktions-Druck. Der Klient soll selbst die Veränderung in seinem System spüren, bevor die Reduktion zum Thema wird.`,
+        phase3: `Reduktions-Phase, wenn ADHS-Behandlung greift und der Klient die Veränderung selbst spürt. Motivational Interviewing weiterführen. Alternative Regulations-Strategien etablieren. Beziehungs-Muster reflektieren — oft ist der Konsumkontext sozial verwurzelt, ein Freundeskreis-Wechsel ist manchmal Teil der Lösung.`,
+        phase4: `Konsolidierung. Reduktion oder Abstinenz aus eigener Motivation. Rückfall-Prophylaxe mit konkreten Frühwarnzeichen und Handlungsplan. Übergangs-Planung. Frequenz reduziert, Booster-Termine bei Belastungs-Spitzen.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht das Drogen-Problem, übersieht die ADHS. Klassische Reaktion: Disziplinar-Maßnahmen, Schul-Verweis-Androhungen, manchmal Schul-Verweis. Eltern werden eingeschaltet, Schul-Psychologie wird involviert mit Fokus auf „Suchtbehandlung". Der Klient erlebt: ich werde als Drogen-Problem gesehen, niemand sieht, warum ich konsumiere. Das verstärkt das „ich bin defekt"-Narrativ und treibt die Eskalation weiter. Die schulische Reaktion produziert genau das, was sie verhindern soll — sie eskaliert den Konsum.</p>
+          <p>Hinzu kommt ein institutioneller Bias: Cannabis im schulischen Kontext aktiviert Schul-Ordnung, Hausrecht, juristische Fragen — sie ziehen die Aufmerksamkeit weg von dem klinischen Bild, das eigentlich gebraucht wird. Lehrkräfte mit guter Absicht werden zu Drogen-Detektiven oder zu moralischen Instanzen, beides Rollen, die mit therapeutischer Begleitung nicht kompatibel sind. Die Klassen-Dynamik kann zusätzlich problematisch werden: der Klient gerät in eine Außenseiter-Position als „der Kiffer", die seinen Selbstwert weiter beschädigt.</p>
+          <p>Was die Schule braucht: ADHS-Aufklärung, Beziehungs-Anker, realistische Anpassungen für die kognitiven Effekte des Konsums, und vor allem eine Trennung zwischen disziplinärer und klinischer Linie. Was sie nicht braucht: noch ein konfrontatives Programm, das den Klienten weiter isoliert. Der schulische Schwerpunkt muss auf der Anwesenheits-Stabilisierung und auf der Beziehungs-Kontinuität liegen — nicht auf der Konsum-Kontrolle. Diese Schwerpunkt-Verschiebung muss explizit kommuniziert werden, sonst rutscht die Schule reflexartig in Kontroll-Logik zurück.</p>
+          <p>Eine zusätzliche Komplikation: viele Schulen haben rigide Substanzkonsums-Richtlinien, die wenig Spielraum lassen. Die Schul-Strategie muss diese Richtlinien einrechnen und gegebenenfalls die Schul-Direktion auf eine klinisch begründete Sonder-Linie ansprechen. Wenn die Schule auf strikte Verweis-Linie besteht, ist Setting-Wechsel oft die bessere Option, bevor der Klient aus dem Bildungs-System komplett herausfällt.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine ADHS-Diagnose, die durch einen Cannabis-Konsum kompliziert ist. Klinisch wichtig ist die Reihenfolge: der Konsum ist nach allem, was wir wissen, Selbstmedikation für eine bisher unzureichend behandelte aufmerksamkeitsregulatorische Schwierigkeit, nicht ein primäres Suchtproblem. Diese Unterscheidung ist nicht akademisch — sie bestimmt die Behandlungs-Strategie fundamental.</p>
+          <p>[Klient-Name] berichtet, dass Cannabis ihn beruhigt und ihm hilft, einzuschlafen — was pharmakologisch nachvollziehbar ist und subjektiv stimmt. Die Behandlung adressiert beide Achsen, mit Schwerpunkt auf ADHS, weil die klinische Erfahrung zeigt, dass konfrontative Substanz-Programme bei diesem Profil regelmäßig scheitern. Wir arbeiten mit Motivational Interviewing und ADHS-spezifischer Therapie, gegebenenfalls auch mit Medikation in Absprache mit der KJP.</p>
+          <p>Was [Klient-Name] schulisch braucht, ist eine realistische Anpassung an seine aktuellen kognitiven Möglichkeiten und ein stabiler Beziehungs-Anker: verlängerte Bearbeitungszeit bei schriftlichen Tests; eine sichere Bezugsperson (Klassenlehrer oder Vertrauenslehrer); strukturierte Hausaufgaben mit zeitlicher Begrenzung; und vor allem keine öffentlichen Kommentare zum Konsum vor der Klasse.</p>
+          <p>Aus klinischer Sicht ist eine Trennung zwischen disziplinärer und klinischer Linie entscheidend. Disziplinar-Maßnahmen verschärfen die Vermeidung und das Versagens-Narrativ und untergraben die Therapie. Ich biete Ihnen gerne ein Gespräch an, in dem wir das schulische Vorgehen und die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Realistische Erwartungen bei aktuell reduzierter kognitiver Verarbeitung', begruendung: 'Keine Hochleistungs-Anforderung während akuter Konsum-Phase. Die kognitive Verarbeitungs-Geschwindigkeit ist unter regelmäßigem Cannabis-Konsum messbar reduziert; Leistungs-Anforderungen, die das ignorieren, produzieren nur weitere Versagens-Erfahrungen. Die Erwartung passt sich der aktuellen Realität an, nicht umgekehrt — das ist nicht Resignation, sondern klinisch begründete Anpassung. Wenn ADHS-Behandlung greift und Konsum reduziert wird, kann die Erwartung schrittweise angehoben werden.' },
+          { titel: 'Verlängerte Bearbeitungszeit bei schriftlichen Tests', begruendung: 'Sowohl die ADHS-Verarbeitungs-Geschwindigkeit als auch der Cannabis-Effekt auf das Arbeitsgedächtnis verlangsamen die Performance. Zeitverlängerung von fünfundzwanzig Prozent ist klinisch begründet. Das gibt eine ehrlichere Messung dessen, was der Klient kognitiv leisten kann, jenseits der akuten pharmakologischen Verlangsamung. Die Anpassung gilt auch nach Konsum-Reduktion noch eine Zeit lang, weil sich die kognitive Erholung über Wochen erstreckt.' },
+          { titel: 'Stabiler Beziehungs-Anker (Klassenlehrer oder Vertrauenslehrer)', begruendung: 'Eine konstante Beziehung in der Schule, die nicht primär den Konsum thematisiert, sondern den Schüler als Person sieht. Diese Person stabilisiert über die Wochen und kann frühe Verschlechterungen wahrnehmen. Bei Klienten, die in der Klasse zunehmend isoliert sind, ist diese Beziehung oft die einzige verbleibende positive schulische Anbindung. Sie muss bewusst nicht in eine Kontroll-Rolle gedrängt werden.' },
+          { titel: 'Strukturierte Hausaufgaben mit klarer zeitlicher Begrenzung', begruendung: 'Bei reduzierter Verarbeitungs-Geschwindigkeit und ADHS-Aufmerksamkeits-Defizit braucht es klare Zeit-Limits. Zwanzig bis dreißig Minuten täglich statt unbegrenzt schützt vor der „ich sitze stundenlang und schaffe nichts"-Spirale, die regelmäßig zum nächsten Konsum führt — als Selbst-Beruhigung. Das Zeit-Limit ist als erreicht definiert, wenn die Zeit absolviert ist, nicht wenn die Aufgabe komplett ist.' },
+          { titel: 'Keine öffentlichen Kommentare zum Konsum vor der Klasse', begruendung: 'Beschämend und kontraproduktiv. Öffentliche Adressierung des Konsums positioniert den Klienten als sozialen Außenseiter und verstärkt die Stigmatisierung. Konsum-Themen gehören in das Vier-Augen-Gespräch oder ins schulpsychologische Setting, nicht in die Klassen-Öffentlichkeit. Diese Regel muss mit allen Lehrkräften der Klasse abgestimmt sein.' },
+          { titel: 'Schul-Anwesenheit als Erfolg werten, nicht nur Noten', begruendung: 'Bei einem Klienten, der einerseits ADHS-bedingt mit Anwesenheit kämpft und andererseits durch Konsum-Müdigkeit morgens kaum aus dem Bett kommt, ist regelmäßige Anwesenheit selbst schon klinische Leistung. Diese Anerkennung muss explizit kommuniziert werden — Lehrkräfte tendieren sonst dazu, nur die Notenleistung zu sehen. Anwesenheits-Erfolge werden im Wieder-Aufbau-Prozess wichtiger als curriculare Vollständigkeit.' },
+          { titel: 'Schriftliche Wochen-Übersicht über Aufgaben', begruendung: 'Time-Blindness-Kompensation. Unter Cannabis-Einfluss ist die Zeitwahrnehmung zusätzlich verzerrt — eine externe schriftliche Strukturierung der Woche ist hier doppelt wichtig. Die Übersicht muss klar genug sein, dass der Klient sie auch im verlangsamten Zustand schnell erfassen kann. Visuelle Klarheit schlägt textuelle Detailtiefe.' },
+          { titel: 'Pausen-Erlaubnis bei Erschöpfung', begruendung: 'Cannabis-Konsum produziert Müdigkeits-Phasen, die nicht durch Willenskraft überbrückbar sind. Eine niederschwellige Pausen-Erlaubnis verhindert, dass der Klient die Schule komplett verlässt, weil er die letzten Stunden nicht durchhält. Lieber zwanzig Minuten Pause als drei Stunden Vermeidung. Diese Logik muss der Schule explizit erklärt werden, weil sie der intuitiven Schul-Logik („durchhalten") widerspricht.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Drogen-Tests durch die Schule als Disziplinar-Instrument', begruendung: 'Zerstört Beziehung und ist klinisch ineffektiv. Drogen-Tests in disziplinärem Kontext positionieren die Schule als Kontroll-Instanz und beschädigen jede mögliche therapeutische Allianz. Wenn Tests klinisch indiziert sind, gehören sie in den KJP-Kontext, nicht in den Schul-Kontext. Eine Schule, die testet, produziert keine Veränderung — sie produziert Misstrauen und ausgefeiltere Verschleierungs-Strategien.' },
+          { titel: 'Keine öffentlichen Kommentare zum Konsum vor der Klasse', begruendung: 'Beschämend, kontraproduktiv. Öffentliche Adressierung stigmatisiert den Klienten und produziert die Außenseiter-Position, die wiederum den Konsum verstärkt. Vier-Augen-Gespräch ist der einzige angemessene Kontext. Diese Regel ist auch für gut gemeinte „pädagogische" Adressierung relevant — sie ist nicht hilfreich, sondern schädlich.' },
+          { titel: 'Keine Verweis-Androhung ohne therapeutischen Plan', begruendung: 'Treibt nur die Eskalation. Schul-Verweis-Drohungen ohne klinisch begründete Alternative produzieren regelmäßig Schul-Abbrecher und Konsum-Eskalation. Wenn Verweis tatsächlich indiziert ist, dann nur mit Übergangs-Plan in alternatives Setting und idealerweise mit therapeutischer Begleitung der Übergangs-Phase.' },
+          { titel: 'Keine reine „Sucht-Beratung" als isolierte Maßnahme', begruendung: 'Ohne ADHS-Adressierung — geht am Mechanismus vorbei. Sucht-Beratung ist nicht generell kontraindiziert, sondern muss in den klinischen Gesamt-Plan eingebettet sein, der die ADHS als primäre Achse behandelt. Eine konfrontativ ausgerichtete Sucht-Beratung kann bei diesem Profil sogar schaden.' },
+          { titel: 'Keine Eltern-Schule-Allianz, die nur den Konsum kontrolliert', begruendung: 'Ohne die ADHS-Achse zu verstehen — produziert eine Kontroll-Spirale, die das Familien-System belastet und den Klienten weiter isoliert. Eltern müssen den Selbstmedikations-Mechanismus verstehen, sonst werden sie zu Drogen-Detektiven statt zu therapeutischen Verbündeten. Diese Aufklärung muss aktiv organisiert werden, nicht nebenher.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als Beziehungs-Anker — ideal eine Lehrkraft, die das Selbstmedikations-Profil versteht und sich nicht in eine Drogen-Detektiv-Rolle drängen lässt. Konstanz über mehrere Schuljahre erhöht die Wirksamkeit erheblich, weil das Vertrauen sonst jedes Jahr neu aufgebaut werden muss',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit Selbstmedikations-Verständnis und mit Bereitschaft, die ADHS-Achse als primär zu sehen. Die institutionelle Übersetzung zwischen klinischer und schulischer Linie läuft über diese Stelle',
+          'SCAS für vertiefte therapeutische Begleitung, besonders bei Komorbidität (Depression, Suizidalität, beginnende Verwahrlosung). Die externe Stelle entlastet das Schul-System bei schwerer Symptomatik',
+          'Suchtberatung, wenn gewünscht, aber nicht als Pflicht-Programm — in Luxemburg über das Centre de prévention des toxicomanies (CePT) oder Solidarité Jeunes Luxembourg, beide mit niedrigschwelliger Beratungs-Tradition. Die Freiwilligkeit der Inanspruchnahme ist klinisch entscheidend',
+          'KJP für Medikations-Frage und Begleit-Monitoring, besonders wenn Stimulanzien indiziert sind und mit Cannabis-Konsum koordiniert werden müssen. Eng vernetzte Zusammenarbeit zwischen ambulanter Therapie, KJP und gegebenenfalls Suchtberatung'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier Wochen in akuter Phase, danach alle zwei bis drei Monate. Bei Eskalation des Konsums oder bei psychotischer Symptomatik temporär verdichten und KJP einbeziehen. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — die schulische Kommunikation soll nicht moralisieren, sondern klinisch beschreiben. Die Wortwahl der schulischen Kommunikation wirkt auf die Lehrer-Wahrnehmung des Klienten zurück.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Selbstmedikations-Aufklärung. Niederschwellig; Ziel ist, das Profil als ADHS-primär zu verankern und die Trennung zwischen disziplinärer und klinischer Linie zu etablieren. Eine kurze schriftliche Zusammenfassung des Selbstmedikations-Mechanismus mitliefern.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn die Klassenleitung in disziplinäre Reaktionen kippt oder die Eltern weiter in Konfrontations-Strategien festhängen. Der Schul-Psychologe übernimmt die institutionelle Übersetzungs-Arbeit zwischen klinischer und schulischer Logik.</li>
+            <li><strong>Stufe 3</strong> — Nachteilsausgleich-Antrag dokumentiert. Macht die Anpassungen offiziell, ohne dass der Konsum als formale Begründung erscheinen muss — die ADHS-Diagnose trägt den Antrag. Die schulische Akte bleibt damit ohne stigmatisierende Konsum-Markierung.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel erwägen, wenn der Konsum-Kontext in der Schule dominant ist (Klassen-Kollegen-Konsum, soziale Isolation als Kiffer-Gruppe). Wechsel in Setting mit anderer sozialer Dynamik kann den Konsum reduzieren, ohne ihn direkt zu adressieren. Die soziale Umgebung ist bei Konsum-Mustern oft der unterschätzte Faktor.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit mit therapeutischem Plan, besonders bei psychotischer Komponente oder massiver Verwahrlosung. Reset-Phase mit klar definierten Wieder-Einstiegs-Schritten. Hier ist die KJP-Anbindung Pflicht, das Schul-System allein kann diese Phase nicht tragen.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Konsum eskaliert oder andere Substanzen ergänzend. Schul-Verweigerung beginnt. Sozialer Rückzug akzentuiert. Beginnende paranoide oder dissoziative Symptomatik.</p>`,
+        ueberweisung: `<p>Medikations-Frage (Stimulanzien mit Begleit-Monitoring). Cannabis-induzierte psychotische Symptomatik. Schwere komorbide Depression. Konkrete Suizidalität.</p>`,
+        klinik: `<p>Cannabis-induzierte Psychose. Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Verwahrlosung mit Substanz-Eskalation.</p>`
+      }
+    }
+  },
   { id: 'adhs-eltern-adhs',            name: 'ADHS mit Eltern-ADHS',                   bloecke: emptyAdhsBloecke() },
-  { id: 'adhs-schulverweigerung',      name: 'ADHS mit Schulverweigerung',             bloecke: emptyAdhsBloecke() }
+  /* M8 — ADHS mit Schulverweigerung. Befüllt Prompt 8.
+     Klinische Eckpfeiler: schulverweigerung als funktionale antwort auf
+     chronisches versagen + time blindness, klient sieht morgens den berg
+     nicht mehr — er ist zu groß. Standard-disziplinarmaßnahmen scheitern
+     systematisch. Differential: angstgetriebene schulphobie vs. überforderungs-
+     getriebene adhs-schulverweigerung. Leitsatz: „du gehst nicht zur schule,
+     weil du nicht WILLST — du gehst nicht, weil du nicht KANNST." */
+  {
+    id: 'adhs-schulverweigerung',
+    name: 'ADHS mit Schulverweigerung',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit ADHS, der die Schule nicht mehr besucht oder massiv unregelmäßig. Morgens ist es körperlich unmöglich aufzustehen, abends gibt es Versprechen, es morgen zu schaffen, am nächsten Morgen wiederholt sich das gleiche. Eltern und Schule sehen Faulheit oder Demotivation; klinisch ist es Vermeidung als Selbstschutz nach Jahren des Versagens. Wer das als Disziplinar-Frage behandelt, verschärft die Symptomatik systematisch.</p>`,
+        klinischWichtig: `<p>Schulverweigerung bei ADHS ist nicht das gleiche Phänomen wie Schulphobie. Bei Schulphobie steht die Angst im Vordergrund — vor dem Schulgebäude, vor der Bewertung, vor dem sozialen Setting. Bei ADHS-Schulverweigerung steht die kumulative Erschöpfung und das Versagens-Narrativ im Vordergrund. Der Klient hat über Jahre erlebt, dass er es nicht schafft — Hausaufgaben verloren, Tests verpatzt, Vorbereitung unmöglich.</p>
+          <p>Time Blindness macht es schlimmer: er kann morgens nicht antizipieren, wie er den Tag bewältigen soll, der Berg ist unstrukturiert und übermächtig. Vermeidung wird zur einzigen funktionierenden Strategie. Wenn du das als Disziplinar-Problem behandelst und Schulpflicht-Druck ausübst, eskaliert das Vermeidungs-Verhalten — der Klient hat keine andere Option mehr. Was hilft, ist eine strukturierte Pause, ein Reha-orientierter Wieder-Einstieg, oft ein Setting-Wechsel. Disziplinär-Druck reproduziert das Versagen, das die Vermeidung ursprünglich ausgelöst hat.</p>`,
+        vergleich: `<p><strong>Vs. Schulphobie (Angststörung):</strong> Differential über die primäre Affekt-Komponente. Angst-getrieben mit somatischer Symptomatik vor der Schule (Übelkeit, Bauchschmerzen, Herzklopfen) und Erleichterung beim Zuhause-Bleiben = Phobie. Überforderungs-getrieben mit Versagens-Narrativ über Jahre und exekutiven Defiziten = ADHS-Schulverweigerung. Behandlungs-Linien fundamental unterschiedlich.</p>
+          <p><strong>Vs. M5 — sekundäre Depression:</strong> häufige Komorbidität. M8 hat oft sekundäre depressive Anteile, weil die Schul-Vermeidung das Versagens-Narrativ täglich bestätigt. Beide Achsen adressieren — depressive Behandlung allein reicht nicht.</p>
+          <p><strong>Vs. M6 — Cannabis:</strong> häufige Komorbidität. Schulverweigerung erleichtert Cannabis-Konsum (mehr Zeit, weniger äußere Kontrolle), Cannabis erleichtert Schulverweigerung (Müdigkeit, Antriebs-Reduktion). Beide Achsen parallel behandeln, sonst stabilisiert sich das Doppel-Muster.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität, besonders bei langem Verlauf und sozialer Isolation',
+          'Akute Verwahrlosung',
+          'Akute familiäre Eskalation mit Beziehungs-Abbruch'
+        ],
+        hoch: [
+          'Cannabis- oder anderer Substanzkonsum',
+          'Vollständige soziale Isolation',
+          'Sekundäre Depression vertiefend',
+          'Schul-Abbruch ohne Wieder-Einstiegs-Plan'
+        ],
+        mittel: [
+          'Berufs-Vermeidung in der Folge-Lebensphase',
+          'Identitätsfestigung als „Schul-Versager"',
+          'Beziehungs-Muster aus chronischer Vermeidung'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Bezug zur Schule entlasten, ohne aufzugeben. Therapeutische Pause oder Krankschreibung mit Reha-Charakter, dann strukturierter Schritt-für-Schritt-Wieder-Einstieg. ADHS-spezifische Behandlung parallel. Setting-Wechsel ist oft Teil der Lösung, nicht Niederlage.</p>`,
+        begruendung: `<p>Schulpflicht-Druck ohne Adressierung des Mechanismus verschärft das Vermeidungs-Verhalten. Was funktioniert, ist die Reduktion der Anforderung auf ein bewältigbares Niveau und dann graduelle Steigerung mit Erfolgs-Erlebnissen. Diese Reihenfolge ist klinisch nicht verhandelbar — Disziplinär-Druck produziert nur weitere Eskalation.</p>`,
+        diagnostik: [
+          'Conners 3 für ADHS-Verifikation',
+          'BRIEF für exekutives Profil — besonders Initiation und Planungsfunktion',
+          'Strukturierte Schul-Anamnese mit Fokus auf Vermeidungs-Entwicklung',
+          'Schul-Setting-Analyse (welche Fächer, welche Lehrer, welche Pausen-Situation triggert besonders)',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'Differential-Klärung zu Schulphobie über strukturierte Anamnese der Affekt-Komponente'
+        ],
+        wasDuTust: [
+          '„Du gehst nicht zur Schule, weil du nicht WILLST — du gehst nicht, weil du nicht KANNST. Das sind zwei verschiedene Dinge."',
+          '„Der Berg ist morgens unstrukturiert und zu groß. Wir zerlegen ihn in Stücke, die du sehen kannst."',
+          '„Eine Pause ist keine Niederlage. Sie ist eine Behandlungs-Phase mit Plan."',
+          '„Setting-Wechsel ist manchmal das, was die Schule jahrelang hätte vorschlagen sollen. Es ist keine Strafe."',
+          '„Du musst nicht morgen alles wieder können. Du musst morgen einen Schritt machen, den du heute noch nicht machen kannst."'
+        ],
+        wasDuNichtTust: [
+          'Nicht Schulpflicht-Druck mit aufbauen — verschärft das Vermeidungs-Verhalten und zerstört die therapeutische Allianz',
+          'Nicht das Eltern-Narrativ „er ist faul" durchgehen lassen — der schädlichste Satz für diesen Klienten',
+          'Nicht zu schnell zurück in alte Schule schicken — ohne Vorbereitung Wiederholung des Versagens',
+          'Nicht Krankschreibung als Aufgabe der Schul-Karriere framen — sie ist Reha-Phase mit Plan',
+          'Nicht alle Ressourcen in Schul-Wiedereinstieg stecken ohne ADHS-Behandlung — selbst-untergrabende Strategie'
+        ],
+        frequenz: `<p>Wöchentlich, in akuter Phase zwei mal pro Woche möglich. Krisennahe Verfügbarkeit besonders bei Wieder-Einstiegs-Versuchen.</p>`
+      },
+      vierPhasen: {
+        phase1: `Bezug zur Schule entlasten — Krankschreibung organisieren, schulischen Druck reduzieren, Familie aufklären über den Mechanismus. Diagnostik abschließen. Vertrauens-Aufbau zum Klienten, der oft schul-traumatisiert ist und Therapie als nächste Versagens-Bühne misstraut. Tagesstruktur ohne Schul-Anforderung etablieren, damit der Tag nicht in komplette Strukturlosigkeit kippt.`,
+        phase2: `ADHS-spezifische Behandlung beginnen. Selbstwert-Arbeit mit biographischem Reframing — die Schul-Geschichte als Mismatch-Geschichte erzählen, nicht als Versagens-Geschichte. Erste schulische Kontakte außerhalb der Klassen-Situation (Hausaufgaben-Betreuung einzeln, Besuch eines einzelnen Faches). Setting-Wechsel-Option mit Schule und Eltern besprechen.`,
+        phase3: `Schul-Wieder-Einstieg in graduellen Schritten — Halbtags, einzelne Fächer, dann mehr. Wenn Setting-Wechsel sinnvoll: Übergang zu neuer Schule mit ADHS-bewusster Aufnahme. Medikations-Frage mit KJP, wenn Erschöpfung trotz Pause nicht weicht — Stimulanzien können den morgendlichen Berg deutlich kleiner machen.`,
+        phase4: `Konsolidierung im neuen oder reorganisierten Schul-Setting. Klient hat eigene Strategien für morgens, für Hausaufgaben, für Krisen. Frequenz reduziert. Übergangs-Antizipation für nächste Bildungs-Phase mit dem Bewusstsein, dass jeder Setting-Wechsel klinisch ein Hochrisiko-Punkt ist.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht Schulpflicht-Verletzung und reagiert disziplinarisch — Mahnung, Eltern-Gespräch, Schul-Anwesenheits-Druck, manchmal Bußgeld-Androhung an Eltern. Was der Klient erlebt: Druck, den er nicht bewältigen kann, verstärkt das Versagens-Narrativ, beschleunigt die Vermeidung. Schul-Sozialarbeit wird involviert mit Fokus auf „Motivation steigern" — geht am Mechanismus vorbei und produziert oft die nächste Versagens-Erfahrung.</p>
+          <p>Klassische Lehrer-Aussage: „Wenn er anwesend wäre, würde er schon schaffen" — falsch, weil die Anwesenheit selbst schon die exekutive Höchstleistung ist, die er nicht aufbringt. Diese Aussage produziert regelmäßig die nächste Eskalation: Eltern setzen morgens mehr Druck, der Klient schafft es weniger, Konflikt eskaliert, Schul-Anwesenheit sinkt weiter. Der Mechanismus „Anwesenheit ist die eigentliche Leistung" muss explizit verstanden werden, sonst läuft die schulische Seite gegen die therapeutische.</p>
+          <p>Was die Schule braucht: Anerkennung, dass dies ein klinisches Problem ist; Bereitschaft zu reduzierten Anforderungen oder Setting-Wechsel; professionell organisierte Reha-Phase statt Disziplinar-Maßnahmen. Was sie nicht braucht: Bußgeld-Androhungen, Schul-Verweis ohne Wieder-Einstiegs-Plan, „Motivations-Coaching" als isolierte Maßnahme. Diese Standard-Reaktionen sind nicht nur ineffektiv, sondern aktiv schädlich für die klinische Behandlung.</p>
+          <p>Eine zusätzliche systemische Schwierigkeit: in Luxemburg wie in Deutschland und Belgien gibt es klare Schulpflicht-Regelungen, die wenig Spielraum lassen. Die Krankschreibung mit Reha-Charakter ist hier der formale Weg, der die Schulpflicht aussetzt und gleichzeitig den klinischen Plan ermöglicht. Diese Krankschreibung muss kinderpsychiatrisch begründet sein und über die KJP organisiert werden, sonst greift das schulische System weiter mit Disziplinär-Logik durch. Eine hausärztliche Krankschreibung reicht für diese Dauer und Form regelmäßig nicht aus.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine ADHS-Diagnose und befindet sich in einer akuten Phase der Schul-Vermeidung, die klinisch eine Folge kumulativer Überforderung und nicht eine Motivations-Frage ist. Was äußerlich wie Schul-Verweigerung aussieht, ist ein Selbstschutz-Mechanismus nach Jahren, in denen die exekutiven Anforderungen das Bewältigungs-System überstiegen haben.</p>
+          <p>Klinisch zentral: Disziplinar-Maßnahmen verschärfen diese Vermeidung systematisch. Jeder zusätzliche Druck verstärkt das Versagens-Narrativ und macht den nächsten Schul-Versuch unwahrscheinlicher. Was wir hier brauchen, ist eine therapeutische Pause oder Krankschreibung mit klar definiertem Reha-Charakter und einem schriftlich vereinbarten Wieder-Einstiegs-Plan — kein „mal sehen, wann er wiederkommt", sondern strukturierte Schritte mit zeitlichen Markern.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: erstens, Anerkennung der medizinischen Indikation für die Schul-Pause (gegebenenfalls über KJP-Attest); zweitens, ein reduzierter Stundenplan im Wieder-Einstieg (Halbtags-Lösung, einzelne Fächer); drittens, eine sichere Bezugsperson, die den Wieder-Einstieg begleitet; und viertens, keine Nachhol-Pflicht für verpasste Inhalte aus der Pause-Phase, weil die Wieder-Einstiegs-Bilanz sonst negativ wird, bevor sie beginnt.</p>
+          <p>Setting-Wechsel ist eine Option, die wir im Verlauf erwägen — nicht als Strafe, sondern als klinisch begründete Lösung, wenn die aktuelle schulische Situation strukturell nicht passt. Ich biete Ihnen gerne ein Gespräch an, in dem wir den Plan abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Krankschreibung mit Reha-Charakter, professionell begründet', begruendung: 'Setzt die Schulpflicht formal aus und ermöglicht den klinischen Plan. Wichtig: die Krankschreibung muss kinderpsychiatrisch begründet sein und über die KJP organisiert werden, sonst greift das schulische System weiter mit Disziplinär-Logik durch. Die Krankschreibung ist nicht „Aufgeben", sondern definierte Behandlungs-Phase mit Plan. Sie muss schriftlich an die Schule kommuniziert werden, idealerweise mit einer Zeitleiste für den Wieder-Einstieg.' },
+          { titel: 'Reduzierter Stundenplan im Wieder-Einstieg', begruendung: 'Halbtags-Lösung oder einzelne Fächer, je nach Belastbarkeit. Ein Vollzeit-Wieder-Einstieg ohne graduelle Steigerung ist regelmäßig zum Scheitern verurteilt, weil der Klient die exekutive Kapazität nicht hat. Die Reduktion ist klinisch begründete Anpassung, nicht Bevorzugung — sie wird in Wochen-Schritten gesteigert. Die Steigerungs-Schritte sollten klein genug sein, dass sie erfolgreich sein können — Erfolgs-Erfahrungen sind die Therapie.' },
+          { titel: 'Sichere Bezugsperson in der Schule für die Wieder-Einstiegs-Phase', begruendung: 'Klassenlehrer oder Vertrauenslehrer, der den Wieder-Einstieg begleitet und das Profil versteht. Bei einem Klienten, der die Schule traumatisch erlebt hat, braucht es eine konkrete positive Beziehungs-Erfahrung in der ersten Phase. Ohne diese Anker-Beziehung scheitert der Wieder-Einstieg oft im ersten Monat. Die Bezugsperson muss bewusst nicht als Kontroll-Instanz agieren.' },
+          { titel: 'Keine Nachhol-Pflicht für verpasste Inhalte aus der Pause-Phase', begruendung: 'Andernfalls scheitert der Wieder-Einstieg. Wer in der akuten Phase ausgesetzt hat und beim Wieder-Einstieg den Berg der verpassten Wochen nachholen soll, ist sofort wieder überfordert und vermeidet wieder. Der Wieder-Einstieg muss bei null beginnen können, nicht bei Aufholjagd. Diese Regel muss explizit mit der Schule abgestimmt sein.' },
+          { titel: 'Strukturierte Wochen-Übersicht mit klarer Zeitstruktur', begruendung: 'Time-Blindness-Kompensation. In der Wieder-Einstiegs-Phase ist die externe Strukturierung besonders wichtig, weil der Klient noch keine eigenen Routinen hat. Eine sichtbare Wochen-Übersicht mit klaren Anker-Zeiten gibt dem Tag eine externe Architektur, die er noch nicht selbst tragen kann.' },
+          { titel: 'Pausen-Räume mit definierter Funktion (sensorisch ruhig)', begruendung: 'Pausen sind in der Wieder-Einstiegs-Phase besonders kritisch — unstrukturiert und sozial fordernd. Ein ruhiger Rückzugs-Raum ermöglicht Regeneration zwischen den Stunden. Ohne diese Möglichkeit eskaliert die Müdigkeit, der Klient verlässt die Schule oder kommt am nächsten Tag nicht mehr.' },
+          { titel: 'Aufgaben in kleine Schritte mit dokumentierten Erfolgen', begruendung: 'Erfolgs-Konstruktion als Gegen-Narrativ zur Versagens-Geschichte. Kleine, klar abgeschlossene Aufgaben mit sichtbarer positiver Rückmeldung sind in der ersten Wieder-Einstiegs-Phase therapeutisch wichtiger als curriculare Vollständigkeit. Die Dokumentation der Erfolge ist Teil der biographischen Umschreibung.' },
+          { titel: 'Möglichkeit eines Setting-Wechsels offen halten als Lösung, nicht als Strafe', begruendung: 'Bei strukturellem Mismatch zwischen Schule und Klient ist Setting-Wechsel die richtige Lösung, nicht eine letzte Notlösung. Andere Klasse, andere Schul-Form, Lehre, alternative Bildungsform — die Optionen müssen früh und ohne Beschämungs-Konnotation auf dem Tisch liegen. Ein zeitiger Wechsel ist klinisch oft besser als zwei weitere gescheiterte Schul-Versuche.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Bußgeld-Androhung oder andere ordnungsrechtliche Schritte gegen Eltern', begruendung: 'Verschärft das System. Eltern, die ohnehin unter Druck stehen, eskalieren den häuslichen Konflikt — und der Klient erlebt sich als Ursache der familiären Krise. Diese Dynamik produziert regelmäßig die nächste Eskalations-Stufe statt der Schul-Rückkehr. Wenn die Schule formal handeln muss, dann mit klinischer Begründung statt mit ordnungsrechtlicher Eskalation.' },
+          { titel: 'Kein Schul-Verweis ohne Wieder-Einstiegs-Plan in anderem Setting', begruendung: 'Produziert nur Schul-Abbrecher. Ein Verweis ohne Übergang in alternative Bildungsform bedeutet faktischen Bildungs-Abbruch mit langfristigen Konsequenzen für Berufsperspektive und Selbstbild. Wenn überhaupt Verweis, dann nur mit konkreter Anschluss-Lösung und idealerweise mit Übergangs-Coaching.' },
+          { titel: 'Kein „Motivations-Coaching" als isolierte Maßnahme', begruendung: 'Geht am Mechanismus vorbei. Motivations-Defizite sind nicht primär das Problem; das Problem ist exekutive Erschöpfung plus kumuliertes Versagens-Narrativ. Motivations-Coaching ohne ADHS-Adressierung produziert weiteres Versagens-Erleben („selbst das Coaching klappt nicht") und kann das Schema verstärken.' },
+          { titel: 'Kein Vollzeit-Wieder-Einstieg ohne graduelle Steigerung', begruendung: 'Klassische Falle. „Jetzt geh aber wieder voll zur Schule" nach einer Pause-Phase produziert regelmäßig den nächsten Zusammenbruch innerhalb von Wochen. Die Steigerung muss in Wochen-Schritten erfolgen, mit klar definierten Übergangs-Markern und mit der Option, bei Verschlechterung wieder zu reduzieren ohne dass das als Versagen gewertet wird.' },
+          { titel: 'Keine Vergleiche mit Mitschülern oder mit „wie es früher war"', begruendung: 'Aktiviert das Versagens-Narrativ direkt. Vergleiche treffen den Klienten an der empfindlichsten Stelle, weil er das Vergleichs-Ergebnis schon vorab weiß. Diese Aussagen müssen in jedem Lehrer-Gespräch explizit als kontraindiziert benannt werden, weil sie sonst aus pädagogischer Hilflosigkeit immer wieder auftauchen.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als Beziehungs-Anker im Wieder-Einstieg — ideal eine Lehrkraft, die das Profil versteht und nicht in Schulpflicht-Druck-Logik zurückfällt. Konstanz über die Wieder-Einstiegs-Phase ist therapeutisch wichtiger als jede einzelne Anpassung',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit Schul-Vermeidungs-Verständnis und mit Bereitschaft, die klinische Linie über die disziplinäre zu stellen. Wichtig ist hier die Trennung zwischen Schulpflicht-Logik und klinischer Behandlungs-Logik',
+          'Schul-Direktion für die formale Genehmigung von Reduktion und Setting-Wechsel — ohne ihre Mitarbeit bleiben die Anpassungen blockiert. Frühzeitig einbinden, bevor disziplinäre Maßnahmen eskalieren',
+          'SCAS für vertiefte therapeutische Begleitung in der akuten Phase und im Wieder-Einstieg, besonders bei suizidaler Komponente oder bei massiver Familien-Belastung',
+          'SNJ wenn Familien-Unterstützung nötig — die familiäre Belastung durch eine Schul-Vermeidung ist oft hoch und kann das ganze System destabilisieren. Sozialdienst-Anbindung früh prüfen, nicht erst nach Eskalation',
+          'KJP für Medikations-Frage und für die Krankschreibung mit Reha-Charakter, die rechtssicher organisiert sein muss. Die kinderpsychiatrische Begleitung ist hier nicht optional, sondern Voraussetzung für die formale Auszeit',
+          'Berufsberatung, wenn Setting-Wechsel in nicht-Standard-Schul-Form (Lehre, alternative Bildung) erwogen wird. Frühzeitig einbinden, sodass realistische Alternativen vor dem Schulabbruch entwickelt werden'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle zwei Wochen in akuter Phase und im Wieder-Einstieg, dann monatlich. Bei Krise oder neuer Vermeidungs-Phase sofort verdichten. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — disziplinäre Begriffe (Schulpflicht, Verweis, Mahnung) sind in der schulischen Kommunikation zu vermeiden, klinische Begriffe (Behandlungs-Pause, Reha, Wieder-Einstieg) zu nutzen. Die Sprache prägt die Wahrnehmung des Klienten im Lehrer-Kollegium.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Mechanismus-Aufklärung. Die Unterscheidung „kann nicht" vs. „will nicht" explizit machen, mit Hinweis auf Time Blindness und kumulative Überforderung. Schriftliche Kurz-Aufklärung mitliefern, weil mündliche Gespräche bei Lehrer-Wechsel verloren gehen.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen, Schul-Direktion und Eltern. Hier müssen die formalen Optionen (Krankschreibung, reduzierter Stundenplan, Setting-Wechsel) auf den Tisch. Ohne Schul-Direktion bleibt Stufe 2 oft folgenlos, weil sie die Genehmigungs-Macht hält.</li>
+            <li><strong>Stufe 3</strong> — Nachteilsausgleich-Antrag und reduzierter Stundenplan dokumentiert. Formal verankert, damit die Anpassungen bei Lehrer-Wechsel oder Klassenkonferenz-Diskussion nicht in Frage gestellt werden. Die Dokumentation ist wichtiger als die mündliche Vereinbarung.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel umsetzen (andere Klasse, andere Schul-Form, Lehre, alternative Bildungsform). Klinisch geplant, nicht als Strafe — mit Übergangs-Gespräch im neuen Setting und mit klar definierten Anpassungen ab Tag eins. Ohne Übergangs-Vorbereitung wiederholt sich das Versagen oft im neuen Setting.</li>
+            <li><strong>Stufe 5</strong> — Vollständige schulische Auszeit mit therapeutischem Reha-Programm und schrittweisem Wieder-Einstieg in anderem System. Hier ist die KJP-Anbindung Pflicht, das Schul-System allein kann diese Phase nicht tragen. Die Auszeit hat einen klar definierten Anfang und ein klar definiertes Ende, sonst entwickelt sie sich zu einem unstrukturierten Stillstand.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Vollständige soziale Isolation. Suizidale Gedanken berichtet. Cannabis oder andere Substanzen ergänzend. Akute Familien-Eskalation um Schul-Frage.</p>`,
+        ueberweisung: `<p>Medikations-Frage (Stimulanzien-Indikation). Schwere komorbide Depression. Konkrete Suizidalität. Krankschreibung mit Reha-Charakter braucht ärztliche Begleitung über die KJP.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Verwahrlosung mit körperlicher Dekompensation. Familien-System bricht zusammen, kein sicherer Container zuhause.</p>`
+      }
+    }
+  }
 ];
 
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
