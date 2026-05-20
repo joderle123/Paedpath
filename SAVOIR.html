@@ -405,6 +405,300 @@
     margin-right: 6px;
   }
 
+  /* ============ Sub-Muster-Tiefe / Ebene 3 (Prompt 4) ============ */
+  .ebene3 { display: block; }
+  .ebene3-header { margin-bottom: 18px; }
+  .ebene3-header-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .ebene3-header-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 16px;
+    line-height: 1.3;
+  }
+  .ebene3-kernbotschaft {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 16px;
+    max-width: 760px;
+  }
+  .ebene3-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px;
+    background: var(--cream);
+    border-radius: 4px;
+    margin-bottom: 0;
+  }
+  .ebene3-switcher-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 100px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .ebene3-switcher-btn:hover { border-color: var(--ink); }
+  .ebene3-switcher-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .ebene3-switcher-btn.from-diagnosis { border-color: var(--gold); }
+  .ebene3-switcher-btn.from-diagnosis.active { border-color: var(--gold); }
+  .ebene3-switcher-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    opacity: 0.65;
+  }
+  .ebene3-switcher-marker {
+    color: var(--gold);
+    font-size: 10px;
+    margin-left: 2px;
+  }
+  .ebene3-switcher-btn.active .ebene3-switcher-marker { color: var(--paper); }
+
+  /* Sticky Top-Bar */
+  .ebene3-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    margin: 18px 0 28px;
+    padding: 18px 22px 16px;
+    box-shadow: 0 1px 0 var(--line), 0 8px 16px -16px rgba(0,0,0,0.12);
+  }
+  .topbar-toggle {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--sage);
+    padding: 4px 8px;
+    font-size: 12px;
+    transition: color .15s ease;
+  }
+  .topbar-toggle:hover { color: var(--ink); }
+  .topbar-toggle-icon { display: inline-block; transition: transform .2s ease; }
+  .ebene3-topbar[data-collapsed="false"] .topbar-toggle-icon { transform: rotate(180deg); }
+  .topbar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 720px) { .topbar-grid { grid-template-columns: 1fr; } }
+  .topbar-section-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .topbar-stufen {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .topbar-stufe-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  .topbar-stufe-content,
+  .topbar-esk-trigger {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .topbar-stufe-content ul,
+  .topbar-esk-trigger ul { margin: 0; padding-left: 16px; }
+  .topbar-stufe-content li,
+  .topbar-esk-trigger li { padding: 1px 0; }
+  .topbar-stufe-content p,
+  .topbar-esk-trigger p { margin: 0 0 4px; }
+  .topbar-esk-zeile {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .topbar-esk-zeile:last-child { border-bottom: none; }
+  .topbar-esk-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .topbar-empty {
+    color: var(--sage);
+    font-style: italic;
+    font-size: 11px;
+  }
+  /* Collapsed: zeige nur die ersten beiden Items pro Stufe / pro Esk-Zeile */
+  .ebene3-topbar[data-collapsed="true"] .topbar-stufe-content,
+  .ebene3-topbar[data-collapsed="true"] .topbar-esk-trigger {
+    max-height: 48px;
+    overflow: hidden;
+    position: relative;
+  }
+  .ebene3-topbar[data-collapsed="true"] .topbar-stufe-content::after,
+  .ebene3-topbar[data-collapsed="true"] .topbar-esk-trigger::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+    pointer-events: none;
+  }
+
+  /* Ebene-3 Bloecke */
+  .ebene3-body { display: block; }
+  .ebene3-block {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ebene3-block:last-child { border-bottom: none; }
+  .ebene3-block-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .ebene3-subblock {
+    margin-bottom: 18px;
+  }
+  .ebene3-subblock-titel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .ebene3-prose {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .ebene3-prose p { margin: 0 0 12px; }
+  .ebene3-prose p:last-child { margin-bottom: 0; }
+  .ebene3-prose ul { margin: 6px 0 12px; padding-left: 22px; }
+  .ebene3-prose li { margin: 4px 0; }
+  .ebene3-prose ol { margin: 6px 0 12px; padding-left: 22px; }
+  .ebene3-details {
+    margin-top: 14px;
+    border-top: 1px dashed var(--line);
+    padding-top: 12px;
+  }
+  .ebene3-details summary {
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    padding: 4px 0;
+    list-style: none;
+  }
+  .ebene3-details summary::-webkit-details-marker { display: none; }
+  .ebene3-details summary::before { content: '▸ '; }
+  .ebene3-details[open] summary::before { content: '▾ '; }
+  .ebene3-details summary:hover { color: var(--ink); }
+  .ebene3-details[open] summary { color: var(--ink); margin-bottom: 12px; }
+
+  .ebene3-phase {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .ebene3-phase:first-of-type { border-top: none; padding-top: 0; }
+  .ebene3-phase-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .ebene3-phase-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--sage);
+  }
+  .ebene3-phase-titel {
+    flex: 1;
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .ebene3-phase-dauer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .ebene3-placeholder {
+    padding: 18px 22px;
+    background: var(--cream);
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+    color: var(--sage);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .ebene3-footer {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    text-align: right;
+  }
+  .ebene3-footer .vertiefung-wissen-btn { margin-bottom: 14px; }
+  .ebene3-footer-disclaimer {
+    text-align: left;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--sage);
+    line-height: 1.5;
+    margin: 0;
+  }
+
   /* ============ Verdachtsachsen-Output (Prompt 3) ============ */
   .verdacht-section { display: block; }
   .risiko-banner {
@@ -5968,44 +6262,15 @@ function renderEbene() {
   if (ebene === 'behandlungs-plan') {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
-    // Asperger: volle Bloecke via renderPlan. ADHS: Phase-3-Platzhalter mit Top-Muster-Name.
-    if (topic.id === 'asperger') {
+    // Asperger + ADHS nutzen jetzt den unified Sub-Muster-Tiefe-Renderer (Prompt 4).
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam') {
       const ps = loadPlanState(topic.id);
-      if (!Array.isArray(ps.symptome) || ps.symptome.length === 0) {
-        body.innerHTML = `
-          <section class="plan">
-            <div class="plan-empty-match symdia-empty">
-              <strong>Behandlungs-Plan braucht erst eine Profil-Diagnose.</strong>
-              <p>Geh zur <em>Symptom-Auswahl</em> in Profil-Diagnose und kreuze die beobachtbaren Symptome deines Klienten an.</p>
-              <button class="plan-generate-btn" data-tool="goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
-            </div>
-          </section>`;
-        document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
-          STATE.currentEbene = 'symptom-auswahl';
-          setupTopicNavigation(topic);
-          renderEbene();
-        });
-        audioPanel.style.display = 'none';
-        audioCtrls.style.display = 'none';
-        readBtn.style.display = 'none';
-        stopSpeech();
-        return;
-      }
-      // Symptome vorhanden — Generiert-Marker setzen, damit renderPlanOutput läuft
-      if (!ps.generiert) {
+      // Asperger braucht ps.generiert für interne renderPlan-Konsistenz (falls Faktoren-Eingabe genutzt wird).
+      if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0 && !ps.generiert) {
         ps.generiert = Date.now();
         savePlanState(topic.id, ps);
       }
-      renderPlan(topic, body);
-      audioPanel.style.display = 'none';
-      audioCtrls.style.display = 'none';
-      readBtn.style.display = 'none';
-      stopSpeech();
-      return;
-    }
-    if (topic.id === 'adhs-unaufmerksam') {
-      const ps = loadPlanState(topic.id);
-      renderAdhsBehandlungsPlan(topic, ps, body);
+      renderSubMusterTiefe(topic, ps, body);
       audioPanel.style.display = 'none';
       audioCtrls.style.display = 'none';
       readBtn.style.display = 'none';
@@ -9819,6 +10084,351 @@ function bindVertiefungWissen(topic, root) {
   });
 }
 
+/* ============ SUB-MUSTER-TIEFE (Ebene 3) — Unified Renderer (Prompt 4) ============
+   Neues Layout für den Behandlungs-Plan-Sub-Tab unter HANDELN, identisch
+   für Asperger und ADHS. Daten aus dem topic-spezifischen Muster werden
+   via normalizeBehandlungsPlan() auf ein kanonisches View-Model gemappt.
+   Sticky Top-Bar mit Risiko-Profil und Eskalation, kompaktes Block 1 mit
+   ausklappbarer 1b/1c-Tiefe, voll-rendernde Block 3/4/5, Footer mit
+   Vertiefung-Wissen-Button. */
+
+function listToHtml(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return '';
+  return '<ul>' + arr.map(x => `<li>${escHtml(typeof x === 'string' ? x : (x.text || ''))}</li>`).join('') + '</ul>';
+}
+
+function nonEmpty(v) {
+  if (v == null) return false;
+  if (typeof v === 'string') return v.trim() !== '';
+  if (Array.isArray(v)) return v.length > 0;
+  return true;
+}
+
+/* Normalisiert ein Topic-spezifisches Muster auf das kanonische View-Model.
+   Asperger-Felder (profil, ansatzHaupt, schuleKommunikation etc.) und ADHS-Felder
+   (bloecke.wasDuSiehst.profilErkennung, bloecke.schulstrategie.b_vorlage etc.)
+   werden auf die gleichen Slots gemappt. Werte bleiben als HTML-Strings — Arrays
+   aus ADHS werden zu <ul>-HTML konvertiert. */
+function normalizeBehandlungsPlan(topic, muster) {
+  if (!muster) return null;
+  if (topic.id === 'asperger') {
+    const b = muster.bloecke || {};
+    return {
+      block1: { profilErkennung: b.profil || '', klinischWichtig: b.wichtig || '', vergleich: b.vergleich || '' },
+      block2: { kritisch: b.risikoKritisch || '', hoch: b.risikoHoch || '', mittel: b.risikoMittel || '' },
+      block3: {
+        hauptansatz: b.ansatzHaupt || '',
+        begruendung: '',
+        diagnostik:  '',
+        wasDuTust:   b.ansatzTust || '',
+        wasDuNichtTust: b.ansatzNicht || '',
+        frequenz:    b.ansatzFrequenz || ''
+      },
+      block4: {
+        phasen: Array.isArray(b.phasen) ? b.phasen.map(p => ({
+          titel: p.titel || '',
+          dauer: p.dauer || '',
+          content: [p.ziele, p.was, p.eintritt].filter(nonEmpty).join('')
+        })) : []
+      },
+      block5: {
+        a_problem:         b.schuleProblem || '',
+        b_vorlage:         b.schuleKommunikation || '',
+        c_anpassungen:     b.schuleAnpassungen || '',
+        d_kontraindikationen: b.schuleNicht || '',
+        e_rollen:          b.schuleWer || '',
+        f_frequenz:        [b.schuleFrequenz, b.schuleEskalation].filter(nonEmpty).join('')
+      },
+      block6: {
+        frequenzErhoehen: b.eskFrequenz || '',
+        ueberweisung:     b.eskKjp || '',
+        klinik:           b.eskKlinik || ''
+      }
+    };
+  }
+  if (topic.id === 'adhs-unaufmerksam') {
+    const b = muster.bloecke || {};
+    const ws = b.wasDuSiehst    || {};
+    const rp = b.risikoProfil   || {};
+    const ta = b.therapieansatz || {};
+    const vp = b.vierPhasen     || {};
+    const ss = b.schulstrategie || {};
+    const esk = b.eskalation    || {};
+    return {
+      block1: { profilErkennung: ws.profilErkennung || '', klinischWichtig: ws.klinischWichtig || '', vergleich: ws.vergleich || '' },
+      block2: { kritisch: listToHtml(rp.kritisch), hoch: listToHtml(rp.hoch), mittel: listToHtml(rp.mittel) },
+      block3: {
+        hauptansatz:    ta.hauptansatz || '',
+        begruendung:    ta.begruendung || '',
+        diagnostik:     listToHtml(ta.diagnostik),
+        wasDuTust:      listToHtml(ta.wasDuTust),
+        wasDuNichtTust: listToHtml(ta.wasDuNichtTust),
+        frequenz:       ta.frequenz || ''
+      },
+      block4: {
+        phasen: [
+          { titel: 'Phase 1 — Stabilisierung', dauer: 'Wochen 1–6',  content: vp.phase1 ? `<p>${vp.phase1}</p>` : '' },
+          { titel: 'Phase 2 — Aufbau',         dauer: 'Wochen 6–12', content: vp.phase2 ? `<p>${vp.phase2}</p>` : '' },
+          { titel: 'Phase 3 — Konsolidierung', dauer: 'Monate 3–9',  content: vp.phase3 ? `<p>${vp.phase3}</p>` : '' },
+          { titel: 'Phase 4 — Übergang',       dauer: 'Monate 9–12', content: vp.phase4 ? `<p>${vp.phase4}</p>` : '' }
+        ]
+      },
+      block5: {
+        a_problem:            ss.a_problem || '',
+        b_vorlage:            ss.b_vorlage || '',
+        c_anpassungen:        listToHtml(ss.c_anpassungen),
+        d_kontraindikationen: listToHtml(ss.d_kontraindikationen),
+        e_rollen:             listToHtml(ss.e_rollen),
+        f_frequenz:           ss.f_frequenz || ''
+      },
+      block6: {
+        frequenzErhoehen: esk.frequenzErhoehen || '',
+        ueberweisung:     esk.ueberweisung || '',
+        klinik:           esk.klinik || ''
+      }
+    };
+  }
+  return null;
+}
+
+function placeholderHtml(label) {
+  return `<div class="ebene3-placeholder"><em>${escHtml(label)}</em></div>`;
+}
+
+function renderSubMusterTiefe(topic, ps, container) {
+  ps.manuellesMuster = ps.manuellesMuster || null;
+  const musterList = planMusterFor(topic.id);
+
+  // Top-Muster aus Profil-Diagnose ermitteln
+  let topMusterId = null;
+  if (Array.isArray(ps.symptome) && ps.symptome.length > 0) {
+    const results = computeSymptomScores(ps, topic.id);
+    if (results.length > 0) topMusterId = results[0].muster.id;
+  }
+
+  // Aktives Muster: manuell überschreibt Diagnose-Top
+  let selectedMuster = null;
+  let isFromDiagnosis = false;
+  if (ps.manuellesMuster) {
+    selectedMuster = musterList.find(m => m.id === ps.manuellesMuster) || null;
+  }
+  if (!selectedMuster && topMusterId) {
+    selectedMuster = musterList.find(m => m.id === topMusterId) || null;
+    if (selectedMuster) isFromDiagnosis = true;
+  }
+
+  // Kein Muster auswählbar
+  if (!selectedMuster) {
+    container.innerHTML = `
+      <section class="ebene3">
+        <div class="plan-empty-match symdia-empty">
+          <strong>Wähle ein Muster oder führe die Profil-Diagnose durch.</strong>
+          <p>Geh zur <em>Profil-Diagnose · Symptom-Auswahl</em> und kreuze Symptome an. Das Top-Muster aus der Diagnose wird hier dann automatisch geladen. Oder wähle unten manuell ein Muster.</p>
+          <button class="plan-generate-btn" data-tool="ebene3-goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
+        </div>
+        ${renderEbene3MusterSwitcher(musterList, null, topMusterId)}
+      </section>`;
+    bindEbene3(topic, container);
+    return;
+  }
+
+  const view = normalizeBehandlungsPlan(topic, selectedMuster);
+  const kurzTable = musterKurzFor(topic.id);
+  const kurz = kurzTable[selectedMuster.id] || '';
+
+  // --- Sticky Top-Bar: Risiko-Profil + Eskalation ---
+  const b2 = view.block2;
+  const b6 = view.block6;
+  const stufenHtml = [
+    { titel: 'Kritisch', val: b2.kritisch },
+    { titel: 'Hoch',     val: b2.hoch },
+    { titel: 'Mittel',   val: b2.mittel }
+  ].map(s => `
+    <div class="topbar-stufe">
+      <div class="topbar-stufe-titel">${escHtml(s.titel)}</div>
+      <div class="topbar-stufe-content">${nonEmpty(s.val) ? s.val : '<em class="topbar-empty">keine spezifischen Indikatoren</em>'}</div>
+    </div>`).join('');
+  const eskHtml = [
+    { titel: 'Frequenz erhöhen', val: b6.frequenzErhoehen },
+    { titel: 'Überweisung KJP',  val: b6.ueberweisung },
+    { titel: 'Klinik',           val: b6.klinik }
+  ].map(e => `
+    <div class="topbar-esk-zeile">
+      <div class="topbar-esk-label">${escHtml(e.titel)}</div>
+      <div class="topbar-esk-trigger">${nonEmpty(e.val) ? e.val : '<em class="topbar-empty">—</em>'}</div>
+    </div>`).join('');
+  const topBarHtml = `
+    <div class="ebene3-topbar" data-collapsed="true">
+      <button class="topbar-toggle" data-tool="topbar-toggle" aria-label="Risiko und Eskalation ausklappen">
+        <span class="topbar-toggle-icon">▾</span>
+      </button>
+      <div class="topbar-grid">
+        <div class="topbar-section topbar-risiko">
+          <div class="topbar-section-titel">Risiko-Profil</div>
+          <div class="topbar-stufen">${stufenHtml}</div>
+        </div>
+        <div class="topbar-section topbar-eskalation">
+          <div class="topbar-section-titel">Eskalations-Indikatoren</div>
+          <div class="topbar-esk-zeilen">${eskHtml}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // --- Hauptbereich ---
+
+  // Block 1 kompakt + ausklappbar
+  const b1 = view.block1;
+  const block1HasMore = nonEmpty(b1.klinischWichtig) || nonEmpty(b1.vergleich);
+  const block1Html = `
+    <section class="ebene3-block">
+      <div class="ebene3-block-eyebrow">Block 01 · Was du siehst</div>
+      ${nonEmpty(b1.profilErkennung) ? `<div class="ebene3-prose">${b1.profilErkennung}</div>` : placeholderHtml('Profil-Erkennung folgt.')}
+      ${block1HasMore ? `
+        <details class="ebene3-details">
+          <summary>Mehr klinischer Kontext</summary>
+          ${nonEmpty(b1.klinischWichtig) ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">Was klinisch besonders wichtig ist</div><div class="ebene3-prose">${b1.klinischWichtig}</div></div>` : ''}
+          ${nonEmpty(b1.vergleich) ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">Vergleich mit ähnlichen Profilen</div><div class="ebene3-prose">${b1.vergleich}</div></div>` : ''}
+        </details>` : ''}
+    </section>`;
+
+  // Block 3 Therapieansatz
+  const b3 = view.block3;
+  const b3HasAny = ['hauptansatz','begruendung','diagnostik','wasDuTust','wasDuNichtTust','frequenz'].some(k => nonEmpty(b3[k]));
+  const b3Items = [
+    { titel: 'Hauptansatz',       val: b3.hauptansatz },
+    { titel: 'Begründung',        val: b3.begruendung },
+    { titel: 'Diagnostik-Instrumente', val: b3.diagnostik },
+    { titel: 'Was du tust',       val: b3.wasDuTust },
+    { titel: 'Was du nicht tust — und warum', val: b3.wasDuNichtTust },
+    { titel: 'Sitzungs-Frequenz', val: b3.frequenz }
+  ];
+  const block3Html = `
+    <section class="ebene3-block">
+      <div class="ebene3-block-eyebrow">Block 03 · Therapieansatz</div>
+      ${b3HasAny
+        ? b3Items.map(it => nonEmpty(it.val)
+            ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">${escHtml(it.titel)}</div><div class="ebene3-prose">${it.val}</div></div>`
+            : '').join('')
+        : placeholderHtml('Therapieansatz wird in folgenden Prompts gebaut.')}
+    </section>`;
+
+  // Block 4 Vier-Phasen
+  const phasen = view.block4.phasen || [];
+  const phasenContentExists = phasen.some(p => nonEmpty(p.content));
+  const block4Html = `
+    <section class="ebene3-block">
+      <div class="ebene3-block-eyebrow">Block 04 · Behandlungsplan in vier Phasen</div>
+      ${phasenContentExists
+        ? phasen.map((p, i) => `
+            <div class="ebene3-phase">
+              <div class="ebene3-phase-head">
+                <span class="ebene3-phase-num">${String(i+1).padStart(2,'0')}</span>
+                <span class="ebene3-phase-titel">${escHtml(p.titel || '')}</span>
+                ${p.dauer ? `<span class="ebene3-phase-dauer">${escHtml(p.dauer)}</span>` : ''}
+              </div>
+              ${nonEmpty(p.content) ? `<div class="ebene3-prose">${p.content}</div>` : placeholderHtml('Phasen-Inhalt folgt.')}
+            </div>`).join('')
+        : placeholderHtml('Vier-Phasen-Plan wird in folgenden Prompts gebaut.')}
+    </section>`;
+
+  // Block 5 Schul-Strategie (5A-5F)
+  const b5 = view.block5;
+  const block5HasAny = ['a_problem','b_vorlage','c_anpassungen','d_kontraindikationen','e_rollen','f_frequenz'].some(k => nonEmpty(b5[k]));
+  const block5Html = `
+    <section class="ebene3-block ebene3-block-schule">
+      <div class="ebene3-block-eyebrow">Block 05 · Schul-Strategie</div>
+      ${block5HasAny ? `
+        ${nonEmpty(b5.a_problem)            ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">5A · Das Problem im Schulsystem</div><div class="ebene3-prose">${b5.a_problem}</div></div>` : ''}
+        <div class="ebene3-subblock">
+          <div class="ebene3-subblock-titel">5B · Schulgespräch-Vorlage</div>
+          <div class="schule-vorlage">${nonEmpty(b5.b_vorlage) ? b5.b_vorlage : '<p><em>Vorlage folgt.</em></p>'}</div>
+        </div>
+        ${nonEmpty(b5.c_anpassungen)        ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">5C · Konkrete Anpassungen mit Begründung</div><div class="ebene3-prose">${b5.c_anpassungen}</div></div>` : ''}
+        ${nonEmpty(b5.d_kontraindikationen) ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">5D · Was du nicht empfiehlst und warum</div><div class="ebene3-prose">${b5.d_kontraindikationen}</div></div>` : ''}
+        ${nonEmpty(b5.e_rollen)             ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">5E · Wer im Schul-System wichtig ist</div><div class="ebene3-prose">${b5.e_rollen}</div></div>` : ''}
+        ${nonEmpty(b5.f_frequenz)           ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">5F · Frequenz und Eskalations-Pfad</div><div class="ebene3-prose">${b5.f_frequenz}</div></div>` : ''}`
+        : placeholderHtml('Schul-Strategie wird in folgenden Prompts gebaut. Vorlage (5B) erscheint im Cream-Block mit gold-Akzent, sobald befüllt.')}
+    </section>`;
+
+  // Header (Muster-Name + Kernbotschaft + Switcher)
+  const headerHtml = `
+    <header class="ebene3-header">
+      <div class="ebene3-header-top">
+        <div>
+          <div class="ebene3-header-eyebrow">Behandlungs-Plan${isFromDiagnosis ? ' · aus Profil-Diagnose' : ' · manuell ausgewählt'}</div>
+          <h1 class="ebene3-header-titel">${escHtml(selectedMuster.name)}</h1>
+        </div>
+      </div>
+      ${kurz ? `<p class="ebene3-kernbotschaft">${escHtml(kurz)}</p>` : ''}
+      ${renderEbene3MusterSwitcher(musterList, selectedMuster.id, topMusterId)}
+    </header>`;
+
+  // Footer
+  const footerHtml = `
+    <footer class="ebene3-footer">
+      <button class="vertiefung-wissen-btn" data-tool="goto-wissen">Vertiefung Wissen →</button>
+      <p class="ebene3-footer-disclaimer">Diese Empfehlungen sind eine Reflexionshilfe und ersetzen keine standardisierte klinische Beurteilung.</p>
+    </footer>`;
+
+  container.innerHTML = `
+    <section class="ebene3">
+      ${headerHtml}
+      ${topBarHtml}
+      <div class="ebene3-body">
+        ${block1Html}
+        ${block3Html}
+        ${block4Html}
+        ${block5Html}
+      </div>
+      ${footerHtml}
+    </section>`;
+
+  bindEbene3(topic, container);
+}
+
+function renderEbene3MusterSwitcher(musterList, activeId, topId) {
+  return `
+    <nav class="ebene3-switcher" aria-label="Muster wechseln">
+      ${musterList.map((m, i) => {
+        const isActive = activeId && m.id === activeId;
+        const isTop = topId && m.id === topId;
+        const num = String(i + 1).padStart(2, '0');
+        return `<button class="ebene3-switcher-btn ${isActive ? 'active' : ''} ${isTop ? 'from-diagnosis' : ''}" data-tool="ebene3-pick-muster" data-id="${escHtml(m.id)}" title="${isTop ? 'Top-Muster aus Profil-Diagnose' : 'Manuell auswählen'}">
+          <span class="ebene3-switcher-num">M${num}</span>
+          <span class="ebene3-switcher-name">${escHtml(m.name)}</span>
+          ${isTop ? '<span class="ebene3-switcher-marker">●</span>' : ''}
+        </button>`;
+      }).join('')}
+    </nav>`;
+}
+
+function bindEbene3(topic, root) {
+  root.querySelectorAll('[data-tool="ebene3-pick-muster"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ps = loadPlanState(topic.id);
+      ps.manuellesMuster = btn.dataset.id;
+      savePlanState(topic.id, ps);
+      renderEbene();
+    });
+  });
+  root.querySelector('[data-tool="topbar-toggle"]')?.addEventListener('click', (ev) => {
+    const bar = ev.currentTarget.closest('.ebene3-topbar');
+    if (!bar) return;
+    const collapsed = bar.dataset.collapsed === 'true';
+    bar.dataset.collapsed = collapsed ? 'false' : 'true';
+  });
+  root.querySelector('[data-tool="ebene3-goto-symptom-auswahl"]')?.addEventListener('click', () => {
+    STATE.currentEbene = 'symptom-auswahl';
+    setupTopicNavigation(topic);
+    renderEbene();
+  });
+  root.querySelector('[data-tool="goto-wissen"]')?.addEventListener('click', () => {
+    STATE.currentEbene = 'quintessenz';
+    setupTopicNavigation(topic);
+    renderEbene();
+  });
+}
+
 function renderAdhsBehandlungsPlan(topic, ps, container) {
   ps.manuellesMuster = ps.manuellesMuster || null;
   const musterList = planMusterFor(topic.id);
@@ -10200,7 +10810,7 @@ function renderErkanntesMuster(topic, ps, container) {
       </div>
       ${auchHtml}
       <div class="symdia-cta">
-        <button class="plan-generate-btn symdia-cta-btn" data-tool="goto-behandlungs-plan">Zum Behandlungs-Plan →</button>
+        <button class="plan-generate-btn symdia-cta-btn" data-tool="goto-behandlungs-plan">Behandlungs-Plan öffnen →</button>
         <button class="plan-reset-btn" data-tool="goto-symptom-auswahl">← Symptom-Auswahl anpassen</button>
       </div>
       ${vertiefungWissenButtonHtml()}
