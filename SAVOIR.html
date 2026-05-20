@@ -7423,7 +7423,124 @@ function emptyAdhsBloecke() {
   };
 }
 const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
-  { id: 'adhs-maedchen-spaet',         name: 'Mädchen mit ADHS-Spätdiagnose',          bloecke: emptyAdhsBloecke() },
+  /* M1 — Mädchen mit ADHS-Spätdiagnose. Vollständig befüllt (Prompt 5).
+     Klinische Eckpfeiler: Sari Solden als Primärquelle, Camouflaging-Mechanismus,
+     Diagnose-Verzögerung 5–10 Jahre, biographisches Reframing als therapeutischer
+     Hebel ('nicht repariert werden, sondern verstanden'). */
+  {
+    id: 'adhs-maedchen-spaet',
+    name: 'Mädchen mit ADHS-Spätdiagnose',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Mädchen mit jahrelang stabilen oder sogar guten Noten — bis in der Mittelstufe oder am Übergang die Krise kommt. Erschöpfung, sekundäre depressive Symptome, beginnende Schul-Vermeidung oder ein plötzlicher Leistungsabsturz. Das Bild sieht aus wie eine Depression, ist primär aber unerkannte ADHS. Sie hat sich über Jahre in eine Sackgasse hinein kompensiert und das System bricht jetzt zusammen.</p>`,
+        klinischWichtig: `<p>Was du im Sprechzimmer siehst: angepasst, kooperativ, „brav" — sie sitzt aufrecht, lächelt höflich, antwortet pünktlich. Und gleichzeitig berichtet sie über eine Erschöpfung, die zu diesem Bild nicht passt. Das ist Camouflaging im engeren Sinn: jahrelang eingeübtes Verbergen, dass das eigene Gehirn anders arbeitet als das ihrer Klassenkameraden. Sari Solden hat dieses Profil klinisch zuerst beschrieben — Mädchen mit ADHS unaufmerksam, die durch Mehranstrengung und perfekte Anpassung lange unsichtbar bleiben.</p>
+          <p>Der Mechanismus ist exekutiv-physiologisch: jahrelange Hochleistung in einem nicht passenden System kostet messbar Nervensystem-Ressourcen. Aufmerksamkeitsregulation, die andere implizit leisten, leistet sie explizit und bewusst — über Stunden, jeden Tag, jahrelang. Wenn du jetzt Erschöpfung plus sekundäre depressive Symptomatik bei einer Schülerin siehst, denke ADHS bevor du Depression behandelst. Sonst greift dein SSRI nicht und sie wird vermeintlich therapieresistent, ohne es klinisch zu sein.</p>`,
+        vergleich: `<p><strong>Vs. M2 — Hochbegabt mit ADHS:</strong> Überlappungen sind häufig, weil hohe Begabung lange ein zusätzlicher Kompensations-Puffer ist. Was M1 abgrenzt, ist die geschlechts-spezifische Camouflage und die sekundäre Symptomatik im Vordergrund. Wenn du beides siehst, behandelst du erst M1 (Reframing, Erschöpfung) und addierst dann M2-Elemente (Begabungs-Anker, Berufsorientierung).</p>
+          <p><strong>Vs. M4 — RSD bei ADHS:</strong> Rejection Sensitive Dysphoria ist bei M1 häufig Begleitphänomen, nicht eigene Achse. Wenn die Erschöpfung sich mit körperlich-überwältigenden Reaktionen auf Kritik vermischt, behandelst du beides parallel — RSD-Psychoedukation in die Reframing-Arbeit von M1 integriert.</p>
+          <p><strong>Vs. M5 — Sekundäre Depression:</strong> bei M1 ist die Depression Folge der ADHS-Kompensation, bei M5 läuft sie als parallele Diagnose. Klinisch ist das eine wichtige Unterscheidung — in beiden Fällen musst du die ADHS-Achse adressieren, sonst greift dein Antidepressivum nicht. Wenn du nicht sicher bist, welche Konstellation vorliegt: behandle wie M1 und beobachte den Verlauf.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität nach langjährig internalisiertem „nicht genug"',
+          'Selbstverletzendes Verhalten',
+          'Akute Erschöpfung mit Familien- oder Schul-Eskalation'
+        ],
+        hoch: [
+          'Sich anbahnende Schulverweigerung',
+          'Vertiefende depressive Symptomatik',
+          'Essstörung als häufige Begleitung',
+          'Sozialer Rückzug, Wegbrechen früherer Freundschaften'
+        ],
+        mittel: [
+          'Identitäts-Festigung „ich bin defekt"',
+          'Berufsentscheidung ohne Selbstkenntnis',
+          'Beziehungs-Muster aus chronischem Camouflaging'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Psychoedukation und biographisches Reframing zuerst, dann KVT für Strategien und Selbstwert. EMDR bleibt als Option für die kumulativen Beschämungs-Erfahrungen, die sich in der Schul-Biographie aufgestaut haben — typischerweise erst in Phase 3, wenn die akute Erschöpfung stabilisiert ist.</p>`,
+        begruendung: `<p>Ohne Reframing greifen Strategien nicht. Sie hat schon zu viele Strategien probiert und ist mit ihnen gescheitert — jede neue Strategie ohne Verständnis wird zu einer weiteren möglichen Versagens-Erfahrung. Was sie braucht ist nicht noch eine Technik, sondern das Verständnis, warum die bisherigen nicht funktioniert haben.</p>`,
+        diagnostik: [
+          'WISC-V mit Fokus auf Arbeitsgedächtnis und Verarbeitungsgeschwindigkeit (typische Spreizung: VCI hoch, AGD und VG niedrig)',
+          'Conners 3 in Selbst- und Eltern-Version',
+          'BRIEF in Selbst- und Eltern-Version',
+          'Retrospektive Anamnese bis Grundschule, gezielte Frage nach Mehranstrengung und Erschöpfung schon damals',
+          'BDI-A oder PHQ-A für komorbide Depression'
+        ],
+        wasDuTust: [
+          '„Du hast jahrelang dein Gehirn überanstrengt, um in einem System zu funktionieren, das nicht für dich gebaut ist."',
+          '„Deine Erschöpfung ist nicht Schwäche, sie ist die logische Folge."',
+          '„Wir müssen dich nicht reparieren, wir müssen verstehen, wie dein Gehirn arbeitet."',
+          '„Die guten Noten waren echt — und sie haben dich auch was gekostet, was niemand gesehen hat."',
+          '„Du bist nicht zerbrochen jetzt. Dein System sagt nur endlich, was es schon lange gesagt hat."'
+        ],
+        wasDuNichtTust: [
+          'Nicht Depression isoliert behandeln ohne ADHS-Achse — sonst Therapie-Resistenz',
+          'Nicht „mehr Disziplin / Struktur" empfehlen — sie hat schon zu viel davon gemacht',
+          'Den Eltern nicht „sie könnte ja, wenn sie wollte" durchgehen lassen — das ist der schädlichste Satz',
+          'Nicht weibliche Anpassungs-Strategien als Stärke verkaufen — sie sind Symptome',
+          'Nicht zu früh viele Strategien stapeln — erst Verstehen, dann Werkzeuge'
+        ],
+        frequenz: `<p>Anfangs wöchentlich für acht bis zwölf Wochen, dann 14-tägig in der Konsolidierungs-Phase, monatlich in der Stabilisierungs-Phase. Bei Krise oder neuer Symptomatik jederzeit verdichten.</p>`
+      },
+      vierPhasen: {
+        phase1: `Psychoedukation, biographisches Reframing, Diagnostik abschließen. Bezug zur Familie aufbauen — die Eltern brauchen das gleiche Reframing wie das Mädchen, sonst zerreißt der häusliche Druck deine Therapiearbeit. Wenn die Erschöpfung massiv ist: Krankschreibung oder Schul-Pause organisieren, bevor du eine andere Intervention startest. Kein Strategie-Training in dieser Phase — wäre kontraproduktiv und würde sich für sie wie noch eine Anforderung anfühlen, die sie zusätzlich leisten soll. Phase 1 ist Verständnis und Erholung, nicht Aktion.`,
+        phase2: `Erschöpfung weiter adressieren, parallel beginnt der Aufbau. Tagesstruktur, die zur Neurologie passt, statt gegen sie zu arbeiten — kürzere Lern-Einheiten, externe Anker statt innerer Disziplin, sensorische Anpassungen. Erste sehr behutsame Strategien einführen, eine pro Sitzung, nicht mehr. Selbstwert-Arbeit beginnt mit konkreten biographischen Beispielen ihrer Anstrengung, nicht mit allgemeinen Affirmationen — Affirmationen ohne biographische Verankerung verstärken bei diesem Profil eher die innere Distanz.`,
+        phase3: `Identitäts-Arbeit. Was will sie wirklich, nicht was sollte sie wollen — diese Unterscheidung ist bei jahrelangem Camouflaging oft selbst für sie unklar. Beziehungs-Muster reflektieren, weil Camouflaging auch in Freundschaften und ersten Liebesbeziehungen wirkt und dort weitere Erschöpfungs-Quellen produziert. Medikations-Frage mit der Kinder- und Jugendpsychiatrie klären, wenn die Erschöpfung trotz Strukturierung bleibt — Stimulanzien sind hier nicht selten der nötige Schritt, oft schon in niedriger Dosierung wirksam.`,
+        phase4: `Konsolidierung. Übergangs-Planung steht an — nächste Schul-Phase, Berufsorientierung mit ihrem Profil im Blick. Sitzungs-Frequenz wird schrittweise reduziert. Sie wird Expertin ihrer eigenen Neurologie und kann ihre Bedürfnisse selbstadvokativ formulieren — das ist das eigentliche Therapieziel, wichtiger als jede einzelne Strategie.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Der zentrale Bias des Schulsystems gegenüber ADHS ist gut bekannt: ADHS gleich laute Jungs. Mädchen mit ADHS unaufmerksam fallen aus diesem Schema komplett heraus — sie werden als „schüchtern", „tagträumend", „leise", „fleißig" wahrgenommen. Alles Adjektive, die im Lehrerzimmer keine Intervention auslösen. Im Gegenteil: diese Schülerinnen werden oft als unauffällig oder sogar als pflegeleicht eingestuft, was sie noch tiefer in die Unsichtbarkeit drückt.</p>
+          <p>Die jahrelange Kompensation hält die Noten lange oben — und genau das ist klinisch das eigentliche Problem. Niemand schaut hin, weil das System keinen Anlass dazu liefert. Erst wenn die kognitive und neurophysiologische Reserve aufgebraucht ist, fällt etwas auf. Der Zusammenbruch kommt meistens in der Mittel- oder Oberstufe, oft am Übergang in eine höhere Schul-Stufe oder bei einem Schul-Wechsel, wo plötzlich neue Strukturen, neue Lehrkräfte und steigende Anforderungen zusammenkommen. Was vorher unsichtbar war, wird dann sichtbar als sinkende Noten, Schulverweigerung, somatische Beschwerden oder depressive Symptomatik.</p>
+          <p>Dieser Zusammenbruch wird in der Schule typischerweise als Pubertäts-Krise gedeutet, nicht als das, was er wirklich ist — eine Erschöpfung jahrelanger neurokognitiver Kompensation. Schul-Psychologen, denen das Profil nicht vertraut ist, denken eher an eine Angststörung oder eine beginnende Depression als an eine unerkannte ADHS. Das ist diagnostisch nicht falsch — die sekundären Symptome sind real — aber strukturell unzureichend, weil die zugrundeliegende Achse unbenannt bleibt. Therapie ohne diese Benennung läuft dann an der eigentlichen Ursache vorbei.</p>
+          <p>Das messbare Resultat ist eine Diagnose-Verzögerung von fünf bis zehn Jahren mit kumulativem Schaden am Selbstbild und an der Selbstwirksamkeit. Eine Mittelstufen-Schülerin, die heute zu dir kommt, hat sich oft schon seit ihrer Grundschulzeit als „faul" oder „nicht intelligent genug" interpretiert. Das macht die spätere Therapiearbeit fundamental anders als bei einem Jungen, der mit zehn Jahren diagnostiziert wurde — du arbeitest gegen eine über Jahre verfestigte Eigenpathologisierung an, die in jeder Klassenarbeit, in jedem Pausen-Smalltalk, in jeder Lehrer-Bemerkung weiter zementiert wurde. Die Schul-Strategie muss diesen Hintergrund einrechnen, sonst landest du wieder bei „mehr Anstrengung" und reproduzierst den ursprünglichen Schaden.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klientin-Name] ist eine Schülerin Ihrer Klasse mit einer aufmerksamkeitsregulatorischen Besonderheit — diagnostisch eine Aufmerksamkeitsdefizit-Hyperaktivitätsstörung vom unaufmerksamen Typ (ADHS-I). Was im Unterricht wie Schüchternheit, Tagträumen oder ungewöhnliche Erschöpfung aussieht, ist klinisch Ausdruck einer neurologischen Variante in der Verarbeitung, nicht mangelnde Motivation und keine emotionale Auffälligkeit.</p>
+          <p>Mädchen mit ADHS unaufmerksam kompensieren das Profil oft jahrelang erfolgreich. Sie wirken angepasst, leistungsbereit, kooperativ — während ihr Nervensystem unter dauernder Hochleistung steht, um die fehlende automatische Aufmerksamkeitsregulation bewusst zu ersetzen. Die jetzige Erschöpfung, die Ihnen vielleicht aufgefallen ist, ist nicht Demotivation, sondern die logische Folge dieser jahrelangen Kompensation.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen, die [Klientin-Name] die nötige Entlastung geben: schriftliche Anweisungen zusätzlich zu mündlichen, besonders bei mehrschrittigen Aufgaben; reduzierte Hausaufgabenmenge oder verlängerte Bearbeitungszeit, je nachdem was leichter umsetzbar ist; schriftliche Tests in einem ruhigen Raum mit fünfundzwanzig Prozent Zeitverlängerung; und keine spontanen mündlichen Abfragen vor der Klasse.</p>
+          <p>Diese Anpassungen sind nicht Bevorzugung, sondern Nachteilsausgleich — die offizielle Beantragung ist bei Bedarf über den Schul-Psychologen möglich. Ich biete Ihnen gerne ein gemeinsames Gespräch an, in dem wir den genauen Bedarf abstimmen und die weitere schulische Begleitung gemeinsam überlegen. [Klientin-Name] braucht für diese Phase vor allem Verständnis und Strukturierung von außen, nicht zusätzlichen Druck.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Schriftliche Anweisungen zusätzlich zu mündlichen', begruendung: 'Arbeitsgedächtnis-Entlastung — das visuelle Backup gibt ihrer Aufmerksamkeit einen Anker, der nicht nach dreißig Sekunden verschwindet. Mündliche Mehrschritt-Anweisungen verlieren sich für sie regelmäßig im Übergang vom Hören zum Tun, weil die zweite Information die erste verdrängt, bevor sie verarbeitet ist. Die schriftliche Form ist keine Bevorzugung, sondern eine prothetische Kompensation eines neurokognitiven Defizits, das durch Wille nicht überbrückbar ist.' },
+          { titel: 'Reduzierte Hausaufgabenmenge oder verlängerte Bearbeitungszeit', begruendung: 'Erschöpfungs-Schutz für ein Nervensystem, das den Schultag bereits unter erhöhter Last bewältigt. Die Energiebilanz muss nach Schulschluss positiv sein, sonst rutscht sie in eine kumulative Erschöpfung, aus der sie sich nicht mehr selbständig erholt. Welche der beiden Optionen leichter umsetzbar ist, hängt vom Fach und der Lehrkraft ab — beides ist klinisch gleichwertig wirksam, solange das Volumen tatsächlich sinkt.' },
+          { titel: 'Schriftliche Tests in einem ruhigen Raum, fünfundzwanzig Prozent Zeitverlängerung', begruendung: 'Sie kann den Stoff. Was sie unter Klassen-Bedingungen plus Zeitdruck nicht zeigen kann, ist nicht ihr Wissen, sondern ihre Performance unter neurologisch ungünstigen Bedingungen — ein ruhiger Raum reduziert die parallele Reizverarbeitung, die ihre exekutive Reserve sonst auffrisst. Die Zeitverlängerung gleicht die niedrigere Verarbeitungsgeschwindigkeit aus, die im WISC-V regelmäßig dokumentiert ist. Beides zusammen macht die Tests zu einer ehrlicheren Messung dessen, was sie weiß.' },
+          { titel: 'Keine spontanen mündlichen Abfragen vor der Klasse', begruendung: 'Spontanes Abrufen unter sozialem Beobachtungsdruck ist exekutiv besonders kostspielig — sie muss gleichzeitig das Wissen mobilisieren, die soziale Bewertung verarbeiten und die motorische Sprachproduktion regulieren. Bei Versagen entsteht Scham, die ihre Selbstwert-Architektur weiter unterhöhlt, und die nächsten Wochen sind dann durch die Erinnerung an genau diesen Moment kontaminiert. Stattdessen: schriftliche Beteiligung oder Vorab-Ankündigung, dann ist Vorbereitung möglich.' },
+          { titel: 'Regelmäßige kurze Pausen-Erlaubnis ohne Diskussion', begruendung: 'Aufmerksamkeits-Rekalibrierung braucht kurze Unterbrechungen — drei Minuten Wasser holen oder Toilette sind klinisch funktional und nicht Zeitverschwendung. Diese müssen ohne Begründungsdruck möglich sein, weil Verhandeln darüber selbst Energie kostet, die sie nicht hat. Ideal ist ein stiller Code mit der Lehrkraft, etwa eine Karte auf dem Tisch oder ein Handzeichen, das ohne Worte verstanden wird.' },
+          { titel: 'Wöchentlicher Lehrer-Schüler-Check-in, fünf Minuten', begruendung: 'Beziehungs-Anker und Frühwarn-System. Eine vertraute Lehrkraft, die fünf Minuten pro Woche nachfragt, kann Verschlechterungen viel früher bemerken als die Eltern oder die Therapeutin, weil sie die Schülerin in ihrem Alltagskontext sieht. Wichtig ist die Verlässlichkeit dieser fünf Minuten — wenn sie ausfallen oder ständig verschoben werden, verlieren sie ihre stabilisierende Wirkung und werden zur weiteren Versagens-Erfahrung.' },
+          { titel: 'Strukturierte Wochen-Übersicht über Aufgaben', begruendung: 'Time-Blindness-Kompensation. Ohne externe Zeit-Strukturierung erlebt sie Wochen als einen unstrukturierten Block — alles ist gleich dringend, alles ist gleich weit weg, alles fühlt sich gleich aussichtslos an. Eine sichtbare Wochen-Übersicht — Papier, digital, beides funktioniert — macht Zeit handhabbar und reduziert die kognitive Last, die sonst täglich neu für das Sortieren von Prioritäten anfällt.' },
+          { titel: 'Prinzip: Reduzieren statt Hinzufügen', begruendung: 'Bei diesem Profil ist jede zusätzliche Maßnahme — Förderunterricht, Hausaufgaben-Hilfe, AGs zur Selbstwertstärkung — eine weitere Belastung. Das Schul-Setting muss schmaler werden, nicht reicher, damit die Erholung beginnen kann. Dieses Prinzip widerspricht der pädagogischen Intuition, mehr Hilfe sei besser, und muss explizit kommuniziert werden, sonst stapeln sich gutgemeinte Angebote, die in der Summe destabilisieren.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Mehr Hausaufgaben „weil sie es ja kann"', begruendung: 'Destruktiv. Verstärkt die Erschöpfung und vermittelt der Schülerin die Botschaft, dass ihre Leistungsfähigkeit als unbegrenzte Ressource angesehen wird. Bei einer Schülerin, die das schon jahrelang verinnerlicht hat, ist dieser Satz eine direkte Re-Traumatisierung ihres bisherigen Schul-Erlebens.' },
+          { titel: 'Förder-Unterricht zusätzlich', begruendung: 'Die Energie-Bilanz wird negativer. Was helfen soll, schadet, weil die Zeit für Erholung verloren geht und der zusätzliche Lern-Kontext eine weitere Aufmerksamkeits-Anforderung produziert. Förderung ist hier nicht die richtige Antwort — Setting-Anpassung ist es.' },
+          { titel: 'Belohnungs-Systeme, die sichtbar an Mitschüler kommuniziert werden', begruendung: 'Vergrößern die Scham und positionieren sie als Sonderfall vor der Klasse, was bei einer Schülerin mit fragiler Selbstwert-Architektur direkt destabilisierend wirkt. Wenn überhaupt Belohnungen: diskret, individuell, nicht öffentlich.' },
+          { titel: 'Pauschale Empfehlung „mehr Sport" ohne Berücksichtigung der Erschöpfungs-Bilanz', begruendung: 'Bewegung kann helfen — kann aber bei akut erschöpften Klientinnen auch die letzte Reserve aufbrauchen, wenn sie zur Pflicht gemacht wird. Sport-Empfehlungen müssen mit Energie-Status und Selbstregulation der Klientin abgestimmt sein, sonst werden sie zur nächsten Versagens-Bühne.' },
+          { titel: '„Lautes Vorlesen üben" als Methode', begruendung: 'Beschämend und kontraproduktiv. Eine Mädchen-spezifische Variante von Re-Traumatisierung der Schul-Beschämungs-Geschichte unter dem Deckmantel der Leseförderung. Lese-Kompetenz ist hier selten das Problem; das Problem ist die Performance unter sozialem Beobachtungsdruck, die durch noch mehr Vorlesen nur verstärkt wird.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als zentraler Beziehungs-Anker und operativer Ansprechpartner im Schulalltag — ideal über mehrere Schuljahre konstant, damit Vertrauen aufgebaut werden kann und nicht jedes Jahr neu erklärt werden muss',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) für offiziellen Nachteilsausgleich, formale Diagnose-Kommunikation und institutionelle Verankerung der Anpassungen',
+          'SCAS bei vertiefter psychologischer Begleitungs-Notwendigkeit, vor allem wenn die sekundäre Symptomatik akut wird oder die Schul-interne Psychologie nicht ausreicht',
+          'SNJ bei familien-systemischer Belastung, die in die Schule durchschlägt — etwa wenn die Eltern selbst nicht stabilisierungsfähig sind oder häuslicher Druck die schulische Erholung verhindert',
+          'Bei akademisch wichtigen Übergängen: Berufsberatung mit Kenntnis der Diagnose, kein Standard-Setting — eine Standardberatung übersieht regelmäßig die Implikationen ihres Profils für Studien- und Berufswahl'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier bis sechs Wochen in der Stabilisierungs-Phase, alle zwei bis drei Monate in der Konsolidierung. Vor Übergängen (Klassen-Wechsel, neuer Schul-Stufe, Schul-Form-Wechsel) verdichten auf zweiwöchentlich für die ersten Monate. Schriftliche Kommunikation grundsätzlich vorziehen, weil mündliche Vereinbarungen bei Lehrer-Wechsel oder Klassenkonferenz-Diskussionen verloren gehen — und weil die Schülerin sie selbst gegenchecken können soll.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch plus schriftliche Anpassungen. Erste, niederschwellige Ebene; sollte innerhalb von zwei Wochen Wirkung zeigen.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Schul-Gespräch mit Schul-Psychologen und Eltern. Wenn Stufe 1 nicht greift oder Lehrkraft die Anpassungen blockt.</li>
+            <li><strong>Stufe 3</strong> — Offizieller Nachteilsausgleich-Antrag, dokumentiert. Macht die Anpassungen lehrer-wechsel-fest und gibt der Schülerin formale Sicherheit.</li>
+            <li><strong>Stufe 4</strong> — Wechsel der Klasse oder Schul-Form erwägen. Bei strukturellem Versagen des Settings (zu große Klasse, ungeeignete Lehrkultur, dauerhafte Blockade durch Schulleitung).</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit mit Krankschreibung und Reha-Charakter plus strukturierter Wieder-Einstiegs-Plan. Letzte Option; nicht als Strafe oder Versagen framen, sondern als medizinisch indizierte Maßnahme zur Verhinderung eines vollständigen Schulabbruchs.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Passive Suizidgedanken treten auf. Schul-Verweigerung beginnt sich anzubahnen. Essverhalten verändert sich auffällig — restriktiv oder als Stress-Essen. Sozialer Rückzug intensiviert sich, frühere Freundschaften brechen weg.</p>`,
+        ueberweisung: `<p>Medikations-Frage steht im Raum (Stimulanzien-Indikation klinisch begründbar). Komorbide Depression mittelschwer bis schwer. Konkrete Suizidalität, auch ohne ausformulierten Plan.</p>`,
+        klinik: `<p>Akute Suizidalität mit konkretem Plan oder Vorbereitungs-Handlungen. Massive Erschöpfung mit körperlicher Dekompensation (Gewichtsverlust, somatische Marker, Mutismus außerhalb der Familie). Essstörung in akuter Verschlechterung. Familien-System bricht zusammen — kein sicherer Container zuhause mehr.</p>`
+      }
+    }
+  },
   { id: 'adhs-hochbegabt',             name: 'Hochbegabter Klient mit ADHS',           bloecke: emptyAdhsBloecke() },
   { id: 'adhs-audhd',                  name: 'AuDHD — ADHS plus Asperger',             bloecke: emptyAdhsBloecke() },
   { id: 'adhs-rsd',                    name: 'ADHS mit Rejection Sensitive Dysphoria', bloecke: emptyAdhsBloecke() },
@@ -10092,8 +10209,23 @@ function bindVertiefungWissen(topic, root) {
    ausklappbarer 1b/1c-Tiefe, voll-rendernde Block 3/4/5, Footer mit
    Vertiefung-Wissen-Button. */
 
+/* Konvertiert ein Array zu HTML-Liste.
+   Plain strings → ungeordnete Liste <ul>.
+   Objekte mit { titel, begruendung } → nummerierte Liste <ol class="schule-anpassungen">
+   mit fettem Titel und nachfolgender Begründung — visuell parallel zur Asperger-
+   Schulgespräch-Vorlage. */
 function listToHtml(arr) {
   if (!Array.isArray(arr) || arr.length === 0) return '';
+  const structured = arr.some(x => x && typeof x === 'object' && (x.titel || x.begruendung));
+  if (structured) {
+    return '<ol class="schule-anpassungen">' + arr.map(x => {
+      if (typeof x === 'string') return `<li>${escHtml(x)}</li>`;
+      const t = x.titel || '';
+      const b = x.begruendung || '';
+      if (!t && !b) return '';
+      return `<li><strong>${escHtml(t)}.</strong> ${escHtml(b)}</li>`;
+    }).join('') + '</ol>';
+  }
   return '<ul>' + arr.map(x => `<li>${escHtml(typeof x === 'string' ? x : (x.text || ''))}</li>`).join('') + '</ul>';
 }
 
