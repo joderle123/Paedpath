@@ -7784,8 +7784,247 @@ const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
       }
     }
   },
-  { id: 'adhs-rsd',                    name: 'ADHS mit Rejection Sensitive Dysphoria', bloecke: emptyAdhsBloecke() },
-  { id: 'adhs-depression-sekundaer',   name: 'ADHS mit sekundärer Depression',         bloecke: emptyAdhsBloecke() },
+  /* M4 — ADHS mit Rejection Sensitive Dysphoria. Befüllt Prompt 7.
+     Klinische Eckpfeiler: William Dodson hat das konzept geprägt, extreme
+     emotionale reaktion auf wahrgenommene zurückweisung, oft als BPD
+     fehldiagnostiziert, stimulanzien (ggf. + guanfacin) reduzieren RSD oft
+     dramatisch. Leitsatz: „ein trigger ist kein versagen — ein trigger ist
+     information." */
+  {
+    id: 'adhs-rsd',
+    name: 'ADHS mit Rejection Sensitive Dysphoria',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Klient mit ADHS, der auf wahrgenommene Zurückweisung mit einer Intensität reagiert, die zur Situation nicht passt. Tonfall der Lehrerin, eine ausgebliebene Nachricht, ein kritischer Blick reichen für einen Zustand, der Stunden bis Tage anhält. Wird oft als Borderline fehldiagnostiziert, ist aber bei diesem Profil meistens RSD bei ADHS — die Behandlung ist fundamental anders. Klienten beschreiben den Schmerz körperlich, als würde sie etwas physisch treffen.</p>`,
+        klinischWichtig: `<p>William Dodson hat das Konzept der Rejection Sensitive Dysphoria im ADHS-Kontext klinisch geprägt — eine extreme emotionale Reaktion auf wahrgenommene Zurückweisung, real oder eingebildet. Klienten beschreiben es körperlich, als würde sie etwas physisch treffen. Das emotionale System bei ADHS reguliert anders, gleichzeitig hat der Klient oft jahrelange Erfahrungen mit Beschämung in Schule und Familie internalisiert. Trigger und Vulnerabilität treffen aufeinander.</p>
+          <p>Zwei Reaktionsmuster sind zu unterscheiden: das internalisierende (Rückzug, Selbsthass, akut suizidale Gedanken nach einem winzigen Trigger) und das externalisierende (Wut, Anschuldigung, abrupter Beziehungs-Abbruch). Beide brauchen unterschiedliche Interventions-Wege. Wenn du das nicht differenzierst, behandelst du falsch — Stimulanzien können RSD oft dramatisch reduzieren (Dodson), aber nur wenn du es als ADHS-Phänomen erkennst und nicht in die BPD-Schiene schiebst. Die diagnostische Sorgfalt am Anfang entscheidet über die ganze Behandlungs-Richtung.</p>`,
+        vergleich: `<div class="schule-vorlage"><p><strong>Differentialdiagnose zu Borderline — klinisch zentral:</strong></p>
+          <p>BPD hat Identitätsdiffusion, chronische innere Leere, grundlegendes Schwarz-Weiß-Spalten als Beziehungs-Muster, anhaltende instabile Selbstwahrnehmung. Bei RSD ist die Identität intakt zwischen den Trigger-Episoden, die Reaktion ist zeitlich begrenzt (Stunden bis Tage), ADHS-Marker sind zentral, exekutive Defizite gehen der affektiven Symptomatik voraus. Wenn du unsicher bist: schau auf die exekutiven Funktionen, die ADHS-Geschichte seit Grundschule, und auf das Verhalten zwischen den Trigger-Phasen. RSD-Klienten sind zwischen den Episoden stabil; BPD-Klienten haben chronische Beziehungs- und Identitäts-Symptomatik.</p></div>
+          <p><strong>Vs. M1 — Mädchen mit Spätdiagnose:</strong> RSD ist oft Begleitphänomen bei M1, aber bei M4 ist RSD die zentrale Behandlungs-Achse, nicht ein Sekundär-Symptom. Wenn die emotionale Trigger-Reaktion die klinische Hauptpräsentation ist, behandelst du M4 als Primärmuster.</p>
+          <p><strong>Vs. M5 — sekundäre Depression:</strong> RSD ist episodisch um Trigger, M5 ist chronische depressive Grundstimmung. Beide können koexistieren — dann beide adressieren, mit Reframing der RSD als ADHS-Phänomen vor der Depressions-Behandlung.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Akute Suizidalität nach Rejection-Trigger — kann sehr schnell eskalieren',
+          'Akute Selbstverletzung',
+          'Akuter Beziehungs-Abbruch mit Vorbereitungs-Handlungen (Wohnungs-Verlassen, Drohungen)'
+        ],
+        hoch: [
+          'Beziehungs-Abbrüche im Bekanntenkreis nach kleinen Anlässen',
+          'Depressive Spirale nach Trigger-Phase',
+          'Sozialer Rückzug',
+          'Substanz-Konsum als Selbstmedikation in Trigger-Phasen'
+        ],
+        mittel: [
+          'Chronische Beziehungs-Vermeidung aus Trigger-Antizipation',
+          'Berufs-Vermeidung aus Bewertungs-Angst',
+          'Beziehungs-Muster mit hoher Konflikt-Fluktuation'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Psychoedukation zentral — der Klient muss verstehen, dass RSD eine ADHS-Komponente ist, kein Persönlichkeitsdefekt. Dann KVT für emotionale Regulation, Distanzierungs-Techniken, DBT-Elemente (auch wenn nicht BPD — die Werkzeuge helfen trotzdem). Medikations-Frage besonders relevant — Stimulanzien reduzieren RSD oft dramatisch, in manchen Fällen Guanfacin als Add-on.</p>`,
+        begruendung: `<p>Ohne Reframing als ADHS-Phänomen bleibt der Klient in der „ich bin zu sensibel"- oder „ich bin Borderline"-Identität stecken. Beide Selbst-Narrative blockieren echte therapeutische Arbeit. Erst das neurologische Reframing macht die Trigger zu Information statt zu Identitäts-Markern.</p>`,
+        diagnostik: [
+          'Conners 3 für ADHS-Verifikation',
+          'RSD ist eine klinische Diagnose ohne standardisiertes Instrument — strukturierte Anamnese der Trigger-Episoden mit Intensität, Dauer und Beziehungs-Kontext',
+          'BPD-Differential: SCID-5-PD (adaptiert) wenn Differential unklar',
+          'K-SADS-PL für Komorbidität',
+          'BDI-A oder PHQ-A wenn depressive Begleit-Symptomatik vorhanden'
+        ],
+        wasDuTust: [
+          '„Was du erlebst ist nicht Übertreiben. Dein Gehirn registriert Zurückweisung wie körperlichen Schmerz — und das ist messbar, nicht eingebildet."',
+          '„Du bist nicht Borderline. Dein emotionales System ist Teil deiner ADHS — und es kann besser werden."',
+          '„Wenn der Schmerz kommt, ist er echt. Und er ist zeitlich begrenzt — auch wenn sich das in dem Moment nicht so anfühlt."',
+          '„Du hast nicht überreagiert. Du hast adäquat reagiert auf das, was dein System wahrgenommen hat. Wir arbeiten daran, was dein System wahrnimmt."',
+          '„Ein Trigger ist kein Versagen. Ein Trigger ist Information."'
+        ],
+        wasDuNichtTust: [
+          'Nicht als BPD behandeln und in DBT-only-Schiene schieben — RSD braucht die ADHS-Achse, nicht nur Skills-Training',
+          'Nicht „halb so schlimm" framen — der Schmerz ist real, abwertende Reaktion verstärkt Scham-Spirale',
+          'Nicht Kritik vermeiden bis zur therapeutischen Sterilität — der Klient muss lernen mit Trigger umzugehen, nicht sie zu vermeiden',
+          'Nicht Beziehungs-Abbrüche während akuter Reaktion zulassen ohne Distanzierung — Regel „vierundzwanzig Stunden warten" einführen',
+          'Nicht alle Trigger pathologisieren — manche Zurückweisung ist real, das zu unterscheiden ist Teil der Therapie'
+        ],
+        frequenz: `<p>Wöchentlich für zwölf bis sechzehn Wochen, dann 14-tägig. Bei akuter Trigger-Phase temporär engmaschiger, eventuell telefonische Krisen-Erreichbarkeit.</p>`
+      },
+      vierPhasen: {
+        phase1: `Psychoedukation über RSD-Mechanismus. ADHS-Diagnostik abschließen oder verifizieren. BPD-Differential klären. Trigger-Tagebuch einführen — der Klient lernt, seine Episoden zu beobachten statt nur zu erleiden. Beziehungs-System des Klienten mappen — welche Beziehungen triggern, welche stabilisieren.`,
+        phase2: `Emotionale Regulations-Werkzeuge. Distanzierungs-Techniken für akute Phasen (24-Stunden-Regel, körperliche Selbstberuhigung, externe Realitäts-Prüfung). Medikations-Frage mit KJP besprechen — Stimulanzien sind oft der dramatischste Einzelfaktor. Erste konkrete Konflikt-Bearbeitungen in der Therapie.`,
+        phase3: `Beziehungs-Muster durcharbeiten. Selbstwert-Arbeit. Die jahrelangen Beschämungs-Erfahrungen als Quelle der Vulnerabilität bearbeiten — hier kann EMDR relevant sein, besonders bei klar identifizierbaren biographischen Beschämungs-Ereignissen. Trigger-Antizipation als Werkzeug entwickeln.`,
+        phase4: `Konsolidierung. Der Klient erkennt eigene Trigger früh, hat funktionierende Distanzierungs-Routine, kann zwischen realer und gefühlter Zurückweisung unterscheiden. Frequenz reduziert. Booster-Sitzungen bei wichtigen Beziehungs-Übergängen.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule ist ein permanenter Trigger-Kontext für RSD-Klienten. Bewertungen, Vergleiche, Pausen-Konflikte, Lehrer-Feedback — all das kann Trigger sein. Die Reizdichte allein produziert mehrere potenzielle Auslöser pro Tag, und der Klient hat keine Möglichkeit, ihnen strukturell auszuweichen. Selbst bei guter therapeutischer Begleitung läuft die Schule weiter als Trigger-Maschine, wenn das Profil dort nicht verstanden wird.</p>
+          <p>Lehrer sehen „überempfindlich", „schwierig", „manipulativ" oder ziehen schnell die Borderline-Karte und distanzieren sich. Diese Distanzierung ist genau das, was der RSD-Mechanismus als bedrohlich registriert — und das Verhalten eskaliert weiter. Aus der Sicht der Lehrkraft sieht das wie Bestätigung der ursprünglichen Einschätzung aus („siehst du, der ist wirklich schwierig"), klinisch ist es aber die direkte Folge ihrer Reaktion. Mitschüler werden zum Trigger-Pool — ein winziger Konflikt eskaliert zu Tagen Rückzug oder massivem Konflikt, der sich dann wieder in der Klasse herumspricht und das soziale Standing des Klienten weiter beschädigt.</p>
+          <p>Klassische Reaktion der Schule: weniger Beziehung anbieten, mehr Disziplinar-Maßnahmen — beides verstärkt das Muster. Disziplinar-Konsequenzen werden bei einem RSD-Klienten regelmäßig als persönliche Zurückweisung gelesen und triggern die nächste Eskalation. Distanzierende Lehrer-Haltung wird als Bestätigung des „niemand mag mich"-Schemas registriert. Beide Standard-Reaktionen verschlimmern die schulische Situation systematisch.</p>
+          <p>Was der Klient braucht, ist genau das Gegenteil der typischen schulischen Reaktion: vorhersehbare Beziehung, strukturierte Kritik-Form, Distanzierungs-Räume bei akuter Reaktion. Eine sichere Bezugslehrkraft, die nicht jedes Trigger-Verhalten persönlich nimmt, ist hier therapeutisch zentral und kann den ganzen Schulalltag stabilisieren. Eine zusätzliche Schwierigkeit: viele Lehrkräfte haben RSD nie als Konzept gehört. Sie kennen entweder „Aufmerksamkeitsproblem" (klassisches ADHS-Bild) oder „Verhaltensauffälligkeit" (verhaltenstherapeutisches Framing). RSD fällt aus beiden Schemata. Die schulische Aufklärung muss explizit das neurologisch begründete emotionale Profil benennen — sonst wird das Verhalten weiter pädagogisiert statt klinisch eingeordnet.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine ADHS-Diagnose mit einer spezifischen Begleit-Symptomatik, die Rejection Sensitive Dysphoria heißt — auf Deutsch: extreme emotionale Empfindlichkeit gegenüber wahrgenommener Zurückweisung. Das ist kein Charakterzug und keine Persönlichkeitsstörung, sondern eine neurologische Komponente der ADHS, klinisch beschrieben von William Dodson.</p>
+          <p>[Klient-Name] reagiert auf Situationen, die für andere unbedenklich wirken — einen Tonfall, einen unbeantworteten Gruß, eine kritische Rückmeldung — mit einer emotionalen Intensität, die Stunden bis Tage anhält. Was wie Überreaktion oder Manipulation aussehen kann, ist neurologisch begründet und behandelbar.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: Kritik bitte nur im Vier-Augen-Gespräch, niemals vor der Klasse, und in strukturierter Form (erst was gut war, dann was zu verbessern ist, dann konkrete Aktion); eine definierte sichere Bezugsperson, an die sich [Klient-Name] in akuten Phasen wenden kann; einen Distanzierungs-Raum für zehn Minuten Abkühlung; und schriftliche Rückmeldungen vor mündlichen, wo immer möglich.</p>
+          <p>Diese Anpassungen sind nicht Schonung, sondern Trigger-Reduktion — sie ermöglichen [Klient-Name], die schulische Anforderung zu erfüllen ohne in eine Eskalation zu rutschen, die für ihn und die Klasse belastend wäre. Ich biete Ihnen gerne ein Gespräch an, in dem wir den Bedarf abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Kritik nur im Vier-Augen-Gespräch, niemals vor der Klasse', begruendung: 'Scham-Vermeidung und Trigger-Reduktion. Öffentliche Kritik ist bei RSD-Klienten ein nahezu garantierter Trigger, der die Lern-Beziehung zur Lehrkraft beschädigt. Eine kurze Vier-Augen-Rückmeldung erreicht das pädagogische Ziel, ohne die Eskalations-Kette zu starten. Diese Regel ist nicht verhandelbar — auch eine scheinbar harmlose Bemerkung vor der Klasse („vielleicht passt du nächstes Mal besser auf") kann eine Tages-lange Reaktion auslösen.' },
+          { titel: 'Strukturiertes Feedback-Format', begruendung: 'Erst was gut war, dann was zu verbessern ist, dann konkrete Aktion. Diese Struktur reduziert die emotionale Last des Feedbacks und macht die Verbesserungs-Aufforderung handhabbar. Unstrukturiertes Feedback („das war nicht gut") aktiviert RSD direkt; strukturiertes Feedback macht es bearbeitbar. Wichtig: der erste Teil (was gut war) muss substantiell sein, nicht pro forma — sonst durchschaut der Klient die Struktur und sie verliert ihre Wirkung.' },
+          { titel: 'Sichere Bezugsperson in der Schule definiert', begruendung: 'Klassenlehrer oder Vertrauenslehrer — eine feste Anlaufstelle bei akuter Reaktion. Diese Person ist nicht therapeutisch tätig, sondern stabilisiert durch Verlässlichkeit und kennt das RSD-Profil. Ohne diese Anlaufstelle eskalieren Trigger-Phasen oft, weil der Klient niemand hat, an dem er sich orientieren kann. Die Bezugsperson muss bewusst nicht-distanziert bleiben, auch wenn das Verhalten des Klienten in einer Trigger-Phase abweisend wirkt.' },
+          { titel: 'Distanzierungs-Raum bei akuter Trigger-Reaktion', begruendung: 'Wo kann der Klient zehn Minuten alleine sein, wenn ein Trigger gerade kippt. Bibliothek, Schulpsychologen-Büro, ruhiger Raum — wichtig ist die Verfügbarkeit ohne Diskussion. Diese kurze Distanzierung kann den Unterschied zwischen Selbstregulation und Eskalation ausmachen. Der Klient muss vorab wissen, wo dieser Raum ist und wie er hingeht; in der akuten Phase ist Suchen oder Verhandeln nicht möglich.' },
+          { titel: 'Keine spontanen Lob/Tadel-Wechsel', begruendung: 'Der Klient interpretiert das als Spalten („gestern war ich gut, heute schlecht — was bin ich denn jetzt?"). Konsistente, vorhersagbare Lehrer-Haltung ist wichtiger als situativ schwankende Bewertungen. Vorhersagbarkeit reduziert die Hypervigilanz auf Lehrer-Stimmungen und stabilisiert die Beziehung über die Wochen.' },
+          { titel: 'Pausen-Strukturierung wenn Konflikte gehäuft', begruendung: 'Eventuell alternative Pausen-Räume anbieten, wenn der Hof zum Trigger-Feld wird. Pausen sind die unstrukturierteste Tages-Phase und für RSD-Klienten oft die belastendste. Eine strukturierte Alternative ist keine Sonderbehandlung, sondern Trigger-Reduktion — die Pause soll Erholung sein, nicht zusätzliche Konflikt-Bühne.' },
+          { titel: 'Frühwarn-System Lehrer-Schüler', begruendung: 'Vereinbartes Zeichen, wenn der Klient eine Eskalation kommen sieht. Ein stiller Code (Karte auf den Tisch, Handzeichen, vereinbartes Wort) ermöglicht dem Klienten, präventiv die Distanzierung zu nutzen, bevor die Reaktion explodiert. Das setzt voraus, dass die Lehrkraft das Profil kennt und das Zeichen ernst nimmt — wenn das Signal einmal ignoriert wird, ist das System verloren und muss neu aufgebaut werden.' },
+          { titel: 'Bei größeren Bewertungen: schriftliche Rückmeldung bevorzugen vor mündlicher', begruendung: 'Schriftliche Rückmeldung kann mehrfach gelesen werden, in eigenem Tempo verarbeitet und ohne sozialen Beobachtungsdruck eingeordnet. Mündliche Rückmeldung unter Zeitdruck triggert oft, weil die emotionale Reaktion sofort sichtbar wird und die Lehrkraft auf die Reaktion reagiert — eine Eskalations-Schleife. Schriftlich gibt dem Klienten die Möglichkeit, die Reaktion erst zu verarbeiten und dann zu antworten.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Nicht öffentlich loben', begruendung: 'Kann ebenfalls triggern, besonders wenn vergleichend mit Mitschülern. Bei RSD ist nicht nur Kritik, sondern auch positive Aufmerksamkeit potenziell überwältigend, weil sie Erwartungen erzeugt und sozialen Vergleich aktiviert. Lob individuell, schriftlich oder unter vier Augen — das wirkt, das öffentliche Lob kann eskalieren.' },
+          { titel: 'Nicht alle Kritik zurückhalten', begruendung: 'Der Klient muss lernen, mit Trigger umzugehen, nicht in Watte gepackt werden. Vollständige Kritik-Vermeidung wäre therapeutisch kontraindiziert und produziert langfristig ein noch fragileres System. Die Form, nicht das Vorkommen von Kritik, ist anzupassen. Die strukturierte Kritik-Form aus 5C ist der Weg, nicht ihre Abwesenheit.' },
+          { titel: 'Keine spontanen Klassen-Aktionen ohne Vorankündigung', begruendung: 'Vorhersagbarkeit ist Schutz. Spontane Aktionen — überraschende Tests, plötzliche Sitzplatzwechsel, unangekündigte Aufrufe vor der Klasse — sind bei RSD-Klienten regelmäßig Trigger. Die Vorankündigung von einigen Stunden reicht oft, um die Reaktion zu verhindern und dem Klienten Zeit zu geben, seine Regulations-Strategien zu mobilisieren.' },
+          { titel: '„Aussprachen" zwischen Klient und triggerndem Mitschüler während akuter Reaktion', begruendung: 'Vierundzwanzig Stunden Abstand zuerst. Mediation in akuter Trigger-Phase eskaliert regelmäßig statt zu klären, weil das emotionale System des Klienten erst herunterkommen muss, bevor er konstruktiv reden kann. Gut gemeinte Sofort-Klärung kann das Verhältnis nachhaltig beschädigen, statt zu reparieren.' },
+          { titel: 'Nicht als BPD-Marker an die Schul-Psychologie weitergeben', begruendung: 'Falsche Diagnose-Schiene. Eine Borderline-Klassifizierung im Schul-System führt regelmäßig zu inadäquaten Maßnahmen und stigmatisiert den Klienten. Wenn schulpsychologische Begleitung nötig ist, dann mit korrekter RSD-bei-ADHS-Beschreibung. Diese Diagnose-Sprache muss von der Therapeutin explizit an die Schule kommuniziert werden, sonst greift die Schule auf das ihr vertrautere BPD-Schema zurück.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Vertrauenslehrer als sichere Bezugsperson — ideal eine Lehrkraft, die das RSD-Profil versteht und persönliche Distanz zu Trigger-Verhalten halten kann. Konstanz über mehrere Schuljahre erhöht die Wirksamkeit erheblich',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit RSD-Aufklärung — wichtig, dass die schulpsychologische Stelle das Profil nicht in die BPD-Schiene einordnet, sonst werden falsche Maßnahmen verankert',
+          'SCAS für vertiefte therapeutische Begleitung, besonders bei wiederholten Trigger-Eskalationen oder beginnender depressiver Spirale. Die externe therapeutische Stelle entlastet das Schul-System',
+          'KJP für Medikations-Frage — Stimulanzien können RSD oft dramatisch reduzieren, Guanfacin als Add-on bei besonders ausgeprägter affektiver Dysregulation. Frühzeitig in Erwägung ziehen, nicht erst nach mehrfacher Eskalation',
+          'Eltern als Verbündete — sie sehen die Trigger zuhause und können in der schulischen Krisen-Kommunikation eine wichtige Vermittlungs-Rolle spielen, vorausgesetzt das familiäre System ist selbst stabil'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier Wochen in akuter Phase, alle zwei bis drei Monate in Stabilisierung. Bei wiederholten Trigger-Eskalationen oder beginnender depressiver Spirale temporär verdichten. Schriftliche Kommunikation grundsätzlich, weil mündliche Vereinbarungen bei Lehrer-Wechsel verloren gehen — und weil schriftliche Sprache präziser ist und vom Klienten selbst nachvollzogen werden kann, was bei RSD wichtig ist.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit RSD-Aufklärung. Niederschwellig; Ziel ist, das Profil bei der Klassenleitung zu verankern und das Verhalten als neurologisch verständlich zu kontextualisieren. Schriftliche Kurz-Zusammenfassung der RSD-Mechanismen mitliefern.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn die Klassenleitung nicht ausreicht oder das Profil weiter als BPD oder Verhaltensauffälligkeit gelesen wird. Der Schul-Psychologe übernimmt die institutionelle Übersetzungs-Arbeit.</li>
+            <li><strong>Stufe 3</strong> — Nachteilsausgleich-Antrag dokumentiert. Macht die Anpassungen (insbesondere Vier-Augen-Kritik und Distanzierungs-Raum) offiziell und lehrer-wechsel-fest. Bei Lehrerwechsel sonst gehen die mündlichen Vereinbarungen verloren.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel erwägen bei wiederholten Beziehungs-Brüchen mit Lehrkräften. Wichtig: Wechsel nur in ein Setting mit Lehrkraft, die RSD versteht — sonst wiederholt sich das Muster mit zusätzlicher Belastung durch den Wechsel selbst.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit mit therapeutischem Plan, besonders nach Eskalation mit Suizidalitäts-Komponente. Reset-Phase, in der die Trigger-Reduktion strukturell verankert wird. Während der Auszeit Stabilisierung und Vorbereitung des Wieder-Einstiegs, nicht passive Pause.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Akute Trigger-Phase mit anhaltender Reaktion über drei Tage. Suizidale Gedanken nach Rejection-Trigger. Beginnender Beziehungs-Abbruch mit Substanz-Konsum.</p>`,
+        ueberweisung: `<p>Medikations-Frage (Stimulanzien-Indikation, Guanfacin-Add-on). Schwere Komorbidität (Depression, Substanzkonsum). Konkrete Suizidalität.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Akute Selbstverletzung in eskalierender Intensität. Massive Beziehungs-Eskalation mit Selbst- oder Fremdgefährdung.</p>`
+      }
+    }
+  },
+  /* M5 — ADHS mit sekundärer Depression. Befüllt Prompt 7.
+     Klinische Eckpfeiler: depression als folge jahrelang unerkannter ADHS,
+     nicht als primäre affektive störung; behandlung MUSS adhs adressieren,
+     sonst therapieresistenz; biographisches reframing als hebel.
+     Leitsatz: „du warst nicht faul — du warst neurodivers in einem system,
+     das dich nicht gesehen hat." */
+  {
+    id: 'adhs-depression-sekundaer',
+    name: 'ADHS mit sekundärer Depression',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Klient mit ADHS-Anamnese und manifester Depression nach Jahren Schul-Versagen und Beschämung. Die Depression sieht oft primär aus, ist aber Folge eines unerkannten neurologischen Profils. Antidepressivum allein reicht nicht — wenn du die ADHS-Achse nicht adressierst, bleibt die Depression therapieresistent. Wenn du einen depressiven Klienten siehst, der exekutive Defizite seit der Grundschulzeit berichtet, denk ADHS bevor du nur affektiv behandelst.</p>`,
+        klinischWichtig: `<p>Den Mechanismus musst du klar verstehen: der Klient hat jahrelang gehört, dass er faul, dumm, unkonzentriert, undiszipliniert sei. Eltern haben es geglaubt, Lehrer haben es reproduziert, Mitschüler haben es kommentiert. Diese Wiederholung über Jahre internalisiert sich. Der Klient kommt mit einem Selbstbild aus „ich bin defekt" in die Praxis, und die depressive Anpassung ist die logische Antwort darauf.</p>
+          <p>Die diagnostische Aufgabe ist nicht nur, die Depression zu benennen — sondern die Geschichte hinter ihr zu sehen. Das ist die Voraussetzung für jede wirksame Behandlung. Wenn ein Klient mit Depression in der Anamnese exekutive Defizite seit der Grundschule berichtet, denke ADHS bevor du nur die affektive Achse behandelst. Eine reine SSRI-Behandlung wird in diesem Fall regelmäßig zu vermeintlicher Therapie-Resistenz führen — die depressive Symptomatik geht zwar punktuell zurück, kehrt aber zurück, sobald die unbehandelte ADHS wieder einen Misserfolg produziert. Erst die parallele Behandlung beider Achsen löst das Muster auf.</p>`,
+        vergleich: `<p><strong>Vs. primäre Depression ohne ADHS:</strong> chronologische Reihenfolge entscheidend. Sind die exekutiven Defizite vor der Depression da, seit Grundschulzeit dokumentierbar? Dann sekundäre Depression bei ADHS. Sind sie episodisch mit der Depression entstanden und gehen mit Stimmungs-Aufhellung zurück? Dann primäre Depression mit ADHS-ähnlichen Symptomen.</p>
+          <p><strong>Vs. M1 — Mädchen mit Spätdiagnose:</strong> bei M1 steht die Erschöpfung im Vordergrund, bei M5 das Versagens-Narrativ über Jahre. Beide Profile können koexistieren — bei einem hochbelasteten Mädchen mit beidem behandelst du nach Schweregrad der jeweiligen Achse zuerst.</p>
+          <p><strong>Vs. M2 — Hochbegabt:</strong> M2 hat den akuten Selbstwert-Kollaps in der Mittelstufe, oft mit erhaltener Begabungs-Identität als Anker. M5 hat die chronische depressive Anpassung über Jahre, oft ohne Begabungs-Anker — die Depression ist eingeschliffen, nicht punktuell.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität — bei M5 besonders hoch, weil die Kombination aus jahrelangem Versagen und manifester Depression hochrisikant ist',
+          'Akute Selbstverletzung',
+          'Akute depressive Episode mit Antriebs-Versagen'
+        ],
+        hoch: [
+          'Schulverweigerung',
+          'Cannabis-Selbstmedikation in eskalierender Intensität',
+          'Beginnende Essstörung (häufig)',
+          'Sozialer Rückzug bis zur Isolation'
+        ],
+        mittel: [
+          'Chronische Berufs-Vermeidung',
+          'Beziehungsmuster aus Wertlosigkeits-Erleben',
+          'Identitätsfestigung als „kaputt"'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Parallele Behandlung beider Achsen mit Schwerpunkt auf biographisches Reframing als ADHS-Geschichte. KVT für die negativen kognitiven Schemata. Medikations-Frage besonders relevant — ADHS-Medikation oft hilfreich, SSRI als Add-on, wenn affektive Symptomatik schwer.</p>`,
+        begruendung: `<p>Ohne ADHS-Reframing bleibt das „ich bin defekt"-Narrativ intakt und blockiert die depressive Remission. Du behandelst nicht zwei Krankheiten parallel — du behandelst eine Geschichte und ihre Folgen. Diese Reihenfolge ist klinisch zentral und unterscheidet wirksame von ineffektiver Therapie bei diesem Profil.</p>`,
+        diagnostik: [
+          'Conners 3 für ADHS-Verifikation',
+          'BDI-A, PHQ-A oder CDI für Depression',
+          'K-SADS-PL für strukturierte Komorbiditäts-Diagnostik',
+          'Strukturierte Schul- und Selbstwert-Anamnese mit Fokus auf chronologischer Reihenfolge (was war zuerst — exekutive Defizite oder depressive Symptomatik)',
+          'WISC-V wenn Indexprofilanalyse hilfreich für Reframing'
+        ],
+        wasDuTust: [
+          '„Deine Depression ist nicht aus dem Nichts gekommen. Sie ist die logische Antwort auf Jahre in einem System, das dich nicht verstanden hat."',
+          '„Wir behandeln nicht nur die Depression. Wir behandeln auch das, was sie verursacht hat."',
+          '„Du warst nicht faul. Du warst neurodivers in einem System, das dich nicht gesehen hat — und das hat dich jahrelang gekostet."',
+          '„Antidepressiva können helfen, sie reichen aber nicht. Du brauchst auch das Verstehen — sonst bleibst du in derselben Geschichte stecken."',
+          '„Was deine Eltern und Lehrer gesagt haben, war gut gemeint und falsch. Sie haben gesehen, was du nicht konntest, aber nicht warum."'
+        ],
+        wasDuNichtTust: [
+          'Nicht nur SSRI verschreiben oder empfehlen ohne ADHS-Achse zu adressieren — führt zur Therapie-Resistenz',
+          'Nicht das Eltern- und Lehrer-Narrativ „er war eben schwierig" reproduzieren — das ist der Schaden, nicht die Lösung',
+          'Nicht „positives Denken" als Hauptmethode anbieten — geht am Mechanismus vorbei',
+          'Nicht zu früh viele Verhaltens-Strategien stapeln — der Klient hat schon zu viele probiert und ist gescheitert',
+          'Nicht Klassen-Wiederholung als Schul-Lösung mittragen ohne ADHS-Adressierung — wiederholt das Problem'
+        ],
+        frequenz: `<p>Wöchentlich für zwölf bis sechzehn Wochen, dann 14-tägig. Bei suizidaler Komponente engmaschiger und mit KJP-Anbindung.</p>`
+      },
+      vierPhasen: {
+        phase1: `Biographisches Reframing — chronologische Rekonstruktion der Geschichte mit ADHS-Perspektive. Diagnostik abschließen, Schul-Anamnese seit Grundschulzeit aufnehmen. Familie aufklären — sie müssen das Narrativ mit verändern, sonst läuft die Therapie gegen das häusliche System. Krisen-Sicherung wenn Suizidalität präsent.`,
+        phase2: `Negative kognitive Schemata bearbeiten („ich bin defekt", „ich werde nie können", „ich bin eine Enttäuschung"). Erste ADHS-spezifische Strategien sehr behutsam — der Klient ist strategie-müde, jede neue Strategie ohne Verständnis wird als weitere mögliche Versagens-Erfahrung erlebt. Medikations-Frage klären.`,
+        phase3: `Identitäts-Arbeit auf Basis des Reframings — wer ist er, wenn er nicht die „kaputte Version" ist. Beziehungs-Muster durcharbeiten. Schul- oder Berufs-Perspektive realistisch neu denken, mit Berücksichtigung sowohl der ADHS-Limitationen als auch der bisher übersehenen Stärken.`,
+        phase4: `Konsolidierung. Der Klient hat eigene Geschichte neu erzählt, kann zwischen aktueller Realität und altem Narrativ unterscheiden. Frequenz reduziert. Übergangs-Planung in nächste Lebens-Phase mit beiden Achsen im Blick.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule ist Ort des Traumas und gleichzeitig potenzieller therapeutischer Hebel. Jahrelang hat die Schule das Versagens-Narrativ produziert — Noten, Bewertungen, Vergleiche, Lehrer-Kommentare, Eltern-Lehrer-Gespräche, Klassen-Wiederholungs-Empfehlungen. Der Klient kommt mit einer Schul-Biographie der Beschämung in die Therapie, oft mit einem Selbstbild, das sich über fünf bis zehn Jahre an genau dieser Biographie geformt hat.</p>
+          <p>Wenn Schule jetzt unverändert weiterläuft, untergräbt sie die therapeutische Arbeit täglich. Jede neue Eltern-Lehrer-Konferenz, in der das alte Narrativ wiederholt wird, ist ein Rückschritt. Jede Note, die ohne Setting-Anpassung schlecht ausfällt, bestätigt das „ich bin defekt"-Schema. Jede „du könntest doch"-Bemerkung einer Lehrkraft verbrennt einen Teil der therapeutischen Reframings-Arbeit der vergangenen Woche. Die schulische Realität muss in die Behandlung einbezogen werden — sonst arbeitest du gegen einen täglich nachgelieferten Schaden.</p>
+          <p>Was der Klient braucht: realistische Erwartungs-Anpassung, sichtbare Erfolge in machbaren Anforderungs-Räumen, keine Vergleiche mit „wie es früher war oder hätte sein können", strukturierte Hausaufgaben mit zeitlicher Begrenzung, eine sichere Bezugsperson, die das Doppel-Profil versteht. Was er nicht braucht: noch eine Förder-Schiene mit mehr Anforderungen, „du könntest, wenn du wolltest"-Aussagen, Klassen-Wiederholung als pauschale Lösung ohne strukturelle Anpassung. Diese Liste muss der Schule explizit kommuniziert werden, weil die typischen pädagogischen Reaktionen genau in die Kontraindikations-Spalte fallen.</p>
+          <p>Die Aufgabe der schulischen Strategie ist deshalb zweifach: Trigger-Reduktion (die schulischen Versagens-Reproduktionen stoppen) und Erfolgs-Konstruktion (machbare Aufgaben mit sichtbarer Wertschätzung). Beides muss explizit kommuniziert und in den Anpassungen verankert werden, sonst läuft die Schule weiterhin in den alten Mustern. Die Eltern sind ein dritter zentraler Faktor — sie tragen das alte Narrativ oft selbst und müssen explizit in das Reframing einbezogen werden, sonst reproduzieren sie zuhause, was die Schule reduziert hat. Eine konsequente Trigger-Reduktion ohne paralleles Reframing in beiden Systemen führt regelmäßig zu Stagnation: der Klient erlebt zwar weniger akute Beschämung, aber das tief eingegrabene Selbstbild bleibt unverändert, weil die Erfolgs-Botschaften nicht durchdringen.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine Doppel-Diagnose: ADHS unaufmerksamer Typ plus eine depressive Episode. Klinisch wichtig ist die Reihenfolge — die Depression ist eine Folge der jahrelang unerkannten ADHS, nicht eine eigenständige primäre Erkrankung. Was wie Demotivation oder Schul-Frustration aussieht, ist das logische Resultat einer Schul-Biographie, in der ein neurologisches Profil nicht erkannt wurde.</p>
+          <p>[Klient-Name] hat jahrelang gehört, dass er sich mehr anstrengen müsste — und hat sich angestrengt, ohne dass das exekutive Defizit damit verschwindet. Heute hat er ein Selbstbild aus „ich bin defekt" und eine Depression, die diesem Selbstbild folgt. Was er jetzt braucht, ist keine Steigerung des Drucks, sondern eine realistische Anpassung, die ihm wieder sichtbare Erfolge ermöglicht.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: realistische Notenerwartung, explizit kommuniziert und ohne implizite Vergleiche mit früherer Leistung; kleinere Aufgaben mit abgeschlossener Bewertung, damit sichtbare Erfolge wieder möglich werden; strukturierte Hausaufgaben mit klarer zeitlicher Begrenzung (z. B. zwanzig Minuten täglich); und eine sichere Bezugsperson, die das Doppel-Profil versteht und keine spontanen mündlichen Abfragen vor der Klasse durchführt.</p>
+          <p>Diese Anpassungen sind nicht „leichter machen", sondern Trauma-informiertes Lernen — die jahrelange Beschämungs-Geschichte muss strukturell unterbrochen werden, damit Therapie wirken kann. Ich biete Ihnen gerne ein Gespräch an, in dem wir den Bedarf abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Realistische Notenerwartung explizit kommuniziert', begruendung: 'Keine impliziten Vergleiche mit früherer Leistung. Der Klient hört aus jeder „du warst doch früher besser"-Aussage die Bestätigung seines „ich bin defekt"-Schemas. Realistische Erwartungs-Anpassung muss explizit gemacht werden, sonst läuft sie unausgesprochen in den alten Vergleichen mit. Idealerweise wird die Erwartung mit ihm gemeinsam definiert, nicht von oben kommuniziert.' },
+          { titel: 'Sichtbare Erfolge schaffen', begruendung: 'Kleinere Aufgaben mit abgeschlossener Bewertung statt großer Projekte. Bei einer Depression, die durch jahrelanges Versagen entstanden ist, sind Erfolgserlebnisse therapeutisch zentral — und sie müssen klein und häufig genug sein, dass sie tatsächlich entstehen können. Große Projekte produzieren regelmäßig das Gegenteil: weitere Versagens-Erfahrungen, die das Schema verstärken. Die Erfolgs-Konstruktion ist explizit Teil der Behandlung, nicht „Erleichterung".' },
+          { titel: 'Strukturierte Hausaufgaben mit klarer zeitlicher Begrenzung', begruendung: 'Zwanzig Minuten täglich statt unbegrenzt. Die exekutive Dysfunktion plus die depressive Antriebs-Lage produziert sonst „ich sitze drei Stunden und schaffe nichts"-Spiralen. Ein klares Zeit-Limit schützt vor diesem Eskalations-Muster und gibt einen erreichbaren Abschluss-Punkt. Das Limit gilt als erreicht, wenn die Zeit absolviert ist — nicht wenn die Aufgabe komplett ist.' },
+          { titel: 'Sichere Bezugsperson in der Schule', begruendung: 'Klassenlehrer oder Vertrauenslehrer, der das Doppel-Profil versteht. Diese Person ist nicht therapeutisch tätig, sondern stabilisiert durch Verlässlichkeit und ein nicht-pathologisierendes Verhalten. Bei einem Klienten, der jahrelang nur Beschämung in der Schule erlebt hat, ist diese Anker-Beziehung therapeutisch hochrelevant — sie kann den ganzen schulischen Alltag stabilisieren.' },
+          { titel: 'Keine spontanen mündlichen Abfragen vor der Klasse', begruendung: 'Spontanes Abrufen unter sozialem Beobachtungsdruck ist exekutiv kostspielig und bei depressiver Antriebs-Lage besonders schwer. Das Versagen vor der Klasse bestätigt das alte Narrativ direkt. Vorab angekündigte Beteiligung oder schriftliche Alternative — beides nimmt den überraschenden sozialen Druck heraus und ermöglicht eine angemessene Vorbereitung.' },
+          { titel: 'Wöchentlicher kurzer Check-in mit der Bezugsperson', begruendung: 'Fünf Minuten reichen — wichtig ist die Verlässlichkeit. Diese Routine ist Frühwarn-System für depressive Verschlechterung und gleichzeitig stabilisierende Beziehungs-Erfahrung. Bei einem Klienten mit Bindungs-Vorsicht braucht es einige Wochen Konstanz, bevor er die Routine als sicher erlebt. Wenn sie dann hält, ist sie eine der wertvollsten schulischen Anpassungen.' },
+          { titel: 'Schriftliche Wochen-Übersicht über Aufgaben', begruendung: 'Time-Blindness-Kompensation plus Antriebs-Defizit-Schutz. Ohne externe Strukturierung wird die Woche zu einem unstrukturierten Block, in dem alles gleich dringend und gleich unerreichbar erscheint. Eine sichtbare Wochen-Übersicht macht Zeit und Aufgaben handhabbar und reduziert die kognitive Last, die sonst täglich neu für das Sortieren von Prioritäten anfällt.' },
+          { titel: 'Pausen-Erlaubnis bei Erschöpfung ohne Diskussion', begruendung: 'Bei depressiver Erschöpfung plus ADHS-Aufmerksamkeits-Limitation braucht es Rückzugs-Möglichkeiten ohne Verhandlung. Verhandeln über jede Pause kostet selbst Energie, die der Klient nicht hat. Eine stille vereinbarte Lösung (Geste, Karte, Signal) ermöglicht den Rückzug ohne soziale Kosten und ohne erneute Beschämungs-Erfahrung. Diese Pausen-Routine muss strukturell verankert sein, nicht ad hoc von Lehrkraft zu Lehrkraft neu verhandelt werden.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Klassen-Wiederholung als Standard-Lösung', begruendung: 'Wiederholt das Versagens-Narrativ. Ohne ADHS-Adressierung und ohne Setting-Anpassung produziert eine Wiederholung regelmäßig ein zweites gescheitertes Jahr mit zusätzlichem Selbstwert-Schaden, in einem Klienten, dessen Selbstwert schon strukturell beschädigt ist. Wenn überhaupt Wiederholung, dann nur kombiniert mit ADHS-Behandlung, Setting-Anpassung und Lehrer-Wechsel.' },
+          { titel: 'Förder-Klassen ohne ADHS-Bewusstsein', begruendung: 'Verstärken die exekutive Belastung statt sie zu reduzieren. Förder-Material plus Förder-Stunden plus normaler Unterricht summiert sich zu einer Anforderungs-Bilanz, die der Klient mit seiner aktuellen Energie-Reserve nicht halten kann. Die Konsequenz ist regelmäßig die nächste Erschöpfungs-Eskalation.' },
+          { titel: 'Vergleiche „du hast in der Grundschule doch auch geschafft"', begruendung: 'Die schädlichste pädagogische Aussage bei diesem Profil. Sie bestätigt das „ich bin defekt geworden"-Narrativ und führt regelmäßig zu Verschlechterung. Diese Aussage muss in jedem Lehrer-Gespräch explizit als kontraindiziert benannt werden, weil sie sonst aus pädagogischer Hilflosigkeit immer wieder auftaucht.' },
+          { titel: 'Belohnungs-Systeme, die Vergleich mit Mitschülern beinhalten', begruendung: 'Bei einem Klienten mit fragiler Selbstwert-Architektur und chronischem Versagen-Schema sind soziale Vergleichs-Belohnungen destabilisierend. Wenn überhaupt Belohnungen: individuell, ohne Vergleich, und für realistische Schritte, nicht für absolute Leistungs-Schwellen. Die Belohnung muss in seiner Realität ankommen, nicht in der eines anderen Schülers.' },
+          { titel: '„Mehr Sport" als pauschale Empfehlung', begruendung: 'Bewegung kann helfen, kann aber bei akut depressivem Antriebs-Defizit auch die letzte Reserve aufbrauchen. Sport-Empfehlungen müssen mit der aktuellen Energie-Bilanz abgestimmt sein; ein „du musst mehr Sport machen"-Mantra produziert regelmäßig zusätzliches Versagen, weil der Klient die Empfehlung nicht umsetzen kann und das als weiteren Beweis seiner Defektivität liest.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als zentraler Beziehungs-Anker — die wichtigste schulische Beziehung in der Behandlungs-Phase, idealerweise mit Verständnis für das Doppel-Profil und mehrjähriger Konstanz',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit Doppeldiagnose-Verständnis — wichtig für die institutionelle Aufklärung über die Reihenfolge ADHS → Depression und für die formale Verankerung der Anpassungen',
+          'SCAS für therapeutische Begleitung, besonders bei suizidaler Komponente und bei beginnender Substanz-Komorbidität. Die externe Stelle entlastet das Schul-System bei schwerer Symptomatik',
+          'KJP für Medikations-Frage (ADHS-Medikation, ggf. SSRI als Add-on) und Suizidalitäts-Begleitung. Frühzeitig einbinden, nicht erst nach der nächsten Eskalation',
+          'Eltern als Verbündete im Reframing — sie müssen das alte Narrativ explizit mit verändern, weil sonst die Therapie täglich gegen ihre Aussagen läuft. Bei zerrissenem Familien-System auch hier Sozialdienst-Anbindung erwägen'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier Wochen in akuter Phase, danach alle zwei bis drei Monate. Bei suizidaler Komponente oder akuter depressiver Verschlechterung temporär verdichten. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — die schulische Kommunikation soll selbst Teil des Reframings sein, nicht eine zusätzliche Beschämungs-Quelle.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Doppeldiagnose-Aufklärung. Die Reihenfolge ADHS → Depression explizit benennen, damit die Lehrkraft das Narrativ versteht und nicht weiter reproduziert. Schriftliche Zusammenfassung der Anpassungen mitliefern.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn die Klassenleitung das Profil nicht aufnimmt oder das Eltern-System weiter in den alten Mustern bleibt. Hier ist die Reframing-Arbeit mit dem Eltern-System genauso wichtig wie mit der Schule.</li>
+            <li><strong>Stufe 3</strong> — Nachteilsausgleich-Antrag dokumentiert. Macht die Anpassungen offiziell und lehrer-wechsel-fest; explizit beide Diagnosen benennen — die ADHS als primäre Achse, die Depression als sekundäre Folge.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel erwägen, wenn die Schul-Trigger zu dominant sind und die Behandlung gegen die tägliche schulische Realität nicht ankommt. Wechsel nur mit Verständnis-Garantie an der neuen Stelle, sonst überlagert der Wechsel-Stress die mögliche Verbesserung.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit mit therapeutischem Wieder-Einstiegs-Plan, besonders bei suizidaler Komponente. Die Auszeit als medizinisch indizierte Reset-Phase framen, nicht als Versagen oder Strafe. Während der Auszeit Stabilisierung und Schritt-für-Schritt-Reintegrations-Plan.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet, auch passiv. Schul-Verweigerung beginnt. Cannabis-Konsum berichtet oder verdächtig. Essverhalten verändert sich. Sozialer Rückzug intensiviert.</p>`,
+        ueberweisung: `<p>Medikations-Frage (Stimulanzien und/oder SSRI). Konkrete Suizidalität. Schwere depressive Episode.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive depressive Episode mit Antriebs-Versagen und Verwahrlosung. Familien-System bricht zusammen, kein sicherer Container.</p>`
+      }
+    }
+  },
   { id: 'adhs-cannabis',               name: 'ADHS mit Cannabis-Selbstmedikation',     bloecke: emptyAdhsBloecke() },
   { id: 'adhs-eltern-adhs',            name: 'ADHS mit Eltern-ADHS',                   bloecke: emptyAdhsBloecke() },
   { id: 'adhs-schulverweigerung',      name: 'ADHS mit Schulverweigerung',             bloecke: emptyAdhsBloecke() }
