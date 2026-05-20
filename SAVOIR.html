@@ -295,6 +295,116 @@
   }
   .achse-card.has-topic .achse-card-status { color: var(--rust); }
 
+  /* ============ Globale Symptom-Eingabe (16 Kategorien × 126 Items) ============ */
+  .globsym { display: block; }
+  .globsym-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding: 18px 22px;
+    background: var(--cream);
+    border-radius: 4px;
+  }
+  .globsym-counter {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .globsym-counter-num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .globsym-counter-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .globsym-intro {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 22px;
+  }
+  .globsym-kategorien {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .globsym-kat {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+  }
+  .globsym-kat[open] { border-color: var(--sage); }
+  .globsym-kat-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    cursor: pointer;
+    list-style: none;
+    transition: background .15s ease;
+  }
+  .globsym-kat-summary::-webkit-details-marker { display: none; }
+  .globsym-kat-summary::before {
+    content: '+';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--sage);
+    width: 16px;
+    transition: transform .2s ease;
+  }
+  .globsym-kat[open] .globsym-kat-summary::before { content: '−'; color: var(--ink); }
+  .globsym-kat-summary:hover { background: var(--cream); }
+  .globsym-kat-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    min-width: 38px;
+  }
+  .globsym-kat-name {
+    flex: 1;
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .globsym-kat-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+  }
+  .globsym-kat[open] .globsym-kat-count {
+    color: var(--rust);
+  }
+  .globsym-kat-fokus {
+    padding: 4px 18px 14px 48px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--sage);
+    line-height: 1.5;
+  }
+  .globsym-kat .symdia-sym-grid {
+    padding: 0 18px 18px;
+  }
+  .globsym-id {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--sage);
+    min-width: 36px;
+    margin-right: 6px;
+  }
+
   /* ============ Disclaimer-Footer (permanent) ============ */
   .savoir-disclaimer {
     border-top: 1px solid var(--line);
@@ -4547,9 +4657,187 @@ const BEREICH_PLACEHOLDERS = {};
    'adhs-unaufmerksam' verbunden. Die restlichen elf Achsen haben
    topicKey: null bis sie inhaltlich angelegt werden. */
 const SAVOIR_GLOBAL = {
+  /* Symptom-Pool (Prompt P2): 16 Kategorien mit insgesamt 126 beobachtungs-orientierten Items.
+     IDs (1.1, 2.3 etc.) werden in Prompt P3 für das Achsen-Mapping referenziert.
+     Stil: was die Fachkraft sieht oder aus Anamnese hört — keine Diagnose-Sprache im Item-Text. */
   symptomPool: {
-    kategorien: [], // ~15 Beobachtungs-Kategorien (Prompt P2)
-    symptome: []    // ~100-150 Items mit { id, text, kategorie } (Prompt P2)
+    kategorien: [
+      { id: 'K01', name: 'Aufmerksamkeit & Wachheit',                fokus: 'Wo ist seine Aufmerksamkeit, wie lange hält sie, woran scheitert sie.' },
+      { id: 'K02', name: 'Exekutive Funktionen & Organisation',      fokus: 'Plant er, priorisiert er, hält er Termine, kommt er an.' },
+      { id: 'K03', name: 'Stimmung & affektive Regulation',          fokus: 'Wie ist die Grundstimmung, wie reguliert er Affekte, wo bricht es aus.' },
+      { id: 'K04', name: 'Angst, Sorge, Vermeidung',                 fokus: 'Was vermeidet er, was triggert Angst, wie körperlich ist es.' },
+      { id: 'K05', name: 'Soziale Funktion & Kommunikation',         fokus: 'Wie ist sein Zugang zu anderen Menschen, wie liest und produziert er soziale Signale.' },
+      { id: 'K06', name: 'Sensorik & Wahrnehmung',                   fokus: 'Wie verarbeitet er sensorische Reize, wo ist er überempfindlich, wo sucht er Input.' },
+      { id: 'K07', name: 'Schlaf',                                   fokus: 'Schlaf-Wach-Rhythmus, Einschlafen, Durchschlafen, Erholungs-Funktion.' },
+      { id: 'K08', name: 'Essen & Körperwahrnehmung',                fokus: 'Essverhalten, Körper-Bild, körperliche Symptomatik ums Essen.' },
+      { id: 'K09', name: 'Identität & Selbstbild',                   fokus: 'Wer ist er für sich selbst, wie stabil ist das Bild, wo gibt es Brüche.' },
+      { id: 'K10', name: 'Impulskontrolle & Verhalten',              fokus: 'Wo verliert er die Kontrolle, welche Regeln verletzt er, wie reagiert er auf Frustration.' },
+      { id: 'K11', name: 'Substanz, Sucht & repetitives Verhalten',  fokus: 'Welche Substanzen, welche digitalen Süchte, welche Funktion erfüllt das Verhalten.' },
+      { id: 'K12', name: 'Schule & Leistung',                        fokus: 'Wo bricht Schul-Leistung ein, welche Muster zeigen sich, wo sind Spreizungen.' },
+      { id: 'K13', name: 'Familie & Bindung',                        fokus: 'Wie ist das familiäre System, wie sicher ist die Bindung, welche Belastungen wirken.' },
+      { id: 'K14', name: 'Trauma-Marker & Wiedererleben',             fokus: 'Spuren erlebter Bedrohung — intrusiv, vermeidend, körperlich.' },
+      { id: 'K15', name: 'Realitäts-Wahrnehmung & ungewöhnliches Erleben', fokus: 'Marker einer möglichen Psychose-Erstmanifestation — sensibel beobachten.' },
+      { id: 'K16', name: 'Selbstgefährdung & Krise',                 fokus: 'Risiko-Indikatoren — diese Items triggern die Querschnitts-Risikofilter R01–R03, nicht die Achsen.' }
+    ],
+    symptome: [
+      // K01 — Aufmerksamkeit & Wachheit (8)
+      { id: '1.1', kategorie: 'K01', text: 'Driftet im Unterricht ab oder tagträumt regelmäßig' },
+      { id: '1.2', kategorie: 'K01', text: 'Beginnt Aufgaben, bringt sie nicht zu Ende' },
+      { id: '1.3', kategorie: 'K01', text: 'Überhört direkte Ansprache, wenn vertieft' },
+      { id: '1.4', kategorie: 'K01', text: 'Übersieht Details bei schriftlichen Aufgaben (careless errors)' },
+      { id: '1.5', kategorie: 'K01', text: 'Erscheint geistig abwesend, „nicht ganz da"' },
+      { id: '1.6', kategorie: 'K01', text: 'Auffallend langsam bei Routine-Aufgaben' },
+      { id: '1.7', kategorie: 'K01', text: 'Lange Lesetexte erschöpfen schnell' },
+      { id: '1.8', kategorie: 'K01', text: 'Hyperfokus auf Spezialinteresse möglich (Stunden am Stück)' },
+
+      // K02 — Exekutive Funktionen & Organisation (9)
+      { id: '2.1', kategorie: 'K02', text: 'Verliert chronisch Materialien (Schlüssel, Hefte, Brille)' },
+      { id: '2.2', kategorie: 'K02', text: 'Vergisst Hausaufgaben oder Termine' },
+      { id: '2.3', kategorie: 'K02', text: 'Kommt chronisch zu spät trotz Willens (Time Blindness)' },
+      { id: '2.4', kategorie: 'K02', text: 'Kann Aufgaben nicht priorisieren' },
+      { id: '2.5', kategorie: 'K02', text: 'Verschiebt bis zur akuten Krise (Prokrastination)' },
+      { id: '2.6', kategorie: 'K02', text: 'Zimmer oder Schreibtisch chronisch chaotisch' },
+      { id: '2.7', kategorie: 'K02', text: 'Wechselt schwer zwischen Aufgaben' },
+      { id: '2.8', kategorie: 'K02', text: 'Massive Schwierigkeit bei unstrukturierten Settings' },
+      { id: '2.9', kategorie: 'K02', text: 'Plant nicht voraus — keine Zeitperspektive' },
+
+      // K03 — Stimmung & affektive Regulation (10)
+      { id: '3.1',  kategorie: 'K03', text: 'Anhaltend gedrückte Grundstimmung' },
+      { id: '3.2',  kategorie: 'K03', text: 'Verlust von Interesse an Aktivitäten, die früher Freude machten' },
+      { id: '3.3',  kategorie: 'K03', text: 'Häufig grundlos weinerlich' },
+      { id: '3.4',  kategorie: 'K03', text: 'Phasen ungewöhnlich gehobener Stimmung mit gesteigerter Energie' },
+      { id: '3.5',  kategorie: 'K03', text: 'Schnelle Stimmungswechsel innerhalb von Stunden' },
+      { id: '3.6',  kategorie: 'K03', text: 'Plötzliche emotionale Ausbrüche bei kleinen Anlässen' },
+      { id: '3.7',  kategorie: 'K03', text: 'Extreme Reaktion auf wahrgenommene Zurückweisung' },
+      { id: '3.8',  kategorie: 'K03', text: 'Scham nach Kritik hält über Tage an' },
+      { id: '3.9',  kategorie: 'K03', text: 'Chronische Reizbarkeit, Wut-Schwelle niedrig' },
+      { id: '3.10', kategorie: 'K03', text: 'Affektives Erleben wirkt eingefroren oder leer' },
+
+      // K04 — Angst, Sorge, Vermeidung (9)
+      { id: '4.1', kategorie: 'K04', text: 'Anhaltende Sorgen über mehrere Lebensbereiche' },
+      { id: '4.2', kategorie: 'K04', text: 'Körperliche Angst-Symptome ohne klaren Auslöser (Herzklopfen, Schwitzen, Übelkeit)' },
+      { id: '4.3', kategorie: 'K04', text: 'Vermeidung sozialer Situationen aus Angst zu versagen' },
+      { id: '4.4', kategorie: 'K04', text: 'Schulphobische Symptomatik (morgens nicht zur Schule)' },
+      { id: '4.5', kategorie: 'K04', text: 'Trennungsangst von Bezugsperson über Altersnorm hinaus' },
+      { id: '4.6', kategorie: 'K04', text: 'Spezifische Phobien (Tiere, Höhen, Spritzen etc.)' },
+      { id: '4.7', kategorie: 'K04', text: 'Panikattacken mit Erstickungs- oder Sterbensgefühl' },
+      { id: '4.8', kategorie: 'K04', text: 'Intrusive, nicht abstellbare Gedanken (Zwangsgedanken)' },
+      { id: '4.9', kategorie: 'K04', text: 'Rituale, Kontrollen, Wiederholungen (Zwangshandlungen)' },
+
+      // K05 — Soziale Funktion & Kommunikation (10)
+      { id: '5.1',  kategorie: 'K05', text: 'Wenige bis keine stabilen Freundschaften' },
+      { id: '5.2',  kategorie: 'K05', text: 'Wirkt sozial distanziert, wenig emotionale Resonanz' },
+      { id: '5.3',  kategorie: 'K05', text: 'Unterbricht im Gespräch oder hört nicht zu' },
+      { id: '5.4',  kategorie: 'K05', text: 'Versteht ironische oder doppeldeutige Sprache schlecht' },
+      { id: '5.5',  kategorie: 'K05', text: 'Sprachlicher Ausdruck wirkt formal oder altklug' },
+      { id: '5.6',  kategorie: 'K05', text: 'Liest Mimik und Gestik schlecht' },
+      { id: '5.7',  kategorie: 'K05', text: 'Vermeidet Augenkontakt durchgängig' },
+      { id: '5.8',  kategorie: 'K05', text: 'Sozialer Wunsch da, aber kein Zugang zur Peer-Group' },
+      { id: '5.9',  kategorie: 'K05', text: 'Wirkt sozial überangepasst (Camouflaging)' },
+      { id: '5.10', kategorie: 'K05', text: 'Konflikt-Beziehungen mit intensiver Schwarz-Weiß-Bindung' },
+
+      // K06 — Sensorik & Wahrnehmung (7)
+      { id: '6.1', kategorie: 'K06', text: 'Überempfindlich gegenüber Geräuschen (verstopft Ohren)' },
+      { id: '6.2', kategorie: 'K06', text: 'Überempfindlich gegenüber Licht, Texturen oder Gerüchen' },
+      { id: '6.3', kategorie: 'K06', text: 'Berührungs-Aversion oder ungewöhnliches Berührungs-Bedürfnis' },
+      { id: '6.4', kategorie: 'K06', text: 'Sucht starken sensorischen Input (drückt sich an Wände, dreht sich)' },
+      { id: '6.5', kategorie: 'K06', text: 'Nimmt sensorische Reize verzögert wahr' },
+      { id: '6.6', kategorie: 'K06', text: 'Stereotype Bewegungen (Schaukeln, Hände wedeln)' },
+      { id: '6.7', kategorie: 'K06', text: 'Eingeschränkte Schmerzwahrnehmung' },
+
+      // K07 — Schlaf (6)
+      { id: '7.1', kategorie: 'K07', text: 'Verschobener Schlafrhythmus (spät einschlafen, spät aufstehen)' },
+      { id: '7.2', kategorie: 'K07', text: 'Morgens schwer aus dem Bett (über Altersnorm)' },
+      { id: '7.3', kategorie: 'K07', text: 'Einschlafstörung mit Gedankenrasen' },
+      { id: '7.4', kategorie: 'K07', text: 'Häufige nächtliche Erwachen' },
+      { id: '7.5', kategorie: 'K07', text: 'Wiederkehrende Albträume' },
+      { id: '7.6', kategorie: 'K07', text: 'Erschöpfung tagsüber trotz ausreichender Liegezeit' },
+
+      // K08 — Essen & Körperwahrnehmung (8)
+      { id: '8.1', kategorie: 'K08', text: 'Restriktives Essverhalten oder Kalorien-Zählen' },
+      { id: '8.2', kategorie: 'K08', text: 'Heißhungerattacken mit Kontrollverlust (Binge-Episoden)' },
+      { id: '8.3', kategorie: 'K08', text: 'Kompensatorisches Verhalten (Erbrechen, Laxantien, exzessiver Sport)' },
+      { id: '8.4', kategorie: 'K08', text: 'Verzerrte Körperwahrnehmung (sieht sich zu dick trotz Untergewicht)' },
+      { id: '8.5', kategorie: 'K08', text: 'Ablehnung bestimmter Texturen oder Lebensmittel (nicht aus Diät-Gründen)' },
+      { id: '8.6', kategorie: 'K08', text: 'Gewichtsverlust ohne körperliche Ursache' },
+      { id: '8.7', kategorie: 'K08', text: 'Trostessen oder Gewichtszunahme als Selbstregulation' },
+      { id: '8.8', kategorie: 'K08', text: 'Beschäftigung mit Essen und Gewicht dominiert die Gedanken' },
+
+      // K09 — Identität & Selbstbild (7)
+      { id: '9.1', kategorie: 'K09', text: 'Niedriges Selbstwertgefühl trotz objektiver Begabung' },
+      { id: '9.2', kategorie: 'K09', text: 'Beschreibt sich als „dumm", „faul" oder „kaputt"' },
+      { id: '9.3', kategorie: 'K09', text: 'Anhaltende Unklarheit über eigene Werte und Ziele' },
+      { id: '9.4', kategorie: 'K09', text: 'Chronisches Gefühl der inneren Leere' },
+      { id: '9.5', kategorie: 'K09', text: 'Identitätskonflikt mit Geschlechts-Identität oder sexueller Orientierung' },
+      { id: '9.6', kategorie: 'K09', text: 'Erlebt sich selbst aus der Distanz zu sehen (Depersonalisation)' },
+      { id: '9.7', kategorie: 'K09', text: 'Selbstbild wechselt stark je nach sozialer Situation' },
+
+      // K10 — Impulskontrolle & Verhalten (8)
+      { id: '10.1', kategorie: 'K10', text: 'Häufige aggressive Ausbrüche (verbal oder körperlich)' },
+      { id: '10.2', kategorie: 'K10', text: 'Regelverletzung im Alltag (Diebstahl, Schwänzen, Lügen)' },
+      { id: '10.3', kategorie: 'K10', text: 'Gewalt gegen Tiere oder andere Menschen' },
+      { id: '10.4', kategorie: 'K10', text: 'Risiko-Verhalten (gefährlicher Verkehr, Klettern, experimenteller Drogenkonsum)' },
+      { id: '10.5', kategorie: 'K10', text: 'Schwierigkeit, Belohnungen aufzuschieben' },
+      { id: '10.6', kategorie: 'K10', text: 'Impulsive Entscheidungen ohne Folgen-Abwägung' },
+      { id: '10.7', kategorie: 'K10', text: 'Provoziert aktiv Erwachsene, oppositionelles Verhalten' },
+      { id: '10.8', kategorie: 'K10', text: 'Fehlen von Schuldgefühl nach schädigendem Verhalten' },
+
+      // K11 — Substanz, Sucht & repetitives Verhalten (8)
+      { id: '11.1', kategorie: 'K11', text: 'Regelmäßiger Cannabis-Konsum (mehrmals pro Woche)' },
+      { id: '11.2', kategorie: 'K11', text: 'Beschreibt Substanz-Konsum als „beruhigend" oder „konzentrationsfördernd"' },
+      { id: '11.3', kategorie: 'K11', text: 'Alkohol-Konsum altersuntypisch häufig' },
+      { id: '11.4', kategorie: 'K11', text: 'Gaming exzessiv (Stunden täglich) mit Vernachlässigung anderer Bereiche' },
+      { id: '11.5', kategorie: 'K11', text: 'Pornografie-Konsum altersuntypisch häufig oder zwanghaft' },
+      { id: '11.6', kategorie: 'K11', text: 'Smartphone-Nutzung mit Kontrollverlust' },
+      { id: '11.7', kategorie: 'K11', text: 'Andere illegale Substanzen (Ecstasy, Kokain etc.)' },
+      { id: '11.8', kategorie: 'K11', text: 'Toleranzentwicklung sichtbar (mehr nötig für gleichen Effekt)' },
+
+      // K12 — Schule & Leistung (9)
+      { id: '12.1', kategorie: 'K12', text: 'Mündlich brilliant, schriftlich blockiert' },
+      { id: '12.2', kategorie: 'K12', text: 'Test-Versagen trotz vorhandenem Wissen' },
+      { id: '12.3', kategorie: 'K12', text: 'Akute Schulverweigerung' },
+      { id: '12.4', kategorie: 'K12', text: 'Krise erst ab Mittelstufe oder nach Setting-Wechsel' },
+      { id: '12.5', kategorie: 'K12', text: 'Hausaufgaben verschwinden zwischen Hause und Schule' },
+      { id: '12.6', kategorie: 'K12', text: 'Massive Leistungsschwankungen je nach Tagesform' },
+      { id: '12.7', kategorie: 'K12', text: 'Persistente Lese-Rechtschreib-Schwierigkeiten' },
+      { id: '12.8', kategorie: 'K12', text: 'Persistente Rechen-Schwierigkeiten' },
+      { id: '12.9', kategorie: 'K12', text: 'WISC-V-Spreizung: VCI hoch, Arbeitsgedächtnis / Verarbeitungsgeschwindigkeit niedrig' },
+
+      // K13 — Familie & Bindung (7)
+      { id: '13.1', kategorie: 'K13', text: 'Eskalierende Konflikte mit Eltern' },
+      { id: '13.2', kategorie: 'K13', text: 'Eltern berichten Überforderung und Hilflosigkeit' },
+      { id: '13.3', kategorie: 'K13', text: 'ADHS-Marker bei einem Elternteil bekannt oder vermutet' },
+      { id: '13.4', kategorie: 'K13', text: 'Frühe Trennungserfahrungen (Heimaufenthalt, Pflegefamilie)' },
+      { id: '13.5', kategorie: 'K13', text: 'Häusliche Gewalt im Hintergrund' },
+      { id: '13.6', kategorie: 'K13', text: 'Eltern selbst aktuell psychisch erkrankt' },
+      { id: '13.7', kategorie: 'K13', text: 'Familien-System ohne stabile Strukturierungs-Kapazität' },
+
+      // K14 — Trauma-Marker & Wiedererleben (7)
+      { id: '14.1', kategorie: 'K14', text: 'Wiederkehrende intrusive Erinnerungen oder Bilder' },
+      { id: '14.2', kategorie: 'K14', text: 'Albträume mit Trauma-Bezug' },
+      { id: '14.3', kategorie: 'K14', text: 'Flashback-artige Wiedererlebens-Zustände' },
+      { id: '14.4', kategorie: 'K14', text: 'Vermeidung von Trauma-bezogenen Auslösern (Orte, Personen, Themen)' },
+      { id: '14.5', kategorie: 'K14', text: 'Hypervigilanz und Schreckhaftigkeit' },
+      { id: '14.6', kategorie: 'K14', text: 'Dissoziatives Erleben (nicht im eigenen Körper sein)' },
+      { id: '14.7', kategorie: 'K14', text: 'Plötzliche emotionale Überflutung ohne erkennbaren Auslöser' },
+
+      // K15 — Realitäts-Wahrnehmung & ungewöhnliches Erleben (6)
+      { id: '15.1', kategorie: 'K15', text: 'Hört Stimmen, die andere nicht hören' },
+      { id: '15.2', kategorie: 'K15', text: 'Sieht Dinge, die andere nicht sehen' },
+      { id: '15.3', kategorie: 'K15', text: 'Überzeugung von ungewöhnlichen Ideen (Verfolgung, besondere Mission)' },
+      { id: '15.4', kategorie: 'K15', text: 'Sprach-Auffälligkeiten (Wortneuschöpfungen, Gedankenabbrüche)' },
+      { id: '15.5', kategorie: 'K15', text: 'Mimik wirkt reduziert, Affekt verflacht' },
+      { id: '15.6', kategorie: 'K15', text: 'Sozialer Rückzug akzentuiert mit ungewöhnlichem Verhalten' },
+
+      // K16 — Selbstgefährdung & Krise (7) — triggern R01-R03
+      { id: '16.1', kategorie: 'K16', text: 'Suizidale Gedanken berichtet' },
+      { id: '16.2', kategorie: 'K16', text: 'Konkreter Suizidplan oder Vorbereitungs-Handlungen' },
+      { id: '16.3', kategorie: 'K16', text: 'Selbstverletzendes Verhalten (Schneiden, Brennen etc.)' },
+      { id: '16.4', kategorie: 'K16', text: 'Substanzkonsum als Selbstmedikation für emotionalen Schmerz' },
+      { id: '16.5', kategorie: 'K16', text: 'Körperliche Beschwerden ohne medizinisches Korrelat' },
+      { id: '16.6', kategorie: 'K16', text: 'Wiederholte Arztbesuche ohne organischen Befund' },
+      { id: '16.7', kategorie: 'K16', text: 'Akute Schul- oder Familien-Eskalation mit Risiko' }
+    ]
   },
   achsen: [
     { id: 'A01', name: 'Autismus-Spektrum-Störung',                    topicKey: 'asperger',           quellenKurz: [] },
@@ -4758,12 +5046,7 @@ function renderDiagnostik() {
     b.classList.toggle('active', b.dataset.subtab === STATE.diagSubtab);
   });
   if (STATE.diagSubtab === 'eingabe') {
-    body.innerHTML = `
-      <div class="diag-placeholder">
-        <strong>Symptom-Pool wird in Prompt 2 angelegt.</strong>
-        <p>Geplant: rund 100–150 beobachtbare Items in etwa 15 Kategorien (z. B. Kognition / Exekutive, Stimmung, Sozialverhalten, Schlaf, Sensorik, Risiko-Verhalten). Fachkraft kreuzt an, was sie beim Jugendlichen sieht.</p>
-        <p>In Prompt 3 wird das Mapping auf die 13 Krankheitsbild-Hauptachsen und die drei Querschnitts-Risikofilter (Suizidalität, NSSI, Somatoform) befüllt. In Prompt 4 läuft die Scoring-Engine und produziert die Verdachtsachsen mit Stärken-Markierung (deutlich / mittel / mild).</p>
-      </div>`;
+    renderSymptomEingabe(body);
   } else {
     body.innerHTML = `
       <div class="diag-placeholder">
@@ -4772,6 +5055,92 @@ function renderDiagnostik() {
         <p>Output-Sprache: „Hauptachse: Autismus-Spektrum (deutlich) · Differentialdiagnostisch zu prüfen: ADHS (mittel)" — keine Prozentwerte.</p>
       </div>`;
   }
+}
+
+/* Symptom-Eingabe-UI: 16 ausklappbare Kategorien mit 126 Checkbox-Items.
+   Persistierung in localStorage (savoir_global_diag.symptome). Globaler Counter
+   plus Counter pro Kategorie. Native <details>/<summary> für Accessibility. */
+function renderSymptomEingabe(container) {
+  const pool = SAVOIR_GLOBAL.symptomPool;
+  const diag = loadGlobalDiag();
+  diag.symptome = diag.symptome || [];
+  const selected = new Set(diag.symptome);
+
+  const kategorienHtml = pool.kategorien.map(kat => {
+    const items = pool.symptome.filter(s => s.kategorie === kat.id);
+    const countSel = items.filter(s => selected.has(s.id)).length;
+    const itemsHtml = items.map(s => {
+      const checked = selected.has(s.id);
+      return `
+        <label class="symdia-sym ${checked ? 'checked' : ''}">
+          <input type="checkbox" data-tool="globsym-toggle" data-id="${escHtml(s.id)}" ${checked ? 'checked' : ''}>
+          <span class="symdia-sym-box" aria-hidden="true"></span>
+          <span class="symdia-sym-text"><span class="globsym-id">${escHtml(s.id)}</span> ${escHtml(s.text)}</span>
+        </label>`;
+    }).join('');
+    return `
+      <details class="globsym-kat" data-kat="${escHtml(kat.id)}" ${countSel > 0 ? 'open' : ''}>
+        <summary class="globsym-kat-summary">
+          <span class="globsym-kat-id">${escHtml(kat.id)}</span>
+          <span class="globsym-kat-name">${escHtml(kat.name)}</span>
+          <span class="globsym-kat-count" data-counter-for="${escHtml(kat.id)}">${countSel} / ${items.length}</span>
+        </summary>
+        <div class="globsym-kat-fokus">${escHtml(kat.fokus)}</div>
+        <div class="symdia-sym-grid">${itemsHtml}</div>
+      </details>`;
+  }).join('');
+
+  const totalSelected = diag.symptome.length;
+  const totalItems = pool.symptome.length;
+
+  container.innerHTML = `
+    <section class="globsym">
+      <div class="globsym-header">
+        <div class="globsym-counter">
+          <span class="globsym-counter-num" id="globsymCounterNum">${totalSelected}</span>
+          <span class="globsym-counter-label">von ${totalItems} Symptomen ausgewählt</span>
+        </div>
+        <button class="plan-reset-btn" data-tool="globsym-reset">Alles zurücksetzen</button>
+      </div>
+      <p class="globsym-intro">Klick die Kategorien auf und kreuze an, was du beim Jugendlichen siehst oder aus Anamnese / Fremdbericht hörst. Beobachtungs-Sprache, nicht Diagnose-Sprache. Das Mapping auf die 13 Achsen und drei Risikofilter folgt in Prompt 3.</p>
+      <div class="globsym-kategorien">${kategorienHtml}</div>
+    </section>`;
+
+  bindSymptomEingabeEvents(container);
+}
+
+function bindSymptomEingabeEvents(root) {
+  root.querySelectorAll('[data-tool="globsym-toggle"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const id = cb.dataset.id;
+      const diag = loadGlobalDiag();
+      diag.symptome = diag.symptome || [];
+      const idx = diag.symptome.indexOf(id);
+      if (cb.checked && idx === -1) diag.symptome.push(id);
+      else if (!cb.checked && idx !== -1) diag.symptome.splice(idx, 1);
+      saveGlobalDiag(diag);
+
+      // Inline-Update: Label-Klasse, Counter pro Kategorie, globaler Counter
+      const label = cb.closest('.symdia-sym');
+      if (label) label.classList.toggle('checked', cb.checked);
+      const sym = SAVOIR_GLOBAL.symptomPool.symptome.find(s => s.id === id);
+      if (sym) {
+        const katId = sym.kategorie;
+        const katItems = SAVOIR_GLOBAL.symptomPool.symptome.filter(s => s.kategorie === katId);
+        const katSel = diag.symptome.filter(sid => katItems.some(k => k.id === sid)).length;
+        const counterEl = root.querySelector(`[data-counter-for="${katId}"]`);
+        if (counterEl) counterEl.textContent = `${katSel} / ${katItems.length}`;
+      }
+      const globalEl = root.querySelector('#globsymCounterNum');
+      if (globalEl) globalEl.textContent = diag.symptome.length;
+    });
+  });
+
+  root.querySelector('[data-tool="globsym-reset"]')?.addEventListener('click', () => {
+    if (!confirm('Alle ' + (loadGlobalDiag().symptome || []).length + ' ausgewählten Symptome zurücksetzen?')) return;
+    saveGlobalDiag({ ...loadGlobalDiag(), symptome: [] });
+    renderDiagnostik();
+  });
 }
 
 function renderKrankheitsbilderListe() {
