@@ -161,14 +161,189 @@
     margin-top: 4px;
   }
 
+  /* ============ GLOBAL NAV (Diagnostik / Krankheitsbilder) ============ */
+  .global-nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 18px 48px 0;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .global-nav-btn {
+    padding: 14px 26px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .global-nav-btn:hover { color: var(--ink); }
+  .global-nav-btn.active {
+    color: var(--ink);
+    border-bottom-color: var(--rust);
+  }
+  @media (max-width: 720px) {
+    .global-nav { padding: 14px 20px 0; }
+    .global-nav-btn { padding: 12px 16px; font-size: 10px; }
+  }
+
   /* ============ MAIN LAYOUT ============ */
   .main {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 56px 48px 96px;
+    padding: 40px 48px 96px;
   }
   .view { display: none; }
   .view.active { display: block; }
+
+  /* ============ DIAGNOSTIK-SUBNAV ============ */
+  .diag-subnav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .diag-subtab {
+    padding: 12px 4px;
+    margin-right: 28px;
+    margin-bottom: -1px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .diag-subtab:hover { color: var(--ink); }
+  .diag-subtab.active {
+    color: var(--ink);
+    border-bottom-color: var(--rust);
+  }
+  .diag-body { min-height: 200px; }
+  .diag-placeholder {
+    padding: 36px 28px;
+    background: var(--cream);
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+  }
+  .diag-placeholder strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .diag-placeholder p {
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0 0 10px;
+  }
+  .diag-placeholder p:last-child { margin-bottom: 0; }
+
+  /* ============ ACHSEN-GRID (13 Hauptachsen) ============ */
+  .achse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .achse-card {
+    padding: 20px 22px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--sage);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .15s ease;
+  }
+  .achse-card:hover {
+    border-color: var(--ink);
+    border-left-color: var(--rust);
+  }
+  .achse-card.has-topic { border-left-color: var(--gold); }
+  .achse-card.has-topic:hover { border-left-color: var(--rust); }
+  .achse-card-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .achse-card-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .achse-card-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--sage);
+  }
+  .achse-card.has-topic .achse-card-status { color: var(--rust); }
+
+  /* ============ Disclaimer-Footer (permanent) ============ */
+  .savoir-disclaimer {
+    border-top: 1px solid var(--line);
+    background: var(--cream);
+    padding: 22px 48px;
+    margin-top: 48px;
+  }
+  .savoir-disclaimer p {
+    max-width: 1400px;
+    margin: 0 auto;
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--sage);
+  }
+  .savoir-disclaimer strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 720px) {
+    .savoir-disclaimer { padding: 18px 20px; }
+  }
+
+  .link-inline {
+    color: var(--rust);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* Vertiefung-Wissen-Button (in Profil-Diagnose / Behandlungs-Plan) */
+  .vertiefung-wissen {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: right;
+  }
+  .vertiefung-wissen-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .vertiefung-wissen-btn:hover {
+    border-color: var(--ink);
+    color: var(--rust);
+  }
 
   /* ============ CATEGORY GRID ============ */
   .intro {
@@ -2710,10 +2885,39 @@
   </div>
 </nav>
 
+<nav class="global-nav" id="globalNav">
+  <button class="global-nav-btn active" data-mode="diagnostik">Diagnostik</button>
+  <button class="global-nav-btn" data-mode="krankheitsbilder">Krankheitsbilder</button>
+</nav>
+
 <main class="main">
 
-  <!-- VIEW: HOME -->
-  <section class="view active" id="view-home">
+  <!-- VIEW: GLOBALE DIAGNOSTIK (Phase A1 — Platzhalter) -->
+  <section class="view active" id="view-diagnostik">
+    <div class="intro">
+      <div class="intro-eyebrow">Globale Diagnostik · Ebene 1</div>
+      <h1 class="intro-title">Symptom-basierte Differentialdiagnostik</h1>
+      <p class="intro-text">Eingangs-Tool über alle 13 Krankheitsbild-Hauptachsen. Beobachte Symptome eines Jugendlichen, die App markiert differentialdiagnostische Verdachtsachsen mit Stärke (deutlich / mittel / mild). Klick auf eine Achse öffnet die krankheitsbild-spezifische Vertiefung.</p>
+    </div>
+    <nav class="diag-subnav" id="diagSubnav">
+      <button class="diag-subtab active" data-subtab="eingabe">Symptom-Eingabe</button>
+      <button class="diag-subtab" data-subtab="verdachtsachsen">Verdachtsachsen</button>
+    </nav>
+    <div class="diag-body" id="diagBody"></div>
+  </section>
+
+  <!-- VIEW: KRANKHEITSBILDER (13 Hauptachsen) -->
+  <section class="view" id="view-krankheitsbilder">
+    <div class="intro">
+      <div class="intro-eyebrow">Krankheitsbilder · 13 Hauptachsen</div>
+      <h1 class="intro-title">Direkter Drill-Down</h1>
+      <p class="intro-text">Wenn du bereits weißt, welches Krankheitsbild im Raum steht, geh direkt zur Vertiefung. Für offene differentialdiagnostische Fragen starte über <a class="link-inline" data-tool="goto-diagnostik">Diagnostik</a>.</p>
+    </div>
+    <div class="achse-grid" id="achseGrid"></div>
+  </section>
+
+  <!-- VIEW: HOME (Legacy — bleibt für Regression erreichbar, nicht primärer Einstieg) -->
+  <section class="view" id="view-home">
     <div class="intro">
       <div class="intro-eyebrow">Lernbibliothek · Jugendhilfe & Psychologie</div>
       <h1 class="intro-title">Tiefes klinisches Wissen, gut lesbar.</h1>
@@ -2809,6 +3013,10 @@
   </section>
 
 </main>
+
+<footer class="savoir-disclaimer">
+  <p><strong>SAVOIR</strong> ist ein klinisches Reflexionswerkzeug für erfahrene Fachkräfte. Es ersetzt keine standardisierte Diagnostik nach DSM-5-TR / ICD-11. Symptom-Mappings basieren auf etablierter klinischer Literatur und Praxiserfahrung, sind aber nicht psychometrisch validiert.</p>
+</footer>
 
 <script>
 /* ============ DATA ============ */
@@ -4259,7 +4467,9 @@ const TOPICS = {
 /* ============ STATE ============ */
 
 const STATE = {
-  currentView: 'home',
+  currentView: 'diagnostik',
+  currentMode: 'diagnostik',     // 'diagnostik' | 'krankheitsbilder' | 'topic' (article view)
+  diagSubtab: 'eingabe',         // 'eingabe' | 'verdachtsachsen'
   currentCategory: null,
   currentTopicId: null,
   currentEbene: 'quintessenz',
@@ -4329,6 +4539,56 @@ const BEREICH_STRUKTUR = {
    für ADHS wird im 'behandlungs-plan'-Branch in renderEbene direkt gerendert,
    weil er den dynamisch ermittelten Top-Muster-Namen einbinden muss. */
 const BEREICH_PLACEHOLDERS = {};
+
+/* ============ SAVOIR_GLOBAL — Globale Diagnostik-Schicht (Phase A1) ============
+   Eingangs-Ebene über alle Krankheitsbild-Hauptachsen. Symptom-Pool und
+   Mappings werden in den folgenden Prompts (P2-P4) befüllt. A01 und A02
+   sind über topicKey mit den bestehenden Topics 'asperger' und
+   'adhs-unaufmerksam' verbunden. Die restlichen elf Achsen haben
+   topicKey: null bis sie inhaltlich angelegt werden. */
+const SAVOIR_GLOBAL = {
+  symptomPool: {
+    kategorien: [], // ~15 Beobachtungs-Kategorien (Prompt P2)
+    symptome: []    // ~100-150 Items mit { id, text, kategorie } (Prompt P2)
+  },
+  achsen: [
+    { id: 'A01', name: 'Autismus-Spektrum-Störung',                    topicKey: 'asperger',           quellenKurz: [] },
+    { id: 'A02', name: 'ADHS (unaufmerksam und kombiniert)',           topicKey: 'adhs-unaufmerksam',  quellenKurz: [] },
+    { id: 'A03', name: 'Depressive Störung',                           topicKey: null,                 quellenKurz: [] },
+    { id: 'A04', name: 'Bipolare Spektrum-Störung',                    topicKey: null,                 quellenKurz: [] },
+    { id: 'A05', name: 'Angststörungen',                               topicKey: null,                 quellenKurz: [] },
+    { id: 'A06', name: 'Zwangsstörung',                                topicKey: null,                 quellenKurz: [] },
+    { id: 'A07', name: 'PTBS und komplexes Trauma',                    topicKey: null,                 quellenKurz: [] },
+    { id: 'A08', name: 'Essstörungen',                                 topicKey: null,                 quellenKurz: [] },
+    { id: 'A09', name: 'Substanz- und Verhaltenssucht',                topicKey: null,                 quellenKurz: [] },
+    { id: 'A10', name: 'Verhaltensstörungen (ODD, CD)',                topicKey: null,                 quellenKurz: [] },
+    { id: 'A11', name: 'Lernstörungen',                                topicKey: null,                 quellenKurz: [] },
+    { id: 'A12', name: 'Borderline-Strukturen und Identitätskrise',    topicKey: null,                 quellenKurz: [] },
+    { id: 'A13', name: 'Psychose-Erstmanifestation',                   topicKey: null,                 quellenKurz: [] }
+  ],
+  risikofilter: [
+    { id: 'R01', name: 'Suizidalität' },
+    { id: 'R02', name: 'Nicht-suizidales Selbstverletzen' },
+    { id: 'R03', name: 'Somatoforme Beschwerden' }
+  ],
+  symptomMapping: {
+    // Symptom-ID → { achsenGewichte: { A01: 3, A02: 1, ... }, risikoGewichte: { R01: 2, ... } }
+    // Befüllung in Prompt P3
+  }
+};
+
+/* localStorage-Key für globale Diagnostik-Eingaben (Symptom-Auswahl persistiert). */
+const LS_GLOBAL_DIAG = 'savoir_global_diag';
+
+function loadGlobalDiag() {
+  try {
+    const raw = localStorage.getItem(LS_GLOBAL_DIAG);
+    return raw ? JSON.parse(raw) : { symptome: [], lastAchse: null };
+  } catch (e) { return { symptome: [], lastAchse: null }; }
+}
+function saveGlobalDiag(state) {
+  try { localStorage.setItem(LS_GLOBAL_DIAG, JSON.stringify(state)); } catch (e) {}
+}
 
 function hasBereichStruktur(topicId) {
   return !!BEREICH_STRUKTUR[topicId];
@@ -4468,7 +4728,102 @@ function showView(name) {
   STATE.currentView = name;
   stopSpeech();
   if (name === 'home') renderGelerntMaster();
+  // Wenn ein Artikel geöffnet ist, ist keine globale-Nav-Mode mehr "primary aktiv".
+  if (name === 'article') {
+    STATE.currentMode = 'topic';
+    document.querySelectorAll('#globalNav .global-nav-btn').forEach(b => b.classList.remove('active'));
+  }
   window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+/* ============ GLOBAL-NAV — Diagnostik / Krankheitsbilder (Phase A1) ============
+   Top-Level-Modi oberhalb der bestehenden View-Architektur. */
+function showMode(mode) {
+  STATE.currentMode = mode;
+  document.querySelectorAll('#globalNav .global-nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+  if (mode === 'diagnostik') {
+    showView('diagnostik');
+    renderDiagnostik();
+  } else if (mode === 'krankheitsbilder') {
+    showView('krankheitsbilder');
+    renderKrankheitsbilderListe();
+  }
+}
+
+function renderDiagnostik() {
+  const body = document.getElementById('diagBody');
+  document.querySelectorAll('#diagSubnav .diag-subtab').forEach(b => {
+    b.classList.toggle('active', b.dataset.subtab === STATE.diagSubtab);
+  });
+  if (STATE.diagSubtab === 'eingabe') {
+    body.innerHTML = `
+      <div class="diag-placeholder">
+        <strong>Symptom-Pool wird in Prompt 2 angelegt.</strong>
+        <p>Geplant: rund 100–150 beobachtbare Items in etwa 15 Kategorien (z. B. Kognition / Exekutive, Stimmung, Sozialverhalten, Schlaf, Sensorik, Risiko-Verhalten). Fachkraft kreuzt an, was sie beim Jugendlichen sieht.</p>
+        <p>In Prompt 3 wird das Mapping auf die 13 Krankheitsbild-Hauptachsen und die drei Querschnitts-Risikofilter (Suizidalität, NSSI, Somatoform) befüllt. In Prompt 4 läuft die Scoring-Engine und produziert die Verdachtsachsen mit Stärken-Markierung (deutlich / mittel / mild).</p>
+      </div>`;
+  } else {
+    body.innerHTML = `
+      <div class="diag-placeholder">
+        <strong>Achsen-Erkennung wird in Prompt 3 aktiviert.</strong>
+        <p>Hier erscheinen nach Symptom-Eingabe die differentialdiagnostischen Verdachtsachsen (max. drei deutlich / mittel) plus aktive Risikofilter. Klick auf eine Achse mit hinterlegter Vertiefung führt direkt zur krankheitsbild-spezifischen Profil-Diagnose (z. B. A01 → Asperger-Symptom-Auswahl, A02 → ADHS-Symptom-Auswahl).</p>
+        <p>Output-Sprache: „Hauptachse: Autismus-Spektrum (deutlich) · Differentialdiagnostisch zu prüfen: ADHS (mittel)" — keine Prozentwerte.</p>
+      </div>`;
+  }
+}
+
+function renderKrankheitsbilderListe() {
+  const grid = document.getElementById('achseGrid');
+  grid.innerHTML = SAVOIR_GLOBAL.achsen.map(a => {
+    const hasTopic = a.topicKey && TOPICS[a.topicKey];
+    const status = hasTopic ? 'Vertiefung verfügbar' : 'In Vorbereitung';
+    return `
+      <article class="achse-card ${hasTopic ? 'has-topic' : ''}" data-tool="achse-open" data-id="${escHtml(a.id)}">
+        <div class="achse-card-id">${escHtml(a.id)}</div>
+        <div class="achse-card-name">${escHtml(a.name)}</div>
+        <div class="achse-card-status">${status}</div>
+      </article>`;
+  }).join('');
+  grid.querySelectorAll('[data-tool="achse-open"]').forEach(el => {
+    el.addEventListener('click', () => openAchse(el.dataset.id));
+  });
+}
+
+/* Routing: Klick auf eine Verdachtsachse oder einen Krankheitsbild-Card.
+   Bei vorhandenem topicKey springt die Navigation direkt in die
+   krankheitsbild-spezifische Profil-Diagnose (Bereich profil,
+   Sub-Tab symptom-auswahl). Bei fehlendem topicKey: Hinweis. */
+function openAchse(achseId) {
+  const a = SAVOIR_GLOBAL.achsen.find(x => x.id === achseId);
+  if (!a) return;
+  saveGlobalDiag({ ...loadGlobalDiag(), lastAchse: achseId });
+  if (a.topicKey && TOPICS[a.topicKey]) {
+    // In die krankheitsbild-spezifische Profil-Diagnose einsteigen
+    openArticle(a.topicKey, 'symptom-auswahl');
+  } else {
+    // Platzhalter-Hinweis als kurzes Modal-ähnliches Overlay
+    alert(`Vertiefung für ${a.id} — ${a.name} wird in einem späteren Bau-Schritt ergänzt.`);
+  }
+}
+
+/* Bindings für die globale Navigation. */
+function initGlobalNav() {
+  document.querySelectorAll('#globalNav .global-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => showMode(btn.dataset.mode));
+  });
+  document.querySelectorAll('#diagSubnav .diag-subtab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      STATE.diagSubtab = btn.dataset.subtab;
+      renderDiagnostik();
+    });
+  });
+  // Goto-Diagnostik-Link in der Krankheitsbilder-View
+  document.addEventListener('click', (ev) => {
+    const el = ev.target.closest('[data-tool="goto-diagnostik"]');
+    if (el) showMode('diagnostik');
+  });
 }
 
 /* ============ HOME / CATEGORIES ============ */
@@ -7573,10 +7928,12 @@ function renderPlanOutput(topic, ps, container) {
         <button class="plan-reset-btn" data-tool="plan-back-faktoren">Faktoren anpassen</button>
         <button class="plan-reset-btn" data-tool="plan-reset-all">Plan zurücksetzen</button>
       </div>
+      ${vertiefungWissenButtonHtml()}
     </section>
   `;
   bindPlanOutputEvents(topic, ps);
   bindPlanSubnav(topic);
+  bindVertiefungWissen(topic, document.getElementById('articleBody'));
 }
 
 function bindPlanOutputEvents(topic, ps) {
@@ -8558,6 +8915,26 @@ function adhsTextOrPlaceholder(text, phaseLabel) {
   return adhsPlaceholder(phaseLabel);
 }
 
+/* Vertiefung-Wissen-Button — am Ende von Profil-Diagnose- und Behandlungs-Plan-Outputs.
+   Springt zurück in den WISSEN-Bereich des aktuellen Topics auf die Quintessenz-Ebene.
+   In Phase A1 strukturell; in späteren Phasen kann das Ziel pro Sub-Muster spezifischer
+   werden (z. B. auf einen Spezialfalle-Eintrag pro Muster). */
+function vertiefungWissenButtonHtml() {
+  return `
+    <div class="vertiefung-wissen">
+      <button class="vertiefung-wissen-btn" data-tool="goto-wissen">Vertiefung Wissen →</button>
+    </div>`;
+}
+function bindVertiefungWissen(topic, root) {
+  (root || document).querySelectorAll('[data-tool="goto-wissen"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      STATE.currentEbene = 'quintessenz';
+      setupTopicNavigation(topic);
+      renderEbene();
+    });
+  });
+}
+
 function renderAdhsBehandlungsPlan(topic, ps, container) {
   ps.manuellesMuster = ps.manuellesMuster || null;
   const musterList = planMusterFor(topic.id);
@@ -8623,6 +9000,7 @@ function renderAdhsBehandlungsPlan(topic, ps, container) {
       <div class="adhs-plan-body">
         ${contentHtml}
       </div>
+      ${selectedMuster ? vertiefungWissenButtonHtml() : ''}
     </section>`;
 
   container.querySelectorAll('[data-tool="adhs-pick-muster"]').forEach(btn => {
@@ -8637,6 +9015,7 @@ function renderAdhsBehandlungsPlan(topic, ps, container) {
     setupTopicNavigation(topic);
     renderEbene();
   });
+  bindVertiefungWissen(topic, container);
 }
 
 function renderAdhsBloecke(muster, musterList) {
@@ -8940,8 +9319,10 @@ function renderErkanntesMuster(topic, ps, container) {
         <button class="plan-generate-btn symdia-cta-btn" data-tool="goto-behandlungs-plan">Zum Behandlungs-Plan →</button>
         <button class="plan-reset-btn" data-tool="goto-symptom-auswahl">← Symptom-Auswahl anpassen</button>
       </div>
+      ${vertiefungWissenButtonHtml()}
     </section>
   `;
+  bindVertiefungWissen(topic, container);
 
   document.querySelector('[data-tool="goto-behandlungs-plan"]')?.addEventListener('click', () => {
     STATE.currentEbene = 'behandlungs-plan';
@@ -9782,9 +10163,9 @@ document.addEventListener('click', e => {
 
 /* ============ NAV BINDINGS ============ */
 
-document.getElementById('brand').addEventListener('click', () => showView('home'));
-document.getElementById('bc-home-1').addEventListener('click', () => showView('home'));
-document.getElementById('bc-home-2').addEventListener('click', () => showView('home'));
+document.getElementById('brand').addEventListener('click', () => showMode('diagnostik'));
+document.getElementById('bc-home-1').addEventListener('click', () => showMode('diagnostik'));
+document.getElementById('bc-home-2').addEventListener('click', () => showMode('diagnostik'));
 
 /* ============ INIT ============ */
 
@@ -9797,6 +10178,8 @@ document.getElementById('bc-home-2').addEventListener('click', () => showView('h
   }
   renderCategoryGrid();
   updateProgressIndicator();
+  initGlobalNav();
+  showMode('diagnostik');
 })();
 
 </script>
