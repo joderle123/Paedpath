@@ -1228,6 +1228,66 @@
   }
   .profil-cta-hint p { margin: 0; }
 
+  /* ADHS Behandlungs-Plan (Phase 3a) — Muster-Switcher + Platzhalter-Optik */
+  .adhs-behandlungsplan { display: block; }
+  .muster-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0 28px;
+    padding: 10px;
+    background: var(--cream);
+    border-radius: 4px;
+  }
+  .muster-switcher-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 100px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .muster-switcher-btn:hover { border-color: var(--ink); }
+  .muster-switcher-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .muster-switcher-btn.from-diagnosis {
+    border-color: var(--gold);
+  }
+  .muster-switcher-btn.from-diagnosis.active {
+    background: var(--ink);
+    border-color: var(--gold);
+  }
+  .muster-switcher-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    opacity: 0.65;
+  }
+  .muster-switcher-name { font-size: 12px; }
+  .muster-switcher-marker {
+    color: var(--gold);
+    font-size: 10px;
+    margin-left: 2px;
+  }
+  .muster-switcher-btn.active .muster-switcher-marker { color: var(--paper); }
+  .adhs-placeholder {
+    color: var(--sage);
+    font-style: italic;
+    font-size: 13px;
+    padding: 8px 12px;
+    background: var(--cream);
+    border-radius: 4px;
+  }
+  .adhs-placeholder em { font-style: italic; }
+
   /* Schulgespräch-Vorlage (Block 5B) — kopierfähig, mit gold akzentuiertem linken Rand */
   .schule-vorlage {
     background: var(--cream);
@@ -4255,7 +4315,9 @@ const BEREICH_STRUKTUR = {
       { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
     ],
     handeln: [
-      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' },
+      { ebene: 'praxis',           label: 'Praxis',           tabClass: 'tab-praxis' },
+      { ebene: 'symptom-fokus',    label: 'Symptom-Fokus',    tabClass: 'tab-plan' }
     ]
   }
 };
@@ -4704,38 +4766,7 @@ function renderEbene() {
     }
     if (topic.id === 'adhs-unaufmerksam') {
       const ps = loadPlanState(topic.id);
-      if (!Array.isArray(ps.symptome) || ps.symptome.length === 0) {
-        body.innerHTML = `
-          <section class="plan">
-            <div class="plan-empty-match symdia-empty">
-              <strong>Behandlungs-Plan braucht erst eine Profil-Diagnose.</strong>
-              <p>Geh zur <em>Symptom-Auswahl</em> in Profil-Diagnose und kreuze die beobachtbaren Symptome an.</p>
-              <button class="plan-generate-btn" data-tool="goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
-            </div>
-          </section>`;
-        document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
-          STATE.currentEbene = 'symptom-auswahl';
-          setupTopicNavigation(topic);
-          renderEbene();
-        });
-      } else {
-        const results = computeSymptomScores(ps, topic.id);
-        const topMuster = results.length > 0 ? results[0].muster : null;
-        const topName = topMuster ? topMuster.name : 'das erkannte Muster';
-        body.innerHTML = `
-          <section class="plan">
-            <div class="plan-empty-match symdia-empty">
-              <strong>Wird in Phase 3 gebaut.</strong>
-              <p>Behandlungs-Plan für <em>${escHtml(topName)}</em> — mit sechs Bloecken pro Muster (Profil-Erkennung, Risikoprofil, Therapieansatz, vier Phasen, ausgebaute Schul-Strategie, Eskalations-Indikatoren), analog zur Asperger-Implementierung. Bis dahin trägt die Wissens-Tiefe die klinische Orientierung; das Praxis-Modul und Symptom-Fokus folgen in Phase 4.</p>
-              <button class="plan-reset-btn" data-tool="goto-symptom-auswahl">← Symptom-Auswahl anpassen</button>
-            </div>
-          </section>`;
-        document.querySelector('[data-tool="goto-symptom-auswahl"]')?.addEventListener('click', () => {
-          STATE.currentEbene = 'symptom-auswahl';
-          setupTopicNavigation(topic);
-          renderEbene();
-        });
-      }
+      renderAdhsBehandlungsPlan(topic, ps, body);
       audioPanel.style.display = 'none';
       audioCtrls.style.display = 'none';
       readBtn.style.display = 'none';
@@ -4750,6 +4781,14 @@ function renderEbene() {
     return;
   }
   if (ebene === 'symptom-fokus') {
+    if (topic.id === 'adhs-unaufmerksam') {
+      renderAdhsSymptomFokusPlaceholder(topic, body);
+      audioPanel.style.display = 'none';
+      audioCtrls.style.display = 'none';
+      readBtn.style.display = 'none';
+      stopSpeech();
+      return;
+    }
     STATE.planMode = 'symptom';
     renderPlan(topic, body);
     audioPanel.style.display = 'none';
@@ -4760,7 +4799,11 @@ function renderEbene() {
   }
 
   if (ebene === 'praxis') {
-    renderPraxis(topic, body);
+    if (topic.id === 'adhs-unaufmerksam') {
+      renderAdhsPraxisPlaceholder(topic, body);
+    } else {
+      renderPraxis(topic, body);
+    }
     audioPanel.style.display = 'none';
     audioCtrls.style.display = 'none';
     readBtn.style.display = 'none';
@@ -5861,18 +5904,29 @@ const MUSTER_KURZ_ADHS = {
   'adhs-schulverweigerung': 'ADHS, dessen exekutive und aufmerksamkeitsbezogene Defizite zu kumulativem Schul-Versagen geführt haben — der Klient verweigert jetzt aktiv die Schule als funktionale Antwort auf ein nicht mehr tragfähiges Setting. Wiedereingliederung nur mit echter Setting-Anpassung plus ADHS-Behandlung, nicht mit Druck.'
 };
 
-/* Minimale Muster-Liste (id + name) für ADHS-unaufmerksam — wird in Phase 3 um die
-   sechs Behandlungs-Bloecke pro Muster erweitert. Reihenfolge spiegelt klinische Priorität
-   bei Score-Gleichstand (sortiert von häufiger Falle bis seltener spezifischer Konstellation). */
+/* Muster-Liste für ADHS-unaufmerksam (Phase 3a — Struktur).
+   Pro Muster die sechs Behandlungs-Bloecke mit Spec-konformen Feldnamen.
+   Inhalte werden in Phase 3b pro Muster (Phase 3b.1 bis 3b.8) befüllt.
+   Reihenfolge spiegelt klinische Priorität bei Score-Gleichstand. */
+function emptyAdhsBloecke() {
+  return {
+    wasDuSiehst:    { profilErkennung: '', klinischWichtig: '', vergleich: '' },
+    risikoProfil:   { kritisch: [], hoch: [], mittel: [] },
+    therapieansatz: { hauptansatz: '', begruendung: '', diagnostik: [], wasDuTust: [], wasDuNichtTust: [], frequenz: '' },
+    vierPhasen:     { phase1: '', phase2: '', phase3: '', phase4: '' },
+    schulstrategie: { a_problem: '', b_vorlage: '', c_anpassungen: [], d_kontraindikationen: [], e_rollen: [], f_frequenz: '' },
+    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' }
+  };
+}
 const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
-  { id: 'adhs-maedchen-spaet',         name: 'Mädchen mit ADHS-Spätdiagnose' },
-  { id: 'adhs-hochbegabt',             name: 'Hochbegabter Klient mit ADHS' },
-  { id: 'adhs-audhd',                  name: 'AuDHD — ADHS plus Asperger' },
-  { id: 'adhs-rsd',                    name: 'ADHS mit Rejection Sensitive Dysphoria' },
-  { id: 'adhs-depression-sekundaer',   name: 'ADHS mit sekundärer Depression' },
-  { id: 'adhs-cannabis',               name: 'ADHS mit Cannabis-Selbstmedikation' },
-  { id: 'adhs-eltern-adhs',            name: 'ADHS mit Eltern-ADHS' },
-  { id: 'adhs-schulverweigerung',      name: 'ADHS mit Schulverweigerung' }
+  { id: 'adhs-maedchen-spaet',         name: 'Mädchen mit ADHS-Spätdiagnose',          bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-hochbegabt',             name: 'Hochbegabter Klient mit ADHS',           bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-audhd',                  name: 'AuDHD — ADHS plus Asperger',             bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-rsd',                    name: 'ADHS mit Rejection Sensitive Dysphoria', bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-depression-sekundaer',   name: 'ADHS mit sekundärer Depression',         bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-cannabis',               name: 'ADHS mit Cannabis-Selbstmedikation',     bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-eltern-adhs',            name: 'ADHS mit Eltern-ADHS',                   bloecke: emptyAdhsBloecke() },
+  { id: 'adhs-schulverweigerung',      name: 'ADHS mit Schulverweigerung',             bloecke: emptyAdhsBloecke() }
 ];
 
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
@@ -8474,6 +8528,212 @@ function generatePlan(topic, ps) {
    Browsable Referenz aller acht Profil-Muster mit Kurz-Beschreibung —
    ohne dass eine Symptom-Auswahl gemacht werden muss. Nutzt
    PLAN_MUSTER_ASPERGER (Reihenfolge = Priorität) und MUSTER_KURZ_ASPERGER. */
+/* ============ ADHS HANDELN (Phase 3a — Struktur ohne klinische Inhalte) ============
+   Drei Sub-Tabs unter HANDELN für ADHS-unaufmerksam: Behandlungs-Plan (mit
+   Muster-Switcher und 6 Block-Containern), Praxis (Platzhalter Phase 3c),
+   Symptom-Fokus (Platzhalter Phase 4). Block-Inhalte werden in Phase 3b
+   pro Muster (3b.1 bis 3b.8) befüllt. */
+
+function isAdhsValueEmpty(v) {
+  if (v == null) return true;
+  if (typeof v === 'string') return v.trim() === '';
+  if (Array.isArray(v)) return v.length === 0;
+  if (typeof v === 'object') return Object.values(v).every(isAdhsValueEmpty);
+  return false;
+}
+
+function adhsPlaceholder(phaseLabel) {
+  return `<div class="plan-prose adhs-placeholder"><em>Inhalt wird in Phase ${escHtml(phaseLabel)} gebaut.</em></div>`;
+}
+
+function adhsListOrPlaceholder(items, phaseLabel) {
+  if (Array.isArray(items) && items.length > 0) {
+    return `<ul>${items.map(i => `<li>${escHtml(typeof i === 'string' ? i : i.text || '')}</li>`).join('')}</ul>`;
+  }
+  return adhsPlaceholder(phaseLabel);
+}
+
+function adhsTextOrPlaceholder(text, phaseLabel) {
+  if (text && text.trim() !== '') return `<div class="plan-prose">${text}</div>`;
+  return adhsPlaceholder(phaseLabel);
+}
+
+function renderAdhsBehandlungsPlan(topic, ps, container) {
+  ps.manuellesMuster = ps.manuellesMuster || null;
+  const musterList = planMusterFor(topic.id);
+
+  // Top-Muster aus Profil-Diagnose (für Marker und als Default)
+  let topMusterId = null;
+  if (Array.isArray(ps.symptome) && ps.symptome.length > 0) {
+    const results = computeSymptomScores(ps, topic.id);
+    if (results.length > 0) topMusterId = results[0].muster.id;
+  }
+
+  // Aktuell ausgewähltes Muster: manuell überschreibt Diagnose-Top
+  let selectedMuster = null;
+  let isFromDiagnosis = false;
+  if (ps.manuellesMuster) {
+    selectedMuster = musterList.find(m => m.id === ps.manuellesMuster) || null;
+  }
+  if (!selectedMuster && topMusterId) {
+    selectedMuster = musterList.find(m => m.id === topMusterId) || null;
+    if (selectedMuster) isFromDiagnosis = true;
+  }
+
+  const switcherHtml = `
+    <nav class="muster-switcher" aria-label="Muster wechseln">
+      ${musterList.map((m, i) => {
+        const isActive = selectedMuster && m.id === selectedMuster.id;
+        const isDiag = topMusterId && m.id === topMusterId;
+        const num = String(i + 1).padStart(2, '0');
+        return `<button class="muster-switcher-btn ${isActive ? 'active' : ''} ${isDiag ? 'from-diagnosis' : ''}" data-tool="adhs-pick-muster" data-id="${escHtml(m.id)}" title="${isDiag ? 'Top-Muster aus Profil-Diagnose' : 'Manuelle Auswahl'}">
+          <span class="muster-switcher-num">M${num}</span>
+          <span class="muster-switcher-name">${escHtml(m.name)}</span>
+          ${isDiag ? '<span class="muster-switcher-marker" aria-label="aus Profil-Diagnose">●</span>' : ''}
+        </button>`;
+      }).join('')}
+    </nav>`;
+
+  let contentHtml;
+  if (!selectedMuster) {
+    contentHtml = `
+      <div class="plan-empty-match symdia-empty">
+        <strong>Führe zuerst die Profil-Diagnose durch oder wähle ein Muster manuell.</strong>
+        <p>Oben rechts klickst du ein Muster an, um seinen Behandlungs-Plan anzusehen. Oder du gehst zur <em>Profil-Diagnose · Symptom-Auswahl</em> und kreuzt Symptome an — das ermittelte Top-Muster wird hier dann automatisch geladen.</p>
+        <button class="plan-generate-btn" data-tool="adhs-goto-symptom-auswahl">Zur Symptom-Auswahl →</button>
+      </div>`;
+  } else {
+    contentHtml = renderAdhsBloecke(selectedMuster, musterList);
+  }
+
+  const headerMeta = selectedMuster
+    ? (isFromDiagnosis
+        ? 'Aus Profil-Diagnose übernommen. Wechsle das Muster unten, um alternative Pläne anzusehen.'
+        : 'Manuell ausgewählt. Top-Muster aus der Profil-Diagnose ist mit ● markiert.')
+    : '';
+
+  container.innerHTML = `
+    <section class="plan adhs-behandlungsplan">
+      <div class="plan-output-header">
+        <div class="plan-output-pattern">Behandlungs-Plan · ADHS unaufmerksam</div>
+        <div class="plan-output-title">${selectedMuster ? escHtml(selectedMuster.name) : 'Kein Muster gewählt'}</div>
+        ${headerMeta ? `<div class="plan-output-meta">${escHtml(headerMeta)}</div>` : ''}
+      </div>
+      ${switcherHtml}
+      <div class="adhs-plan-body">
+        ${contentHtml}
+      </div>
+    </section>`;
+
+  container.querySelectorAll('[data-tool="adhs-pick-muster"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      ps.manuellesMuster = btn.dataset.id;
+      savePlanState(topic.id, ps);
+      renderEbene();
+    });
+  });
+  container.querySelector('[data-tool="adhs-goto-symptom-auswahl"]')?.addEventListener('click', () => {
+    STATE.currentEbene = 'symptom-auswahl';
+    setupTopicNavigation(topic);
+    renderEbene();
+  });
+}
+
+function renderAdhsBloecke(muster, musterList) {
+  const b = muster.bloecke || emptyAdhsBloecke();
+  const idx = musterList.findIndex(m => m.id === muster.id);
+  const phN = (sub) => `3b.${idx + 1}${sub ? '·' + sub : ''}`;
+  const ws = b.wasDuSiehst || {};
+  const rp = b.risikoProfil || {};
+  const ta = b.therapieansatz || {};
+  const vp = b.vierPhasen || {};
+  const ss = b.schulstrategie || {};
+  const esk = b.eskalation || {};
+
+  // Block 1 — Was du siehst
+  const block1Items = [
+    { titel: 'Profil-Erkennung',  value: ws.profilErkennung },
+    { titel: 'Klinisch wichtig',  value: ws.klinischWichtig },
+    { titel: 'Vergleich mit ähnlichen Profilen', value: ws.vergleich }
+  ];
+  const block1Html = block1Items.map(it =>
+    `<div class="plan-subblock"><div class="plan-subblock-titel">${it.titel}</div>${adhsTextOrPlaceholder(it.value, phN())}</div>`
+  ).join('');
+
+  // Block 2 — Risiko-Profil
+  const block2Items = [
+    { titel: 'Kritisch', items: rp.kritisch },
+    { titel: 'Hoch',     items: rp.hoch },
+    { titel: 'Mittel',   items: rp.mittel }
+  ];
+  const block2Html = block2Items.map(it =>
+    `<div class="plan-subblock"><div class="plan-subblock-titel">${it.titel}</div>${adhsListOrPlaceholder(it.items, phN())}</div>`
+  ).join('');
+
+  // Block 3 — Therapieansatz
+  const block3Html = `
+    <div class="plan-subblock"><div class="plan-subblock-titel">Hauptansatz</div>${adhsTextOrPlaceholder(ta.hauptansatz, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Begründung</div>${adhsTextOrPlaceholder(ta.begruendung, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Diagnostik</div>${adhsListOrPlaceholder(ta.diagnostik, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Was du tust</div>${adhsListOrPlaceholder(ta.wasDuTust, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Was du nicht tust</div>${adhsListOrPlaceholder(ta.wasDuNichtTust, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Frequenz</div>${adhsTextOrPlaceholder(ta.frequenz, phN())}</div>`;
+
+  // Block 4 — Vier Phasen
+  const block4Items = [
+    { titel: 'Phase 1 — Stabilisierung', value: vp.phase1 },
+    { titel: 'Phase 2 — Aufbau',         value: vp.phase2 },
+    { titel: 'Phase 3 — Konsolidierung', value: vp.phase3 },
+    { titel: 'Phase 4 — Übergang',       value: vp.phase4 }
+  ];
+  const block4Html = block4Items.map(it =>
+    `<div class="plan-phase"><div class="plan-phase-head"><span class="plan-phase-titel">${it.titel}</span></div>${adhsTextOrPlaceholder(it.value, phN())}</div>`
+  ).join('');
+
+  // Block 5 — Schul-Strategie (5A-5F)
+  const block5Html = `
+    <div class="plan-subblock"><div class="plan-subblock-titel">5A · Das Problem im Schulsystem</div>${adhsTextOrPlaceholder(ss.a_problem, phN('5A'))}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">5B · Schulgespräch-Vorlage</div><div class="schule-vorlage">${ss.b_vorlage && ss.b_vorlage.trim() ? ss.b_vorlage : '<p><em>Vorlage wird in Phase ' + phN('5B') + ' gebaut.</em></p>'}</div></div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">5C · Konkrete Anpassungen mit Begründung</div>${adhsListOrPlaceholder(ss.c_anpassungen, phN('5C'))}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">5D · Was du nicht empfiehlst und warum</div>${adhsListOrPlaceholder(ss.d_kontraindikationen, phN('5D'))}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">5E · Wer im Schul-System wichtig ist</div>${adhsListOrPlaceholder(ss.e_rollen, phN('5E'))}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">5F · Frequenz und Eskalations-Pfad</div>${adhsTextOrPlaceholder(ss.f_frequenz, phN('5F'))}</div>`;
+
+  // Block 6 — Eskalation
+  const block6Html = `
+    <div class="plan-subblock"><div class="plan-subblock-titel">Frequenz erhöhen</div>${adhsTextOrPlaceholder(esk.frequenzErhoehen, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Überweisung KJP</div>${adhsTextOrPlaceholder(esk.ueberweisung, phN())}</div>
+    <div class="plan-subblock"><div class="plan-subblock-titel">Klinik</div>${adhsTextOrPlaceholder(esk.klinik, phN())}</div>`;
+
+  return `
+    <div class="plan-block"><div class="plan-block-num">Block 01</div><div class="plan-block-titel">Was du siehst</div>${block1Html}</div>
+    <div class="plan-block"><div class="plan-block-num">Block 02</div><div class="plan-block-titel">Risiko-Profil</div>${block2Html}</div>
+    <div class="plan-block"><div class="plan-block-num">Block 03</div><div class="plan-block-titel">Therapieansatz</div>${block3Html}</div>
+    <div class="plan-block"><div class="plan-block-num">Block 04</div><div class="plan-block-titel">Behandlungsplan in vier Phasen</div>${block4Html}</div>
+    <div class="plan-block"><div class="plan-block-num">Block 05</div><div class="plan-block-titel">Schul-Strategie</div>${block5Html}</div>
+    <div class="plan-block"><div class="plan-block-num">Block 06</div><div class="plan-block-titel">Eskalations-Indikatoren</div>${block6Html}</div>`;
+}
+
+function renderAdhsPraxisPlaceholder(topic, container) {
+  container.innerHTML = `
+    <section class="plan">
+      <div class="plan-empty-match symdia-empty">
+        <strong>Wird in Phase 3c gebaut.</strong>
+        <p>Sechs themen-spezifische Werkzeuge für die Sitzungsarbeit mit ADHS-Klient:innen — Checklisten, Tools und Aufklärungs-Texte (z. B. Time-Blindness-Erklärung für Eltern, Lehrer-Aufklärung, Morgens-Routinen-Vorlage). Bis dahin finden sich die bestehenden ADHS-Praxis-Inhalte unter <em>TOPICS['adhs-unaufmerksam'].ebenen.praxis</em> in der Daten-Struktur; sie werden in Phase 3c kuratiert und unter HANDELN reaktiviert.</p>
+      </div>
+    </section>`;
+}
+
+function renderAdhsSymptomFokusPlaceholder(topic, container) {
+  container.innerHTML = `
+    <section class="plan">
+      <div class="plan-empty-match symdia-empty">
+        <strong>Wird in Phase 4 gebaut.</strong>
+        <p>Zwölf Symptom-Module auf Pedopsychiater-Niveau — je 1000 bis 1300 Wörter, sieben Blöcke pro Modul. Behandelt einzelne klinische Fragen tiefgehend (z. B. Stimulanzien-Indikation, RSD-Differentialdiagnose, Schulverweigerungs-Eskalation, Cannabis-Frage). Bis dahin trägt die Wissens-Tiefe und der Behandlungs-Plan die Orientierung.</p>
+      </div>
+    </section>`;
+}
+
 function renderProfileUebersicht(topic, container) {
   const muster = planMusterFor(topic.id);
   const kurzTable = musterKurzFor(topic.id);
