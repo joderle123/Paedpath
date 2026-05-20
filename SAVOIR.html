@@ -7541,8 +7541,249 @@ const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
       }
     }
   },
-  { id: 'adhs-hochbegabt',             name: 'Hochbegabter Klient mit ADHS',           bloecke: emptyAdhsBloecke() },
-  { id: 'adhs-audhd',                  name: 'AuDHD — ADHS plus Asperger',             bloecke: emptyAdhsBloecke() },
+  /* M2 — Hochbegabter Klient mit ADHS (Twice Exceptional). Befüllt Prompt 6.
+     Klinische Eckpfeiler: 2e-Profil, IQ > 130 + ADHS, Krise typisch beim Übergang
+     Grundschule → Mittelstufe wenn Selbstorganisation gefordert wird. Hallowell-
+     Coaching-Ansatz, WISC-V-Indexprofilanalyse zentral. Leitsatz: „Du hast zwei
+     Hirne in einem — eines das alles versteht, und eines das alles vergisst." */
+  {
+    id: 'adhs-hochbegabt',
+    name: 'Hochbegabter Klient mit ADHS',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Hochbegabter Schüler, in der Grundschule brilliant, in der Mittelstufe Krise — Noten brechen ein, Hausaufgaben verschwinden, Selbstwert kollabiert. Eltern und Lehrer sagen „er könnte ja, wenn er wollte" — die schädlichste Aussage für dieses Profil. Hinter dem Underachievement steckt nicht Faulheit, sondern exekutive Dysfunktion, die jahrelang von der Begabung verdeckt wurde. Wenn du diesen Klienten in der Mittelstufe siehst, ist die Diagnose-Verzögerung oft schon im fünften oder sechsten Jahr.</p>`,
+        klinischWichtig: `<p>Den Twice-Exceptional-Mechanismus musst du selbst klar verstehen, sonst kannst du ihn weder dem Klienten noch dem Umfeld erklären. In der Grundschule reicht einmaliges Erklären, Aufgaben sind kurz, die Lehrerin sieht direkt — die Begabung kompensiert die exekutiven Defizite mühelos. In der Mittelstufe gibt es Lehrerwechsel, Selbstorganisation über Tage und Wochen, viele Fächer parallel, Hausaufgaben-Management ohne externe Strukturierung — und genau das ist die Achsen-Spreizung des Klienten.</p>
+          <p>WISC-V zeigt es klassisch: VCI hoch (oft jenseits 130), Arbeitsgedächtnis und Verarbeitungsgeschwindigkeit durchschnittlich oder darunter. Eine Spreizung von dreißig Punkten und mehr ist nicht ungewöhnlich. Das Kind weiß, was es können sollte, kann es aber nicht aus dem Stand — das erzeugt eine besondere Form des Selbstwert-Kollapses, die diagnostisch hochrelevant ist. Hallowell hat den Coaching-Ansatz für dieses Profil ausformuliert: externe exekutive Strukturen, die das Kind nicht selbst aufbauen kann, kommen vom Coach oder Therapeuten — bis sie internalisiert sind. Suizidrisiko in der Mittelstufe ist bei diesem Profil deutlich erhöht. Wenn du einen begabten Jugendlichen mit plötzlichem Noten-Einbruch siehst, denke 2e bevor du Pubertäts-Krise diagnostizierst.</p>`,
+        vergleich: `<p><strong>Vs. M1 — Mädchen mit Spätdiagnose:</strong> Überlappung ist möglich, vor allem bei hochbegabten Mädchen, aber M2 hat die spezifische Begabungs-Krise nach Setting-Wechsel im Vordergrund. Geschlecht ist hier nicht das primäre Differenzierungs-Kriterium, sondern das Performance-Profil im WISC-V plus der Verlauf vom Grundschul-Erfolg zur Mittelstufen-Krise.</p>
+          <p><strong>Vs. Hochbegabung ohne ADHS:</strong> dort ist Underachievement motivational (Langeweile, fehlende Passung) oder durch unpassendes Curriculum verursacht — nicht exekutiv-organisatorisch. WISC-V differenziert klar: ohne ADHS sind alle Indizes hoch und liegen näher beieinander, mit ADHS gibt es die typische Spreizung.</p>
+          <p><strong>Vs. M5 — sekundäre Depression:</strong> M2 hat die kognitive Komponente plus Selbstwert-Kollaps, M5 ist primär affektiv mit weniger ausgeprägter exekutiver Dysfunktion. Bei M2 ist die Begabungs-Geschichte als therapeutischer Hebel präsent, bei M5 fehlt sie oder ist weniger zentral.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität nach Selbstwert-Kollaps (besonders in der Mittelstufe — hochbegabt-gescheitert ist eine besondere Krisen-Konstellation)',
+          'Akute depressive Episode mit Versagensgefühl',
+          'Cannabis-Selbstmedikation in eskalierender Intensität'
+        ],
+        hoch: [
+          'Klassen-Wiederholung droht',
+          'Perfektionistischer Burnout',
+          'Sozialer Rückzug aus Scham',
+          'Beginnende Schulverweigerung'
+        ],
+        mittel: [
+          'Berufs-Underachievement bei sonst hoher Begabung',
+          'Identitäts-Festigung als „verkannter Begabter"',
+          'Chronische Beziehungs-Muster aus Scham und Perfektionismus'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Psychoedukation über das Twice-Exceptional-Profil mit allen Beteiligten — Klient, Eltern und Schule. Dann konkretes exekutives Funktions-Coaching (Hallowell-Ansatz), parallel KVT für Selbstwert und Perfektionismus. Medikations-Frage besonders relevant — Stimulanzien können bei diesem Profil dramatisch entlasten und sind selten kontraindiziert.</p>`,
+        begruendung: `<p>Ohne 2e-Verständnis beim Klient und Umfeld bleibt die Behandlung an der Oberfläche. Der Klient muss verstehen, warum er gleichzeitig brilliant und gescheitert sein kann — das ist nicht intuitiv, aber lebenswichtig für seinen Selbstwert. Eltern müssen die Begabungs-Erzählung loslassen, die jahrelang die Identität der Familie geprägt hat.</p>`,
+        diagnostik: [
+          'WISC-V mit vollständiger Indexprofilanalyse — Spreizung zwischen VCI und Arbeitsgedächtnis/VG ist diagnostisch entscheidend',
+          'BRIEF in Selbst- und Eltern-Version',
+          'Conners 3 in Selbst-, Eltern- und Lehrer-Version',
+          'Strukturierte Anamnese zum Übergang Grundschule → Mittelstufe, mit Fokus auf Veränderung der Performance',
+          'BDI-A oder PHQ-A für komorbide Depression'
+        ],
+        wasDuTust: [
+          '„In der Grundschule hat dein Kopf alles für dich gelöst. Jetzt musst du selbst organisieren, und genau das macht dein Gehirn schwer."',
+          '„Du bist nicht dümmer geworden. Die Strukturierung kam vorher von außen — jetzt musst du sie selbst aufbauen, und das ist eine Fähigkeit, die nicht automatisch da ist."',
+          '„Du hast zwei Hirne in einem: eines, das alles versteht, und eines, das alles vergisst. Wir arbeiten mit beiden."',
+          '„Wir trainieren nicht das, was du schon kannst — wir trainieren das, wo du Unterstützung brauchst."',
+          '„Dass deine Eltern sagen ,du könntest ja, wenn du wolltest‘, ist gut gemeint und falsch. Du würdest, wenn du könntest. Daran arbeiten wir."'
+        ],
+        wasDuNichtTust: [
+          'Nicht „mehr anstrengen" empfehlen — das ist genau, was er schon versucht hat, das Problem ist nicht Anstrengung',
+          'Nicht Hochbegabung als Lösung verkaufen — sie ist Teil des Problems, wenn unkompensiert',
+          'Nicht Eltern-Narrativ „er ist faul" durchgehen lassen — das ist der primäre Selbstwert-Killer',
+          'Nicht standardisierte Förder-Maßnahmen, die „mehr Materialien" geben — exekutive Funktionen werden dadurch überlastet',
+          'Nicht zu früh Klassen-Sprung als Lösung anbieten — ohne exekutives Coaching wiederholt sich das Problem nur ein Jahr später'
+        ],
+        frequenz: `<p>Anfangs wöchentlich für acht bis zwölf Wochen, dann 14-tägig. Bei akuter Schul-Krise temporär wöchentlich.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik abschließen mit WISC-V-Spreizung dokumentiert. Psychoedukation über das 2e-Profil mit Klient — sein Verständnis ist der zentrale therapeutische Hebel. Parallele Aufklärung der Eltern, die oft das größte Hindernis sind, weil sie an die reine Begabungs-Erzählung gewöhnt sind. Schul-Gespräch initiieren, damit das System nicht weiter „mehr Disziplin" als Lösung produziert.`,
+        phase2: `Konkretes exekutives Coaching beginnen — eine Funktion pro Sitzung (Planungs-Werkzeug, Zeit-Bewusstsein, Aufgaben-Initiation, etc.). Nicht alle Techniken auf einmal stapeln. Selbstwert-Arbeit parallel. Schul-Anpassungen umsetzen, schriftlich verankert. Medikations-Frage anbieten und mit der KJP besprechen — Stimulanzien sind hier oft der dramatischste Einzelfaktor.`,
+        phase3: `Strategien festigen, externe Strukturen schrittweise in interne überführen. Identitäts-Arbeit: was bedeutet Hochbegabung mit ADHS für seine Lebensentwürfe — Studienwahl, Berufswahl, langfristige Selbstvorstellung. Beziehungs-Muster aus Scham und Perfektionismus durcharbeiten. Übergangs-Antizipation für die nächste Schul-Phase oder den Übergang in Studium oder Lehre.`,
+        phase4: `Konsolidierung. Klient hat ein eigenes Werkzeug-Set und weiß, wann er externe Unterstützung braucht. Frequenz reduziert. Berufsorientierungs-Phase mit voller Kenntnis des Profils — Berufe, die Begabungs-Tiefe belohnen und exekutive Schwächen verzeihen, sind gezielt zu suchen.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht Underachievement, nicht 2e. Lehrer-Bias: „so begabt, der könnte ja, wenn er wollte" — diese Aussage zerstört das Twice-Exceptional-Kind systematisch und ist klinisch eine der schädlichsten Standard-Reaktionen, die das System produziert. Hochbegabung und ADHS gleichzeitig ist in keinem Standard-Lehrer-Training abgebildet. Die Schule denkt entweder „Disziplin-Problem" oder „Motivations-Problem" oder „Pubertäts-Krise". Niemand denkt automatisch „exekutive Dysfunktion bei Hochbegabung", weil das Konzept eine doppelte Bewegung verlangt: einerseits die Begabung anerkennen, andererseits eine neurologisch begründete Einschränkung benennen, die der Begabung scheinbar widerspricht.</p>
+          <p>Klassen-Wiederholung wird oft empfohlen, hilft aber ohne 2e-Verständnis nicht — sie verstärkt nur den Selbstwert-Schaden. Das Kind versteht es korrekt: „ich war ein Jahr nicht gut genug, jetzt soll ich es nochmal versuchen mit denselben Werkzeugen, die ich schon nicht hatte". Wiederholungen ohne Setting-Anpassung produzieren regelmäßig zwei aufeinanderfolgende gescheiterte Schul-Jahre statt einen Erfolg, weil das eigentliche Problem nicht adressiert wird. Wenn überhaupt Wiederholung, dann nur in Kombination mit exekutivem Coaching und mit Lehrer-Wechsel zu einer Person, die das Profil versteht — sonst ist sie kontraindiziert.</p>
+          <p>Hochbegabten-Förder-Programme passen ebenfalls oft nicht — sie geben mehr Materialien, mehr Komplexität, mehr Selbstorganisations-Anforderungen. Das ist das Gegenteil von dem, was das Kind braucht. Was helfen würde, ist exekutives Coaching plus eine Lehrkraft, die das Doppel-Profil versteht und die Begabungs-Tiefe wertschätzt, ohne die organisatorischen Defizite zu ignorieren. Diese Konstellation ist im Regel-Schulsystem selten und muss meistens aktiv gesucht oder aufgebaut werden — durch dich als Therapeutin, durch die Eltern oder durch eine engagierte einzelne Lehrkraft.</p>
+          <p>Eine zusätzliche Herausforderung: die Eltern. Sie kommen oft aus einer langen Geschichte des Begabungs-Stolzes — Kindergarten-Lob, Grundschul-Auszeichnungen, frühe „der ist besonders"-Erzählungen. Wenn die Mittelstufe diese Erzählung erschüttert, reagieren manche Eltern mit Verleugnung, mehr Druck oder dem Wechsel zu Privatschulen, ohne dass das Profil sich verändert. Die Schul-Strategie muss diese Eltern-Dynamik einrechnen, sonst läuft sie gegen ein Familien-System statt mit ihm. Konkret: Eltern brauchen die Diagnose-Kommunikation in einer Form, die ihre Begabungs-Wahrnehmung nicht abwertet, sondern als die eine Seite eines Doppel-Profils einordnet.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] zeigt ein Profil, das in der Fachsprache „Twice Exceptional" (2e) genannt wird — die Kombination aus überdurchschnittlicher intellektueller Begabung und einer aufmerksamkeitsregulatorischen Besonderheit (ADHS). In der Grundschule hat seine Begabung die organisatorischen Schwierigkeiten mühelos ausgeglichen — einmaliges Erklären reichte, kurze Aufgaben waren bewältigbar, die Lehrkraft sah das Kind direkt.</p>
+          <p>In der Mittelstufe trifft seine Begabung auf Anforderungen, die exekutive Funktionen verlangen, die er nicht selbständig aufbauen kann: Planung über Wochen, Hausaufgaben-Management über mehrere Fächer parallel, Selbst-Initiation bei langen Aufgaben. Das Resultat sieht aus wie Underachievement oder Demotivation, ist aber neurologisch begründet. Die Diagnose ist im WISC-V dokumentiert mit der typischen Spreizung zwischen verbalem Verständnis (sehr hoch) und Arbeitsgedächtnis / Verarbeitungsgeschwindigkeit (deutlich niedriger).</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: schriftliche Wochen-Planung mit Aufgaben in Teil-Schritten zerlegt; verlängerte Bearbeitungszeit bei schriftlichen Tests; wo curriculär möglich, mündliche Prüfungs-Optionen, um seine Begabung sichtbar zu machen; sowie einen kurzen wöchentlichen Check-in mit einer festen Bezugslehrkraft als Frühwarn-System.</p>
+          <p>Klassen-Wiederholung oder zusätzliches Förder-Material ist aus klinischer Sicht ausdrücklich nicht indiziert — beides würde das eigentliche Problem (exekutive Dysfunktion) nicht adressieren, sondern verstärken. Ich biete Ihnen gerne ein gemeinsames Gespräch an, in dem wir den Bedarf abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Schriftliche Wochen-Planung mit aufgeteilten Aufgaben', begruendung: 'Time-Blindness- und Planungs-Defizit-Kompensation. Das Kind weiß, wie die Aufgabe inhaltlich zu lösen ist, kann aber nicht eigenständig in Etappen zerlegen und über Tage verteilen. Eine extern bereitgestellte Aufteilung übernimmt diese Funktion, die er später internalisieren kann. Wichtig: die Aufteilung muss schriftlich vorliegen, nicht mündlich besprochen — sonst geht sie verloren.' },
+          { titel: 'Verlängerte Bearbeitungszeit bei schriftlichen Tests', begruendung: 'Die Verarbeitungsgeschwindigkeit liegt deutlich unter seiner Begabungs-Ebene. Was er weiß, kann er unter Zeitdruck nicht in der Geschwindigkeit auf Papier bringen, in der seine Mitschüler arbeiten. Die Zeitverlängerung gleicht den neurokognitiven Unterschied aus, nicht eine Wissens-Lücke — sie macht den Test zu einer ehrlicheren Messung dessen, was er kann.' },
+          { titel: 'Mündliche Prüfungs-Optionen wo curriculär möglich', begruendung: 'Im Mündlichen kommt die Begabung sofort zur Geltung — Verstehen, Zusammenhänge erkennen, argumentieren. Schriftliches Produzieren ist der Engpass, nicht die kognitive Leistung selbst. Mündliche Anteile in Bewertungen geben ein faireres Bild seines tatsächlichen Lernstands und stabilisieren gleichzeitig seinen Selbstwert, weil sie ihm regelmäßige Erfolgserlebnisse ermöglichen.' },
+          { titel: 'Aufgaben in Teil-Schritte zerlegt erhalten', begruendung: 'Aufgaben-Initiation und Sequenzierung sind das Problem, nicht die Inhalte. Eine Aufgabe „Schreibe einen Aufsatz zu X" zerschmettert ihn — eine Aufgabe „Schritt 1: Sammle 5 Argumente, Schritt 2: Sortiere sie, Schritt 3: Schreibe Einleitung" macht dieselbe Aufgabe machbar. Diese Strukturierung ist keine Erleichterung, sondern eine Prothese für die fehlende exekutive Funktion. Sie kann schrittweise reduziert werden, sobald exekutives Coaching greift.' },
+          { titel: 'Kein zusätzliches „Förder-Material" — Reduzieren statt Hinzufügen', begruendung: 'Bei einem Klienten mit exekutivem Defizit ist mehr Material immer eine Verschlimmerung, nicht eine Hilfe. Das gilt auch für gut gemeinte Hochbegabten-Programme. Was er braucht, ist tiefere Bearbeitung des Standard-Stoffs mit besserer Struktur, nicht mehr Stoff. Dieses Prinzip muss aktiv kommuniziert werden, weil es der pädagogischen Intuition widerspricht.' },
+          { titel: 'Wöchentlicher Lehrer-Check-in fünf Minuten', begruendung: 'Frühwarn-System für Aufgaben-Verlust. Bei diesem Profil verschwinden Aufgaben spurlos — eine vertraute Lehrkraft, die jede Woche kurz mit ihm durchgeht, was diese Woche ansteht, kann verschwundene Aufgaben rekonstruieren, bevor sie zu Krisen werden. Die Konstanz dieser fünf Minuten ist wichtiger als ihre Dauer; wenn sie ausfallen oder ständig verschoben werden, verlieren sie ihre Wirkung.' },
+          { titel: 'Keine öffentlichen Vergleiche mit Mitschülern oder früheren Leistungen', begruendung: 'Vergleiche treffen ihn an seiner empfindlichsten Stelle — er weiß bereits, was er können sollte, und das Wissen ist Teil seines Schmerzes. Öffentliche Vergleiche („du warst doch früher so gut", „dein Bruder schafft das doch auch") sind hier nicht motivierend, sondern direkt destabilisierend für seinen Selbstwert. Das gilt auch für gut gemeinte Vergleiche.' },
+          { titel: 'Mündliche Beteiligung wertschätzen — sie ist der direkte Zugang zu seiner Begabung', begruendung: 'Wenn er sich im Mündlichen einbringt, zeigt er das, was die schriftlichen Leistungen verdecken. Diese Beteiligung als gleichwertig zu schriftlichen Leistungen anzuerkennen, ist wichtig für seinen Selbstwert und nicht zuletzt diagnostisch nützlich — sie macht klar, dass die Schwierigkeit nicht in der Kognition liegt. Bewertungs-Systeme, die mündliche Anteile substanziell gewichten, sind für dieses Profil besonders passend.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Klassen-Wiederholung ohne 2e-Verständnis', begruendung: 'Wiederholt das Problem nur. Ohne strukturelle Anpassung an das exekutive Profil produziert eine Wiederholung regelmäßig ein zweites gescheitertes Jahr mit zusätzlichem Selbstwert-Schaden, statt einer Erholung. Eine Wiederholung kann nur sinnvoll sein, wenn sie mit Lehrer-Wechsel, exekutivem Coaching und 2e-Verständnis im neuen Setting kombiniert wird.' },
+          { titel: 'Hochbegabten-Förder-Klasse als Standard-Lösung', begruendung: 'Mehr Materialien, mehr Komplexität, mehr Selbstorganisations-Anforderungen — exakt das, was er nicht leisten kann. Hochbegabten-Programme passen für Begabung ohne ADHS; bei 2e produzieren sie regelmäßig den nächsten Zusammenbruch und verstärken die Selbstwert-Pathologie um eine weitere Versagens-Bühne.' },
+          { titel: '„Konzentrations-Training" als isolierte Maßnahme', begruendung: 'Geht am Mechanismus vorbei. Das Problem ist nicht Konzentrations-Fähigkeit pro se, sondern exekutive Funktion in unstrukturierten Settings. Isoliertes Konzentrations-Training adressiert das Symptom, nicht die Ursache, und wird vom Klienten oft als weitere Beschämungs-Bühne erlebt („ich kann mich nicht mal konzentrieren, das muss ich extra üben").' },
+          { titel: 'Standard-Belohnungs-Systeme', begruendung: 'Funktionieren bei ADHS schlecht, weil verzögerte Belohnung schwerer zu antizipieren ist und das Belohnungs-Lernen anders abläuft. Bei 2e-Klienten kommt hinzu, dass sie das System oft sofort durchschauen und es als infantilisierend erleben — was die Beziehung zur Lehrkraft beschädigt, statt sie zu stärken.' },
+          { titel: '„Mehr Disziplin zuhause" als Empfehlung an Eltern', begruendung: 'Verstärkt den Selbstwert-Schaden direkt. Eltern, die schon unter Druck stehen, eskalieren den häuslichen Konflikt — und der Klient erlebt sich als doppelt versagend (Schule plus Familie). Diese Empfehlung ist klinisch kontraindiziert und gehört in jedes Eltern-Gespräch als explizite Warnung, weil sie sonst aus pädagogischer Hilflosigkeit immer wieder auftaucht.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Mentor als zentraler Beziehungs-Anker — ideal eine Lehrkraft, die 2e versteht oder die bereit ist, das Profil zu lernen. Konstanz über mehrere Schuljahre erhöht die Wirksamkeit erheblich, weil das Vertrauen sonst jedes Jahr neu aufgebaut werden muss',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) für offiziellen Nachteilsausgleich und institutionelle Verankerung. Auch wichtig für die formale Diagnose-Kommunikation an die Schulleitung',
+          'SCAS für vertiefte psychologische Begleitung, wenn der Selbstwert-Kollaps akut wird oder die Schul-interne Psychologie nicht ausreicht. Besonders wichtig bei drohender Suizidalität',
+          'KJP für Medikations-Frage und gegebenenfalls Verlaufs-Kontrolle — Stimulanzien sind bei diesem Profil oft hochwirksam und können einen wesentlichen Unterschied im exekutiven Funktionieren machen',
+          'Berufs-Beratung mit 2e-Kenntnis bei Übergängen — Standard-Beratung führt regelmäßig in Berufe, die die exekutiven Defizite besonders treffen (viel Selbstorganisation, viel administrative Last). Idealerweise frühzeitig einbinden, vor formalen Bewerbungs-Phasen'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier bis sechs Wochen in der akuten Phase, dann alle zwei bis drei Monate in der Konsolidierung. Vor Übergängen (Schulform-Wechsel, Übergang zu Studium oder Lehre) verdichten auf zweiwöchentlich für die ersten Monate. Schriftliche Kommunikation grundsätzlich vorziehen, weil mündliche Vereinbarungen bei Lehrerwechsel verloren gehen — und weil der Klient die Vereinbarungen selbst gegenchecken können soll, was bei 2e ein zentraler Selbstwirksamkeits-Faktor ist.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch plus 2e-Aufklärung. Niederschwellig; sollte in zwei bis vier Wochen Wirkung zeigen. Wenn die Lehrkraft das Profil nicht aufnimmt oder Anpassungen als „Bevorzugung" framt, sofort zu Stufe 2 weiter.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn die Klassenlehrkraft das Profil nicht versteht oder Anpassungen nicht umsetzt. Der Schul-Psychologe übernimmt die institutionelle Übersetzung.</li>
+            <li><strong>Stufe 3</strong> — Nachteilsausgleich-Antrag dokumentiert. Macht die Anpassungen offiziell und wechsel-fest. Wichtig: der Antrag muss die WISC-V-Spreizung explizit benennen, sonst wird er regelmäßig als „Eltern-Wunsch" abgetan.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel erwägen — andere Klasse oder andere Schul-Form, mit Lehrkraft, die 2e versteht. Wichtig: kein blinder Wechsel ohne Verständnis-Garantie an der neuen Stelle, sonst wiederholt sich das Problem mit zusätzlichem Belastungs-Faktor durch den Wechsel selbst.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit mit therapeutischem Wieder-Einstiegs-Plan. Letzte Option; nicht als Versagen framen, sondern als medizinisch indizierter Reset. Während der Auszeit Strukturierung der Therapiearbeit und Vorbereitung des Wieder-Einstiegs, nicht nur passive Erholung.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Akuter Selbstwert-Kollaps mit Versagens-Narrativ. Schulischer Notensturz innerhalb einer Bewertungsperiode. Sozialer Rückzug. Cannabis-Konsum berichtet oder verdächtig.</p>`,
+        ueberweisung: `<p>Medikations-Frage (Stimulanzien-Indikation prüfen). Komorbide Depression mittelschwer bis schwer. Suizidale Gedanken konkret.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive depressive Episode mit Antriebs-Versagen. Cannabis-Konsum in eskalierender Intensität.</p>`
+      }
+    }
+  },
+  /* M3 — AuDHD (ADHS plus Asperger). Befüllt Prompt 6.
+     Klinische Eckpfeiler: zwei neurologische Systeme mit teilweise widersprüchlichen
+     Bedürfnissen, Dual-Track-Behandlung, Spezialinteressen als Ressource. Leitsatz:
+     „Du hast zwei Bedürfnis-Systeme — eines will Ordnung, eines will Stimulation.
+     Sie sind nicht im Konflikt mit dir, sondern miteinander." */
+  {
+    id: 'adhs-audhd',
+    name: 'AuDHD — ADHS plus Asperger',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Klient mit bestätigtem Asperger plus ADHS-Symptomatik, oder mit klaren Markern für beide Profile. Bringt sehr strukturierte Routinen mit, hält sie aber nicht durch. Hyperfokus auf Spezialinteresse möglich (oft tiefer und intensiver als bei reinem Asperger), gleichzeitig massive Probleme mit Tagesstrukturierung außerhalb des Spezialgebiets. Die Inkonsistenz zwischen perfekt durchgehaltenen Spezialinteressen und dauerhaft chaotischem Alltag ist das diagnostisch markanteste Bild.</p>`,
+        klinischWichtig: `<p>Die kollidierenden neurokognitiven Anforderungen sind das Kern-Phänomen — und sie zeigen sich konkret im Alltag. Der Klient baut eine perfekte Lern-Routine auf, weil sein Asperger-Anteil das verlangt, kann sie aber nicht zwei Wochen durchhalten, weil sein ADHS-Anteil rebelliert. Das ist nicht Inkonsistenz, das ist ein neurologisches Doppel-System mit teilweise widersprüchlichen Bedürfnissen. Erschöpfung bei AuDHD ist besonders ausgeprägt — Camouflaging des Asperger-Anteils plus exekutive Defizite des ADHS-Anteils kosten doppelt.</p>
+          <p>Spezialinteressen sind oft tiefer und obsessiver als bei reinem Asperger, weil der ADHS-Anteil Hyperfokus dazu beisteuert — eine Kombination, die regulatorisch zentral werden kann und therapeutisch zu nutzen ist. Soziale Funktion ist oft schwerer beeinträchtigt als bei reinem Asperger oder reinem ADHS, weil sich die soziale Fremdheit des Asperger-Anteils mit den impulsiven Sozial-Brüchen des ADHS-Anteils potenziert. Sekundäre Depression, Suizidalität und Substanzkonsum sind erhöht. Bei Mädchen mit AuDHD ist das Camouflaging noch intensiver und die Diagnose-Verzögerung noch länger als bei den jeweiligen Einzel-Profilen.</p>`,
+        vergleich: `<p><strong>Vs. reines Asperger:</strong> AuDHD hat zusätzlich die exekutiven Defizite und die Strukturen-Brüche. Wenn ein Asperger-Klient durchgehend organisiert ist, ist es eher monoaxial; wenn er trotz Asperger-Strukturen chronisch Chaos produziert, ist AuDHD wahrscheinlich.</p>
+          <p><strong>Vs. reines ADHS:</strong> AuDHD hat zusätzlich die sensorischen Empfindlichkeiten, das Routinen-Bedürfnis und die sozial-kommunikative Andersartigkeit. Ein reines ADHS hat keine ausgeprägten Spezialinteressen mit System-Charakter und keine sensorische Hyperreaktivität.</p>
+          <p><strong>Vs. M1 — Mädchen mit Spätdiagnose:</strong> bei Mädchen mit AuDHD ist das Camouflaging besonders intensiv und die Diagnose-Verzögerung noch länger als bei M1 allein. Wenn du bei einem Mädchen mit unaufmerksamer ADHS zusätzlich sensorische Marker und Spezialinteressen-Tiefe siehst, denk an AuDHD bevor du nur M1 behandelst.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei Doppelbelastung',
+          'Akute Eskalation bei sensorischer Überlastung',
+          'Selbstverletzung'
+        ],
+        hoch: [
+          'Schulverweigerung',
+          'Sekundäre Depression',
+          'Cannabis als Selbstmedikation für sensorische Überlastung',
+          'Soziale Isolation',
+          'Essstörung (häufig bei AuDHD-Mädchen)'
+        ],
+        mittel: [
+          'Chronisches Underachievement trotz Begabung',
+          'Fehlender Lebensentwurf',
+          'Beziehungs-Schwierigkeiten',
+          'Berufs-Auswahl ohne Kenntnis des eigenen Profils'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Dual-Track-Ansatz — beide Profile gleichzeitig adressieren. Asperger-spezifische Vorhersagbarkeit und sensorische Anpassung plus ADHS-spezifisches exekutives Coaching. KVT-Anpassungen für beide Achsen, soziales Kompetenz-Training auf Asperger-Niveau (visuell, regelbasiert, nicht improvisiert).</p>`,
+        begruendung: `<p>Behandlung nur einer Achse scheitert systematisch — der unbehandelte andere Anteil sprengt die Erfolge. Der Klient braucht das Verständnis, dass er nicht inkonsistent ist, sondern zwei Bedürfnis-Systeme balanciert. Erst dieses Verständnis macht die Therapiearbeit kohärent.</p>`,
+        diagnostik: [
+          'ADOS-2 (wenn ASS nicht bereits bestätigt)',
+          'ADI-R bei differentialdiagnostischer Unklarheit',
+          'Conners 3 in Selbst-, Eltern- und Lehrer-Version',
+          'WISC-V mit Indexprofilanalyse',
+          'BRIEF in Selbst- und Eltern-Version',
+          'SRS-2 für autismus-spezifisches sozial-kommunikatives Profil',
+          'Sensorisches Profil (z. B. Sensory Profile 2)'
+        ],
+        wasDuTust: [
+          '„Du hast zwei verschiedene Bedürfnis-Systeme in dir. Eines will Ordnung — das ist dein Asperger-Anteil. Eines will Stimulation — das ist dein ADHS-Anteil. Sie sind nicht im Konflikt mit dir, sondern miteinander."',
+          '„Wenn du erschöpft bist, ist es oft, weil beide Anteile gerade unzufrieden sind."',
+          '„Deine Routinen helfen dir — und sie kosten dich Energie. Das ist beides wahr."',
+          '„Wir suchen nicht nach Lösungen, die alles fixen. Wir suchen Strukturen, die für beide Anteile genug sind."',
+          '„Dein Hyperfokus auf [Spezialinteresse] ist nicht das Problem — er ist eine deiner Ressourcen. Wir sortieren nur, wann er hilft und wann nicht."'
+        ],
+        wasDuNichtTust: [
+          'Nicht nur die ADHS-Achse behandeln und Asperger vernachlässigen — der unbehandelte Anteil sprengt die Erfolge',
+          'Nicht Standard-ADHS-Stimulation (laute Belohnungen, schnelle Wechsel) — überfordert den Asperger-Anteil',
+          'Nicht starre Asperger-Routinen ohne Stimulations-Element — der ADHS-Anteil rebelliert',
+          'Nicht „soziale Übung im Alltag" als Hauptmethode — überfordert Camouflaging-Reserven',
+          'Nicht Spezialinteressen wegnehmen oder reduzieren wollen — sie sind regulatorisch zentral und therapeutisch nutzbar'
+        ],
+        frequenz: `<p>Wöchentlich für mindestens zwölf Wochen — AuDHD-Klienten brauchen Zeit für Vertrauen zur Therapie-Beziehung. Danach 14-tägig. Bei sensorischer Krise oder akuter Symptomatik temporär verdichten.</p>`
+      },
+      vierPhasen: {
+        phase1: `Psychoedukation für beide Profile parallel. Diagnostik abschließen, wo nötig (ADOS-2, ADI-R, sensorisches Profil). Vertrauens-Aufbau ist hier zentral und braucht länger als bei monoachsigen Profilen — soziale Skepsis aus dem Asperger-Anteil plus impulsive Unbeständigkeit aus dem ADHS-Anteil bedeuten, dass der Klient mehrere Sitzungen Beobachtung braucht, bevor er sich wirklich öffnet.`,
+        phase2: `Dual-Track-Strategien etablieren. Routine-Strukturen, die genug Stimulation einbauen — der Klient lernt, dass eine perfekte Asperger-Routine ohne Stimulations-Anteil scheitern wird, weil der ADHS-Anteil sie verlässt. Sensorische Regulation als Werkzeug. Erste soziale Kompetenz-Module wenn klinisch sinnvoll, aber visuell und regelbasiert, nicht improvisiert.`,
+        phase3: `Identitäts-Arbeit mit beiden Anteilen. Beziehungs-Muster reflektieren — auch hier wirken beide Profile gleichzeitig. Spezialinteressen als Ressource positionieren und gegebenenfalls in Berufsorientierung integrieren. Medikations-Frage mit der KJP klären — Stimulanzien helfen oft, brauchen aber bei AuDHD eine engmaschige sensorische Begleit-Beobachtung, weil sie die Reizoffenheit verändern können.`,
+        phase4: `Konsolidierung. Übergangs-Planung mit beiden Profilen im Blick. Der Klient hat ein eigenes Verständnis für seine zwei Bedürfnis-Systeme und kann sie selbstadvokativ kommunizieren. Sitzungs-Frequenz reduziert, Booster-Termine an wichtigen Übergängen.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht entweder Asperger ODER ADHS, fast nie beides — und das ist das strukturelle Kern-Problem. Maßnahmen, die für das eine Profil hilfreich sind, schaden oft dem anderen. Ein ruhiger Einzel-Arbeitsplatz entlastet den Asperger-Anteil, langweilt den ADHS-Anteil und produziert dort Aufmerksamkeits-Verlust. Schnelle Aufgaben-Wechsel stimulieren den ADHS-Anteil, überfordern den Asperger-Anteil und können sensorische Eskalationen auslösen. Welche Maßnahme jeweils die richtige ist, hängt vom Moment ab — und das überfordert die meisten Schulorganisationen.</p>
+          <p>Pausen sind besonders herausfordernd, weil drei Anforderungen gleichzeitig anfallen: soziale Interaktion mit Mitschülern, sensorische Belastung durch Lautstärke und Bewegung, und der Wechsel von Unterrichts- in Pausen-Modus. Bei AuDHD-Klienten ist die Pause oft die belastendste Tages-Phase — und genau die Phase, in der das Schulsystem keine Strukturierung anbietet. Lehrer haben oft keine Sprache für das Doppel-Profil und greifen auf Stereotype zurück: entweder „er ist halt schüchtern" (Asperger) oder „er kann sich nicht konzentrieren" (ADHS), nie auf die Kombination. Die Konsequenz: das Kind erlebt sich als unzureichend verstanden in beiden Richtungen.</p>
+          <p>Das Risiko ist besonders hoch, dass beide Achsen unzureichend behandelt werden. Klassische ASS-Maßnahmen werden nicht ergriffen, weil das Profil nicht „klassisch Asperger" aussieht (zu impulsiv, zu sprunghaft). Klassische ADHS-Maßnahmen werden nicht ergriffen, weil das Profil nicht „klassisch ADHS" aussieht (zu strukturiert in Spezialinteressen, zu zurückhaltend). Das Kind fällt zwischen die Diagnose-Schemen — und bekommt damit keine adäquate Unterstützung in einem oder beiden Bereichen. Diagnostisch erschwerend wirkt, dass die jeweils stärkere Symptomatik den schwächeren Anteil verdeckt: ein Klient, der mit vierzehn akut sensorisch dekompensiert, wird primär als ASS gesehen; einer, der gleichzeitig Hausaufgaben verliert und Spezialinteresse hat, oft nur als ADHS.</p>
+          <p>Die Aufgabe der Schul-Strategie ist deshalb doppelt: erstens, das Doppel-Profil sichtbar machen und in eine Sprache übersetzen, mit der Lehrkräfte arbeiten können. Zweitens, Maßnahmen anbieten, die beide Anteile gleichzeitig bedienen — die meisten guten AuDHD-Anpassungen sind Hybrid-Maßnahmen, die nach Asperger-Logik strukturiert sind und nach ADHS-Logik stimulieren. Diese Hybrid-Logik widerspricht den pädagogischen Standard-Mustern und muss explizit erklärt werden, sonst wird sie in der Umsetzung wieder auf eines der reinen Profile reduziert.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat ein Profil, das die Kombination aus Autismus-Spektrum-Störung (Asperger-Typ) und ADHS aufweist — in der Fachsprache wird das AuDHD genannt. Diese Kombination bedeutet, dass zwei neurologische Systeme gleichzeitig wirken, die teilweise gegensätzliche Bedürfnisse haben.</p>
+          <p>Sein Asperger-Anteil braucht Struktur, Vorhersagbarkeit und sensorische Ruhe. Sein ADHS-Anteil braucht Stimulation, Wechsel und schnelle Rückmeldung. Dass [Klient-Name] manchmal sehr strukturiert wirkt und manchmal sehr sprunghaft, ist nicht Inkonsistenz — es ist die Balance zweier Bedürfnis-Systeme, die sich im Alltag abwechselnd Raum nehmen.</p>
+          <p>Konkret bedeutet das: Standard-Asperger-Maßnahmen (sehr ruhiger Einzelplatz, keine Wechsel) überfordern den ADHS-Anteil; Standard-ADHS-Maßnahmen (viele Stimuli, schnelle Belohnungen) überfordern den Asperger-Anteil. Was [Klient-Name] braucht, sind Hybrid-Anpassungen: strukturierte Tagesplanung mit eingebauten Stimulations-Elementen, sensorisch reduzierter Arbeitsplatz mit Bewegungs-Erlaubnis, Pausen-Räume mit definierter Funktion.</p>
+          <p>Aus klinischer Sicht bitte ich Sie um folgende konkrete Anpassungen: strukturierte Tagesplanung mit kurzen Wechseln zwischen Aufgaben; reduzierte sensorische Belastung am Arbeitsplatz mit Erlaubnis für Bewegungspausen; Pausen-Rückzugsmöglichkeit mit definiertem Charakter (sensorisch ruhig oder körperlich aktiv, je nach Bedarf); und Wertschätzung seiner Spezialinteressen als Ressource, nicht als Ablenkung.</p>
+          <p>Ich biete Ihnen gerne ein Gespräch an, in dem wir das Profil detaillierter besprechen und die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Strukturierte Tagesplanung mit eingebauten Stimulations-Elementen', begruendung: 'Bedient beide Anteile gleichzeitig — der Asperger-Anteil bekommt die nötige Vorhersagbarkeit, der ADHS-Anteil die nötige Abwechslung. Eine starre Routine ohne Stimulations-Elemente wird vom ADHS-Anteil gesprengt; eine spontane Strukturlosigkeit überfordert den Asperger-Anteil. Die Hybrid-Lösung ist eine geplante Routine mit definierten Wechsel-Punkten, die im Voraus bekannt sind und damit für den Asperger-Anteil planbar bleiben.' },
+          { titel: 'Sensorisch reduzierter Arbeitsplatz, aber mit Bewegungs-Erlaubnis', begruendung: 'Klassische Asperger-Anpassung (reizarm) plus klassische ADHS-Anpassung (Bewegung). Der reduzierte Sitzplatz schützt vor sensorischer Überflutung; die Bewegungs-Erlaubnis (Steh-Tisch, Sitzball, kurze Pausen) gibt dem ADHS-Anteil ein Ventil. Ohne diese Kombination kippt einer der Anteile, und das Kind verbraucht alle Selbstregulations-Ressourcen darauf, sich gegen seine Neurologie zu halten.' },
+          { titel: 'Pausen-Räume mit definierter Funktion', begruendung: 'Pausen sind die schwierigste Phase bei AuDHD — soziale plus sensorische plus exekutive Anforderungen treffen zusammen. Ein Pausen-Raum mit klarer Funktion (Bibliothek für sensorische Ruhe, Bewegungs-Raum für Energie-Abbau) macht die Pause nutzbar statt belastend. Die Wahl zwischen beiden sollte beim Klienten liegen — er weiß selbst am besten, welcher Anteil gerade Erholung braucht.' },
+          { titel: 'Aufgaben in klare Teile mit Mini-Wechseln', begruendung: 'ADHS-Stimulation in Asperger-Struktur. Lange Einzel-Aufgaben überfordern den ADHS-Anteil, ungeplante Wechsel den Asperger-Anteil. Eine Aufgabe in vier klar definierte Teile mit Mikro-Pausen zerlegt befriedigt beide Profile — Vorhersagbarkeit für den Asperger-Anteil, Wechsel-Stimulation für den ADHS-Anteil. Diese Zerlegung ist explizit zu machen, am besten schriftlich auf einem Aufgaben-Blatt.' },
+          { titel: 'Soziale Anforderungen in Pausen reduzieren — Pause als Regenerations-Zeit', begruendung: 'Pausen sollen Erholung sein, nicht zusätzliche Anforderung. „Soziale Übung in der Pause" ist bei AuDHD kontraindiziert, weil sie die Camouflaging-Reserven aufbraucht, die für den restlichen Schultag gebraucht werden. Pause heißt: keine erzwungene Geselligkeit, keine Pflicht-Gruppen-Aktivitäten, kein Druck zur Teilnahme an Pausen-Spielen.' },
+          { titel: 'Spezialinteressen-Bezug in Aufgaben wo möglich', begruendung: 'Spezialinteressen sind bei AuDHD regulatorisch zentral und kognitiv ein Leistungs-Multiplikator. Eine Aufgabe, die das Spezialinteresse einbindet, wird oft mit überdurchschnittlicher Tiefe gelöst und stabilisiert den Klienten gleichzeitig. Diese Anpassung kostet die Lehrkraft wenig und gewinnt viel — und sie zeigt dem Klienten, dass sein Spezialinteresse als Ressource gewertet wird, nicht als Marotte.' },
+          { titel: 'Schriftliche statt mündliche Prüfungen, wenn das Asperger-sozial-pragmatische Defizit dominant ist', begruendung: 'Wenn der Asperger-Anteil mündliche Prüfungs-Situationen sozial-pragmatisch überfordert, ist die schriftliche Form fairer. Bei AuDHD muss aber jeweils geprüft werden, welche Form besser passt — manche Klienten profitieren stärker von mündlich (wenn der ADHS-Anteil schriftliche Produktion sabotiert), andere von schriftlich (wenn der Asperger-Anteil soziale Situationen unmöglich macht).' },
+          { titel: 'Wöchentlicher Mentor-Check-in mit Routine-Charakter', begruendung: 'Frühwarn-System und Beziehungs-Anker. Bei AuDHD ist die Konstanz dieses Termins besonders wichtig — der Asperger-Anteil braucht die Vorhersagbarkeit, der ADHS-Anteil profitiert von der externen Strukturierung. Fünf Minuten reichen, wichtig ist die Verlässlichkeit; wenn der Termin mehrmals ausfällt, verliert er seine stabilisierende Funktion für beide Anteile.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Standard-Asperger-Maßnahmen ohne ADHS-Berücksichtigung', begruendung: 'Zu reizarm, zu langsam. Ein klassisch Asperger-konformes Setting (Einzelplatz, lange Stillzeiten, keine Wechsel) lässt den ADHS-Anteil unterstimuliert und produziert dort Aufmerksamkeits-Verlust und sekundäre Verhaltens-Symptomatik. Wenn nur Asperger-Maßnahmen ergriffen werden, scheitert die schulische Integration regelmäßig nach einigen Wochen.' },
+          { titel: 'Standard-ADHS-Maßnahmen ohne Asperger-Berücksichtigung', begruendung: 'Zu viel Stimulation, zu wenig Vorhersagbarkeit. Klassische ADHS-Pädagogik mit lauten Belohnungen, häufigen Wechseln und sozial-spielerischen Elementen überfordert den Asperger-Anteil sensorisch und sozial — und kann sensorische Dekompensation auslösen, die der Lehrkraft als „Verhaltens-Problem" erscheint, klinisch aber eine Reaktion auf die Methode ist.' },
+          { titel: '„Soziale Pausen-Übungen" als Förderung', begruendung: 'Überfordern Camouflaging-Reserven. Pausen müssen Regeneration sein, nicht zusätzliche soziale Trainings-Bühne. Bei AuDHD ist die Reserve für sozial-pragmatische Anforderungen besonders schmal — sie muss geschützt werden, nicht trainiert. Wenn soziale Übung indiziert ist, dann im therapeutischen Setting, nicht in der Pause.' },
+          { titel: 'Spezialinteressen unterbinden oder als „Ablenkung" framen', begruendung: 'Spezialinteressen sind bei AuDHD regulatorisch zentral, nicht „Hobby" oder „Marotte". Sie wegzunehmen oder als Problem zu definieren, ist klinisch destruktiv und produziert regelmäßig Dekompensation. Statt unterbinden: in Lernkontexte integrieren und als Stärken-Anker wertschätzen. Diese Botschaft muss der Schule explizit gegeben werden.' },
+          { titel: 'Belohnungs-Systeme mit lauten oder öffentlichen Elementen', begruendung: 'Sensorisch und sozial belastend. Bei AuDHD-Klienten produzieren öffentliche Belohnungen (vor der Klasse loben, Sticker auf die Wand) regelmäßig Scham und sensorische Überlastung statt Motivation. Wenn überhaupt Belohnungen: diskret, individuell, vorhersagbar — und mit dem Klienten abgestimmt, welche Form für ihn nicht überstimulierend ist.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Mentor mit AuDHD-Verständnis (selten, oft erst aufzubauen über schriftliche Aufklärung und gemeinsame Gespräche). Konstanz über Schuljahre ist besonders wichtig, weil neue Lehrkräfte regelmäßig in einseitige Erklärungs-Muster zurückfallen',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) für offiziellen Nachteilsausgleich und institutionelle Verankerung beider Profile. Der Antrag muss beide Achsen benennen, sonst werden Anpassungen einseitig umgesetzt',
+          'SCAS für vertiefte psychologische Begleitung — besonders wenn sekundäre Symptomatik wie Depression oder Substanzkonsum hinzukommt, was bei AuDHD häufig der Fall ist',
+          'KJP für Medikations-Frage — Stimulanzien können bei AuDHD wirksam sein, brauchen aber engmaschige Beobachtung der sensorischen Reaktion und der Asperger-Symptomatik. Die Einstellungs-Phase ist anspruchsvoller als bei reinem ADHS',
+          'Logopädie oder Ergotherapie, falls das sensorische Profil oder die sozial-pragmatische Kommunikation Unterstützung braucht. Bei sensorischen Verarbeitungs-Profilen ist eine ergotherapeutische Mitbehandlung oft hilfreich'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier bis sechs Wochen in der akuten Phase, dann alle zwei bis drei Monate. Vor Übergängen verdichten. Schriftliche Kommunikation grundsätzlich vorziehen — bei AuDHD ist die Stabilität der Vereinbarungen besonders wichtig, weil sowohl der Asperger-Anteil (Vorhersagbarkeit) als auch der ADHS-Anteil (externe Strukturierung) davon abhängt. Mündliche Spontan-Absprachen mit der Schule funktionieren bei diesem Profil regelmäßig nicht.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit AuDHD-Aufklärung. Erste Stufe; die Doppel-Profil-Erklärung muss explizit gemacht werden, weil sie sonst nicht intuitiv ist. Idealerweise mit schriftlicher Zusammenfassung der Hybrid-Anpassungen, damit sie nicht im Lehrer-Alltag verloren gehen.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn die Klassenlehrkraft das Doppel-Profil nicht versteht oder einseitige Maßnahmen umsetzt. Der Schul-Psychologe kann hier institutionelle Übersetzungs-Arbeit leisten.</li>
+            <li><strong>Stufe 3</strong> — Nachteilsausgleich-Antrag dokumentiert, beide Profile explizit benennen. Macht die Hybrid-Anpassungen offiziell und lehrer-wechsel-fest. Der Antrag sollte konkrete Hybrid-Maßnahmen benennen, nicht nur Profile.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel erwägen, mit Lehrkraft, die AuDHD versteht. Wichtig: kein Wechsel ohne Verständnis-Garantie an der neuen Stelle, sonst wiederholt sich das Problem mit zusätzlicher Belastung durch den Wechsel selbst, der bei diesem Profil ohnehin sehr kostspielig ist.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit mit therapeutischem Plan, besonders bei sensorischer Dekompensation. Reset-Phase, keine Strafe; in dieser Zeit Stabilisierung und Wieder-Einstiegs-Plan vorbereiten, mit klar definierten Schritten zur graduellen Reintegration.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Sensorische Überlastungs-Phase. Selbstwert-Kollaps. Sozialer Rückzug akzentuiert. Cannabis-Konsum berichtet oder verdächtig — bei AuDHD oft als Selbstmedikation für sensorische Überlastung.</p>`,
+        ueberweisung: `<p>Medikations-Frage (Stimulanzien mit Begleit-Beobachtung der sensorischen Reaktion und der Asperger-Symptomatik). Komorbide Depression mittelschwer bis schwer. Suizidale Gedanken konkret.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan. Massive sensorische Dekompensation mit Selbstgefährdung. Akute Selbstverletzung in eskalierender Intensität.</p>`
+      }
+    }
+  },
   { id: 'adhs-rsd',                    name: 'ADHS mit Rejection Sensitive Dysphoria', bloecke: emptyAdhsBloecke() },
   { id: 'adhs-depression-sekundaer',   name: 'ADHS mit sekundärer Depression',         bloecke: emptyAdhsBloecke() },
   { id: 'adhs-cannabis',               name: 'ADHS mit Cannabis-Selbstmedikation',     bloecke: emptyAdhsBloecke() },
