@@ -8148,7 +8148,134 @@ const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
       }
     }
   },
-  { id: 'adhs-eltern-adhs',            name: 'ADHS mit Eltern-ADHS',                   bloecke: emptyAdhsBloecke() },
+  /* M7 — ADHS mit Eltern-ADHS (systemisches profil). Befüllt Prompt 9.
+     Klinische Eckpfeiler: ADHS heritabilität ~80%, familie doppelt
+     betroffen, eltern können aus eigener symptomatik nicht das leisten
+     was sie sollen — kein co-therapeut zuhause verfügbar. Externe
+     strukturierung wird zur primären behandlungs-achse. Eltern-diagnostik
+     als angebot, nicht aufdrängen. Leitsatz: „ihre familie ist nicht
+     das problem — sie hat ein gemeinsames neurologisches profil, das
+     alle gleichzeitig belastet." */
+  {
+    id: 'adhs-eltern-adhs',
+    name: 'ADHS mit Eltern-ADHS',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Klient mit ADHS, plus mindestens ein Elternteil mit deutlichen ADHS-Markern (bekannt oder bei Anamnese sichtbar). Die Familie strukturiert nicht zuverlässig — Termine werden verpasst, die Hausaufgaben-Routine scheitert, Konflikte eskalieren mehrfach pro Woche. Behandlung des Kindes alleine reicht nicht; das System muss mitbehandelt werden. Das Schul-System sieht meist „die Eltern kümmern sich nicht" — klinisch ist es etwas anderes.</p>`,
+        klinischWichtig: `<p>Den systemischen Mechanismus musst du selbst klar verstehen, sonst landest du in der Falle, Eltern-Versagen zu moralisieren. Was du beobachtest, wenn du beide Eltern in der Erstsitzung hast: Verspätung um zwanzig Minuten, vergessene Unterlagen, einer der beiden unterbricht ständig den anderen, die Anamnese zu Schul-Schwierigkeiten des Kindes wird mit „das war bei mir auch so" kommentiert. Das ist keine Anekdote, das ist diagnostische Information.</p>
+          <p>ADHS hat eine Heritabilität von etwa 80 Prozent. Genetische Häufung bedeutet praktisch: was du dem Kind an Strukturierung empfehlen würdest, können die Eltern aus eigener Symptomatik nicht leisten. Sie sind nicht faul, nicht desinteressiert, nicht überfordert im klassischen Sinn — sie haben dasselbe neurologische Profil und können es nicht für ein anderes Familienmitglied kompensieren. Wenn du das Familien-System nicht entlastest und externe Strukturierungs-Hilfen aufbaust, hast du keine Chance auf nachhaltige Behandlung des Kindes. Die wichtigste einzelne Intervention ist oft das Angebot der Eltern-Diagnostik — viele Eltern erleben das als befreiend, andere brauchen Zeit dafür. Klinisch helfen zwei Eltern-Typen die Behandlungsstrategie zu schärfen: der erkennend-hilflose Elternteil (sieht das Profil im Kind, kann aus eigener Symptomatik nicht handeln) und der verleugnend-harte (erkennt sich im Kind nicht und reagiert mit Disziplin oder Vorwurf).</p>`,
+        vergleich: `<p><strong>Vs. M2 / M3 / M4 ohne Eltern-ADHS:</strong> Überlappende Sub-Muster sind möglich, aber bei M7 ist die familiäre Strukturierungs-Kapazität die zentrale Variable, nicht die spezifische ADHS-Achse des Kindes. Wenn du dem Kind exekutives Coaching anbietest und die Familie es nicht zuhause umsetzen kann, wechselst du in die M7-Logik — externe Strukturierung statt häuslicher Co-Therapie.</p>
+          <p><strong>Vs. Verhaltensstörung (A10) bei chaotischer Familienstruktur:</strong> Differential über die Anamnese der Eltern-Symptomatik. Bei M7 sind ADHS-Marker bei einem oder beiden Eltern erkennbar — exekutive Defizite seit deren eigener Kindheit, Schul-Schwierigkeiten in der Eltern-Biographie, aktuelle Time-Blindness. Bei A10-Strukturen ohne ADHS ist die Familien-Dysfunktion anders gelagert (oft mit Persönlichkeits-Anteilen, häuslicher Gewalt, Substanz-Problemen ohne ADHS-Grundlage).</p>
+          <p><strong>Vs. Bindungstrauma bei Kindern mit unverlässlicher Familie:</strong> hier wäre primär Trauma-Achse zu behandeln. M7 hat verlässliche Beziehung trotz unverlässlicher Strukturierung — das ist der Unterschied. Eltern in M7 lieben das Kind sichtbar, sie können nur die exekutiven Aufgaben des Alltags nicht zuverlässig erfüllen. Diese Unterscheidung muss explizit gemacht werden, weil sie die Behandlungsrichtung fundamental ändert.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität des Kindes in akuten Konflikt-Phasen',
+          'Akute Eltern-Kind-Eskalation mit Beziehungs-Abbruch oder Gewalt',
+          'Verwahrlosung, wenn familiäre Strukturierung vollständig kollabiert'
+        ],
+        hoch: [
+          'Schulverweigerung des Kindes',
+          'Substanzkonsum in der Familie (oft auch bei Eltern)',
+          'Geschwister-Eskalation, wenn mehrere Kinder betroffen',
+          'Beziehungs-Abbrüche zwischen Eltern',
+          'Schul-Versagen aller Geschwister'
+        ],
+        mittel: [
+          'Chronische Familien-Konflikte als Dauer-Zustand',
+          'Finanzielle Instabilität durch Eltern-Berufs-Probleme',
+          'Transmissions-Risiko zur nächsten Generation',
+          'Identitätsfestigung des Kindes als „Problem-Kind"'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Familien-System als Patient verstehen, nicht nur das Kind. Externe Strukturierungs-Hilfen aufbauen (SCAS, SNJ, Hausaufgaben-Betreuung außerhalb des Familien-Systems). Eltern-Diagnostik anbieten ohne Druck. Coaching-Ansatz für die Eltern in der Selbst-Strukturierung, parallel zur Kind-Therapie.</p>`,
+        begruendung: `<p>Klassische Familien-Beratung scheitert oft, weil sie davon ausgeht, dass die Eltern strukturell leisten können, was sie sollen. Bei M7 ist genau das nicht der Fall — du musst das Defizit nicht moralisieren, sondern systemisch kompensieren. Diese Verschiebung von „Familien-Beratung" zu „System-Kompensation" ist klinisch nicht verhandelbar bei diesem Profil.</p>`,
+        diagnostik: [
+          'Conners 3 für das Kind in Selbst-, Eltern- und Lehrer-Version',
+          'Strukturierte Familien-Anamnese mit gezielter Frage nach Eltern-Symptomatik in deren Kindheit und aktuell',
+          'WURS (Wender Utah Rating Scale) für Eltern retrospektiv als Erst-Screening',
+          'ASRS (Adult ADHD Self-Report Scale) für aktuelle Eltern-Symptomatik',
+          'Bei Verdacht und Bereitschaft: Empfehlung zur Erwachsenen-ADHS-Diagnostik bei Hausarzt oder KJP-Erwachsenen-Übergang',
+          'BRIEF für exekutives Profil des Kindes'
+        ],
+        wasDuTust: [
+          '„Ihre Familie ist nicht das Problem. Ihre Familie hat ein gemeinsames neurologisches Profil, das alle gleichzeitig belastet."',
+          '„Was Sie für Ihr Kind tun sollten, können Sie aus eigener Symptomatik nicht zuverlässig leisten. Das ist keine Schuld, das ist Realität."',
+          '„Wir bauen ein System auf, das nicht von Ihrer Tagesform abhängt. Externe Strukturierung ist keine Niederlage, sie ist die passende Lösung für Ihre Situation."',
+          '„Wenn Sie selbst Diagnostik wollen, wäre das die wichtigste Investition für Ihr Kind. Sie müssen das nicht heute entscheiden."',
+          '„Die Konflikte zuhause sind nicht, weil Sie sich nicht liebhaben. Sie sind, weil mehrere dysregulierte Nervensysteme im selben Haus leben — und das verstärkt sich gegenseitig."'
+        ],
+        wasDuNichtTust: [
+          'Nicht den Eltern erklären, sie sollten „konsequenter sein" oder „Grenzen setzen" — das ist genau das, was sie aus eigener Symptomatik nicht leisten können',
+          'Nicht die Eltern moralisch in die Pflicht nehmen für ein Defizit, das genetisch begründet ist',
+          'Nicht Familien-Therapie als isolierte Hauptmaßnahme ohne externe Strukturierungs-Aufbau — würde nur das System weiter belasten',
+          'Nicht Eltern-Diagnostik aufdrängen — Angebot machen, Reife für Annahme respektieren',
+          'Nicht das Kind als „schlimm wegen der Eltern" framen — zerstört therapeutische Allianz mit allen Beteiligten'
+        ],
+        frequenz: `<p>Wöchentlich für mindestens zwölf Wochen mit Kind und Eltern abwechselnd, dann je nach System-Stabilität anpassen. Erinnerungs-System für Termine etablieren (Eltern werden sonst Termine verpassen — nicht aus Desinteresse, sondern aus ADHS). SMS-Erinnerung am Vortag plus Morgen-Erinnerung am Tag selbst sind oft nötig, manchmal zusätzlich ein Anruf eine Stunde vor Termin.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik des Kindes abschließen. Strukturierte Eltern-Anamnese mit ADHS-Fokus. WURS und ASRS anbieten ohne Druck — die Bereitschaft der Eltern, sich diagnostisch ins Auge zu schauen, ist klinisch wertvoller als das schnelle Ergebnis. Familie aufklären über das systemische Profil ohne Schuld-Zuweisung. Termin-Erinnerungs-System aufbauen. Externe Strukturierungs-Hilfen sondieren (SCAS, SNJ, Hausaufgaben-Betreuung in Maison Relais oder Maison des Jeunes).`,
+        phase2: `Externe Strukturierungs-Hilfen umsetzen. Eltern-Diagnostik-Empfehlung wenn Bereitschaft da. Coaching-Ansatz für Eltern in einzelnen Funktions-Bereichen (Termin-Management, Hausaufgaben-Begleitung) — eine Funktion pro Sitzung, nicht das ganze Familien-Leben gleichzeitig. Kind-Therapie parallel laufen lassen mit Schwerpunkt auf altersangepasster Selbst-Strukturierung, die das Kind später unabhängig vom familiären System tragen kann.`,
+        phase3: `Familien-Dynamik bearbeiten — Konflikt-Muster, Eltern-Kind-Beziehungs-Qualität jenseits der Strukturierungs-Frage. Bei Eltern-Diagnose und Behandlungs-Beginn: Veränderung im System beobachten, manchmal verändert sich der ganze Familien-Alltag innerhalb von Monaten dramatisch. Geschwister-Dynamik adressieren, wenn andere Kinder betroffen sind oder eigene Symptomatik entwickeln.`,
+        phase4: `Konsolidierung. Die Familie hat ein nachhaltiges System aus externer Strukturierung plus interner Bewältigung. Der Klient hat eigene Werkzeuge altersangepasst und ist nicht mehr vollständig von externer Strukturierung abhängig. Frequenz reduziert. Übergangs-Antizipation für nächste Lebens-Phase — bei jüngeren Klienten der Übergang zu mehr Selbstständigkeit, bei älteren der Übergang aus der Familie heraus.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht „die Eltern kümmern sich nicht" oder „die Familie ist chaotisch" und zieht sich oft zurück. Klassische Aussagen aus dem Lehrer-Zimmer: „Da kann man nichts machen, die Eltern sind selbst überfordert", „Wir haben schon mehrfach mit den Eltern gesprochen, das bringt nichts." Beides ist klinisch falsch interpretiert. Die Familie kann nicht das leisten, was sie sollte, weil sie selbst neurologisch belastet ist — nicht weil sie sich nicht kümmert.</p>
+          <p>Schule muss verstehen, dass externe Strukturierung kein Familien-Versagen ist, das durch Druck behoben werden kann, sondern eine angemessene Lösung für ein systemisches Profil. Lehrer-Eltern-Gespräche im klassischen Modus (Eltern sollen Hausaufgaben kontrollieren, Eltern sollen Termine einhalten, Eltern sollen mehr durchgreifen) verstärken den Druck auf das System ohne Lösung. Die Eltern erscheinen verspätet, vergessen die Vereinbarungen aus dem letzten Gespräch, kommen mit guten Vorsätzen wieder — und wiederholen das gleiche Muster nach wenigen Wochen. Aus Schul-Sicht sieht das wie mangelnde Mitwirkung aus; klinisch ist es ADHS in der Eltern-Generation.</p>
+          <p>Was die Schule braucht, ist Bereitschaft zur Kooperation mit externen Strukturierungs-Diensten und realistische Erwartungen an die familiäre Beteiligung. Schul-Kommunikation darf nicht ausschließlich über die Eltern laufen — Briefe gehen verloren, Anrufe werden vergessen, Termine werden nicht weitergegeben. Stattdessen muss die externe Strukturierungs-Person (Hausaufgaben-Betreuung, SNJ-Sozialarbeiter, Maison-Relais-Verantwortlicher) als zweite Kommunikations-Adresse etabliert sein.</p>
+          <p>Eine zusätzliche Schwierigkeit: in dieser Familien-Konstellation entwickeln oft auch Geschwister Symptomatik. Wenn die Schule mehrere Kinder derselben Familie sieht, die alle „Probleme machen", entsteht ein Familien-Stigma, das sich über Schul-Generationen weiter trägt. Dieses Stigma muss aktiv unterbrochen werden, indem Lehrkräften das genetische Profil erklärt wird — sonst wird das nächste Kind der Familie schon im Voraus als problematisch eingestuft, bevor es überhaupt sichtbar wird.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine ADHS-Diagnose. Klinisch wichtig ist die familiäre Dimension dieses Profils: in seiner Familie liegt wahrscheinlich eine genetisch bedingte Häufung von ADHS vor, was bedeutet, dass die familiäre Strukturierungs-Kapazität strukturell reduziert ist. Das ist kein Familien-Versagen und nicht durch Druck oder Appelle veränderbar. Wenn Termine verpasst werden, Hausaufgaben nicht begleitet sind oder Eltern-Sprechtage unregelmäßig wahrgenommen werden, hat das eine neurologische Erklärung — keine motivationale.</p>
+          <p>Was [Klient-Name] braucht, sind externe Strukturierungs-Hilfen — Hausaufgaben-Betreuung außerhalb des Familien-Systems (Maison Relais, Maison des Jeunes oder Tutoring), klare schulische Strukturen, die nicht auf häusliche Vorbereitung angewiesen sind, eine sichere Bezugsperson in der Schule. Familie und Schule sollten in diesem Profil nicht parallel die gleiche Strukturierungs-Arbeit übernehmen, sondern komplementär arbeiten: die Schule hält die schulische Achse, externe Dienste übernehmen Brücken-Funktionen, die Familie sorgt für die emotionale Beziehung.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: Hausaufgaben in der Schule begleiten oder durch externe Dienste organisieren, statt häusliche Vorbereitung vorauszusetzen; Schul-Kommunikation parallel auch direkt an die externe Strukturierungs-Person, nicht nur an die Eltern; eine sichere Bezugsperson in der Schule, die das Profil versteht; und Akzeptanz, dass Eltern an Eltern-Sprechtagen unregelmäßig erscheinen, ohne das als Desinteresse zu werten.</p>
+          <p>Ich biete Ihnen gerne ein Gespräch an, in dem wir die schulische und außerschulische Strukturierung gemeinsam organisieren.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Hausaufgaben-System, das nicht von häuslicher Begleitung abhängt', begruendung: 'Aufgaben in der Schule begleitet oder durch externe Hausaufgaben-Hilfe (Maison Relais, Maison des Jeunes, Tutoring-Programm). Die häusliche Hausaufgaben-Begleitung scheitert bei diesem Profil systematisch, weil die Eltern selbst exekutive Defizite haben. Eine externe Strukturierung ist hier die angemessene Lösung, nicht ein Notfall-Mechanismus.' },
+          { titel: 'Schul-Kommunikation auch direkt an externe Strukturierungs-Person', begruendung: 'Nicht nur an Eltern. Briefe an Eltern landen oft auf einem Stapel, Anrufe werden vergessen, mündliche Informationen gehen verloren. Eine zweite Kommunikations-Adresse (Hausaufgaben-Betreuung, SNJ-Sozialarbeiter, Maison-Relais-Verantwortlicher) stellt sicher, dass schulische Informationen ankommen, wo sie umgesetzt werden müssen.' },
+          { titel: 'Schriftliche Wochen-Übersicht für Aufgaben, übergeben an alle beteiligten Strukturierungs-Personen', begruendung: 'Time-Blindness-Kompensation für Klient und Eltern gleichzeitig. Eine sichtbare Wochen-Übersicht macht für alle Beteiligten transparent, was wann ansteht. Wenn nur das Kind die Übersicht hat, geht sie verloren; wenn die externe Strukturierungs-Person sie auch hat, bleibt das System tragfähig.' },
+          { titel: 'Sichere Bezugsperson in der Schule (Klassenlehrer oder Vertrauenslehrer)', begruendung: 'Bei einem Kind, dessen häusliches System chronisch instabil ist, ist die schulische Beziehungs-Konstanz besonders wichtig. Eine vertraute Lehrkraft, die das Profil versteht und nicht in „die Eltern müssen halt"-Logik zurückfällt, kann den Schulalltag stabilisieren. Konstanz über mehrere Schuljahre verstärkt die Wirkung erheblich.' },
+          { titel: 'Reduzierte häusliche Vorbereitungs-Anforderungen', begruendung: 'Keine Projekte, die mehrtägige Eltern-Begleitung voraussetzen (Material aus dem Bastel-Laden, Recherche im Internet, Bastel-Vorbereitung). Solche Projekte produzieren bei M7 regelmäßig Versagens-Erfahrungen für das Kind, weil die Eltern die Vorbereitung nicht zuverlässig durchführen. Alternative: Materialien werden in der Schule bereitgestellt, Projekte in der Schule begonnen und beendet.' },
+          { titel: 'Termin-Erinnerungen direkt an Kind plus zweite Bezugsperson', begruendung: 'Nicht nur an Eltern. Bei wichtigen Schul-Terminen (Klassenarbeiten, Schul-Veranstaltungen, Eltern-Sprechtage) sollte eine zweite Erinnerungs-Schicht eingebaut sein — entweder direkt an das Kind ab einem bestimmten Alter oder an die externe Strukturierungs-Person. Verlassen auf einen einzigen Kommunikations-Kanal führt regelmäßig zum Verlust der Information.' },
+          { titel: 'Notfall-Plan, wenn Eltern bei akuten Schul-Krisen nicht erreichbar oder handlungsfähig sind', begruendung: 'Vorab definierte Eskalations-Kette: wer wird angerufen, wenn die Eltern nicht erreichbar sind oder offensichtlich nicht handlungsfähig (zweite Bezugsperson, SNJ-Sozialarbeiter, Hausarzt, im Extremfall ONE). Diese Kette muss schriftlich vorliegen, damit die Lehrkräfte im akuten Moment nicht erst überlegen müssen.' },
+          { titel: 'Akzeptanz, dass Eltern an Eltern-Sprechtagen nicht oder sehr unregelmäßig erscheinen', begruendung: 'Nicht als Desinteresse framen. Eltern-Sprechtag-Termine sind klassischerweise ein Setting, in dem Eltern mit ADHS scheitern — Datum vergessen, Zeit vergessen, Vorbereitungs-Anforderung überfordernd, soziale Erwartung an einen klaren Bericht aus dem letzten Monat exekutiv unmöglich. Wenn die Schule das systemisch versteht, kann sie alternative Kontakt-Formate anbieten (Telefon-Termin, schriftliche Rückmeldung, Video-Call mit Erinnerung am gleichen Tag) statt das Fehlen zu interpretieren. Diese alternativen Formate sind nicht Erleichterung, sondern angemessene Anpassung an die familiäre Realität.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine „die Eltern müssen halt strenger sein"-Botschaften durch die Schule', begruendung: 'Verstärkt System-Belastung. Eltern, die ohnehin am Limit ihrer Selbst-Regulation sind, bekommen aus der Schule die Botschaft, dass sie versagen — und reagieren entweder mit verstärktem Druck auf das Kind (eskaliert Konflikte) oder mit Rückzug aus der Schul-Kommunikation (verschlechtert die Kooperation). Diese Botschaft muss in jedem Lehrer-Gespräch explizit unterbunden werden.' },
+          { titel: 'Keine Aufgaben-Konzepte, die häusliche Strukturierung voraussetzen ohne Alternative anzubieten', begruendung: 'Bei diesem Profil ist häusliche Vorbereitung regelmäßig nicht zuverlässig. Aufgaben, die das voraussetzen, produzieren systematisch Versagens-Erfahrungen. Wenn häusliche Komponenten unvermeidbar sind, muss die Schule eine externe Alternative anbieten (Material in der Schule, Hausaufgaben-Hilfe, Projekt-Begleitung außerhalb des Familien-Systems).' },
+          { titel: 'Keine Jugendhilfe-Anbindung als drohende Maßnahme', begruendung: 'Sondern als Unterstützungs-Angebot. Wenn die Schule SNJ oder ONE als Drohung einsetzt („wenn das so weitergeht, müssen wir das Jugendamt einschalten"), produziert das in der Familie Abwehr und manchmal Verheimlichungs-Strategien. Wenn Jugendhilfe als Hilfe positioniert wird („wir können gemeinsam mit dem SNJ einen Hausaufgaben-Plan organisieren"), wird sie eher angenommen.' },
+          { titel: 'Keine Schul-Kommunikation, die ausschließlich über Eltern läuft', begruendung: 'Briefe gehen verloren, Anrufe werden vergessen, mündliche Mitteilungen gehen nicht weiter. Eine zweite Kommunikations-Adresse (externe Strukturierungs-Person) ist bei diesem Profil keine Sonder-Maßnahme, sondern Standard. Ohne diese zweite Adresse läuft die Schul-Familie-Kommunikation regelmäßig ins Leere.' },
+          { titel: 'Keine Eltern-Beratung durch die Schule, die das familiäre Defizit moralisiert', begruendung: 'Beratung im Sinne von „Sie müssen Ihrem Kind mehr Aufmerksamkeit schenken" oder „Versuchen Sie, konsequenter zu sein" geht am Mechanismus vorbei und wird von den Eltern als Beschämung erlebt. Wenn die Schule berät, dann mit Hinweis auf externe Strukturierungs-Möglichkeiten und mit Anerkennung der familiären Realität.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als Beziehungs-Anker und primärer Kommunikations-Kanal — ideal eine Lehrkraft mit Verständnis für das systemische Profil und ohne moralisierende Eltern-Erwartungen',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit systemischem Verständnis — die institutionelle Übersetzung zwischen schulischer und klinischer Logik läuft über diese Stelle',
+          'Hausaufgaben-Betreuung durch Maison Relais, Maison des Jeunes oder andere externe Dienste — die strukturelle Brücken-Funktion zwischen Schule und Familie',
+          'SCAS für vertiefte therapeutische Begleitung des Kindes, besonders bei sekundärer Symptomatik oder bei suizidaler Komponente',
+          'SNJ (Service National de la Jeunesse) für Familien-Unterstützung und Jugendhilfe-Koordination — als Hilfe, nicht als Sanktion positioniert',
+          'KJP für das Kind, eventuell auch für Eltern, wenn Erwachsenen-ADHS-Diagnostik gewünscht ist. Die parallele Diagnostik kann das System dramatisch entlasten, wenn ein Elternteil Behandlung annimmt',
+          'Office National de l\'Enfance (ONE) bei besonderer Familien-Belastung — als Brücken-Struktur, wenn die familiäre Stabilität gefährdet ist',
+          'Hausarzt der Familie als zentraler medizinischer Ansprechpartner — wichtig vor allem für die Eltern-Diagnostik-Brücke zur Erwachsenen-Psychiatrie'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier Wochen in der Aufbau-Phase, danach alle zwei bis drei Monate. Wichtig: Schul-Kontakt-Termine werden vom Therapeuten dokumentiert und an die externe Strukturierungs-Person gespiegelt, nicht nur an die Eltern. Bei familiärer Eskalation oder bei Schul-Krise sofort verdichten. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf das Format — kurz, klar, mit konkreten Handlungsschritten und nicht mit allgemeinen Empfehlungen.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit systemischer Aufklärung. Die genetische Häufung explizit benennen, damit die Lehrkraft nicht in moralisierende Eltern-Erwartungen kippt. Schriftliche Kurz-Aufklärung mitliefern.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen, Eltern und externer Strukturierungs-Person. Die externe Strukturierung wird hier formal etabliert und die Kommunikations-Wege definiert.</li>
+            <li><strong>Stufe 3</strong> — Aufbau strukturierter externer Hilfen (Hausaufgaben-Betreuung, SNJ, Tutoring) dokumentiert. Die Hilfen müssen schriftlich verankert sein, damit sie bei Lehrer-Wechsel oder bei familiärer Krise stabil bleiben.</li>
+            <li><strong>Stufe 4</strong> — Erwägung Setting-Wechsel oder Maison Relais mit erweiterten Strukturierungs-Funktionen. Wenn die aktuelle schulische Struktur nicht ausreicht, kann ein Setting mit eingebauter Tagesbetreuung den Unterschied machen.</li>
+            <li><strong>Stufe 5</strong> — Erweiterte Jugendhilfe-Anbindung (SNJ, ONE) bei familiärer Dekompensation, mit klarem Hilfe-Charakter. Hier ist die Formulierung wichtig: Jugendhilfe als Unterstützung der Familie, nicht als Sanktion, sonst eskaliert die Abwehr.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Akute Familien-Eskalation mit verbalem oder körperlichem Konflikt. Schulverweigerung des Kindes beginnt. Hinweise auf elterliche Substanz-Probleme oder psychische Dekompensation. Suizidale Gedanken beim Kind berichtet. Andere Geschwister entwickeln eigene Symptomatik.</p>`,
+        ueberweisung: `<p>Medikations-Frage für das Kind. Konkrete Suizidalität beim Kind. Schwere komorbide Symptomatik beim Kind. Empfehlung zur Erwachsenen-ADHS-Diagnostik für interessierte Eltern (an Hausarzt oder Erwachsenen-Psychiatrie).</p>`,
+        klinik: `<p>Akute Suizidalität des Kindes mit Plan oder Vorbereitungs-Handlungen. Massive häusliche Gewalt-Eskalation. Verwahrlosung des Kindes durch familiäre Dekompensation — dann SNJ und ONE als Brücken-Strukturen einbinden.</p>`
+      }
+    }
+  },
   /* M8 — ADHS mit Schulverweigerung. Befüllt Prompt 8.
      Klinische Eckpfeiler: schulverweigerung als funktionale antwort auf
      chronisches versagen + time blindness, klient sieht morgens den berg
