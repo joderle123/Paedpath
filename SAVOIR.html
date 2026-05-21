@@ -5069,6 +5069,18 @@ const TOPICS = {
       }
     },
     verwandt: ['asperger', 'adhs-unaufmerksam', 'angststoerung-generalisiert', 'borderline-entwicklung']
+  },
+  /* Angststörungen — Topic angelegt in Prompt 10. Wissens-Ebenen sind aktuell
+     leer (Inhalt folgt in späteren Prompts); Profil-Diagnose und Sub-Muster-
+     Tiefe-Container sind über SYMPTOM_DIAGNOSE_ANGST und PLAN_MUSTER_ANGSTSTOERUNGEN
+     funktional. Erreichbar über die globale Diagnostik (A05 → topicKey
+     'angststoerungen') und über die Krankheitsbilder-Übersicht. */
+  'angststoerungen': {
+    id: 'angststoerungen',
+    titel: 'Angststörungen (Adoleszenz)',
+    kategorie: 'C',
+    ebenen: {},
+    verwandt: ['asperger', 'adhs-unaufmerksam', 'depression-jugendliche']
   }
 };
 
@@ -5136,6 +5148,27 @@ const BEREICH_STRUKTUR = {
       { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' },
       { ebene: 'praxis',           label: 'Praxis',           tabClass: 'tab-praxis' },
       { ebene: 'symptom-fokus',    label: 'Symptom-Fokus',    tabClass: 'tab-plan' }
+    ]
+  },
+  /* Angststörungen — Phase 10. WISSEN aktuell leer (Inhalt folgt), Profile-
+     Tab funktioniert über planMusterFor/musterKurzFor (zeigt die 7 Muster
+     als Card-Grid). PROFIL-DIAGNOSE funktional. HANDELN nur Behandlungs-Plan,
+     Praxis und Symptom-Fokus werden in späteren Prompts ergänzt. */
+  'angststoerungen': {
+    wissen: [
+      { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
+      { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
+      { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
+      { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'profile-uebersicht', label: 'Profile', tabClass: '' },
+      { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
+    ],
+    profil: [
+      { ebene: 'symptom-auswahl', label: 'Symptom-Auswahl', tabClass: 'tab-plan' },
+      { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
+    ],
+    handeln: [
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
     ]
   }
 };
@@ -5342,7 +5375,7 @@ const SAVOIR_GLOBAL = {
     { id: 'A02', name: 'ADHS (unaufmerksam und kombiniert)',           topicKey: 'adhs-unaufmerksam',  goldstandards: ['Conners 3', 'BRIEF', 'WISC-V', 'K-SADS-PL'],                               quellenKurz: ['Barkley (executive dysfunction)', 'Solden (Mädchen-Profil)', 'Dodson (RSD)', 'Hallowell (ADHS 2.0)'] },
     { id: 'A03', name: 'Depressive Störung',                           topicKey: null,                 goldstandards: ['BDI-A', 'PHQ-A', 'CDI', 'K-SADS-PL'],                                       quellenKurz: ['NICE Guidelines Depression in CYP', 'Beck (kognitive Triade)'] },
     { id: 'A04', name: 'Bipolare Spektrum-Störung',                    topicKey: null,                 goldstandards: ['K-SADS-PL', 'YMRS'],                                                        quellenKurz: ['Goodwin & Jamison (juvenile Form)'] },
-    { id: 'A05', name: 'Angststörungen',                               topicKey: null,                 goldstandards: ['SCARED', 'MASC-2', 'K-SADS-PL'],                                            quellenKurz: ['Barlow (Anxiety Disorders)', 'Albano (CBT bei CYP)'] },
+    { id: 'A05', name: 'Angststörungen',                               topicKey: 'angststoerungen',    goldstandards: ['SCARED (Screen for Child Anxiety Related Disorders)', 'MASC-2 (Multidimensional Anxiety Scale for Children)', 'K-SADS-PL', 'LSAS-CA (Liebowitz Social Anxiety Scale, Child/Adolescent)'], quellenKurz: ['Barlow (Anxiety Disorders)', 'Albano (CBT bei CYP)', 'Kendall (Coping Cat)', 'March (Talking Back to OCD)'] },
     { id: 'A06', name: 'Zwangsstörung',                                topicKey: null,                 goldstandards: ['CY-BOCS', 'K-SADS-PL'],                                                     quellenKurz: ['March & Mulle (CBT für OCD bei CYP)'] },
     { id: 'A07', name: 'PTBS und komplexes Trauma',                    topicKey: null,                 goldstandards: ['CAPS-CA-5', 'UCLA PTSD-RI'],                                                quellenKurz: ['van der Kolk (Body Keeps the Score)', 'Cohen (TF-CBT)'] },
     { id: 'A08', name: 'Essstörungen',                                 topicKey: null,                 goldstandards: ['EDE-Q', 'EDI-3'],                                                           quellenKurz: ['Lock & Le Grange (Family-Based Treatment)'] },
@@ -6230,7 +6263,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'symptom-auswahl') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
       const ps = loadPlanState(topic.id);
       renderSymptomAuswahl(topic, ps, body);
     } else {
@@ -6245,7 +6278,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'erkanntes-muster') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
       const ps = loadPlanState(topic.id);
       renderErkanntesMuster(topic, ps, body);
     } else {
@@ -6262,8 +6295,8 @@ function renderEbene() {
   if (ebene === 'behandlungs-plan') {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
-    // Asperger + ADHS nutzen jetzt den unified Sub-Muster-Tiefe-Renderer (Prompt 4).
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam') {
+    // Asperger + ADHS + Angststörungen nutzen den unified Sub-Muster-Tiefe-Renderer.
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
       const ps = loadPlanState(topic.id);
       // Asperger braucht ps.generiert für interne renderPlan-Konsistenz (falls Faktoren-Eingabe genutzt wird).
       if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0 && !ps.generiert) {
@@ -8402,21 +8435,165 @@ const PLAN_MUSTER_ADHS_UNAUFMERKSAM = [
   }
 ];
 
+/* ============ SYMPTOM-DIAGNOSE — Angststörungen (Prompt 10) ============
+   Sieben Sub-Muster (M1-M7) auf der Angst-Achse. Symptom-IDs mit Prefix 'a'
+   um Namespace-Kollisionen mit der globalen Symptom-Pool-Notation (1.1 etc.)
+   zu vermeiden. Kontext-Werte sind vor-multipliziert mit SYMPTOM_WEIGHT_MULT
+   (=5), Symptom-Gewichte werden in computeSymptomScores ×5 verstärkt. */
+const SYMPTOM_DIAGNOSE_ANGST = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'setting', titel: 'Setting, in dem die Angst hauptsächlich auftritt', optionen: [
+      { val: 'schule', text: 'Schule' },
+      { val: 'familie-bindung', text: 'Familie / Bindung' },
+      { val: 'sozial-peer', text: 'soziales Setting / Peer-Group' },
+      { val: 'koerper', text: 'körperliche Wahrnehmung' },
+      { val: 'spezifisch', text: 'spezifischer Auslöser' },
+      { val: 'unspezifisch', text: 'unspezifisch über alle Lebensbereiche' }
+    ]},
+    { id: 'vorbehandlung', titel: 'Vorbehandlung', optionen: [
+      { val: 'kvt', text: 'KVT bereits durchgeführt' },
+      { val: 'med', text: 'medikamentös bereits behandelt' },
+      { val: 'keine', text: 'keine Vorbehandlung' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'allgemein', titel: 'Allgemeine Sorgen', symptome: [
+      { id: 'a1-1', text: 'Sorgen über mehrere Lebensbereiche gleichzeitig' },
+      { id: 'a1-2', text: 'Sorgen lassen sich schwer unterbrechen' },
+      { id: 'a1-3', text: 'Sorgen treten täglich auf' },
+      { id: 'a1-4', text: 'Sorgen werden als unkontrollierbar erlebt' },
+      { id: 'a1-5', text: 'Körperliche Anspannung begleitet die Sorgen (Muskelspannung, Müdigkeit, Konzentrationsstörung)' }
+    ]},
+    { id: 'sozial', titel: 'Bewertung & Sozial', symptome: [
+      { id: 'a2-1', text: 'Angst vor negativer Bewertung durch andere' },
+      { id: 'a2-2', text: 'Vermeidung sozialer Situationen aus Angst zu versagen' },
+      { id: 'a2-3', text: 'Angst beim Sprechen vor einer Gruppe' },
+      { id: 'a2-4', text: 'Angst, Fehler zu machen, wenn andere zuschauen' },
+      { id: 'a2-5', text: 'Körperliche Symptomatik in sozialen Situationen (Erröten, Schwitzen, Zittern)' }
+    ]},
+    { id: 'schule', titel: 'Schule', symptome: [
+      { id: 'a3-1', text: 'Morgens körperliche Symptomatik vor dem Schul-Gang' },
+      { id: 'a3-2', text: 'Symptomatik am Wochenende deutlich reduziert oder nicht vorhanden' },
+      { id: 'a3-3', text: 'Vermeidung bestimmter Schul-Situationen (Sportumkleide, Pausen, mündliche Beteiligung)' },
+      { id: 'a3-4', text: 'Anhaltende Angst vor Tests oder Prüfungen' },
+      { id: 'a3-5', text: 'Schulverweigerung mit klar angst-getriebener Komponente' }
+    ]},
+    { id: 'trennung', titel: 'Trennung & Bindung', symptome: [
+      { id: 'a4-1', text: 'Übermäßige Sorge, wenn Bezugsperson nicht erreichbar' },
+      { id: 'a4-2', text: 'Massive Schwierigkeit bei Klassenfahrten oder Übernachtungen außer Haus' },
+      { id: 'a4-3', text: 'Anhaltende Sorge, dass der Bezugsperson etwas zustößt' },
+      { id: 'a4-4', text: 'Klammerndes Verhalten gegenüber Bezugsperson, auch altersuntypisch' }
+    ]},
+    { id: 'panik', titel: 'Panik & Körper', symptome: [
+      { id: 'a5-1', text: 'Plötzliche Panikattacken mit Herzrasen und Atembeschleunigung' },
+      { id: 'a5-2', text: 'Erstickungs- oder Sterbensgefühl während Attacke' },
+      { id: 'a5-3', text: 'Vermeidung von Orten, an denen eine Panikattacke aufgetreten ist' },
+      { id: 'a5-4', text: 'Hyperventilation in Stress-Situationen' },
+      { id: 'a5-5', text: 'Wahrnehmung körperlicher Signale ist verstärkt und katastrophisch interpretiert' }
+    ]},
+    { id: 'spezifisch', titel: 'Spezifisch & Krankheit', symptome: [
+      { id: 'a6-1', text: 'Konkrete umrissene Phobie vor spezifischem Objekt oder Situation' },
+      { id: 'a6-2', text: 'Massive körperliche und emotionale Reaktion bei Kontakt mit dem Objekt' },
+      { id: 'a6-3', text: 'Anhaltende übermäßige Sorge um die eigene Gesundheit' },
+      { id: 'a6-4', text: 'Wiederholte Arztbesuche ohne organischen Befund' }
+    ]}
+  ],
+  /* Pro Sub-Muster: kontext-werte (vor-multipliziert mit 5) und symptom-gewichte
+     (3/2/1, intern ×5 via SYMPTOM_WEIGHT_MULT). Mapping invertiert aus dem Spec. */
+  musterScores: {
+    'angst-gas': {
+      kontext: { setting: { 'unspezifisch': 15 } },
+      symptome: { 'a1-1': 3, 'a1-2': 3, 'a1-3': 2, 'a1-4': 3, 'a1-5': 3, 'a3-4': 1, 'a5-4': 1 }
+    },
+    'angst-sozial': {
+      kontext: { setting: { 'sozial-peer': 15, 'schule': 5 } },
+      symptome: { 'a2-1': 3, 'a2-2': 3, 'a2-3': 3, 'a2-4': 3, 'a2-5': 3, 'a3-3': 1, 'a3-4': 2, 'a4-2': 1 }
+    },
+    'angst-schulphobie': {
+      kontext: { setting: { 'schule': 10 } },
+      symptome: { 'a2-2': 1, 'a3-1': 3, 'a3-2': 3, 'a3-3': 2, 'a3-4': 1, 'a3-5': 3 }
+    },
+    'angst-trennung': {
+      kontext: { alter: { '10-12': 5 }, setting: { 'familie-bindung': 10 } },
+      symptome: { 'a3-1': 1, 'a4-1': 3, 'a4-2': 3, 'a4-3': 3, 'a4-4': 3 }
+    },
+    'angst-panik': {
+      kontext: { setting: { 'koerper': 10, 'spezifisch': 5 } },
+      symptome: { 'a5-1': 3, 'a5-2': 3, 'a5-3': 3, 'a5-4': 3, 'a5-5': 2 }
+    },
+    'angst-phobie-spez': {
+      kontext: { setting: { 'spezifisch': 15 } },
+      symptome: { 'a5-3': 1, 'a6-1': 3, 'a6-2': 3 }
+    },
+    'angst-krankheitsangst': {
+      kontext: { setting: { 'koerper': 10 } },
+      symptome: { 'a5-1': 1, 'a5-5': 2, 'a6-3': 3, 'a6-4': 3 }
+    }
+  }
+};
+
+/* Kurz-Beschreibungen pro Angst-Sub-Muster (Output 'Erkanntes Muster').
+   Werden in Folge-Prompts auch in Block 1 und 3 des Behandlungs-Plans gespiegelt. */
+const MUSTER_KURZ_ANGST = {
+  'angst-gas':              'Generalisierte Angststörung mit chronischen Sorgen über mehrere Lebensbereiche und körperlicher Anspannungs-Symptomatik. Bei Jugendlichen oft als „verantwortungsvoll" oder „perfektionistisch" fehl-eingeordnet — die Diagnose wird übersehen, die kumulative Belastung wächst, oft mit somatischer Manifestation.',
+  'angst-sozial':           'Soziale Angststörung mit Bewertungs- und Performance-Angst, Vermeidung sozialer Situationen, körperlicher Symptomatik im sozialen Setting. Häufig als „schüchtern" oder „introvertiert" abgetan. Klinisch oft mit Schulphobie verwechselt — Differential über die spezifische soziale Bewertungs-Achse.',
+  'angst-schulphobie':      'Schulphobie / Schulangst — primär angst-getriebene Schul-Vermeidung mit morgendlicher körperlicher Symptomatik und Symptomfreiheit am Wochenende. Differential zu ADHS-Schulverweigerung klinisch entscheidend: Schulphobie ist angst-getrieben, ADHS-Schulverweigerung überforderungs-getrieben.',
+  'angst-trennung':         'Trennungsangst mit anhaltender übermäßiger Sorge vor Trennung von Bezugsperson, altersuntypisch. Bei älteren Jugendlichen oft als Schulphobie oder soziale Angst missinterpretiert. Bindungs-bezogene Verlust-Antizipation ist die eigentliche Achse.',
+  'angst-panik':            'Panikstörung mit wiederkehrenden Panikattacken und körperlicher Symptomatik, Vermeidung der Auslöse-Situationen. Bei Jugendlichen häufig als kardiologisches oder neurologisches Problem fehldiagnostiziert — multiple unauffällige somatische Untersuchungen sind klassischer Verlauf.',
+  'angst-phobie-spez':      'Spezifische Phobie mit umrissener Angst vor Objekt oder Situation (Tiere, Höhen, Spritzen, Erbrechen / Emetophobie, geschlossene Räume). Oft jahrelang funktional kompensiert durch Vermeidung. Krise tritt bei Lebensveränderung auf; Emetophobie bei Mädchen besonders häufig und unterschätzt.',
+  'angst-krankheitsangst':  'Krankheitsangst / hypochondrische Strukturen mit übermäßiger Sorge um eigene Gesundheit, wiederholten Arztbesuchen ohne organischen Befund, oft mit somatoformer Begleit-Symptomatik. Querschnitt zum Risikofilter R03. Reassurance-Spirale klinisch zentral.'
+};
+
+/* Behandlungs-Plan-Container für die sieben Angst-Sub-Muster. Schema identisch
+   zur ADHS-Vorlage; Inhalte werden in Folge-Prompts pro Muster befüllt. */
+function emptyAngstBloecke() {
+  return {
+    wasDuSiehst:    { profilErkennung: '', klinischWichtig: '', vergleich: '' },
+    risikoProfil:   { kritisch: [], hoch: [], mittel: [] },
+    therapieansatz: { hauptansatz: '', begruendung: '', diagnostik: [], wasDuTust: [], wasDuNichtTust: [], frequenz: '' },
+    vierPhasen:     { phase1: '', phase2: '', phase3: '', phase4: '' },
+    schulstrategie: { a_problem: '', b_vorlage: '', c_anpassungen: [], d_kontraindikationen: [], e_rollen: [], f_frequenz: '' },
+    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' }
+  };
+}
+const PLAN_MUSTER_ANGSTSTOERUNGEN = [
+  { id: 'angst-gas',             name: 'Generalisierte Angststörung (GAS)',          bloecke: emptyAngstBloecke() },
+  { id: 'angst-sozial',          name: 'Soziale Angststörung / Soziale Phobie',      bloecke: emptyAngstBloecke() },
+  { id: 'angst-schulphobie',     name: 'Schulphobie / Schulangst',                   bloecke: emptyAngstBloecke() },
+  { id: 'angst-trennung',        name: 'Trennungsangst',                             bloecke: emptyAngstBloecke() },
+  { id: 'angst-panik',           name: 'Panikstörung',                               bloecke: emptyAngstBloecke() },
+  { id: 'angst-phobie-spez',     name: 'Spezifische Phobie',                         bloecke: emptyAngstBloecke() },
+  { id: 'angst-krankheitsangst', name: 'Krankheitsangst / Hypochondrische Strukturen', bloecke: emptyAngstBloecke() }
+];
+
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
    Asperger-Pfad bleibt unverändert; ADHS wird zusätzlich ausgeliefert. */
 function symptomDiagnoseFor(topicId) {
   if (topicId === 'asperger') return SYMPTOM_DIAGNOSE_ASPERGER;
   if (topicId === 'adhs-unaufmerksam') return SYMPTOM_DIAGNOSE_ADHS;
+  if (topicId === 'angststoerungen') return SYMPTOM_DIAGNOSE_ANGST;
   return null;
 }
 function musterKurzFor(topicId) {
   if (topicId === 'asperger') return MUSTER_KURZ_ASPERGER;
   if (topicId === 'adhs-unaufmerksam') return MUSTER_KURZ_ADHS;
+  if (topicId === 'angststoerungen') return MUSTER_KURZ_ANGST;
   return {};
 }
 function planMusterFor(topicId) {
   if (topicId === 'asperger' && typeof PLAN_MUSTER_ASPERGER !== 'undefined') return PLAN_MUSTER_ASPERGER;
   if (topicId === 'adhs-unaufmerksam') return PLAN_MUSTER_ADHS_UNAUFMERKSAM;
+  if (topicId === 'angststoerungen') return PLAN_MUSTER_ANGSTSTOERUNGEN;
   return [];
 }
 
@@ -11130,7 +11307,7 @@ function normalizeBehandlungsPlan(topic, muster) {
       }
     };
   }
-  if (topic.id === 'adhs-unaufmerksam') {
+  if (topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
     const b = muster.bloecke || {};
     const ws = b.wasDuSiehst    || {};
     const rp = b.risikoProfil   || {};
