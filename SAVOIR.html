@@ -8943,9 +8943,344 @@ const PLAN_MUSTER_ANGSTSTOERUNGEN = [
       }
     }
   },
-  { id: 'angst-trennung',        name: 'Trennungsangst',                             bloecke: emptyAngstBloecke() },
-  { id: 'angst-panik',           name: 'Panikstörung',                               bloecke: emptyAngstBloecke() },
-  { id: 'angst-phobie-spez',     name: 'Spezifische Phobie',                         bloecke: emptyAngstBloecke() },
+  /* M4 — Trennungsangst. Befüllt Prompt 13.
+     Klinische Eckpfeiler: anhaltende übermäßige sorge vor trennung von
+     bezugsperson, bei jugendlichen über 12 jahren altersuntypisch und
+     diagnostisch relevant. Häufig durch reales verlust-ereignis verstärkt.
+     Familien-arbeit zentral. Leitsatz: „sicherheit kommt nicht aus dem
+     anruf — sie kommt aus der erfahrung, dass nichts passiert, wenn du
+     nicht anrufst." */
+  {
+    id: 'angst-trennung',
+    name: 'Trennungsangst',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit anhaltender übermäßiger Sorge, wenn die primäre Bezugsperson nicht erreichbar oder nicht in der Nähe ist. Probleme bei Klassenfahrten, Übernachtungen außer Haus, Aktivitäten ohne Eltern. Klammerndes Verhalten in Übergangs-Situationen, Sorge, dass der Bezugsperson etwas zustößt. In akuter Phase Schul-Vermeidung, wenn die Bezugsperson involviert ist — bei Jugendlichen oft als Schulphobie fehldiagnostiziert.</p>`,
+        klinischWichtig: `<p>Der Mechanismus ist nicht „anhängliches Kind", sondern ein hyperaktiviertes Bindungs-Sicherheits-System. Der Klient antizipiert chronisch Verlust oder Schaden der Bezugsperson — häufig nach einem realen Auslöser (Eltern-Krankheit, Tod im Umfeld, Scheidung). Die Sorgen sind nicht durch Reassurance beruhigbar — der Klient ruft an, fragt nach, will den Standort wissen, fühlt sich kurz besser, dann beginnt das Muster von vorne. DSM-5 hat Trennungsangst aus den Kindheits-Störungen herausgelöst; sie gilt jetzt für alle Altersstufen und wird bei Jugendlichen über zwölf besonders relevant.</p>
+          <p>Bei älteren Jugendlichen wird das oft als Schulphobie umetikettiert, weil die Schul-Vermeidung sichtbar wird, aber der eigentliche Trigger ist die Trennung von der Bezugsperson, nicht das Schul-Setting. Klassisches diagnostisches Bild: der Klient kann nicht zur Schule, weil er nicht von der Mutter weg will — am Wochenende keine Symptomatik, solange die Mutter zuhause ist. Bei langem Verlauf hat sich das Familien-System um die Vermeidung herum organisiert, Eltern erscheinen mitleidsvoll-überfordert und unfähig zur Konfrontation.</p>`,
+        vergleich: `<p><strong>Vs. M3 Schulphobie:</strong> bei M3 ist die Schule das Setting, bei M4 die Trennung von der Bezugsperson. Klärung über die Frage: ist der Klient symptomfrei, wenn die Bezugsperson in der Nähe ist, auch in anderen Settings als zuhause? Wenn ja, ist M4 führend.</p>
+          <p><strong>Vs. komplexes Trauma (A07):</strong> bei Trauma sind dissoziative Komponenten und Trauma-Trigger sichtbar, bei Trennungsangst nicht. Sorgfältige Trauma-Anamnese, vor allem wenn ein konkreter Verlust-Auslöser besteht.</p>
+          <p><strong>Vs. Bindungsstörung:</strong> bei Bindungsstörung ist die Bindung selbst gestört (vermeidend oder desorganisiert), bei Trennungsangst ist die Bindung intakt, aber übermäßig Sicherheits-suchend. Das ist klinisch ein wichtiger Unterschied — Trennungsangst-Klienten lieben sichtbar und stabil, sie können nur die Trennung nicht aushalten.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei akuter Verlust-Antizipation',
+          'Akute Eskalation bei tatsächlichem Verlust oder Krankheit der Bezugsperson'
+        ],
+        hoch: [
+          'Schulphobie sekundär',
+          'Sekundäre Depression',
+          'Vollständige Vermeidung von Aktivitäten außer Haus',
+          'Soziale Isolation'
+        ],
+        mittel: [
+          'Chronische Bindungs-Muster ins Erwachsenenalter',
+          'Berufs-Vermeidung in Bereichen, die Trennung erfordern',
+          'Identitätsfestigung als „kann nicht ohne"',
+          'Erweiterte Vermeidung auf Geschwister oder Partner'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>KVT mit graduierter Trennungs-Exposition. Familien-Arbeit zentral — ohne Eltern-Mitarbeit scheitert die Behandlung. Sicherheits-Verhalten reduzieren (Anrufe, Standort-Tracking, sofortige Verfügbarkeit der Eltern). Bei traumatischer Vorgeschichte (Verlust-Ereignis als Auslöser): parallele Trauma-Bearbeitung.</p>`,
+        begruendung: `<p>Die Bezugsperson muss mitziehen — der häufigste Grund für Therapie-Versagen ist, dass Eltern weiter sofortige Verfügbarkeit anbieten. Der Klient muss lernen, mit der Trennungs-Anspannung umzugehen, nicht sie zu vermeiden. Reassurance gibt kurze Erleichterung und verlängert das Muster.</p>`,
+        diagnostik: [
+          'SCARED mit Trennungsangst-Subskala',
+          'K-SADS-PL',
+          'Bindungs-Anamnese mit Fokus auf frühe Trennungs-Erfahrungen und traumatische Verluste',
+          'Differential M3 und A07 strukturiert klären',
+          'Familien-Anamnese mit Fokus auf Eltern-Verhalten in Trennungs-Situationen'
+        ],
+        wasDuTust: [
+          '„Deine Sorge um deine Mutter ist nicht falsch — sie ist nur viel größer, als die Wahrscheinlichkeit, dass etwas passiert."',
+          '„Wir trainieren nicht, dass dir deine Bezugsperson egal wird. Wir trainieren, dass du sie liebhaben kannst, ohne dauernd zu prüfen, ob sie noch da ist."',
+          '„Sicherheit kommt nicht aus dem Anruf. Sicherheit kommt aus der Erfahrung, dass nichts passiert, wenn du nicht anrufst."',
+          '„Jeder Anruf ist eine kurze Erleichterung und eine Verlängerung des Problems."',
+          '„Du wirst lernen, dass dein Körper die Anspannung überstehen kann — und dass sie weggeht."'
+        ],
+        wasDuNichtTust: [
+          'Nicht die Eltern in der „sofort verfügbar sein"-Position belassen — verlängert das Muster systematisch',
+          'Nicht Reassurance geben, dass nichts passieren wird — klinisch unverantwortlich und ineffektiv',
+          'Nicht zu lange auf Eigen-Motivation des Klienten warten — Vermeidung verfestigt sich aktiv',
+          'Nicht alle Trennungs-Situationen vermeiden, bis der Klient „bereit" ist — Bereitschaft kommt aus der Exposition'
+        ],
+        frequenz: `<p>Wöchentlich für sechzehn Wochen, dann 14-tägig. Familien-Sitzungen alle drei bis vier Wochen.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik, Bindungs-Anamnese, Familien-Anamnese. Trigger-Ereignis im familiären Umfeld identifizieren. Eltern aufklären über die Verstärker-Funktion des Reassurance-Verhaltens. Erste Vereinbarungen zur Reduktion der Sicherheits-Verhalten.`,
+        phase2: `Strukturierte Trennungs-Hierarchie aufstellen. Beginn der graduierten Exposition mit niedrigster Stufe (kurze geplante Trennungen). Reduktion der Anruf-Frequenz nach Plan. Schul-Anpassungen, wenn sekundäre Schulphobie vorliegt.`,
+        phase3: `Expositions-Hierarchie systematisch durcharbeiten — zunehmend längere Trennungen, Klassenfahrten, Übernachtungen, Aktivitäten ohne Eltern-Begleitung. Bei traumatischer Vorgeschichte: parallele Trauma-Bearbeitung integrieren.`,
+        phase4: `Konsolidierung. Der Klient hat eigene Werkzeuge für Trennungs-Anspannung. Die Familie hat veränderte Reaktions-Muster. Frequenz reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht entweder das anhängliche Kind, das sich nicht trennen kann, oder bei älteren Jugendlichen Schul-Vermeidung, die als Schulphobie fehldiagnostiziert wird. Klassische Hürden sind Klassenfahrten, Übernachtungs-Aktivitäten, längere Schul-Ausflüge. Eltern werden oft zu Helfern in der Vermeidung — sie holen den Klienten ab, bleiben in der Nähe, versprechen sofortige Verfügbarkeit. Klassenfahrten werden ausgelassen, Aktivitäten verkürzt, das Muster verfestigt sich. Lehrkräfte interpretieren das Geschehen wohlwollend als „besondere Anhänglichkeit" und legitimieren damit die Vermeidung; die wenigsten ahnen, dass sie Teil eines klinischen Aufrechterhaltungs-Zyklus geworden sind.</p>
+          <p>Was die Schule braucht, ist klinische Aufklärung über Trennungsangst als eigenständige Diagnose (nicht als Schulphobie), Kooperation bei graduierter Exposition (Klassenfahrten teilnehmen mit Vorbereitung statt komplett auslassen), und Bereitschaft, Eltern-Anrufe in der Schule zu limitieren. Die Trennungsangst-spezifische Strategie unterscheidet sich von der Schulphobie-Strategie — bei Schulphobie ist die Schule der Trigger, bei Trennungsangst die Trennung. Schulische Maßnahmen, die einen Trigger ansprechen, der nicht der primäre ist, helfen nicht. Ohne diese Differenzierung werden falsche Anpassungen verordnet: Reduktion der Schul-Anforderungen, mehr Pausen, einzel-betreuter Unterricht — alles Maßnahmen, die bei Schulphobie sinnvoll sein können, bei Trennungsangst aber das Muster sogar verstärken, weil die Schule zu einer Verlängerung der elterlichen Sicherheits-Quelle wird statt zu einem eigenständigen Trennungs-Raum.</p>
+          <p>Zentral ist die Botschaft an Schule und Eltern, dass die Therapie keine Befreiung vom Schmerz organisiert, sondern den Schmerz strukturiert begleitet. Trennungsangst-Behandlung ist Expositions-Behandlung, und Exposition ist im Kern unangenehm. Wenn alle Beteiligten — Klient, Eltern, Lehrkräfte — diese Logik verstanden haben, kann die Schule zu einem hochwirksamen Behandlungs-Ort werden. Wenn sie unverstanden bleibt, wird die Schule zu einem Ort, an dem die Trennungs-Schmerzen mit denselben Mitteln beruhigt werden wie zuhause — und damit verfestigt.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine Trennungsangststörung — eine klinische Diagnose, die übermäßige Sorge vor Trennung von der primären Bezugsperson bezeichnet. Bei Jugendlichen über zwölf Jahren ist diese Diagnose besonders zu beachten, weil sie häufig als Schulphobie oder allgemeine Angst fehlinterpretiert wird.</p>
+          <p>Anders als bei einer Schulphobie ist nicht die Schule das auslösende Setting, sondern die Trennung von der Bezugsperson. Diagnostisch entscheidend: [Klient-Name] hat auch in anderen Settings ohne die Bezugsperson Symptome, nicht nur in der Schule. Behandlungs-Ziel ist graduierte Trennungs-Exposition — Klassenfahrten teilnehmen, Aktivitäten außer Haus beibehalten, Schul-Anwesenheit ohne Eltern-Anrufe.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: Klassenfahrten und Übernachtungs-Ausflüge teilnehmen mit therapeutischer Vorbereitung statt vollständiger Befreiung; Eltern-Anrufe während Schulzeit auf vereinbarte Zeiten limitieren; eine sichere Bezugsperson in der Schule (nicht Familien-Mitglied) für akute Krisen. Ich biete Ihnen gerne ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Klassenfahrten und Übernachtungs-Ausflüge teilnehmen mit therapeutischer Vorbereitung', begruendung: 'Vollständige Befreiung verstärkt das Muster systematisch. Die Klassenfahrt ist eine zentrale Expositions-Gelegenheit, die das Schul-Setting bietet — wenn sie ausgelassen wird, verzögert sich die Behandlung um Monate. Vorbereitung in der Therapie mit konkreten Coping-Plänen ermöglicht die Teilnahme. Konkret: in den Wochen vor der Klassenfahrt werden in der Therapie kurze Trennungs-Schritte abgestuft geübt (eine Übernachtung bei Großeltern, eine Wochenend-Übernachtung bei Freund-Familie), parallel wird ein Coping-Kit zusammengestellt (Karte mit Atemübung, vereinbarter Eltern-Anruf-Zeitpunkt, ein Begleit-Objekt). Die Schule wird über das Vorgehen informiert und stützt die Pläne aktiv.' },
+          { titel: 'Eltern-Anrufe während Schulzeit limitieren auf vereinbarte Zeiten oder akute Notfälle', begruendung: 'Jeder Anruf ist eine Erleichterung mit Verstärker-Wirkung. Vereinbarte Anruf-Zeiten (z. B. einmal in der großen Pause) strukturieren das Muster und reduzieren die Antizipations-Spirale. Akute Notfälle bleiben möglich, aber nicht jede Sorge-Episode darf zum Anruf werden. Die Schule muss diese Logik explizit mittragen — wenn das Sekretariat bei jeder Anfrage das Telefon reicht, läuft die Vereinbarung unter. Schriftliche Dokumentation der Anruf-Regelung, getragen von Klassenlehrer, Sekretariat und Eltern, ist notwendige Bedingung.' },
+          { titel: 'Sichere Bezugsperson in der Schule', begruendung: 'Nicht Familien-Mitglied. Diese Person stabilisiert in akuten Krisen, ohne als Reassurance-Quelle zu fungieren. Eine vertraute Lehrkraft oder die Schul-Psychologin, geschult in Coping-Sprache statt Beruhigung. Die Trennung muss gelingen — die Bezugsperson begleitet, ersetzt aber nicht die Mutter. Konkret heißt das: keine Sätze wie „deine Mutter kommt gleich" oder „du musst dir keine Sorgen machen, ihr geht es gut", sondern „ich sehe, dass es dir gerade schwerfällt; lass uns kurz durchatmen, und dann gehen wir zusammen den Coping-Plan durch". Reassurance behandelt das Symptom, Coping behandelt das Muster.' },
+          { titel: 'Übergabe-Übergabe morgens kurz und strukturiert', begruendung: 'Keine ausführlichen Abschiede. Lange Abschieds-Rituale aktivieren die Trennungs-Antizipation und verstärken die Symptomatik. Ein kurzer, klarer, ritualisierter Abschied (vereinbarte Geste, ein Satz) ist klinisch effektiver als die ausgedehnte emotionale Verabschiedung.' },
+          { titel: 'Bei akuter Krise in der Schule: vereinbarter Coping-Plan ohne sofortigen Eltern-Anruf', begruendung: 'Die Bezugsperson in der Schule führt durch die Krise (Atemübung, kurzer Spaziergang, Sitzen in ruhigem Raum). Der Klient lernt, dass die Krise vorbeigeht ohne sofortige Eltern-Verfügbarkeit. Erst nach der Krise, wenn klinisch indiziert, gegebenenfalls Eltern-Information.' },
+          { titel: 'Schul-Sozialarbeit bei Bedarf, aber nicht als Reassurance-Quelle', begruendung: 'Wenn schulische Beratung indiziert ist, dann mit klinischer Abstimmung. Die Schul-Sozialarbeit darf nicht zu einer weiteren Sicherheits-Anlaufstelle werden, die das Muster verstärkt. Ihre Rolle ist Begleitung, nicht Beruhigung.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Befreiung von Klassenfahrten oder Übernachtungen', begruendung: 'Verstärkt das Muster. Wenn die Schule die Vermeidung legitimiert, bekommt der Klient die Botschaft, dass die Trennung wirklich gefährlich ist. Die Klassenfahrt ist eine zentrale Behandlungs-Gelegenheit, die nicht verloren werden darf.' },
+          { titel: 'Keine sofortige Eltern-Verfügbarkeit als Schul-Standard', begruendung: 'Wenn die Schule bei jeder Sorge-Äußerung die Eltern anruft, reproduziert sie das häusliche Reassurance-Muster. Das Familien-System verschiebt sich nicht, weil die Schule ihm dieselbe Logik anbietet.' },
+          { titel: 'Keine prolongierten Abschieds-Rituale am Morgen', begruendung: 'Lange Abschiede aktivieren die Trennungs-Antizipation. Eltern, die morgens lange am Schul-Gebäude warten und mehrmals abschiednehmen, verstärken systematisch das, was sie reduzieren wollen. Kurze, klare Abschiede sind klinisch effektiver.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als sichere Bezugsperson, geschult in Coping-Sprache statt Reassurance',
+          'Schul-Psychologe (in Luxemburg CDSE-PSY oder PEP-Service) für klinische Aufklärung und institutionelle Verankerung',
+          'SCAS für vertiefte therapeutische Begleitung, besonders bei sekundärer Schulphobie',
+          'KJP bei schwerer Komorbidität oder Medikations-Frage (SSRI)',
+          'Eltern als zentrale Verbündete der Behandlung — ohne ihre Mitarbeit scheitert die Therapie'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen in der Behandlungs-Phase. Vor Klassenfahrten oder Übernachtungs-Aktivitäten verdichten, weil diese die zentralen Expositions-Gelegenheiten sind.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Trennungsangst-Aufklärung. Die Differenzierung zu Schulphobie und sozialer Angst explizit machen.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Hier wird die Eltern-Schul-Allianz neu verhandelt.</li>
+            <li><strong>Stufe 3</strong> — Vereinbarungen dokumentiert (Anruf-Zeiten, Abschieds-Ritual, Notfall-Plan).</li>
+            <li><strong>Stufe 4</strong> — Bei sekundärer Schulphobie: integrierte Behandlung beider Achsen mit angepassten Anpassungen.</li>
+            <li><strong>Stufe 5</strong> — Vollständige Auszeit nur bei massiver Komorbidität, mit klar definiertem Wieder-Einstiegs-Plan.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Sekundäre Schulphobie entwickelt sich. Akute Verlust-Antizipation (Eltern-Erkrankung, neuer Verlust im Umfeld). Depressive Symptomatik vertieft sich.</p>`,
+        ueberweisung: `<p>SSRI bei schwerer Belastung. Schwere komorbide Depression. Konkrete Suizidalität.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Verwahrlosung. Familien-Eskalation mit Beziehungs-Abbruch.</p>`
+      }
+    }
+  },
+  /* M5 — Panikstörung. Befüllt Prompt 13.
+     Klinische Eckpfeiler: wiederkehrende panikattacken plus antizipations-
+     angst, Clark-modell mit catastrophic misinterpretation körperlicher
+     sensationen, hyperventilations-spirale. PCT (Panic Control Treatment,
+     Barlow) als goldstandard. Multiple unauffällige notaufnahme-besuche
+     klassisch bei jugendlichen. Leitsatz: „dein körper kann eine panikattacke
+     nicht endlos produzieren — sie endet von alleine in einigen minuten." */
+  {
+    id: 'angst-panik',
+    name: 'Panikstörung',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit wiederkehrenden plötzlichen Panikattacken, Antizipations-Angst zwischen den Attacken, beginnende Vermeidung von Orten, an denen Attacken aufgetreten sind. Oft mehrere Notaufnahme-Besuche mit kardiologischer Abklärung ohne Befund. Der Klient interpretiert die körperlichen Sensationen während der Attacke als lebensbedrohlich (Herzinfarkt, Erstickung, Verrücktwerden), was die Attacke verstärkt. Multiple unauffällige somatische Untersuchungen sind klassischer Verlauf.</p>`,
+        klinischWichtig: `<p>Den Clark-Mechanismus muss klar verstanden sein. Eine Panikattacke beginnt mit einer körperlichen Sensation — Herzschlag-Beschleunigung durch Aufregung, Schwindel durch Lage-Wechsel, Atemveränderung durch Anstrengung. Das ist normal. Bei Panikstörung wird diese Sensation katastrophisch interpretiert — „ich bekomme einen Herzinfarkt", „ich ersticke", „ich werde verrückt". Die Interpretation löst die Stress-Reaktion aus, die die körperlichen Sensationen verstärkt, die wieder katastrophisch interpretiert werden — eine geschlossene Spirale, die nach einigen Minuten in einer voll ausgeprägten Panikattacke endet.</p>
+          <p>Hyperventilation reduziert das CO2 im Blut, was weitere Symptome produziert (Parästhesien, Schwindel, Derealisation). Antizipations-Angst zwischen Attacken wird zur eigenständigen Last — der Klient wartet auf die nächste Attacke und produziert dadurch genau die körperlichen Sensationen, die die Attacke auslösen. Agoraphobische Vermeidung entsteht, weil Orte, an denen Attacken stattfanden, gemieden werden — bei Jugendlichen häufig Schul-Klassenzimmer, Klassenarbeiten-Setting, öffentliche Verkehrsmittel. PCT (Panic Control Treatment, Barlow) ist der Goldstandard.</p>`,
+        vergleich: `<p><strong>Vs. M7 Krankheitsangst:</strong> Krankheitsangst hat chronische Beobachtung körperlicher Signale, Panik akute Attacken-Episoden mit klar abgrenzbarem zeitlichen Muster. Häufige Komorbidität — Panikattacken triggern Krankheitsangst-Episoden.</p>
+          <p><strong>Vs. M1 GAS:</strong> GAS hat kontinuierliche Sorgen-Spirale, Panik klar abgrenzbare Attacken. Komorbidität möglich.</p>
+          <p><strong>Vs. tatsächliche somatische Pathologie:</strong> vorab müssen kardiologische (Mitralklappenprolaps, Arrhythmien), endokrinologische (Hyperthyreose, Phäochromozytom), neurologische und vestibuläre Ursachen ausgeschlossen sein. Diese Abklärung ist Voraussetzung für die psychotherapeutische Hauptintervention.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei schwerer agoraphobischer Einschränkung mit komorbider Depression',
+          'Tatsächliche kardiologische Eskalation parallel zur Diagnose (selten, aber muss ausgeschlossen sein)'
+        ],
+        hoch: [
+          'Agoraphobische Vermeidung breitet sich aus',
+          'Sekundäre Depression',
+          'Substanzkonsum (Benzodiazepin-Selbstmedikation, Cannabis, Alkohol)',
+          'Schul-Vermeidung sekundär'
+        ],
+        mittel: [
+          'Chronische Aktivitäts-Einschränkung',
+          'Berufs-Vermeidung',
+          'Identitäts-Festigung als „panik-anfällig"'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>KVT mit Clark-Modell als Rahmen, PCT (Panic Control Treatment) als strukturiertes Format. Komponenten: Psychoedukation über Hyperventilations-Mechanismus, Atemtraining, kognitive Restrukturierung der katastrophischen Interpretation, Verhaltensexperimente (gezielte Provokation körperlicher Sensationen — Hyperventilation, körperliche Anstrengung, Schwindel), Exposition bei agoraphobischer Vermeidung. Medikation: SSRI oder SNRI bei schwerer Belastung.</p>`,
+        begruendung: `<p>Der Klient muss erleben, dass die katastrophische Interpretation falsch ist — das wird über gezielte Provokation der Sensationen unter therapeutischer Begleitung gemacht. Vermeidung verhindert genau diese Korrektur-Erfahrung. Reine Atemübungen ohne kognitive Arbeit wirken kurzfristig, ohne den Mechanismus aufzulösen.</p>`,
+        diagnostik: [
+          'SCARED',
+          'Panik-Tagebuch mit Zeit, Auslöser, Symptomen, Dauer, Reaktion',
+          'K-SADS-PL',
+          'Somatische Vor-Abklärung: EKG, Schilddrüsen-Werte, gegebenenfalls erweiterte Diagnostik',
+          'Vermeidungs-Inventar für agoraphobische Komponente'
+        ],
+        wasDuTust: [
+          '„Eine Panikattacke ist die maximale Sicherheits-Reaktion deines Körpers — gegen eine Gefahr, die nicht existiert."',
+          '„Dein Körper kann eine Panikattacke nicht endlos produzieren. Sie endet von alleine, in einigen Minuten."',
+          '„Du wirst nicht sterben. Du wirst nicht verrückt. Das sind die zwei Hauptsorgen — beide sind falsch."',
+          '„Wir werden Sensationen in dir absichtlich produzieren, damit du erlebst, dass nichts passiert. Das ist nicht Folter — das ist Therapie."',
+          '„Vermeidung von Orten ist die Falle. Je länger du sie meidest, desto schlimmer wird es."'
+        ],
+        wasDuNichtTust: [
+          'Nicht beruhigen, dass „alles in Ordnung ist" während der Attacke — Reassurance verstärkt die Spirale',
+          'Nicht Vermeidung erlauben — verfestigt das agoraphobische Muster',
+          'Nicht Benzodiazepine als regelmäßige Medikation — verhindert die Konditionierungs-Auflösung',
+          'Nicht erneut somatische Diagnostik vorschlagen, wenn bereits ausreichend ausgeschlossen'
+        ],
+        frequenz: `<p>Wöchentlich für zwölf bis sechzehn Wochen (PCT-strukturierter Rahmen). Danach 14-tägig.</p>`
+      },
+      vierPhasen: {
+        phase1: `Somatische Abklärung verifizieren. Diagnostik abschließen. Psychoedukation über das Clark-Modell mit konkretem Schaubild der Hyperventilations-Spirale. Atemtraining lernen. Panik-Tagebuch einführen.`,
+        phase2: `Kognitive Restrukturierung der katastrophischen Interpretation. Verhaltensexperimente — gezielte Provokation körperlicher Sensationen unter Begleitung (Hyperventilation für eine Minute, Drehen auf dem Stuhl, körperliche Anstrengung). Reduktion der Antizipations-Angst.`,
+        phase3: `Exposition bei agoraphobischer Vermeidung — strukturierte Konfrontation mit gemiedenen Orten und Situationen. Schul-Anpassungen, wenn sekundäre Vermeidung dort. Konsolidierung der kognitiven Korrekturen.`,
+        phase4: `Rückfall-Prophylaxe mit konkretem Plan. Frequenz reduziert. Der Klient hat Werkzeuge für mögliche zukünftige Attacken — vor allem das Wissen, dass eine Attacke nicht gefährlich ist und endet.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule erlebt akute Panikattacken im Unterricht oder in Klassenarbeits-Situationen. Klassische Reaktionen: der Klient wird zum Krankenzimmer geschickt, ruft die Eltern an, wird abgeholt. Wiederholung dieser Sequenz führt zu Konditionierung — das Klassenzimmer wird zum Trigger-Ort, der Klient beginnt zu vermeiden. Klassenarbeiten sind besonders kritisch wegen der Antizipations-Angst und der körperlichen Anspannung. Häufig erleben Lehrkräfte ihre eigene Hilflosigkeit als die zentrale Herausforderung — sie wissen nicht, was sie tun sollen, wenn ein Schüler hyperventiliert, zittert, die Welt nicht mehr wahrnimmt. Die Standard-Reaktion „medizinischer Notfall" entlastet die Lehrkraft, schadet aber dem Klienten.</p>
+          <p>Was die Schule oft falsch macht: den Klienten bei jeder Attacke sofort abholen lassen — das ist gut gemeint und verstärkt die Vermeidungs-Konditionierung systematisch. Was die Schule braucht, ist klinische Aufklärung über Panikstörung als angst-getriebene und nicht lebensgefährliche Reaktion, ein vereinbarter Notfall-Plan mit kurzer Atemtechnik-Anwendung statt Klassenzimmer-Verlassen, und eine Bezugsperson trainiert in Coping-Sprache statt Reassurance. Die schulische Aufklärung muss explizit machen, dass eine Panikattacke nicht gefährlich ist — sonst rutscht die Lehrkraft automatisch in die medizinische Notfall-Reaktion zurück. Diese Aufklärung ist nicht trivial: sie widerspricht dem intuitiven Eindruck (jemand kämpft sichtbar um Atem, klagt über Herzrasen), und sie muss explizit und wiederholt erfolgen, damit sie im Akut-Moment greift.</p>
+          <p>Zweitens muss die Schule akzeptieren, dass eine teilnehmende Begleitung der Attacke ein klinisches Vorgehen ist, kein pädagogisches Versäumnis. Die Bezugsperson, die mit dem Klienten am Platz sitzt und die Atemtechnik begleitet, leistet eine therapeutisch wirksame Intervention. Sie braucht nicht zu beruhigen („alles wird gut"), sondern zu strukturieren („du bist in einer Panikattacke, sie ist nicht gefährlich, wir atmen jetzt zusammen, sie geht in einigen Minuten vorbei"). Diese Sprache muss vorab trainiert sein; sie kommt im Akut-Moment nicht von selbst.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine Panikstörung — eine klinische Diagnose, die wiederkehrende plötzliche Panikattacken bezeichnet. Während einer Attacke erlebt [Klient-Name] körperliche Symptome (Herzrasen, Atemnot, Schwindel, Erstickungsgefühl), die als lebensbedrohlich interpretiert werden. Diese Interpretation ist klinisch falsch — eine Panikattacke endet von alleine nach einigen Minuten, sie ist nicht gefährlich.</p>
+          <p>Die somatische Abklärung (EKG, kardiologische Untersuchung) ist vollständig erfolgt; eine medizinische Grunderkrankung ist ausgeschlossen. Behandlungs-Ziel ist nicht die Vermeidung der Attacken, sondern die Veränderung der Interpretation und die Aufrechterhaltung der Aktivitäten — Vermeidung verstärkt nachweislich das Muster.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: erstens, ein Notfall-Plan bei Attacke im Unterricht mit kurzer Atemtechnik-Anwendung am Platz statt sofortigem Klassenzimmer-Verlust; zweitens, das Klassenzimmer-Verlassen nur in Begleitung der sicheren Bezugsperson und mit klarem Rückkehr-Protokoll; drittens, Eltern-Anrufe nicht als Standard-Reaktion, sondern nur bei spezifischer Notfall-Eskalation; viertens, Aufrechterhaltung der schulischen Aktivitäten ohne pauschale Befreiung. Ich biete Ihnen gerne ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Notfall-Plan bei Attacke im Unterricht', begruendung: 'Kurze Atemtechnik-Anwendung am Platz, kein sofortiger Klassenzimmer-Verlust. Der Klient lernt die Atemtechnik in der Therapie und wendet sie in der Schule selbständig an. Der Schul-Notfall-Plan ist schriftlich, damit die Lehrkraft im akuten Moment nicht improvisieren muss. Die Botschaft an den Klienten: die Attacke ist nicht gefährlich, sie endet von alleine. Das schriftliche Protokoll enthält die genaue Sequenz (1. ruhig ansprechen, 2. an die Atemtechnik erinnern, 3. am Platz sitzen bleiben, 4. nach Abklingen kurze Stabilisierung) und steht im Klassenbuch sowie beim Sekretariat hinterlegt.' },
+          { titel: 'Verlassen des Klassenzimmers nur in Begleitung sicherer Bezugsperson', begruendung: 'Mit klarem Rückkehr-Protokoll. Wenn der Klient den Raum verlässt, dann nur kurz und mit der Erwartung zurückzukehren — sonst wird das Verlassen zur Vermeidung. Die Bezugsperson begleitet, beruhigt aber nicht („alles in Ordnung"), sondern stabilisiert mit Coping-Sprache („du bist in einer Attacke, sie wird gleich vorbeigehen"). Die Rückkehr ins Klassenzimmer ist klinisch zentral — sie verhindert die Konditionierung „Klassenzimmer = unausweichliche Attacke". Das Rückkehr-Fenster ist eng definiert (z. B. fünf Minuten draußen, danach zurück), nicht offen.' },
+          { titel: 'Eltern-Anrufe nicht als Standard-Reaktion', begruendung: 'Nur bei spezifischer Notfall-Eskalation. Wenn die Schule bei jeder Attacke die Eltern anruft, lernt der Klient: Attacke → Anruf → Heimfahrt. Diese Konditionierung verfestigt die Vermeidung. Der vereinbarte Notfall-Plan definiert, was eine echte Notfall-Eskalation ist und was nicht. Eltern werden über jede Attacke informiert, aber nicht zur Abholung gerufen — die Botschaft ist Stabilisierung, nicht Rettung.' },
+          { titel: 'Klassenarbeiten in vereinbartem Setting', begruendung: 'Vorzeitige Information, ruhiger Raum möglich, aber keine vollständige Befreiung. Klassenarbeiten sind eine zentrale Expositions-Gelegenheit — wenn sie immer in einem geschützten Setting stattfinden, wird die Generalisierung verhindert. Die Anpassung wird in Wochen-Schritten zurückgenommen, wenn die Behandlung greift.' },
+          { titel: 'Aufrechterhaltung der Schul-Aktivitäten', begruendung: 'Keine pauschalen Befreiungen. Sport, Klassenfahrten, öffentliche Aktivitäten bleiben Pflichtprogramm. Wenn agoraphobische Vermeidung beginnt sich auszubreiten, ist die schulische Aufrechterhaltung die wichtigste Gegenmaßnahme. Pauschale Befreiungen würden den Behandlungs-Erfolg untergraben.' },
+          { titel: 'Atemtechniken im Schul-Kontext trainiert und einsetzbar', begruendung: 'Der Klient übt in der Therapie und transferiert in den Schul-Alltag. Die Lehrkraft muss die Atemtechnik kennen und akzeptieren, dass der Klient sie am Platz anwendet — das kann anders aussehen als „normales" Schul-Verhalten, ist aber klinisch notwendig. Mitschüler-Erklärung in altersgerechter Form vermeidet sekundäre Stigmatisierung.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Notfall-Maßnahmen, die als Reassurance fungieren', begruendung: 'Sofortiger Eltern-Anruf, Heimfahrt — beides verstärkt die Vermeidung. Notfall-Maßnahmen müssen klinisch indiziert sein (echter medizinischer Notfall), nicht angstreduzierend gemeint.' },
+          { titel: 'Keine pauschale Befreiung von Klassenarbeiten', begruendung: 'Verstärkt Vermeidung. Wenn Klassenarbeiten immer ohne den Klienten stattfinden, lernt das Gehirn, dass die Vermeidung erfolgreich war. Anpassung (ruhiger Raum, Zeitverlängerung) ist möglich, vollständige Befreiung nicht.' },
+          { titel: 'Keine medizinische Behandlung der Attacken in der Schule', begruendung: 'Außer bei tatsächlich gleichzeitig auftretender Pathologie. Wenn die Schul-Schwester Blutdruck misst, EKG anhängt oder Notfall-Medikamente verabreicht, verstärkt das die Katastrophen-Interpretation des Klienten. Die schulische Linie bei Panik ist klinische Begleitung, nicht medizinische Intervention.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer und Bezugsperson trainiert in Coping-Sprache und Notfall-Plan',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) für klinische Aufklärung',
+          'SCAS für vertiefte therapeutische Begleitung',
+          'KJP für Medikations-Frage (SSRI oder SNRI)'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen. Bei agoraphobischer Ausbreitung temporär verdichten.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Panik-Aufklärung. Die Mechanismus-Erklärung (Hyperventilation, Spirale, nicht gefährlich) explizit machen.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Notfall-Plan koordinieren.</li>
+            <li><strong>Stufe 3</strong> — Notfall-Plan dokumentiert. Schriftlich verankert, mit allen relevanten Lehrkräften und Schul-Personal geteilt.</li>
+            <li><strong>Stufe 4</strong> — Bei agoraphobischer Vermeidung mit Schul-Bezug: strukturierte Wieder-Annäherung, gegebenenfalls Setting-Anpassung.</li>
+            <li><strong>Stufe 5</strong> — Auszeit nur bei massiver Komorbidität (Depression, Suizidalität), mit klar definiertem Wieder-Einstiegs-Plan.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Agoraphobische Vermeidung breitet sich aus. Sekundäre Depression. Substanzkonsum als Selbstmedikation.</p>`,
+        ueberweisung: `<p>SSRI oder SNRI Indikation. Benzodiazepin-Selbstmedikation. Konkrete Suizidalität.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan. Vollständige agoraphobische Einschränkung mit Verwahrlosung.</p>`
+      }
+    }
+  },
+  /* M6 — Spezifische Phobie. Befüllt Prompt 13.
+     Klinische Eckpfeiler: umrissene angst vor objekt oder situation;
+     subtypen mit klinischen besonderheiten (BII mit vasovagaler komponente,
+     emetophobie bei mädchen häufig); single-session-treatment (Öst) bei
+     umrissenen phobien hoch effektiv; bei generalisierten phobien
+     mehrteiliger aufbau. Leitsatz: „bei einer phobie ist exposition die
+     behandlung — es gibt keinen umweg." */
+  {
+    id: 'angst-phobie-spez',
+    name: 'Spezifische Phobie',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit umrissener Angst vor spezifischem Objekt oder Situation. Vermeidung jahrelang funktional kompensiert; die Krise kommt oft erst bei einer Lebensveränderung — Schul-Wechsel mit Impfpflicht (BII), neue Schule mit Aufzug (Klaustrophobie), Reise mit Flugzeug, Wohnungs-Wechsel mit Tier-Begegnung. Emetophobie als häufiges unterschätztes Profil bei Mädchen, oft mit Krankheitsangst-Komponente verknüpft.</p>`,
+        klinischWichtig: `<p>Spezifische Phobie ist klinisch klar umrissen, wird aber oft übersehen, weil der Klient seine Vermeidung gut versteckt. Bei Jugendlichen besonders wichtig: BII-Subtyp und Emetophobie. BII-Subtyp hat eine besondere physiologische Reaktion — statt der klassischen Stress-Reaktion mit Blutdruck-Anstieg kommt es zu einem biphasischen Verlauf: kurzer Blutdruck-Anstieg, dann starker Blutdruck-Abfall mit Bradykardie und Ohnmachts-Risiko. Applied Tension Technique (gezielte Muskel-Anspannung) ist die spezifische Intervention bei BII.</p>
+          <p>Bei Emetophobie: meist generalisiert über Jahre, oft mit Krankheitsangst-Komponente verknüpft, häufig sekundäre Essstörung, weil restriktiv gegessen wird, um Übelkeit zu vermeiden. Expositions-Therapie ist Goldstandard und bei umrissenen Phobien oft schon in einer Sitzung wirksam (Single-Session-Treatment, Öst). Bei generalisierten Phobien wie Emetophobie braucht es einen mehrteiligen Aufbau über mehrere Monate.</p>`,
+        vergleich: `<p><strong>Vs. M5 Panik:</strong> bei Phobie klar definierter Trigger, bei Panik unspezifisch oder generalisiert. Bei Phobie passiert nichts, wenn der Trigger nicht da ist; bei Panik können Attacken aus dem Nichts kommen.</p>
+          <p><strong>Vs. OCD:</strong> bei OCD intrusive Gedanken mit Neutralisierungs-Ritualen, bei Phobie pure Vermeidung des Objekts. Die Differenzierung ist bei Emetophobie manchmal fließend, weil dort ritualisierte Vermeidungs-Strategien auftreten können.</p>
+          <p><strong>Vs. A07 PTBS:</strong> bei PTBS Trauma-Hintergrund mit Wiedererleben, bei Phobie meist ohne klares Trauma. Manche spezifischen Phobien entstehen aber nach einem traumatischen Einzelereignis (Hundebiss → Hunde-Phobie); diese Differenzierung ist klinisch wichtig für die Trauma-Komponente.</p>
+          <p><strong>Vs. M2 Soziale Phobie:</strong> Soziale Phobie hat das Bewertungs-Element, Spezifische Phobie das Objekt-Element. Bei BII oder Emetophobie ist die Angst vor körperlichen Reaktionen zentral, nicht vor sozialer Bewertung.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'BII-Subtyp: Ohnmacht in gefährlicher Umgebung (Treppe, Straße, Fahrzeug)',
+          'Emetophobie: schwere Nahrungs-Restriktion mit Mangelversorgung',
+          'Suizidalität selten, aber bei schwerer Lebenseinschränkung mit komorbider Depression möglich'
+        ],
+        hoch: [
+          'Generalisierung der Vermeidung',
+          'Sekundäre Depression bei schwerer Einschränkung',
+          'Bei Emetophobie: sekundäre Essstörung',
+          'Soziale Isolation bei sozial-relevantem Trigger'
+        ],
+        mittel: [
+          'Chronische Lebens-Einschränkung',
+          'Berufs-Vermeidung in spezifischen Bereichen',
+          'Übergeneralisierung auf verwandte Trigger'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Expositions-basierte Behandlung als Goldstandard. Bei umrissenen Phobien Single-Session-Treatment möglich. Bei generalisierten Phobien (Emetophobie) mehrteiliger Aufbau. BII-Subtyp braucht Applied Tension Technique zusätzlich zur Exposition.</p>`,
+        begruendung: `<p>Bei einer Phobie ist Exposition die Behandlung. Es gibt keinen Umweg — kognitive Arbeit ohne Exposition wirkt nicht durchgreifend. Vermeidung ist sowohl Symptom als auch Mechanismus der Aufrechterhaltung; sie muss in der Behandlung aktiv unterbrochen werden.</p>`,
+        diagnostik: [
+          'SCARED',
+          'Subtyp-spezifische Skalen, wenn verfügbar (Spider Phobia Questionnaire, Emetophobia Questionnaire EmetQ-13)',
+          'Bei BII: detaillierte Anamnese vasovagaler Episoden',
+          'Vermeidungs-Inventar mit konkreten Situationen',
+          'Bei Emetophobie: Essverhalten-Anamnese mit Augenmerk auf sekundäre Essstörung'
+        ],
+        wasDuTust: [
+          '„Bei einer Phobie ist Exposition die Behandlung. Es gibt keinen Umweg. Wir bauen den Weg, aber wir gehen ihn."',
+          '„Wir machen nicht weniger Angst. Wir machen, dass deine Angst kleiner wird als deine Wahl."',
+          '„Vermeidung ist nicht Schwäche. Sie ist eine Reaktion, die kurzfristig funktioniert. Langfristig produziert sie das, was sie verhindern soll."',
+          '„Wir bauen eine Hierarchie auf. Du fängst mit dem an, was du heute schon kannst, plus einem Schritt."',
+          '„Bei BII-Phobie: Anspannung deiner Muskeln verhindert die Ohnmacht. Das ist die spezifische Technik für dein spezifisches Profil."'
+        ],
+        wasDuNichtTust: [
+          'Nicht Vermeidung als Lösung anbieten — bestätigt das Muster',
+          'Nicht zu sanfte Exposition — wirkt nicht, frustriert den Klienten und beschädigt die Therapie-Allianz',
+          'Nicht ohne Hierarchie expositiv arbeiten — Ergebnis ist unkontrolliert und kann zur Trauma-artigen Erfahrung werden',
+          'Bei BII nicht ohne Applied Tension Technique exponieren — Ohnmacht in der Sitzung möglich'
+        ],
+        frequenz: `<p>Bei umrissenen Phobien: oft ein bis vier Sitzungen ausreichend (Single-Session bis Kurzzeit-Format). Bei Emetophobie und generalisierten Phobien: wöchentlich für zwölf bis sechzehn Wochen.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik, Subtyp-Klärung, Hierarchie aufstellen. Psychoedukation. Bei BII: Applied Tension Technique lernen.`,
+        phase2: `Exposition durcharbeiten — graduiert von niedrigster zu höchster Stufe. Bei umrissenen Phobien oft schon hier Behandlungs-Ende.`,
+        phase3: `Nur bei generalisierten Phobien wie Emetophobie: Erweiterung der Exposition auf alle Trigger-Varianten. Kognitive Arbeit an verbleibenden katastrophischen Interpretationen. Bei Emetophobie: Essverhalten-Normalisierung.`,
+        phase4: `Bei generalisierten Phobien: Konsolidierung, Rückfall-Prophylaxe. Bei umrissenen Phobien entfällt diese Phase oft.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht oft nicht, dass eine spezifische Phobie besteht — der Klient vermeidet erfolgreich. Die Krise entsteht plötzlich, wenn ein Schul-Setting den Trigger aktiviert: Schul-Sanitäts-Aktion mit Impfungen (BII), Kantinen-Situation mit Übelkeits-Auslöser (Emetophobie), Klassen-Ausflug in den Zoo (Tier-Phobie), Aufzugs-Nutzung (Klaustrophobie). Die Schul-Reaktion bewegt sich klassischerweise zwischen zwei Polen — vollständige Befreiung, was die Vermeidung verstärkt, oder Insistenz ohne Vorbereitung, was zu Panik-artiger Reaktion und Trauma-Risiko führt. Ein Mittelweg, der klinisch sinnvoll ist — abgestufte und vorbereitete Konfrontation — wird selten gewählt, weil er Koordination zwischen Therapie und Schule voraussetzt, die strukturell nicht etabliert ist.</p>
+          <p>Was die Schule braucht, ist klinische Information über den spezifischen Trigger und Bereitschaft zur Kooperation bei geplanter Exposition. Die Subtyp-Differenzierung ist wichtig: bei BII muss die Schul-Schwester die vasovagale Komponente verstehen und Applied Tension Technique kennen; bei Emetophobie kann die Kantinen-Situation strukturell angepasst werden, ohne sie ganz auszulassen. Bei Tier-Phobien und Klaustrophobie sind die Schul-Settings überschaubar, aber dafür konkret — wenige Trigger-Anlässe pro Jahr, jeder davon eine klinisch wichtige Expositions-Gelegenheit, deren Vorbereitung sich über mehrere Wochen erstrecken muss.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine spezifische Phobie vor [Trigger]. Diese Diagnose bezeichnet eine umrissene Angst vor einem klar definierten Objekt oder Situation. Die Behandlung läuft über graduierte Exposition mit therapeutischer Begleitung — nicht über Vermeidung.</p>
+          <p>Aus klinischer Sicht bitte ich Sie um Kooperation bei geplanten Konfrontations-Schritten im Schul-Kontext. Vollständige Befreiung wäre klinisch kontraindiziert, weil sie das Vermeidungs-Muster verstärkt. Stattdessen brauchen wir ein vereinbartes Vorgehen, das die Konfrontation in kleinen Schritten ermöglicht.</p>
+          <p>Bei [Subtyp-spezifische Anpassung — z. B. BII bei Impfungen: vereinbartes Protokoll mit der Schul-Schwester, Applied Tension Technique vorab geübt; bei Emetophobie: Sitzplatz in der Kantine kontrolliert, aber nicht ausgelassen; bei Tier-Phobie: gradueller Aufbau zu Schul-Ausflügen]. Ich biete Ihnen gerne ein Gespräch an, in dem wir die subtyp-spezifischen Maßnahmen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'BII-Subtyp bei Impfungen: vereinbartes Protokoll mit Schul-Schwester', begruendung: 'Liegen statt Sitzen, Applied Tension Technique vorab geübt. Die vasovagale Komponente ist anatomisch real — ohne spezifisches Protokoll kann es zur Ohnmacht kommen, mit Risiko bei Sturz. Applied Tension reduziert das Ohnmachts-Risiko nachweislich. Die Schul-Schwester muss die Technik kennen. Vorab geübt heißt: in der Therapie über zwei bis drei Sitzungen, mit transferierter Anwendung im Schul-Setting; ein nur theoretisches Wissen reicht im Akut-Moment nicht.' },
+          { titel: 'Emetophobie: Sitzplatz in der Kantine kontrolliert', begruendung: 'Nahe Ausgang, mit Möglichkeit, kurz zu entfernen. Vollständiges Auslassen der Kantinen-Situation verstärkt die Vermeidung. Ein kontrollierter Sitzplatz ermöglicht die Konfrontation in einer abgestuften Form. Bei sekundärer Essstörung wird die schulische Verpflegung Teil der Behandlung. Die Sitzplatz-Anpassung wird im Therapie-Verlauf schrittweise zurückgenommen — was anfangs eine Schutz-Maßnahme war, wird später zur Vermeidungs-Stütze, wenn sie zu lange erhalten bleibt.' },
+          { titel: 'Tier-Phobie: gradueller Aufbau zu Schul-Ausflügen', begruendung: 'Zoo, Bauernhof oder ähnliche Trigger-Settings werden vorbereitet, nicht ausgelassen. Therapie und Schule koordinieren die Expositions-Hierarchie. Ein nicht vorbereiteter Schul-Ausflug zum Trigger kann eine Trauma-artige Erfahrung produzieren, die das Muster verfestigt.' },
+          { titel: 'Klaustrophobie / Aufzug: Treppen-Nutzung erlaubt, aber Aufzug bleibt Therapie-Ziel', begruendung: 'Treppe als Übergangs-Lösung ist akzeptabel, der Aufzug wird in der Therapie als Expositions-Ziel aufgebaut. Wenn die Treppe zur dauerhaften Lösung wird, bleibt die Phobie aufrechterhalten. Wenn die Schule die Treppen-Lösung dauerhaft mitträgt, wird sie zum Vermeidungs-Verstärker.' },
+          { titel: 'Bei akuter Konfrontation ohne Vorbereitung: Rückzugs-Möglichkeit mit klarer Rückkehr-Vereinbarung', begruendung: 'Wenn der Klient unerwartet konfrontiert wird (Spinne im Klassenzimmer, plötzliche Impfung-Aktion), ist Rückzug klinisch akzeptabel, aber nicht endgültig. Die Vereinbarung „kurzer Rückzug, dann Rückkehr" verhindert die langfristige Verfestigung. Die Lehrkraft muss diese Logik verstehen. Nach jeder unerwarteten Konfrontation erfolgt eine kurze therapeutische Nach-Besprechung, damit die Erfahrung integriert und nicht zur Trauma-Quelle wird.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine vollständige Befreiung von Trigger-Situationen', begruendung: 'Verstärkt Vermeidung systematisch. Wenn der Klient nie mehr in die Trigger-Situation kommt, lernt das Gehirn, dass die Vermeidung erfolgreich war, und die Phobie verfestigt sich. Anpassungen ja, vollständige Befreiung nein.' },
+          { titel: 'Keine erzwungene Exposition ohne therapeutische Begleitung', begruendung: 'Produziert Trauma-artige Erfahrung. Wenn die Schule den Klienten ohne Vorbereitung und ohne Hierarchie konfrontiert (z. B. „du musst jetzt in den Aufzug"), kann das eine Panikattacke auslösen, die das Muster verfestigt statt zu reduzieren. Exposition ist eine therapeutische Intervention, kein pädagogischer Akt.' },
+          { titel: 'Bei BII nicht ohne Applied Tension Technique konfrontieren', begruendung: 'Ohnmacht-Risiko. Bei BII-Subtyp ist die vasovagale Reaktion physiologisch real und kann zu Sturz mit Verletzung führen. Applied Tension Technique muss vorab in der Therapie geübt sein und in der Konfrontations-Situation angewendet werden.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer für allgemeine Aufklärung',
+          'Schul-Schwester bei BII-Subtyp speziell (Applied Tension Technique-Kenntnis Pflicht)',
+          'SCAS für vertiefte Begleitung, vor allem bei generalisierten Phobien wie Emetophobie',
+          'Bei Emetophobie: Schul-Ernährungsdienst informieren — Kantinen-Situation als Behandlungs-Komponente'
+        ],
+        f_frequenz: `<p>Schul-Kontakt meist begrenzt auf Phasen mit Trigger-Setting. Bei generalisierten Phobien (Emetophobie) regelmäßiger Kontakt während der Behandlungs-Phase.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit subtyp-spezifischer Aufklärung.</li>
+            <li><strong>Stufe 2</strong> — Spezifische Setting-Verantwortliche aufklären (Schul-Schwester bei BII, Sportlehrer bei spezifischen Aktivitäten, Kantinen-Personal bei Emetophobie).</li>
+            <li><strong>Stufe 3</strong> — Vereinbarungen dokumentiert.</li>
+            <li><strong>Stufe 4</strong> — Bei sekundärer Generalisierung oder bei Emetophobie mit Essstörungs-Komponente: vertiefte Behandlung mit erweiterten schulischen Maßnahmen.</li>
+            <li><strong>Stufe 5</strong> — Auszeit selten nötig, nur bei schwerer Komorbidität (Mangelversorgung bei Emetophobie, schwere Depression).</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Generalisierung der Vermeidung. Bei Emetophobie: sekundäre Essstörung. Sekundäre Depression bei schwerer Einschränkung.</p>`,
+        ueberweisung: `<p>Bei Emetophobie mit Mangelversorgung. Schwere komorbide Depression. Therapie-Resistenz bei strukturiertem Verlauf.</p>`,
+        klinik: `<p>Mangelversorgung durch Emetophobie-bedingte Nahrungs-Restriktion. Akute Suizidalität (selten).</p>`
+      }
+    }
+  },
   /* M7 — Krankheitsangst / hypochondrische Strukturen. Befüllt Prompt 11.
      Klinische Eckpfeiler: katastrophische interpretation körperlicher signale,
      reassurance-spirale, salkovskis-modell als therapeutischer rahmen. Bei
