@@ -8567,13 +8567,259 @@ function emptyAngstBloecke() {
   };
 }
 const PLAN_MUSTER_ANGSTSTOERUNGEN = [
-  { id: 'angst-gas',             name: 'Generalisierte Angststörung (GAS)',          bloecke: emptyAngstBloecke() },
+  /* M1 — Generalisierte Angststörung. Befüllt Prompt 11.
+     Klinische Eckpfeiler: anhaltende sorgen über multiple lebensbereiche,
+     intolerance of uncertainty (Barlow, Borkovec), worry als kognitive
+     vermeidung. Coping-Cat-Programm (Kendall) als evidenz-basierter
+     KVT-rahmen. Leitsatz: „sorgen sind kein denken — sie sind ein versuch,
+     nicht zu fühlen." */
+  {
+    id: 'angst-gas',
+    name: 'Generalisierte Angststörung (GAS)',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher, der seit Monaten oder Jahren über alles Mögliche besorgt ist — Schule, Familie, Gesundheit, Zukunft, Weltgeschehen, Beziehungen. Wirkt nach außen verantwortungsbewusst oder perfektionistisch, klagt innerlich über chronische Anspannung, Müdigkeit, schlechten Schlaf. Die Sorgen sind nicht spezifisch fokussiert, sondern allgemein und kreisen ständig. Schule und Familie sehen das fleißige Kind und übersehen den inneren Preis.</p>`,
+        klinischWichtig: `<p>Der Mechanismus ist nicht Affekt, sondern Kognition. Der Klient sorgt sich um die Zukunft, weil das subjektiv ein Versuch ist, die Zukunft zu kontrollieren. Worry ist kognitive Vermeidung — solange du sorgst, musst du nicht fühlen. Das funktioniert kurz und kostet langfristig: Muskelspannung wird chronisch, Schlaf wird fragmentiert, Konzentration kollabiert, weil zu viel Aufmerksamkeit auf inneres Kreisen geht.</p>
+          <p>Bei Jugendlichen besonders tückisch, weil das Profil sozial belohnt wird — Lehrer und Eltern sehen das fleißige Kind. Diagnose oft erst bei Erschöpfungs-Krise oder somatischer Manifestation. Borkovec und Barlow haben den Mechanismus der intolerance of uncertainty klinisch ausformuliert: der GAS-Klient kann mit Unsicherheit nicht umgehen, das Sorgen ist sein gescheiterter Versuch, sie zu beseitigen. Wenn du einen Jugendlichen siehst, der sehr viel arbeitet, sehr müde ist und sich um sehr viele Dinge gleichzeitig sorgt: denke GAS, bevor du Depression diagnostizierst — sonst behandelst du das Folge-Phänomen statt der Ursache.</p>`,
+        vergleich: `<p><strong>Vs. ADHS M4 (RSD):</strong> RSD reagiert auf konkrete Trigger mit emotionaler Intensität, GAS antizipiert proaktiv und präventiv. RSD ist episodisch, GAS chronisch. Beide können koexistieren, müssen klinisch aber getrennt adressiert werden.</p>
+          <p><strong>Vs. Depression:</strong> bei Depression dominiert affektive Komponente (Antriebslosigkeit, Anhedonie). Bei GAS dominiert kognitive Komponente (Sorgen-Kreisen). Häufige Komorbidität — sekundäre Depression als Folge der Erschöpfung. Reihenfolge der Behandlung: GAS zuerst, dann sekundäre Depression.</p>
+          <p><strong>Vs. M6 (Zwangsstörung):</strong> OCD hat spezifische intrusive Gedanken mit Ritualen zur Neutralisierung. GAS hat allgemeine Sorgen ohne Ritual-Komponente. Wenn ritualisierte Beruhigungs-Handlungen auftauchen, schau auf die Differential-Diagnose.</p>
+          <p><strong>Vs. M7 (Krankheitsangst):</strong> GAS sorgt sich um vieles, Krankheitsangst spezifisch um Gesundheit. Überlappung möglich — Krankheitsangst kann eine Manifestation einer generalisierten Sorgen-Struktur sein, dann beide Achsen integriert behandeln.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Akute Erschöpfungs-Dekompensation mit körperlichem Zusammenbruch',
+          'Suizidalität bei schwerer Belastung mit komorbider Depression',
+          'Akute somatische Eskalation (Hyperventilation, Spannungs-Kopfschmerz, gastrointestinale Manifestation)'
+        ],
+        hoch: [
+          'Sekundäre Depression entwickelt sich',
+          'Substanzkonsum als Selbstmedikation (Alkohol, Cannabis, Benzodiazepine)',
+          'Schul-Vermeidung beginnend',
+          'Massive Schlafstörung mit Folge-Symptomatik'
+        ],
+        mittel: [
+          'Chronische Lebens-Einschränkung durch Vermeidung',
+          'Berufs-Wahl auf Sicherheits-Achse statt Interesse',
+          'Beziehungs-Muster mit kontrollierendem Charakter',
+          'Identitäts-Festigung als „Sorgenkind"'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>KVT mit dem Coping-Cat-Programm (Kendall) als strukturierter Rahmen für Jugendliche. Komponenten: Psychoedukation über den Worry-Mechanismus, Worry-Postponement, kognitive Restrukturierung der katastrophischen Antizipation, behaviorale Experimente, Akzeptanz-Komponente. Medikations-Frage bei schwerer Belastung — SSRI (Sertralin, Escitalopram) als Add-on möglich.</p>`,
+        begruendung: `<p>Der Klient muss verstehen, dass Sorgen nicht Information sind, sondern Vermeidung. Ohne dieses Verständnis bleibt jede Strategie auf der Sorgen-Spirale aufgesetzt und greift nicht durch. Reine Entspannungs-Verfahren ohne kognitive Restrukturierung wirken kurzfristig, aber das Sorgen-Kreisen kehrt zurück, sobald die Übung vorbei ist.</p>`,
+        diagnostik: [
+          'SCARED (Screen for Child Anxiety Related Disorders) mit GAS-Subskala',
+          'MASC-2 (Multidimensional Anxiety Scale for Children)',
+          'K-SADS-PL für strukturierte komorbide Diagnostik',
+          'Strukturierte Anamnese mit Sorgen-Inventar — was wird wie oft, in welcher Intensität, mit welchen körperlichen Begleit-Symptomen',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'Schlaf-Anamnese mit Schlaf-Tagebuch über zwei Wochen'
+        ],
+        wasDuTust: [
+          '„Sorgen versuchen, dich zu schützen — sie tun es schlecht, aber gut gemeint. Wir müssen sie nicht abschaffen, wir müssen ihren Job verstehen."',
+          '„Du kannst nicht unbesorgt sein. Das wird kein Ziel unserer Arbeit. Du kannst lernen, mit Sorgen anders umzugehen — das ist das Ziel."',
+          '„Sorgen sind kein Denken. Sie sind ein Versuch, nicht zu fühlen. Was würdest du fühlen, wenn du nicht sorgen würdest?"',
+          '„Wir machen aus deiner Sorge nicht weniger Sorge. Wir machen sie zu einer Information, die du anschauen kannst, statt zu einer Stimme, die dich treibt."',
+          '„Dein Körper trägt die Last. Wir können ihn nicht überreden, ruhiger zu sein. Wir können den Kopf ändern, und der Körper folgt nach."'
+        ],
+        wasDuNichtTust: [
+          'Nicht „denk nicht so viel" oder ähnliche Beruhigungs-Versuche — verschärft die Spirale durch Meta-Sorgen („ich kann nicht aufhören zu denken, also stimmt etwas mit mir nicht")',
+          'Nicht alle Sorgen einzeln durchgehen und entkräften — Reassurance verstärkt das Muster, das Gehirn lernt Sorge → Beruhigung als Schleife',
+          'Nicht reine Entspannungs-Verfahren ohne kognitive Arbeit — wirkt kurzfristig, treibt aber das Kreisen langfristig',
+          'Nicht zu früh Akzeptanz-Komponente einsetzen, ohne den Worry-Mechanismus erarbeitet zu haben — der Klient kann nicht akzeptieren, was er nicht versteht',
+          'Nicht Sorgen als „irrational" framen — sie sind funktional, nur die Funktion ist nicht hilfreich; die Pathologisierung verstärkt die Scham und damit die Spirale'
+        ],
+        frequenz: `<p>Wöchentlich für zwölf bis sechzehn Wochen (Coping-Cat-strukturierter Rahmen), dann 14-tägig in der Konsolidierung. Bei schwerer Belastung oder akuter Krise temporär engmaschiger.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik abschließen, komorbide Achsen klären. Psychoedukation über den Worry-Mechanismus — der Klient muss verstehen, dass Sorgen kognitive Vermeidung sind, nicht hilfreiches Nachdenken. Sorgen-Tagebuch einführen für die kommenden Wochen. Familie aufklären — Reassurance-Verhalten zuhause muss sich ändern, sonst läuft die Therapie zuhause systematisch unter. Krisen-Sicherung bei Suizidalität.`,
+        phase2: `Coping-Cat-Programm strukturiert durchgehen: kognitive Restrukturierung der katastrophischen What-If-Schleifen, Worry-Postponement (Sorgen werden auf einen festen Tageszeitraum verlagert), erste behaviorale Experimente. Entspannungs-Verfahren als Begleitung, nicht als Hauptmaßnahme. Schul-Anpassungen umsetzen mit Schwerpunkt auf Reduktion der Mehrfach-Belastung.`,
+        phase3: `Akzeptanz-Komponente einführen — was bleibt an Unsicherheit, wie verändert sich die Beziehung dazu. Identitäts-Arbeit jenseits der „ich bin der, der sich um alles sorgt"-Selbstdefinition. Beziehungs-Muster reflektieren, weil GAS sich auch in der Beziehungs-Architektur niederschlägt (kontrollierende Tendenzen, Schwierigkeiten mit spontanen Plänen). Konsolidierung der Werkzeuge.`,
+        phase4: `Rückfall-Prophylaxe mit konkretem Plan für neue Sorgen-Phasen. Frequenz reduziert. Der Klient hat eigene Werkzeuge für Sorgen-Episoden und kann die Phasen unterscheiden: produktive Vorausplanung vs. unproduktives Sorgen-Kreisen. Übergangs-Antizipation für die nächste Lebens-Phase.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht den fleißigen Schüler, das angenehme Kind, den Verantwortungsbewussten. GAS produziert Verhalten, das schulisch belohnt wird — Hausaufgaben pünktlich, Tests gewissenhaft vorbereitet, Mitarbeit zuverlässig. Was niemand sieht, ist der innere Preis: stundenlange Vorbereitungs-Rituale für unwichtige Tests, Schlaflosigkeit vor Klassenarbeiten, körperliche Anspannung über den ganzen Schultag. Lehrer melden sich oft erst, wenn der Klient bereits in der Dekompensations-Phase ist — vorher ist er das pflegeleichte Vorzeige-Kind.</p>
+          <p>Die erste Krise kommt oft bei einem Setting-Wechsel, einer wichtigen Prüfung, einer sozialen Veränderung. Dann bricht plötzlich die Leistung ein, oder es kommt zu einer somatischen Manifestation — Spannungs-Kopfschmerz, Bauchschmerzen, Schlafstörung mit Folge-Erschöpfung. Lehrer sind oft überrascht, weil sie den Anteil hinter der guten Note nicht gesehen haben. Die Schul-Reaktion fällt regelmäßig in eine von zwei Fallen: entweder „die kann das doch, sie ist nur müde" (übersieht die klinische Realität) oder „wir machen jetzt alles leichter" (fördert Vermeidung und vertieft die Symptomatik).</p>
+          <p>Was die Schule braucht, ist Bereitschaft, die innere Belastung des Klienten ernst zu nehmen, auch wenn die Noten weiter gut sind, und Druck gezielt zu reduzieren, ohne den Schüler in die „Sonderfall"-Schublade zu schieben. Die spezifische Aufgabe der schulischen Strategie ist nicht Druckreduktion per se, sondern Reduktion der Antizipations-Belastung: gebündelte Klassenarbeiten in einer Woche eliminieren, Test-Information vorab in Sicherheits-Format geben, Mehrfach-Anforderungen entzerren. Generelle Druck-Reduktion wäre kontraindiziert, weil sie Vermeidung fördert; gezielte Antizipations-Entlastung ist der richtige Hebel.</p>
+          <p>Eine zusätzliche Schwierigkeit: GAS-Klienten erkennen oft selbst nicht, dass sie eine Diagnose haben — sie halten ihren Zustand für normalen Schul-Stress. Die Schul-Kommunikation muss diese Selbst-Wahrnehmung berücksichtigen und nicht unbeabsichtigt das „mit mir stimmt nichts"-Schema verstärken. Diskretion ist wichtig: die Klassenkameraden müssen die Diagnose nicht kennen, die Lehrkräfte schon. Wenn die Diagnose in der Klasse zum Thema wird, produziert das eine zusätzliche Sorgen-Schicht („was denken die anderen jetzt über mich"), die das Profil weiter belastet.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine generalisierte Angststörung — eine klinische Diagnose, die anhaltende, schwer kontrollierbare Sorgen über verschiedene Lebensbereiche bezeichnet, begleitet von körperlicher Anspannung und Erschöpfung. Anders als bei einer Schulphobie sind die Sorgen nicht auf die Schule fokussiert, sondern allgemein — Schule ist ein wesentlicher Trigger-Kontext, aber nicht der einzige.</p>
+          <p>Was äußerlich oft wie Fleiß oder Gewissenhaftigkeit aussieht, ist Ausdruck einer dauerhaften inneren Anspannung, die [Klient-Name] viel Energie kostet. Aktuell zeigen sich Folgen dieser chronischen Belastung — Schlafstörung, Konzentrationsschwierigkeiten, körperliche Beschwerden ohne organische Ursache. Die Diagnose ist klinisch gesichert und wird KVT-basiert mit dem Coping-Cat-Programm behandelt.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: erstens, Klassenarbeiten und große Bewertungen nicht in derselben Woche bündeln, weil die Antizipations-Belastung kumuliert; zweitens, Test-Information vorab in Sicherheits-Format (was wird abgefragt, wie viel Zeit, was passiert, wenn nicht alles fertig wird); drittens, eine klare strukturierte Aufgaben-Übersicht für die Woche, die das Antizipations-Kreisen reduziert; und viertens, eine sichere Bezugsperson, die mit Coping-Sprache statt mit Reassurance arbeitet.</p>
+          <p>Wichtig: die schulischen Anforderungen sollen nicht generell reduziert werden — das würde Vermeidung fördern. Es geht um die Reduktion der Mehrfach-Belastung und um Vorhersagbarkeit. Ich biete Ihnen gerne ein Gespräch an, in dem wir den Bedarf abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Klassenarbeiten und große Bewertungen nicht in einer Woche bündeln', begruendung: 'Antizipations-Belastung kumuliert. Bei GAS-Klienten beginnt die Sorgen-Spirale nicht am Test-Tag, sondern oft eine bis zwei Wochen vorher. Drei Tests in einer Woche bedeuten zwei bis drei Wochen kumulierte Vor-Sorge — das produziert regelmäßig die Erschöpfungs-Dekompensation. Eine Entzerrung über zwei Wochen ist klinisch begründete Anpassung, nicht Bevorzugung. Die Maßnahme erfordert Koordination zwischen Fach-Lehrkräften und sollte über die Klassen-Leitung organisiert werden.' },
+          { titel: 'Test-Information vorab in Sicherheits-Format', begruendung: 'Was wird abgefragt, wie viel Zeit, was passiert, wenn nicht alles fertig wird. Die Unsicherheit über das Test-Setting ist bei GAS oft schlimmer als der Inhalt selbst. Klare Vorab-Information reduziert das antizipative Sorgen-Kreisen substanziell und ermöglicht eine realistische Vorbereitung statt katastrophischer Worst-Case-Szenarien. Die Information sollte schriftlich vorliegen, damit der Klient bei Sorgen-Phasen darauf zurückgreifen kann.' },
+          { titel: 'Klare strukturierte Aufgaben-Übersicht für die Woche', begruendung: 'Reduziert das Antizipations-Sorgen-Kreisen. Bei GAS produziert jede Unklarheit über kommende Anforderungen die nächste Sorgen-Welle. Eine sichtbare Wochen-Übersicht — Papier oder digital, mit allen Deadlines und Tests — gibt einen externen Anker, der die kognitive Last reduziert.' },
+          { titel: 'Erlaubnis zur kurzen Erholungs-Pause bei akuter Anspannung ohne Diskussion', begruendung: 'Bei körperlicher Anspannungs-Krise (Hyperventilation, Spannungs-Kopfschmerz) braucht der Klient die Möglichkeit, kurz zu pausieren — drei bis fünf Minuten reichen oft. Ohne diese Möglichkeit eskaliert die Sorge in eine Spirale. Idealerweise mit stillem Signal vereinbart, damit der Pausen-Antrag nicht selbst Aufmerksamkeit zieht. Die Pause ist als Selbstregulations-Werkzeug konzipiert, nicht als Flucht-Möglichkeit; die Bezugsperson sollte das verstehen können.' },
+          { titel: 'Sichere Bezugsperson definiert (Klassenlehrer oder Vertrauenslehrer)', begruendung: 'Bei GAS ist eine konstante, verlässliche Beziehung zu einer Lehrkraft therapeutisch wertvoll. Diese Person ist nicht therapeutisch tätig, sondern stabilisiert durch Verlässlichkeit. Wichtig: trainiert in Coping-Sprache, nicht in Reassurance — „Was wäre dein nächster kleiner Schritt" statt „Es ist nicht so schlimm".' },
+          { titel: 'Klare Trennung zwischen „ich brauche Hilfe" und „ich vermeide"', begruendung: 'Bezugsperson trainiert in Coping-Sprache. Bei GAS ist die Versuchung zur Vermeidung hoch, und Reassurance unterstützt Vermeidung. Eine geschulte Bezugsperson kann unterscheiden, wann der Klient tatsächlich überfordert ist (Pause indiziert) und wann er aus Sorge vermeiden will (Pause kontraindiziert).' },
+          { titel: 'Keine spontanen mündlichen Prüfungen ohne Vorlauf', begruendung: 'Spontanes Abrufen unter Beobachtung ist bei GAS besonders belastend, weil die Antizipations-Vorbereitung wegfällt. Vorab angekündigte Beteiligung mit zumindest einigen Stunden Vorlauf ermöglicht die nötige innere Vorbereitung und reduziert die akute Performance-Angst.' },
+          { titel: 'Bei akuter Krise: reduzierte Tages-Anforderung statt vollständiger Schul-Pause', begruendung: 'Vollständige Schul-Pause fördert Vermeidung und vertieft das Muster. Reduktion der Anforderungen für ein bis zwei Wochen (Hausaufgaben-Reduktion, einzelne Fächer pausieren) hält den Klienten im System und gibt gleichzeitig die nötige Entlastung. Schul-Anwesenheit ist therapeutisch wertvoller als ihre Abwesenheit.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Nicht alle Anforderungen reduzieren', begruendung: 'Fördert Vermeidung und verstärkt das Muster. GAS-Klienten brauchen Konfrontation mit ihren Sorgen, nicht Vermeidung. Generelle Druck-Reduktion erscheint kurzfristig hilfreich, vertieft aber die Spirale, weil das Gehirn lernt, dass Sorgen erfolgreich Anforderungen abwehren.' },
+          { titel: 'Nicht „die kann das doch"-Logik durchgehen lassen', begruendung: 'Übersieht den inneren Preis. Wenn Lehrkräfte die Sichtbarkeit der Leistung als Beweis für unbelastete Funktion nehmen, verstärken sie das „mit mir stimmt nichts"-Schema des Klienten — er fühlt sich gesehen und unsichtbar zugleich. Diese Aussage muss in jedem Lehrer-Gespräch explizit unterbunden werden.' },
+          { titel: 'Keine Sonderbehandlung, die öffentlich sichtbar wird', begruendung: 'Produziert Scham und Meta-Sorgen. Wenn andere Mitschüler die Sonderbehandlung wahrnehmen, beginnt der Klient zu sorgen, wie er von den anderen wahrgenommen wird — eine zusätzliche Sorgen-Schicht. Anpassungen müssen diskret laufen, idealerweise nicht erkennbar als Sonderfall.' },
+          { titel: 'Kein „Stress-Management-Workshop" als isolierte Maßnahme', begruendung: 'Ohne therapeutische Begleitung. Solche Workshops vermitteln Entspannungs-Techniken, ohne den kognitiven Mechanismus der Sorgen zu adressieren. Die Techniken werden zu weiteren Anforderungen („ich muss jetzt auch noch Entspannung üben") und produzieren neue Sorgen-Schichten. Wenn Stress-Management eingesetzt wird, dann eingebettet in die KVT-Behandlung, nicht als isoliertes Schul-Angebot.' },
+          { titel: 'Nicht Reassurance-Verhalten der Lehrer auf hoher Frequenz', begruendung: '„Alles wird gut", „mach dir keine Sorgen" — verstärkt die Spirale. Reassurance ist bei GAS klinisch kontraindiziert, weil das Gehirn lernt: Sorge → Beruhigung als wiederholbare Schleife. Stattdessen Coping-Sprache: „Was wäre dein nächster kleiner Schritt" statt „Es wird schon". Diese Sprach-Konvention muss in jedem Lehrer-Briefing explizit gemacht werden, weil die Reassurance-Reaktion die intuitive menschliche Antwort auf sichtbare Sorge ist und deshalb nicht von selbst verschwindet.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als Beziehungs-Anker — ideal eine Lehrkraft, die das GAS-Profil versteht und in Coping-Sprache geschult ist. Konstanz über mehrere Schuljahre verstärkt die Wirkung erheblich, weil die Sprach-Verschiebung Wochen braucht, um zu greifen',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit Angst-Diagnostik-Kompetenz — für Nachteilsausgleich, institutionelle Verankerung der Anpassungen und für die übersetzung zwischen klinischer und schulischer logik',
+          'SCAS für vertiefte therapeutische Begleitung, besonders bei sekundärer Depression oder bei akuter Erschöpfungs-Krise. Die externe Stelle entlastet das Schul-System und ermöglicht parallel-laufende Familien-Arbeit',
+          'KJP für Medikations-Frage und schwere Verläufe — SSRI als Add-on bei nicht ausreichender KVT-Wirkung. Bei GAS oft Sertralin oder Escitalopram als Erstwahl, Behandlung über mindestens 12 Monate',
+          'Eltern als Verbündete — Reassurance-Reduktion muss zuhause auch passieren, sonst läuft die Therapie systematisch unter. Strukturierte Eltern-Sitzungen alle 4-6 Wochen sind klinisch wertvoll'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier bis sechs Wochen in der akuten Phase, danach alle zwei bis drei Monate. Bei Erschöpfungs-Dekompensation oder bei beginnender depressiver Symptomatik temporär verdichten. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — Reassurance-Formulierungen vermeiden, Coping-Sprache nutzen. Bei Klassenkonferenzen oder Lehrer-Wechseln muss die Sprach-Konvention explizit weitergegeben werden, sonst rutschen neue Lehrkräfte automatisch in Beruhigungs-Versuche.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit GAS-Aufklärung. Niederschwellig; Ziel ist, das Profil zu verankern und die Sprache der Lehrkraft auf Coping umzustellen. Schriftliche Kurz-Aufklärung mitliefern mit konkreten Sprach-Beispielen.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn die Klassenleitung das Profil nicht ausreichend trägt oder das Eltern-System weiter in Reassurance-Mustern läuft. Hier wird die häusliche und schulische Linie koordiniert.</li>
+            <li><strong>Stufe 3</strong> — Anpassungs-Vereinbarung dokumentiert, Mehrfach-Belastung systematisch reduziert. Formal verankert, damit die Anpassungen bei Lehrer-Wechsel stabil bleiben. Die Dokumentation ist wichtiger als die mündliche Vereinbarung, weil mündliche Absprachen bei diesem Profil im Schul-Alltag verloren gehen.</li>
+            <li><strong>Stufe 4</strong> — Erweiterung der Maßnahmen (Hausaufgaben-Reduktion, Test-Anpassungen), eventuell Nachteilsausgleich-Antrag. Wenn die initialen Anpassungen nicht ausreichen oder akute Symptomatik vertieft sich.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit bei akuter Erschöpfungs-Dekompensation oder schwerer komorbider Depression. Kurze definierte Phase mit therapeutischem Wieder-Einstiegs-Plan — keine offene Pause, sondern strukturierte Rehabilitations-Phase mit klar definierter Wieder-Aufnahme.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Sekundäre depressive Symptomatik vertieft sich. Schlafstörung mit Folge-Symptomatik. Substanzkonsum als Selbstmedikation berichtet. Akute somatische Eskalation. Schul-Vermeidung beginnt.</p>`,
+        ueberweisung: `<p>Medikations-Frage (SSRI bei schwerer Belastung). Schwere komorbide Depression. Konkrete Suizidalität. Therapie-Resistenz nach 16 Wochen strukturierter KVT.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Erschöpfungs-Dekompensation mit körperlicher Krise. Akute Substanzkonsum-Eskalation.</p>`
+      }
+    }
+  },
   { id: 'angst-sozial',          name: 'Soziale Angststörung / Soziale Phobie',      bloecke: emptyAngstBloecke() },
   { id: 'angst-schulphobie',     name: 'Schulphobie / Schulangst',                   bloecke: emptyAngstBloecke() },
   { id: 'angst-trennung',        name: 'Trennungsangst',                             bloecke: emptyAngstBloecke() },
   { id: 'angst-panik',           name: 'Panikstörung',                               bloecke: emptyAngstBloecke() },
   { id: 'angst-phobie-spez',     name: 'Spezifische Phobie',                         bloecke: emptyAngstBloecke() },
-  { id: 'angst-krankheitsangst', name: 'Krankheitsangst / Hypochondrische Strukturen', bloecke: emptyAngstBloecke() }
+  /* M7 — Krankheitsangst / hypochondrische Strukturen. Befüllt Prompt 11.
+     Klinische Eckpfeiler: katastrophische interpretation körperlicher signale,
+     reassurance-spirale, salkovskis-modell als therapeutischer rahmen. Bei
+     jugendlichen eng mit familien-system verknüpft. Differential zu R03
+     (somatoforme beschwerden) klinisch wichtig. Leitsatz: „beruhigung wirkt
+     kurz wie ein pflaster auf eine wunde, die wir noch nicht behandelt haben." */
+  {
+    id: 'angst-krankheitsangst',
+    name: 'Krankheitsangst / Hypochondrische Strukturen',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit übermäßiger, anhaltender Sorge um die eigene Gesundheit, oft konkret fokussiert (Krebs, Herz, COVID-Folgen, neurologische Erkrankungen). Mehrfache Arztbesuche oder paradoxe Vermeidung aus Angst vor Diagnose. Internet-Symptom-Suche als ständige Aktivität. Klassisches Bild: körperliche Beschwerden treten auf, werden katastrophisch interpretiert, der Klient sucht Beruhigung, fühlt sich kurz besser, dann beginnt der Zyklus von vorne mit neuer Sorge.</p>`,
+        klinischWichtig: `<p>Der Mechanismus nach Salkovskis muss klar verstanden sein. Körperliche Signale sind dauernd präsent — leichter Schwindel, Herzschlag-Spüren, Verdauungsgeräusche, Muskelzucken. Bei gesunden Menschen werden diese Signale weitgehend ignoriert. Bei Krankheitsangst wird die Aufmerksamkeit darauf hyperfokussiert, die Interpretation läuft auf der Katastrophen-Schiene. Der Klient beobachtet seinen Körper wie einen Verdächtigen.</p>
+          <p>Reassurance — durch Eltern, Internet, Ärzte — gibt kurzfristige Erleichterung und verstärkt langfristig das Muster: das Gehirn lernt, dass die Sorge durch Reassurance behoben werden kann, also taucht sie wieder auf, um diesen Mechanismus zu nutzen. Bei Jugendlichen ist die Familie meistens stark involviert — Eltern bestätigen die Beschwerden, fahren zum Arzt, suchen selbst im Internet. Die Behandlung muss die Familie mitnehmen, sonst läuft sie zuhause systematisch unter.</p>
+          <p>Differentialdiagnose zum Risikofilter R03 ist wichtig: bei R03 stehen die somatischen Symptome im Vordergrund, bei M7 die Sorge um die Symptome. Beide können koexistieren, sind aber konzeptuell unterscheidbar. Wenn die Symptom-Sorge im Vordergrund steht und die somatische Manifestation sekundär bleibt: M7. Wenn die somatische Manifestation eigenständig groß ist (Schmerzen, funktionelle Störungen, Pseudo-neurologische Symptome): R03 zentral, M7 oft komorbid.</p>`,
+        vergleich: `<p><strong>Vs. R03 (somatoforme Beschwerden):</strong> bei R03 sind die Symptome das Hauptphänomen, bei M7 ist die katastrophische Interpretation der Symptome das Hauptphänomen. Häufige Komorbidität — die Behandlungs-Achse hängt vom Schwerpunkt ab.</p>
+          <p><strong>Vs. M5 (Panikstörung):</strong> Panik hat akute Attacken mit klarem zeitlichem Muster und meist klarer somatischer Symptomatik (Herzrasen, Atemnot). Krankheitsangst ist chronische Beobachtung mit phasischer Intensität, oft ohne diskrete Attacken. Häufig komorbid — Panikattacken triggern Krankheitsangst-Episoden.</p>
+          <p><strong>Vs. M6 (Zwangsstörung):</strong> OCD hat spezifische intrusive Gedanken mit klaren, ritualisierten Neutralisierungs-Handlungen. Bei Krankheitsangst ist der „Ritual"-Anteil das Reassurance-Verhalten (Symptom-Check, Internet-Recherche, Arzt-Besuch). Die Grenze zu OCD ist fließend; manche Klassifikations-Systeme ordnen Krankheitsangst als OCD-Spektrum-Phänomen ein.</p>
+          <p><strong>Vs. M1 (GAS):</strong> GAS sorgt sich breit, Krankheitsangst fokussiert auf Gesundheit. Krankheitsangst kann eine Manifestation einer generalisierten Sorgen-Struktur sein — dann beide Achsen integriert behandeln.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Akute somatoforme Eskalation mit körperlicher Krise',
+          'Suizidalität bei Verzweiflung über chronische Beschwerden ohne Diagnose',
+          'Akute Vermeidungs-Krise (Klient meidet plötzlich alle körperlichen Aktivitäten, verwahrlost)'
+        ],
+        hoch: [
+          'Schul-Vermeidung mit somatischer Begründung',
+          'Familien-Konflikte um Arztbesuche und Internet-Verhalten',
+          'Substanzkonsum als Selbstmedikation gegen körperliche Sensationen',
+          'Sekundäre Depression entwickelt sich'
+        ],
+        mittel: [
+          'Chronische Aktivitäts-Einschränkung',
+          'Berufs-Vermeidung mit körperlicher Begründung',
+          'Beziehungs-Muster, die sich um Krankheits-Sorgen drehen',
+          'Identitäts-Festigung als „chronisch krank"'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>KVT mit dem Salkovskis-Modell als Rahmen. Komponenten: Psychoedukation über catastrophic misinterpretation und Reassurance-Spirale, Reassurance-Reduktion in der Familie, kognitive Restrukturierung der Interpretation, behaviorale Experimente, Aufmerksamkeits-Training. Exposition mit Reaktions-Verhinderung bei spezifischen Triggern (Internet-Suche, Symptom-Beobachtung).</p>`,
+        begruendung: `<p>Ohne Familien-Einbezug scheitert die Behandlung — die Eltern geben jeden Tag mehr Reassurance, als der Therapeut zurücknehmen kann. Der Klient muss verstehen, dass Reassurance das Problem ist, nicht die Lösung. Dieser Reframings-Schritt ist klinisch nicht verhandelbar und macht den Unterschied zwischen wirksamer und ineffektiver Behandlung.</p>`,
+        diagnostik: [
+          'SCARED mit Items zu gesundheitsbezogenen Sorgen',
+          'Health Anxiety Inventory (HAI), an Jugendliche adaptiert',
+          'K-SADS-PL für strukturierte komorbide Diagnostik',
+          'Strukturierte somatische Anamnese mit dokumentierter Befund-Übersicht aus bisherigen Arztbesuchen',
+          'Tatsächliche medizinische Klärung muss abgeschlossen sein — sonst keine psychotherapeutische Hauptintervention',
+          'Beobachtungs-Tagebuch der Sorgen-Episoden mit Trigger, Interpretation und Reassurance-Verhalten'
+        ],
+        wasDuTust: [
+          '„Dein Körper produziert ständig Signale. Die meisten bedeuten nichts. Wir lernen, welche das sind und welche Aufmerksamkeit brauchen."',
+          '„Beruhigung wirkt kurz — wie ein Pflaster auf einer Wunde, die wir noch nicht behandelt haben. Sie macht das Problem nicht weg, sie verlängert es."',
+          '„Du beobachtest deinen Körper wie einen Verdächtigen. Wir verändern den Blick. Dein Körper ist nicht dein Feind."',
+          '„Es ist nicht so, dass du dir das einbildest. Du nimmst real wahr — aber die Interpretation läuft auf der Katastrophe-Schiene. Wir verändern die Interpretation, nicht die Wahrnehmung."',
+          '„Ich werde dir keine Beruhigung geben, dass du gesund bist. Das hat dir bisher nicht geholfen — es wirkt kurz und schadet langfristig. Ich werde dir helfen, mit der Unsicherheit zu leben."'
+        ],
+        wasDuNichtTust: [
+          'Nicht Reassurance geben, dass der Klient gesund ist — verstärkt das Muster, das Gehirn lernt Sorge → Beruhigung als Schleife',
+          'Nicht alle körperlichen Beschwerden detailliert durchgehen — verstärkt die Hyperfokussierung auf körperliche Signale',
+          'Nicht Eltern als Reassurance-Lieferanten weiter fungieren lassen ohne Aufklärung — die Behandlung scheitert zuhause systematisch',
+          'Nicht Symptom-Vermeidung als Hauptmethode anbieten — das ist genau das, was der Klient schon macht, und es verstärkt die Sorge',
+          'Nicht erneut somatische Diagnostik vorschlagen, wenn bereits ausreichend ausgeschlossen ist — verlängert die medizinische Reassurance-Spirale'
+        ],
+        frequenz: `<p>Wöchentlich für zwölf bis sechzehn Wochen. Familie wird in regelmäßigen Sitzungen einbezogen (alle drei bis vier Wochen separat) — die Reassurance-Reduktion ist das zentrale familiäre Lernfeld.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik abschließen. Sicherstellen, dass medizinische Abklärung vollständig ist — Klient und Familie wissen, dass keine weitere somatische Diagnostik nötig ist. Psychoedukation über das Salkovskis-Modell mit konkretem Schaubild der Reassurance-Spirale. Familie aufklären, mit klarer Vereinbarung über die kommende Reassurance-Reduktion.`,
+        phase2: `Reassurance-Reduktion zuhause umsetzen — strukturierte Vereinbarung mit Eltern, was sie tun und was sie nicht mehr tun (keine Symptom-Checks mehr, keine Internet-Recherche, kein Arzt-Anruf außerhalb des vereinbarten Verfahrens). Kognitive Restrukturierung. Erste behaviorale Experimente. Internet-Suche reduzieren mit konkretem Limit.`,
+        phase3: `Exposition mit Reaktions-Verhinderung bei spezifischen Triggern. Aufmerksamkeits-Training (Aufmerksamkeit weg vom Körper auf externe Reize). Aktivitäten, die der Klient vermieden hat, schrittweise zurückgewinnen. Akzeptanz-Komponente für verbleibende Unsicherheit — der Klient lernt, mit dem „ich bin nicht sicher gesund"-Gefühl zu leben.`,
+        phase4: `Konsolidierung. Der Klient hat eigene Werkzeuge bei neuen Sorgen-Auslösern. Rückfall-Prophylaxe mit konkretem Plan für hochrisiko-Phasen (neue körperliche Symptome, Medien-Berichte über Krankheiten). Frequenz reduziert. Familie hat das Reassurance-freie System verinnerlicht.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule erlebt den ständig kranken Schüler — Krankenzimmer-Besuche, Entschuldigungen, Schul-Vermeidung mit somatischer Begründung. Klassische Reaktion zwischen zwei Polen: entweder nimmt die Schule die Beschwerden ernst und behandelt den Klienten wie chronisch krank (was das Muster verstärkt), oder sie zweifelt offen und behandelt ihn als Simulanten (was Scham produziert und keine Lösung bringt).</p>
+          <p>Beide Pole verfehlen die klinische Realität: die Beschwerden sind nicht erfunden und nicht manipulativ, sie sind Ausdruck einer Aufmerksamkeits-Hyperfokussierung mit katastrophischer Interpretation. Wenn ein Lehrer sagt „der ist doch nicht wirklich krank", liegt er klinisch falsch — der Klient erlebt die Beschwerden real. Wenn ein anderer Lehrer sagt „dann geh halt heim, wenn dir nicht gut ist", verstärkt er das Vermeidungs-Muster. Beide Reaktionen sind klassisch und beide unhilfreich.</p>
+          <p>Das Schul-Krankenzimmer wird oft zur primären Reassurance-Quelle. Der Klient geht hin, wird gemessen oder gefragt, fühlt sich kurz besser, geht wieder zum Unterricht — und kommt eine Stunde später wieder, wenn die Sorge zurück ist. Bei manchen Klienten entwickelt sich eine fast tägliche Krankenzimmer-Routine. Diese Routine muss strukturell unterbrochen werden, weil sie das Muster täglich reproduziert. Ohne klare Limit-Vereinbarung wird die Schule zur Komplizin der Spirale.</p>
+          <p>Was die Schule braucht, ist klinische Aufklärung über den Mechanismus, klare Vereinbarungen mit dem Klienten und der Familie zur Krankenzimmer-Nutzung, und eine sichere Bezugsperson, die nicht Reassurance gibt, sondern Coping-Sprache verwendet. Die zentrale Sprach-Verschiebung: nicht „es ist nicht schlimm" sondern „was wäre dein nächster kleiner Schritt", nicht „ich bin sicher, du bist gesund" sondern „du hast viel Sorge gerade — was hilft dir, mit der Unsicherheit zu sein". Diese Verschiebung kostet die Lehrkräfte und die Schulkrankenschwester anfangs viel — sie müssen ihre intuitive menschliche Reaktion aktiv unterdrücken. Ohne explizite Schulung gelingt das nicht.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine Angststörung mit Schwerpunkt auf gesundheitlichen Sorgen — klinisch eine Krankheitsangst-Symptomatik. Die körperlichen Beschwerden, die [Klient-Name] berichtet, sind nicht erfunden und nicht Manipulation. Sie sind Ausdruck einer Aufmerksamkeits-Hyperfokussierung auf körperliche Signale mit katastrophischer Interpretation. Die somatische Abklärung ist vollständig erfolgt, eine medizinische Grunderkrankung ist ausgeschlossen.</p>
+          <p>Behandlungs-Schwerpunkt ist die Reduktion des Reassurance-Verhaltens: jede Beruhigung wirkt kurzfristig und verstärkt langfristig das Muster. Das Gehirn lernt, dass die Sorge durch Beruhigung beendet werden kann — also taucht sie wieder auf, um diesen Mechanismus zu nutzen. Was klinisch hilft, ist die schrittweise Auseinandersetzung mit der Unsicherheit, nicht ihre Beseitigung.</p>
+          <p>Was [Klient-Name] schulisch braucht: erstens, eine klare Vereinbarung zum Umgang mit gesundheitlichen Sorgen — insbesondere eine maximale Anzahl von Krankenzimmer-Besuchen pro Woche mit definierter Dauer; zweitens, eine sichere Bezugsperson, die mit Coping-Sprache statt Reassurance arbeitet („was wäre dein nächster kleiner Schritt" statt „es ist nicht schlimm"); drittens, Aufrechterhaltung der schulischen Aktivitäten auch bei berichteten Beschwerden, weil Vermeidung das Muster verstärkt; und viertens, keine wiederholten somatischen Abklärungen während der Schulzeit.</p>
+          <p>Bei tatsächlicher akuter Erkrankung gilt selbstverständlich die normale Krankschreibung — die Differenzierung zwischen Krankheits-Akut und Krankheits-Sorge ist Aufgabe von Hausarzt und Therapie, nicht der Schule. Ich biete Ihnen gerne ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Klare Vereinbarung mit Krankenzimmer-Besuchen', begruendung: 'Maximale Anzahl pro Woche, klar definierte Dauer. Ohne Limit wird das Krankenzimmer zur primären Reassurance-Quelle und reproduziert das Muster täglich. Eine Vereinbarung — etwa zwei Besuche pro Woche, jeweils maximal zwanzig Minuten — strukturiert das Verhalten und macht das Muster sichtbar. Diese Vereinbarung wird schriftlich mit dem Klienten und der Familie abgeschlossen, damit sie nicht im akuten Moment als willkürliche Repression wirkt.' },
+          { titel: 'Bezugsperson trainiert in Coping-Sprache statt Reassurance', begruendung: '„Was wäre dein nächster kleiner Schritt" statt „Es ist nicht schlimm". Diese Sprach-Verschiebung ist klinisch zentral, weil Reassurance den Mechanismus verstärkt. Die Bezugsperson muss explizit geschult sein, sonst rutscht sie automatisch in Beruhigungs-Versuche zurück — das ist die intuitive menschliche Reaktion bei Sorge. Die Schulung dauert ein bis zwei Sitzungen mit konkreten Sprach-Beispielen und Rollenspiel-Übungen; ohne diese Investition läuft die schulische Behandlung nicht mit.' },
+          { titel: 'Aufrechterhaltung schulischer Aktivitäten auch bei berichteten Beschwerden', begruendung: 'Vermeidung verstärkt das Muster. Wenn der Klient bei jeder Sorgen-Episode nach Hause geschickt wird, lernt das Gehirn: Sorge → Schule verlassen → Erleichterung. Die Aktivitäten beibehalten unterbricht diesen Lern-Loop. Wichtig: nicht aus Härte, sondern aus klinischer Begründung — die Härte-Reaktion des Klienten („ihr seid alle herzlos") muss vorab in der Therapie bearbeitet sein.' },
+          { titel: 'Bei tatsächlicher Erkrankung normale Krankschreibung', begruendung: 'Differenzierung Krankheits-Akut vs. Krankheits-Sorge. Wenn der Klient tatsächlich krank wird (Fieber, Grippe, infektiöse Erkrankung), gilt die normale Behandlung — Krankschreibung, zuhause bleiben. Die Differenzierung ist Aufgabe von Hausarzt und Therapie, nicht der Schule. Die Schule muss aber wissen, dass beide Zustände möglich sind und nicht alles als „Krankheitsangst" abtun.' },
+          { titel: 'Keine Sondergespräche um Beschwerden in hoher Frequenz', begruendung: 'Verstärker-Loop. Wenn jede Beschwerden-Äußerung zu einem Gespräch über die Beschwerden führt, wird das Sprechen über Beschwerden positiv verstärkt. Beschwerden-Themen gehören in die Therapie und in die Bezugsperson-Sitzung, nicht in den Schul-Alltag.' },
+          { titel: 'Schul-Sport beibehalten, wo möglich', begruendung: 'Körperliche Aktivität reduziert Hyperfokussierung. Die Vermeidung von Sport ist bei Krankheitsangst typisch und produziert eine zusätzliche Lebens-Einschränkung. Sport-Befreiung nur mit klarer ärztlicher Indikation, nicht auf eigene Wahrnehmung des Klienten oder Wunsch der Eltern.' },
+          { titel: 'Keine Internet-Nutzung während Schulzeit zur Symptom-Recherche', begruendung: 'Internet-Symptom-Suche ist eines der zentralen Verstärker-Verhaltensweisen. Während der Schulzeit muss die Schule diese Form der Reassurance unterbinden — das ist nicht Repression, sondern Behandlung-Unterstützung. Die schulische Internet-Politik kann diese Komponente explizit aufnehmen.' },
+          { titel: 'Vereinbarte Notfall-Strukturen für akute Krisen', begruendung: 'Bezugsperson, Eltern-Anruf nach klarem Protokoll. Bei wirklicher akuter Krise (Hyperventilations-Attacke, körperlicher Zusammenbruch) muss ein klares Verfahren bereit liegen. Dieses Verfahren ist aber nicht für jede Sorge-Äußerung gedacht, sondern für definierte Notfall-Situationen — die Unterscheidung muss vorab klar sein. Das Notfall-Verfahren wird schriftlich festgehalten und mit allen Beteiligten geteilt, damit im akuten Moment keine Interpretations-Spielräume bleiben.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine wiederholten somatischen Abklärungen, wenn diese bereits abgeschlossen sind', begruendung: 'Verlängert die medizinische Spirale. Wenn die Schule bei jeder neuen Sorgen-Episode auf erneute ärztliche Abklärung drängt, reproduziert sie das Muster. Die Klärung läuft über den koordinierenden Hausarzt nach vorab vereinbartem Verfahren.' },
+          { titel: 'Kein „kämpfen Sie sich durch"-Druck', begruendung: 'Wirkt pathologisierend und produziert Scham. Der Klient erlebt seine Sorgen als real und beschämend zugleich; die Anweisung, sich zusammenzureißen, verstärkt die Scham, ohne die Sorge zu reduzieren. Diese Sprache muss in Lehrer-Gesprächen explizit kontraindiziert werden.' },
+          { titel: 'Kein Krankenzimmer ohne Limit-Vereinbarung', begruendung: 'Wird zur primären Reassurance-Quelle. Ohne klare Limit-Struktur entwickelt sich oft eine tägliche Routine, die das Muster zementiert. Das Limit ist nicht Strafe, sondern Behandlungs-Komponente.' },
+          { titel: 'Keine Eltern-Aktivierung bei jeder Beschwerde-Episode', begruendung: 'Reproduziert das Reassurance-Muster zuhause. Wenn die Schule bei jeder Sorge-Äußerung die Eltern anruft, holen die Eltern ihn ab, geben Reassurance, fahren zum Arzt — die Spirale läuft. Eltern-Aktivierung nur nach vereinbartem Protokoll für definierte Krisen, nicht bei jeder geäußerten Sorge des Klienten.' },
+          { titel: 'Keine isolierte „Stress-Reduktion" als Maßnahme', begruendung: 'Geht am Mechanismus vorbei. Stress-Reduktion ohne Reassurance-Reduktion und ohne kognitive Restrukturierung ist bei Krankheitsangst nicht wirksam — die Sorge bleibt, sie wird nur durch Entspannung kurzzeitig betäubt und kehrt dann zurück. Die spezifische Mechanismus-Arbeit ist nicht durch generische Wellness-Programme ersetzbar.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Vertrauenslehrer als sichere Bezugsperson mit Coping-Sprache — explizit geschult, nicht intuitiv beruhigend. Die Schulung ist nicht optional, sondern Behandlungs-Voraussetzung, sonst rutscht die Lehrkraft automatisch in Reassurance zurück',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit klinischer Aufklärung über Krankheitsangst-Mechanismus. Wichtig für die institutionelle Linie und für die Übersetzung zwischen klinischer und schulischer Logik',
+          'Schul-Krankenschwester (falls vorhanden) mit Limit-Vereinbarung und Coping-Sprache statt diagnostischer Routine. Sie ist oft das schwierigste Glied in der Kette, weil ihre Standard-Rolle (medizinische Einschätzung) im Konflikt zur Behandlung steht',
+          'SCAS für vertiefte therapeutische Begleitung, besonders bei Familien-Konflikten um das Arzt-Verfahren oder bei sekundärer Depression',
+          'KJP, wenn Medikations-Frage steht oder schwere Komorbidität vorliegt (Depression, Suizidalität, OCD-Spektrum-Übergang)',
+          'Hausarzt als zentraler somatischer Ansprechpartner mit vereinbartem Verfahren bei neuen Beschwerden — koordiniert die medizinische Linie, statt sie zu fragmentieren. Diese Rolle ist klinisch zentral, weil die unkoordinierte medizinische Suche eines der Hauptverstärker der Reassurance-Spirale ist'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier Wochen in akuter Phase, danach alle zwei bis drei Monate. Bei Eskalation der somatischen Episoden temporär verdichten. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — die schulische Kommunikation soll selbst Teil der Reassurance-Reduktion sein, nicht ihre Untergrabung. Lehrer-Wechsel sind klinisch problematisch, weil neue Lehrkräfte oft die Reassurance-Routine wieder aufnehmen, bevor sie eingewiesen sind; deshalb schriftliche Mechanismus-Erklärung als Standard-Übergabe.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Krankheitsangst-Aufklärung. Die Mechanismus-Erklärung explizit machen, mit Coping-Sprache-Beispielen. Schriftliche Kurz-Aufklärung mitliefern, damit andere Lehrkräfte sie nutzen können und die Sprach-Konvention nicht von Person zu Person variiert.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen, Eltern, eventuell Hausarzt. Hier wird die medizinisch-schulisch-therapeutische Linie koordiniert — alle vier Stellen müssen die gleiche Sprache sprechen, sonst wird der Klient zwischen ihnen hin- und hergeschickt.</li>
+            <li><strong>Stufe 3</strong> — Strukturierte Vereinbarung dokumentiert, Krankenzimmer-Limit, Coping-Sprache trainiert. Formal verankert, damit die Anpassungen bei Lehrer-Wechsel oder bei Schulzeit-Beginn stabil bleiben. Bei größeren Schulen sollte diese Vereinbarung in der Schul-Akte hinterlegt sein.</li>
+            <li><strong>Stufe 4</strong> — Erweiterung der therapeutischen Maßnahmen, eventuell Setting-Wechsel, wenn schulische Beziehungs-Brüche sich gehäuft haben. Wechsel nur mit Verständnis-Garantie an der neuen Stelle, sonst wiederholt sich das Muster im neuen Setting.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit bei somatoformer Dekompensation, mit therapeutischem Wieder-Einstiegs-Plan. Auszeit nur als definierte Reset-Phase, nicht als offene Pause, weil offene Pause die Vermeidung verstärkt. Die Auszeit hat einen klar definierten Anfang und ein klar definiertes Ende, mit konkreten Wieder-Aufnahme-Schritten.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Akute somatische Eskalation. Zunehmende Schul-Vermeidung. Familien-System eskaliert um Arzt-Frage. Substanzkonsum als Selbstmedikation berichtet. Beginnende depressive Symptomatik.</p>`,
+        ueberweisung: `<p>Medikations-Frage (SSRI bei schwerer Belastung oder bei Übergang zu OCD-Spektrum-Behandlung). Schwere komorbide Depression. Konkrete Suizidalität. Therapie-Resistenz nach strukturiertem Verlauf von 16 Wochen.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive somatoforme Dekompensation mit körperlicher Krise. Akute Verwahrlosung durch Vermeidungs-Eskalation.</p>`
+      }
+    }
+  }
 ];
 
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
