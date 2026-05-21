@@ -8690,8 +8690,259 @@ const PLAN_MUSTER_ANGSTSTOERUNGEN = [
       }
     }
   },
-  { id: 'angst-sozial',          name: 'Soziale Angststörung / Soziale Phobie',      bloecke: emptyAngstBloecke() },
-  { id: 'angst-schulphobie',     name: 'Schulphobie / Schulangst',                   bloecke: emptyAngstBloecke() },
+  /* M2 — Soziale Angststörung / Soziale Phobie. Befüllt Prompt 12.
+     Klinische Eckpfeiler: Clark-Wells-modell, aufmerksamkeits-fokus auf
+     selbst in sozialen situationen, safety behaviors, video-feedback als
+     zentrale therapeutische intervention. Differential zu ASS (skills-defizit
+     vs. angst-blockade) klinisch wichtig. Leitsatz: „du hast nicht zu wenig
+     soziale fähigkeiten — du hast zu viel aufmerksamkeit auf dich selbst." */
+  {
+    id: 'angst-sozial',
+    name: 'Soziale Angststörung / Soziale Phobie',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher, der soziale Situationen mit Bewertungs-Komponente vermeidet oder mit großer Anspannung erträgt — Klassenpräsentationen, Geburtstagsfeiern, Sport vor der Klasse, mündliche Beteiligung, neue Beziehungen. Nach außen wirkt er ruhig, schüchtern, manchmal höflich-distanziert. Innen läuft eine permanente Bewertungs-Antizipation und körperliche Anspannung, die kaum jemand sieht. Bei Jugendlichen häufig als „schüchtern" oder „introvertiert" abgetan — die Diagnose wird oft erst spät gestellt.</p>`,
+        klinischWichtig: `<p>Der Clark-Wells-Mechanismus muss verstanden sein. Der Klient fokussiert in sozialen Situationen seine Aufmerksamkeit auf das eigene Erleben — auf sein Erröten, sein Schwitzen, seine Stimme. Diese innere Beobachtung wird zentral, die soziale Wahrnehmung des Gegenübers tritt zurück. Der Klient interpretiert sich selbst als sichtbar ängstlich, schließt daraus, dass andere ihn als ängstlich wahrnehmen, was die Bewertungs-Angst bestätigt — eine geschlossene Schleife.</p>
+          <p>Video-Feedback in der Therapie zeigt oft eine massive Diskrepanz: der Klient hält sich für sichtbar zitternd, schwitzend, sprachunfähig — das Video zeigt einen angemessen wirkenden Jugendlichen. Diese Korrektur-Erfahrung ist therapeutisch entscheidend und oft der wichtigste Einzelbaustein der Behandlung. Safety behaviors — Strategien während der Situation, um Symptome zu verstecken oder Bewertung zu reduzieren — verhindern echte Verarbeitung. Vermeidung über Wochen und Monate generalisiert. Der häufigste komorbide Verlauf: sekundäre Depression bei sozial isolierten Klienten, Substanzkonsum (besonders Alkohol als soziale Enthemmung) bei älteren Jugendlichen.</p>`,
+        vergleich: `<p><strong>Vs. M1 (GAS):</strong> GAS hat breite Sorgen, Soziale Phobie spezifisch sozial-evaluativ. Komorbidität möglich, Behandlungs-Schwerpunkt differenziert. Wenn die sozialen Situationen der dominierende Trigger sind und der Klient außerhalb sozialer Settings funktional ist, ist M2 führend.</p>
+          <p><strong>Vs. M3 (Schulphobie):</strong> bei M3 ist die Schule als Setting das Problem, bei M2 die soziale Bewertung in der Schule. Häufige Koexistenz — beide Achsen behandeln. Wenn die Schul-Vermeidung primär in Pause und Klassen-Präsentation liegt, ist Soziale Phobie führend; wenn der Schul-Gang selbst körperlich versagt, ist Schulphobie führend.</p>
+          <p><strong>Vs. Autismus-Spektrum (A01):</strong> bei ASS ist das sozial-pragmatische Können defizitär. Bei Sozialer Phobie ist das soziale Können vorhanden, aber durch Angst blockiert. Differential entscheidet über Behandlungs-Achse — bei ASS ist Skills-Training nötig, bei Sozialer Phobie ist Skills-Training kontraindiziert, weil es die Selbst-Beobachtung verstärkt.</p>
+          <p><strong>Vs. avoidant Persönlichkeits-Struktur:</strong> bei Jugendlichen in der Regel keine Diagnose, aber Strukturen erkennbar bei langem Verlauf und tiefer Selbst-Identifikation als „der Außenseiter". Behandlung dann mit stärkerem Identitäts-Anteil neben der KVT.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei schwerer komorbider Depression',
+          'Akuter vollständiger sozialer Rückzug',
+          'Akute Substanzkonsum-Eskalation (Alkohol vor sozialen Situationen)'
+        ],
+        hoch: [
+          'Sekundäre Schulphobie entwickelt sich',
+          'Sekundäre Depression',
+          'Vollständige Vermeidung sozialer Situationen außerhalb der Familie',
+          'Substanzkonsum als soziale Bewältigungs-Strategie (Alkohol, Cannabis, Benzodiazepine)'
+        ],
+        mittel: [
+          'Chronische Berufs-Vermeidung',
+          'Chronische Beziehungs-Vermeidung',
+          'Identitäts-Festigung als „der Schüchterne" oder „Außenseiter"',
+          'Berufs-Wahl auf Vermeidungs-Achse statt Interesse'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>KVT mit dem Clark-Wells-Modell als Rahmen. Komponenten: Psychoedukation über Aufmerksamkeits-Mechanismus, Video-Feedback zur Diskrepanz Selbst- vs. Fremdwahrnehmung, Aufmerksamkeits-Training (Fokus weg vom Selbst, hin zur Umgebung), kognitive Restrukturierung, Verhaltensexperimente, graduierte Exposition mit Reduktion von Safety Behaviors. Medikation: SSRI bei schwerer Belastung.</p>`,
+        begruendung: `<p>Ohne Aufmerksamkeits-Umlenkung greifen Expositionen nicht durch. Der Klient kann unbegrenzt in sozialen Situationen sein und bleibt ängstlich, solange er primär sich selbst beobachtet. Video-Feedback ist oft der wichtigste Einzelbaustein der Behandlung — die direkte Konfrontation mit dem objektiven Bild durchbricht die innere Bewertungs-Schleife oft mehr als wochenlange kognitive Arbeit.</p>`,
+        diagnostik: [
+          'SCARED mit Soziale-Phobie-Subskala',
+          'LSAS-CA (Liebowitz Social Anxiety Scale, Child / Adolescent)',
+          'MASC-2 (Multidimensional Anxiety Scale for Children)',
+          'K-SADS-PL für strukturierte komorbide Diagnostik',
+          'Vermeidungs-Verhaltens-Inventar mit konkreten Situationen — was wird vermieden, was wird mit welcher Intensität ertragen',
+          'Differentialdiagnostische Klärung Autismus-Spektrum, wenn unklar (ADOS-2)',
+          'BDI-A oder PHQ-A für komorbide Depression'
+        ],
+        wasDuTust: [
+          '„Du hast nicht zu wenig soziale Fähigkeiten. Du hast zu viel Aufmerksamkeit auf dich selbst, während du sie nutzen sollst."',
+          '„Was du in dir spürst, wenn du Angst hast, sehen andere nicht. Das ist nicht Trost — das ist eine Tatsache, die wir mit Video überprüfen werden."',
+          '„Vermeidung ist die kurze Erleichterung, die das lange Problem produziert. Solange du vermeidest, lernt dein Gehirn, dass die Situation gefährlich ist."',
+          '„Wir gehen nicht direkt in das, was du am meisten vermeidest. Wir bauen den Weg dorthin."',
+          '„Safety behaviors sind die Werkzeuge, mit denen du die Angst kleinzukriegen versuchst. Sie machen sie größer. Wir nehmen sie eines nach dem anderen weg."'
+        ],
+        wasDuNichtTust: [
+          'Nicht soziales Kompetenz-Training als Hauptmethode — verstärkt die Selbst-Beobachtung und damit das Muster',
+          'Nicht „tu so, als wärst du selbstbewusst" empfehlen — Safety behavior, das den Mechanismus verstärkt',
+          'Nicht alle sozialen Situationen vorsichtig vorbereiten — der Klient muss lernen, mit Unsicherheit zu sein, nicht alles zu kontrollieren',
+          'Nicht Vermeidung sanktionieren („du musst da hin") — produziert Trotz oder Scham, keine Behandlung',
+          'Nicht zu früh extreme Expositionen — graduierter Aufbau ist nicht Schonung, sondern Methode'
+        ],
+        frequenz: `<p>Wöchentlich für sechzehn bis zwanzig Wochen (KVT-Standard), danach 14-tägig. Video-Feedback-Sitzungen brauchen technische Vorbereitung — schon in Phase 1 organisieren.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik abschließen, komorbide Achsen klären, Differential ASS, wenn nötig. Psychoedukation über den Clark-Wells-Mechanismus. Vermeidungs-Inventar mit konkreten Situationen erstellen — was wird wie oft vermieden, mit welcher Antizipations-Belastung. Familie aufklären — Vermeidungs-Erlaubnis durch Eltern muss sich ändern, sonst läuft die Therapie zuhause systematisch unter.`,
+        phase2: `Aufmerksamkeits-Training (Fokus weg vom Selbst). Erste Video-Feedback-Sitzungen — die Diskrepanz zwischen Selbst- und Fremdwahrnehmung wird konkret sichtbar gemacht. Identifikation der Safety Behaviors mit dem Klienten. Beginn der graduierten Exposition mit niedrig-belastenden Situationen. Schul-Anpassungen umsetzen.`,
+        phase3: `Strukturierte Expositions-Hierarchie durcharbeiten — zunehmend belastende Situationen, Safety Behaviors systematisch reduziert. Identitäts-Arbeit jenseits der Schüchternheits-Definition. Bei sozialen Defiziten durch lange Vermeidung: behutsam soziale Fertigkeiten ergänzen — spät und nicht zentral, sondern als Komplettierung nach erfolgter Mechanismus-Arbeit.`,
+        phase4: `Konsolidierung. Der Klient hat Werkzeuge für neue herausfordernde Situationen. Rückfall-Prophylaxe mit konkretem Plan für Hochrisiko-Übergänge (Schulwechsel, Klassenwechsel, neue soziale Settings). Frequenz reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht den schüchternen, ruhigen Schüler. Lehrer mögen ihn oft, weil er nicht stört. Was niemand sieht, ist die Selbst-Beobachtungs-Spirale, die jede mündliche Beteiligung, jede Pause, jeden Sportunterricht zur inneren Krise macht. Mündliche Noten sind oft schlecht trotz schriftlicher Begabung — die Diskrepanz wird in Zeugnissen sichtbar, ohne dass die klinische Ursache erkannt wird.</p>
+          <p>Klassen-Präsentationen werden mit massiver Antizipations-Angst durchlebt; manche Klienten erleben Wochen vor dem Termin täglich Stress-Spitzen. Pausen sind besonders belastend — eine strukturlose soziale Situation mit permanenter Bewertungs-Antizipation und ohne klare Rolle. Sport-Unterricht wird zum Albtraum, wenn beobachtbare Disziplinen anstehen, die Performance vor der Klasse verlangen. Sport-Umkleide-Kabinen sind oft die spezifisch belastendste Tages-Phase, weil sie körperliche Exposition und soziale Bewertungs-Antizipation gleichzeitig verlangen. Eine sorgfältige Trigger-Anamnese deckt diese Mikro-Trigger auf, die im Gesamt-Schul-Tag oft mehrere Stunden Belastung produzieren.</p>
+          <p>Eine klassische Schul-Reaktion: Lehrer „schonen" den schüchternen Schüler, indem sie ihn nicht aufrufen, ihn von Präsentationen befreien, ihn in Gruppenarbeiten nicht eingreifend behandeln. Das ist gut gemeint und kontraproduktiv — Vermeidung wird durch das Schul-System verstärkt, und der Klient lernt, dass seine Angst durch Vermeidung erfolgreich abgewehrt werden kann. Diese Schul-Schonung ist klinisch eine der häufigsten und stärksten Verstärker des Musters.</p>
+          <p>Was die Schule braucht, ist klinische Aufklärung über den Mechanismus, strukturierte Anpassungen, die nicht in Vermeidung münden, und Bereitschaft zur graduierten Exposition gemeinsam mit der Therapie. Der zentrale Schul-Beitrag ist nicht Schonung, sondern strukturierte Konfrontations-Begleitung — Klassen-Präsentationen in kleinerer Gruppe beginnen, mündliche Beteiligung mit Vorlauf ankündigen, nicht aber komplett aussetzen. Diese Differenzierung muss explizit gemacht werden, sonst rutscht die gut meinende Lehrkraft automatisch in Schonungs-Modus zurück. Ohne diese explizite Sprach- und Haltungs-Verschiebung läuft die Schule gegen die Behandlung, statt mit ihr.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine soziale Angststörung — eine klinische Diagnose, die intensive, anhaltende Angst vor sozialen Situationen mit Bewertung bezeichnet. Was äußerlich oft wie Schüchternheit oder Introvertiertheit aussieht, ist innerlich eine permanente Selbst-Beobachtungs-Belastung mit erheblicher körperlicher Komponente — Erröten, Schwitzen, Zittern, Stimme bricht.</p>
+          <p>[Klient-Name] erlebt sich in sozialen Situationen als sichtbar ängstlich, was sich in der objektiven Beobachtung selten so darstellt, wie der innere Eindruck ist. Diese Diskrepanz ist klinisch zentral und wird in der Therapie mit Video-Feedback bearbeitet. Schulisch besonders belastend sind mündliche Beteiligung ohne Vorlauf, Klassen-Präsentationen, unstrukturierte Pausen, beobachtbare Sport-Disziplinen.</p>
+          <p>Wichtig: Behandlungs-Ziel ist nicht Schonung — Schonung verstärkt das Muster — sondern strukturierte, graduierte Konfrontation mit therapeutischer Begleitung. Eine Befreiung von Klassen-Präsentationen oder mündlicher Beteiligung wäre klinisch kontraindiziert. Was wir schulisch brauchen, ist eine Anpassung, die Konfrontation in kleinen Schritten ermöglicht.</p>
+          <p>Aus klinischer Sicht bitte ich Sie konkret um folgende Anpassungen: erstens, mündliche Beteiligung mit vereinbartem Vorlauf statt spontaner Aufrufe vor der Klasse; zweitens, Klassen-Präsentationen initial in kleinerer Gruppe oder per Video, später graduiert in größere Settings; drittens, eine sichere Bezugsperson, die das Profil versteht; und viertens, einen vereinbarten Coping-Plan für akute Krisensituationen.</p>
+          <p>Ich biete Ihnen gerne ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Mündliche Bewertung nur in vereinbartem Vorlauf', begruendung: 'Keine spontanen Aufrufe vor der Klasse. Spontanes Abrufen aktiviert die Selbst-Beobachtungs-Spirale direkt, und das Versagen vor der Klasse zementiert das Vermeidungs-Muster. Vorlauf von mindestens einigen Stunden ermöglicht innere Vorbereitung. Wichtig: nicht alle mündlichen Beteiligungen aussetzen — der vereinbarte Vorlauf ist Mittelweg zwischen Konfrontation und Überforderung. Diese Vereinbarung wird über die Klassen-Leitung an alle Fach-Lehrkräfte weitergegeben, damit sie nicht durch eine einzelne Lehrkraft unterlaufen wird.' },
+          { titel: 'Klassen-Präsentation initial in kleinerer Gruppe oder per Video', begruendung: 'Später graduiert in größere Settings. Eine Befreiung wäre kontraindiziert, weil sie Vermeidung verfestigt. Eine kleinere Gruppe (drei bis fünf Mitschüler) oder eine Video-Aufnahme aus dem stillen Raum sind erste Stufen einer graduierten Hierarchie. Die nächsten Stufen werden in Abstimmung mit der Therapie geplant und zeitlich verankert. Die Bewertung ist dabei gleichwertig zur normalen Präsentation — die Anpassung betrifft das Setting, nicht den Leistungs-Anspruch.' },
+          { titel: 'Sitzplatz mit Wand- oder Fenster-Rücken', begruendung: 'Reduziert Hyperfokus auf andere Klassen-Mitglieder. Wenn der Klient permanent das Gefühl hat, von hinten beobachtet zu werden, kostet das exekutive Aufmerksamkeit, die für den Unterricht fehlt. Sitzplatz an Wand oder Fenster nimmt diese Belastung heraus, ohne den Klienten zu isolieren. Die Anpassung ist diskret und nicht als Sonderbehandlung wahrnehmbar.' },
+          { titel: 'Pausen-Strukturierung: Rückzugs-Raum erlaubt, aber zeitlich begrenzt', begruendung: 'Keine vollständige Vermeidung. Bibliothek oder ruhiger Raum als kurzer Rückzug ist klinisch akzeptabel, dauerhafte Pausen-Vermeidung verstärkt aber das Muster. Idealerweise mit klar definierten Pausen-Limits (etwa eine von drei Pausen im ruhigen Raum, zwei in normaler sozialer Umgebung).' },
+          { titel: 'Sport: bei beobachtbaren Disziplinen Anpassung möglich, aber nicht ganz freigestellt', begruendung: 'Graduierte Exposition zentral. Wenn der Klient beim Vorturnen oder beim Wettlauf-Start panisch wird, kann eine vorübergehende Position als Schiedsrichter oder Zeitnehmer Sinn machen. Längerfristig muss aber die Konfrontation aufgebaut werden, sonst weicht der Klient dauerhaft aus.' },
+          { titel: 'Sichere Bezugsperson definiert', begruendung: 'Klassenlehrer oder Vertrauenslehrer als zentraler Ansprechpartner. Diese Person versteht das Profil, gibt nicht Reassurance, sondern Coping-Sprache, und kann in der akuten Krise stabilisieren. Wichtig: die Bezugsperson darf nicht in Schonungs-Modus rutschen — sie ist Behandlungs-Partner, nicht Beschützer.' },
+          { titel: 'Bei akuter Krisensituation: vereinbarter Coping-Plan statt vollständige Vermeidung', begruendung: 'Wenn die Anspannung kippt (Hyperventilation, beginnende Panik), darf der Klient nicht einfach gehen — das wäre Vermeidung. Vereinbart wird stattdessen: kurze Pause von fünf Minuten an festem Ort, Atem-Technik, dann Rückkehr. Diese Struktur muss vorab klar sein und gemeinsam mit der Therapie definiert.' },
+          { titel: 'Lob nicht prominent vor der Klasse', begruendung: 'Kann ebenfalls triggern, da soziale Aufmerksamkeit. Bei sozialer Phobie ist nicht nur Kritik problematisch — öffentliches Lob aktiviert die gleiche Selbst-Beobachtungs-Spirale, oft sogar stärker, weil der Klient sich plötzlich von allen angeschaut fühlt. Wertschätzung diskret, unter vier Augen oder schriftlich. Diese Regel überrascht viele Lehrkräfte und muss explizit kommuniziert werden, weil öffentliches Lob normalerweise als positive Verstärkung gilt.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Kein Schonung-Modus mit kompletter Vermeidung', begruendung: 'Verstärkt das Muster systematisch. Wenn die Schule alle belastenden Situationen aussetzt, lernt das Gehirn, dass die Angst durch Vermeidung erfolgreich abgewehrt wird — die Spirale verfestigt sich. Schonung ist die häufigste Schul-Reaktion und gleichzeitig eine der schädlichsten.' },
+          { titel: 'Keine Klassen-Präsentationen ohne therapeutisch abgestimmtem Aufbau', begruendung: 'Kann Trauma-artige Erfahrung produzieren bei zu großem Sprung. Wenn der Klient nach Wochen der Vermeidung plötzlich vor der ganzen Klasse präsentieren muss, kann das eine Panikattacke auslösen, die die Vermeidung weiter verstärkt. Graduierter Aufbau in Abstimmung mit der Therapie ist Pflicht.' },
+          { titel: 'Kein „Du musst da durch"-Druck ohne Vorbereitung', begruendung: 'Schadet Therapie-Allianz und Schul-Beziehung. Disziplinär-Druck ohne strukturierte Begleitung produziert Trotz oder Scham, ohne den Mechanismus zu adressieren. Die Schule wird zum Feind, statt zum Behandlungs-Partner.' },
+          { titel: 'Kein soziales Kompetenz-Training in der Schule als Hauptmaßnahme', begruendung: 'Verstärkt die Selbst-Beobachtung. Bei sozialer Phobie ist nicht das Können das Problem, sondern die Aufmerksamkeits-Fokussierung — Skills-Training verstärkt genau das, was reduziert werden muss. Wenn überhaupt, dann eingebettet in die KVT-Behandlung, nicht als isoliertes Schul-Angebot.' },
+          { titel: 'Kein öffentliches Lob für überwundene Schwierigkeiten', begruendung: 'Produziert Scham und Selbst-Bewusstsein. „Toll, dass du heute präsentiert hast" vor der Klasse positioniert den Klienten als Sonderfall und verstärkt das „ich bin der Schüchterne"-Schema. Wertschätzung diskret und unter vier Augen.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Vertrauenslehrer als sichere Bezugsperson — geschult in Coping-Sprache und in der Differenzierung zwischen Konfrontations-Begleitung und Schonung. Konstanz über mehrere Schuljahre verstärkt die Wirkung erheblich, weil die Sprach-Konvention Zeit braucht, um zu greifen',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit Angst-Diagnostik-Kompetenz — für Nachteilsausgleich, institutionelle Verankerung der graduierten Expositions-Schritte und für die Übersetzung zwischen klinischer und schulischer Logik',
+          'SCAS für vertiefte therapeutische Begleitung, besonders bei sekundärer Schul-Vermeidung oder bei beginnender Depression. Die externe Stelle entlastet das Schul-System und ermöglicht parallel laufende Familien-Arbeit',
+          'KJP bei Medikations-Frage — SSRI als Add-on bei schwerer Belastung oder nicht ausreichender KVT-Wirkung. Bei sozialer Phobie oft Sertralin oder Escitalopram als Erstwahl, Behandlung über mindestens 12 Monate',
+          'Sportlehrer und Fach-Lehrer mit beobachtbaren Bewertungs-Settings: gezielte Aufklärung über das Profil und die graduierte Expositions-Hierarchie, sonst rutschen sie in Schonungs- oder Druck-Modus. Schriftliche Kurz-Aufklärung an alle relevanten Fachkräfte verteilen',
+          'Eltern als Verbündete — Schonungs-Erlaubnis durch Eltern muss sich ändern, damit die Therapie zuhause nicht unterläuft. Strukturierte Eltern-Sitzungen alle 4-6 Wochen sind klinisch wertvoll'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle vier Wochen in der Behandlungs-Phase, danach alle zwei bis drei Monate. Bei Eskalation oder bei Übergang in sekundäre Schulphobie temporär verdichten. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — Schonungs-Vokabular vermeiden, Konfrontations-Vokabular nutzen. Bei Lehrer-Wechseln muss die Sprach-Konvention explizit übergeben werden, sonst rutschen neue Lehrkräfte automatisch in Schonungs-Modus.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Soziale-Phobie-Aufklärung. Mechanismus-Erklärung (Selbst-Beobachtung, Diskrepanz Selbst-/Fremdwahrnehmung) explizit machen. Schriftliche Kurz-Aufklärung mitliefern mit konkreten Sprach-Beispielen für Coping vs. Schonung.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen und Eltern. Wenn Klassenleitung das Profil nicht ausreichend trägt oder Eltern in Schonungs-Modus festhängen. Hier wird die graduierte Expositions-Hierarchie schulisch koordiniert; alle Beteiligten unterschreiben den Plan, damit er nicht im Alltag aufgelöst wird.</li>
+            <li><strong>Stufe 3</strong> — Anpassungs-Vereinbarung dokumentiert, mit klar definierter Expositions-Hierarchie. Formal verankert; die Stufen der mündlichen Beteiligung und der Klassen-Präsentation werden schriftlich festgehalten mit zeitlichen Markern. Dokumentation ist wichtiger als mündliche Vereinbarung, weil mündliches bei Lehrer-Wechsel verloren geht.</li>
+            <li><strong>Stufe 4</strong> — Erweiterung der Maßnahmen, eventuell Nachteilsausgleich bei mündlichen Bewertungen. Bei nicht ausreichender Anpassung in Stufe 3. Der Nachteilsausgleich muss die graduierte Hierarchie respektieren, nicht vollständige Befreiung produzieren.</li>
+            <li><strong>Stufe 5</strong> — Bei akuter Verschlechterung oder Übergang in Schulphobie: schulische Auszeit mit therapeutischem Wieder-Einstiegs-Plan. Kurz und definiert; offene Pause ist kontraindiziert. Die Auszeit hat einen klar definierten Anfang und ein klar definiertes Ende, mit konkreten Wieder-Aufnahme-Schritten und KJP-Begleitung.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Sekundäre Schul-Vermeidung beginnt. Akuter sozialer Rückzug komplett. Substanzkonsum als soziale Bewältigungs-Strategie. Sekundäre Depression vertieft sich.</p>`,
+        ueberweisung: `<p>Medikations-Frage (SSRI bei schwerer Belastung). Schwere komorbide Depression. Konkrete Suizidalität. Therapie-Resistenz nach strukturiertem Verlauf von 20 Wochen.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Vollständige soziale Isolation mit Verwahrlosung. Akute Substanzkonsum-Eskalation.</p>`
+      }
+    }
+  },
+  /* M3 — Schulphobie / Schulangst. Befüllt Prompt 12.
+     Klinische Eckpfeiler: angst-getriebene schul-vermeidung mit morgendlicher
+     somatischer symptomatik, wochenende-symptomfrei als diagnostischer
+     marker, differential zu ADHS-schulverweigerung (überforderungs-getrieben)
+     klinisch entscheidend. Stay-in-school-prinzip als therapeutischer leitsatz.
+     Leitsatz: „je länger zuhause, desto schwieriger der wieder-einstieg." */
+  {
+    id: 'angst-schulphobie',
+    name: 'Schulphobie / Schulangst',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher, der die Schule nicht oder nur unregelmäßig besucht, mit morgendlicher körperlicher Symptomatik vor dem Schul-Gang (Bauchschmerzen, Übelkeit, Erbrechen, Kopfschmerzen, Herzrasen, Atemnot). Am Wochenende und in Ferien deutlich symptomfrei; Sonntag-Abend kehren die Beschwerden mit der Antizipation der Schul-Woche zurück. Eltern berichten oft echte körperliche Bilder — Erbrechen, Fieber, Bauchkrämpfe —, die zu somatischer Diagnostik führen, ohne organischen Befund. Klassische diagnostische Falle: die Beschwerden werden als Manipulation gelesen oder als somatisches Problem fehlinterpretiert.</p>`,
+        klinischWichtig: `<p>Den Differential zu ADHS-Schulverweigerung präzise klären — das ist die häufigste klinische Verwechslung. Bei Schulphobie steht die angst-getriebene Komponente im Vordergrund, die körperliche Symptomatik ist morgens manifest, der Wochenende-Effekt ist ausgeprägt, oft gibt es einen identifizierbaren Trigger (Mobbing, Lehrer-Konflikt, Prüfungs-Angst, soziale Situation). Bei ADHS-Schulverweigerung steht die kumulative Überforderung im Vordergrund, das Versagens-Narrativ über Jahre, der Klient ist auch am Wochenende erschöpft. Beide können koexistieren.</p>
+          <p>Klassische Falle: Schulphobie wird disziplinarisch behandelt, verschärft das Muster, der Klient entwickelt sekundäre Depression. Oder umgekehrt: Schulphobie wird mit Schonung behandelt, der Klient bleibt zuhause, Vermeidung verfestigt sich, „safety zone" zuhause wird immer komfortabler. Beide Pole verschärfen den Verlauf. Was funktioniert, ist klare strukturierte Wieder-Einstiegs-Arbeit mit therapeutischer Begleitung, „stay-in-school"-Prinzip wo immer möglich („wenn schon raus, dann so schnell wie möglich wieder rein"), und parallele Trigger-Bearbeitung. Die Zeitfrage ist klinisch zentral — je länger der Klient zuhause ist, desto schwieriger wird der Wieder-Einstieg. Wenn er bereits Wochen oder Monate raus ist, ist der Wieder-Einstieg eine Reha-artige Aufgabe und kein einfacher Schritt zurück.</p>`,
+        vergleich: `<p><strong>Vs. ADHS-M8 (Schulverweigerung):</strong> angst-getrieben mit morgendlicher Symptomatik und Wochenende-Effekt vs. überforderungs-getrieben mit chronischer Erschöpfung. Sorgfältige Anamnese entscheidet. Bei Schulphobie sind Wochenende und Ferien echte Erholung; bei ADHS-Schulverweigerung bleibt die Erschöpfung. Beide Profile können koexistieren — dann beide adressieren.</p>
+          <p><strong>Vs. M2 (Soziale Phobie):</strong> wenn die Schul-Vermeidung primär soziale Komponenten betrifft (Pause, Präsentation), ist Soziale Phobie führend. Wenn der Schul-Gang an sich versagt — also schon das Verlassen des Hauses körperlich nicht funktioniert —, ist Schulphobie führend. Häufige Koexistenz; beide Achsen koordiniert behandeln.</p>
+          <p><strong>Vs. M4 (Trennungsangst):</strong> bei jüngeren Klienten häufiger Trennungs-Komponente — Differential über die spezifische Angst-Achse (Bezugsperson vs. Setting). Wenn die Angst sich auf die Trennung von der Bezugsperson bezieht (Klient kann auch zu anderen Aktivitäten ohne Eltern nicht), ist Trennungsangst führend; wenn nur die Schule der Trigger ist, ist Schulphobie führend.</p>
+          <p><strong>Vs. Depression mit Antriebs-Versagen:</strong> bei Depression fehlt die spezifische Trigger-Antizipation, bei Schulphobie ist Sonntag-Abend mit klar identifizierbarer Angst-Aktivierung das Markenzeichen. Häufige sekundäre Komorbidität — bei längerem Schulphobie-Verlauf entwickelt sich oft eine Depression, die wiederum den Wieder-Einstieg erschwert.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei langem Verlauf mit komorbider Depression',
+          'Akute Verzweiflung bei aufgezwungenem Wieder-Einstieg ohne therapeutische Begleitung',
+          'Vollständige Verwahrlosung bei längerem Verlauf'
+        ],
+        hoch: [
+          'Sekundäre Depression entwickelt sich',
+          'Substanzkonsum (Cannabis besonders) bei längerem Verlauf',
+          'Vollständige soziale Isolation',
+          'Schul-Abbruch ohne Wieder-Einstiegs-Plan',
+          'Familien-Eskalation um Schul-Frage'
+        ],
+        mittel: [
+          'Chronische Vermeidungs-Muster generalisieren',
+          'Berufs-Vermeidung in der Folge-Lebensphase',
+          'Identitäts-Festigung als „schul-untauglich"',
+          'Familien-Strukturen festigen sich um die Vermeidung herum'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Graduierte Exposition zur Schule mit klar strukturiertem Wieder-Einstiegs-Plan in Stufen. Komponenten: Psychoedukation, Trigger-Analyse, Wieder-Einstiegs-Plan, Begleitung der morgendlichen Krise, parallele Bearbeitung der Trigger-Komponente (Soziale Phobie, Mobbing, Prüfungs-Angst). Familien-Arbeit zentral — Eltern müssen mitziehen, oft schwierig, weil Mitleid und Erschöpfung. Medikation: SSRI bei schwerer Belastung möglich.</p>`,
+        begruendung: `<p>Vermeidung muss aktiv beendet werden — je länger zuhause, desto schwieriger der Wieder-Einstieg. „Stay-in-school"-Prinzip wo immer möglich. Wenn der Klient schon mehrere Wochen raus ist: schnell zurück, in kleinen Stufen, mit struktureller Schul-Unterstützung. Passives Warten auf Eigen-Motivation ist klinisch kontraindiziert.</p>`,
+        diagnostik: [
+          'SCARED',
+          'School Refusal Assessment Scale (SRAS-R)',
+          'K-SADS-PL für strukturierte komorbide Diagnostik',
+          'Strukturierte Schul-Anamnese mit Trigger-Analyse: was ist heute, was war zuerst, was ist am Wochenende anders',
+          'Mobbing-Screening systematisch — bei jüngeren Klienten besonders, weil oft verschwiegen',
+          'Differential M8 ADHS klären, Depression, sekundäre Krankheits-Symptomatik',
+          'Familien-Anamnese: was machen die Eltern, wenn er nicht zur Schule will (Reassurance-Verhalten, Schonung, Druck)'
+        ],
+        wasDuTust: [
+          '„Dein Körper sagt, was dein Kopf nicht direkt sagen kann. Wir müssen beides hören — die Symptome und das, was dahintersteckt."',
+          '„Zuhause-bleiben fühlt sich kurzfristig richtig an. Es ist langfristig die Falle. Je länger draußen, desto schwieriger zurück."',
+          '„Wir suchen nicht den richtigen Schritt zurück, wir suchen den kleinsten möglichen Schritt zurück. Eine Stunde, ein Fach, ein Tag."',
+          '„Die Symptome sind echt. Niemand muss dir das beweisen. Sie sind auch veränderbar — beides ist gleichzeitig wahr."',
+          '„Wir arbeiten mit der Schule zusammen, nicht gegen sie. Wir brauchen die Schule als Partner, nicht als Gegner."'
+        ],
+        wasDuNichtTust: [
+          'Nicht passiv beobachten und auf Eigen-Motivation warten — Vermeidung verfestigt sich aktiv durch Nichts-Tun',
+          'Nicht Wieder-Einstiegs-Plan ohne Schul-Abstimmung — scheitert systematisch, weil die Schule oft eigene Maßnahmen parallel ergreift',
+          'Nicht alle Trigger gleichzeitig adressieren — graduierter Aufbau auch in der Trigger-Arbeit',
+          'Nicht „der wird schon, wenn er bereit ist"-Logik der Eltern stützen — verlängert den Verlauf erheblich; Bereitschaft kommt nicht von alleine',
+          'Nicht Krankschreibung ohne klaren Wieder-Einstiegs-Plan — wird zu Dauer-Zustand und produziert die Verfestigung'
+        ],
+        frequenz: `<p>Wöchentlich, in akuter Phase zwei mal pro Woche. Krisennahe Verfügbarkeit besonders in Wieder-Einstiegs-Phasen zentral. Familien-Sitzungen alle drei bis vier Wochen.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik abschließen, Trigger identifizieren, Differential zu M8 ADHS und Depression klären. Familie aufklären über „stay-in-school"-Prinzip und Vermeidungs-Verstärkung. Sofortige Schul-Kontakt-Aufnahme: Wieder-Einstiegs-Plan abstimmen. Wenn der Klient schon länger raus ist: Plan in den nächsten Wochen umsetzen — nicht in Monaten.`,
+        phase2: `Wieder-Einstieg in graduellen Stufen: zuerst Schul-Gebäude betreten ohne Unterricht, dann einzelne Stunden, dann einzelne Fächer, dann Halbtags. Parallel Trigger-Bearbeitung. Notfall-Strukturen für morgendliche Krisen etablieren — was passiert, wenn er morgens akut nicht kann.`,
+        phase3: `Vollständige Schul-Anwesenheit konsolidieren. Trigger-Bearbeitung vertiefen — wenn Soziale Phobie führend: M2-Module integrieren, wenn Mobbing: schulische und juristische Schritte koordinieren. Identitäts-Arbeit jenseits der „ich kann nicht zur Schule"-Definition.`,
+        phase4: `Konsolidierung. Der Klient hat eigene Werkzeuge für morgendliche Schwankungen. Frequenz reduziert. Übergangs-Antizipation für die nächste Schul-Phase oder Setting-Wechsel.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule reagiert auf Schulphobie häufig disziplinarisch oder mit Schonung — beide Pole sind klinisch falsch. Disziplinarisch: Schulpflicht-Druck, Bußgeld-Androhung an Eltern, Mahnungen, Schul-Verweis-Drohung. Das verschärft die angst-getriebene Vermeidung systematisch, weil der Druck genau die Antizipations-Angst aktiviert, die das Vermeidungs-Verhalten ursprünglich produziert hat.</p>
+          <p>Schonung als anderer Pol: „Wir warten, bis er wieder kommt", längerfristige Krankschreibung ohne Wieder-Einstiegs-Plan, vollständige Befreiung von Anforderungen. Das verfestigt die Vermeidung und macht den Wieder-Einstieg über die Zeit immer schwieriger. Die Krankschreibungs-Phase wird oft als Erleichterung erlebt — kurzfristig richtig, langfristig die Falle, weil das Schul-Setting in der Antizipation immer bedrohlicher wird, je länger es weg ist. Eine offene Krankschreibung ohne Wieder-Einstiegs-Datum entwickelt regelmäßig eine Eigendynamik, in der die Klient-Eltern-System-Allianz die Vermeidung gemeinsam aufrechterhält.</p>
+          <p>Was die Schule wirklich braucht, ist klinische Aufklärung über Schulphobie als angst-getriebene Vermeidung, strukturierte Kooperation mit der Therapie, Bereitschaft zur graduierten Wieder-Einstiegs-Begleitung, sichere Bezugsperson in der Schule, klar definierte Notfall-Strukturen für morgendliche Krisen. Schule ist hier nicht Gegenüber, sondern Behandlungs-Partner. Ohne aktive Schul-Mitarbeit scheitert die Behandlung systematisch.</p>
+          <p>Eine zusätzliche Schwierigkeit: bei längerem Verlauf entwickelt sich oft eine sekundäre Depression, die die Wieder-Einstiegs-Arbeit komplizierter macht. Die Schul-Strategie muss diese Komorbidität einrechnen — ein depressiver Klient kann nicht denselben Wieder-Einstiegs-Plan leisten wie ein affektiv stabiler. Wenn Depression sich entwickelt, ist die KJP-Mit-Begleitung mit Medikations-Frage oft indiziert, parallel zur graduierten Schul-Exposition. Die schulische Linie muss diese Doppel-Diagnose mittragen und die Erwartungen entsprechend anpassen.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Klient-Name] hat eine Schulphobie — klinisch eine angst-getriebene Schul-Vermeidung mit morgendlicher körperlicher Symptomatik. Klar zu unterscheiden von einer Schulverweigerung im Sinne einer Überforderung (wie sie bei ADHS auftritt). Diagnostisch entscheidend: am Wochenende und in Ferien ist [Klient-Name] symptomfrei, mit Beginn der Schul-Woche treten die körperlichen Beschwerden wieder auf. Das ist nicht Manipulation, sondern konditionierte Angst-Reaktion auf das Setting Schule.</p>
+          <p>Behandlungs-Ziel ist graduierter Wieder-Einstieg mit therapeutischer Begleitung, nicht Schonung und nicht Disziplinär-Druck — beide verschärfen das Muster nachweislich. Schonung verfestigt die Vermeidung; Druck verschärft die Antizipations-Angst. Was klinisch wirkt, ist „stay-in-school"-Prinzip: je länger zuhause, desto schwieriger der Wieder-Einstieg.</p>
+          <p>Was wir konkret brauchen, ist eine strukturierte Wieder-Einstiegs-Vereinbarung mit klar definierten Stufen (Gebäude betreten, einzelne Stunde, einzelnes Fach, Halbtag, Vollzeit), eine sichere Bezugsperson in der Schule als zentraler Ansprechpartner bei morgendlicher Krise, und Bereitschaft zur Kooperation mit der Therapie in den nächsten Wochen.</p>
+          <p>Wichtig: keine Nachhol-Pflicht für verpassten Stoff aus der Vermeidungs-Phase, weil das den Wieder-Einstieg sonst sofort wieder überfordert. Wenn ein konkreter Trigger identifizierbar ist (Mobbing, spezifischer Lehrer, soziale Situation), muss dieser parallel adressiert werden. Ich biete Ihnen gerne ein Gespräch an, in dem wir den Plan abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Strukturierter Wieder-Einstiegs-Plan in Stufen mit klar definierten Schritten', begruendung: 'Gebäude betreten, einzelne Stunde, einzelnes Fach, Halbtag, Vollzeit. Ein Vollzeit-Wieder-Einstieg ohne graduelle Steigerung scheitert regelmäßig innerhalb von Tagen. Die Stufen werden mit der Therapie abgestimmt und schriftlich festgehalten, damit alle Beteiligten dieselbe Erwartung haben. Wichtig: die Stufen müssen klein genug sein, dass sie erfolgreich sein können — Erfolgs-Erfahrungen sind die Behandlung. Bei einem Klienten, der bereits Wochen oder Monate raus ist, dauert der vollständige Wieder-Einstieg oft drei bis sechs Monate, manchmal länger; diese Zeitleiste muss vorab transparent sein.' },
+          { titel: 'Sichere Bezugsperson in der Schule', begruendung: 'Klassenlehrer oder Vertrauenslehrer als zentraler Ansprechpartner bei morgendlicher Krise. Diese Person versteht das Profil und kann in der akuten Krise stabilisieren, ohne in Disziplinär-Druck oder vollständige Schonung zu kippen. Konstanz über die Wieder-Einstiegs-Phase ist therapeutisch wichtiger als jede einzelne Maßnahme. Bei Lehrer-Wechsel muss die Übergabe explizit erfolgen, sonst geht die Beziehungs-Kontinuität verloren.' },
+          { titel: 'Notfall-Plan vereinbart bei akuter morgendlicher Krise', begruendung: 'Anruf-Protokoll, kurze Verzögerung, Begleitung. Wenn der Klient morgens akut nicht kann (Erbrechen, Hyperventilation), muss ein klares Verfahren bereit liegen: wer wird angerufen, wann, mit welchen nächsten Schritten. Das Verfahren ist schriftlich, damit es im akuten Moment nicht erst diskutiert werden muss. Klar definierter Unterschied zwischen Notfall und morgendlicher Reluktanz: der Notfall-Plan ist nicht für jede Sorge-Äußerung gedacht, sondern für definierte körperliche Krisen-Situationen.' },
+          { titel: 'Initial reduzierte Anwesenheits-Anforderung mit klar benannten nächsten Stufen', begruendung: 'Die Reduktion ist klinisch begründete Anpassung, nicht offene Schonung. Wenn die nächste Stufe nicht definiert ist, wird die Reduktion zum Dauer-Zustand. Schriftliche Vereinbarung mit zeitlichen Markern — etwa zwei Wochen Halbtag, dann Erweiterung um ein Fach, dann nächste Erweiterung.' },
+          { titel: 'Keine Nachhol-Pflicht für verpassten Stoff aus der Vermeidungs-Phase', begruendung: 'Andernfalls scheitert der Wieder-Einstieg. Wenn der Klient zurückkommt und sofort den Berg der verpassten Wochen aufholen soll, ist er sofort wieder überfordert und vermeidet wieder. Der Wieder-Einstieg muss bei null beginnen können, nicht bei Aufholjagd — diese Regel muss explizit mit allen Fach-Lehrkräften abgestimmt sein.' },
+          { titel: 'Bei identifizierbarem Trigger: konkrete Intervention auf dieser Ebene', begruendung: 'Mobbing, spezifischer Lehrer, Pause — der Trigger muss parallel zur Wieder-Einstiegs-Arbeit adressiert werden, sonst wiederholt sich das Muster nach dem Wieder-Einstieg. Bei Mobbing: schulische und juristische Schritte. Bei Lehrer-Konflikt: Klassen-Wechsel oder Vermittlungs-Gespräch. Bei Pausen-Vermeidung: Pausen-Räume mit definierter Funktion. Ohne Trigger-Reduktion läuft die schulische Wieder-Einstiegs-Arbeit gegen die fortbestehende reale Bedrohung — der Klient hat einen guten Grund zu vermeiden, solange der Trigger besteht.' },
+          { titel: 'Pausen-Räume mit definierter Funktion verfügbar', begruendung: 'Pausen sind im Wieder-Einstieg eine kritische Phase — sozial unstrukturiert, mit Trigger-Potenzial. Ein Rückzugs-Raum (Bibliothek, ruhiger Raum, Schul-Psychologen-Büro) ermöglicht die Pausen-Bewältigung in der ersten Phase. Langfristig wird die Pausen-Konfrontation aufgebaut, aber initial darf die Pause ein geschützter Raum sein.' },
+          { titel: 'Wenn Mobbing involviert: schulische und ggf. juristische Schritte parallel', begruendung: 'Mobbing ist eine reale Bedrohung, keine Wahrnehmungs-Verzerrung. Wenn Mobbing der Trigger ist, muss die Schule formal handeln — Klassen-Konferenz, Mobbing-Stelle, Eltern der Mobber, gegebenenfalls disziplinäre Maßnahmen. Wenn die Schule das nicht leistet, ist Setting-Wechsel die richtige Antwort. Ohne Mobbing-Reduktion läuft der Wieder-Einstieg gegen die fortbestehende Bedrohung — und der Klient hat einen guten Grund weiter zu vermeiden.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Bußgeld-Androhung oder Schulpflicht-Druck', begruendung: 'Verschärft angst-getriebene Vermeidung systematisch. Bei Schulphobie aktiviert Druck genau die Antizipations-Angst, die das Problem ursprünglich erzeugt hat. Wenn die Schule formal handeln muss, dann mit klinischer Begründung und Reha-Konzept, nicht mit ordnungsrechtlicher Eskalation.' },
+          { titel: 'Keine vollständige Schonung mit längerfristiger Krankschreibung ohne Plan', begruendung: 'Verfestigt das Muster. Eine Krankschreibung ohne Wieder-Einstiegs-Plan wird regelmäßig zum Dauer-Zustand. Wenn Krankschreibung indiziert ist, dann mit klar definiertem Reha-Charakter und Zeitleiste, organisiert über die KJP.' },
+          { titel: 'Kein Schul-Verweis ohne Wieder-Einstiegs-Plan in anderem Setting', begruendung: 'Produziert nur Schul-Abbrecher. Wenn die aktuelle Schule trotz aller Anpassungen scheitert, muss ein anderes Setting bereit sein, bevor der Verweis ausgesprochen wird. Sonst entsteht eine Lücke, in der die Vermeidung sich vollständig verfestigt.' },
+          { titel: 'Keine „der wird schon, wenn er bereit ist"-Logik', begruendung: 'Bereitschaft kommt nicht von alleine, sie muss konstruiert werden. Passives Warten auf Motivation ist bei Schulphobie klinisch kontraindiziert, weil die Vermeidung sich aktiv durch Nichts-Tun verfestigt. Die schulische Linie muss aktive Wieder-Einstiegs-Begleitung sein, nicht abwartende Beobachtung.' },
+          { titel: 'Keine isolierte „Motivations-Arbeit" ohne Trigger-Bearbeitung', begruendung: 'Wenn ein konkreter Trigger besteht (Mobbing, Lehrer-Konflikt), ist Motivations-Arbeit ohne Trigger-Adressierung sinnlos. Der Klient hat einen guten Grund, die Schule zu vermeiden — solange dieser Grund besteht, ist Motivations-Arbeit am falschen Ort.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als zentraler Beziehungs-Anker und Wieder-Einstiegs-Begleitung — ideal mit Schulphobie-Verständnis und ohne Disziplinär-Reflex. Konstanz über die Wieder-Einstiegs-Phase ist therapeutisch entscheidend, weil das morgendliche Krisen-Protokoll auf diese Beziehung angewiesen ist',
+          'Schul-Psychologe (in Luxemburg über CDSE-PSY oder PEP-Service) mit Schulphobie-Verständnis und Differenzierungs-Fähigkeit zu ADHS-Schulverweigerung. Die institutionelle Linie und die Übersetzung zwischen schulischer und klinischer Logik laufen über diese Stelle',
+          'Schul-Direktion für Wieder-Einstiegs-Vereinbarung und Anwesenheits-Anpassung — ihre Genehmigung ist für strukturelle Reduktion notwendig. Frühzeitig einbinden, bevor disziplinäre Maßnahmen eskalieren',
+          'SCAS für vertiefte therapeutische Begleitung in akuter Phase und im Wieder-Einstieg, besonders bei suizidaler Komponente oder bei sekundärer Depression',
+          'KJP für Medikations-Frage (SSRI bei schwerer Belastung) und für die Krankschreibung mit Reha-Charakter — eine hausärztliche Krankschreibung reicht für diese Dauer und Form regelmäßig nicht aus',
+          'SNJ bei familiärer Eskalation um die Schul-Frage — die familiäre Belastung ist oft hoch und kann das System destabilisieren. Sozialdienst-Anbindung früh prüfen, nicht erst nach Eskalation',
+          'Bei Mobbing-Komponente: Mobbing-Stelle der Schule und eventuell schulische Disziplinar-Maßnahmen gegen Mobber, gegebenenfalls externe Stellen oder juristische Schritte. Ohne Mobbing-Reduktion läuft der Wieder-Einstieg gegen die fortbestehende Bedrohung'
+        ],
+        f_frequenz: `<p>Schul-Kontakt-Frequenz: alle zwei Wochen in akuter Phase und im Wieder-Einstieg, danach monatlich. Krisennahe Verfügbarkeit des Therapeuten ist hier besonders wichtig — bei Wieder-Einstiegs-Versuchen kann es täglich zu Krisen kommen, in denen schnelle Rückkopplung mit der Schule nötig ist. Schriftliche Kommunikation grundsätzlich, mit besonderer Sorgfalt auf die Sprache — disziplinäre Begriffe (Schulpflicht, Verweis, Mahnung) sind zu vermeiden, klinische Begriffe (Behandlungs-Pause, Reha, Wieder-Einstieg) zu nutzen.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Schulphobie-Aufklärung und Wieder-Einstiegs-Plan. Niederschwellig; die Differenzierung zu Schul-Schwänzen oder ADHS-Schulverweigerung muss explizit gemacht werden. Schriftliche Kurz-Aufklärung mitliefern.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologen, Schul-Direktion, Eltern. Hier wird die formale Wieder-Einstiegs-Vereinbarung getroffen und die schulische Linie über die Schul-Leitung verankert. Ohne Schul-Direktion bleibt die Vereinbarung oft folgenlos.</li>
+            <li><strong>Stufe 3</strong> — Strukturierte Vereinbarung dokumentiert, Anwesenheits-Anpassung mit klaren nächsten Stufen. Schriftlich verankert mit zeitlichen Markern; alle Fach-Lehrkräfte werden informiert. Die Dokumentation überlebt Lehrer-Wechsel, mündliche Absprachen nicht.</li>
+            <li><strong>Stufe 4</strong> — Setting-Wechsel erwägen, wenn spezifischer Trigger im aktuellen Setting nicht behebbar ist (z. B. Klassen-Wechsel bei Mobbing-Situation). Wechsel nur mit Übergangs-Vorbereitung und mit Verständnis-Garantie an der neuen Stelle, sonst wiederholt sich das Muster.</li>
+            <li><strong>Stufe 5</strong> — Vollständige schulische Auszeit mit therapeutischem Reha-Programm und strukturiertem Wieder-Einstieg in anderem System. Letzte Option; nur mit kinderpsychiatrischer Begleitung und mit klar definiertem Wieder-Einstiegs-Plan. Die Auszeit hat einen klar definierten Anfang und ein klar definiertes Ende.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Wieder-Einstiegs-Versuche scheitern wiederholt. Sekundäre Depression vertieft sich. Vollständige soziale Isolation. Suizidale Gedanken berichtet. Familien-Eskalation um die Schul-Frage.</p>`,
+        ueberweisung: `<p>Medikations-Frage (SSRI bei schwerer Belastung). Schwere komorbide Depression. Konkrete Suizidalität. Krankschreibung mit Reha-Charakter braucht ärztliche Begleitung über die KJP.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Verwahrlosung bei längerem Verlauf. Familien-System bricht zusammen, kein sicherer Container.</p>`
+      }
+    }
+  },
   { id: 'angst-trennung',        name: 'Trennungsangst',                             bloecke: emptyAngstBloecke() },
   { id: 'angst-panik',           name: 'Panikstörung',                               bloecke: emptyAngstBloecke() },
   { id: 'angst-phobie-spez',     name: 'Spezifische Phobie',                         bloecke: emptyAngstBloecke() },
