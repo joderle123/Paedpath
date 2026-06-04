@@ -477,6 +477,26 @@
   .ebene3-switcher-btn.active .ebene3-switcher-marker { color: var(--paper); }
 
   /* Sticky Top-Bar */
+  .symdia-klinik-hinweis {
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    margin: 4px 0 22px;
+    padding: 14px 18px;
+  }
+  .symdia-klinik-hinweis-titel {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .symdia-klinik-hinweis p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
   .ebene3-topbar {
     position: sticky;
     top: 0;
@@ -5081,6 +5101,18 @@ const TOPICS = {
     kategorie: 'C',
     ebenen: {},
     verwandt: ['asperger', 'adhs-unaufmerksam', 'depression-jugendliche']
+  },
+  /* Trauma — Topic angelegt in Prompt 14. Wissens-Ebenen aktuell leer (Inhalt
+     folgt); Profil-Diagnose und Sub-Muster-Tiefe-Container sind über
+     SYMPTOM_DIAGNOSE_TRAUMA und PLAN_MUSTER_TRAUMA funktional. Erreichbar über
+     die globale Diagnostik (A07 → topicKey 'trauma') und die Krankheitsbilder-
+     Übersicht. */
+  'trauma': {
+    id: 'trauma',
+    titel: 'PTBS und komplexes Trauma (Adoleszenz)',
+    kategorie: 'C',
+    ebenen: {},
+    verwandt: ['asperger', 'angststoerungen', 'depression-jugendliche']
   }
 };
 
@@ -5155,6 +5187,27 @@ const BEREICH_STRUKTUR = {
      als Card-Grid). PROFIL-DIAGNOSE funktional. HANDELN nur Behandlungs-Plan,
      Praxis und Symptom-Fokus werden in späteren Prompts ergänzt. */
   'angststoerungen': {
+    wissen: [
+      { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
+      { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
+      { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
+      { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'profile-uebersicht', label: 'Profile', tabClass: '' },
+      { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
+    ],
+    profil: [
+      { ebene: 'symptom-auswahl', label: 'Symptom-Auswahl', tabClass: 'tab-plan' },
+      { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
+    ],
+    handeln: [
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
+    ]
+  },
+  /* Trauma (A07 PTBS und komplexes Trauma) — Phase 14. WISSEN aktuell leer
+     (Inhalt folgt), Profile-Tab funktioniert über planMusterFor/musterKurzFor
+     (zeigt die 7 Muster). PROFIL-DIAGNOSE funktional mit klinischem Hinweis-
+     Block. HANDELN nur Behandlungs-Plan (Sub-Muster-Tiefe mit Platzhaltern). */
+  'trauma': {
     wissen: [
       { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
       { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
@@ -5377,7 +5430,7 @@ const SAVOIR_GLOBAL = {
     { id: 'A04', name: 'Bipolare Spektrum-Störung',                    topicKey: null,                 goldstandards: ['K-SADS-PL', 'YMRS'],                                                        quellenKurz: ['Goodwin & Jamison (juvenile Form)'] },
     { id: 'A05', name: 'Angststörungen',                               topicKey: 'angststoerungen',    goldstandards: ['SCARED (Screen for Child Anxiety Related Disorders)', 'MASC-2 (Multidimensional Anxiety Scale for Children)', 'K-SADS-PL', 'LSAS-CA (Liebowitz Social Anxiety Scale, Child/Adolescent)'], quellenKurz: ['Barlow (Anxiety Disorders)', 'Albano (CBT bei CYP)', 'Kendall (Coping Cat)', 'March (Talking Back to OCD)'] },
     { id: 'A06', name: 'Zwangsstörung',                                topicKey: null,                 goldstandards: ['CY-BOCS', 'K-SADS-PL'],                                                     quellenKurz: ['March & Mulle (CBT für OCD bei CYP)'] },
-    { id: 'A07', name: 'PTBS und komplexes Trauma',                    topicKey: null,                 goldstandards: ['CAPS-CA-5', 'UCLA PTSD-RI'],                                                quellenKurz: ['van der Kolk (Body Keeps the Score)', 'Cohen (TF-CBT)'] },
+    { id: 'A07', name: 'PTBS und komplexes Trauma',                    topicKey: 'trauma',             goldstandards: ['CAPS-CA-5 (Clinician Administered PTSD Scale for Children/Adolescents)', 'UCLA PTSD-RI (PTSD Reaction Index)', 'TSCC (Trauma Symptom Checklist for Children)', 'K-SADS-PL', 'DES-T (Dissociative Experience Scale – Taxon) bei dissoziativer Symptomatik'], quellenKurz: ['van der Kolk (Body Keeps the Score)', 'Cohen (TF-CBT)', 'Schmid (KiKuT-cPTSD)', 'Briere', 'Foa (PE für Adolescents)'] },
     { id: 'A08', name: 'Essstörungen',                                 topicKey: null,                 goldstandards: ['EDE-Q', 'EDI-3'],                                                           quellenKurz: ['Lock & Le Grange (Family-Based Treatment)'] },
     { id: 'A09', name: 'Substanz- und Verhaltenssucht',                topicKey: null,                 goldstandards: ['CRAFFT', 'AUDIT-C', 'strukturierte Substanz-Anamnese'],                     quellenKurz: ['NIDA-Prinzipien (Adolescent Substance Use)'] },
     { id: 'A10', name: 'Verhaltensstörungen (ODD, CD)',                topicKey: null,                 goldstandards: ['K-SADS-PL', 'CBCL', 'TRF'],                                                 quellenKurz: ['Patterson (coercive cycle)', 'Kazdin (Parent Management Training)'] },
@@ -6263,7 +6316,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'symptom-auswahl') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
       const ps = loadPlanState(topic.id);
       renderSymptomAuswahl(topic, ps, body);
     } else {
@@ -6278,7 +6331,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'erkanntes-muster') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
       const ps = loadPlanState(topic.id);
       renderErkanntesMuster(topic, ps, body);
     } else {
@@ -6295,8 +6348,8 @@ function renderEbene() {
   if (ebene === 'behandlungs-plan') {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
-    // Asperger + ADHS + Angststörungen nutzen den unified Sub-Muster-Tiefe-Renderer.
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
+    // Asperger + ADHS + Angststörungen + Trauma nutzen den unified Sub-Muster-Tiefe-Renderer.
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
       const ps = loadPlanState(topic.id);
       // Asperger braucht ps.generiert für interne renderPlan-Konsistenz (falls Faktoren-Eingabe genutzt wird).
       if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0 && !ps.generiert) {
@@ -9408,24 +9461,180 @@ const PLAN_MUSTER_ANGSTSTOERUNGEN = [
   }
 ];
 
+/* ============ SYMPTOM-DIAGNOSE — A07 PTBS und komplexes Trauma (Prompt 14) ============
+   Sieben Trauma-Sub-Muster (M1–M7). Symptom-IDs t-prefixiert (t1-1, t5-4 …),
+   um Kollision mit dem globalen Pool (1.1) und den anderen Topics (a1-1, s1-1)
+   zu vermeiden. Kontext-Werte sind vor-multipliziert mit SYMPTOM_WEIGHT_MULT
+   (Boost +1 → 5, +3 → 15), Symptom-Gewichte 3/2/1 werden intern ×5 verstärkt.
+   Risikofilter-Anteile (R02/R03) aus dem Spec-Mapping wirken nur in der
+   globalen Diagnostik-Schicht und sind hier — auf Topic-Ebene ohne R-Muster —
+   ausgelassen. */
+const SYMPTOM_DIAGNOSE_TRAUMA = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'traumatyp', titel: 'Trauma-Typ (Haupt-Anamnese)', optionen: [
+      { val: 'einzelereignis', text: 'Einzelereignis kürzlich' },
+      { val: 'chronisch-familie', text: 'Chronisches Familien-Trauma' },
+      { val: 'missbrauch', text: 'Sexueller Missbrauch' },
+      { val: 'haeusliche-gewalt', text: 'Häusliche Gewalt als Zeuge' },
+      { val: 'migration', text: 'Migration / Krieg / Flucht' },
+      { val: 'unklar', text: 'Unklar / multiple Traumata' }
+    ]},
+    { id: 'diagnosestand', titel: 'Diagnose-Stand des Traumas', optionen: [
+      { val: 'bekannt', text: 'Trauma bekannt und benannt' },
+      { val: 'vermutet', text: 'Trauma vermutet aber unausgesprochen' },
+      { val: 'unklar', text: 'Trauma völlig unklar oder Verdacht' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'wiedererleben', titel: 'Wiedererleben (DSM-5 Cluster B)', symptome: [
+      { id: 't1-1', text: 'Wiederkehrende intrusive Erinnerungen oder Bilder' },
+      { id: 't1-2', text: 'Albträume mit Trauma-Bezug' },
+      { id: 't1-3', text: 'Flashback-Erlebnisse mit Wiedererlebens-Charakter' },
+      { id: 't1-4', text: 'Massive psychologische Belastung bei Trigger-Reizen' },
+      { id: 't1-5', text: 'Körperliche Reaktion bei Trigger-Reizen (Herzrasen, Atemnot, Übelkeit)' }
+    ]},
+    { id: 'vermeidung', titel: 'Vermeidung (DSM-5 Cluster C)', symptome: [
+      { id: 't2-1', text: 'Vermeidung von Orten, Personen oder Themen, die mit dem Trauma verbunden sind' },
+      { id: 't2-2', text: 'Vermeidung von Gedanken oder Gefühlen, die mit dem Trauma verbunden sind' },
+      { id: 't2-3', text: 'Eingeschränkte autobiographische Erinnerung (dissoziative Amnesie)' }
+    ]},
+    { id: 'kognition', titel: 'Negative Kognitionen & Stimmung (DSM-5 Cluster D)', symptome: [
+      { id: 't3-1', text: 'Persistierende negative Überzeugungen über sich, andere oder die Welt' },
+      { id: 't3-2', text: 'Verzerrte Kognitionen über Ursache oder Folgen des Traumas mit Selbstanklage' },
+      { id: 't3-3', text: 'Persistierende negative emotionale Zustände (Furcht, Schuld, Scham, Wut)' },
+      { id: 't3-4', text: 'Deutlich vermindertes Interesse an Aktivitäten' },
+      { id: 't3-5', text: 'Gefühl der Entfremdung von anderen, sozialer Rückzug' },
+      { id: 't3-6', text: 'Unfähigkeit, positive Gefühle zu erleben' }
+    ]},
+    { id: 'hyperarousal', titel: 'Hyperarousal (DSM-5 Cluster E)', symptome: [
+      { id: 't4-1', text: 'Reizbarkeit und Wutausbrüche ohne klaren Anlass' },
+      { id: 't4-2', text: 'Selbstverletzendes oder riskantes Verhalten' },
+      { id: 't4-3', text: 'Hypervigilanz (ständige Bedrohungs-Wachsamkeit)' },
+      { id: 't4-4', text: 'Übersteigerte Schreckreaktion' },
+      { id: 't4-5', text: 'Konzentrationsstörung mit Trauma-Bezug' },
+      { id: 't4-6', text: 'Schlafstörung mit Albträumen oder Hypervigilanz' }
+    ]},
+    { id: 'dissoziation', titel: 'Dissoziative Symptomatik', symptome: [
+      { id: 't5-1', text: 'Depersonalisation (Gefühl, nicht im eigenen Körper zu sein)' },
+      { id: 't5-2', text: 'Derealisation (Umgebung wirkt unecht oder verändert)' },
+      { id: 't5-3', text: 'Lücken in der Erinnerung an wichtige Lebensereignisse' },
+      { id: 't5-4', text: 'Fragmentierung der Identität, dissoziative Switching-Erlebnisse' },
+      { id: 't5-5', text: 'Body-Mind-Disconnection (Klient fühlt seinen Körper nicht)' }
+    ]},
+    { id: 'somatisch', titel: 'Somatische Manifestation', symptome: [
+      { id: 't6-1', text: 'Chronische Schmerz-Syndrome ohne organischen Befund' },
+      { id: 't6-2', text: 'Funktionelle Bewegungs- oder Sensibilitäts-Störungen' },
+      { id: 't6-3', text: 'Chronische gastrointestinale Symptomatik' },
+      { id: 't6-4', text: 'Wiederholte Arztbesuche ohne organischen Befund' }
+    ]}
+  ],
+  /* Pro Sub-Muster: kontext-werte (vor-multipliziert mit 5) und symptom-gewichte
+     (3/2/1, intern ×5 via SYMPTOM_WEIGHT_MULT). Invertiert aus dem Spec-Mapping. */
+  musterScores: {
+    'trauma-ptbs': {
+      kontext: { traumatyp: { 'einzelereignis': 15 } },
+      symptome: { 't1-1': 3, 't1-2': 3, 't1-3': 3, 't1-4': 3, 't1-5': 3, 't2-1': 3, 't2-2': 3, 't3-3': 2, 't3-4': 2, 't4-1': 2, 't4-3': 3, 't4-4': 3, 't4-5': 2, 't4-6': 3 }
+    },
+    'trauma-cptsd': {
+      kontext: { alter: { '10-12': 5 }, traumatyp: { 'chronisch-familie': 15, 'missbrauch': 5, 'unklar': 5 } },
+      symptome: { 't1-1': 2, 't1-2': 2, 't1-3': 2, 't1-4': 2, 't1-5': 2, 't2-1': 2, 't2-2': 3, 't2-3': 3, 't3-1': 3, 't3-2': 2, 't3-3': 3, 't3-4': 3, 't3-5': 3, 't3-6': 3, 't4-1': 3, 't4-2': 3, 't4-3': 3, 't4-4': 2, 't4-5': 2, 't4-6': 2, 't5-1': 2, 't5-2': 2, 't5-3': 2, 't5-5': 1, 't6-1': 1 }
+    },
+    'trauma-missbrauch': {
+      kontext: { traumatyp: { 'missbrauch': 15 } },
+      symptome: { 't1-1': 2, 't1-2': 2, 't1-3': 3, 't1-4': 2, 't2-1': 2, 't2-2': 3, 't2-3': 3, 't3-1': 3, 't3-2': 3, 't3-3': 3, 't3-5': 3, 't3-6': 2, 't4-2': 3, 't5-1': 2, 't5-3': 3 }
+    },
+    'trauma-gewalt-zeuge': {
+      kontext: { traumatyp: { 'chronisch-familie': 5, 'haeusliche-gewalt': 15 } },
+      symptome: { 't1-1': 2, 't2-1': 2, 't3-1': 2, 't3-3': 2, 't3-5': 2, 't4-1': 3, 't4-3': 3, 't4-5': 2 }
+    },
+    'trauma-migration': {
+      kontext: { traumatyp: { 'migration': 15 } },
+      symptome: { 't1-1': 2, 't1-2': 2, 't1-3': 2, 't1-4': 2, 't2-1': 2, 't3-1': 2, 't3-3': 2, 't3-5': 2, 't4-4': 2, 't4-6': 2 }
+    },
+    'trauma-dissoziativ': {
+      kontext: { traumatyp: { 'unklar': 5 } },
+      symptome: { 't2-2': 2, 't2-3': 3, 't3-6': 2, 't5-1': 3, 't5-2': 3, 't5-3': 3, 't5-4': 3, 't5-5': 2, 't6-2': 1 }
+    },
+    'trauma-somatisch': {
+      kontext: {},
+      symptome: { 't1-5': 2, 't5-5': 2, 't6-1': 3, 't6-2': 3, 't6-3': 3, 't6-4': 3 }
+    }
+  }
+};
+
+/* Kurz-Beschreibungen pro Trauma-Sub-Muster (Output 'Erkanntes Muster'). */
+const MUSTER_KURZ_TRAUMA = {
+  'trauma-ptbs':         'Klassische PTBS nach Einzelereignis — klar definiertes Trauma (Unfall, einmalige Gewalt, einmaliger Übergriff, Naturkatastrophe, plötzlicher Verlust), kürzere Geschichte, DSM-5-Vollbild. Goldstandard TF-CBT (Cohen) oder EMDR, oft mit gutem Verlauf. Mechanismus: konditioniertes Trauma-Netzwerk, das durch Trigger reaktiviert wird.',
+  'trauma-cptsd':        'Komplexes Bindungstrauma (cPTSD nach ICD-11) — chronische frühe Traumatisierung in der primären Bindungs-Beziehung. Identitäts-, Emotionsregulations- und Beziehungs-Probleme im Vordergrund, nicht nur die Trauma-Trias. Erweiterte Behandlung nötig. Differential zu Borderline-Strukturen klinisch entscheidend.',
+  'trauma-missbrauch':   'Trauma nach sexuellem Missbrauch — eigene Behandlungs-Achse wegen der spezifischen Komponenten Vertrauen, Körper, Sexualität und der häufigen Selbstanklage. Hohe Komorbidität mit Essstörung, Selbstverletzung, Suizidalität, Substanzkonsum, sekundärer Depression. Schuld und Scham sind internalisiert.',
+  'trauma-gewalt-zeuge': 'Häusliche Gewalt als Zeuge — klinisch oft übersehene Trauma-Form ohne direkten körperlichen Übergriff. Bei Jungs häufig Aggressions-Externalisierung, bei Mädchen Internalisierung mit Depression und Angst. Schul-Performance bricht oft ohne erkennbaren Grund ein. Ungelöster Loyalitäts-Konflikt zwischen den Eltern.',
+  'trauma-migration':    'Migrations- und Krieg-Trauma — multiple Trauma-Schichten aus primärem Erlebnis, Verlust, Akkulturations-Stress und oft transgenerationaler Übertragung von traumatisierten Eltern. Im CDSE-Setting Luxembourg klinisch relevant. Behandlung muss kulturell und sprachlich sensibel sein.',
+  'trauma-dissoziativ':  'Trauma mit dissoziativer Manifestation — Depersonalisation, Derealisation, dissoziative Amnesie, Identitäts-Fragmentierung im Vordergrund. Bei Jugendlichen häufig als Psychose fehldiagnostiziert; Differential zur Psychose-Erstmanifestation entscheidend. Trauma-Anamnese muss aktiv gesucht werden, weil oft mit dissoziativer Amnesie verbunden.',
+  'trauma-somatisch':    'Trauma mit somatischer Manifestation — chronische Schmerz-Syndrome ohne Befund, funktionelle Bewegungs- oder Sensibilitäts-Störungen, chronische gastrointestinale oder konversive Symptomatik. Diagnose oft erst nach jahrelanger medizinischer Karriere, bei Mädchen häufiger. Hohe Überlappung mit Risikofilter R03 (somatoform).'
+};
+
+/* Behandlungs-Plan-Container für die sieben Trauma-Sub-Muster. Schema identisch
+   zur ADHS-/Angst-Vorlage; Inhalte werden in Folge-Prompts pro Muster befüllt. */
+function emptyTraumaBloecke() {
+  return {
+    wasDuSiehst:    { profilErkennung: '', klinischWichtig: '', vergleich: '' },
+    risikoProfil:   { kritisch: [], hoch: [], mittel: [] },
+    therapieansatz: { hauptansatz: '', begruendung: '', diagnostik: [], wasDuTust: [], wasDuNichtTust: [], frequenz: '' },
+    vierPhasen:     { phase1: '', phase2: '', phase3: '', phase4: '' },
+    schulstrategie: { a_problem: '', b_vorlage: '', c_anpassungen: [], d_kontraindikationen: [], e_rollen: [], f_frequenz: '' },
+    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' }
+  };
+}
+const PLAN_MUSTER_TRAUMA = [
+  /* M1 — Klassische PTBS nach Einzelereignis. Soll-Struktur: wasDuSiehst,
+     risikoProfil, therapieansatz (TF-CBT/EMDR), vierPhasen, schulstrategie,
+     eskalation. Inhalt folgt in Folge-Prompt. */
+  { id: 'trauma-ptbs',         name: 'Klassische PTBS nach Einzelereignis',     bloecke: emptyTraumaBloecke() },
+  /* M2 — Komplexes Bindungstrauma (cPTSD). */
+  { id: 'trauma-cptsd',        name: 'Komplexes Bindungstrauma (cPTSD)',        bloecke: emptyTraumaBloecke() },
+  /* M3 — Trauma nach sexuellem Missbrauch. */
+  { id: 'trauma-missbrauch',   name: 'Trauma nach sexuellem Missbrauch',        bloecke: emptyTraumaBloecke() },
+  /* M4 — Häusliche Gewalt als Zeuge. */
+  { id: 'trauma-gewalt-zeuge', name: 'Häusliche Gewalt als Zeuge',              bloecke: emptyTraumaBloecke() },
+  /* M5 — Migrations- und Krieg-Trauma. */
+  { id: 'trauma-migration',    name: 'Migrations- und Krieg-Trauma',            bloecke: emptyTraumaBloecke() },
+  /* M6 — Trauma mit dissoziativer Manifestation. */
+  { id: 'trauma-dissoziativ',  name: 'Trauma mit dissoziativer Manifestation',  bloecke: emptyTraumaBloecke() },
+  /* M7 — Trauma mit somatischer Manifestation. */
+  { id: 'trauma-somatisch',    name: 'Trauma mit somatischer Manifestation',    bloecke: emptyTraumaBloecke() }
+];
+
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
    Asperger-Pfad bleibt unverändert; ADHS wird zusätzlich ausgeliefert. */
 function symptomDiagnoseFor(topicId) {
   if (topicId === 'asperger') return SYMPTOM_DIAGNOSE_ASPERGER;
   if (topicId === 'adhs-unaufmerksam') return SYMPTOM_DIAGNOSE_ADHS;
   if (topicId === 'angststoerungen') return SYMPTOM_DIAGNOSE_ANGST;
+  if (topicId === 'trauma') return SYMPTOM_DIAGNOSE_TRAUMA;
   return null;
 }
 function musterKurzFor(topicId) {
   if (topicId === 'asperger') return MUSTER_KURZ_ASPERGER;
   if (topicId === 'adhs-unaufmerksam') return MUSTER_KURZ_ADHS;
   if (topicId === 'angststoerungen') return MUSTER_KURZ_ANGST;
+  if (topicId === 'trauma') return MUSTER_KURZ_TRAUMA;
   return {};
 }
 function planMusterFor(topicId) {
   if (topicId === 'asperger' && typeof PLAN_MUSTER_ASPERGER !== 'undefined') return PLAN_MUSTER_ASPERGER;
   if (topicId === 'adhs-unaufmerksam') return PLAN_MUSTER_ADHS_UNAUFMERKSAM;
   if (topicId === 'angststoerungen') return PLAN_MUSTER_ANGSTSTOERUNGEN;
+  if (topicId === 'trauma') return PLAN_MUSTER_TRAUMA;
   return [];
 }
 
@@ -12139,7 +12348,7 @@ function normalizeBehandlungsPlan(topic, muster) {
       }
     };
   }
-  if (topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen') {
+  if (topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
     const b = muster.bloecke || {};
     const ws = b.wasDuSiehst    || {};
     const rp = b.risikoProfil   || {};
@@ -12670,12 +12879,24 @@ function renderSymptomAuswahl(topic, ps, container) {
   const totalSelected = ps.symptome.length;
   const ready = totalSelected > 0;
 
+  // Klinischer Hinweis-Block — aktuell nur Trauma (A07): Cream-Block mit gold-
+  // akzentuiertem linken Rand. Mahnt zur Sorgfalt bei der Trauma-Anamnese.
+  const hinweisHtml = topic.id === 'trauma' ? `
+    <div class="symdia-klinik-hinweis">
+      <div class="symdia-klinik-hinweis-titel">Klinischer Hinweis — Trauma-Diagnostik</div>
+      <p>Trauma-Anamnese erfordert klinische Sorgfalt. Direkte Befragung zu spezifischen Trauma-Ereignissen sollte nur in einem sicheren therapeutischen Setting erfolgen. Diese Profil-Diagnose dient der symptom-basierten Hypothesen-Bildung — nicht der Trauma-Aufdeckung. Bei Verdacht auf akuten Missbrauch im aktuellen Lebens-Kontext sind die luxemburgischen Schutz-Strukturen einzubeziehen (ALUPSE, SCAS, Office National de l'Enfance).</p>
+    </div>` : '';
+
+  const eyebrowLabel = topic && topic.titel ? `Symptom-Auswahl · ${escHtml(topic.titel)}` : 'Symptom-Auswahl';
+
   container.innerHTML = `
     <section class="plan symdia-input">
       <div>
-        <div class="plan-eyebrow">Symptom-Auswahl · Asperger-Profil</div>
+        <div class="plan-eyebrow">${eyebrowLabel}</div>
         <div class="plan-intro">Wähle den Kontext und kreuze die beobachtbaren Symptome an. Die App leitet daraus das wahrscheinliche Profil-Muster ab — keine direkte Spezialdiagnose-Abfrage, sondern Symptom-zu-Muster-Matching.</div>
       </div>
+
+      ${hinweisHtml}
 
       <div class="symdia-kontext">${kontextHtml}</div>
 
