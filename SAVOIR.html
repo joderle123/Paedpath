@@ -497,6 +497,30 @@
     font-size: 0.9rem;
     line-height: 1.5;
   }
+  .symdia-krisen-banner {
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    margin: 4px 0 18px;
+    padding: 16px 20px;
+  }
+  .symdia-krisen-banner-titel {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .symdia-krisen-banner p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .symdia-primary-krise {
+    border-left: 4px solid var(--gold);
+    padding-left: 14px;
+  }
   .ebene3-topbar {
     position: sticky;
     top: 0;
@@ -5113,6 +5137,18 @@ const TOPICS = {
     kategorie: 'C',
     ebenen: {},
     verwandt: ['asperger', 'angststoerungen', 'depression-jugendliche']
+  },
+  /* Depression — Topic angelegt in Prompt 18. Wissens-Ebenen aktuell leer
+     (Inhalt folgt); Profil-Diagnose mit Suizidalitäts-Hinweisblock und Krisen-
+     Priorisierung sowie Sub-Muster-Tiefe-Container über SYMPTOM_DIAGNOSE_DEPRESSION
+     und PLAN_MUSTER_DEPRESSION funktional. Erreichbar über die globale Diagnostik
+     (A03 → topicKey 'depression') und die Krankheitsbilder-Übersicht. */
+  'depression': {
+    id: 'depression',
+    titel: 'Depressive Störung (Adoleszenz)',
+    kategorie: 'A',
+    ebenen: {},
+    verwandt: ['asperger', 'adhs-unaufmerksam', 'angststoerungen', 'trauma']
   }
 };
 
@@ -5208,6 +5244,27 @@ const BEREICH_STRUKTUR = {
      (zeigt die 7 Muster). PROFIL-DIAGNOSE funktional mit klinischem Hinweis-
      Block. HANDELN nur Behandlungs-Plan (Sub-Muster-Tiefe mit Platzhaltern). */
   'trauma': {
+    wissen: [
+      { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
+      { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
+      { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
+      { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'profile-uebersicht', label: 'Profile', tabClass: '' },
+      { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
+    ],
+    profil: [
+      { ebene: 'symptom-auswahl', label: 'Symptom-Auswahl', tabClass: 'tab-plan' },
+      { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
+    ],
+    handeln: [
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
+    ]
+  },
+  /* Depression (A03 Depressive Störung) — Phase 18. WISSEN aktuell leer
+     (Inhalt folgt), Profile-Tab funktioniert über planMusterFor/musterKurzFor.
+     PROFIL-DIAGNOSE funktional mit Suizidalitäts-Hinweisblock und Krisen-
+     Priorisierung. HANDELN nur Behandlungs-Plan (Platzhalter). */
+  'depression': {
     wissen: [
       { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
       { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
@@ -5426,7 +5483,7 @@ const SAVOIR_GLOBAL = {
   achsen: [
     { id: 'A01', name: 'Autismus-Spektrum-Störung',                    topicKey: 'asperger',           goldstandards: ['ADOS-2', 'ADI-R', 'WISC-V mit Indexprofil'],                              quellenKurz: ['Klin (klinisches Asperger-Profil)', 'Attwood (Adoleszenz-Spezifika)', 'Solden (weibliches Profil)'] },
     { id: 'A02', name: 'ADHS (unaufmerksam und kombiniert)',           topicKey: 'adhs-unaufmerksam',  goldstandards: ['Conners 3', 'BRIEF', 'WISC-V', 'K-SADS-PL'],                               quellenKurz: ['Barkley (executive dysfunction)', 'Solden (Mädchen-Profil)', 'Dodson (RSD)', 'Hallowell (ADHS 2.0)'] },
-    { id: 'A03', name: 'Depressive Störung',                           topicKey: null,                 goldstandards: ['BDI-A', 'PHQ-A', 'CDI', 'K-SADS-PL'],                                       quellenKurz: ['NICE Guidelines Depression in CYP', 'Beck (kognitive Triade)'] },
+    { id: 'A03', name: 'Depressive Störung',                           topicKey: 'depression',         goldstandards: ['BDI-A (Beck Depression Inventory for Adolescents)', 'PHQ-A (Patient Health Questionnaire for Adolescents)', 'CDI-2 (Children\'s Depression Inventory)', 'K-SADS-PL', 'Bei Suizidalität: strukturierte Risiko-Einschätzung (z. B. C-SSRS)'], quellenKurz: ['NICE Guidelines (Depression in children/young people)', 'Beck (kognitive Triade)', 'TADS-Studie', 'Harrington'] },
     { id: 'A04', name: 'Bipolare Spektrum-Störung',                    topicKey: null,                 goldstandards: ['K-SADS-PL', 'YMRS'],                                                        quellenKurz: ['Goodwin & Jamison (juvenile Form)'] },
     { id: 'A05', name: 'Angststörungen',                               topicKey: 'angststoerungen',    goldstandards: ['SCARED (Screen for Child Anxiety Related Disorders)', 'MASC-2 (Multidimensional Anxiety Scale for Children)', 'K-SADS-PL', 'LSAS-CA (Liebowitz Social Anxiety Scale, Child/Adolescent)'], quellenKurz: ['Barlow (Anxiety Disorders)', 'Albano (CBT bei CYP)', 'Kendall (Coping Cat)', 'March (Talking Back to OCD)'] },
     { id: 'A06', name: 'Zwangsstörung',                                topicKey: null,                 goldstandards: ['CY-BOCS', 'K-SADS-PL'],                                                     quellenKurz: ['March & Mulle (CBT für OCD bei CYP)'] },
@@ -6316,7 +6373,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'symptom-auswahl') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
       const ps = loadPlanState(topic.id);
       renderSymptomAuswahl(topic, ps, body);
     } else {
@@ -6331,7 +6388,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'erkanntes-muster') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
       const ps = loadPlanState(topic.id);
       renderErkanntesMuster(topic, ps, body);
     } else {
@@ -6349,7 +6406,7 @@ function renderEbene() {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
     // Asperger + ADHS + Angststörungen + Trauma nutzen den unified Sub-Muster-Tiefe-Renderer.
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
+    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
       const ps = loadPlanState(topic.id);
       // Asperger braucht ps.generiert für interne renderPlan-Konsistenz (falls Faktoren-Eingabe genutzt wird).
       if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0 && !ps.generiert) {
@@ -10448,6 +10505,153 @@ const PLAN_MUSTER_TRAUMA = [
   }
 ];
 
+/* ============ SYMPTOM-DIAGNOSE — A03 Depressive Störung (Prompt 18) ============
+   Sieben Depression-Sub-Muster (M1–M7). Symptom-IDs d-prefixiert (d1-1, d6-2 …),
+   um Kollision mit dem globalen Pool und den anderen Topics zu vermeiden.
+   Kontext-Werte sind vor-multipliziert mit SYMPTOM_WEIGHT_MULT (Boost +3 → 15,
+   +1 → 5). Q4 = 'konkret' boostet M6 zusätzlich; die Krisen-Priorisierung
+   (R01-Banner, M6 immer als Top) wird in renderErkanntesMuster behandelt. */
+const SYMPTOM_DIAGNOSE_DEPRESSION = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'erscheinung', titel: 'Dominante Erscheinungs-Form', optionen: [
+      { val: 'koerperlich', text: 'Körperliche Beschwerden im Vordergrund' },
+      { val: 'reizbarkeit', text: 'Reizbarkeit / Wut im Vordergrund' },
+      { val: 'anhaltend', text: 'Anhaltend dauerhaft seit Jahren' },
+      { val: 'versagen', text: 'Nach erkennbarem Versagens-/Überforderungs-Verlauf' },
+      { val: 'existenziell', text: 'Mit existenzieller / perfektionistischer Thematik' },
+      { val: 'klassisch', text: 'Klassisch gedrückt-traurig' }
+    ]},
+    { id: 'suizidalitaet', titel: 'Aktuelle Suizidalität', optionen: [
+      { val: 'keine', text: 'Keine Hinweise' },
+      { val: 'passiv', text: 'Passive Gedanken' },
+      { val: 'konkret', text: 'Konkrete Gedanken oder Pläne' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'stimmung', titel: 'Stimmung und Affekt', symptome: [
+      { id: 'd1-1', text: 'Anhaltend gedrückte Grundstimmung' },
+      { id: 'd1-2', text: 'Verlust von Interesse und Freude an Aktivitäten (Anhedonie)' },
+      { id: 'd1-3', text: 'Reizbarkeit und niedrige Frust-Schwelle als Hauptmerkmal' },
+      { id: 'd1-4', text: 'Gefühl der inneren Leere' },
+      { id: 'd1-5', text: 'Stimmungs-Reaktivität (kurzzeitige Aufhellung bei positiven Ereignissen, atypisch)' }
+    ]},
+    { id: 'kognition', titel: 'Kognition und Selbstbild', symptome: [
+      { id: 'd2-1', text: 'Negatives Selbstbild, Gefühl wertlos zu sein' },
+      { id: 'd2-2', text: 'Übermäßige oder unangemessene Schuldgefühle' },
+      { id: 'd2-3', text: 'Konzentrations- und Entscheidungs-Schwierigkeiten' },
+      { id: 'd2-4', text: 'Hoffnungslosigkeit bezüglich der Zukunft' },
+      { id: 'd2-5', text: 'Existenzielle oder Sinn-Fragen, überkritische Selbstbewertung' }
+    ]},
+    { id: 'antrieb', titel: 'Antrieb und Verhalten', symptome: [
+      { id: 'd3-1', text: 'Antriebslosigkeit, alles fühlt sich schwer an' },
+      { id: 'd3-2', text: 'Sozialer Rückzug' },
+      { id: 'd3-3', text: 'Vernachlässigung von Aufgaben und Selbstsorge' },
+      { id: 'd3-4', text: 'Leistungs-Einbruch in der Schule' },
+      { id: 'd3-5', text: 'Psychomotorische Verlangsamung oder Unruhe' }
+    ]},
+    { id: 'koerper', titel: 'Körper und Vegetativum', symptome: [
+      { id: 'd4-1', text: 'Schlafstörung (Ein-, Durchschlafen oder Früherwachen)' },
+      { id: 'd4-2', text: 'Vermehrter Schlaf / Hypersomnie (atypisch)' },
+      { id: 'd4-3', text: 'Appetit- und Gewichts-Veränderung' },
+      { id: 'd4-4', text: 'Chronische Müdigkeit und Energielosigkeit' },
+      { id: 'd4-5', text: 'Körperliche Beschwerden ohne organischen Befund (Kopf-, Bauchschmerzen)' },
+      { id: 'd4-6', text: 'Blei-Schwere-Gefühl in den Gliedern (atypisch)' }
+    ]},
+    { id: 'verlauf', titel: 'Verlauf und Kontext', symptome: [
+      { id: 'd5-1', text: 'Symptomatik besteht durchgehend seit über einem Jahr' },
+      { id: 'd5-2', text: 'Symptomatik nach erkennbarem Versagens- oder Überforderungs-Verlauf' },
+      { id: 'd5-3', text: 'Saisonales Muster (Verschlechterung in dunkler Jahreszeit)' },
+      { id: 'd5-4', text: 'Hohe Begabung mit Diskrepanz zur erlebten Leistung' }
+    ]},
+    { id: 'selbstgefaehrdung', titel: 'Selbstgefährdung', symptome: [
+      { id: 'd6-1', text: 'Lebensüberdruss oder Todeswünsche' },
+      { id: 'd6-2', text: 'Suizidale Gedanken' },
+      { id: 'd6-3', text: 'Konkrete Suizidplanung oder Vorbereitungs-Handlungen' },
+      { id: 'd6-4', text: 'Selbstverletzendes Verhalten' }
+    ]}
+  ],
+  musterScores: {
+    'depression-somatisierend': {
+      kontext: { erscheinung: { 'koerperlich': 15 } },
+      symptome: { 'd1-3': 1, 'd2-3': 2, 'd3-5': 2, 'd4-1': 2, 'd4-2': 1, 'd4-3': 2, 'd4-4': 3, 'd4-5': 3 }
+    },
+    'depression-irritable': {
+      kontext: { erscheinung: { 'reizbarkeit': 15 } },
+      symptome: { 'd1-3': 3 }
+    },
+    'depression-dysthymie': {
+      kontext: { erscheinung: { 'anhaltend': 15 } },
+      symptome: { 'd1-1': 2, 'd1-2': 2, 'd1-4': 2, 'd2-1': 2, 'd2-3': 2, 'd2-4': 2, 'd3-1': 2, 'd3-2': 2, 'd4-1': 2, 'd4-4': 2, 'd5-1': 3 }
+    },
+    'depression-sekundaer': {
+      kontext: { erscheinung: { 'versagen': 15 } },
+      symptome: { 'd1-1': 2, 'd1-2': 2, 'd2-1': 3, 'd2-2': 2, 'd2-3': 2, 'd2-4': 2, 'd3-1': 2, 'd3-2': 2, 'd3-3': 2, 'd3-4': 3, 'd5-2': 3 }
+    },
+    'depression-hochbegabt': {
+      kontext: { erscheinung: { 'existenziell': 15 } },
+      symptome: { 'd1-1': 2, 'd1-2': 2, 'd1-4': 2, 'd2-1': 2, 'd2-2': 2, 'd2-5': 3, 'd3-4': 2, 'd5-4': 3 }
+    },
+    'depression-suizidal': {
+      kontext: { suizidalitaet: { 'konkret': 15, 'passiv': 5 } },
+      symptome: { 'd1-1': 2, 'd1-2': 2, 'd1-4': 2, 'd2-2': 2, 'd2-4': 3, 'd3-2': 2, 'd3-3': 2, 'd3-5': 2, 'd4-1': 1, 'd6-1': 3, 'd6-2': 3, 'd6-3': 3, 'd6-4': 2 }
+    },
+    'depression-atypisch': {
+      kontext: {},
+      symptome: { 'd1-1': 2, 'd1-2': 2, 'd1-5': 3, 'd3-1': 2, 'd4-2': 3, 'd4-3': 2, 'd4-4': 2, 'd4-6': 3, 'd5-3': 3 }
+    }
+  }
+};
+
+/* Kurz-Beschreibungen pro Depression-Sub-Muster (Output 'Erkanntes Muster'). */
+const MUSTER_KURZ_DEPRESSION = {
+  'depression-somatisierend': 'Somatisierende Depression — depressive Grundstörung, die sich primär körperlich äußert (Müdigkeit, Schmerzen, Schlafstörung, Appetit-Veränderung), ohne dass der Jugendliche sich als „traurig" beschreibt. Bei Jugendlichen häufig und über die somatische Schiene vorgestellt; die affektive Komponente muss aktiv erfragt werden, sonst bleibt die Depression unter dem Radar.',
+  'depression-irritable': 'Irritable / externalisierende Depression — depressive Störung, die sich als Reizbarkeit, Wut und oppositionelles Verhalten zeigt, besonders bei Jungen. DSM-5 erlaubt Reizbarkeit statt gedrückter Stimmung als Kern-Kriterium bei Jugendlichen. Wird klinisch häufig als Verhaltensstörung fehldiagnostiziert, mit entsprechend verfehlter Behandlung.',
+  'depression-dysthymie': 'Anhaltend depressive Störung (Dysthymie) — chronische depressive Verstimmung über mindestens ein Jahr, weniger intensiv als eine Major Depression, aber dauerhaft. „War schon immer so" — der Jugendliche und das Umfeld halten die Verstimmung für Charakter, nicht für eine behandelbare Störung. Hohe Chronifizierungs-Gefahr.',
+  'depression-sekundaer': 'Sekundäre Depression nach chronischem Versagens-Verlauf — depressive Anpassung als Folge jahrelanger Überforderung, Schul-Versagen und Beschämung, oft auf Basis unerkannter ADHS, Lernstörung oder Begabungs-Diskrepanz. Behandlung muss die zugrundeliegende Ursache adressieren; reine Depressions-Behandlung ohne Korrektur des Versagens-Settings greift zu kurz.',
+  'depression-hochbegabt': 'Hochbegabter Underachiever mit Depression — hohe Begabung plus depressive Symptomatik plus existenzielle oder Sinn-Thematik, häufig mit perfektionistischer Komponente. Diskrepanz zwischen Anspruch und erlebter Leistung, überkritische Selbstbewertung, frühe Sinn-Frage. Verlangt begabungs-affirmative Behandlung mit existenzieller Achse.',
+  'depression-suizidal': 'Depression mit akuter Suizidalität (Krisen-Profil) — depressive Störung mit aktuellen suizidalen Gedanken, Plänen oder Vorbereitungs-Handlungen. Sicherheits-Management hat Vorrang vor allem anderen; Querschnitt zum Risikofilter R01. Krisen-Strukturen (KJP-Notdienst, SOS Détresse, 112) in jeder Sitzung präsent.',
+  'depression-atypisch': 'Atypische / saisonale Depression — depressive Symptomatik mit atypischen Merkmalen (Stimmungs-Reaktivität, vermehrter Schlaf, vermehrter Appetit, Blei-Schwere-Gefühl) oder saisonalem Muster (Verschlechterung in der dunklen Jahreszeit). Weicht vom klassischen Bild ab und wird oft übersehen; die saisonale Komponente ist diagnostisch und therapeutisch relevant (Licht-Therapie).'
+};
+
+/* Behandlungs-Plan-Container für die sieben Depression-Sub-Muster. Schema
+   identisch zur ADHS-/Angst-/Trauma-Vorlage; Inhalte folgen in Folge-Prompts. */
+function emptyDepressionBloecke() {
+  return {
+    wasDuSiehst:    { profilErkennung: '', klinischWichtig: '', vergleich: '' },
+    risikoProfil:   { kritisch: [], hoch: [], mittel: [] },
+    therapieansatz: { hauptansatz: '', begruendung: '', diagnostik: [], wasDuTust: [], wasDuNichtTust: [], frequenz: '' },
+    vierPhasen:     { phase1: '', phase2: '', phase3: '', phase4: '' },
+    schulstrategie: { a_problem: '', b_vorlage: '', c_anpassungen: [], d_kontraindikationen: [], e_rollen: [], f_frequenz: '' },
+    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' }
+  };
+}
+const PLAN_MUSTER_DEPRESSION = [
+  /* M1 — Somatisierende Depression. Inhalt folgt in Folge-Prompt. */
+  { id: 'depression-somatisierend', name: 'Somatisierende Depression',                       bloecke: emptyDepressionBloecke() },
+  /* M2 — Irritable / externalisierende Depression. */
+  { id: 'depression-irritable',     name: 'Irritable / externalisierende Depression',        bloecke: emptyDepressionBloecke() },
+  /* M3 — Anhaltend depressive Störung (Dysthymie). */
+  { id: 'depression-dysthymie',     name: 'Anhaltend depressive Störung (Dysthymie)',        bloecke: emptyDepressionBloecke() },
+  /* M4 — Sekundäre Depression nach chronischem Versagens-Verlauf. */
+  { id: 'depression-sekundaer',     name: 'Sekundäre Depression nach chronischem Versagen',  bloecke: emptyDepressionBloecke() },
+  /* M5 — Hochbegabter Underachiever mit Depression. */
+  { id: 'depression-hochbegabt',    name: 'Hochbegabter Underachiever mit Depression',       bloecke: emptyDepressionBloecke() },
+  /* M6 — Depression mit akuter Suizidalität (Krisen-Profil). */
+  { id: 'depression-suizidal',      name: 'Depression mit akuter Suizidalität',              bloecke: emptyDepressionBloecke() },
+  /* M7 — Atypische / saisonale Depression. */
+  { id: 'depression-atypisch',      name: 'Atypische / saisonale Depression',                bloecke: emptyDepressionBloecke() }
+];
+
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
    Asperger-Pfad bleibt unverändert; ADHS wird zusätzlich ausgeliefert. */
 function symptomDiagnoseFor(topicId) {
@@ -10455,6 +10659,7 @@ function symptomDiagnoseFor(topicId) {
   if (topicId === 'adhs-unaufmerksam') return SYMPTOM_DIAGNOSE_ADHS;
   if (topicId === 'angststoerungen') return SYMPTOM_DIAGNOSE_ANGST;
   if (topicId === 'trauma') return SYMPTOM_DIAGNOSE_TRAUMA;
+  if (topicId === 'depression') return SYMPTOM_DIAGNOSE_DEPRESSION;
   return null;
 }
 function musterKurzFor(topicId) {
@@ -10462,6 +10667,7 @@ function musterKurzFor(topicId) {
   if (topicId === 'adhs-unaufmerksam') return MUSTER_KURZ_ADHS;
   if (topicId === 'angststoerungen') return MUSTER_KURZ_ANGST;
   if (topicId === 'trauma') return MUSTER_KURZ_TRAUMA;
+  if (topicId === 'depression') return MUSTER_KURZ_DEPRESSION;
   return {};
 }
 function planMusterFor(topicId) {
@@ -10469,6 +10675,7 @@ function planMusterFor(topicId) {
   if (topicId === 'adhs-unaufmerksam') return PLAN_MUSTER_ADHS_UNAUFMERKSAM;
   if (topicId === 'angststoerungen') return PLAN_MUSTER_ANGSTSTOERUNGEN;
   if (topicId === 'trauma') return PLAN_MUSTER_TRAUMA;
+  if (topicId === 'depression') return PLAN_MUSTER_DEPRESSION;
   return [];
 }
 
@@ -13182,7 +13389,7 @@ function normalizeBehandlungsPlan(topic, muster) {
       }
     };
   }
-  if (topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma') {
+  if (topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
     const b = muster.bloecke || {};
     const ws = b.wasDuSiehst    || {};
     const rp = b.risikoProfil   || {};
@@ -13713,12 +13920,24 @@ function renderSymptomAuswahl(topic, ps, container) {
   const totalSelected = ps.symptome.length;
   const ready = totalSelected > 0;
 
-  // Klinischer Hinweis-Block — aktuell nur Trauma (A07): Cream-Block mit gold-
-  // akzentuiertem linken Rand. Mahnt zur Sorgfalt bei der Trauma-Anamnese.
-  const hinweisHtml = topic.id === 'trauma' ? `
+  // Klinischer Hinweis-Block (Cream mit gold-akzentuiertem linkem Rand) —
+  // pro Topic kann ein dezenter Sorgfalts-Hinweis im Symptom-Auswahl-Tab
+  // gerendert werden. Aktuell: Trauma (A07) und Depression (A03).
+  const SYMDIA_KLINIK_HINWEIS = {
+    'trauma': {
+      titel: 'Klinischer Hinweis — Trauma-Diagnostik',
+      text: 'Trauma-Anamnese erfordert klinische Sorgfalt. Direkte Befragung zu spezifischen Trauma-Ereignissen sollte nur in einem sicheren therapeutischen Setting erfolgen. Diese Profil-Diagnose dient der symptom-basierten Hypothesen-Bildung — nicht der Trauma-Aufdeckung. Bei Verdacht auf akuten Missbrauch im aktuellen Lebens-Kontext sind die luxemburgischen Schutz-Strukturen einzubeziehen (ALUPSE, SCAS, Office National de l\'Enfance).'
+    },
+    'depression': {
+      titel: 'Klinischer Hinweis — Suizidalität',
+      text: 'Bei depressiven Störungen ist die Einschätzung der Suizidalität fester Bestandteil der Diagnostik. Diese Profil-Diagnose ersetzt keine strukturierte Risiko-Einschätzung im persönlichen Kontakt. Bei Hinweisen auf akute Selbstgefährdung sind die luxemburgischen Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112).'
+    }
+  };
+  const hinweis = SYMDIA_KLINIK_HINWEIS[topic.id];
+  const hinweisHtml = hinweis ? `
     <div class="symdia-klinik-hinweis">
-      <div class="symdia-klinik-hinweis-titel">Klinischer Hinweis — Trauma-Diagnostik</div>
-      <p>Trauma-Anamnese erfordert klinische Sorgfalt. Direkte Befragung zu spezifischen Trauma-Ereignissen sollte nur in einem sicheren therapeutischen Setting erfolgen. Diese Profil-Diagnose dient der symptom-basierten Hypothesen-Bildung — nicht der Trauma-Aufdeckung. Bei Verdacht auf akuten Missbrauch im aktuellen Lebens-Kontext sind die luxemburgischen Schutz-Strukturen einzubeziehen (ALUPSE, SCAS, Office National de l'Enfance).</p>
+      <div class="symdia-klinik-hinweis-titel">${escHtml(hinweis.titel)}</div>
+      <p>${escHtml(hinweis.text)}</p>
     </div>` : '';
 
   const eyebrowLabel = topic && topic.titel ? `Symptom-Auswahl · ${escHtml(topic.titel)}` : 'Symptom-Auswahl';
@@ -13831,6 +14050,30 @@ function renderErkanntesMuster(topic, ps, container) {
     return;
   }
 
+  // Krisen-Priorisierung bei Depression (A03): Selektion eines K6-Suizidalitäts-
+  // Items ODER Q4 = 'konkret' / 'passiv' aktiviert den R01-Krisen-Banner und
+  // hebt M6 (depression-suizidal) als angezeigtes Top-Muster hervor, unabhängig
+  // vom Symptom-Score. So bleibt das Krisen-Profil im Vordergrund, auch wenn
+  // andere Muster einen höheren Score erreichen.
+  let crisisActive = false;
+  if (topic.id === 'depression') {
+    const k6Selected = (ps.symptome || []).some(s => /^d6-/.test(s));
+    const q4Crisis = ps.kontext && (ps.kontext.suizidalitaet === 'konkret' || ps.kontext.suizidalitaet === 'passiv');
+    crisisActive = k6Selected || q4Crisis;
+    if (crisisActive) {
+      const M6_ID = 'depression-suizidal';
+      const m6Idx = results.findIndex(r => r.muster.id === M6_ID);
+      if (m6Idx > 0) {
+        const m6 = results.splice(m6Idx, 1)[0];
+        results.unshift(m6);
+      } else if (m6Idx === -1) {
+        const plan = planMusterFor(topic.id);
+        const m6Muster = plan.find(m => m.id === M6_ID);
+        if (m6Muster) results.unshift({ muster: m6Muster, score: 0 });
+      }
+    }
+  }
+
   const top = results[0];
   const threshold = top.score * 0.7;
   const auchMoeglich = results.slice(1).filter(r => r.score >= threshold);
@@ -13842,19 +14085,26 @@ function renderErkanntesMuster(topic, ps, container) {
       <div class="symdia-auch-titel">Auch möglich</div>
       <ul class="symdia-auch-list">
         ${auchMoeglich.map(r => `
-          <li><strong>${escHtml(r.muster.name)}</strong> <span class="symdia-auch-pct">${Math.round(r.score / top.score * 100)}% Übereinstimmung</span></li>
+          <li><strong>${escHtml(r.muster.name)}</strong> <span class="symdia-auch-pct">${top.score > 0 ? Math.round(r.score / top.score * 100) : 0}% Übereinstimmung</span></li>
         `).join('')}
       </ul>
     </div>
   ` : '';
 
+  const krisenBannerHtml = crisisActive ? `
+    <div class="symdia-krisen-banner">
+      <div class="symdia-krisen-banner-titel">Hinweis auf akute Selbstgefährdung</div>
+      <p>Sicherheits-Einschätzung hat Vorrang. Bei konkreter Suizidalität sind die luxemburgischen Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112). Das Krisen-Profil (M6) wird unten unabhängig vom Symptom-Score prominent angezeigt.</p>
+    </div>` : '';
+
   container.innerHTML = `
     <section class="plan symdia-result">
-      <div class="symdia-primary">
-        <div class="symdia-primary-eyebrow">Erkanntes Muster</div>
+      ${krisenBannerHtml}
+      <div class="symdia-primary${crisisActive ? ' symdia-primary-krise' : ''}">
+        <div class="symdia-primary-eyebrow">${crisisActive ? 'Krisen-Profil — Erkanntes Muster' : 'Erkanntes Muster'}</div>
         <h2 class="symdia-primary-titel">${escHtml(top.muster.name)}</h2>
         <p class="symdia-primary-kurz">${escHtml(kurz)}</p>
-        <div class="symdia-primary-meta">Score ${top.score} · basierend auf ${ps.symptome.length} angekreuzten Symptomen</div>
+        <div class="symdia-primary-meta">Score ${top.score} · basierend auf ${ps.symptome.length} angekreuzten Symptomen${crisisActive ? ' · krisenpriorisiert' : ''}</div>
       </div>
       ${auchHtml}
       <div class="symdia-cta">
