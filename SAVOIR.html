@@ -10106,11 +10106,346 @@ const PLAN_MUSTER_TRAUMA = [
     }
   },
   /* M5 — Migrations- und Krieg-Trauma. */
-  { id: 'trauma-migration',    name: 'Migrations- und Krieg-Trauma',            bloecke: emptyTraumaBloecke() },
+  {
+    id: 'trauma-migration',
+    name: 'Migrations- und Krieg-Trauma',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit Flucht- oder Krieg-Hintergrund, oft mit mehreren Trauma-Schichten. Klassische PTBS-Symptomatik plus Verlust-Trauer, Akkulturations-Stress, manchmal Schuld gegenüber Zurückgebliebenen. Häufig in einer Familie, die selbst traumatisiert ist und daher wenig Stabilisierungs-Kapazität bietet.</p>`,
+        klinischWichtig: `<p>Migrations- und Krieg-Trauma ist selten ein einzelnes Trauma — es ist ein Stapel. Das primäre Erlebnis (Krieg, Flucht-Gefahr, Gewalt), der Verlust (Heimat, Angehörige, Sprache, soziale Rolle) und der laufende Akkulturations-Stress im neuen Land (Diskriminierung, Unsicherheit über Aufenthalts-Status, Sprach-Barriere, Isolation). Dazu kommt oft transgenerationale Übertragung: die Eltern sind selbst traumatisiert und können nicht die stabilisierende Funktion erfüllen, die das Kind bräuchte — manchmal parentifiziert sich das Kind als Dolmetscher und Vermittler der Familie.</p>
+          <p>Die kulturelle Dimension ist behandlungs-relevant: in manchen Kulturen wird psychisches Leid körperlich ausgedrückt, Trauma-Reden ist tabuisiert, Hilfe-Suche bei Fremden ist mit Scham besetzt. Behandlung muss diese kulturellen Rahmen respektieren, ohne das Trauma unbehandelt zu lassen. Bei Aufenthalts-Unsicherheit kann echte Stabilisierung schwierig sein — die äußere Bedrohung ist nicht vorbei, und jeder Bescheid kann eine Trauma-Reaktivierung auslösen.</p>`,
+        vergleich: `<p><strong>Vs. M1 (klassische PTBS):</strong> M5 hat multiple Schichten und laufenden Akkulturations-Stress, nicht ein abgeschlossenes Ereignis.</p>
+          <p><strong>Vs. M2 (komplexes Bindungstrauma):</strong> Bei Familien-Trauma während der Flucht Mischbild. M5 betont die migrations-spezifischen und kulturellen Komponenten.</p>
+          <p><strong>Vs. M7 (somatische Manifestation):</strong> Bei kulturell körperlichem Leidens-Ausdruck Mischbild M5 plus M7.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität, besonders bei Aufenthalts-Unsicherheit und Perspektiv-Losigkeit',
+          'Akute Trauma-Reaktivierung durch Status-Bescheide oder Abschiebungs-Drohung',
+          'Bei unbegleiteten minderjährigen Geflüchteten: besondere Vulnerabilität'
+        ],
+        hoch: [
+          'Sekundäre Depression',
+          'Substanzkonsum',
+          'Sozialer Rückzug und Isolation',
+          'Schul-Schwierigkeiten durch Sprach-Barriere plus Trauma',
+          'Parentifizierung mit Überlastung'
+        ],
+        mittel: [
+          'Identitäts-Konflikt zwischen Herkunfts- und Aufnahme-Kultur',
+          'Chronische Trauer',
+          'Beziehungs-Schwierigkeiten',
+          'Transgenerationale Weitergabe'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Kulturell sensible trauma-fokussierte Behandlung, phasenorientiert. Stabilisierung zuerst — bei laufender äußerer Bedrohung (Aufenthalts-Unsicherheit) ist vollständige Stabilisierung schwierig, dann Fokus auf Ressourcen und Alltags-Bewältigung. Bei Sprach-Barriere Dolmetscher mit therapeutischer Erfahrung. Trauma-Verarbeitung, wenn Sicherheit und Stabilität gegeben sind.</p>`,
+        begruendung: `<p>Trauma-Verarbeitung braucht ein Mindest-Maß an äußerer Sicherheit — bei akuter Aufenthalts-Bedrohung ist das nicht gegeben, dann sind Stabilisierung und Ressourcen-Arbeit die angemessene Behandlung. Kulturelle Rahmen müssen respektiert werden, sonst bricht die Behandlungs-Allianz.</p>`,
+        diagnostik: [
+          'CAPS-CA-5 (kultursensibel anwenden)',
+          'UCLA PTSD-RI',
+          'Kulturell adaptierte Trauma-Screenings, wo verfügbar',
+          'K-SADS-PL',
+          'Strukturierte Migrations- und Trauma-Anamnese mit Dolmetscher',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'Berücksichtigung kulturell geprägter Leidens-Ausdrucks-Formen'
+        ],
+        wasDuTust: [
+          '„Was du erlebt hast, war nicht ein Ereignis, sondern viele. Wir müssen nicht alles auf einmal anschauen."',
+          '„Du hast deine Heimat, Menschen, deine Sprache verloren — und niemand hat dir Zeit zum Trauern gegeben. Diese Zeit nehmen wir uns hier."',
+          '„Du musst nicht der Übersetzer und Beschützer deiner Familie sein. Auch wenn niemand sonst da ist. Das ist zu viel für einen jungen Menschen."',
+          '„In deiner Kultur spricht man vielleicht nicht über so etwas. Hier ist ein Ort, an dem du es kannst — oder auch nicht. Du entscheidest."',
+          '„Dass dein Körper Schmerzen hat, ist kein Zeichen, dass mit dir etwas nicht stimmt. Manchmal trägt der Körper, was die Seele nicht sagen kann."'
+        ],
+        wasDuNichtTust: [
+          'Nicht Trauma-Verarbeitung erzwingen bei laufender äußerer Bedrohung — Stabilisierung kommt zuerst',
+          'Nicht kulturelle Ausdrucks-Formen pathologisieren (körperlicher Leidens-Ausdruck, Tabu über Trauma-Reden)',
+          'Nicht das Kind als Familien-Dolmetscher in Sitzungen benutzen — professioneller Dolmetscher',
+          'Nicht westliche Trauma-Konzepte ungefiltert überstülpen'
+        ],
+        frequenz: `<p>Wöchentlich, mit Dolmetscher-Kontinuität. Bei Aufenthalts-Krisen flexible Verfügbarkeit.</p>`
+      },
+      vierPhasen: {
+        phase1: `Sicherheit und Stabilität prüfen, einschließlich Aufenthalts-Status (Wochen 1–8). Diagnostik kultursensibel. Ressourcen-Aktivierung. Bei Parentifizierung: Familie und Hilfe-Strukturen einbinden. Dolmetscher etablieren.`,
+        phase2: `Stabilisierung und Alltags-Bewältigung (Monate 2–6). Trauer-Arbeit für die Verluste. Trauma-Verarbeitung, wenn äußere Sicherheit gegeben ist. Akkulturations-Unterstützung.`,
+        phase3: `Trauma-Integration (Monate 6–12). Identitäts-Arbeit zwischen den Kulturen. Zukunfts-Perspektive im neuen Kontext.`,
+        phase4: `Konsolidierung (Monate 12+). Frequenz reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht oft das „Integrations-Problem" — Sprach-Barriere, Leistungs-Rückstand, manchmal Verhaltens-Auffälligkeiten — ohne den Trauma-Hintergrund zu erkennen. Die klassische Reaktion ist rein sprachlich-fachliche Förderung, die das Trauma ignoriert. Das traumatisierte Kind kann aber nicht lernen, solange das Nervensystem im Überlebens-Modus ist. Sprach-Barriere plus Trauma plus Akkulturations-Stress überfordern.</p>
+          <p>Was die Schule braucht, ist Bewusstsein für die Trauma-Dimension, eine sichere Bezugsperson, realistische Erwartungen während der Stabilisierungs-Phase und Zugang zu Sprach-Förderung, die nicht überfordert. Schule kann ein wichtiger Stabilitäts-Anker sein — Struktur, Vorhersehbarkeit, soziale Einbindung. Für viele dieser Klienten ist die Schule der erste verlässliche Ort im Aufnahme-Land, der einzige Raum mit täglicher Routine, planbaren Bezugspersonen und einem Platz, der für sie reserviert ist. Diese Stabilität wirkt klinisch, lange bevor irgendeine Behandlungs-Komponente greift.</p>
+          <p>Ein zweiter Aspekt ist die Eltern-Achse. Häufig sind die Eltern selbst traumatisiert, sprachlich nicht so erreichbar wie das Kind, und es kommt zur Rollen-Umkehr: das Kind dolmetscht, navigiert Behörden, vermittelt zwischen Schule und Familie. Wenn die Schule das nicht sieht, lädt sie zusätzlich Verantwortung auf das Kind, statt sie zu reduzieren. Eltern-Gespräche werden, wo möglich, mit professionellem Dolmetscher geführt, nicht über das Kind. Das ist organisatorisch aufwendiger und klinisch entlastend.</p>
+          <p>Schließlich ist die Schul-Kultur selbst ein Faktor. Eine Schule, in der Diversität sichtbar gewürdigt wird, in der die Herkunfts-Sprache nicht als Defizit erscheint und in der andere Kinder mit ähnlichem Hintergrund präsent sind, wirkt schützend. Eine Schule, in der die Klient-Familie als „Sonderfall" markiert ist, verschärft die Isolation. Diese Schul-Kultur ist nicht in einer Sitzung herstellbar, aber die Bezugsperson kann sie im Klassen-Mikrokosmos prägen — durch die Art, wie sie über Herkunft, Sprache und Geschichte spricht.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] hat einen Flucht- beziehungsweise Kriegs-Hintergrund mit entsprechender Belastung. Was schulisch wie eine Sprach- oder Lern-Schwierigkeit aussieht, ist oft eine Kombination aus Sprach-Barriere und trauma-bedingt reduzierter Lern-Kapazität. Ein traumatisiertes Nervensystem kann nicht gut lernen — die Ressourcen sind gebunden in der Überlebens-Wachsamkeit.</p>
+          <p>Was [Name] braucht, ist eine sichere Bezugsperson, realistische Erwartungen in der aktuellen Phase und Struktur als Stabilitäts-Anker. Schule ist hier oft der erste verlässliche Ort im neuen Land — diese Funktion ist klinisch wertvoll, auch unabhängig von Lern-Fortschritten.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte Bezugsperson mit interkultureller Sensibilität; zweitens, abgestufte Leistungs-Erwartungen während der Stabilisierungs-Phase; drittens, eine Vorab-Information bei Unterrichts-Themen, die das Trauma berühren könnten (Krieg, Flucht in Geschichte oder Politik), damit eine kontrollierte Vorbereitung möglich ist.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sichere konstante Bezugsperson mit interkultureller Sensibilität', begruendung: 'Bezugsperson ist hier nicht nur Anker, sondern oft auch erste verlässliche erwachsene Person im Aufnahme-Land. Interkulturelle Sensibilität bedeutet: kulturelle Ausdrucks-Formen kennen, nicht spontan pathologisieren, kommunikative Geduld bei Sprach-Barriere. Die Bezugsperson wird stabil über das Schuljahr gehalten, weil Bindungs-Abbrüche bei diesen Klienten besonders schwer wiegen — sie reaktivieren die Verlust-Schicht der Migrations-Erfahrung.' },
+          { titel: 'Eltern-Gespräche mit professionellem Dolmetscher, nicht über das Kind', begruendung: 'Wenn das Kind in Eltern-Gesprächen dolmetscht, übernimmt es eine Erwachsenen-Funktion und wird in die familiäre Konflikt-Lage hineingezogen. Ein professioneller Dolmetscher entlastet das Kind und ermöglicht eine ehrliche Kommunikation mit den Eltern, die in der Regel selbst belastet sind und Unterstützung brauchen. Organisatorisch aufwendig, klinisch entscheidend.' },
+          { titel: 'Realistische Leistungs-Erwartungen während der Stabilisierungs-Phase', begruendung: 'Die Lern-Kapazität ist real reduziert — Sprach-Barriere plus Trauma plus Akkulturations-Stress lassen wenig Ressourcen übrig. Druck verschärft die Dysregulation. Erwartungen werden mit dem Fortschritt der Stabilisierung schrittweise angehoben, nicht sofort am Curriculum gemessen.' },
+          { titel: 'Sprach-Förderung, die nicht überfordert', begruendung: 'Intensive Sprach-Programme können bei traumatisierten Klienten überfordern, weil Lern-Last und Akkulturations-Stress kumulieren. Förderung in kleineren Einheiten, mit Anwendungs-Bezug, ist effektiver als maximale Stunden-Zahl. Qualität vor Quantität.' },
+          { titel: 'Struktur und Vorhersehbarkeit als Stabilitäts-Anker', begruendung: 'Vorhersehbare Tagesstruktur senkt die Grundanspannung und gibt dem oft chaotischen Lebens-Umfeld eine Gegen-Kraft. Stunden-Plan-Stabilität, bekannte Räume, ritualisierte Übergänge wirken hier klinisch — sie geben dem Nervensystem die Botschaft „hier ist nichts unvorhersehbar". Auch Klein-Rituale wie eine feste Begrüßungs-Form am Morgen tragen messbar bei.' },
+          { titel: 'Soziale Einbindung fördern (Peer-Anbindung, AGs)', begruendung: 'Isolation ist ein Haupt-Risiko bei M5. Aktive Vermittlung in Peer-Beziehungen, Sport-AGs, Maison des Jeunes-Angebote schaffen positive Beziehungs-Erfahrungen im Aufnahme-Land. Soziale Einbindung wirkt zugleich gegen die transgenerationale Isolation der oft sozial zurückgezogenen Familie. Eine konkrete Vermittlung — die Lehrkraft stellt den Klienten der AG-Leitung vor, der Erst-Besuch wird begleitet — ist wirksamer als eine bloße Empfehlung.' },
+          { titel: 'Bei Trigger-Reaktionen: trauma-bewusste Reaktion', begruendung: 'Laute Geräusche, Sirenen, Feuer-Alarme, Themen wie Krieg in Geschichte oder Politik können massiv triggern. Die Bezugsperson kennt mögliche Trigger und reagiert ruhig: ansprechen, kurz in einen ruhigeren Raum, Stabilisierung, Rückkehr. Sanktion bei Trigger-bedingtem Verhalten wäre klinisch destruktiv. Bei geplanten Schul-Übungen (Feuer-Alarm-Probe) wird vorab informiert, sonst kann eine Routine-Übung eine massive Reaktivierung auslösen.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine rein sprachlich-fachliche Förderung ohne Trauma-Bewusstsein', begruendung: 'Sprach-Förderung ohne Berücksichtigung der Trauma-Dimension überfordert und produziert Versagens-Erfahrungen. Schule muss die Trauma-Achse mitdenken, sonst werden gut gemeinte Förder-Maßnahmen zur weiteren Belastung.' },
+          { titel: 'Kein Leistungs-Druck während der akuten Stabilisierungs-Phase', begruendung: 'Erhöhter Leistungs-Druck in der Stabilisierungs-Phase reproduziert das Gefühl der Überforderung, das die Familie aus dem Flucht-Kontext mitbringt. Druck verschärft Trauma-Symptomatik und kann Dekompensation auslösen.' },
+          { titel: 'Keine Konfrontation mit Trauma-Themen im Unterricht ohne Vorbereitung', begruendung: 'Krieg, Flucht oder Gewalt als Unterrichts-Thema (Geschichte, Politik, Religion, Literatur) können unvorbereitet massiv triggern. Vorab-Information an den Klienten und die Möglichkeit zur kontrollierten Abwesenheit oder Vorbereitung sind notwendig.' }
+        ],
+        e_rollen: [
+          'Bezugsperson mit interkultureller Sensibilität',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service)',
+          'SCAS für vertiefte Begleitung',
+          'Spezialisierte Trauma-Strukturen für Geflüchtete',
+          'ONE und SNJ bei unbegleiteten Minderjährigen',
+          'Dolmetscher-Dienste'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen, bei Aufenthalts-Krisen engmaschiger. Status-Bescheide gelten als kritische Punkte, die proaktiv begleitet werden, weil sie eine akute Trauma-Reaktivierung auslösen können. Wenn der Termin eines Status-Bescheids bekannt ist, wird der Schul-Kontakt um diesen Zeitpunkt herum aktiv vorbereitet, statt erst auf die Reaktion zu warten.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson und Trauma-Aufklärung, Trigger-Hinweise dokumentiert, kulturell sensible Erst-Information.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe und interkulturelle Dienste eingebunden, Dolmetscher organisiert, Eltern-Achse mit professioneller Sprach-Mittlung aufgebaut.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert, an alle relevanten Lehrkräfte kommuniziert; Aktivierungs- und Förder-Plan abgestimmt.</li>
+            <li><strong>Stufe 4</strong> — Bei unbegleiteten Minderjährigen: ONE-Anbindung mit klar definiertem Vorgehen, regelmäßige Fall-Konferenzen mit den zuständigen Stellen.</li>
+            <li><strong>Stufe 5</strong> — Bei Aufenthalts-Krise mit Dekompensation: Krisen-Intervention und spezialisierte Strukturen, koordiniert mit der zuständigen Behörde; juristische Begleitung wenn nötig.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Aufenthalts-Status-Bescheid oder Abschiebungs-Drohung. Suizidale Gedanken. Vertiefende Depression. Trauma-Reaktivierung.</p>`,
+        ueberweisung: `<p>Medikations-Frage. Schwere komorbide Depression. Konkrete Suizidalität.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan. Akute Trauma-Reaktivierung mit Dekompensation. Bei unbegleiteten Minderjährigen in Krise: sicherer Raum mit ONE.</p>`
+      }
+    }
+  },
   /* M6 — Trauma mit dissoziativer Manifestation. */
-  { id: 'trauma-dissoziativ',  name: 'Trauma mit dissoziativer Manifestation',  bloecke: emptyTraumaBloecke() },
+  {
+    id: 'trauma-dissoziativ',
+    name: 'Trauma mit dissoziativer Manifestation',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit ausgeprägter dissoziativer Symptomatik — Gefühl, neben sich zu stehen, die Welt wie durch Glas zu erleben, Erinnerungs-Lücken, manchmal das Erleben verschiedener innerer Zustände oder Stimmen. Oft als psychotisch fehldiagnostiziert. Die Trauma-Anamnese ist häufig zunächst nicht zugänglich, weil sie selbst dissoziiert ist.</p>`,
+        klinischWichtig: `<p>Dissoziation ist der Überlebens-Mechanismus für Trauma, das zu überwältigend war, um präsent erlebt zu werden — das Kind „geht weg", während es passiert. Bei chronischem Trauma kann sich das verfestigen, bis zu Identitäts-Fragmentierung. Was als Überlebens-Strategie begonnen hat, wird zur dauerhaften Verarbeitungs-Lücke und schließlich zu einem strukturellen Phänomen mit eigenen Sub-Zuständen.</p>
+          <p>Die zentrale Differentialdiagnose ist die Psychose. Dissoziative Stimmen werden oft als innere Stimmen erlebt (Ich-nah), psychotische Stimmen als von außen kommend (Ich-fern). Dissoziative Phänomene haben einen Trauma-Bezug und fluktuieren mit Trigger-Aktivierung, psychotische sind durchgehender und weniger trigger-gebunden. Diese Unterscheidung ist behandlungs-relevant — Antipsychotika sind bei Dissoziation nicht die Antwort und können das Bild verschleiern.</p>
+          <p>Behandlung ist langsam und vorsichtig: Stabilisierung und Arbeit an dissoziativen Mustern haben Vorrang vor Trauma-Verarbeitung, weil zu schnelle Trauma-Arbeit eine dissoziative Krise auslösen kann. Die Trauma-Anamnese muss behutsam gesucht werden — Druck verschärft die Dissoziation. Bei schwerer Symptomatik ist eine Anbindung an spezialisierte Therapeuten mit Dissoziations-Erfahrung notwendig.</p>`,
+        vergleich: `<p><strong>Vs. A13 (Psychose-Erstmanifestation):</strong> Die wichtigste Differentialdiagnose. Ich-Nähe der Phänomene, Trauma-Bezug und Fluktuation mit Triggern sprechen für Dissoziation.</p>
+          <p><strong>Vs. M2 (komplexes Trauma):</strong> Dissoziative Symptomatik ist oft Teil von cPTSD. Bei dominanter Dissoziation ist M6 führend.</p>
+          <p><strong>Vs. M3 (sexueller Missbrauch):</strong> Häufige Kombination — schwerer Missbrauch produziert oft dissoziative Profile.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität, oft mit dissoziativer Distanzierung (erhöhtes Risiko, weil die Selbst-Schutz-Reaktion reduziert ist)',
+          'Selbstverletzung in dissoziativen Zuständen',
+          'Akute dissoziative Krise mit Selbstgefährdung oder Realitäts-Verlust'
+        ],
+        hoch: [
+          'Fehlbehandlung als Psychose mit Antipsychotika',
+          'Selbstverletzung als Versuch, aus der Dissoziation herauszukommen',
+          'Substanzkonsum',
+          'Schwere Funktions-Einschränkung'
+        ],
+        mittel: [
+          'Chronische Verfestigung dissoziativer Strukturen',
+          'Identitäts-Diffusion',
+          'Beziehungs-Schwierigkeiten',
+          'Schul-Schwierigkeiten durch Amnesie und Diskontinuität'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Phasenorientierte Behandlung mit langer Stabilisierungs-Phase. Schwerpunkt zuerst auf dissoziations-spezifischer Arbeit: Erdung, Präsenz-Training, Arbeit mit dissoziativen Zuständen. Trauma-Verarbeitung erst spät und sehr vorsichtig. Spezialisierte Trauma-Therapeuten mit Dissoziations-Erfahrung sind hier oft nötig.</p>`,
+        begruendung: `<p>Bei dissoziativen Profilen ist die häufigste Fehlbehandlung zu schnelle Trauma-Arbeit, die eine Krise auslöst. Erdung und Präsenz müssen zuerst stabil sein. Antipsychotische Fehlbehandlung muss vermieden werden.</p>`,
+        diagnostik: [
+          'DES-T (Dissociative Experience Scale – Taxon)',
+          'A-DES (Adolescent Dissociative Experiences Scale)',
+          'CAPS-CA-5',
+          'K-SADS-PL',
+          'Strukturierte Differential-Diagnostik zur Psychose',
+          'Behutsame Trauma-Anamnese'
+        ],
+        wasDuTust: [
+          '„Wenn du das Gefühl hast, neben dir zu stehen — das ist nicht Verrücktsein. Das ist etwas, was dein Gehirn gelernt hat, um dich zu schützen."',
+          '„Wir lernen zuerst, wie du im Hier bleibst. Erst dann schauen wir auf das Schwere."',
+          '„Die Stimmen oder Zustände in dir sind nicht von außen. Sie sind Teile von dir, die sich getrennt haben. Wir arbeiten daran, sie wieder zusammenzubringen."',
+          '„Wenn du wegdriftest, ist das okay. Wir holen dich zurück, mit deinen Sinnen, mit dem, was du jetzt sehen und spüren kannst."'
+        ],
+        wasDuNichtTust: [
+          'Nicht als Psychose behandeln mit Antipsychotika — Fehldiagnose mit falscher Behandlung',
+          'Nicht schnelle Trauma-Verarbeitung — löst dissoziative Krise aus',
+          'Nicht Druck auf die Trauma-Anamnese ausüben — verschärft die Dissoziation',
+          'Nicht ohne Dissoziations-Erfahrung behandeln — bei schwerer Symptomatik Überweisung an Spezialisierte'
+        ],
+        frequenz: `<p>Wöchentlich über lange Zeit, mit krisennaher Verfügbarkeit.</p>`
+      },
+      vierPhasen: {
+        phase1: `Differentialdiagnose zur Psychose (Monate 1–6 — lange Stabilisierung). Erdungs- und Präsenz-Training. Arbeit mit dissoziativen Auslösern. Sicherheit herstellen. Keine Trauma-Verarbeitung.`,
+        phase2: `Arbeit mit dissoziativen Zuständen, innere Kommunikation, Reduktion der Switching-Häufigkeit (Monate 6–12). Behutsame Annäherung an das Trauma-Material.`,
+        phase3: `Trauma-Verarbeitung, wenn die Erdung stabil ist (Monate 12–24). Integration dissoziierter Anteile. Sehr graduiert.`,
+        phase4: `Konsolidierung (ab Monat 24). Frequenz behutsam reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule erlebt bei M6 oft Diskontinuität — der Schüler ist „manchmal nicht da", hat Erinnerungs-Lücken, wirkt abwesend oder verändert. Die klassische Fehlinterpretation ist Aufmerksamkeitsproblem, Tagträumen oder bei sichtbaren dissoziativen Zuständen Verdacht auf Psychose oder Drogenkonsum. Dissoziative Amnesie führt zu Leistungs-Schwankungen, die unerklärlich wirken — der Schüler „weiß plötzlich nicht mehr", was er letzte Woche konnte.</p>
+          <p>Was die Schule braucht, ist Bewusstsein für Dissoziation als Trauma-Folge, Erdungs-Unterstützung im Schul-Kontext, eine sichere Bezugsperson und das Verständnis, dass Abwesenheits-Zustände nicht willentlich sind. Wer das Phänomen einmal verstanden hat, sieht in der scheinbaren „Abwesenheit" nicht mehr Trotz oder Faulheit, sondern einen Schutz-Reflex des Nervensystems — und kann entsprechend reagieren: ruhig, präsent, ohne Druck.</p>
+          <p>Ein zweiter Punkt ist die Differential-Frage zur Psychose, die auch im Schul-System auftaucht. Wenn ein Schüler in der Schule beginnt, von „Stimmen" oder „inneren Zuständen" zu sprechen, alarmieren sich Lehrkräfte zu Recht — aber die Reaktion sollte Rücksprache mit der behandelnden Fachkraft sein, nicht der Notarzt. Dissoziative Phänomene sind keine Psychose und brauchen keine Krisen-Reaktion, sondern Erdung. Diese Differenzierung muss die Bezugsperson kennen, sonst läuft jede dissoziative Episode in eine Eskalation, die das Bild verschlimmert.</p>
+          <p>Schließlich ist die Klassen-Achse zu beachten. Mitschüler bemerken die Abwesenheits-Zustände und reagieren oft mit Verunsicherung oder mit Stigmatisierung. Eine knappe, altersgerechte Erklärung an die Klasse — ohne Diagnose-Offenlegung, aber mit einer Sprach-Form wie „[Name] hat manchmal Phasen, in denen es ihm schwerfällt, da zu sein; das ist nichts Gefährliches, und es hilft, wenn ihr ruhig bleibt" — kann die soziale Dynamik entlasten. Die Form dieser Erklärung wird vorher mit dem Klienten abgestimmt.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in therapeutischer Behandlung. Aus klinischen Gründen kann es zu Phasen kommen, in denen [Name] abwesend oder „weggetreten" wirkt oder Erinnerungs-Lücken hat. Das ist nicht willentlich, kein Tagträumen und kein Drogenkonsum, sondern eine behandelte klinische Symptomatik (dissoziative Phänomene als Folge einer Belastungs-Situation).</p>
+          <p>Was hilft, ist ruhige Rückholung in die Gegenwart (Ansprache, Hinweis auf das Hier und Jetzt, ein konkreter sensorischer Anker — was siehst du, was hörst du) und eine sichere Bezugsperson. Lautes Ansprechen, Beschämung oder Sanktion verschärfen den Zustand.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte Bezugsperson mit kurzer Einweisung in einfache Erdungs-Unterstützung; zweitens, Toleranz für Leistungs-Diskontinuität, die durch Erinnerungs-Lücken entsteht; drittens, einen Rückzugs-Raum bei dissoziativer Überflutung.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sichere Bezugsperson, trainiert in einfacher Erdungs-Unterstützung', begruendung: 'Erdung ist eine kurze, einfache Sequenz: ruhig ansprechen, Hinweis auf das Hier und Jetzt, sensorischer Anker („was siehst du, was hörst du, was spürst du unter deinen Füßen"). Das ist keine Therapie, das ist eine Erste-Hilfe-Technik. Die Bezugsperson kann sie in fünfzehn Minuten lernen und in der Schule anwenden — die behandelnde Fachkraft führt sie ein und stellt eine schriftliche Kurz-Anleitung zur Verfügung, damit die Lehrkraft im Akut-Moment nicht improvisieren muss.' },
+          { titel: 'Klarheit gegenüber dem Kollegium zur Differenzierung dissoziativ vs. psychotisch', begruendung: 'Wenn Lehrkräfte bei dissoziativen Episoden Psychose vermuten und entsprechend reagieren (Notarzt, Verlegung, Krisen-Eskalation), verschärft das die Symptomatik. Eine knappe Information im Kollegium („das sind dissoziative Phänomene, kein psychiatrischer Notfall, Bezugsperson kontaktieren") verhindert diese Eskalations-Kette und schützt den Klienten vor wiederholten Krisen-Interventionen, die er nicht braucht.' },
+          { titel: 'Ruhige Rückholung bei Abwesenheits-Zuständen statt Sanktion', begruendung: 'Sanktion bei einem dissoziativen Zustand ist klinisch destruktiv und reproduziert oft das Trauma-Muster (Beschämung in einem Moment der Überforderung). Die ruhige Rückholung dagegen ist eine korrigierende Erfahrung: jemand bleibt da, ohne zu drängen, und holt den Klienten zurück.' },
+          { titel: 'Toleranz für Leistungs-Diskontinuität durch Amnesie', begruendung: 'Dissoziative Amnesie ist nicht „nicht gelernt haben" — der Inhalt war da und ist gerade nicht zugänglich. Wiederholung und schriftliche Anker helfen, Vorwürfe und Re-Tests verstärken nur die Verunsicherung. Die Lehrkraft akzeptiert, dass derselbe Stoff manchmal mehrfach gelernt werden muss, und macht keinen Versagens-Vorwurf daraus.' },
+          { titel: 'Rückzugs-Raum bei dissoziativer Überflutung', begruendung: 'Bei einer akuten dissoziativen Episode braucht der Klient einen ruhigen Raum, in dem die Bezugsperson kurz Erdungs-Unterstützung gibt. Rückkehr-Protokoll mit klarer Vereinbarung — der Rückzug ist kurz, dient der Stabilisierung und endet mit der Rückkehr.' },
+          { titel: 'Keine Konfrontation oder lautes Ansprechen bei Abwesenheits-Zuständen', begruendung: 'Lautes Ansprechen oder Berührung im dissoziativen Zustand kann die Symptomatik verschärfen oder eine Schreck-Reaktion auslösen. Ruhige, freundliche, klare Ansprache aus geringer Distanz ist die richtige Form. Das ist gegen den Schul-Reflex, aber klinisch korrekt.' },
+          { titel: 'Strukturierte schriftliche Erinnerungs-Hilfen', begruendung: 'Hausaufgaben-Heft, Wochen-Plan, schriftliche Zusammenfassungen wichtiger Inhalte kompensieren amnestische Lücken. Diese Maßnahmen sind unauffällig, wirken wie normale Organisations-Hilfen und entlasten den Klienten erheblich — er muss nicht jedes Mal aus der Erinnerung rekonstruieren, was vergangene Woche besprochen wurde. Andere Mitschüler nutzen solche Hilfen ohnehin, der Klient fällt damit nicht auf.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Disziplin bei dissoziativen Abwesenheits-Zuständen', begruendung: 'Disziplinar-Reaktion bei einem dissoziativen Zustand verschärft das Trauma-Netzwerk und reproduziert das Grund-Muster (Bestrafung in einem Moment der Hilflosigkeit). Wirksam ist das Gegenteil: ruhige Präsenz, einfache Erdungs-Sätze, kein Druck.' },
+          { titel: 'Keine Drogen-Verdachts-Behandlung ohne Klärung', begruendung: 'Dissoziative Zustände können wie Drogenkonsum aussehen. Eine vorschnelle Verdachts-Behandlung ohne Klärung mit der behandelnden Fachkraft kann zu Falsch-Vorwürfen, Tests und Vertrauens-Brüchen führen. Bei Unsicherheit ist Rückfrage besser als Aktion.' },
+          { titel: 'Keine Konfrontation oder Beschämung bei Erinnerungs-Lücken', begruendung: 'Beschämung bei einer amnestischen Lücke („das hatten wir doch letzte Woche, wieso weißt du das nicht") aktiviert das negative Selbstkonzept und verstärkt die dissoziative Symptomatik. Die ruhige Wiederholung des Stoffs ist klinisch sinnvoller — und kostet die Schule weniger Energie als der Konflikt.' }
+        ],
+        e_rollen: [
+          'Bezugsperson mit Erdungs-Training',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service)',
+          'SCAS für vertiefte Begleitung',
+          'KJP und spezialisierte Trauma-Therapeuten mit Dissoziations-Erfahrung'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen, bei Häufung dissoziativer Zustände engmaschiger. Eine Rückmeldung über die Häufigkeit und das Setting der Episoden ist für die Therapie wertvoll — Trigger-Muster werden im Schul-Alltag oft erkennbar, bevor sie der Klient selbst benennen kann.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson und Aufklärung über Dissoziation, kurzes Erdungs-Training mit schriftlicher Kurz-Anleitung.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe eingebunden, Anpassungen und Differenzierung zur Psychose mit dem Kollegium geteilt.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert, Verständigung über das, was im Akut-Moment zu tun und zu lassen ist; Klassen-Information abgestimmt.</li>
+            <li><strong>Stufe 4</strong> — Anbindung an spezialisierte Trauma-Therapie mit Dissoziations-Erfahrung, regelmäßige Abstimmung mit dem Schul-System.</li>
+            <li><strong>Stufe 5</strong> — Bei akuter dissoziativer Krise mit Realitäts-Verlust oder Selbstgefährdung: Krisen-Intervention, ggf. Klinik mit Schul-Anbindung für den Wieder-Einstieg.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Häufung dissoziativer Zustände. Suizidale Gedanken. Selbstverletzung in dissoziativen Zuständen.</p>`,
+        ueberweisung: `<p>Differentialdiagnostische Klärung zur Psychose. Konkrete Suizidalität. Schwere Funktions-Einschränkung.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Akute dissoziative Krise mit Realitäts-Verlust oder Selbstgefährdung.</p>`
+      }
+    }
+  },
   /* M7 — Trauma mit somatischer Manifestation. */
-  { id: 'trauma-somatisch',    name: 'Trauma mit somatischer Manifestation',    bloecke: emptyTraumaBloecke() }
+  {
+    id: 'trauma-somatisch',
+    name: 'Trauma mit somatischer Manifestation',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit chronischen körperlichen Beschwerden ohne ausreichenden organischen Befund — Schmerz-Syndrome, funktionelle Störungen, gastrointestinale Symptomatik. Oft lange medizinische Karriere mit vielen Untersuchungen. Trauma-Anamnese im Hintergrund, vom Klienten meist nicht mit den körperlichen Beschwerden in Verbindung gebracht.</p>`,
+        klinischWichtig: `<p>Bei somatischer Trauma-Manifestation spricht der Körper, was die Sprache nicht kann. Das ist kein Simulieren und kein „es ist nur psychisch" — die Beschwerden sind real und körperlich erlebt, die Ursache liegt in der Trauma-Aktivierung des autonomen Nervensystems. Der Körper hält das Trauma. Bei Mädchen findet sich dieses Profil häufiger, mutmaßlich auch, weil körperlicher Leidens-Ausdruck sozial weniger sanktioniert ist als andere Trauma-Manifestationen.</p>
+          <p>Diese Klienten kommen oft über die somatische Schiene — Schmerz-Ambulanz, Gastroenterologie, Neurologie — und haben oft das Gefühl, nicht ernst genommen zu werden, wenn man „psychisch" sagt. Der therapeutische Zugang muss den Körper ernst nehmen und gleichzeitig die Trauma-Achse öffnen, ohne dem Klienten das Gefühl zu geben, seine Beschwerden würden bestritten. Eine Behandlungs-Allianz steht und fällt mit dieser Anerkennung.</p>
+          <p>Die Behandlung verbindet Körper-Arbeit (Body-based Approaches, Somatic-Experiencing-Elemente, Körper-Wahrnehmungs-Arbeit) mit Trauma-Verarbeitung. Die medizinische Abklärung muss abgeschlossen sein, aber wiederholte erneute Diagnostik verstärkt das Muster — sie bestätigt dem Nervensystem, dass „da etwas Ernstes sein muss", und stabilisiert die Symptomatik iatrogen. Aktivierung statt Schonung — graduierte körperliche Re-Aktivierung — ist klinisch zentral, weil Schonung Dekonditionierung produziert.</p>`,
+        vergleich: `<p><strong>Vs. R03 (somatoform, Risikofilter):</strong> Bei M7 ist der Trauma-Bezug klar, bei reiner somatoformer Störung ohne Trauma-Anamnese nicht. Hohe Überlappung.</p>
+          <p><strong>Vs. A05.M7 (Krankheitsangst):</strong> Bei Krankheitsangst steht die Sorge um Krankheit im Vordergrund, bei somatischer Trauma-Manifestation die körperliche Symptomatik selbst.</p>
+          <p><strong>Vs. M2 (komplexes Trauma):</strong> Somatische Manifestation ist oft Teil von cPTSD. Bei dominanter Körper-Symptomatik ist M7 führend.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei Verzweiflung über chronische Beschwerden',
+          'Schwere funktionelle Einschränkung mit Verwahrlosung',
+          'Iatrogene Schädigung durch übermäßige medizinische Eingriffe'
+        ],
+        hoch: [
+          'Schul-Vermeidung mit somatischer Begründung',
+          'Sekundäre Depression',
+          'Substanzkonsum (Schmerzmittel)',
+          'Vollständige körperliche Schonung mit Dekonditionierung'
+        ],
+        mittel: [
+          'Chronifizierung der Körper-Symptomatik',
+          'Identitäts-Festigung als „chronisch krank"',
+          'Berufs- und Aktivitäts-Vermeidung',
+          'Familien-Strukturen, die sich um die Krankheit herum organisieren'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Integrierte körper- und trauma-fokussierte Behandlung. Den Körper ernst nehmen, die Symptomatik nicht bestreiten, gleichzeitig die Trauma-Achse öffnen. Body-based Approaches (Somatic-Experiencing-Elemente, Körper-Wahrnehmungs-Arbeit) plus Trauma-Verarbeitung. Aktivierung statt Schonung — graduierte körperliche Re-Aktivierung.</p>`,
+        begruendung: `<p>Der Zugang muss über den Körper laufen, weil dort die Beschwerden erlebt werden — ein rein verbaler psychotherapeutischer Zugang erreicht diese Klienten oft nicht. Schonung verstärkt die Symptomatik durch Dekonditionierung.</p>`,
+        diagnostik: [
+          'Vollständige somatische Abklärung muss abgeschlossen sein',
+          'CAPS-CA-5',
+          'TSCC',
+          'K-SADS-PL',
+          'Strukturierte Trauma-Anamnese mit Verbindung zur körperlichen Symptomatik',
+          'Schmerz- und Symptom-Tagebuch mit Trigger-Analyse'
+        ],
+        wasDuTust: [
+          '„Deine Schmerzen sind real. Niemand muss dir das beweisen. Und sie haben eine Ursache, die wir behandeln können."',
+          '„Dein Körper trägt etwas, was vielleicht keine Worte hat. Wir lernen, die Sprache deines Körpers zu verstehen."',
+          '„Wir machen dich nicht weniger krank durch Reden. Wir arbeiten mit deinem Körper und mit dem, was er erlebt hat."',
+          '„Schonung fühlt sich richtig an und macht es langfristig schlimmer. Wir bewegen uns vorsichtig zurück in die Aktivität."'
+        ],
+        wasDuNichtTust: [
+          'Nicht die Beschwerden als „nur psychisch" abtun — zerstört die Allianz und ist klinisch falsch',
+          'Nicht wiederholte somatische Diagnostik, wenn die Abklärung abgeschlossen ist — iatrogene Verstärkung',
+          'Nicht vollständige Schonung empfehlen — Dekonditionierung',
+          'Nicht rein verbalen Zugang ohne Körper-Ebene'
+        ],
+        frequenz: `<p>Wöchentlich, in Koordination mit der somatischen Medizin.</p>`
+      },
+      vierPhasen: {
+        phase1: `Somatische Abklärung verifizieren als abgeschlossen (Wochen 1–8). Vertrauens-Aufbau — Körper ernst nehmen. Psychoedukation über die Körper-Trauma-Verbindung, ohne die Beschwerden zu bestreiten. Körper-Wahrnehmungs-Arbeit beginnen.`,
+        phase2: `Graduierte körperliche Re-Aktivierung (Monate 2–6). Trauma-Achse öffnen. Verbindung zwischen Trigger und Symptomatik erarbeiten.`,
+        phase3: `Trauma-Verarbeitung mit Körper-Einbezug (Monate 6–12). Aktivitäts-Wiederaufbau. Familien-Muster um die Krankheit reflektieren.`,
+        phase4: `Konsolidierung (Monate 12+). Frequenz reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule erlebt den ständig kranken Schüler — Fehlzeiten wegen Schmerzen, Befreiungen vom Sport, Krankenzimmer-Besuche. Die klassische Reaktion bewegt sich zwischen zwei Polen: entweder volle Akzeptanz der Krankheit mit kompletter Schonung (verstärkt Dekonditionierung und Krankheits-Identität), oder Zweifel und Vorwurf des Simulierens (beschämend, zerstört das Vertrauen). Beide verfehlen die klinische Realität: die Beschwerden sind real, körperlich erlebt, mit Trauma-Ursache.</p>
+          <p>Was die Schule braucht, ist Aufklärung darüber, dass die Beschwerden real sind und behandelt werden, graduierte Aktivierung statt vollständige Schonung und Aufrechterhaltung der Schul-Aktivitäten so weit wie möglich. Schule ist hier nicht Ort der Diagnostik — die ist abgeschlossen — sondern Ort der Aktivität. Jeder Schultag, an dem der Klient kommt und sich bewegt, ist klinisch wertvoll, auch wenn er nicht voll mitmachen kann.</p>
+          <p>Ein häufiges Muster ist die schleichende Eskalation der Befreiungen. Es beginnt mit einer Sport-Befreiung, dazu kommt die Klassenfahrts-Befreiung, dann werden Klassenarbeiten in einem ruhigen Raum geschrieben, dann gibt es einen Stunden-Verzicht morgens, dann häufige Krankenzimmer-Aufenthalte. Jeder Schritt ist für sich genommen plausibel, das Gesamt-Bild ergibt eine Schul-Anwesenheit von 40 Prozent — und damit eine massive Dekonditionierung. Schule und Eltern bemerken die Kumulation oft erst, wenn der Wieder-Einstieg schwer wird. Eine Anpassungs-Liste mit Enddatum und periodischer Überprüfung verhindert dieses Auseinanderlaufen.</p>
+          <p>Ein zweiter Punkt ist die Familie. Bei somatischer Manifestation organisiert sich die Familie oft um die Krankheit — der Klient wird zum „kranken Kind", besondere Rücksicht wird selbstverständlich, der Tagesablauf richtet sich nach den Beschwerden. Das ist verständlich und sekundär aufrechterhaltend. Schul-Linie ist hier wichtig: die Schule kann eine alternative Erfahrung anbieten, in der der Klient nicht primär als krank, sondern als Schüler unter Schülern erlebt wird. Das ist klinisch eine Gegen-Kraft zur familiären Krankheits-Identität.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] hat chronische körperliche Beschwerden, die in therapeutischer Behandlung sind. Die somatische Abklärung ist abgeschlossen. Die Beschwerden sind real und körperlich erlebt, kein Simulieren — der Trauma-Hintergrund manifestiert sich körperlich.</p>
+          <p>Behandlungs-Ziel ist eine graduierte Aktivierung — vollständige Schonung verschlechtert den Verlauf durch Dekonditionierung. Was [Name] braucht, ist die Aufrechterhaltung der schulischen Aktivitäten so weit möglich, mit Anpassungen bei akuten Beschwerden, und keine Zweifel an der Echtheit der Symptomatik.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine Aufrechterhaltung der Schul-Anwesenheit mit Anpassungen statt pauschaler Befreiungen; zweitens, eine graduierte Sport-Teilnahme statt vollständige Sport-Befreiung; drittens, einen vereinbarten Krankenzimmer-Besuch mit Limit und Rückkehr-Protokoll bei akuten Beschwerden.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen und den Aktivierungs-Plan abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Aufrechterhaltung der Schul-Anwesenheit mit Anpassungen statt Befreiung', begruendung: 'Anwesenheit ist der entscheidende Faktor. Pauschale Befreiungen produzieren Dekonditionierung — körperlich und sozial. Anpassungen bei akuten Beschwerden (Sitzhaltung, Pausen-Möglichkeit, ruhigerer Raum) ermöglichen Teilnahme, ohne zu überfordern. Die Anpassungen werden mit Enddatum vereinbart und periodisch überprüft, sonst kumulieren sie sich schleichend zur Schul-Verweigerung.' },
+          { titel: 'Anpassungs-Liste mit Enddatum und Überprüfungs-Zyklus', begruendung: 'Ohne festen Überprüfungs-Termin häufen sich Einzel-Anpassungen, bis das Gesamt-Bild eine Anwesenheits-Quote von 40 Prozent ergibt. Eine Liste mit Anpassung, Begründung, Beginn und geplantem Enddatum — gemeinsam überprüft alle sechs bis acht Wochen — hält die Aktivierungs-Linie sichtbar und korrigierbar. Diese Bürokratie ist hier klinisch wirksam.' },
+          { titel: 'Graduierte Sport-Teilnahme statt vollständige Befreiung', begruendung: 'Sport-Befreiung verstärkt die Krankheits-Identität und die körperliche Dekonditionierung. Eine abgestufte Teilnahme — leichtere Übungen, kürzere Einheiten, Wahl der Bewegungsform — hält den Klienten in Bewegung. Mit dem Verlauf der Behandlung wird die Beteiligung wieder hochgefahren.' },
+          { titel: 'Krankenzimmer-Besuche mit Limit-Vereinbarung', begruendung: 'Ohne Limit kann das Krankenzimmer zum Vermeidungs-Anker werden. Eine vereinbarte Häufigkeit oder Dauer mit Rückkehr-Protokoll erhält die Funktion als kurze Stabilisierung und verhindert die Verfestigung als Vermeidungs-Muster. Die Limit-Logik wird mit dem Klienten besprochen, nicht über ihn entschieden.' },
+          { titel: 'Sichere Bezugsperson mit Coping-Sprache', begruendung: 'Coping-Sprache statt Mitleids-Sprache. „Das ist gerade schwer, wir machen die Atemübung und schauen, ob es nachher geht" wirkt klinisch anders als „du Armes, geh nach Hause". Die Bezugsperson muss diese Linie kennen und konsequent halten — sie ist der Wirkfaktor.' },
+          { titel: 'Keine Zweifel-Äußerungen an der Echtheit', begruendung: 'Sätze wie „stell dich nicht so an" oder „andere haben auch Schmerzen" zerstören das Vertrauen und reproduzieren die Erfahrung, nicht ernst genommen zu werden — die viele dieser Klienten schon in der medizinischen Karriere gemacht haben. Die Linie ist: ernst nehmen und gleichzeitig zur Aktivität anhalten.' },
+          { titel: 'Bei akuten Beschwerden: kurze Pause mit Rückkehr-Protokoll', begruendung: 'Eine kurze Pause am Sitzplatz oder in einem ruhigeren Raum (zehn bis fünfzehn Minuten), Stabilisierung, Rückkehr in den Unterricht. Diese Mikro-Anpassung verhindert die Eskalation in die Heimfahrt und hält die Anwesenheit aufrecht — und damit den klinisch zentralen Aktivitäts-Pegel. Die Lehrkraft kennt das Protokoll und weiß, dass die Rückkehr Teil der Vereinbarung ist, nicht Verhandlungssache.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine vollständige Schonung oder Dauer-Befreiung', begruendung: 'Dekonditionierung. Jede Woche vollständiger Schonung verlängert den Weg zurück in die Aktivität. Sport-Dauer-Befreiungen, Hausaufgaben-Befreiungen und Anwesenheits-Reduktionen ohne klaren Aktivierungs-Plan sind klinisch destruktiv.' },
+          { titel: 'Keine Zweifel oder Simulations-Vorwürfe', begruendung: 'Die Beschwerden sind real. Vorwürfe verschärfen die Symptomatik und reaktivieren oft genau die Erfahrung der Nicht-Anerkennung, die viele dieser Klienten schon in der medizinischen Karriere gemacht haben. Wer Zweifel hat, wendet sich an die behandelnde Fachkraft, nicht an den Klienten.' },
+          { titel: 'Keine wiederholte medizinische Abklärung über die Schule', begruendung: 'Die somatische Abklärung ist abgeschlossen. Wenn die Schule wiederholt drängt, doch noch einmal zum Arzt zu gehen, verstärkt das die Krankheits-Identität iatrogen und untergräbt den Behandlungs-Plan. Bei akuten neuen Symptomen erfolgt die Rücksprache mit der behandelnden Fachkraft.' }
+        ],
+        e_rollen: [
+          'Bezugsperson mit Coping-Sprache',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service)',
+          'SCAS für vertiefte Begleitung',
+          'Hausarzt als koordinierender somatischer Ansprechpartner',
+          'KJP bei Medikations-Frage und schwerer Komorbidität'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen, bei akuter Symptomatik engmaschiger. Der Schul-Kontakt prüft den Aktivierungs-Pegel und korrigiert Anpassungen, die in Vermeidung zu kippen drohen. Die Liste der laufenden Anpassungen wird bei jedem Termin durchgegangen, nicht erst, wenn die Eltern oder die Schule sich melden.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson und Aufklärung über die Körper-Trauma-Verbindung, klare Sprache zur Echtheit der Beschwerden, Coping-Sprache statt Mitleids-Sprache verankert.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe, Eltern und Hausarzt koordiniert; gemeinsame Linie zur Aktivierung, gemeinsame Anpassungs-Liste mit Enddatum.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert mit konkretem Aktivierungs-Plan, der in Sechs-Wochen-Schritten hochgefahren und überprüft wird.</li>
+            <li><strong>Stufe 4</strong> — Bei Chronifizierung: erweiterte multimodale Behandlung mit Psychosomatik-Anbindung, ggf. Reha-Maßnahmen mit Wieder-Einstiegs-Plan.</li>
+            <li><strong>Stufe 5</strong> — Bei schwerer Funktions-Einschränkung: stationäre psychosomatische Behandlung mit Schul-Anbindung für den Wieder-Einstieg, damit die Lern-Kontinuität nicht abreißt.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Zunehmende körperliche Einschränkung. Schul-Vermeidung. Schmerzmittel-Konsum. Sekundäre Depression.</p>`,
+        ueberweisung: `<p>Medikations-Frage. Schwere komorbide Depression. Konkrete Suizidalität. Chronifizierung mit Funktions-Verlust — psychosomatische Anbindung.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Schwere funktionelle Einschränkung mit Verwahrlosung. Stationäre psychosomatische Behandlung bei Therapie-Resistenz.</p>`
+      }
+    }
+  }
 ];
 
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
