@@ -9721,7 +9721,134 @@ const PLAN_MUSTER_TRAUMA = [
     }
   },
   /* M2 — Komplexes Bindungstrauma (cPTSD). */
-  { id: 'trauma-cptsd',        name: 'Komplexes Bindungstrauma (cPTSD)',        bloecke: emptyTraumaBloecke() },
+  {
+    id: 'trauma-cptsd',
+    name: 'Komplexes Bindungstrauma (cPTSD)',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit chronischer früher Traumatisierung in der Familie — kein einzelnes Ereignis, sondern ein Dauerzustand aus Vernachlässigung, Misshandlung, emotionaler Unvorhersehbarkeit. Die Symptomatik geht über die klassische PTBS hinaus: massive Emotionsregulations-Schwierigkeiten, durchgehend negatives Selbstkonzept, instabile und oft konfliktreiche Beziehungen. Wirkt häufig wie eine beginnende Persönlichkeitsstörung, ist aber eine Trauma-Folge.</p>`,
+        klinischWichtig: `<p>cPTSD ist nicht „PTBS plus mehr Symptome" — es ist ein strukturell anderes Profil. Bei klassischer PTBS hast du ein Trauma-Gedächtnis, das verarbeitet werden muss. Bei cPTSD hat das chronische Trauma die Entwicklung selbst geprägt: das Kind hat in einem Kontext überlebt, in dem die Bindungs-Person gleichzeitig Quelle von Sicherheit und Bedrohung war.</p>
+          <p>Daraus entstehen die drei Selbstorganisations-Störungen, die ICD-11 als „Disturbances in Self-Organization" benennt. Affekte können nicht reguliert werden, weil das Kind nie gelernt hat, dass jemand hilft zu regulieren — es war auf sich allein gestellt und musste improvisieren. Das Selbstkonzept ist negativ, weil das Kind die Misshandlung als eigene Schuld interpretiert hat („wenn ich besser wäre, würde das nicht passieren") — diese Erklärung gibt dem Kind ein Stück Handlungs-Macht zurück und ist gerade deshalb so hartnäckig. Beziehungen sind instabil, weil das Grundmuster von Nähe Verrat enthielt — Nähe und Bedrohung sind im neuronalen Netzwerk verkoppelt, jede neue Beziehung aktiviert beides gleichzeitig.</p>
+          <p>Die häufigste und folgenreichste diagnostische Verwechslung ist mit Borderline. Der Unterschied ist behandlungs-relevant: bei cPTSD ist das Trauma die Ursache, und die Behandlung ist trauma-fokussiert und phasenorientiert. Eine reine DBT-Skills-Behandlung ohne Trauma-Achse greift zu kurz, weil sie die Symptom-Oberfläche bearbeitet und die Ursache stehen lässt. Die Behandlung folgt dem Drei-Phasen-Modell — Stabilisierung, Trauma-Verarbeitung, Integration — und braucht in der Regel deutlich länger als ein Jahr.</p>`,
+        vergleich: `<p><strong>Vs. M1 (klassische PTBS):</strong> Einzeltrauma mit klarem Anfang gegen chronisches entwicklungs-prägendes Trauma. Behandlungs-Komplexität und -Dauer sind fundamental verschieden.</p>
+          <p><strong>Vs. A12 (Borderline-Strukturen):</strong> Die zentrale Differentialdiagnose. Bei cPTSD ist die Trauma-Anamnese führend, die Behandlung trauma-fokussiert. Bei Borderline-Struktur ohne klares Trauma kann ein DBT-Fokus primär sein. In der Praxis hohe Überlappung — wenn eine Trauma-Anamnese vorhanden ist, cPTSD-Achse priorisieren.</p>
+          <p><strong>Vs. M3 (sexueller Missbrauch):</strong> Wenn der Missbrauch in einen chronischen Bindungs-Trauma-Kontext eingebettet ist, liegt ein Mischbild M2 plus M3 vor.</p>
+          <p><strong>Vs. ADHS oder Autismus:</strong> Chronisches Trauma kann ADHS-ähnliche Symptome (Konzentration, Impulsivität) und autismus-ähnliche Symptome (sozialer Rückzug) produzieren. Eine sorgfältige Trauma-Anamnese differenziert.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität (bei cPTSD chronisch erhöht)',
+          'Schwere Selbstverletzung als Emotionsregulations-Strategie',
+          'Akute dissoziative Krise mit Selbstgefährdung',
+          'Bei fortbestehendem Trauma-Kontext: akute Sicherheits-Frage'
+        ],
+        hoch: [
+          'Substanzkonsum als Emotionsregulation',
+          'Essstörung',
+          'Beziehungs-Abbrüche mit Eskalation',
+          'Schwere sekundäre Depression',
+          'Schul-Vermeidung und Leistungs-Einbruch',
+          'Re-Viktimisierungs-Risiko'
+        ],
+        mittel: [
+          'Chronische Beziehungs-Instabilität',
+          'Verfestigung der negativen Selbst-Identität',
+          'Berufliche Desorganisation',
+          'Transgenerationale Trauma-Weitergabe-Risiko'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Phasenorientierte Trauma-Therapie nach dem Drei-Phasen-Modell: Stabilisierung zuerst, dann Trauma-Verarbeitung, dann Integration. Bei Jugendlichen integrieren sich trauma-fokussierte und entwicklungs-orientierte Komponenten — Emotionsregulations-Training (DBT-Elemente, ohne die Trauma-Achse zu verlieren), Beziehungs-Arbeit, Selbstkonzept-Arbeit. Stabilisierung ist bei cPTSD keine Vorphase, sondern oft die Haupt-Arbeit über lange Zeit.</p>`,
+        begruendung: `<p>Trauma-Verarbeitung ohne vorherige Stabilisierung ist bei cPTSD kontraindiziert — der Klient hat keine Emotionsregulations-Kapazität, um das Material zu halten. Die therapeutische Beziehung selbst ist bei cPTSD ein zentraler Wirkfaktor, weil sie eine korrigierende Bindungs-Erfahrung ermöglicht.</p>`,
+        diagnostik: [
+          'CAPS-CA-5',
+          'ITQ (International Trauma Questionnaire) für die cPTSD-spezifische Diagnostik nach ICD-11',
+          'TSCC',
+          'K-SADS-PL',
+          'DES-T für dissoziative Symptomatik',
+          'Strukturierte Bindungs- und Trauma-Anamnese',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'Borderline-Differential strukturiert (SCID-5-PD adaptiert)'
+        ],
+        wasDuTust: [
+          '„Was mit dir passiert ist, war kein einzelnes Ereignis. Es war ein Zustand. Und Zustände prägen mehr als Ereignisse."',
+          '„Du hast in einer Situation überlebt, in der die Person, die dich schützen sollte, gleichzeitig die Gefahr war. Das ist die unmöglichste Lage für ein Kind."',
+          '„Dass du dich für schlecht hältst, ist keine Wahrheit über dich. Es ist das, was ein Kind denkt, um zu erklären, warum die Erwachsenen so waren."',
+          '„Wir fangen nicht mit dem Trauma an. Wir fangen damit an, dass du lernst, deine Gefühle zu halten. Erst dann gehen wir zum Schweren."',
+          '„Diese Beziehung hier — du und ich — ist Teil der Behandlung. Du erlebst, dass jemand verlässlich bleibt. Das ist neu, und das braucht Zeit."',
+          '„Wenn du mich auf die Probe stellst, ist das nicht falsch. Du musst herausfinden, ob ich auch dann bleibe, wenn es schwierig wird. Ich bleibe."'
+        ],
+        wasDuNichtTust: [
+          'Nicht Trauma-Verarbeitung vor stabiler Emotionsregulation — re-traumatisierend bei cPTSD',
+          'Nicht als Borderline behandeln und die Trauma-Achse ignorieren — verfehlt die Ursache',
+          'Nicht die negative Selbst-Identität direkt „wegargumentieren" — sie muss durch korrigierende Erfahrung verändert werden, nicht durch Logik',
+          'Nicht erwarten, dass eine cPTSD-Behandlung dem Zeitrahmen einer PTBS-Behandlung folgt — sie dauert deutlich länger',
+          'Nicht Beziehungs-Abbrüche des Klienten persönlich nehmen — Beziehungs-Testen ist Teil des Profils'
+        ],
+        frequenz: `<p>Wöchentlich über lange Zeit (oft länger als ein Jahr), mit krisennaher Verfügbarkeit. Frequenz-Reduktion erst spät und behutsam, weil die therapeutische Beziehung stabilisierend wirkt.</p>`
+      },
+      vierPhasen: {
+        phase1: `Sicherheit prüfen — bei fortbestehendem Trauma-Kontext zuerst Schutz (ONE, SNJ, ggf. Inobhutnahme-Frage). Diagnostik abschließen, Borderline-Differential klären. Therapeutische Beziehung aufbauen — das ist hier Haupt-Arbeit, nicht Vorarbeit. Emotionsregulations-Werkzeuge etablieren. Komorbidität parallel adressieren. Diese Phase dauert bei cPTSD lange (Monate 1–6 oder länger).`,
+        phase2: `Trauma-Verarbeitung erst, wenn stabile Emotionsregulation vorhanden ist (Monate 6–12). Trauma-Material in graduierten Schritten. Bearbeitung der negativen Selbstkonzept-Überzeugungen durch korrigierende Erfahrung plus kognitive Arbeit. Beziehungs-Muster reflektieren.`,
+        phase3: `Integration (Monate 12–24). Trauma-Erfahrung in eine kohärente Lebensgeschichte integrieren. Selbstkonzept neu aufbauen. Beziehungs-Fähigkeiten festigen. Zukunfts-Perspektive entwickeln.`,
+        phase4: `Konsolidierung (ab Monat 24). Frequenz behutsam reduzieren. Der Klient hat stabile Emotionsregulation, ein verändertes Selbstkonzept, tragfähigere Beziehungen. Rückfall-Prophylaxe. Übergangs-Begleitung in die nächste Lebensphase.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht bei cPTSD oft ein „schwieriges Kind" — emotional unberechenbar, beziehungs-instabil zu Lehrern, manchmal aggressiv, manchmal völlig zurückgezogen, leistungs-schwankend. Die klassische Schul-Interpretation ist Verhaltens-Problem, Disziplin-Problem, manchmal Verdacht auf eine beginnende Persönlichkeitsstörung. Die Trauma-Ursache wird selten gesehen, oft weil das chronische Familien-Trauma nach außen nicht sichtbar ist — der Klient kommt morgens zur Schule, die Eltern erscheinen unauffällig, der Hintergrund bleibt unter der Wasserlinie.</p>
+          <p>Die typische Schul-Reaktion (Disziplin, Sanktion, wechselnde Lehrer-Beziehungen) reproduziert oft genau das Muster aus dem Trauma — Unvorhersehbarkeit, Beziehungs-Brüche, Beschämung. Ein Klient, der zuhause gelernt hat, dass Erwachsene mit Wut, Strenge und Liebes-Entzug reagieren, wenn er sich „falsch" verhält, bekommt in der Schule denselben Mechanismus geliefert — und das Trauma-Netzwerk wird täglich neu bestätigt. Die Schule muss verstehen, dass sie hier nicht neutrales Lern-Setting ist, sondern aktiver Teil der Behandlungs-Logik werden kann — entweder korrigierend oder verstärkend.</p>
+          <p>Was der Klient in der Schule am meisten braucht, ist Beziehungs-Verlässlichkeit: eine konstante Bezugsperson, die nicht aufgibt, vorhersehbare Strukturen und das Verständnis, dass herausforderndes Verhalten trauma-bedingt ist und nicht persönlich gemeint. Schule kann ein korrigierender Kontext sein, wenn sie diese Verlässlichkeit bietet — oder ein re-traumatisierender, wenn sie das Trauma-Muster wiederholt. Diese Entscheidung fällt im Schul-Alltag jeden Tag neu, und sie fällt meistens in den scheinbar kleinen Momenten: wie eine Lehrkraft auf einen Wutausbruch reagiert, wie das Sekretariat mit dem Klienten umgeht, wer beim nächsten Stundenplan-Wechsel die Bezugsperson bleibt. Diese Mikro-Entscheidungen summieren sich zur korrigierenden oder zur re-traumatisierenden Erfahrung.</p>
+          <p>Wichtig ist außerdem das Verständnis, dass Fortschritt nicht linear ist. cPTSD-Klienten machen Schritte nach vorn und Rückschritte, die für die Schule oft unerklärlich wirken („gerade lief es doch gut"). Diese Rückschritte sind nicht Rückfall im klassischen Sinn — sie sind Teil des Weges, oft nach einer guten Phase, weil Nähe und Stabilität für den Klienten genauso aktivierend sein können wie Bedrohung. Wer das nicht weiß, interpretiert den Rückschritt als persönliches Versagen oder als Manipulation, und gibt auf. Wer es weiß, bleibt.</p>
+          <p>Ein dritter Punkt, den die Schule kennen muss, ist das Phänomen des Beziehungs-Testens. Klienten mit cPTSD prüfen Bezugspersonen — oft unbewusst — auf Verlässlichkeit, indem sie provozierendes oder abweisendes Verhalten zeigen. Die innere Logik ist: „bevor du mich verlässt, verlasse ich dich". Wer das als persönliche Ablehnung liest, zieht sich zurück und bestätigt die Trauma-Erwartung. Wer es als Test versteht und ruhig anwesend bleibt, gibt die wichtigste korrigierende Erfahrung. Das ist anstrengend, und die Lehrkraft braucht Rückendeckung im Kollegium und Supervision, weil sonst der Schul-Alltag sie aufreibt.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in einer langfristigen therapeutischen Behandlung wegen einer komplexen Belastungs-Situation aus der frühen Entwicklung. Spezifische Inhalte werden vertraulich behandelt. Klinisch wichtig: was Sie schulisch beobachten — emotionale Schwankungen, wechselnde Beziehungs-Gestaltung, Leistungs-Schwankungen, gelegentlich herausforderndes Verhalten — sind Folgen dieser frühen Belastung und kein bewusstes Verhalten.</p>
+          <p>Was [Name] am meisten braucht, ist Beziehungs-Verlässlichkeit: eine konstante Bezugsperson, vorhersehbare Strukturen und ruhiges Bestehen-Bleiben auch in schwierigen Momenten. Disziplinar-Maßnahmen und wechselnde Bezugspersonen verschärfen die Symptomatik. Fortschritt ist bei diesem Profil nicht linear — Rückschritte gehören zum Weg und sind kein Zeichen, dass die Maßnahmen scheitern.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte konstante Bezugsperson über das Schuljahr hinweg; zweitens, einen vereinbarten Deeskalations-Plan bei emotionaler Überflutung statt sofortiger Disziplinar-Reaktion; drittens, möglichst stabile Strukturen mit Vorankündigung von Veränderungen; viertens, Verzicht auf öffentliche Beschämung und Kollektiv-Sanktionen.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen abstimmen und die Logik dahinter besprechen können.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Konstante Bezugsperson über lange Zeit', begruendung: 'Zentral bei cPTSD — Beziehungs-Verlässlichkeit ist die Behandlung, nicht ihr Beiwerk. Der Klient hat gelernt, dass Erwachsene unzuverlässig sind. Eine Lehrkraft, die über Monate und Jahre konstant bleibt, auch wenn der Klient sie testet, ist ein korrigierender Bindungs-Erfahrungs-Raum. Diese Konstanz muss organisatorisch geschützt werden — sie überlebt sonst den nächsten Klassen-Wechsel nicht.' },
+          { titel: 'Vorhersehbare Tages- und Wochen-Strukturen, klare Ankündigung von Veränderungen', begruendung: 'Unvorhersehbarkeit ist ein zentraler Trauma-Trigger bei cPTSD, weil das häusliche Umfeld unvorhersehbar war. Stabile Strukturen senken die Grundanspannung und geben Ressourcen für das Lernen frei. Veränderungen werden vorher angekündigt, mit Vorlauf — nicht aus Pedanterie, sondern weil die Vorbereitungs-Zeit das Stress-System entlastet.' },
+          { titel: 'Deeskalations-Plan bei emotionaler Überflutung statt Disziplinar-Reaktion', begruendung: 'Eine Überflutung ist kein Wille-Akt, sondern eine Affekt-Regulations-Lücke, die zum Profil gehört. Der Plan enthält eine vereinbarte Sequenz: ruhig ansprechen, Rückzugs-Raum anbieten, Stabilisierung, später besprechen. Die Besprechung kommt nach, nicht im Affekt — im Affekt ist niemand erreichbar.' },
+          { titel: 'Rückzugs-Raum bei dissoziativer oder affektiver Krise', begruendung: 'Ein verfügbarer, ruhiger Raum mit klarer Rückkehr-Vereinbarung. Der Rückzug ist kurz, dient der Stabilisierung und endet mit der Rückkehr in den Unterricht — nicht mit der Heimfahrt. Die Rückkehr verhindert die Konditionierung „Krise = Schul-Ende". In der Therapie wird parallel eine Stabilisierungs-Technik trainiert, die der Klient im Rückzugs-Raum selbständig anwenden kann, damit die Lehrkraft nicht zur Trauma-Therapeutin werden muss.' },
+          { titel: 'Keine öffentliche Beschämung, keine Kollektiv-Sanktion', begruendung: 'Beschämung aktiviert das negative Selbstkonzept direkt und bestätigt das Trauma-Muster („ich bin schlecht"). Kollektiv-Sanktionen treffen einen Klienten, der ohnehin zuhause das Erleben hatte, für Dinge bestraft zu werden, die er nicht beeinflussen konnte. Beides ist klinisch kontraproduktiv.' },
+          { titel: 'Leistungs-Schwankungen tolerieren ohne Druck-Erhöhung', begruendung: 'Die Leistung schwankt mit der affektiven Verfassung — das ist Teil des Profils, nicht Motivations-Mangel. Druck-Erhöhung in schwachen Phasen verschärft die Dysregulation und vertieft das Versagens-Narrativ. Stabilisierung zuerst, Leistungs-Erwartung folgt. Wichtig ist, dass auch in guten Phasen die Erwartung nicht ruckartig hochgezogen wird — die nächste Schwankung kommt, und der Klient soll nicht jedes Mal das Gefühl haben, alles wieder zu verlieren.' },
+          { titel: 'Bei aggressivem Verhalten: trauma-bewusste Reaktion statt sofortige Sanktion', begruendung: 'Sicherheit herstellen, das Verhalten benennen, später in ruhigem Rahmen besprechen — nicht im Affekt. Eine sofortige Sanktion reproduziert die häusliche Eskalations-Logik. Die Besprechung später ermöglicht Reflexion und ist die einzige Form, in der Veränderung tatsächlich greifen kann — im Affekt-Zustand ist kein Lern-Prozess möglich, das Gehirn ist im Überlebens-Modus.' },
+          { titel: 'Übergänge besonders sorgfältig begleiten', begruendung: 'Lehrerwechsel, Klassenwechsel und Schul-Wechsel sind kritische Punkte. Hier passieren Beziehungs-Abbrüche, die das Trauma-Muster bestätigen. Eine geplante Übergabe mit Überschneidungs-Phase, Information an die neue Bezugsperson und einer formellen Verabschiedung von der alten reduziert die Re-Traumatisierungs-Last erheblich. Zum Übergangs-Plan gehört auch, dass die alte Bezugsperson für eine definierte Phase noch erreichbar bleibt, damit der Wechsel nicht als abrupter Beziehungs-Abbruch erlebt wird.' },
+          { titel: 'Rückendeckung für die Bezugsperson im Kollegium', begruendung: 'Eine Lehrkraft, die mit einem cPTSD-Klienten arbeitet, übernimmt eine emotional belastende Aufgabe. Sie braucht ein verstehendes Kollegium und Supervisions-Möglichkeiten, sonst zermürbt die Arbeit sie und der Beziehungs-Anker bricht weg. Schul-Leitung muss diese Rückendeckung organisatorisch absichern, sonst ist die schönste Bezugspersonen-Logik nach einem Schulhalbjahr verbraucht.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine wechselnden Bezugspersonen', begruendung: 'Reproduziert das Trauma-Muster systematisch. Wenn die Schule den Klienten ständig an neue Bezugspersonen weiterreicht, bestätigt sie genau die Grunderfahrung, gegen die die Behandlung arbeitet. Beziehungs-Konstanz ist nicht angenehmes Beiwerk, sie ist Wirkstoff.' },
+          { titel: 'Keine Disziplinar-Eskalation bei trauma-bedingtem Verhalten', begruendung: 'Eine Eskalations-Kette an Sanktionen verstärkt die Dysregulation, das negative Selbstkonzept und die Beziehungs-Brüche. Die schulische Linie bei cPTSD ist konsequent in der Struktur, aber deeskalierend in der Reaktion.' },
+          { titel: 'Keine Kollektiv-Sanktionen oder öffentliche Beschämung', begruendung: 'Beide aktivieren Trauma-spezifische Reaktionen. Klassen-bezogene Strafen oder Bloßstellungen vor der Gruppe können bei diesem Profil massive Dysregulations-Episoden auslösen und zerstören die Schul-Sicherheit nachhaltig.' },
+          { titel: 'Keine „harte Hand jetzt"-Strategien', begruendung: 'Die intuitive Reaktion auf herausforderndes Verhalten ist oft Strenge-Erhöhung. Bei cPTSD verschärft das die Dysregulation, weil es die Trauma-Logik bestätigt. Wirksam ist das Gegenteil: ruhige Beharrlichkeit, klare Struktur, kein Affekt.' },
+          { titel: 'Keine abrupten Setting-Wechsel ohne Beziehungs-Übergabe', begruendung: 'Ein Klassen- oder Schul-Wechsel ohne geplante Übergabe ist ein klinischer Rückschritt. Wenn ein Wechsel nötig wird, dann mit Überschneidungs-Phase, expliziter Verabschiedung und Information an die neue Bezugsperson — sonst wird der Wechsel selbst zum nächsten Bindungs-Bruch.' }
+        ],
+        e_rollen: [
+          'Konstante Bezugsperson (Klassenlehrer oder Vertrauenslehrer) — die wichtigste Einzel-Ressource',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) mit Trauma-Verständnis',
+          'SCAS für vertiefte therapeutische Begleitung',
+          'Office National de l\'Enfance (ONE) bei fortbestehendem Familien-Trauma',
+          'SNJ für Familien-Unterstützung oder Schutz-Strukturen',
+          'KJP für die Medikations-Frage und schwere Verläufe',
+          'Bei akuter Kindeswohl-Gefährdung: Schutz-Meldung über die zuständigen Strukturen'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen, in akuten Phasen engmaschiger. Die Frequenz bleibt auch in stabilen Phasen relativ hoch, weil cPTSD nicht in Wochen-Verläufen abklingt und die Übersicht über die Beziehungs-Konstanz im Schul-System aktive Pflege braucht. Zusätzlich werden alle Übergänge — Halbjahr, Schuljahr, Klassen-Wechsel, Vertretungs-Phasen — proaktiv vorbereitet, statt sie laufen zu lassen, weil hier die größten Bruchrisiken liegen.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer als konstante Bezugsperson etabliert, Deeskalations-Plan schriftlich vereinbart. Die Logik „Sicherheit zuerst, Besprechung später" wird mit allen relevanten Lehrkräften durchgesprochen, damit nicht jede Lehrkraft ihre eigene Linie fährt.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe und multiprofessionelle Abstimmung. Hier wird die Anpassungs-vs.-Schonungs-Balance gemeinsam austariert und das Verständnis für Rückschritte als Teil des Weges verankert — sonst wird der erste Rückschritt zum Anlass, die Anpassungen wieder einzukassieren.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen dokumentiert, Übergänge geplant. Schriftliche Vereinbarung überlebt Lehrer-Wechsel und wird bei jedem Schulhalbjahr aktiv überprüft. Die Verantwortung für die Überprüfung liegt nicht beim Klienten oder den Eltern, sondern bei einer benannten Stelle in der Schule.</li>
+            <li><strong>Stufe 4</strong> — Bei fortbestehendem Familien-Trauma: ONE/SNJ-Anbindung, Schutz-Strukturen. Die Schule wird hier zum aktiven Glied im Kindeswohl-Netzwerk, nicht nur Lern-Ort. Die Rollen-Klärung zwischen Schule, Therapie und Schutz-System ist Pflicht-Bestandteil dieser Stufe.</li>
+            <li><strong>Stufe 5</strong> — Bei Kindeswohl-Gefährdung: Schutz-Meldung; bei schwerer Dekompensation: stationäre Behandlung mit Schul-Anbindung, damit die Lern- und Beziehungs-Kontinuität nicht völlig abreißt. Der Wieder-Einstieg nach Klinik wird vorbereitet, nicht improvisiert.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken oder Selbstverletzung. Dissoziative Krisen häufen sich. Substanzkonsum als Emotionsregulation. Beziehungs-Abbrüche eskalieren. Hinweise auf fortbestehendes Trauma im häuslichen Umfeld.</p>`,
+        ueberweisung: `<p>Medikations-Frage. Schwere komorbide Depression. Konkrete Suizidalität. Schwere dissoziative Symptomatik.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Schwere Selbstverletzungs-Eskalation. Akute dissoziative Krise mit Selbstgefährdung. Kindeswohl-Gefährdung mit Notwendigkeit eines sicheren Raums — in Abstimmung mit ONE und Schutz-Strukturen.</p>`
+      }
+    }
+  },
   /* M3 — Trauma nach sexuellem Missbrauch. */
   {
     id: 'trauma-missbrauch',
@@ -9854,7 +9981,130 @@ const PLAN_MUSTER_TRAUMA = [
     }
   },
   /* M4 — Häusliche Gewalt als Zeuge. */
-  { id: 'trauma-gewalt-zeuge', name: 'Häusliche Gewalt als Zeuge',              bloecke: emptyTraumaBloecke() },
+  {
+    id: 'trauma-gewalt-zeuge',
+    name: 'Häusliche Gewalt als Zeuge',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher aus einem Haushalt mit häuslicher Gewalt zwischen den Eltern, selbst nicht direkt körperlich betroffen. Bei Jungen oft Aggression, Reizbarkeit, Regelverletzung — bei Mädchen oft Rückzug, Angst, depressive Verstimmung, somatische Beschwerden. Die Schul-Leistung bricht ein, ohne dass die Schule den Grund kennt. Hypervigilanz und Schreckhaftigkeit als Marker.</p>`,
+        klinischWichtig: `<p>„Nur Zeuge" ist eine Verharmlosung — das Miterleben chronischer Gewalt zwischen den Bindungs-Personen ist ein eigenständiges schweres Trauma. Das Kind lebt in einem Zustand chronischer Bedrohungs-Wachsamkeit: es weiß nie, wann die nächste Eskalation kommt, fühlt sich verantwortlich für die Schlichtung, erlebt Hilflosigkeit beim Zuschauen und trägt einen unauflösbaren Loyalitäts-Konflikt — es liebt beide Eltern und muss zusehen, wie einer dem anderen schadet.</p>
+          <p>Daraus entsteht ein Trauma-Profil mit Hypervigilanz, Schreckhaftigkeit, Schlafstörung und oft einer Spaltung im Verhalten: nach außen funktionierend, innen in chronischer Anspannung. Die geschlechts-spezifische Manifestation ist klinisch wichtig. Jungen externalisieren häufig — Aggression, die wiederum das väterliche Gewalt-Modell reproduzieren kann; das Kind wird zum, was es überleben musste, weil es kein anderes Modell hatte. Mädchen internalisieren — Angst, Depression, Somatisierung, Parentifizierung; oft übernimmt das Mädchen die Rolle der Beruhigerin, der Tröstenden, der heimlichen Erwachsenen.</p>
+          <p>Schule sieht meistens nur das Symptom, nicht den häuslichen Hintergrund. Bei aktuell bestehender häuslicher Gewalt hat die Schutz-Frage Priorität — ONE und gegebenenfalls Polizei-Schutz-Strukturen einbinden, vor jeder Trauma-Verarbeitung. Eine therapeutische Arbeit am Loyalitäts-Konflikt, während die Gewalt weiterläuft, ist klinisch ohne Wirkung und kann Re-Traumatisierung produzieren.</p>`,
+        vergleich: `<p><strong>Vs. M2 (komplexes Bindungstrauma):</strong> Häusliche Gewalt-Zeugenschaft ist eine Form chronischen Traumas und kann in cPTSD münden. Wenn die Selbstorganisations-Störungen voll ausgeprägt sind, ist M2 führend. M4 betont die spezifische Zeugen-Konstellation und den Loyalitäts-Konflikt.</p>
+          <p><strong>Vs. A10 (Verhaltensstörungen):</strong> Bei Jungen mit Aggressions-Externalisierung wichtig zu differenzieren — ist es trauma-bedingt (M4) oder eine primäre Verhaltensstörung. Trauma-Anamnese und Hypervigilanz-Marker differenzieren.</p>
+          <p><strong>Vs. M1 (klassische PTBS):</strong> Kein Einzelereignis, sondern chronische Exposition. Die Behandlungs-Logik ist phasenorientierter.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Bei aktuell bestehender häuslicher Gewalt: akute Sicherheits-Frage, Kindeswohl-Gefährdung',
+          'Suizidalität bei schwerer Belastung',
+          'Bei Jungen: Aggressions-Eskalation mit Fremdgefährdung'
+        ],
+        hoch: [
+          'Aggressions-Externalisierung (Jungen) mit schulischen und sozialen Folgen',
+          'Depression und Angst (Mädchen)',
+          'Substanzkonsum',
+          'Schul-Vermeidung und Leistungs-Einbruch',
+          'Parentifizierung mit Überlastung'
+        ],
+        mittel: [
+          'Reproduktion des Gewalt-Modells in eigenen Beziehungen',
+          'Chronische Hypervigilanz',
+          'Beziehungs-Muster aus Unsicherheit',
+          'Transgenerationale Weitergabe'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Trauma-fokussierte Behandlung mit Schwerpunkt auf Sicherheit, Loyalitäts-Konflikt-Bearbeitung und Affekt-Regulation. Bei aktuell bestehender Gewalt zuerst Schutz. TF-CBT-Komponenten angepasst, bei chronischem Verlauf phasenorientiert wie bei cPTSD. Bei Aggressions-Externalisierung zusätzlich Impuls- und Aggressions-Regulation, ohne das Trauma zu pathologisieren.</p>`,
+        begruendung: `<p>Der Loyalitäts-Konflikt ist der Kern — das Kind muss lernen, dass es beide Eltern lieben darf, ohne für die Gewalt verantwortlich zu sein. Ohne Schutz vor fortbestehender Gewalt ist Trauma-Verarbeitung nicht möglich.</p>`,
+        diagnostik: [
+          'CAPS-CA-5',
+          'UCLA PTSD-RI',
+          'TSCC',
+          'K-SADS-PL',
+          'CBCL/TRF für das Verhaltens-Profil (besonders bei externalisierender Symptomatik)',
+          'Strukturierte Familien- und Gewalt-Anamnese',
+          'BDI-A oder PHQ-A für komorbide Depression'
+        ],
+        wasDuTust: [
+          '„Was zuhause passiert ist, ist nicht deine Schuld und nicht deine Verantwortung zu lösen. Auch wenn es sich jahrelang so angefühlt hat."',
+          '„Du darfst beide Eltern liebhaben. Und du darfst gleichzeitig wütend sein über das, was passiert ist. Beides geht."',
+          '„Du hast als Kind etwas gesehen, das Erwachsene oft nicht mal aushalten. Dass du Symptome hast, ist normal, nicht schwach."',
+          '„Du musst nicht der Schlichter sein. Das war nie deine Aufgabe, auch wenn es niemand sonst gemacht hat."',
+          '„Deine Wachsamkeit hat dich beschützt. Jetzt ist sie nicht mehr nötig — und wir bringen sie langsam runter."',
+          '„Wenn du Wut spürst, ist das richtig. Was wir lernen, ist nur, was du damit machst. Nicht ob du sie haben darfst."'
+        ],
+        wasDuNichtTust: [
+          'Nicht die „nur Zeuge"-Verharmlosung übernehmen — es ist ein eigenständiges schweres Trauma',
+          'Nicht Partei für einen Elternteil ergreifen — verschärft den Loyalitäts-Konflikt',
+          'Nicht Aggression (bei Jungen) rein disziplinarisch behandeln — sie ist trauma-bedingt',
+          'Nicht Trauma-Verarbeitung bei fortbestehender Gewalt — zuerst Schutz',
+          'Nicht das Kind in die Verantwortung für die Familien-Situation nehmen'
+        ],
+        frequenz: `<p>Wöchentlich, bei akuter Sicherheits-Lage engmaschiger. Bei chronischem Verlauf längere Behandlung.</p>`
+      },
+      vierPhasen: {
+        phase1: `Sicherheits-Assessment — bei aktuell bestehender Gewalt zuerst Schutz (ONE, Polizei-Schutz-Strukturen, ggf. Frauenhaus-Anbindung der Mutter). Diagnostik. Psychoedukation zum Zeugen-Trauma. Affekt-Regulations-Werkzeuge. Loyalitäts-Konflikt benennen und entlasten (Wochen 1–8).`,
+        phase2: `Trauma-Verarbeitung, wenn Sicherheit gegeben ist (Monate 2–6). Bearbeitung des Loyalitäts-Konflikts. Bei Aggression: Impuls-Regulation und alternatives Beziehungs-Modell. Bei Internalisierung: Depression und Angst adressieren.`,
+        phase3: `Integration (Monate 6–12). Beziehungs-Muster reflektieren — besonders das Risiko der Gewalt-Reproduktion (Jungen) oder der Re-Viktimisierung (Mädchen). Selbstwert-Arbeit. Zukunfts-Perspektive.`,
+        phase4: `Konsolidierung (Monate 12+). Frequenz reduziert. Der Klient hat verstanden, dass er nicht verantwortlich war, hat Werkzeuge für die eigene Beziehungs-Gestaltung.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht bei M4 entweder den aggressiven Jungen oder das zurückgezogene ängstliche Mädchen — und kennt den häuslichen Hintergrund meistens nicht. Bei aggressiven Jungen ist die klassische Schul-Reaktion Disziplin und Sanktion, was das Kind, das ohnehin ein Gewalt-Modell zuhause erlebt, weiter in Beschämung und Eskalation treibt. Das Schul-System wird so unfreiwillig zum Verstärker des Gewalt-Lernens: zuhause sieht der Junge, dass Konflikte mit Gewalt gelöst werden; in der Schule erlebt er, dass auf sein eigenes Aufbegehren mit Strenge geantwortet wird. Beide Welten lehren dieselbe Lektion.</p>
+          <p>Bei zurückgezogenen Mädchen wird die Symptomatik oft gar nicht bemerkt — das stille leidende Kind fällt nicht auf. Eine Schülerin, die brav, leise, parentifiziert und still erscheint, wird im Schul-Betrieb selten als belastet wahrgenommen. Manchmal wird sie sogar gelobt für ihre „Reife" und ihre Verlässlichkeit, während sie innerlich kollabiert und zuhause die emotionale Versorgung der Mutter und der jüngeren Geschwister übernimmt. Die Schul-Performance bricht oft ein, was als Motivations- oder Begabungs-Frage fehlinterpretiert wird.</p>
+          <p>Was die Schule braucht, ist Bewusstsein dafür, dass herausforderndes oder zurückgezogenes Verhalten einen Hintergrund haben kann, eine sichere konstante Bezugsperson, deeskalierende statt sanktionierender Reaktionen und bei Verdacht auf häusliche Gewalt die Bereitschaft, Schutz-Strukturen einzubinden. Schule kann ein sicherer Ort sein — der einzige verlässliche Raum im Tag des Kindes — wenn sie diese Rolle bewusst einnimmt. Für viele Kinder aus diesen Haushalten ist die Schule der einzige Ort, an dem sie acht Stunden lang nicht mit der nächsten Eskalation rechnen müssen; sie wissen, dass nichts kippt, dass die Räume gleich bleiben, dass die Pause kommt, dass nach Mathematik Deutsch ist. Diese Vorhersehbarkeit allein ist klinisch wirksam — sie senkt das Stress-Niveau real, auch wenn niemand explizit „therapiert".</p>
+          <p>Ein zweiter wichtiger Punkt für die Schule ist die Wahrung der Loyalitäts-Achse. Lehrkräfte, die in das familiäre Geschehen einbezogen sind, neigen dazu, Partei zu ergreifen — meistens für den vermeintlich schwächeren Elternteil. Für das Kind ist jede schulische Partei-Nahme aber eine zusätzliche Belastung, weil sie den ohnehin unauflösbaren Loyalitäts-Konflikt verschärft. Die schulische Linie bleibt: dem Kind den Rücken stärken, ohne über die Eltern zu urteilen. Sätze wie „dein Vater ist ja unmöglich" oder „deine Mutter müsste endlich mal handeln" wirken kurzfristig solidarisch und langfristig destabilisierend, weil sie dem Kind die Loyalitäts-Last erhöhen.</p>
+          <p>Ein dritter Punkt betrifft die Geschwister-Konstellation. Häufig kommen mehrere Geschwister derselben Familie in die Schule, oft auch in dieselbe. Die Schul-Strategie muss dann auf jedes Kind individuell zugeschnitten sein, weil die Reaktionen auf dieselbe häusliche Realität unterschiedlich ausfallen — das ältere Mädchen parentifiziert, der mittlere Junge externalisiert, das jüngste Kind regredient. Eine pauschale „Familien-Strategie" der Schule wird keinem dieser Profile gerecht und reproduziert die häusliche Indifferenz gegenüber den individuellen Bedürfnissen.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in einer belastenden familiären Situation, deren Details vertraulich behandelt werden. Klinisch wichtig: was Sie schulisch beobachten — [bei Jungen: Reizbarkeit, Konflikte, Konzentrationsprobleme / bei Mädchen: Rückzug, Ängstlichkeit, Leistungs-Einbruch] — ist Ausdruck dieser Belastung und kein bewusstes Fehlverhalten.</p>
+          <p>Was [Name] schulisch am meisten braucht, ist eine sichere, konstante Bezugsperson und eine verlässliche Struktur. Bei herausforderndem Verhalten bitten wir um eine deeskalierende Reaktion statt Sanktion — Disziplinar-Maßnahmen verschärfen die Belastung und reproduzieren oft genau das Muster, das die Symptomatik aufrechterhält. Bei stillem, zurückgezogenem Verhalten bitten wir um aktives Wahrnehmen — diese Symptomatik wird sonst leicht übersehen. Schule kann für [Name] ein wichtiger stabiler Ort sein, oft der einzige verlässliche Raum im Tag.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte konstante Bezugsperson; zweitens, einen vereinbarten Deeskalations-Plan mit Rückzugs-Möglichkeit; drittens, eine vorübergehende Reduktion des Leistungs-Drucks während der akuten Belastungsphase; viertens, Verzicht auf Eltern-Konfrontationen ohne vorherige Abstimmung mit mir.</p>
+          <p>Ich biete Ihnen gerne ein Gespräch an, in dem wir die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sichere konstante Bezugsperson als verlässlicher Anker', begruendung: 'Schule ist für viele dieser Kinder der verlässlichste Ort im Tag — oft der einzige. Eine konstante Bezugsperson, die nicht wechselt und nicht aufgibt, ist klinisch ein eigenständiger Wirkfaktor. Diese Person muss organisatorisch geschützt werden, damit sie auch nach Klassen-Wechsel oder Lehrer-Rotation erhalten bleibt.' },
+          { titel: 'Deeskalations-Plan bei aggressivem Verhalten (Jungen) statt sofortiger Sanktion', begruendung: 'Sofortige Sanktion reproduziert das häusliche Gewalt-Modell. Der Plan enthält eine vereinbarte Sequenz: ruhig ansprechen, Rückzugs-Raum, Stabilisierung, später besprechen. Die Besprechung kommt aus dem Affekt heraus, nicht in ihn hinein — sonst lernt der Junge nur, dass auch in der Schule Konflikte mit Eskalation enden.' },
+          { titel: 'Aktives Wahrnehmen bei zurückgezogenem Verhalten (Mädchen)', begruendung: 'Mädchen mit Internalisierung werden im Schul-Betrieb leicht übersehen, weil sie keine Probleme machen. Eine bewusste regelmäßige Kontakt-Aufnahme durch die Bezugsperson („wie geht es dir heute") verhindert, dass das stille Leiden monatelang unbemerkt bleibt. Auch das ist eine konkrete schulische Anpassung, nicht nur eine Haltung — sie muss organisiert und in den Wochen-Rhythmus eingebaut sein.' },
+          { titel: 'Vorhersehbare Strukturen, ruhige Reaktion auf Schwankungen', begruendung: 'Die häusliche Unvorhersehbarkeit macht jede schulische Struktur klinisch wertvoll. Stunden-Plan-Stabilität, vorhersehbare Abläufe und ruhige Reaktion auf affektive Schwankungen senken die Grundanspannung und schaffen den einzigen verlässlichen Acht-Stunden-Block des Tages. Auch kleine Vorhersehbarkeiten wirken — die immer gleiche Begrüßung am Morgen, der bekannte Sitzplatz, das vertraute Pausen-Ritual.' },
+          { titel: 'Rückzugs-Raum bei akuter Anspannung', begruendung: 'Ein verfügbarer ruhiger Raum mit klarer Rückkehr-Vereinbarung. Wenn die Anspannung steigt, kann der Klient kurz raus, sich stabilisieren und wieder reingehen. Diese Mikro-Anpassung verhindert die Eskalation in den Wutausbruch (Jungen) oder den Total-Rückzug in die Klassen-Ecke (Mädchen). Der Rückzug ist befristet und endet mit der Rückkehr in den Unterricht — die Lehrkraft kennt die Rückkehr-Vereinbarung, damit der Rückzug nicht stillschweigend zur Vermeidung kippt.' },
+          { titel: 'Leistungs-Druck reduzieren während akuter familiärer Belastung', begruendung: 'In akuten Phasen ist die Lern-Kapazität real reduziert. Eine temporäre Reduktion des Leistungs-Drucks — verlängerte Abgabe-Fristen, weniger Tests in einer Phase, Klassenarbeiten in einem ruhigeren Setting — entlastet, ohne den Klienten freizustellen. Sobald die Lage stabiler ist, wird wieder hochgefahren.' },
+          { titel: 'Schul-Angebote für nach der Schule (Maison des Jeunes, AGs) als sichere strukturierte Zeit', begruendung: 'Je länger der Klient an einem sicheren Ort ist, desto besser. Maison Relais, Maison des Jeunes, Arbeitsgemeinschaften, Sport-Vereine — alles, was die Zeit zuhause reduziert und gleichzeitig positive Beziehungs-Erfahrungen ermöglicht, ist klinisch wertvoll. Die Schule kann hier aktiv vermitteln.' },
+          { titel: 'Bei Verdacht auf akute häusliche Gewalt: Schul-Sozialarbeit und Schutz-Strukturen einbinden', begruendung: 'Wenn die Schule Hinweise auf akute Eskalation zuhause bekommt (Verletzungen, Erschöpfung, plötzliche Symptomatik-Verschärfung), ist die Schwelle zur Einbindung von ONE und ggf. Polizei niedrig. Das ist keine Über-Reaktion, sondern Kindeswohl-Pflicht. Die Einbindung erfolgt in Abstimmung mit der behandelnden Fachkraft, damit das Vorgehen koordiniert läuft und das Kind nicht zwischen Schule, Therapie und Schutz-System hin- und hergeschoben wird.' },
+          { titel: 'Loyalitäts-neutrale Sprache, kein Urteilen über die Eltern', begruendung: 'Sätze wie „dein Vater ist ja unmöglich" verschärfen den Loyalitäts-Konflikt, auch wenn sie solidarisch gemeint sind. Die schulische Linie bleibt: dem Kind den Rücken stärken, die Eltern-Beurteilung den Schutz-Strukturen überlassen. Diese Trennung muss explizit eingeübt sein, weil die spontane Empathie-Reaktion in die entgegengesetzte Richtung zieht.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Disziplinar-Eskalation bei aggressivem Verhalten', begruendung: 'Reproduziert das häusliche Gewalt-Modell und vertieft genau die Spur, gegen die die Behandlung arbeitet. Strenge-Erhöhung wirkt bei diesem Profil eskalierend, nicht regulierend.' },
+          { titel: 'Keine Eltern-Konfrontation durch die Schule ohne Abstimmung mit Schutz-Strukturen', begruendung: 'Eine schulische Konfrontation der Eltern kann eine Eskalation zuhause auslösen, deren Folgen das Kind trägt. Jede Eltern-Kommunikation in einem solchen Setting muss vorab mit der behandelnden Fachkraft und ggf. mit ONE abgestimmt sein.' },
+          { titel: 'Keine gemeinsamen Eltern-Gespräche, wenn Gewalt zwischen den Eltern besteht', begruendung: 'Ein gemeinsames Eltern-Gespräch in einem Gewalt-Kontext setzt die nicht-gewaltbereite Person unter Druck und kann zuhause Vergeltung auslösen. Eltern-Gespräche werden, wenn überhaupt, getrennt geführt — in Absprache mit der behandelnden Fachkraft.' },
+          { titel: 'Kein Übersehen des stillen leidenden Kindes', begruendung: 'Mädchen-Internalisierer fallen im Schul-Betrieb selten auf, weil sie keine Probleme machen. Genau deshalb braucht es eine aktive Aufmerksamkeit. Wer hier nichts sieht, hat oft einfach nicht hingesehen.' },
+          { titel: 'Keine „reiß dich zusammen"-Haltung', begruendung: 'Diese Haltung bestätigt das Selbstbild „ich bin nicht okay so, wie ich bin" und treibt die Internalisierung weiter ins Verborgene. Wirksam ist das Gegenteil: ruhiges Anerkennen der Belastung ohne dramatisieren, und konkrete praktische Anpassung.' }
+        ],
+        e_rollen: [
+          'Konstante Bezugsperson als sicherer Anker',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service)',
+          'Schul-Sozialarbeit',
+          'SCAS für vertiefte Begleitung',
+          'Office National de l\'Enfance (ONE) bei Kindeswohl-Frage',
+          'SNJ und ggf. Polizei-Schutz-Strukturen bei akuter häuslicher Gewalt',
+          'KJP bei schwerer Symptomatik'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen, bei akuter Lage engmaschiger. Bei begründetem Verdacht auf eine akute Eskalation zuhause wird der Kontakt sofort enggetaktet, weil Schule in diesen Phasen oft der einzige Außen-Anker ist.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson etabliert, Deeskalations-Plan schriftlich vereinbart. Die Logik „Sicherheit zuerst, später besprechen" wird mit allen relevanten Lehrkräften geteilt.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe und Schul-Sozialarbeit eingebunden. Hier wird die Anpassungs-Linie multiprofessionell verankert und die Beobachtungs-Aufmerksamkeit für die stillen Internalisierer geschärft.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen dokumentiert. Schriftliche Vereinbarung, die Lehrer-Wechsel überlebt; regelmäßige Überprüfung bei Halbjahres-Wechsel.</li>
+            <li><strong>Stufe 4</strong> — Bei Verdacht auf Kindeswohl-Gefährdung: ONE-Meldung, Schutz-Strukturen. Diese Stufe ist nicht verhandelbar — die Meldung ist gesetzliche Pflicht, kein Vertrauens-Bruch.</li>
+            <li><strong>Stufe 5</strong> — Bei akuter häuslicher Gewalt: Schutz-Maßnahmen mit Polizei und ONE, ggf. Inobhutnahme-Frage. Die Schule wird hier zum aktiven Glied im Schutz-Netzwerk, mit klarer Aufgaben-Verteilung. Wichtig ist, dass die Schule auch in dieser Phase Lern-Ort und Beziehungs-Anker bleibt, weil der Klient nicht alle stabilen Bezüge gleichzeitig verlieren darf — eine Inobhutnahme bedeutet bereits einen massiven Lebens-Umbruch, der schulische Anker muss dann besonders aktiv gehalten werden.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Aggressions-Eskalation (Jungen). Vertiefende Depression (Mädchen). Suizidale Gedanken. Substanzkonsum. Hinweise auf akute häusliche Gewalt-Eskalation.</p>`,
+        ueberweisung: `<p>Medikations-Frage. Schwere komorbide Depression. Konkrete Suizidalität. Schwere Aggressions-Problematik mit Fremdgefährdung.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Akute Fremdgefährdung. Kindeswohl-Gefährdung mit Notwendigkeit eines sicheren Raums — in Abstimmung mit ONE und Polizei-Schutz-Strukturen.</p>`
+      }
+    }
+  },
   /* M5 — Migrations- und Krieg-Trauma. */
   { id: 'trauma-migration',    name: 'Migrations- und Krieg-Trauma',            bloecke: emptyTraumaBloecke() },
   /* M6 — Trauma mit dissoziativer Manifestation. */
