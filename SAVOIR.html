@@ -9599,11 +9599,260 @@ const PLAN_MUSTER_TRAUMA = [
   /* M1 — Klassische PTBS nach Einzelereignis. Soll-Struktur: wasDuSiehst,
      risikoProfil, therapieansatz (TF-CBT/EMDR), vierPhasen, schulstrategie,
      eskalation. Inhalt folgt in Folge-Prompt. */
-  { id: 'trauma-ptbs',         name: 'Klassische PTBS nach Einzelereignis',     bloecke: emptyTraumaBloecke() },
+  {
+    id: 'trauma-ptbs',
+    name: 'Klassische PTBS nach Einzelereignis',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit klar identifizierbarem Trauma-Ereignis — ein Unfall, eine einmalige Gewalterfahrung, ein einmaliger sexueller Übergriff, eine Naturkatastrophe, ein plötzlicher Verlust, eine akute medizinische Krise — seit mindestens einem Monat in Symptomatik. Wiederkehrende intrusive Erinnerungen oder Albträume zum Ereignis, aktive Vermeidung von Erinnern und Auslöse-Reizen, gesteigerte Wachsamkeit und Schreckhaftigkeit, häufig sekundärer sozialer Rückzug. Das Funktionsniveau ist seit dem Ereignis eingebrochen — vorher war der Klient unauffällig oder gut kompensiert.</p>`,
+        klinischWichtig: `<p>Bei klassischer PTBS ist die Behandlungs-Logik strukturiert und gut etabliert — du hast einen klaren Anfangs-Punkt (das Trauma-Ereignis) und einen klaren Verlauf. Was du klinisch verstehen musst: die Symptome sind keine Schwäche-Reaktion, sondern adaptive Versuche des Gehirns, mit etwas umzugehen, das die normale Verarbeitungs-Kapazität überschritten hat.</p>
+          <p>Wiedererleben ist ein Versuch, das Trauma kognitiv zu integrieren — unverarbeitet bleibt es als „lebendige Erinnerung" zurück, die jederzeit aktiviert werden kann. Vermeidung verhindert genau diese Integration: jedes Mal, wenn der Klient dem Trauma-Material ausweicht, bekommt das Gehirn die Bestätigung „das ist gefährlich", und die Erinnerung bleibt unverarbeitet. Hyperarousal ist das chronisch hochgefahrene Sicherheits-System des Gehirns, das nach dem Trauma nicht wieder heruntergefahren hat.</p>
+          <p>Die zentrale therapeutische Bewegung ist graduierte Konfrontation mit dem Trauma-Material in einem sicheren Rahmen, sodass die Verarbeitung nachgeholt werden kann. TF-CBT (Cohen) macht das in einem strukturierten Format über acht bis sechzehn Sitzungen. EMDR macht es über bilaterale Stimulation während der Trauma-Erinnerung. Beide funktionieren — die Wahl hängt von Klient, Trauma-Typ und Therapeut ab. Bei Jugendlichen ist Eltern-Einbezug ein wichtiger Behandlungs-Verstärker — sofern die Eltern nicht selbst Teil des Trauma-Kontextes sind.</p>`,
+        vergleich: `<p><strong>Vs. M2 (komplexes Bindungstrauma):</strong> Einzeltrauma gegen chronisches früh-Bindungs-Trauma. M1 hat einen klaren Anfang, M2 nicht. Behandlungs-Dauer und Komplexität sind fundamental unterschiedlich — M1 ist in Monaten behandelbar, M2 braucht oft Jahre.</p>
+          <p><strong>Vs. M3 (sexueller Missbrauch):</strong> Wenn das Trauma ein einmaliger sexueller Übergriff durch eine fremde Person war, kann M1 die richtige Achse sein. Bei chronischem Missbrauch oder Missbrauch durch eine Bezugsperson ist M3 führend — wegen der spezifischen Komponenten Vertrauen, Körper, Selbstanklage.</p>
+          <p><strong>Vs. M5 (Migration/Krieg):</strong> Bei einem akuten, umrissenen Krieg-Erlebnis ist möglicherweise M1 die Achse. Bei Flucht-Erfahrung mit kultureller Entwurzelung und transgenerationalen Schichten ist M5 führend.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Akute Suizidalität in der frühen Phase nach dem Trauma',
+          'Akute Selbstverletzung',
+          'Re-Traumatisierung durch unkontrollierten Kontakt mit Trigger oder Trauma-Verursacher'
+        ],
+        hoch: [
+          'Sekundäre Depression',
+          'Substanzkonsum als Selbstmedikation',
+          'Schul-Vermeidung, wenn das Trauma im schulischen Kontext liegt',
+          'Soziale Isolation',
+          'Bei Verkehrsunfall-Trauma: Vermeidung jeglicher Mobilität mit Auswirkung auf die Schul-Anwesenheit'
+        ],
+        mittel: [
+          'Chronifizierung der Symptomatik bei Nicht-Behandlung',
+          'Beziehungs-Muster aus Misstrauen',
+          'Identitäts-Festigung um das Trauma-Ereignis herum',
+          'Berufliche Einschränkung bei trauma-relevanten Tätigkeits-Feldern'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Trauma-Focused CBT (Cohen) als primäres Format, alternativ EMDR oder Prolonged Exposure for Adolescents (PE-A, Foa). Komponenten: Psychoedukation, Entspannungs- und Affekt-Regulations-Training, kognitive Verarbeitung, Trauma-Narrativ als zentrale Komponente, in-vivo Exposition bei Vermeidungs-Symptomatik, Eltern-Komponente, Sicherheits-Training. Medikation: SSRI als Add-on bei schwerer Belastung möglich, aber nicht Erstlinie.</p>`,
+        begruendung: `<p>Trauma-Verarbeitung passiert nicht durch Vermeidung und nicht durch Reden im Allgemeinen — sie passiert durch strukturierte Konfrontation mit dem Trauma-Material in einem sicheren Rahmen. Das ist der spezifische therapeutische Mechanismus, der die unverarbeitete „lebendige Erinnerung" in eine normale autobiographische Erinnerung überführt.</p>`,
+        diagnostik: [
+          'CAPS-CA-5 (Clinician Administered PTSD Scale for Children/Adolescents) — Goldstandard',
+          'UCLA PTSD-RI (Reaction Index) als kompaktere Variante',
+          'TSCC (Trauma Symptom Checklist for Children)',
+          'K-SADS-PL für strukturierte komorbide Diagnostik',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'Strukturierte Trauma-Anamnese mit Fokus auf das spezifische Ereignis, ohne Druck auf Details'
+        ],
+        wasDuTust: [
+          '„Was du erlebt hast, war real und ist nicht weg. Was wir verändern können, ist, wie dein Gehirn damit umgeht."',
+          '„Deine Symptome sind nicht Schwäche. Sie sind die Antwort deines Gehirns auf etwas, was es nicht verarbeiten konnte."',
+          '„Vermeidung schützt kurz und kostet lang. Wir nähern uns dem Trauma in einem sicheren Rahmen — du bestimmst das Tempo."',
+          '„Das Trauma ist passiert. Du bist nicht das Trauma."',
+          '„Wir machen eine Trauma-Erzählung in Stufen. Das ist nicht, damit du es wieder durchlebst — das ist, damit dein Gehirn es ablegen kann."',
+          '„Was dein Körper jetzt macht — die Reaktionen, das Erschrecken, die Schlaflosigkeit — ist nicht falsch. Es ist nur nicht mehr nötig."'
+        ],
+        wasDuNichtTust: [
+          'Nicht versuchen, das Trauma in den ersten Sitzungen detailliert zu rekonstruieren — Stabilisierung kommt zuerst',
+          'Nicht Vermeidung als Schutz-Strategie unterstützen — das verhindert die Verarbeitung',
+          'Nicht die „darüber redet ihr nicht"-Empfehlung an die Familie geben — das verstärkt die Vermeidungs-Struktur',
+          'Nicht psychoanalytische Tiefen-Arbeit als Erst-Methode — bei PTBS sind TF-CBT oder EMDR evidenz-basiert',
+          'Nicht das Trauma-Narrativ ohne vorherige Stabilisierungs-Phase angehen — das kann re-traumatisierend wirken'
+        ],
+        frequenz: `<p>Wöchentlich für zwölf bis sechzehn Wochen (TF-CBT-Standard-Format), bei EMDR ähnliche Frequenz. In der akuten Phase nach dem Trauma engmaschiger möglich.</p>`
+      },
+      vierPhasen: {
+        phase1: `Sicherheits-Assessment, Stabilisierung, Diagnostik abschließen. Psychoedukation zu PTBS und zur Behandlung. Affekt-Regulations-Werkzeuge etablieren. Eltern aufklären und einbeziehen. Aktuelle Sicherheits-Lage prüfen — bei Trauma-Verursacher noch im Lebens-Umfeld zuerst Schutz.`,
+        phase2: `Trauma-Verarbeitung in strukturiertem Format. Bei TF-CBT: kognitive Verarbeitung, Trauma-Narrativ, in-vivo Exposition. Bei EMDR: Trauma-Reprocessing-Sitzungen. Schul-Anpassungen umsetzen.`,
+        phase3: `Integration der Trauma-Erfahrung in die persönliche Biographie (Monate 3–6). Bedeutungs-Konstruktion. Bei fortbestehender Vermeidung: erweiterte Exposition. Soziale Reintegration.`,
+        phase4: `Konsolidierung, Rückfall-Prophylaxe (Monate 6–9). Der Klient hat eigene Werkzeuge bei Trigger-Aktivierungen. Frequenz reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule reagiert auf PTBS oft gut gemeint, aber problematisch. Klassische Reaktion eins: der Klient wird „geschont", aus schwierigen Situationen herausgenommen, mit Mitleid behandelt. Das ist gut gemeint und kontraproduktiv — Vermeidung wird durch die Schule verstärkt, was die Trauma-Verarbeitung blockiert. Jede schulische Schonung, die dem Klienten signalisiert „diese Situation ist zu gefährlich für dich", bestätigt das Trauma-Netzwerk und verlängert die Symptomatik.</p>
+          <p>Klassische Reaktion zwei: die Lehrkräfte verstehen die Symptomatik nicht. Konzentrationsstörung, Schreckhaftigkeit, Reizbarkeit, Schul-Vermeidung werden als Motivations- oder Disziplin-Problem interpretiert — mit entsprechenden Reaktionen (Ermahnung, Strafarbeit, Eltern-Gespräch über „mangelnde Mitarbeit"), die den Klienten zusätzlich belasten und die Hyperarousal-Symptomatik weiter anheizen. Ein Jugendlicher, der nach einem Trauma im Unterricht zusammenzuckt und nicht folgen kann, ist nicht unmotiviert — sein Sicherheits-System läuft auf Hochtouren und bindet die Ressourcen, die er zum Lernen bräuchte.</p>
+          <p>Was die Schule wirklich braucht, ist klinische Aufklärung über PTBS, Bereitschaft zur strukturierten Mit-Behandlung (graduierte Konfrontation statt Vermeidung) und eine sichere Bezugsperson, trainiert in trauma-bewusster Sprache. Bei Trauma im schulischen Kontext — Mobbing-Trauma, Unfall in der Schule, sexueller Übergriff im schulischen Setting — ist besonders sorgfältige Behandlung nötig, oft mit einem Setting-Wechsel als Lösung, weil der Lern-Ort selbst zum Dauer-Trigger geworden ist.</p>
+          <p>Wichtig für das Verständnis der Schule ist die Unterscheidung zwischen Anpassung und Schonung. Eine Anpassung entfernt einen vermeidbaren Trigger oder gibt ein Werkzeug an die Hand, damit der Klient die Anforderung bewältigen kann — ein ruhiger Prüfungsraum, ein Notfall-Plan, eine benannte Bezugsperson. Schonung dagegen entfernt die Anforderung selbst und signalisiert dem Klienten, dass er ihr nicht gewachsen ist. Die Grenze verläuft fein, aber sie ist klinisch entscheidend: dieselbe Maßnahme (etwa das Verlassen des Raumes) kann je nach Rahmung Anpassung oder Schonung sein. Wenn sie befristet ist, mit Rückkehr-Vereinbarung und dem Ziel der schrittweisen Wieder-Annäherung, ist sie Anpassung. Wenn sie dauerhaft und ohne Wieder-Annäherungs-Plan gewährt wird, ist sie Schonung — und damit ein Verstärker der Vermeidungs-Struktur. Diese Logik muss die Schule nicht nur einmal hören, sondern wiederholt, weil der intuitive Reflex bei einem sichtbar belasteten Jugendlichen immer Richtung Schonung zieht.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] hat eine posttraumatische Belastungsstörung (PTBS) nach einem belastenden Ereignis. Klinisch wichtig: was Sie schulisch beobachten — Konzentrationsstörung, Schreckhaftigkeit, eventuelle Reizbarkeit, sozialer Rückzug, eventuell Vermeidung bestimmter Situationen — sind klassische PTBS-Symptome und kein Motivations- oder Verhaltens-Problem.</p>
+          <p>Die Behandlung läuft nach evidenz-basiertem Standard (Trauma-Focused CBT). Das Behandlungs-Ziel ist nicht Schonung, sondern strukturierte Wiedereingliederung — Vermeidung verstärkt die Symptomatik. Was [Name] schulisch braucht, ist eine sichere Bezugsperson, klare Anpassungen bei spezifischen Triggern und die Bereitschaft der Lehrkräfte, [Name] nicht in die Mitleids-Schiene zu setzen, sondern als voll lernfähigen Schüler zu behandeln.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte Bezugsperson, an die [Name] sich bei akuter Belastung wenden kann; zweitens, einen vereinbarten Rückzugs-Raum mit klarer Rückkehr-Regelung bei akuter Trigger-Aktivierung; drittens, Verzicht auf Disziplinar-Maßnahmen bei trauma-bezogenem Verhalten (Schreckhaftigkeit, Konzentrationsausfall); viertens, eine kurze Vorab-Information, falls Unterrichts-Themen anstehen, die das Ereignis berühren könnten.</p>
+          <p>Ich biete Ihnen gerne ein Gespräch an, in dem wir die Anpassungen abstimmen und Ihre Fragen klären.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sichere Bezugsperson definiert, trainiert in trauma-bewusster Sprache', begruendung: 'Klassenlehrer oder Vertrauenslehrer. Diese Person ist der Anker bei akuter Belastung und stabilisiert mit Coping-Sprache statt Mitleid. Trauma-bewusst heißt: keine „armes Kind"-Haltung, sondern ruhige Strukturierung („du bist gerade getriggert, das geht vorbei, lass uns kurz durchatmen"). Ohne eine benannte Person bleibt der Klient in Krisen-Momenten allein im System.' },
+          { titel: 'Reduzierte Anforderungen in der akuten Phase, danach graduiertes Hochfahren', begruendung: 'In den ersten vier bis sechs Wochen nach dem Trauma ist die Verarbeitungs-Kapazität real reduziert. Eine temporäre Anforderungs-Reduktion ist hier klinisch sinnvoll — aber zeitlich befristet und mit klarem Plan zum schrittweisen Hochfahren. Wird die Reduktion zur Dauer-Lösung, kippt sie in Schonung und verstärkt die Vermeidung. Konkret heißt das: ein definiertes Enddatum für die Reduktion, ein vereinbarter Stufen-Plan für das Hochfahren und regelmäßige Überprüfung, ob die nächste Stufe machbar ist. Das Hochfahren selbst ist Teil der Behandlung, nicht ihr Gegenteil.' },
+          { titel: 'Notfall-Plan bei akuter Trigger-Aktivierung (Flashback, Panik)', begruendung: 'Vereinbarter Rückzugs-Raum, Atemtechnik, Rückkehr-Protokoll. Der Klient lernt in der Therapie eine Stabilisierungs-Technik und wendet sie in der Schule an. Wichtig ist die Rückkehr-Vereinbarung — der Rückzug ist kurz und endet mit der Rückkehr in den Unterricht, sonst wird er selbst zur Vermeidung.' },
+          { titel: 'Bei trauma-relevanten Unterrichts-Themen: Vorab-Information', begruendung: 'Themen, die das Trauma berühren (ein Verkehrsunfall-Trauma und eine Verkehrserziehungs-Einheit; ein Gewalt-Trauma und ein Gewalt-Thema in Geschichte oder Literatur), brauchen eine Vorwarnung. Der Klient bekommt die Möglichkeit zur Vorbereitung oder zur kontrollierten Abwesenheit — kontrolliert, nicht als pauschale Befreiung.' },
+          { titel: 'Klassenarbeiten in vereinbartem Setting bei akuter Konzentrations-Symptomatik', begruendung: 'Solange die Hyperarousal- und Konzentrations-Symptomatik akut ist, kann ein ruhigerer Raum oder eine Zeitverlängerung sinnvoll sein. Diese Anpassung wird zurückgenommen, sobald die Behandlung greift — sie ist eine Brücke, kein Dauerzustand.' },
+          { titel: 'Pausen-Strukturierung bei sozialem Rückzug', begruendung: 'Eine Rückzugs-Möglichkeit ohne soziale Isolation als Standard. Der Klient soll sich in der Pause zurückziehen dürfen, wenn die Reizdichte zu hoch wird — aber mit dem Ziel, schrittweise wieder in die soziale Situation zurückzukehren, nicht sie dauerhaft zu meiden. Hilfreich ist ein konkreter Anker in der Pause (eine feste Aktivität, eine vertraute Person, eine Aufgabe), weil das den Rückzug strukturiert und ihm eine Richtung gibt, statt ihn zur reinen Flucht werden zu lassen.' },
+          { titel: 'Schul-Sport: bei Trauma mit körperlicher Komponente spezifische Anpassungen, sonst beibehalten', begruendung: 'Wenn das Trauma eine körperliche Komponente hat (Unfall, körperliche Gewalt), können einzelne Sport-Inhalte triggern und brauchen Anpassung. Ohne körperliche Komponente bleibt der Sport unverändert — er ist sogar protektiv, weil körperliche Aktivität die Arousal-Regulation unterstützt und einen körperlichen Erfolgs-Kanal offenhält, der vom Trauma unberührt ist.' },
+          { titel: 'Bei Trauma im schulischen Kontext: Setting-Veränderung prüfen', begruendung: 'Wenn das Trauma in der Schule passiert ist, kann der Lern-Ort selbst zum dauerhaften Trigger werden. Ein anderer Klassenraum, ein Klassen-Wechsel oder im Extremfall ein Schul-Wechsel ist dann keine Flucht, sondern eine klinisch indizierte Entfernung des Dauer-Triggers, die die Verarbeitung überhaupt erst ermöglicht.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine vollständige Schonung mit Auslassen aller schwierigen Aktivitäten', begruendung: 'Verstärkt die Vermeidung systematisch. Wenn die Schule dem Klienten signalisiert, dass er allen schwierigen Situationen ausweichen darf, bestätigt sie das Trauma-Netzwerk und blockiert die Verarbeitung. Anpassungen ja, Total-Schonung nein. Der Reflex zur Schonung ist bei den Beteiligten stark — gerade engagierte Lehrkräfte und betroffene Eltern wollen das Kind schützen und entfernen jede Belastung. Genau dieser gut gemeinte Schutz wird zum Aufrechterhalter, wenn er nicht durch die Behandlungs-Logik korrigiert wird.' },
+          { titel: 'Keine „darüber müsst ihr reden"-Gespräche durch Lehrer', begruendung: 'Eine unkontrollierte Trauma-Aktivierung durch wohlmeinende, aber untrainierte Lehrkräfte kann re-traumatisierend wirken. Die Trauma-Verarbeitung gehört in den therapeutischen Rahmen, nicht ins Lehrerzimmer. Die Schule stabilisiert, sie verarbeitet nicht. Ein gut gemeintes „magst du erzählen, was passiert ist?" mitten im Schulalltag kann einen Flashback auslösen, ohne dass jemand da ist, der ihn auffangen kann — der Unterschied zur Therapie ist nicht das Reden, sondern der sichere, vorbereitete Rahmen.' },
+          { titel: 'Keine Mitleids-Sprache, keine „armes Kind"-Haltung', begruendung: 'Mitleid fixiert die Trauma-Identität. Wenn der Klient durchgehend als Opfer behandelt wird, wird „beschädigt sein" zu seinem Selbstbild. Die Haltung ist: ein voll lernfähiger Schüler, der gerade eine schwere Zeit durchläuft und konkrete Unterstützung bekommt.' },
+          { titel: 'Keine Disziplinar-Maßnahmen bei trauma-bezogenem Verhalten', begruendung: 'Reizbarkeit, Schreckhaftigkeit, Konzentrationsausfall sind Symptome, kein Fehlverhalten. Eine Bestrafung dieser Symptome verschärft die Hyperarousal-Spirale und zerstört das Vertrauen in die Schule als sicheren Ort.' },
+          { titel: 'Bei Trauma im schulischen Kontext: kein Schul-Verweis-Druck ohne therapeutisch abgestimmten Plan', begruendung: 'Wenn das Trauma in der Schule entstanden ist und die Schule mit Verweis-Drohungen reagiert, doppelt sie die Verletzung. Jede Setting-Entscheidung muss therapeutisch abgestimmt sein, nicht disziplinarisch getrieben. Ein Schul-Wechsel kann klinisch richtig sein — aber als geplante Schutz-Maßnahme, nicht als Sanktion für trauma-bedingtes Verhalten. Der Unterschied ist für den Klienten existenziell: das eine sagt „wir schützen dich", das andere sagt „du bist das Problem".' }
+        ],
+        e_rollen: [
+          'Klassenlehrer als sichere Bezugsperson mit trauma-bewusster Sprache',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) mit Trauma-Diagnostik-Kompetenz',
+          'SCAS für vertiefte therapeutische Begleitung',
+          'KJP für die Medikations-Frage und schwere Verläufe',
+          'Bei akutem Trauma im schulischen Kontext: ALUPSE, ggf. Schul-Direktion und ggf. juristische Beratung',
+          'Bei schwerer Eltern-Belastung durch das Trauma: SNJ zur Familien-Unterstützung',
+          'Eltern als Verbündete der Behandlung'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen in der akuten Phase, danach alle zwei bis drei Monate. In der akuten Phase ist der engmaschige Kontakt wichtig, weil sich die Symptomatik schnell verändert und Anpassungen entsprechend nachjustiert werden müssen — eine in Woche zwei sinnvolle Reduktion kann in Woche sechs bereits zur Vermeidungs-Stütze geworden sein.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit PTBS-Aufklärung. Die Symptom-Logik (Wiedererleben, Vermeidung, Hyperarousal als adaptive Reaktion) explizit machen. Ziel ist, die Fehl-Lesart „Motivations-Problem" zu korrigieren, bevor sie sich in Disziplinar-Reaktionen niederschlägt.</li>
+            <li><strong>Stufe 2</strong> — Erweitertes Gespräch mit Schul-Psychologe und Eltern. Anpassungen koordinieren, sichere Bezugsperson festlegen. Hier wird die Anpassung-vs.-Schonung-Logik gemeinsam durchgesprochen, damit alle Beteiligten dieselbe Linie fahren.</li>
+            <li><strong>Stufe 3</strong> — Anpassungs-Vereinbarung dokumentiert, Nachteilsausgleich wenn nötig. Schriftlich verankert, mit den relevanten Lehrkräften geteilt, damit die Vereinbarung nicht bei jedem Lehrer-Wechsel neu verhandelt werden muss.</li>
+            <li><strong>Stufe 4</strong> — Bei Trauma im schulischen Kontext: Setting-Wechsel erwägen (Klassenraum, Klasse oder Schule), therapeutisch abgestimmt. Der Wechsel ist hier keine Niederlage, sondern die Entfernung eines Dauer-Triggers, der die Verarbeitung sonst dauerhaft blockiert.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit bei schwerem Verlauf mit komorbider Depression, mit therapeutisch strukturiertem Wieder-Einstieg. Die Auszeit ist befristet und an einen konkreten Wieder-Einstiegs-Plan gebunden, sonst wird sie selbst zum Chronifizierungs-Faktor.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet. Sekundäre Depression vertieft sich. Substanzkonsum als Selbstmedikation. Akute Trigger-Aktivierung im Alltag. Schul-Vermeidung beginnt.</p>`,
+        ueberweisung: `<p>Medikations-Frage (SSRI). Schwere komorbide Depression. Konkrete Suizidalität. Therapie-Resistenz bei strukturiertem Verlauf.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive depressive Episode. Akute Substanzkonsum-Eskalation. Bei Trauma-Verursacher noch im Lebens-Umfeld: Schutz-Frage akut, ggf. Klinik als sicherer Raum.</p>`
+      }
+    }
+  },
   /* M2 — Komplexes Bindungstrauma (cPTSD). */
   { id: 'trauma-cptsd',        name: 'Komplexes Bindungstrauma (cPTSD)',        bloecke: emptyTraumaBloecke() },
   /* M3 — Trauma nach sexuellem Missbrauch. */
-  { id: 'trauma-missbrauch',   name: 'Trauma nach sexuellem Missbrauch',        bloecke: emptyTraumaBloecke() },
+  {
+    id: 'trauma-missbrauch',
+    name: 'Trauma nach sexuellem Missbrauch',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit bekannter oder vermuteter Anamnese sexuellen Missbrauchs. Klassische Trauma-Symptomatik mit spezifischen Markern: Selbstanklage, Körper-Dissoziation, Vermeidung körperlicher Berührung oder umgekehrt hypersexualisiertes Verhalten, häufig massive Komorbiditäten (Essstörung, Selbstverletzung, schwere Depression). Bei Mädchen klinisch häufiger sichtbar, bei Jungen oft übersehen, weil dort externalisierende Symptomatik das Bild verdeckt.</p>`,
+        klinischWichtig: `<p>Sexuelles Trauma kombiniert mehrere Verletzungs-Achsen: die körperliche Übergriffigkeit, den Vertrauens-Bruch, oft den Bindungs-Verrat (wenn der Täter aus dem Vertrauens-Umfeld kommt), die Verwirrung körperlicher Reaktionen, die Scham und die häufig internalisierte Schuld. Der Klient schließt typischerweise: „ich habe es zugelassen", „ich habe es provoziert", „mit mir stimmt etwas nicht". Das ist nicht logisch, aber psychologisch nachvollziehbar — das Gehirn versucht, eine Erklärung zu konstruieren, die ihm Handlungs-Macht zurückgibt, auch wenn diese Erklärung Selbst-Beschuldigung ist.</p>
+          <p>Die Behandlungs-Logik folgt grundsätzlich TF-CBT-Prinzipien, aber die Vertrauens-Phase ist deutlich länger, und die Trauma-Narrativ-Komponente muss besonders sorgfältig gerahmt sein. Bei aktuellem Missbrauch — Täter noch im Lebens-Umfeld — hat Schutz absolute Priorität vor jeder therapeutischen Verarbeitung. Schutz-Strukturen einbinden (ALUPSE, ONE, SCAS), gegebenenfalls Anzeige in Abstimmung mit Klient und Schutz-System.</p>
+          <p>Bei Jungen ist das Profil oft kaschiert durch externalisierende Symptomatik (Aggression, Risiko-Verhalten, Substanzkonsum). Sexuelles Trauma muss aktiv erfragt werden — es kommt selten spontan zur Sprache, weil Scham und gesellschaftliche Tabus bei männlichen Betroffenen besonders stark wirken.</p>`,
+        vergleich: `<p><strong>Vs. M1 (klassische PTBS):</strong> Wenn der Missbrauch ein einmaliger Übergriff durch eine fremde Person war, kann M1 die richtige Achse sein. Bei chronischem Missbrauch, bei Missbrauch durch eine Bezugsperson oder bei spezifischer Symptomatik (Selbstanklage, Körper-Dissoziation, Essstörung, sexuelle Verhaltens-Veränderung) ist M3 führend.</p>
+          <p><strong>Vs. M2 (komplexes Bindungstrauma):</strong> Wenn der Missbrauch in einen chronischen Bindungs-Trauma-Kontext eingebettet ist, liegt ein Mischbild M2 plus M3 vor. Beide Achsen behandeln.</p>
+          <p><strong>Vs. M6 (dissoziativ):</strong> Bei schweren dissoziativen Komponenten Mischbild. Bei Identitäts-Fragmentierung ist M6 zusätzlich aktiv.</p>
+          <p><strong>Vs. Borderline-Strukturen (A12):</strong> Bei Mädchen mit sexueller Trauma-Anamnese werden oft Borderline-Strukturen sichtbar — die Behandlung muss die Trauma-Achse primär adressieren, nicht die Borderline-Oberfläche.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität deutlich erhöht — bei sexuellem Trauma klinisch eine der höchsten Risiko-Gruppen',
+          'Akute Selbstverletzung (häufig schwerer als bei anderen Trauma-Profilen)',
+          'Bei aktuellem Missbrauch: akute Sicherheits-Frage, Schutz-Mechanismen einbinden',
+          'Akute schwere depressive Episode'
+        ],
+        hoch: [
+          'Essstörung sekundär (Anorexie, Bulimie, ARFID — sehr häufige Komorbidität)',
+          'Substanzkonsum als Selbstmedikation',
+          'Sexuell riskantes Verhalten oder vollständige Vermeidung',
+          'Sekundäre Depression schwer',
+          'Sozialer Rückzug bis Isolation',
+          'Schul-Vermeidung mit körperlichen Symptomen'
+        ],
+        mittel: [
+          'Chronische Beziehungs-Schwierigkeiten',
+          'Sexuelle Funktions-Schwierigkeiten im Erwachsenen-Alter',
+          'Selbstwert-Probleme als Dauerzustand',
+          'Re-Viktimisierungs-Risiko in zukünftigen Beziehungen',
+          'Identitäts-Festigung als „beschädigt"'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>TF-CBT, speziell für sexuelles Trauma adaptiert. Eine lange Vertrauens-Phase ist Voraussetzung. Komponenten: strukturierte Sicherheits-Arbeit zuerst, Affekt-Regulations-Werkzeuge, kognitive Verarbeitung der Selbstanklage, Trauma-Narrativ als Kern-Komponente sehr stark gerahmt, Körper-Arbeit, altersangepasste Sexualitäts-Aufklärung, integrierte Komorbiditäts-Behandlung. Bei aktuellem Missbrauch zuerst Schutz, dann Therapie.</p>`,
+        begruendung: `<p>Bei sexuellem Trauma ist Vertrauen der einzige Boden, auf dem Behandlung wachsen kann. Vertrauens-Aufbau braucht Zeit und darf nicht durch zu schnelle Trauma-Verarbeitung unterbrochen werden — der Klient bestimmt das Tempo, nicht der Therapeut. Jeder Versuch, das Tempo zu beschleunigen, reinszeniert die Grenz-Überschreitung des Traumas.</p>`,
+        diagnostik: [
+          'CAPS-CA-5',
+          'UCLA PTSD-RI',
+          'TSCC mit der sexuelles-Trauma-Subskala',
+          'K-SADS-PL',
+          'DES-T bei dissoziativen Komponenten',
+          'BDI-A oder PHQ-A für komorbide Depression',
+          'Bei Verdacht auf Essstörung: EDE-Q',
+          'Strukturierte Anamnese ohne Druck auf Details, mit klarer Kommunikation über die Schutz-Strukturen'
+        ],
+        wasDuTust: [
+          '„Was dir passiert ist, war nicht deine Schuld. Egal wie alt du warst, egal was du gesagt oder getan hast. Das ist keine Beruhigung, das ist eine Tatsache."',
+          '„Wir werden nicht alles auf einmal besprechen. Du bestimmst das Tempo. Wenn etwas zu nah kommt, sagst du Stop. Stop wird immer respektiert."',
+          '„Was wir hier machen, passiert in deinem Tempo. Du hast hier die Kontrolle, die du damals nicht hattest. Das ist Teil der Behandlung."',
+          '„Du bist nicht kaputt. Du bist verletzt. Das ist nicht das Gleiche."',
+          '„Wenn dein Körper jetzt Sachen erlebt, die ihm nicht gefallen — Berührung, Nähe, eigene Reaktionen — ist das normal. Wir lernen, mit deinem Körper neu zu sprechen."',
+          '„Was du gemacht hast, um zu überleben, war richtig. Du hast überlebt. Jetzt arbeiten wir daran, dass du auch leben kannst."'
+        ],
+        wasDuNichtTust: [
+          'Nicht in den ersten Sitzungen eine detaillierte Trauma-Anamnese erzwingen — ein Vertrauens-Bruch wäre die Folge',
+          'Nicht Reassurance geben, dass „das nie wieder passieren wird" — das kann nicht garantiert werden und wirkt unecht',
+          'Nicht den Klienten in die Rolle des passiven Opfers drängen — auch wenn das die Realität war, festigt es die Identität',
+          'Nicht Trauma-Verarbeitung ohne stabile Komorbiditäts-Behandlung — bei akuter Essstörung oder schwerer Selbstverletzung muss diese parallel adressiert sein',
+          'Nicht Eltern automatisch einbeziehen, wenn Eltern Täter oder enabling sind — das kann Re-Traumatisierung sein'
+        ],
+        frequenz: `<p>Wöchentlich, in der akuten Phase eventuell engmaschiger. Die Behandlung dauert oft länger als bei M1 — sechs bis zwölf Monate sind häufig.</p>`
+      },
+      vierPhasen: {
+        phase1: `Schutz und Sicherheit prüfen — bei aktuellem Missbrauch oder Täter noch im Umfeld zuerst Schutz-Strukturen aktivieren (ALUPSE, ONE, SCAS, ggf. juristische Beratung). Diagnostik abschließen ohne Druck. Vertrauens-Aufbau zentral, Behandlungs-Rahmen klar machen, Kontrolle des Klienten betonen. Stabilisierungs-Werkzeuge (Affekt-Regulation, Sicherheits-Anker). Komorbidität parallel adressieren. Diese Phase dauert länger als bei M1 (Wochen 1–12).`,
+        phase2: `Trauma-Verarbeitung beginnen, wenn der Klient bereit ist (Monate 3–6). Kognitive Verarbeitung der Selbstanklage und Schuld-Internalisierung. Trauma-Narrativ in sehr graduierten Schritten — der Klient kontrolliert jeden Schritt. Bei Körper-Dissoziation: behutsame Körper-Arbeit beginnen. Altersangepasste Sexualitäts-Aufklärung, wo nötig.`,
+        phase3: `Vertiefte Trauma-Integration (Monate 6–9). Beziehungs-Muster durcharbeiten. Selbstwert-Arbeit. Bei Familien-Trauma: Familien-System-Arbeit mit Schutz vor Re-Traumatisierung. Komorbiditäts-Konsolidierung.`,
+        phase4: `Konsolidierung (Monate 9–12 oder länger). Der Klient hat Werkzeuge für Trigger-Situationen, hat seine eigene Geschichte jenseits der Opfer-Identität rekonstruiert. Rückfall-Prophylaxe. Frequenz reduziert.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schul-Strategie bei M3 ist strukturell anders als bei allen anderen Mustern. Die Schule weiß in den meisten Fällen nichts vom sexuellen Trauma — und sollte das auch nicht spontan erfahren. Schweigepflicht und der Schutz des Klienten haben absolute Priorität. Trauma-Information wird nur mit Klient-Zustimmung und nur an klar definierte Personen weitergegeben.</p>
+          <p>Das bedeutet praktisch: viele Anpassungen müssen ohne Begründung umgesetzt werden, ohne dass das Trauma offen kommuniziert wird. Klassische Schul-Reaktionen auf beobachtbare Symptomatik (Konzentrationsstörung, Schreckhaftigkeit, Schul-Vermeidung) müssen ohne Trauma-Information abgefangen werden. Schul-Sozialarbeit oder Schul-Psychologie kann in den Loop genommen werden — aber nur mit Klient-Zustimmung. Die Fachkraft, die die Schul-Anpassungen organisiert, arbeitet hier mit einer doppelten Aufgabe: wirksame Unterstützung herstellen und gleichzeitig die Information schützen.</p>
+          <p>Bei aktuellem Missbrauch oder bei Missbrauch durch jemanden im schulischen Umfeld (Lehrer, Mitschüler) ist die Schul-Strategie fundamental anders: hier müssen Schul-Direktion und gegebenenfalls juristische Strukturen aktiviert werden, immer in Abstimmung mit ALUPSE und SCAS. Der Klient soll nicht im gleichen Setting wie der Täter bleiben — das ist keine Verhandlungsfrage, sondern Schutz.</p>
+          <p>Trigger im Schul-Kontext (Sport-Umkleide, körperliche Berührung durch Mitschüler oder Lehrer, spezifische Räume) brauchen stille Anpassungen, die für Außenstehende nach pragmatischen Praktikabilitäts-Lösungen aussehen. Eine Lehrer-Sensibilisierung kann allgemein gehalten werden — „[Name] hat aktuell besondere Bedürfnisse, wir bitten um Anpassungen" — ohne spezifische Diagnose. Die Kunst besteht darin, die schützende Anpassung so zu formulieren, dass sie selbstverständlich und unauffällig wirkt.</p>
+          <p>Ein zweiter Unterschied zu den übrigen Mustern betrifft die Steuerung: bei M3 entscheidet der Klient, was nach außen geht, nicht die Fachkraft und nicht die Eltern. Diese Kontrolle über die eigene Information ist kein bürokratisches Detail, sondern therapeutisch zentral. Sexuelles Trauma ist im Kern eine Erfahrung von Kontroll-Verlust über den eigenen Körper und die eigenen Grenzen. Wenn die Behandlung dem Klienten nun die Kontrolle über die eigene Geschichte zurückgibt — wer was wann erfährt —, ist das selbst ein Stück Reparatur. Eine Fachkraft, die über den Kopf des Klienten hinweg „zu seinem Besten" die Schule informiert, reinszeniert das Grund-Muster des Traumas: ein Erwachsener entscheidet über den Körper und die Intimität des Jugendlichen. Deshalb gilt hier durchgehend: maximale Wirksamkeit der Anpassungen bei minimaler, klient-gesteuerter Informations-Weitergabe.</p>
+          <p>Eine Ausnahme von dieser Logik ist der akute Schutz. Wenn aktueller Missbrauch besteht oder ein Täter im schulischen Umfeld aktiv ist, tritt die Schutz-Pflicht vor die Schweigepräferenz des Klienten — aber auch dann wird der Klient so weit wie möglich einbezogen, informiert und in seiner verbliebenen Kontrolle gestärkt, statt überfahren zu werden. Der Schutz wird mit ihm organisiert, nicht gegen ihn.</p>`,
+        b_vorlage: `<p><em>Hinweis: Diese Vorlage erwähnt bewusst kein sexuelles Trauma. Eine Offenlegung erfolgt ausschließlich auf ausdrücklichen Wunsch des Klienten.</em></p>
+          <p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in einer therapeutischen Behandlung wegen einer Belastungssituation. Aus klinischen Gründen werden spezifische Details vertraulich behandelt. Was Sie schulisch beobachten — Konzentrationsstörung, eventuell Schreckhaftigkeit, sozialer Rückzug, gelegentliche Vermeidung bestimmter Situationen — sind klinisch verständliche Reaktionen und kein Motivations- oder Disziplin-Problem.</p>
+          <p>Wir bitten um folgende Anpassungen: [konkret nennen, ohne Trauma-Kontext — z. B. alternativer Umkleide-Raum, Sitzplatz mit Wand-Rücken, ruhiger Raum bei Tests, Notfall-Plan mit Rückzugs-Möglichkeit]. Eine sichere Bezugsperson in der Schule wäre besonders hilfreich — eine Person, an die [Name] sich bei Belastung wenden kann.</p>
+          <p>Ich bitte Sie, von Disziplinar-Maßnahmen bei belastungs-bezogenem Verhalten abzusehen und [Name] als voll lernfähigen Schüler zu behandeln. Für Rückfragen stehe ich gerne zur Verfügung und biete ein Gespräch im vereinbarten Rahmen an.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sport-Anpassungen: alternativer Umkleide-Raum ohne Begründung', begruendung: 'Eine Befreiung von der Umkleide-Gemeinschaft ist ohne Begründung möglich, mit einem alternativen Umkleide-Raum. Die gemeinsame Umkleide ist ein häufiger Trigger (Nacktheit, Körper-Exposition, Enge). Die Anpassung wird als organisatorische Praktikabilitäts-Lösung präsentiert, nicht als trauma-bedingt.' },
+          { titel: 'Bei körperlicher Berührung durch Lehrer: vereinbartes Protokoll', begruendung: 'Bei Sport-Korrekturen oder ähnlichen Situationen möglichst keine körperliche Korrektur. Unangekündigte Berührung durch Autoritätspersonen kann massiv triggern. Das Protokoll wird mit der betreffenden Lehrkraft vereinbart, ohne den Trauma-Hintergrund offenzulegen — formuliert als allgemeine Berührungs-Sensibilität.' },
+          { titel: 'Sichere Bezugsperson, die das Trauma nicht kennen muss', begruendung: 'Die Bezugsperson weiß nur „besondere Bedürfnisse" und ist Anker bei Belastung. Sie braucht keine Trauma-Information, um wirksam zu sein — sie braucht nur die Bereitschaft, ruhig und ohne Druck zu stabilisieren und den vereinbarten Notfall-Plan zu kennen. Schutz der Information und Wirksamkeit der Unterstützung schließen sich hier nicht aus.' },
+          { titel: 'Sitzplatz mit Wand-Rücken', begruendung: 'Reduziert die Hypervigilanz. Ein Platz, an dem niemand unbemerkt von hinten herantreten kann, senkt die ständige Bedrohungs-Wachsamkeit und entlastet die Aufmerksamkeits-Ressourcen. Die Anpassung ist unauffällig und braucht keine Begründung über „bessere Konzentration" hinaus. Bei sexuellem Trauma ist die Wachsamkeit gegenüber Nähe von hinten und gegenüber unkontrollierbarem Körper-Kontakt besonders ausgeprägt — ein überschaubares Sicht-Feld auf den Raum gibt ein Stück der körperlichen Kontrolle zurück, deren Verlust im Zentrum des Traumas steht.' },
+          { titel: 'Klare, vorhersehbare Abläufe statt spontaner Umstellungen', begruendung: 'Plötzliche, unangekündigte Änderungen (Raum-Wechsel, Vertretungs-Lehrer, spontane Partner-Übungen mit Körper-Kontakt) erhöhen die Anspannung, weil sie an den Kontroll-Verlust des Traumas rühren. Wo möglich werden Abläufe angekündigt und vorhersehbar gehalten. Das ist eine stille Anpassung, die für Außenstehende wie gute Unterrichts-Organisation aussieht.' },
+          { titel: 'Bei Klassenarbeiten und Tests: ruhiger Raum möglich', begruendung: 'Begründet durch „Konzentrations-Anpassung". Solange die Trauma-Symptomatik die Konzentration beeinträchtigt, ist ein separater, ruhiger Raum sinnvoll. Die Begründung bleibt auf der Konzentrations-Ebene und berührt das Trauma nicht. Ein ruhigerer, übersichtlicherer Raum reduziert zugleich die Hypervigilanz, sodass die Anpassung doppelt wirkt — sie entlastet die Konzentration und die Bedrohungs-Wachsamkeit, ohne dass das nach außen sichtbar werden muss.' },
+          { titel: 'Pausen-Strukturierung, wenn die Pause ein Trigger-Setting ist', begruendung: 'Unstrukturierte Pausen mit hoher körperlicher Nähe und Reizdichte können belasten. Eine Rückzugs-Möglichkeit in einen ruhigeren Bereich gibt Entlastung, ohne den Klienten sozial zu isolieren. Die Rückkehr in die soziale Situation bleibt das Ziel.' },
+          { titel: 'Bei Schul-Sport oder Klassen-Fahrten: vorherige Beratung mit Klient und Familie', begruendung: 'Klassen-Fahrten mit gemeinsamen Schlaf-Settings und hoher körperlicher Nähe können massiv triggern. Statt pauschaler Teilnahme oder pauschaler Befreiung werden individuelle Lösungen vorab mit Klient und Familie abgestimmt — Einzelzimmer, vorzeitige Rückkehr-Option, klare Ansprechperson.' },
+          { titel: 'Notfall-Plan bei akutem Trigger (Flashback, Panik) mit Rückzugs-Raum', begruendung: 'Ein vereinbarter Rückzugs-Raum mit Stabilisierungs-Technik und Rückkehr-Protokoll. Der Klient lernt die Technik in der Therapie. Die Bezugsperson kennt den Plan, ohne den Auslöser kennen zu müssen — sie reagiert auf das Signal, nicht auf die Ursache. Der Plan enthält ein unauffälliges Signal, mit dem der Klient den Raum verlassen kann, ohne sich vor der Klasse erklären zu müssen — Diskretion ist hier Teil des Schutzes, weil öffentliche Aufmerksamkeit in der Trigger-Situation die Belastung zusätzlich erhöht.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Offenlegung der Trauma-Diagnose ohne Klient-Zustimmung', begruendung: 'Die Schweigepflicht hat absolute Priorität. Eine unautorisierte Weitergabe der Trauma-Information ist ein schwerer Vertrauens-Bruch und kann den Klienten im schulischen Umfeld zusätzlich exponieren und stigmatisieren. Die Anpassungen werden ohne Diagnose-Offenlegung organisiert.' },
+          { titel: 'Keine schulische Eltern-Information ohne Abstimmung', begruendung: 'Wenn Eltern Teil des Trauma-Kontexts sind, ist eine schulische Eltern-Information ein Re-Traumatisierungs-Risiko und kann den Klienten in Gefahr bringen. Jede Eltern-Kommunikation der Schule muss vorab mit der behandelnden Fachkraft und dem Schutz-System abgestimmt sein.' },
+          { titel: 'Keine Klassen-Gespräche über sexuelle Themen ohne vorherige Information an den Klienten', begruendung: 'Aufklärungs-Einheiten oder Projekt-Tage zu sexuellen Themen können unvorbereitet massiv triggern. Der Klient bekommt vorab Information und die Möglichkeit zur kontrollierten Abwesenheit — diskret organisiert, nicht öffentlich.' },
+          { titel: 'Keine „über sich erzählen"-Klassen-Übungen', begruendung: 'Biographische Selbstoffenbarungs-Übungen (Steckbriefe, „mein schlimmstes/schönstes Erlebnis", Vertrauens-Spiele) setzen den Klienten unter Offenbarungs-Druck. Solche Formate werden für den Klienten entschärft oder durch Alternativen ersetzt.' },
+          { titel: 'Bei Mitschüler-Täter: keine Mediations-Versuche durch die Schule, keine „Aussprache"-Settings', begruendung: 'Eine schulische Mediation oder ein „Aussprache"-Gespräch zwischen Opfer und Täter ist bei sexuellem Übergriff eine schwere Re-Traumatisierung und eine Verkennung der Sachlage. Hier greifen Schutz-Verfahren und ggf. juristische Strukturen, nicht pädagogische Konfliktlösung.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Vertrauenslehrer (mit oder ohne Trauma-Information, je nach Klient-Wunsch)',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) — kann in den Loop kommen, mit Klient-Zustimmung',
+          'SCAS für vertiefte therapeutische Begleitung',
+          'ALUPSE bei aktuellem Missbrauch oder bei kritischen Eskalationen',
+          'Office National de l\'Enfance (ONE) bei Familien-Trauma-Kontext',
+          'KJP bei Medikations-Frage und schwerer Komorbidität',
+          'Bei Mitschüler-Täter oder Lehrer-Täter: Schul-Direktion mit klar definiertem Verfahren'
+        ],
+        f_frequenz: `<p>Schul-Kontakt nach Klient-Bedürfnis und Klient-Zustimmung strukturiert — anders als bei den übrigen Mustern wird hier nicht nach festem Intervall vorgegangen, sondern entlang dessen, was der Klient zulässt. Das Tempo der Schul-Einbindung folgt demselben Prinzip wie die Therapie selbst: der Klient steuert, die Fachkraft begleitet. Ein zu schneller Schul-Kontakt kann genauso schaden wie eine zu schnelle Trauma-Verarbeitung.</p>
+          <p><strong>Eskalations-Pfad mit Schutz-Achse — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Schul-Anpassungen ohne Trauma-Information, organisiert über den Klassenlehrer als stille Praktikabilitäts-Lösungen. Die meisten Klienten bleiben lange auf dieser Stufe, und das ist völlig in Ordnung — Wirksamkeit ohne Offenlegung ist hier das Ideal, nicht ein Kompromiss.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe in den Loop, mit Klient-Zustimmung. Erst ab hier kommt klinischere Information ins Schul-System, und auch das nur kontrolliert und mit klar definiertem Empfänger-Kreis. Der Klient entscheidet, welche Information weitergeht und welche nicht.</li>
+            <li><strong>Stufe 3</strong> — Bei beobachtbarer Krisen-Eskalation: ALUPSE und SCAS aktiv einbinden. Hier verschiebt sich die Balance vorsichtig in Richtung Schutz, aber der Klient bleibt so weit wie möglich Akteur im Prozess.</li>
+            <li><strong>Stufe 4</strong> — Bei Trauma im schulischen Umfeld (Täter im Setting): Setting-Wechsel als sichere Lösung. Der Klient bleibt nicht im selben Raum wie der Täter — das ist nicht verhandelbar, und die organisatorische Last des Wechsels trägt das System, nicht das Opfer.</li>
+            <li><strong>Stufe 5</strong> — Schulische Auszeit bei schwerer Komorbidität oder akuter Suizidalität, mit therapeutischem Plan und konkretem, klient-getragenem Wieder-Einstieg.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet (Risiko bei M3 erhöht). Selbstverletzung beginnt oder eskaliert. Beginnende Essstörung. Substanzkonsum als Selbstmedikation. Schul-Vermeidung mit somatischer Komponente.</p>`,
+        ueberweisung: `<p>Medikations-Frage (SSRI bei schwerer Belastung). Schwere komorbide Depression. Konkrete Suizidalität. Schwere Essstörung. Therapie-Resistenz bei strukturiertem Verlauf.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Akute Selbstverletzungs-Eskalation. Schwere Essstörung mit körperlicher Dekompensation. Bei aktuellem Missbrauch und unsicherem häuslichen Umfeld: Klinik als sicherer Raum, in Abstimmung mit ALUPSE und ONE.</p>`
+      }
+    }
+  },
   /* M4 — Häusliche Gewalt als Zeuge. */
   { id: 'trauma-gewalt-zeuge', name: 'Häusliche Gewalt als Zeuge',              bloecke: emptyTraumaBloecke() },
   /* M5 — Migrations- und Krieg-Trauma. */
