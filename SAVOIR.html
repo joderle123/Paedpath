@@ -5134,7 +5134,7 @@ const TOPICS = {
   'trauma': {
     id: 'trauma',
     titel: 'PTBS und komplexes Trauma (Adoleszenz)',
-    kategorie: 'C',
+    kategorie: 'D',
     ebenen: {},
     verwandt: ['asperger', 'angststoerungen', 'depression-jugendliche']
   },
@@ -5146,7 +5146,7 @@ const TOPICS = {
   'depression': {
     id: 'depression',
     titel: 'Depressive Störung (Adoleszenz)',
-    kategorie: 'A',
+    kategorie: 'B',
     ebenen: {},
     verwandt: ['asperger', 'adhs-unaufmerksam', 'angststoerungen', 'trauma']
   }
@@ -6346,11 +6346,9 @@ function renderEbene() {
 
   // Neue Pseudo-Ebenen aus Drei-Bereich-Struktur auf Render-Funktionen mappen
   if (ebene === 'profile-uebersicht') {
-    if (topic.id === 'asperger') {
-      renderProfileUebersicht(topic, body);
-    } else {
-      body.innerHTML = '<div class="empty-content">Profil-Übersicht für dieses Thema folgt.</div>';
-    }
+    // Generisch für alle Topics mit Muster-Daten (planMusterFor) —
+    // renderProfileUebersicht zeigt selbst den Platzhalter, wenn leer.
+    renderProfileUebersicht(topic, body);
     audioPanel.style.display = 'none';
     audioCtrls.style.display = 'none';
     readBtn.style.display = 'none';
@@ -7356,6 +7354,34 @@ function computeSymptomScores(ps, topicId) {
   }
   out.sort((a, b) => b.score - a.score);
   return out;
+}
+
+/* Krisen-Priorisierung bei Depression (A03): Selektion eines K6-Suizidalitäts-
+   Items ODER Q4 = konkret/passiv aktiviert das Krisen-Profil. Wird von
+   renderErkanntesMuster UND renderSubMusterTiefe genutzt, damit das im
+   Output priorisierte Muster und der geöffnete Behandlungs-Plan konsistent
+   dasselbe Krisen-Profil zeigen. */
+function depressionCrisisActive(topicId, ps) {
+  if (topicId !== 'depression' || !ps) return false;
+  const k6 = (ps.symptome || []).some(s => /^d6-/.test(s));
+  const q4 = !!(ps.kontext && (ps.kontext.suizidalitaet === 'konkret' || ps.kontext.suizidalitaet === 'passiv'));
+  return k6 || q4;
+}
+
+/* Hebt M6 (depression-suizidal) in einer Score-Ergebnisliste an Position 1,
+   unabhängig vom Symptom-Score. Mutiert results; Rückgabe: ob Krise aktiv. */
+function applyCrisisPriorization(topicId, ps, results) {
+  if (!depressionCrisisActive(topicId, ps)) return false;
+  const M6_ID = 'depression-suizidal';
+  const idx = results.findIndex(r => r.muster.id === M6_ID);
+  if (idx > 0) {
+    const m6 = results.splice(idx, 1)[0];
+    results.unshift(m6);
+  } else if (idx === -1) {
+    const m6Muster = planMusterFor(topicId).find(m => m.id === M6_ID);
+    if (m6Muster) results.unshift({ muster: m6Muster, score: 0 });
+  }
+  return true;
 }
 
 /* Kurz-Beschreibungen für die kompakte Output-View (Erkanntes Muster). */
@@ -13442,11 +13468,17 @@ function renderSubMusterTiefe(topic, ps, container) {
   ps.manuellesMuster = ps.manuellesMuster || null;
   const musterList = planMusterFor(topic.id);
 
-  // Top-Muster aus Profil-Diagnose ermitteln
+  // Top-Muster aus Profil-Diagnose ermitteln. Bei aktiver Krisen-
+  // Priorisierung (Depression mit Suizidalitäts-Markern) übersteuert M6
+  // den Symptom-Score — identisch zur Logik in renderErkanntesMuster.
   let topMusterId = null;
   if (Array.isArray(ps.symptome) && ps.symptome.length > 0) {
     const results = computeSymptomScores(ps, topic.id);
+    applyCrisisPriorization(topic.id, ps, results);
     if (results.length > 0) topMusterId = results[0].muster.id;
+  } else if (depressionCrisisActive(topic.id, ps)) {
+    // Krise nur über Q4 (ohne Symptom-Auswahl): M6 trotzdem laden.
+    topMusterId = 'depression-suizidal';
   }
 
   // Aktives Muster: manuell überschreibt Diagnose-Top
@@ -13870,7 +13902,7 @@ function renderProfileUebersicht(topic, container) {
 
   container.innerHTML = `
     <section class="profile-uebersicht">
-      <p class="profil-intro">Die ${muster.length === 8 ? 'acht' : muster.length} Profil-Muster, die die Symptom-Diagnose unterscheidet. Browsable Referenz — nutze diese Übersicht, wenn du das passende Muster bereits identifiziert hast oder die Konstellationen systematisch lernen willst. Reihenfolge spiegelt die klinische Priorität bei Mehrfachtreffer.</p>
+      <p class="profil-intro">Die ${({7:'sieben',8:'acht'})[muster.length] || muster.length} Profil-Muster, die die Symptom-Diagnose unterscheidet. Browsable Referenz — nutze diese Übersicht, wenn du das passende Muster bereits identifiziert hast oder die Konstellationen systematisch lernen willst. Reihenfolge spiegelt die klinische Priorität bei Mehrfachtreffer.</p>
       <div class="profil-grid">${cards}</div>
       <div class="profil-cta-hint">
         <p>Für die strukturierte Erkennung über Symptome: wechsle zu <strong>Profil-Diagnose · Symptom-Auswahl</strong>. Für volle Behandlungs-Tiefe pro Muster (sechs Bloecke inkl. Schul-Strategie): nach erfolgter Profil-Diagnose unter <strong>Handeln · Behandlungs-Plan</strong>.</p>
@@ -13894,7 +13926,7 @@ function renderSymptomAuswahl(topic, ps, container) {
       <div class="symdia-kontext-titel">${escHtml(f.titel)}</div>
       <div class="symdia-kontext-options">
         ${f.optionen.map(o => `
-          <button class="symdia-kontext-btn ${ps.kontext[f.id] === o.val ? 'active' : ''}" data-tool="symdia-kontext" data-q="${f.id}" data-val="${escHtml(o.val)}">${escHtml(o.text)}</button>
+          <button class="symdia-kontext-btn ${ps.kontext[f.id] === o.val ? 'active' : ''}" aria-pressed="${ps.kontext[f.id] === o.val}" data-tool="symdia-kontext" data-q="${f.id}" data-val="${escHtml(o.val)}">${escHtml(o.text)}</button>
         `).join('')}
       </div>
     </div>
@@ -14050,29 +14082,10 @@ function renderErkanntesMuster(topic, ps, container) {
     return;
   }
 
-  // Krisen-Priorisierung bei Depression (A03): Selektion eines K6-Suizidalitäts-
-  // Items ODER Q4 = 'konkret' / 'passiv' aktiviert den R01-Krisen-Banner und
-  // hebt M6 (depression-suizidal) als angezeigtes Top-Muster hervor, unabhängig
-  // vom Symptom-Score. So bleibt das Krisen-Profil im Vordergrund, auch wenn
-  // andere Muster einen höheren Score erreichen.
-  let crisisActive = false;
-  if (topic.id === 'depression') {
-    const k6Selected = (ps.symptome || []).some(s => /^d6-/.test(s));
-    const q4Crisis = ps.kontext && (ps.kontext.suizidalitaet === 'konkret' || ps.kontext.suizidalitaet === 'passiv');
-    crisisActive = k6Selected || q4Crisis;
-    if (crisisActive) {
-      const M6_ID = 'depression-suizidal';
-      const m6Idx = results.findIndex(r => r.muster.id === M6_ID);
-      if (m6Idx > 0) {
-        const m6 = results.splice(m6Idx, 1)[0];
-        results.unshift(m6);
-      } else if (m6Idx === -1) {
-        const plan = planMusterFor(topic.id);
-        const m6Muster = plan.find(m => m.id === M6_ID);
-        if (m6Muster) results.unshift({ muster: m6Muster, score: 0 });
-      }
-    }
-  }
+  // Krisen-Priorisierung (Depression / A03): R01-Banner + M6 als Top-Muster,
+  // unabhängig vom Symptom-Score. Shared helper, identische Logik wie im
+  // Behandlungs-Plan (renderSubMusterTiefe).
+  const crisisActive = applyCrisisPriorization(topic.id, ps, results);
 
   const top = results[0];
   const threshold = top.score * 0.7;
@@ -14883,7 +14896,33 @@ function searchTopics(query) {
     if (topic.titel.toLowerCase().includes(q)) {
       hit = true;
       snippet = topic.titel;
-    } else if (topic.ebenen) {
+    }
+    // Sub-Muster-Namen und Kurz-Beschreibungen durchsuchen — die neuen
+    // Topics (Angst, Trauma, Depression) haben leere Wissens-Ebenen und
+    // wären sonst nur über den Topic-Titel auffindbar (z. B. „Panikstörung",
+    // „Dysthymie", „cPTSD" würden nichts finden).
+    if (!hit && typeof planMusterFor === 'function') {
+      const kurzTable = typeof musterKurzFor === 'function' ? musterKurzFor(topic.id) : {};
+      for (const m of planMusterFor(topic.id)) {
+        const name = (m.name || '').toLowerCase();
+        const kurz = (kurzTable[m.id] || '').toLowerCase();
+        if (name.includes(q)) {
+          hit = true;
+          snippet = `Profil-Muster: ${m.name}`;
+          break;
+        }
+        const ki = kurz.indexOf(q);
+        if (ki >= 0) {
+          hit = true;
+          const raw = kurzTable[m.id];
+          const start = Math.max(0, ki - 40);
+          const end = Math.min(raw.length, ki + q.length + 60);
+          snippet = `${m.name} — ${start > 0 ? '… ' : ''}${raw.slice(start, end)}${end < raw.length ? ' …' : ''}`;
+          break;
+        }
+      }
+    }
+    if (!hit && topic.ebenen) {
       for (const [ebene, data] of Object.entries(topic.ebenen)) {
         if (data?.content) {
           const tmp = document.createElement('div');
