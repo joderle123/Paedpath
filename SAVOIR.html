@@ -11040,9 +11040,263 @@ const PLAN_MUSTER_DEPRESSION = [
     }
   },
   /* M4 — Sekundäre Depression nach chronischem Versagens-Verlauf. */
-  { id: 'depression-sekundaer',     name: 'Sekundäre Depression nach chronischem Versagen',  bloecke: emptyDepressionBloecke() },
+  {
+    id: 'depression-sekundaer',
+    name: 'Sekundäre Depression nach chronischem Versagen',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit zunehmend depressiver Symptomatik, deren Entstehung sich klar einem mehrjährigen Versagens- oder Überforderungs-Verlauf zuordnen lässt — kumulative Schul-Schwierigkeiten, wiederholte Klassen-Konferenzen, Klassenwiederholung, schlechte Noten trotz erkennbarer Anstrengung, jahrelange Beschämungs-Erfahrungen. Auf der affektiven Ebene Hoffnungslosigkeit, negatives Selbstbild („ich kann nichts"), Antriebslosigkeit, gelegentlich Schul-Vermeidung mit somatischen Beschwerden. Häufig im Hintergrund eine bisher nicht oder spät erkannte zugrundeliegende Störung: ADHS, Lernstörung (Dyslexie, Dyskalkulie), Asperger-Profil, hohe Begabung mit Teilleistungs-Defiziten oder eine ungünstige Schul-Setting-Konstellation.</p>`,
+        klinischWichtig: `<p>M4 ist klinisch heimtückisch, weil das Bild zwei Schichten hat: die akute depressive Symptomatik im Vordergrund und die zugrundeliegende, oft unerkannte Grundstörung im Hintergrund. Eine reine antidepressive Behandlung adressiert nur die Oberfläche und verkennt die strukturelle Ursache. Das Versagens-Narrativ („mit mir stimmt was nicht, ich bin zu dumm, ich kann das nicht") ist nicht eine kognitive Verzerrung im klassischen CBT-Sinn — es ist die plausible, in der erlebten Erfahrung verankerte Schlussfolgerung des Klienten aus Jahren des Misslingens. Wer sie nur kognitiv „wegargumentiert", verfehlt den Punkt.</p>
+          <p>Die zentrale klinische Bewegung ist die diagnostische Klärung der Grundstörung parallel zur Depressions-Behandlung. Eine WISC-V mit Untertest-Profil, eine ADHS-Diagnostik (Conners-3, BRIEF), eine Lernstörungs-Diagnostik (SLRT-II, ZAREKI-R) — je nach Befund-Lage — sind keine optionalen Zusatz-Items, sondern Kern-Bestandteil der Behandlung. Ohne die Grundstörungs-Klärung bleibt das Versagens-Narrativ wahr für den Klienten, weil die Setting-Korrektur nicht erfolgt. Mit der Klärung wird das Narrativ zu einer faktischen, behandelbaren Geschichte: „nicht du, sondern die Diskrepanz zwischen deinem Profil und dem Anforderungs-Setting".</p>
+          <p>Querverweis zu ADHS-M5 (sekundäre Depression bei ADHS): wenn die ADHS klinisch klar im Vordergrund steht und die Depression deutlich sekundär ist, ist M5-ADHS die führende Achse. Wenn die depressive Symptomatik so im Vordergrund steht, dass sie unabhängig behandelt werden muss (Suizidalität, Major-Episode), führt A03-M4. Mischbilder häufig — beide Achsen können parallel adressiert werden, die Frage ist nicht „entweder/oder", sondern „welche Achse priorisiert die akute Behandlungs-Planung".</p>
+          <p>Eine besondere Konstellation ist die „2e"-Situation (twice exceptional): hohe Begabung plus Teilleistungs-Störung. Diese Klienten erleben über Jahre, dass sie in manchen Bereichen brillant sind und in anderen scheitern — ohne dass jemand erklärt, warum. Sie kommen oft zur Überzeugung, dass sie „eigentlich klug, aber faul" seien — die Selbstanklage ist hier besonders bitter und führt zu schweren depressiven Verläufen. Diese Konstellation gehört oft in M5 (hochbegabter Underachiever) und nicht in M4; die Differential-Diagnose erfolgt über die Begabungs-Komponente.</p>`,
+        vergleich: `<p><strong>Vs. M3 (Dysthymie):</strong> Bei langem Verlauf von M4 kann der Übergang in eine Dysthymie fließend sein. M4 hat einen erkennbaren Auslöser-Verlauf, M3 ist ohne klaren Auslöser dauerhaft. Bei Dauer über zwei Jahre und voll ausgeprägter Dysthymie-Symptomatik gegebenenfalls Achsen-Wechsel.</p>
+          <p><strong>Vs. M5 (hochbegabter Underachiever):</strong> Wenn hohe Begabung mit existenzieller oder perfektionistischer Komponente im Vordergrund steht, ist M5 führend. M4 ohne ausgeprägte Begabungs-Diskrepanz, oder mit klar dominanter ADHS/Lernstörung als Grundstörung.</p>
+          <p><strong>Vs. A02.M5 (ADHS mit sekundärer Depression):</strong> Wenn ADHS klar dominiert, dort behandeln. Wenn Depression dominiert oder unabhängig akut ist, hier behandeln. Häufig beide parallel.</p>
+          <p><strong>Vs. A11 (Lernstörungen) als reine Achse:</strong> Bei Lernstörung ohne ausgeprägte sekundäre Depression führt A11. Sobald Hoffnungslosigkeit, Selbst-Wertlosigkeit, Antriebs-Kollaps dominieren, führt M4.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität deutlich erhöht bei jahrelang kumulierter Hoffnungslosigkeit und Selbst-Wertlosigkeit',
+          'Akute schwere depressive Episode nach Schul-Eskalation (Klassenwiederholung, Schulwechsel-Druck)',
+          'Substanz-Eskalation als Selbstmedikation gegen das Versagens-Narrativ'
+        ],
+        hoch: [
+          'Schul-Vermeidung mit Übergang in Schul-Verweigerung',
+          'Sozialer Rückzug mit Peer-Isolation',
+          'Sekundäre Verhaltens-Eskalation (besonders bei männlichen Klienten, Querschnitt zu M2)',
+          'Sekundäre Essstörung als Kontroll-Versuch',
+          'Familien-Konflikt-Eskalation um die schulische Leistung',
+          'Chronifizierung in eine Dysthymie ohne Behandlung der Grundstörung'
+        ],
+        mittel: [
+          'Berufliche und Bildungs-Trajektorie unter Begabungs-Niveau',
+          'Verfestigung des „ich kann nichts"-Selbstbildes als Identität',
+          'Beziehungs-Schwierigkeiten durch reduzierte Selbstwirksamkeits-Erfahrungen',
+          'Vermeidung jedes Settings, in dem Leistung gefragt ist (Beruf, Ausbildung, Studium)'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Zweischichtige Behandlung: akute Depressions-Behandlung im Vordergrund (CBT-A mit Verhaltens-Aktivierung, ggf. SSRI bei mittel-schwer), parallel und diagnostisch zentral die Klärung und Behandlung der zugrundeliegenden Grundstörung. Setting-Korrektur (Schul-Anpassung, Nachteilsausgleich, gegebenenfalls Schultyp-Wechsel) als wesentlicher Behandlungs-Bestandteil. Kognitive Arbeit am Versagens-Narrativ nicht durch Wegargumentieren, sondern durch faktische Re-Attribution („nicht du, sondern die Diskrepanz zwischen Profil und Setting").</p>`,
+        begruendung: `<p>Eine reine Depressions-Behandlung ohne Adressierung der Grundstörung lässt den Klienten in dem Setting, in dem die Depression entstanden ist — sie kehrt zurück. Die Setting-Korrektur ist nicht Beiwerk, sondern Kern-Wirkfaktor. Kognitive Arbeit am Versagens-Narrativ funktioniert nur, wenn die faktische Lage geändert wird; sonst widerspricht die Realität täglich der kognitiven Umstrukturierung.</p>`,
+        diagnostik: [
+          'BDI-A oder PHQ-A zur Schweregrad-Einschätzung der depressiven Achse',
+          'C-SSRS Routine — Suizidalität bei diesem Profil deutlich erhöht',
+          'WISC-V mit Untertest-Profil zur Begabungs- und Profil-Klärung',
+          'Conners-3, BRIEF, K-SADS-PL für ADHS-Differential',
+          'SLRT-II, ZAREKI-R, BUEGA, ELFE-II je nach Lese-/Rechen-/Sprach-Verdacht',
+          'M-ABC-2 bei motorischer Komponente (Dysgrafie/DCD-Differential)',
+          'Asperger-Screening (AQ-Adolescent, RAADS-14) bei sozialen Schwierigkeiten als Begleitbild',
+          'Strukturierte Anamnese der Schul-Karriere mit chronologischer Rekonstruktion der Versagens-Sequenz'
+        ],
+        wasDuTust: [
+          '„Was du als ‚ich bin dumm‘ erlebt hast, ist das logische Ergebnis von Jahren, in denen niemand erklärt hat, warum manche Dinge bei dir schwerer sind als bei anderen. Das werden wir jetzt erklären."',
+          '„Wir machen zwei Sachen parallel. Wir gucken, woher das Versagen wirklich kommt — und wir kümmern uns um die Depression, die daraus entstanden ist."',
+          '„Dein Profil ist nicht falsch. Es passt nur an manchen Stellen nicht zum Schul-Setting. Das ist eine technische Frage, keine Charakter-Frage."',
+          '„Wenn die Diagnostik fertig ist, hast du eine Erklärung, die stimmt. Erklärungen, die stimmen, machen das Leben leichter — selbst wenn sie zuerst weh tun."',
+          '„Was du ‚Faulheit‘ nennst, ist meistens kein Wollen-Problem. Es ist ein Können-Problem in einem System, das deine Sorte Können nicht erkennt."',
+          '„Wir schauen auch das Setting an. Manchmal ist die Lösung, dass du gleich bleibst und die Schule sich anpasst. Manchmal ist die Lösung, dass du in ein Setting wechselst, das zu dir passt. Beides sind Lösungen, nicht Versagen."'
+        ],
+        wasDuNichtTust: [
+          'Nicht das Versagens-Narrativ rein kognitiv wegargumentieren — die faktische Lage muss sich ändern',
+          'Nicht die Grundstörungs-Diagnostik aufschieben „bis die Depression weg ist" — sie ist Teil der Depressions-Behandlung',
+          'Nicht voreilig „Resilienz aufbauen" predigen — der Klient braucht eine korrekte Erklärung, nicht moralische Stärkung',
+          'Nicht ohne Eltern und Schule arbeiten — Setting-Korrektur braucht alle Beteiligten',
+          'Nicht voreilig Schul-Wechsel als Lösung präsentieren — manchmal richtig, aber erst nach diagnostischer Klärung'
+        ],
+        frequenz: `<p>Wöchentlich für die ersten drei Monate, parallel Diagnostik-Termine. Danach alle zwei Wochen bis zur Konsolidierung. Bei SSRI engmaschig in den ersten vier Wochen. Schul- und Eltern-Termine im Quartal eingeplant.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik der depressiven Achse abschließen, parallel Grundstörungs-Diagnostik beginnen (Termine vergeben). Psychoedukation zur Zweischichtigkeit: Depression als Folge, Grundstörung als Ursache. Verhaltens-Aktivierung. Bei mittel-schwer SSRI mit KJP. Suizidalitäts-Routine. Erste Schul-Kontakte zur Setting-Klärung. Monate 1–3.`,
+        phase2: `Grundstörungs-Diagnostik abgeschlossen, Befund-Vermittlung an Klient und Familie (zentraler Moment). Setting-Korrektur in der Schule einleiten (Nachteilsausgleich, Anpassungen, gegebenenfalls Schultyp-Wechsel-Entscheidung). Kognitive Arbeit am Versagens-Narrativ auf der jetzt faktisch belastbaren Grundlage. Monate 3–6.`,
+        phase3: `Konsolidierung der Setting-Korrektur. Aufbau neuer Selbstwirksamkeits-Erfahrungen in passendem Setting. Bei begleitender ADHS: Stimulanzien-Frage und Konsolidierung. Bei Lernstörung: spezifische Förderung und Nachteilsausgleich. Identitäts-Arbeit: vom „ich kann nichts" zum „ich habe ein spezifisches Profil". Monate 6–12.`,
+        phase4: `Erhaltungs-Therapie mit reduzierter Frequenz. Bei SSRI mindestens neun Monate Erhaltung nach Remission. Übergangs-Begleitung in nächste Lebensphase (Schul-Übergang, Ausbildung). Plan für künftige Belastungs-Phasen. Ab Monat 12.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht bei M4 den Klienten, der „eigentlich klug, aber faul" sei, der „sich nur mehr anstrengen müsse", der „mit seinem Potenzial sehr viel besser sein könnte". Diese Lehrer-Erzählung hat den Klienten über Jahre begleitet und ist Teil der Krankheits-Entstehung. Sie ist im Schul-Betrieb so tief eingeprägt, dass sie auch dann fortbesteht, wenn längst eine Diagnose wie ADHS, Dyslexie oder Asperger vorliegt — die Schule kennt die Diagnose vielleicht, aber sie hat den Klienten als „faul" im inneren Lehrer-Lexikon abgespeichert, und dieses Lexikon wirkt weiter. Eine Schul-Strategie bei M4 ist daher zur Hälfte eine Korrektur dieser internen Schul-Wahrnehmung, nicht nur Anpassungs-Verhandlung.</p>
+          <p>Die zweite Herausforderung ist die Differenzierung zwischen Anstrengung und Wirkungs-fähiger Anstrengung. Der Klient strengt sich in der Regel maximal an aus seiner Innensicht — sein „mehr anstrengen" hilft aber nicht, weil das Problem nicht im Anstrengungs-Pegel liegt, sondern in der strukturellen Diskrepanz zwischen seinem Profil und dem Setting. Wer Anstrengung fordert, ohne das Setting zu ändern, bestätigt das Versagens-Narrativ und produziert mehr Depression. Die Schule muss diese Logik verstehen, sonst läuft die Behandlung gegen die schulische Anstrengungs-Erwartung leer.</p>
+          <p>Was die Schule braucht, ist erstens die diagnostische Information: bei [Klient] liegt eine zugrundeliegende Störung (ADHS / Lernstörung / Asperger / Begabungs-Profil mit Teilleistungs-Defizit) vor, die das schulische Bild erklärt. Diese Erklärung muss konkret und nicht beschämend kommuniziert werden — sie verschiebt die Wahrnehmung von „Charakter" zu „Profil". Zweitens braucht die Schule den Nachteilsausgleich beziehungsweise die spezifischen Anpassungen, die dem Profil entsprechen (verlängerte Bearbeitungszeit, Laptop, Sprach-Eingabe, mündliche statt schriftliche Prüfung, ruhiger Raum). Drittens braucht sie die Aktivierungs-Linie für die depressive Achse, parallel — die Setting-Korrektur ist notwendig, aber sie wirkt nicht über Nacht, und in der Zwischenzeit braucht der Klient die schulischen Strukturen, die jede andere depressive Behandlung braucht.</p>
+          <p>Bei der Frage „Schultyp-Wechsel" ist Vorsicht geboten. Manchmal ist ein Wechsel klinisch indiziert — zum Beispiel, wenn das aktuelle Setting strukturell nicht zum Profil passt und kein Nachteilsausgleich dies ausgleichen kann. Manchmal ist der Wechsel aber eine Flucht-Reaktion der Schule, die ihre Anpassungs-Verantwortung delegieren möchte. Die Entscheidung läuft über die Profil-Diagnostik und die behandelnde Fachkraft, nicht über die Klassenkonferenz allein.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer depressiven Störung, die sich klar im Anschluss an einen mehrjährigen schulischen Überforderungs-Verlauf entwickelt hat. Parallel zur Depressions-Behandlung wird die zugrundeliegende Profil-Diagnostik durchgeführt beziehungsweise vertieft (ADHS / Lernstörung / Asperger / Begabungs-Profil mit Teilleistungs-Diskrepanz — bitte spezifizieren wenn bekannt).</p>
+          <p>Klinisch wichtig: die schulischen Schwierigkeiten von [Name] sind nicht Folge mangelnder Anstrengung, sondern Folge einer strukturellen Diskrepanz zwischen seinem Profil und dem aktuellen Setting. Diese Diskrepanz ist über Jahre als „Faulheit" oder „mangelnde Motivation" gelesen worden — diese Lesart ist Teil der Erkrankung geworden. Das Versagens-Narrativ ist nicht durch Anstrengungs-Appelle korrigierbar, sondern durch faktische Setting-Anpassung.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, die Einrichtung des Nachteilsausgleichs entsprechend Profil-Befund (verlängerte Zeit, Laptop, Sprach-Eingabe, mündliche statt schriftliche Prüfung — je nach Befund); zweitens, eine konstante Bezugsperson, die [Name] nicht als „faul", sondern als Schüler mit spezifischem Profil sieht und entsprechend kommuniziert; drittens, parallel zur Setting-Korrektur die Berücksichtigung der akuten depressiven Achse (Anpassungs-Liste mit Enddatum, Aktivierungs-Linie statt Schonung, Notfall-Plan bei akuten Verschlechterungen); viertens, eine gemeinsame Schultyp-Frage erst nach Abschluss der Profil-Diagnostik, in Abstimmung mit der behandelnden Fachkraft.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir den Befund (sobald vorliegend) und die Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Nachteilsausgleich entsprechend Profil-Befund (verlängerte Zeit, Laptop, Sprach-Eingabe, mündliche Prüfung)', begruendung: 'Der Nachteilsausgleich ist keine Erleichterung, sondern die strukturelle Korrektur der Diskrepanz zwischen Profil und Setting. Wer einem dyslektischen Klienten ausschließlich schriftliche Prüfungen abverlangt, misst nicht sein Können, sondern seine Behinderung. Die konkreten Maßnahmen folgen dem Befund: bei ADHS verlängerte Zeit und reizarmer Raum, bei Dyslexie Laptop mit Rechtschreib-Hilfe und mündliche Alternativen, bei Dyskalkulie Taschenrechner und konzeptuelle Bewertung statt Faktenabruf, bei Dysgrafie/DCD Sprach-Eingabe und Laptop. Diese Anpassungen müssen schriftlich verankert sein, sonst verschwinden sie beim nächsten Lehrer-Wechsel.' },
+          { titel: 'Konstante Bezugsperson mit korrigiertem inneren Lexikon', begruendung: 'Die wichtigste Anpassung ist die Korrektur der „faul"-Wahrnehmung. Die Bezugsperson hat eine kurze klinische Information bekommen und kennt den Profil-Befund. Sie kommuniziert nicht „du musst dich mehr anstrengen", sondern „lass uns gucken, woran es liegt". Diese Sprache modelliert auch die Haltung, die der Klient gegenüber sich selbst lernen soll: nicht Charakter-Anklage, sondern Profil-Verständnis.' },
+          { titel: 'Anpassungs-Liste mit Enddatum gegen kumulierte Schonung', begruendung: 'Wie bei M1 droht die schleichende Eskalation der Befreiungen — bei M4 zusätzlich kompliziert durch die Frage „was ist Nachteilsausgleich, was ist Schonung". Nachteilsausgleich ist die strukturelle Profil-Anpassung und bleibt; Schonung wäre die Reduktion der Anforderungen bei der Profil-konformen Aufgabe und wird befristet eingesetzt. Die schriftliche Liste mit Sechs-Wochen-Überprüfung trennt beide Kategorien explizit.' },
+          { titel: 'Aktivierungs-Linie für die depressive Achse parallel zur Setting-Korrektur', begruendung: 'Die Setting-Korrektur wirkt nicht über Nacht — bis sie greift, braucht der Klient die schulischen Anker, die jede andere Depressions-Behandlung braucht: konstante Bezugsperson, Notfall-Plan, Rückzugs-Raum, Aufrechterhaltung der Anwesenheit, Aktivitäts-Vermittlung. Die Trennung „erst Setting, dann Depression" ist falsch — beides läuft parallel und stützt sich gegenseitig.' },
+          { titel: 'Re-Framing der Schul-Karriere bei Befund-Mitteilung', begruendung: 'Wenn der Befund vorliegt (zum Beispiel WISC-V-Profil zeigt einen Index-Spread von 50 Punkten, oder ZAREKI-R bestätigt Dyskalkulie), wird die Schul-Karriere des Klienten gemeinsam neu erzählt: nicht „du hast versagt", sondern „du hattest ein Profil, das nicht rechtzeitig erkannt wurde". Diese Erzählung wird auch der Schule kommuniziert, damit das Lehrer-Team das innere Lexikon korrigiert. Sie ist klinisch eine kognitive Re-Attribution mit faktischer Basis.' },
+          { titel: 'Bei Klassenwiederholungs-Diskussion: keine Entscheidung ohne abgeschlossene Profil-Diagnostik', begruendung: 'Klassenwiederholung wird oft als „Chance" verkauft, kann bei diesem Profil aber zur weiteren Beschämung werden, wenn die zugrundeliegende Störung nicht erkannt ist — der Klient wiederholt mit demselben Profil im selben Setting und scheitert wieder. Die Entscheidung läuft erst nach Profil-Diagnostik und in Abstimmung mit der behandelnden Fachkraft. Manchmal ist Wiederholung mit Nachteilsausgleich sinnvoll, manchmal ist Vor-Versetzung mit Setting-Anpassung besser, manchmal ist Schultyp-Wechsel die Lösung.' },
+          { titel: 'Aktivitäts-Vermittlung in Settings, in denen Profil Stärke ist', begruendung: 'Der Klient hat über Jahre fast nur Settings erlebt, in denen sein Profil als Defizit sichtbar wurde. Eine Vermittlung in Settings, in denen das Profil zur Stärke wird — zum Beispiel kreative AGs, technische Projekte, Sport-Mannschaften, Maison-des-Jeunes-Aktivitäten — ist klinisch eine korrigierende Selbstwirksamkeits-Erfahrung. Konkrete Empfehlung mit persönlicher Begleitung beim Erst-Besuch.' },
+          { titel: 'Bei Übergängen: Befund und Anpassungen schriftlich übergeben', begruendung: 'Lehrer-, Klassen- und Schul-Wechsel sind kritisch, weil die neue Lehrkraft den Klienten ohne Information als „faul" einordnet und das innere Lexikon neu produziert. Vor jedem Übergang erfolgt eine schriftliche Übergabe der Profil-Information und der Anpassungen, möglichst mit persönlichem Gespräch — analog zur Trauma-Übergabe-Logik.' },
+          { titel: 'Eltern-Coaching parallel zur Schul-Linie', begruendung: 'Eltern haben oft jahrelang dieselben Anstrengungs-Appelle reproduziert wie die Schule und sind in der Krankheits-Entstehung mit-beteiligt — meist gut gemeint, klinisch destruktiv. Eine knappe Eltern-Information zur Profil-Logik und zur Sprach-Korrektur („nicht Charakter, sondern Profil") gehört zur schulischen Strategie. Sonst läuft die schulische Korrektur tagsüber gegen die elterliche Anstrengungs-Erzählung am Abend leer.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine „du musst dich nur mehr anstrengen"-Appelle', begruendung: 'Anstrengungs-Appelle bei strukturellem Profil-Mismatch sind klinisch destruktiv — sie bestätigen das Versagens-Narrativ und produzieren mehr Depression. Die Schule muss diese Sprache aktiv vermeiden, auch wenn sie intuitiv naheliegend scheint. Anstrengung ist nicht das Thema; passendes Setting ist das Thema.' },
+          { titel: 'Keine reine Disziplinar-Reaktion auf nicht abgegebene Hausaufgaben oder Konzentrations-Lücken', begruendung: 'Bei ADHS oder Lernstörung sind diese Symptome Krankheits-Folge, nicht Verhalten. Disziplinar-Reaktion verstärkt das Versagens-Narrativ und die Depression. Stattdessen Profil-konforme Anpassung (Strukturierungs-Hilfen, schriftliche Erinnerungen, Mündlich-Optionen).' },
+          { titel: 'Keine Schultyp-Wechsel-Empfehlung ohne abgeschlossene Profil-Diagnostik', begruendung: 'Vorschnelle Wechsel-Empfehlungen verkennen oft, dass das Problem im fehlenden Nachteilsausgleich liegt, nicht im Schultyp. Erst Befund, dann Entscheidung — auch wenn das Wochen dauert.' },
+          { titel: 'Keine Begabungs-Konferenz mit Bloßstellung', begruendung: 'Klassenkonferenzen, in denen der Klient als Problemfall öffentlich besprochen wird, sind klinisch destruktiv — der Klient bekommt das immer mit, direkt oder indirekt. Konferenzen sind professionell, diskret und ergebnis-orientiert.' },
+          { titel: 'Keine pauschale „dem ist nicht mehr zu helfen"-Resignation', begruendung: 'Resignation der Lehrkraft ist die finale Bestätigung des Versagens-Narrativs. Die Schule muss die Linie halten, auch wenn sie schwer wird. Wenn die Lehrkraft selbst erschöpft ist, braucht sie Supervision und Kollegiums-Rückendeckung, nicht Aufgabe.' }
+        ],
+        e_rollen: [
+          'Konstante Bezugsperson mit korrigiertem inneren Lexikon („Profil, nicht Charakter")',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) für Profil-Diagnostik und Nachteilsausgleich-Verfahren',
+          'SCAS für die vertiefte therapeutische Begleitung der depressiven Achse',
+          'KJP für SSRI und Komorbiditäts-Klärung',
+          'Bei Lernstörungs-Verdacht: Logopädie und spezialisierte Lernstörungs-Diagnostik',
+          'Bei ADHS-Diagnose: KJP für Stimulanzien-Frage',
+          'Eltern als Verbündete der Profil-Erzählung — Eltern-Coaching parallel',
+          'Schul-Leitung für die organisatorische Verankerung des Nachteilsausgleichs'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen in der akuten Phase und während der Profil-Diagnostik. Sobald Befund vorliegt: gemeinsame Befund-Konferenz mit Klient (wenn altersgerecht), Eltern, Bezugsperson, Schul-Psychologe und Fachkraft. Danach Schul-Kontakt alle zwei bis drei Monate zur Anpassungs-Überprüfung.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson etabliert, Aufklärung über die Zweischichtigkeit (Depression + zugrundeliegende Grundstörung), Anpassungs-Liste mit Enddatum eingeführt.</li>
+            <li><strong>Stufe 2</strong> — Profil-Diagnostik läuft, Schul-Psychologe koordiniert, parallel akute Depressions-Anpassungen umgesetzt.</li>
+            <li><strong>Stufe 3</strong> — Befund liegt vor, gemeinsame Befund-Konferenz, Nachteilsausgleich schriftlich verankert, Re-Framing der Schul-Karriere im Lehrer-Team kommuniziert.</li>
+            <li><strong>Stufe 4</strong> — Bei Setting-Strukturell-Mismatch trotz Nachteilsausgleich: gemeinsame Schultyp-Wechsel-Diskussion mit allen Beteiligten, in Abstimmung mit der behandelnden Fachkraft. Wechsel als geplante Profil-Anpassung, nicht als Disziplinar-Konsequenz.</li>
+            <li><strong>Stufe 5</strong> — Bei schwerer Depression mit Suizidalität oder massiver Funktions-Einschränkung: stationäre Behandlung mit Schul-Anbindung. Wieder-Einstieg in profil-passendes Setting therapeutisch begleitet, mit klarer Linie gegen die Rückkehr ins alte unkorrigierte Setting.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet. Beginnende Schul-Verweigerung. Substanzkonsum nimmt zu. Akute Schul-Eskalation (Klassenwiederholung, Verweis-Drohung). Akute Familien-Konflikte um die schulische Leistung. Befund der Profil-Diagnostik (kritischer Moment, kann positive oder negative Reaktion auslösen).</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei mittel-schwerer Symptomatik. Stimulanzien-Frage bei ADHS-Befund. Konkrete Suizidalität. Therapie-Resistenz bei strukturiertem Verlauf und unklarer oder unklar adressierter Grundstörung.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive depressive Dekompensation nach Schul-Eskalation. Substanzkonsum-Eskalation mit Intoxikations-Risiko. Bei vollständigem Schul-Aussetzen mit Verwahrlosung: teilstationäre oder stationäre Behandlung mit Schul-Anbindung und Profil-konformem Wieder-Einstiegs-Plan.</p>`
+      }
+    }
+  },
   /* M5 — Hochbegabter Underachiever mit Depression. */
-  { id: 'depression-hochbegabt',    name: 'Hochbegabter Underachiever mit Depression',       bloecke: emptyDepressionBloecke() },
+  {
+    id: 'depression-hochbegabt',
+    name: 'Hochbegabter Underachiever mit Depression',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit hoher Begabung (oft Gesamt-IQ über 130, häufig mit ausgeprägtem Index-Spread im WISC-V), aktueller depressiver Symptomatik und einer ausgeprägten existenziellen, perfektionistischen oder Sinn-Thematik. Die Diskrepanz zwischen Anspruch und erlebter Leistung ist im Vordergrund: der Klient weiß, was er konzeptuell könnte, schafft es aber nicht umzusetzen, und legt sich für diese Diskrepanz selbst an. Häufig frühe philosophische oder existenzielle Fragen, überkritische Selbstbewertung, manchmal Sarkasmus oder zynische Distanzierung als Affekt-Schutz. Leistung schwankt zwischen Brillanz in einzelnen Bereichen und vollständigem Einbruch in Pflichtaufgaben.</p>`,
+        klinischWichtig: `<p>Hochbegabung schützt nicht vor Depression — sie prägt sie. Der hochbegabte Underachiever erlebt seine eigene Diskrepanz auf eine besondere Weise: er hat das kognitive Werkzeug, sich selbst sehr genau und sehr unerbittlich zu bewerten, kennt seinen Anspruch, sieht den Abstand zur Realität, und kann ihn perfekt formulieren. Das führt zu einem spezifischen depressiven Profil mit überkritischer Selbstbewertung, perfektionistischer Lähmung („wenn ich es nicht perfekt mache, mache ich es lieber nicht") und einer existenziellen Dimension, die bei anderen Adoleszenten-Depressionen selten so ausgeprägt ist — Sinn-Fragen, Welt-Pessimismus, philosophische Verzweiflung.</p>
+          <p>Häufige Konstellation ist Twice Exceptional (2e): hohe Begabung plus Teilleistungs-Störung. Diese Klienten erleben über Jahre, dass sie in einigen Bereichen weit über dem Klassen-Durchschnitt liegen und in anderen scheitern. Die kognitive Asymmetrie wird oft als Charakter-Versagen gedeutet — „du bist doch klug, also musst du auch das können". Daraus entsteht eine besonders bittere Selbstanklage und ein chronisches Versagens-Narrativ, das von den faktisch vorhandenen Stärken nicht entlastet wird. 2e-Klienten gehören oft in M5, gegebenenfalls mit Querschnitt zu M4, je nach Dominanz der Begabungs- oder der Teilleistungs-Achse.</p>
+          <p>Die zentrale klinische Bewegung ist die begabungs-affirmative Behandlung: die Begabung wird ernstgenommen, nicht pathologisiert, nicht in „du musst doch nicht besonders sein" entwertet. Existenzielle Fragen werden ernstgenommen, nicht weggetröstet. Der Therapeut muss in der Lage sein, mit dem Klienten auf dem Niveau zu sprechen, das ihm entspricht — er merkt sofort, wenn er pädagogisch behandelt wird, und zieht sich zurück. Gleichzeitig braucht es eine konkrete Bearbeitung des Perfektionismus, der Sinn-Spirale und der depressiven Kern-Überzeugungen.</p>
+          <p>Suizidalitäts-Risiko bei diesem Profil ist erhöht und klinisch besonders aufmerksam zu beobachten. Hochbegabte depressive Jugendliche planen Suizid manchmal mit derselben analytischen Sorgfalt, mit der sie andere Probleme angehen — die Planung kann lange unter der Oberfläche laufen, ohne dass dramatische Verschlechterung sichtbar wird. Routine-Screening ist Pflicht. Bei expliziter Erwähnung philosophischer Suizid-Erwägungen ist die Schwelle zur Hospitalisierung niedriger als bei vergleichbaren Profilen.</p>`,
+        vergleich: `<p><strong>Vs. M4 (sekundäre Depression nach Versagens-Verlauf):</strong> Bei M5 ist die Begabungs-Komponente und die existenzielle/perfektionistische Achse im Vordergrund. Wenn die Versagens-Erfahrung primär ist (ADHS, Lernstörung) und Begabung sekundär, führt M4.</p>
+          <p><strong>Vs. A01 (Asperger):</strong> Hochbegabte 2e-Asperger werden oft als „hochbegabt mit Depression" gelesen, weil das soziale Profil unauffällig erscheint. Asperger-Differential aktiv prüfen (AQ-Adolescent, RAADS-14), besonders bei sozialer Reibungs-Vermeidung und intensiven Spezialinteressen.</p>
+          <p><strong>Vs. M3 (Dysthymie):</strong> Bei langem Verlauf einer hochbegabten Depression mit existenzieller Dauer-Tönung kann der Übergang in M3 fließend sein.</p>
+          <p><strong>Vs. A12 (Borderline-Strukturen mit Identitätsdiffusion):</strong> Bei hochbegabten Adoleszenten manchmal Borderline-ähnliche Identitätsdiffusion und Affekt-Instabilität — Differenzierung über Selbstverletzungs-Profil und Beziehungs-Muster.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität deutlich erhöht — analytisch geplant, oft lange unter der Oberfläche',
+          'Akute schwere depressive Episode mit existenzieller Komponente',
+          'Selbstverletzung als perfektionistische Selbst-Strafe'
+        ],
+        hoch: [
+          'Sozialer Rückzug mit Peer-Isolation (Begabungs-bedingt oft geringer Anschluss)',
+          'Substanzkonsum als Bewusstseins-Modulation, oft mit kognitiver Begründung',
+          'Schul-Vermeidung trotz Begabungs-Niveau',
+          'Sekundäre Essstörung als Kontroll-Versuch (häufig bei hochbegabten Mädchen)',
+          'Akademisches Underachievement mit Lebenslauf-Auswirkung'
+        ],
+        mittel: [
+          'Verfestigung der zynisch-distanzierten Affekt-Tönung in das Erwachsenenalter',
+          'Beziehungs-Schwierigkeiten durch hohe Komplexitäts-Erwartung an Gegenüber',
+          'Berufliche Underachievement-Trajektorie trotz Begabung',
+          'Identitäts-Festigung als „der/die Außenseiter*in", die nirgendwo hinpasst'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Begabungs-affirmative kognitive Verhaltenstherapie mit existenzieller und perfektionismus-fokussierter Komponente. Therapeut muss kognitiv anschlussfähig sein und auf Augenhöhe arbeiten — der Klient liest pädagogische Sprache sofort und blockiert. Bearbeitung der perfektionistischen Lähmung über konkrete Verhaltens-Experimente („mache eine Aufgabe absichtlich nicht perfekt, beobachte was passiert"). Existenzielle Fragen ernstnehmen, nicht weginterpretieren. Bei mittel-schwer SSRI (Fluoxetin), mit KJP — die SSRI-Frage muss klinisch und nicht als Persönlichkeits-Anpassung präsentiert werden, sonst Ablehnung.</p>`,
+        begruendung: `<p>Der hochbegabte Klient liest jede Form von Herablassung oder pädagogischer Manipulation sofort und zieht sich zurück. Die einzige tragfähige Behandlungs-Beziehung ist eine, in der die Begabung respektiert und die existenziellen Fragen als legitime Fragen behandelt werden. Perfektionismus wird konkret verhaltens-experimentell bearbeitet, nicht philosophisch wegargumentiert.</p>`,
+        diagnostik: [
+          'BDI-A oder PHQ-A zur Schweregrad-Einschätzung',
+          'C-SSRS strukturiert und routinemäßig — Suizidalität bei diesem Profil oft analytisch geplant',
+          'WISC-V mit Untertest-Profil — Index-Spread klinisch wichtig (2e-Hinweis)',
+          'Bei Verdacht auf Asperger: AQ-Adolescent, RAADS-14, K-SADS-PL strukturiert',
+          'Bei Teilleistungs-Verdacht: spezifische Lernstörungs-Diagnostik (SLRT-II, ZAREKI-R, BUEGA)',
+          'BRIEF zur exekutiven Funktion (häufig auch ohne ADHS dysreguliert)',
+          'Frost Multidimensional Perfectionism Scale für den Perfektionismus-Profil',
+          'Strukturierte Anamnese der existenziellen und Sinn-Achse'
+        ],
+        wasDuTust: [
+          '„Deine Begabung wird hier nicht weggeredet. Sie ist real, und sie macht das Leben in mancher Hinsicht schwerer, nicht leichter. Das werden wir gemeinsam anschauen."',
+          '„Wenn du sagst, dass das Leben sinnlos sein könnte — ich werde dir nicht erklären, dass es das nicht ist. Wir werden die Frage ernstnehmen und gucken, wo sie hinführt."',
+          '„Perfektionismus ist nicht hohe Standards. Perfektionismus ist die Überzeugung, dass nicht-perfekt gleich wertlos ist. Das ist ein Denkfehler, den wir konkret korrigieren — mit Experimenten, nicht mit Vorträgen."',
+          '„Du erlebst die Diskrepanz zwischen dem, was du könntest, und dem, was du tust, sehr scharf. Diese Schärfe ist auch eine Begabung. Wir lernen, wie du sie nutzen kannst, ohne dass sie dich zerstört."',
+          '„Wenn du mit anderen Jugendlichen wenig anfangen kannst — das ist nicht dein Versagen und nicht ihres. Manchmal ist die kognitive Distanz real. Wir suchen, wo deine Leute sind."',
+          '„Was du als Faulheit erlebst, ist meistens perfektionistische Lähmung. Wenn der Anspruch so hoch ist, dass kein Schritt ihn erreicht, bewegt man sich nicht mehr. Wir senken den Schritt, nicht den Anspruch — vorerst."'
+        ],
+        wasDuNichtTust: [
+          'Nicht pädagogisch herabsprechen — der Klient liest es sofort und blockiert',
+          'Nicht die Begabung wegrelativieren („du musst nicht besonders sein") — er weiß, dass er es ist, und die Entwertung zerstört die Allianz',
+          'Nicht existenzielle Fragen mit psychologischen Erklärungen überstülpen — manche Fragen sind philosophisch, nicht symptomatisch',
+          'Nicht voreilig „mehr Sozial-Kontakt mit Gleichaltrigen" empfehlen — die Diskrepanz ist real, die Lösung liegt in passenden Peers, nicht in mehr Klassen-Kontakt',
+          'Nicht SSRI als Persönlichkeits-Anpassung präsentieren — als klinische Maßnahme gegen Symptomatik, mit klarer Erklärung der Wirkungs-Mechanismen'
+        ],
+        frequenz: `<p>Wöchentlich für die ersten drei bis vier Monate. Danach alle zwei Wochen bis zur Konsolidierung. Bei SSRI engmaschig in den ersten vier Wochen, besonders Suizidalitäts-Monitoring. Längere Behandlungs-Verläufe sind häufig.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik einschließlich Begabungs-Profil und Asperger-Differential. Beziehungs-Aufbau auf Augenhöhe — der Klient testet die kognitive Anschlussfähigkeit, das gehört zur Phase. Psychoedukation zur Depression und zur Perfektionismus-Dynamik. Existenzielle Fragen explizit als legitim adressiert. Bei mittel-schwer SSRI-Entscheidung mit KJP. Suizidalitäts-Routine, niedrige Hospitalisierungs-Schwelle. Wochen 1–8.`,
+        phase2: `Konkrete Verhaltens-Experimente gegen perfektionistische Lähmung. Aufbau von „gut genug"-Erfahrungen. Bearbeitung der existenziellen Achse mit philosophisch tragfähigen Methoden (Logotherapie-Elemente, akzeptanz- und werte-basierte Arbeit, ACT). Soziale Anbindung an passende Peer-Settings (begabten-Gruppen, fach-spezifische Communities, Maison-des-Jeunes-Spezial-Angebote). Monate 2–6.`,
+        phase3: `Identitäts-Arbeit: Trennung zwischen Begabungs-Identität, Perfektionismus-Identität und realer Selbst-Beziehung. Bearbeitung der zynisch-distanzierten Affekt-Tönung. Aufbau einer tragfähigen Lebens- und Sinn-Konstruktion. Bei 2e: parallele Bearbeitung der Teilleistungs-Achse mit Nachteilsausgleich und Profil-konformem Setting. Monate 6–12.`,
+        phase4: `Konsolidierung mit reduzierter Frequenz. Bei SSRI Erhaltungs-Phase mindestens neun bis zwölf Monate. Übergangs-Begleitung in nächste Lebensphase (Studium, Ausbildung) mit besonderem Augenmerk auf passende Settings. Ab Monat 12.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht bei M5 oft den Klienten, der „eigentlich brillant" sei und es trotzdem nicht zeigt — der manchmal in einer Klassenarbeit alle anderen weit übertrifft und in der nächsten ein Blatt leer abgibt, der sich in Diskussionen anderen Schülern überlegen zeigt und gleichzeitig die Hausaufgaben nicht macht, der bei manchen Lehrkräften eine besondere Bindung hat und bei anderen offen feindselig erscheint. Diese Inkonstanz und scheinbare Widersprüchlichkeit ist im Schul-Betrieb schwer einzuordnen — die Lehrkräfte reagieren entsprechend gemischt: einige bewundern die Begabung, andere fühlen sich provoziert, manche möchten den Klienten besonders fördern, andere möchten ihn disziplinarisch erziehen.</p>
+          <p>Was die Schule oft nicht sieht: die perfektionistische Lähmung hinter der scheinbaren Faulheit. Der Klient gibt keine Hausaufgabe ab, weil sie seinem Anspruch nicht genügt — nicht weil er sie nicht könnte. Er meldet sich nicht in Diskussionen, weil seine Antworten ihm selbst zu unfertig erscheinen, nicht weil er die Antwort nicht hat. Er erscheint zynisch oder distanziert, weil das die einzige Affekt-Tönung ist, die seine Verletzlichkeit nicht offenlegt. Diese Mechanismen sind klinisch wichtig und müssen der Schule kommuniziert werden, sonst läuft die schulische Reaktion gegen die Behandlung.</p>
+          <p>Eine zentrale Aufgabe ist die Vermeidung von zwei häufigen Schul-Mustern: Erstens, der „Sie hätten doch das Potenzial"-Druck — der Klient hat diesen Satz tausendmal gehört, er ist Teil der Krankheits-Entstehung, und jede Wiederholung verstärkt die perfektionistische Lähmung und die depressive Selbstanklage. Zweitens, die Polarisierung im Lehrer-Team — manche Lehrkräfte sind „auf seiner Seite", andere sind „gegen ihn", was die ohnehin instabile Beziehungs-Lage weiter destabilisiert. Eine kohärente Schul-Linie über das gesamte Lehrer-Team ist klinisch wichtiger als die individuelle Lehrer-Sympathie.</p>
+          <p>Bei der Frage „besondere Förderung" ist Vorsicht geboten. Begabten-Förderung kann klinisch wertvoll sein, wenn sie den Klienten in passende Peer-Settings bringt (Begabten-AGs, fachliche Wettbewerbe, projektbasierte Arbeit). Sie kann klinisch destruktiv sein, wenn sie als zusätzliche Anforderungs-Schicht draufgesetzt wird, die den Perfektionismus weiter füttert. Die Entscheidung „Förderung ja/nein und welche" wird mit der behandelnden Fachkraft abgestimmt, nicht von der Schule allein.</p>
+          <p>Schließlich die existenzielle Achse: hochbegabte Adoleszente äußern in der Schule manchmal Sinn-Fragen, philosophische Verzweiflung oder zynische Welt-Pessimismus-Statements. Lehrkräfte reagieren reflexhaft besorgt oder pädagogisch beruhigend. Beides ist meistens falsch. Diese Äußerungen sind oft legitime philosophische Reflexionen, die ernstgenommen werden wollen — die Bezugsperson kann hier einen wichtigen Beitrag leisten, wenn sie philosophisch zugewandt reagiert („interessanter Punkt, lass uns das in der Pause weiterdenken") statt psychologisch oder beschwichtigend. Wenn die Äußerungen suizidale Konnotation haben, gilt die übliche Risiko-Routine — Rückmeldung an die behandelnde Fachkraft, niemals als banal abtun.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer depressiven Störung mit ausgeprägter perfektionistischer und existenzieller Komponente, auf der Basis einer Hochbegabung. Die diagnostische Lage ist klinisch komplex — Begabung und Depression interagieren auf besondere Weise.</p>
+          <p>Klinisch wichtig: was als „Inkonstanz" oder „Faulheit" erscheint, ist meist perfektionistische Lähmung. Der Klient unterlässt Aufgaben oft, weil sein Anspruch keinen Schritt erlaubt, der ihm genügen würde — nicht weil er die Aufgabe nicht könnte. Das Versagens-Narrativ ist hier besonders bitter, weil der Klient seine eigene Diskrepanz analytisch perfekt durchschaut.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine kohärente Schul-Linie über das gesamte Lehrer-Team — Verzicht auf „Sie hätten doch das Potenzial"-Druck, der die perfektionistische Lähmung verstärkt; zweitens, eine konstante Bezugsperson, die kognitiv anschlussfähig ist und auf Augenhöhe kommuniziert (pädagogische Herablassung erkennt der Klient sofort); drittens, bei existenziellen oder Sinn-Äußerungen ruhige philosophische Zuwendung statt Beruhigung; viertens, eine Abstimmung mit mir vor Entscheidungen über Begabten-Förderung oder zusätzliche Anforderungen, damit sie nicht in die Perfektionismus-Spirale füttern; fünftens, eine niedrige Schwelle für die Rückmeldung an mich bei suizidalen oder ausgeprägt nihilistischen Äußerungen — diese werden bei diesem Profil oft analytisch und ruhig formuliert, was nicht mit Banalität verwechselt werden darf.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Schul-Linie abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Kohärente Schul-Linie über das gesamte Lehrer-Team', begruendung: 'Polarisierung im Lehrer-Team („für ihn"/„gegen ihn") destabilisiert die ohnehin instabile Beziehungs-Lage und füttert das Außenseiter-Narrativ. Eine kurze multiprofessionelle Abstimmung mit allen relevanten Lehrkräften, in der die Behandlungs-Linie geteilt wird, ist klinisch wirksamer als jede individuelle Lehrer-Sympathie. Die Linie enthält den Verzicht auf Potenzial-Druck-Sprache, die Anerkennung der Begabung und die ruhige Akzeptanz der inkonstanten Leistung.' },
+          { titel: 'Kognitiv anschlussfähige Bezugsperson auf Augenhöhe', begruendung: 'Der Klient testet ständig die kognitive Anschlussfähigkeit seiner Gesprächspartner und blockiert bei pädagogischer Herablassung. Eine Bezugsperson, die auf seinem Niveau diskutieren kann und ihn nicht runter-redet, ist klinisch besonders wirksam. Sie braucht keine Begabung im gleichen Umfang, aber Respekt vor Begabung und die Fähigkeit, „ich weiß es nicht" zu sagen, ohne sich beschämt zu fühlen.' },
+          { titel: 'Verzicht auf „Sie hätten doch das Potenzial"-Sprache', begruendung: 'Dieser Satz ist die häufigste schulische Reaktion bei diesem Profil und klinisch destruktiv. Er füttert das Versagens-Narrativ und die perfektionistische Lähmung. Stattdessen Sprache, die die Inkonstanz akzeptiert ohne zu pathologisieren: „heute scheint es schwer zu sein", „in welcher Form könntest du es heute machen", „lass uns einen ersten Schritt finden, der dir genügt".' },
+          { titel: 'Anpassungs-Optionen für perfektionistische Lähmung', begruendung: 'Konkrete schulische Alternativen, die die Lähmung umgehen: mündliche statt schriftliche Abgabe, Teil-Abgabe mit Fortsetzung, Skizzen-Format statt Endfassung, Diskussions-Beitrag statt schriftliche Hausaufgabe. Diese Optionen werden nicht als „Erleichterung", sondern als Profil-passende Form präsentiert. Der Klient lernt, dass „gut genug" eine valide Kategorie ist.' },
+          { titel: 'Bei Sinn- und existenziellen Äußerungen philosophisch zuwenden', begruendung: 'Sätze wie „eigentlich ist doch alles sinnlos" oder „wozu das alles" sind bei hochbegabten depressiven Adoleszenten häufig und nicht automatisch suizidal. Die Bezugsperson reagiert ruhig und ernsthaft („interessanter Punkt, lass uns das gleich weiterdenken") — nicht beschwichtigend („nun komm, so schlimm ist es doch nicht") und nicht alarmistisch. Bei suizidaler Konnotation gilt das Routine-Protokoll mit Rückmeldung an die Fachkraft.' },
+          { titel: 'Begabten-Förderung nur in Abstimmung mit der behandelnden Fachkraft', begruendung: 'Förderung kann klinisch wertvoll sein, wenn sie passende Peer-Settings öffnet (Begabten-AGs, fachliche Wettbewerbe, projektbasierte Arbeit). Sie kann destruktiv sein, wenn sie als zusätzliche Anforderungs-Schicht den Perfektionismus weiter füttert. Die Schule trifft die Entscheidung nicht allein. Konkrete Förder-Vorschläge werden mit Fachkraft, Klient und Eltern gemeinsam besprochen.' },
+          { titel: 'Niedrige Schwelle für Suizidalitäts-Rückmeldung an die Fachkraft', begruendung: 'Hochbegabte depressive Jugendliche planen Suizid manchmal analytisch und ruhig, ohne dramatische Verschlechterung. Eine philosophisch formulierte Äußerung über die Sinnlosigkeit des Lebens kann klinisch ein konkreter Suizidalitäts-Hinweis sein und darf nicht mit Banalität verwechselt werden. Bei jedem solchen Hinweis erfolgt kurze schriftliche oder telefonische Rückmeldung an die behandelnde Fachkraft — die Bewertung läuft klinisch, nicht schulisch.' },
+          { titel: 'Peer-Anbindung an passende Communities, nicht erzwungene Klassen-Sozialisation', begruendung: 'Die Diskrepanz zur Klassen-Norm ist real, die Lösung ist nicht „mehr Pausen-Kontakt mit der Klasse". Eine konkrete Vermittlung in Begabten-AGs, fachliche Wettbewerbe, jugendliche Spezial-Interessen-Communities (z. B. Maison-des-Jeunes-Spezial-Angebote, Programmier-Clubs, Philosophie-AGs) öffnet Settings, in denen der Klient Anschluss findet. Persönliche Begleitung beim Erst-Besuch durch die Bezugsperson erhöht die Chance der Aufnahme erheblich.' },
+          { titel: 'Bei 2e-Konstellation: Nachteilsausgleich für die Teilleistungs-Achse', begruendung: 'Bei hochbegabten Klienten mit Teilleistungs-Störung (Dyslexie, Dyskalkulie, Dysgrafie, DCD) muss der Nachteilsausgleich für die Teilleistungs-Achse parallel etabliert werden, sonst widerspricht das schulische Bild der affirmativen Begabungs-Erzählung täglich. Konkrete Maßnahmen: Laptop, Sprach-Eingabe, mündliche Prüfungs-Optionen, Taschenrechner — je nach Befund. Die Logik wird dem Klienten und dem Lehrer-Team erklärt, sonst wirkt der Nachteilsausgleich wie Sonderbehandlung statt strukturelle Korrektur.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine „Sie hätten doch das Potenzial"-Sprache', begruendung: 'Klinisch destruktivste schulische Aussage bei diesem Profil. Verstärkt Lähmung und Selbstanklage. Aus dem Lehrer-Vokabular streichen.' },
+          { titel: 'Keine pädagogische Herablassung oder Vereinfachungs-Sprache', begruendung: 'Der Klient erkennt sie sofort und blockiert. Die Beziehung zur Bezugsperson ist dann beschädigt, oft nicht reparabel.' },
+          { titel: 'Keine erzwungene Klassen-Sozialisation als Lösung', begruendung: 'Die kognitive Distanz zur Klasse ist real. Erzwungene Pausen-Aktivitäten oder Gruppen-Arbeit mit der Klasse können den Außenseiter-Eindruck verstärken statt mildern. Stattdessen passende Peer-Settings öffnen.' },
+          { titel: 'Keine zusätzliche Anforderungs-Schicht ohne Abstimmung', begruendung: 'Begabten-Förderung „obendrauf" füttert den Perfektionismus. Förderung wird in den vorhandenen Aufwand integriert, nicht als zusätzliche Schicht draufgesetzt, und immer in Abstimmung mit der Behandlung.' },
+          { titel: 'Keine Banalisierung existenzieller oder nihilistischer Äußerungen', begruendung: 'Beschwichtigung („so schlimm ist es doch nicht") entwertet die Frage und die Person, und kann eine echte suizidale Krise verschleiern. Ruhige philosophische Zuwendung mit klinischer Wachsamkeit ist die richtige Antwort.' }
+        ],
+        e_rollen: [
+          'Kognitiv anschlussfähige konstante Bezugsperson',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) für die Begabungs-Diagnostik und das Förderungs-Verfahren',
+          'SCAS für die vertiefte therapeutische Begleitung',
+          'KJP für SSRI und Komorbiditäts-Klärung (besonders bei 2e mit Komorbidität)',
+          'Begabungs-Communities (Maison des Jeunes Spezial-Angebote, MENJE-Programme, fachliche Wettbewerbe)',
+          'Eltern als Verbündete der affirmativen Begabungs-Erzählung',
+          'Bei Asperger-Differential: spezialisierte Asperger-Diagnostik'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen in der akuten Phase und während diagnostischer Vertiefung. Bei akuten Sinn-Krisen oder Suizidalitäts-Hinweisen sofortige Rückmeldung. Übergänge (Klassen-Wechsel, Schul-Wechsel, Bildungs-Übergang) proaktiv begleitet.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson etabliert, Lehrer-Team-Aufklärung zur Perfektionismus-Dynamik, Verzicht auf Potenzial-Druck-Sprache verankert.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe eingebunden, Begabungs-Diagnostik abgeschlossen oder verifiziert, Asperger-Differential geklärt, Anpassungs-Optionen für perfektionistische Lähmung im Lehrer-Team kommuniziert.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert, Förder-Entscheidungen in Abstimmung mit Fachkraft, Peer-Anbindung in passende Communities aktiv vermittelt.</li>
+            <li><strong>Stufe 4</strong> — Bei akuter Sinn- oder Suizidalitäts-Krise: enger Draht Schule-Fachkraft, niedrige Schwelle für Rückmeldung philosophisch formulierter suizidaler Hinweise, gegebenenfalls Hospitalisierungs-Vorbereitung.</li>
+            <li><strong>Stufe 5</strong> — Bei akuter Suizidalität oder schwerer Funktions-Einschränkung: stationäre Behandlung mit Schul-Anbindung. Wieder-Einstieg in passendes Setting therapeutisch begleitet, gegebenenfalls Schultyp-Wechsel zu profil-konformer Form (z. B. internationale Schule, Begabten-spezifische Strukturen, projektbasierte Lern-Formate).</li>
+          </ol>
+          <p>Schul-Übergänge in Hochbegabten-Programme, Stipendien-Wettbewerbe oder Auslands-Aufenthalte werden gemeinsam mit der Fachkraft auf ihre klinische Trag-fähigkeit hin geprüft — sie können wertvoll sein, können aber auch perfektionistische Lähmung weiter füttern, je nach Verlauf.</p>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet (oft analytisch ruhig formuliert). Akute Sinn- oder existenzielle Krise. Vertiefte perfektionistische Lähmung mit kompletter Aufgaben-Vermeidung. Substanzkonsum nimmt zu (oft kognitiv begründet als „Bewusstseins-Erweiterung"). Schul-Vermeidung beginnt.</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei mittel-schwerer Symptomatik. Konkrete Suizidalität (Schwelle bei diesem Profil niedriger). Differentialdiagnose zu Asperger oder Borderline-Strukturen. Schwere Komorbidität (Essstörung, Substanzkonsum).</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen (bei diesem Profil oft analytisch geplant — Schwelle zur Hospitalisierung niedriger). Massive depressive Dekompensation. Schwere existenzielle Krise mit Realitäts-Distanzierung (Differential zur Psychose prüfen). Substanzkonsum-Eskalation.</p>`
+      }
+    }
+  },
   /* M6 — Depression mit akuter Suizidalität (Krisen-Profil). */
   { id: 'depression-suizidal',      name: 'Depression mit akuter Suizidalität',              bloecke: emptyDepressionBloecke() },
   /* M7 — Atypische / saisonale Depression. */
