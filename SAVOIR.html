@@ -10663,11 +10663,382 @@ function emptyDepressionBloecke() {
 }
 const PLAN_MUSTER_DEPRESSION = [
   /* M1 — Somatisierende Depression. Inhalt folgt in Folge-Prompt. */
-  { id: 'depression-somatisierend', name: 'Somatisierende Depression',                       bloecke: emptyDepressionBloecke() },
+  {
+    id: 'depression-somatisierend',
+    name: 'Somatisierende Depression',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit chronischen körperlichen Beschwerden — Müdigkeit, Schlafstörung, Kopf- oder Bauchschmerzen, Appetit- oder Gewichts-Veränderung, gelegentlich diffuse Glieder-Schmerzen. Vom Klienten selbst nicht als „traurig" beschrieben; er sagt „mir geht's einfach nicht gut, ich weiß nicht warum". Die affektive Komponente ist im klinischen Bild oft erst auf gezielte Nachfrage zugänglich, weil sie hinter der somatischen Schicht steht. Häufig lange medizinische Vorgeschichte mit Hausarzt-Wechseln, unauffälligen Befunden und der Erfahrung, nicht ernst genommen worden zu sein.</p>`,
+        klinischWichtig: `<p>Bei somatisierender Depression spricht der Körper, was die Sprache nicht kann. Das ist nicht Simulieren und nicht „nur psychisch" — die Beschwerden sind körperlich erlebt und real, die depressive Dysregulation manifestiert sich über das autonome Nervensystem, die Schlaf-Wach-Regulation, die HPA-Achse und das viszerale Nervensystem. Klinisch entscheidend: die affektive Komponente muss aktiv erfragt werden, sie kommt nicht spontan. Eine Frage wie „bist du traurig?" liefert oft „nein", eine Frage wie „wann hattest du das letzte Mal Spaß an etwas?" liefert die diagnostisch entscheidende Antwort.</p>
+          <p>Häufiges Muster bei Jugendlichen, besonders bei Jungen und in Kulturen, in denen emotionaler Ausdruck nicht eingeübt ist. Auch bei perfektionistischen Mädchen mit hohem Leistungs-Selbstanspruch, die „funktionieren müssen" und sich keine affektive Klage erlauben. Die Diagnose wird oft jahrelang verpasst, weil der Klient nicht als depressiv erscheint und die Eltern wie die Schule die somatische Spur verfolgen. Multiple unauffällige Untersuchungen sind klassischer Verlauf, jede Wiederholung bestätigt dem Klienten „mit mir stimmt etwas, was niemand findet" und verstärkt die hypochondrische Begleit-Färbung.</p>
+          <p>Die Behandlung läuft über die affektive Achse, mit konsequenter Anerkennung der körperlichen Beschwerden. Bestreiten der Beschwerden („das ist alles nur in deinem Kopf") zerstört die Allianz und ist klinisch falsch. Anerkennen — und gleichzeitig die depressive Achse öffnen, mit Psychoedukation zur Körper-Stimmungs-Verbindung: das ist der Zugang. Bei mittel- bis schwergradiger Symptomatik ist Verhaltens-Aktivierung als erster Schritt oft wirksamer als kognitive Umstrukturierung, weil der Klient verbal wenig Affekt-Material liefert.</p>`,
+        vergleich: `<p><strong>Vs. M2 (irritable Depression):</strong> Bei M1 dominiert der somatische Rückzug nach innen, bei M2 die Reizbarkeit nach außen. Bei Jungen kann derselbe depressive Kern entweder somatisch oder irritabel kanalisiert sein — die Manifestation entscheidet die Achse.</p>
+          <p><strong>Vs. A07.M7 (Trauma mit somatischer Manifestation):</strong> Bei M7-Trauma liegt eine Trauma-Anamnese vor und das autonome Nervensystem ist durch Trauma-Aktivierung hochgefahren; bei M1-Depression fehlt diese Trauma-Schicht, der Kern ist depressive Dysregulation. Häufige Komorbidität — Trauma-Hintergrund prüfen.</p>
+          <p><strong>Vs. A05.M7 (Krankheitsangst):</strong> Bei Krankheitsangst steht die Sorge um die Bedeutung der Beschwerden im Vordergrund, bei somatisierender Depression die Beschwerden selbst. Komorbid möglich.</p>
+          <p><strong>Vs. R03 (Risikofilter somatoform):</strong> Hohe Überlappung. R03 markiert den Querschnitt, M1 die zugrundeliegende affektive Achse.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität bei lang verpasster Diagnose und kumulierter Hoffnungslosigkeit',
+          'Iatrogene Schädigung durch übermäßige medizinische Diagnostik und Schmerzmittel-Konsum',
+          'Akute schwere depressive Episode hinter der somatischen Fassade'
+        ],
+        hoch: [
+          'Schul-Vermeidung mit somatischer Begründung, schleichend zunehmend',
+          'Sekundäre Krankheitsangst und hypochondrische Strukturen',
+          'Substanzkonsum (Schmerzmittel, Cannabis als Selbstmedikation)',
+          'Sozialer Rückzug mit Aktivitäts-Verlust',
+          'Chronifizierung über Jahre ohne psychiatrische Anbindung'
+        ],
+        mittel: [
+          'Identitäts-Festigung als „chronisch krank"',
+          'Familien-Strukturen, die sich um die Krankheit organisieren',
+          'Berufliche Einschränkung durch Müdigkeit und Konzentrations-Probleme',
+          'Beziehungs-Schwierigkeiten durch reduzierten Antrieb und Affekt-Verflachung'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Integrierte Behandlung mit Anerkennung der somatischen Beschwerden und gleichzeitiger Öffnung der affektiven Achse. Verhaltens-Aktivierung (Behavioral Activation, Lewinsohn / Martell) als erster psychotherapeutischer Schritt, kognitive Arbeit folgt nach Aktivitäts-Wiederaufbau. Schlafhygiene-Strukturierung. Körperliche Re-Aktivierung als zentraler Wirkfaktor. Bei mittel- bis schwergradiger Symptomatik SSRI (Fluoxetin als Erstlinie nach TADS) zu erwägen, mit KJP-Anbindung. Hausarzt als koordinierender somatischer Ansprechpartner — nicht parallele Diagnostik.</p>`,
+        begruendung: `<p>Der Zugang muss über den Körper laufen, weil dort die Beschwerden erlebt werden — ein rein verbaler Zugang erreicht diese Klienten oft nicht. Bestreiten der Beschwerden zerstört die Allianz; Anerkennen plus Öffnung der affektiven Achse ist der einzige tragfähige Weg. Verhaltens-Aktivierung wirkt bei Jugendlichen mit reduziertem affektivem Sprach-Material oft schneller als kognitive Umstrukturierung.</p>`,
+        diagnostik: [
+          'Vollständige somatische Abklärung muss abgeschlossen sein (Hausarzt-Bericht eingeholt)',
+          'BDI-A (Beck Depression Inventory for Adolescents) — sensitivste Skala für maskierte Depression',
+          'PHQ-A für die schnelle Verlaufs-Messung',
+          'K-SADS-PL für die strukturierte Komorbiditäts-Klärung',
+          'Schlaf-Tagebuch über zwei Wochen',
+          'Strukturierte Anamnese der affektiven Achse mit indirekten Fragen („wann hattest du das letzte Mal Spaß", „was würdest du machen, wenn du Energie hättest")',
+          'C-SSRS (Columbia Suicide Severity Rating Scale) als Routine-Bestandteil'
+        ],
+        wasDuTust: [
+          '„Deine Beschwerden sind real. Niemand muss dir das beweisen. Und sie haben eine Ursache, die wir behandeln können."',
+          '„Manchmal trägt der Körper, was die Seele noch nicht sagen kann. Wir lernen, beide miteinander sprechen zu lassen."',
+          '„Du musst nicht erst traurig sein, um Depression zu haben. Müdigkeit, die nicht besser wird, Schmerzen ohne Befund, Schlaf, der nicht erholt — das ist ein Bild, nicht eine Marotte."',
+          '„Wir fangen nicht mit Reden an. Wir fangen damit an, dass du wieder Sachen machst, die früher Spaß gemacht haben. Auch wenn du keine Lust hast. Gerade dann."',
+          '„Schlafhygiene klingt klein und ist groß. Wir richten den Schlaf wieder ein, das schafft die halbe Behandlung."',
+          '„Wenn wir Medikamente besprechen, dann nicht weil du verrückt bist. Sondern weil dein Körper gerade nicht das herstellt, was er braucht. Das kann man unterstützen."'
+        ],
+        wasDuNichtTust: [
+          'Nicht die Beschwerden als „nur psychisch" abtun — zerstört die Allianz und ist klinisch falsch',
+          'Nicht wiederholte somatische Diagnostik, wenn abgeschlossen — iatrogene Verstärkung der Krankheits-Identität',
+          'Nicht reine kognitive Umstrukturierung als Erstlinie — der Klient liefert wenig kognitives Affekt-Material',
+          'Nicht den Klienten ausschließlich verbal abfragen — Schlaf-, Aktivitäts- und Symptom-Tagebücher liefern das eigentliche Material',
+          'Nicht voreilig nach „dem Trauma" fragen — Trauma kann komorbid sein, aber die Frage als Erstkontakt aktiviert Abwehr'
+        ],
+        frequenz: `<p>Wöchentlich für die ersten zwölf bis sechzehn Wochen. Bei SSRI-Behandlung enger getaktet in den ersten vier Wochen (Aktivierungs- und Suizidalitäts-Monitoring). Danach alle zwei bis drei Wochen bis zur Konsolidierung. Hausarzt-Kontakt zur Koordination im Quartal.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik abschließen, Hausarzt-Bericht einholen, somatische Abklärung als beendet markieren. Psychoedukation zur Körper-Stimmungs-Verbindung. Schlaf-Strukturierung. Aktivitäts- und Symptom-Tagebuch beginnen. Bei mittel- bis schwergradiger Symptomatik: SSRI-Entscheidung gemeinsam mit KJP und Familie. Suizidalitäts-Einschätzung als Routine. Wochen 1–6.`,
+        phase2: `Verhaltens-Aktivierung als Hauptmethode: kleine, planbare Aktivitäten, die früher Freude oder Bewältigungs-Gefühl gemacht haben. Aktivitäts-Pegel schrittweise hochfahren. Soziale Re-Aktivierung. Körperliche Bewegung etablieren. Kognitive Arbeit beginnt, wenn affektives Material verfügbar wird. Wochen 6–16.`,
+        phase3: `Konsolidierung der Aktivitäts- und Stimmungs-Verbesserung. Kognitive Umstrukturierung der negativen Selbst-Überzeugungen, die nun zugänglich sind. Bearbeitung des Versagens-Narrativs der medizinischen Vorgeschichte („mit mir stimmt nichts"). Rückfall-Prophylaxe mit Frühwarn-Plan. Monate 4–9.`,
+        phase4: `Erhaltungstherapie und Frequenz-Reduktion. Bei SSRI: Erhaltungsdauer mindestens sechs bis neun Monate nach Remission. Plan für künftige Episoden. Ab Monat 9.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht den Klienten, der häufig fehlt, oft im Krankenzimmer ist, müde im Unterricht sitzt und Leistung nicht halten kann. Die klassische Schul-Reaktion bewegt sich zwischen zwei Polen — entweder volle Akzeptanz der Krankheits-Linie mit kumulierten Befreiungen (Sport, Klassenarbeiten, Klassenfahrten), oder Zweifel und der Vorwurf, der Klient stelle sich an. Beide verfehlen die klinische Realität: die Beschwerden sind real, die Ursache ist depressiv, und der Weg führt über Aktivierung — nicht über Schonung.</p>
+          <p>Ein häufiges schleichendes Muster ist die kumulative Eskalation der Befreiungen. Es beginnt mit einer Sport-Befreiung wegen wiederholter Kopfschmerzen. Dann kommt eine Klassenarbeit im ruhigen Raum, dann die Verkürzung des Schultags morgens wegen Schlafstörung, dann die häufigen Krankenzimmer-Aufenthalte, dann die Klassenfahrts-Absage. Jeder einzelne Schritt ist für sich plausibel — die Summe ergibt eine Schul-Anwesenheit von vierzig Prozent und eine massive Dekonditionierung. Die Schule und die Eltern bemerken die Kumulation oft erst, wenn der Wieder-Einstieg unmöglich geworden ist. Eine Anpassungs-Liste mit Enddatum und periodischer Überprüfung verhindert dieses Auseinanderlaufen.</p>
+          <p>Was die Schule braucht, ist Aufklärung über die Körper-Stimmungs-Verbindung — kein medizinischer Vortrag, sondern die kurze und klare Information, dass die Beschwerden real und behandelt werden, dass Aktivierung und nicht Schonung das Behandlungs-Ziel ist und dass die Schule der wichtigste Außen-Anker im Aktivierungs-Plan ist. Jeder Schultag, an dem der Klient kommt und sich bewegt, ist klinisch wertvoll, auch wenn er nicht voll mitmachen kann. Schule ist hier nicht Ort der Diagnostik — die ist abgeschlossen — sondern Ort der Aktivität.</p>
+          <p>Ein zweiter Punkt ist die Anti-Stigmatisierung. Der Klient hat oft die Erfahrung gemacht, nicht ernst genommen zu werden, und reagiert empfindlich auf jeden Hinweis von Mitschülern oder Lehrkräften, dass seine Beschwerden „eingebildet" seien. Eine ruhige, nicht-dramatisierende, aber konsequent ernstnehmende Haltung der Bezugsperson ist klinisch zentral. Sie modelliert auch die Haltung, die der Klient gegenüber seinem eigenen Körper lernen soll: ernst nehmen, aber nicht katastrophisieren.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer depressiven Störung, die sich primär körperlich äußert. Die somatische Abklärung ist abgeschlossen — die Beschwerden sind real und körperlich erlebt, ihre Ursache ist jedoch depressiver Natur und wird entsprechend behandelt.</p>
+          <p>Klinisch wichtig: das Behandlungs-Ziel ist nicht Schonung, sondern graduierte Aktivierung. Pauschale Befreiungen verschlechtern den Verlauf durch Dekonditionierung. Was [Name] schulisch braucht, ist die Aufrechterhaltung der Anwesenheit mit Anpassungen bei akuten Beschwerden, ein Aktivierungs-Plan, der schrittweise hochgefahren wird, und keine Zweifel an der Echtheit der Symptomatik.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte konstante Bezugsperson, die mit dem Klienten und mir kurze regelmäßige Rückmeldungen abstimmt; zweitens, eine schriftliche Anpassungs-Liste mit Enddatum und Überprüfungs-Zyklus alle sechs bis acht Wochen, damit Einzel-Anpassungen nicht kumulieren; drittens, einen Notfall-Plan bei akuten Beschwerden im Unterricht mit Rückzugs-Raum und Rückkehr-Protokoll statt direkter Heimfahrt; viertens, eine graduierte Sport-Teilnahme statt vollständiger Befreiung.</p>
+          <p>Bei längerer Abwesenheit melde ich mich proaktiv, damit die Wieder-Eingliederung gemeinsam geplant werden kann. Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen abstimmen und den Aktivierungs-Plan gemeinsam tragen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sichere konstante Bezugsperson mit Coping-Sprache, nicht Mitleids-Sprache', begruendung: 'Klassenlehrer oder Vertrauenslehrer. Die Bezugsperson arbeitet mit der Haltung „ich nehme deine Beschwerden ernst, und wir gehen jetzt den vereinbarten Schritt" — nicht mit „du Armes, geh nach Hause". Mitleid fixiert die Krankheits-Identität, Coping-Sprache modelliert die Haltung, die der Klient gegenüber sich selbst lernen soll. Die Bezugsperson braucht einmal eine kurze Einweisung in den Unterschied; ohne diese Einweisung kippt sie reflexhaft in die Mitleids-Schiene.' },
+          { titel: 'Anpassungs-Liste mit Enddatum und Sechs-Wochen-Überprüfung', begruendung: 'Ohne festen Überprüfungs-Termin häufen sich Einzel-Anpassungen, bis die Anwesenheits-Quote vierzig Prozent erreicht. Eine schriftliche Liste mit Anpassung, Begründung, Beginn und geplantem Enddatum — gemeinsam überprüft alle sechs bis acht Wochen — hält die Aktivierungs-Linie sichtbar und korrigierbar. Diese Bürokratie ist hier klinisch wirksam und nicht Selbstzweck. Die Liste liegt in Kopie bei Klient, Eltern, Bezugsperson und Fachkraft.' },
+          { titel: 'Aufrechterhaltung der Schul-Anwesenheit mit Anpassungen statt Befreiung', begruendung: 'Anwesenheit ist der entscheidende Faktor. Pauschale Befreiungen produzieren Dekonditionierung — körperlich, sozial und schulisch. Anpassungen bei akuten Beschwerden (kurzer Rückzug, ruhigerer Raum bei Klassenarbeiten, Sitzplatz nahe Ausgang) ermöglichen Teilnahme, ohne zu überfordern. Der Klient soll lernen, dass Anwesenheit auch dann möglich ist, wenn der Körper Beschwerden meldet — diese Lern-Erfahrung ist therapeutisch zentral.' },
+          { titel: 'Graduierte Sport-Teilnahme statt vollständige Sport-Befreiung', begruendung: 'Sport-Dauer-Befreiung verstärkt die Krankheits-Identität und die Dekonditionierung; körperliche Aktivität ist klinisch ein eigenständiger antidepressiver Wirkfaktor. Eine abgestufte Teilnahme — leichtere Übungen, kürzere Einheiten, Wahl der Bewegungsform, Beobachter-Rolle bei aktuter Symptomatik — hält den Klienten in Bewegung. Mit dem Verlauf der Behandlung wird die Beteiligung wieder hochgefahren. Der Sport-Lehrer braucht hier explizite Information zur Logik, sonst kippt er in die vollständige Befreiung.' },
+          { titel: 'Notfall-Plan bei akuten Beschwerden mit Rückzugs-Raum und Rückkehr-Protokoll', begruendung: 'Bei akuten Kopfschmerzen, Übelkeit oder Erschöpfung: kurze Pause am Sitzplatz oder in einem ruhigeren Raum, zehn bis fünfzehn Minuten Stabilisierung, Rückkehr in den Unterricht. Diese Mikro-Anpassung verhindert die Eskalation in die Heimfahrt und hält den klinisch zentralen Aktivitäts-Pegel. Die Lehrkraft kennt das Protokoll und weiß, dass die Rückkehr Teil der Vereinbarung ist, nicht Verhandlungssache zwischen Klient und Krankenzimmer.' },
+          { titel: 'Krankenzimmer-Besuche mit Limit-Vereinbarung', begruendung: 'Ohne Limit kann das Krankenzimmer zum Vermeidungs-Anker werden, in dem der Klient zunehmend mehr Schultag verbringt. Eine vereinbarte Häufigkeit oder Dauer mit Rückkehr-Protokoll erhält die Funktion als kurze Stabilisierung und verhindert die Verfestigung als Vermeidungs-Muster. Die Limit-Logik wird mit dem Klienten besprochen, nicht über ihn entschieden — das ist Teil der Aktivierungs-Allianz und reduziert die Beschämungs-Komponente.' },
+          { titel: 'Schlaf-Sensible Unterrichts-Anpassungen morgens', begruendung: 'Schlafstörung ist Kern-Symptom; morgendliche Erschöpfung ist nicht Willens-Mangel. Eine kurze morgendliche Eingangsphase (fünf Minuten Aufkommen, später Wechsel zwischen Phasen, keine Klassenarbeiten in der ersten Stunde während akuter Phase) ist klinisch sinnvoll. Diese Anpassung wird mit dem Wiederaufbau der Schlafhygiene zurückgenommen — sie ist Brücke, kein Dauerzustand. Parallel wird die Schlaf-Routine zu Hause therapeutisch strukturiert, sonst läuft die schulische Anpassung gegen die häusliche Schlaflosigkeit leer.' },
+          { titel: 'Keine Zweifel-Äußerungen an der Echtheit der Beschwerden', begruendung: 'Sätze wie „stell dich nicht so an", „andere haben auch Schmerzen" oder „das ist doch nur im Kopf" zerstören das Vertrauen und reproduzieren die Erfahrung der medizinischen Vorgeschichte. Die Linie ist: ernst nehmen und gleichzeitig zur Aktivität anhalten. Wer Zweifel hat, wendet sich an die behandelnde Fachkraft, nicht an den Klienten. Diese Differenzierung muss im Kollegium kommuniziert sein, sonst läuft sie über das Pausen-Gespräch unter.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine vollständige Schonung oder Dauer-Befreiung von Sport, Klassenarbeiten oder Klassenfahrten', begruendung: 'Dekonditionierung. Jede Woche vollständiger Schonung verlängert den Weg zurück in die Aktivität. Klassenfahrts-Absagen sind besonders kritisch, weil sie strukturierte Aktivierungs-Gelegenheiten verschenken, die der Klient sonst nicht hat. Anpassungen ja, Total-Schonung nein.' },
+          { titel: 'Keine wiederholte medizinische Abklärung über die Schule', begruendung: 'Die somatische Abklärung ist abgeschlossen. Wenn die Schule wiederholt drängt, doch noch einmal zum Arzt zu gehen, verstärkt das die Krankheits-Identität iatrogen und untergräbt den Behandlungs-Plan. Bei akuten neuen Symptomen erfolgt die Rücksprache mit der behandelnden Fachkraft.' },
+          { titel: 'Keine Zweifel oder Simulations-Vorwürfe', begruendung: 'Die Beschwerden sind real. Vorwürfe verschärfen die Symptomatik und reaktivieren die Erfahrung der Nicht-Anerkennung. Wer Zweifel hat, wendet sich an die behandelnde Fachkraft. Eine einzelne Vorwurfs-Bemerkung einer Lehrkraft kann eine wöchentliche Therapie-Sitzung kosten.' },
+          { titel: 'Keine Heimfahrt als Standard-Reaktion bei akuten Beschwerden', begruendung: 'Heimfahrt-Konditionierung: Beschwerde → Krankenzimmer → Eltern → Heim. Das Gehirn lernt, dass Beschwerden die Schule beenden, und produziert sie häufiger. Stattdessen Notfall-Plan mit Rückzugs-Raum und Rückkehr-Protokoll, Heimfahrt nur bei echter medizinischer Notwendigkeit. Wenn das Sekretariat die Eltern bei jedem Krankenzimmer-Besuch ruft, läuft die Vereinbarung unter; die Anruf-Regel muss explizit verändert werden.' },
+          { titel: 'Keine „du musst dich nur mehr anstrengen"-Sprache', begruendung: 'Anstrengungs-Appelle bei depressiver Antriebslosigkeit produzieren Scham und Versagens-Verstärkung, nicht Aktivierung. Der Klient strengt sich aus seiner Innensicht maximal an und kommt trotzdem nicht in Bewegung; Appelle bestätigen ihm sein eigenes Bild „mit mir stimmt etwas". Die Sprache der Bezugsperson trägt die Aktivierung — kleine konkrete Schritte mit konkreter Begleitung, nicht moralische Erwartungs-Erhöhung.' }
+        ],
+        e_rollen: [
+          'Klassenlehrer oder Vertrauenslehrer als konstante Bezugsperson mit Coping-Sprache',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) für die Verankerung im Schul-System',
+          'SCAS für die vertiefte therapeutische Begleitung',
+          'KJP für die SSRI-Entscheidung und schwere Verläufe',
+          'Hausarzt als koordinierender somatischer Ansprechpartner',
+          'Eltern als Verbündete der Aktivierungs-Linie — ohne ihre Mitarbeit kippt der Plan abends zu Hause'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen in der akuten Phase, danach alle zwei bis drei Monate. Die Anpassungs-Liste wird bei jedem Termin durchgegangen, nicht erst, wenn Eltern oder Schule sich melden. Bei längerer Abwesenheit (mehr als fünf Tage am Stück) proaktive Kontakt-Aufnahme mit Wieder-Einstiegs-Plan.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Klassenlehrer-Gespräch mit Aufklärung zur Körper-Stimmungs-Verbindung, Coping-Sprache verankert, Notfall-Plan schriftlich vereinbart.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe, Eltern und Hausarzt koordiniert; gemeinsame Linie zur Aktivierung, gemeinsame Anpassungs-Liste mit Enddatum, Sechs-Wochen-Überprüfungs-Zyklus etabliert.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert mit konkretem Aktivierungs-Plan, der in Sechs-Wochen-Schritten hochgefahren und überprüft wird. Bei Stagnation: Linie nicht aufweichen, sondern Therapie-Frequenz erhöhen.</li>
+            <li><strong>Stufe 4</strong> — Bei Chronifizierung oder beginnender Schul-Vermeidung über mehrere Wochen: erweiterte Behandlung, SSRI-Frage prüfen, KJP-Mit-Behandlung intensivieren, gegebenenfalls teilstationäre Anbindung.</li>
+            <li><strong>Stufe 5</strong> — Bei schwerer Funktions-Einschränkung mit Schul-Aussetzung: stationäre Behandlung mit Schul-Anbindung, damit Lern- und Beziehungs-Kontinuität nicht abreißen. Der Wieder-Einstieg wird therapeutisch vorbereitet, nicht improvisiert; eine Teil-Anwesenheit über Wochen ist klinisch wertvoller als ein Voll-Wiedereinstieg, der nach drei Tagen kollabiert.</li>
+          </ol>
+          <p>Zusätzlich zur regulären Frequenz wird die Eltern-Achse mitgepflegt — eine kurze schriftliche Quartals-Rückmeldung an die Eltern über die Aktivierungs-Linie verhindert, dass abends zu Hause die Schonungs-Erzählung wieder einrückt, gegen die der Plan tagsüber arbeitet.</p>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet. Schul-Vermeidung beginnt oder eskaliert. Schmerzmittel-Konsum nimmt zu. Vertiefende sekundäre Depression mit Hoffnungslosigkeit. Sozialer Rückzug akzentuiert sich. Schlafstörung verschlechtert sich trotz Schlafhygiene.</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei mittel- bis schwerer Symptomatik. Schwere komorbide Krankheitsangst. Konkrete Suizidalität. Therapie-Resistenz bei strukturiertem Verlauf über drei Monate.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Funktions-Einschränkung mit Schul-Aussetzung und Verwahrlosung. Schmerzmittel-Abhängigkeit mit Eskalations-Tendenz. Bei kumulierter medizinischer Karriere mit iatrogener Schädigung: stationäre psychosomatische Behandlung zur Linien-Korrektur.</p>`
+      }
+    }
+  },
   /* M2 — Irritable / externalisierende Depression. */
-  { id: 'depression-irritable',     name: 'Irritable / externalisierende Depression',        bloecke: emptyDepressionBloecke() },
+  {
+    id: 'depression-irritable',
+    name: 'Irritable / externalisierende Depression',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher, oft männlich, der primär als reizbar, wütend, oppositionell, manchmal aggressiv erscheint. Niedrige Frust-Schwelle, schnelle Eskalation bei alltäglichen Reibungen, häufige Konflikte mit Eltern, Geschwistern, Lehrkräften, Peers. Was bei klassischer Depression als Traurigkeit oder Antriebslosigkeit auftritt, läuft hier nach außen — als kurze, heftige Wut-Ausbrüche, dauerhafte Gereiztheit, ein „dünnhäutiger" Zustand. Affektive Klage fehlt meist; der Klient beschreibt sich nicht als depressiv, sondern als „einfach so" oder „weil alle nerven".</p>`,
+        klinischWichtig: `<p>DSM-5 nennt für Kinder und Jugendliche explizit Reizbarkeit als möglichen Kern-Affekt der depressiven Episode statt der gedrückten Stimmung — eine entscheidende Differenzierung, die in der Praxis dauernd verpasst wird. Bei Jungen besonders, weil die Sozialisation den affektiven Ausdruck nach innen blockiert und nur Wut als zugelassene Affekt-Kategorie übrig lässt: jede Trauer, jede Ohnmacht, jede Hoffnungslosigkeit übersetzt sich in Reizbarkeit. Der zugrundeliegende affektive Kern ist derselbe wie bei klassischer Depression — Anhedonie, Wertlosigkeit, Hoffnungslosigkeit, Schlafstörung, Konzentrationsausfall — er wird nur nicht so gezeigt.</p>
+          <p>Die häufigste und folgenreichste Fehldiagnose ist die Verhaltensstörung (ODD, CD). Schule und Familie sehen das Verhalten, nicht den Affekt, und gehen disziplinarisch oder verhaltenstherapeutisch vor. Eine reine Verhaltens-Intervention ohne Adressierung der depressiven Achse greift zu kurz und kann das Bild sogar verschlechtern, weil sie dem Klienten das Bild „ich bin böse" liefert, das die internalisierte Wertlosigkeit nährt. Die Differenzierung läuft über das gezielt erfragte Affekt-Material: Schlaf, Anhedonie, suizidale Gedanken, Selbst-Wertlosigkeit — alles Symptome, die hinter der Reizbarkeit oft komplett vorhanden sind, aber spontan nicht berichtet werden.</p>
+          <p>Zweite häufige Fehldiagnose ist die bipolare Spektrum-Störung — Eltern und Lehrer beschreiben den Klienten als „launisch", „explosiv", „nicht vorhersehbar", was den Verdacht auf Manie weckt. Differenzialdiagnostisch entscheidend: bipolare Episoden haben einen klaren zeitlichen Verlauf mit gehobener Stimmung, gesteigerter Energie, reduziertem Schlafbedürfnis; irritable Depression ist ein durchgehender Zustand ohne Stimmungs-Aufhellung. Bei tatsächlicher Manie würde der Klient morgens nicht erschöpft sein, sondern energetisiert.</p>
+          <p>Suizidalitäts-Einschätzung ist bei M2 nicht optional. Jugendliche mit irritable Depression haben ein erhöhtes Suizidalitäts-Risiko, weil die depressive Achse versteckt ist und Impulsivität dazukommt. Routine-Screening ist Pflicht, auch wenn der Klient spontan nichts berichtet.</p>`,
+        vergleich: `<p><strong>Vs. A10 (Verhaltensstörungen ODD/CD):</strong> Die zentrale Differentialdiagnose. Bei M2 liegt die depressive Achse zugrunde — Schlaf, Anhedonie, Selbst-Wertlosigkeit sind vorhanden, müssen aktiv erfragt werden. Bei ODD/CD ohne depressive Achse ist die Verhaltens-Intervention primär. Mischbilder häufig.</p>
+          <p><strong>Vs. A04 (Bipolare Spektrum-Störung):</strong> Bei M2 durchgehende Reizbarkeit ohne gehobene Stimmungs-Phasen; bei Bipolar Episoden mit reduziertem Schlafbedürfnis und gesteigerter Energie.</p>
+          <p><strong>Vs. M1 (somatisierende Depression):</strong> Derselbe depressive Kern, unterschiedliche Manifestation — M1 nach innen körperlich, M2 nach außen aggressiv. Geschlecht und Sozialisation prägen die Manifestation, nicht den Kern.</p>
+          <p><strong>Vs. A07.M4 (häusliche Gewalt als Zeuge):</strong> Bei männlichen Trauma-Zeugen häufig reizbare Externalisierung. Trauma-Anamnese aktiv erfragen — Mischbild zu adressieren.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität deutlich erhöht durch Kombination versteckter Depression mit Impulsivität',
+          'Akute Fremdgefährdung bei Eskalations-Ausbrüchen',
+          'Schwere Selbstverletzung als Wut-Regulations-Versuch'
+        ],
+        hoch: [
+          'Fehldiagnose als reine Verhaltensstörung mit disziplinarischer Eskalation',
+          'Substanzkonsum (Cannabis, Alkohol) als Selbstmedikation der Reizbarkeit',
+          'Disziplinar-Eskalation in der Schule mit Verweisen, Klassenwechseln, Schul-Verlust',
+          'Sekundäre Verhaltens-Verfestigung mit „bösen-Schüler"-Identität',
+          'Familien-Konflikt-Eskalation bis zum Beziehungs-Abbruch'
+        ],
+        mittel: [
+          'Verfestigung der externalisierenden Affekt-Regulation in das Erwachsenenalter',
+          'Beziehungs-Schwierigkeiten durch impulsive Reaktivität',
+          'Beruflicher Einschnitt durch Konflikte mit Autoritäten',
+          'Transgenerationale Weitergabe bei Eltern-ADHS oder Eltern-Depression'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Trauma-sensible CBT für Adoleszente mit Schwerpunkt auf Affekt-Identifikation, Impuls-Regulation und kognitiver Umstrukturierung der depressiven Kern-Überzeugungen. Dialektisch-behaviorale Skills (DBT-A-Elemente) zur akuten Affekt-Regulation, ohne die depressive Achse zu verlieren. Eltern-Komponente zentral — die Familie muss die irritable Depression als Depression verstehen lernen, nicht als Charakter. Bei mittel- bis schwergradiger Symptomatik SSRI (Fluoxetin) zu erwägen, gemeinsam mit KJP. Routine-Suizidalitäts-Screening.</p>`,
+        begruendung: `<p>Die Affekt-Identifikations-Arbeit ist hier wichtiger als bei klassischer Depression, weil der Klient verbal wenig Affekt-Material liefert und die ganze affektive Palette als „Wut" gelabelt ankommt. Die kognitive Umstrukturierung adressiert die unter der Wut liegende Wertlosigkeit und Hoffnungslosigkeit. Eltern-Arbeit verhindert die häusliche Eskalations-Spirale, die sonst die Behandlung untergräbt.</p>`,
+        diagnostik: [
+          'BDI-A oder PHQ-A — depressive Achse explizit erfassen',
+          'K-SADS-PL strukturiert für die Komorbiditäts-Klärung mit ODD/CD',
+          'C-SSRS Routine — Suizidalität bei diesem Profil erhöht',
+          'CBCL/TRF für das Verhaltens-Profil (Eltern- und Lehrer-Sicht)',
+          'Strukturierte Trauma-Anamnese — bei männlichen Externalisierern häufig Trauma-Hintergrund',
+          'Schlaf-Tagebuch über zwei Wochen',
+          'Substanz-Screening (CRAFFT)'
+        ],
+        wasDuTust: [
+          '„Du wirkst auf alle wütend. Ich frage dich was anderes: wann hattest du das letzte Mal das Gefühl, dass etwas wirklich gut war?"',
+          '„Wut ist oft das einzige Gefühl, das wir uns erlauben. Darunter liegt meistens mehr. Wir gucken zusammen, was da unten ist."',
+          '„Du bist nicht der böse Schüler. Du hast eine Depression, die sich als Wut zeigt. Das ist ein Unterschied — und der Unterschied ist behandelbar."',
+          '„Wenn du explodierst, ist das nicht Willens-Versagen. Dein System hat in dem Moment keine andere Option. Wir lernen Optionen."',
+          '„Deine Eltern werden lernen, dass du nicht aus Boshaftigkeit so reagierst. Das wird die Atmosphäre zu Hause verändern, auch wenn du nichts machst."',
+          '„Schlaf ist nicht banal. Wenn du schlecht schläfst, ist deine Wut am nächsten Tag nicht deine. Wir richten den Schlaf zuerst ein."'
+        ],
+        wasDuNichtTust: [
+          'Nicht ausschließlich verhaltenstherapeutisch arbeiten — die depressive Achse muss adressiert sein',
+          'Nicht den Klienten als „böse" oder „schwierig" behandeln — bestätigt das negative Selbstbild',
+          'Nicht im Affekt-Hochpunkt kognitiv arbeiten wollen — erst Stabilisierung, dann Reflexion',
+          'Nicht voreilig bipolare Diagnose stellen, nur weil „Stimmungs-Schwankungen" berichtet werden — DSM-Kriterien strukturiert prüfen',
+          'Nicht ohne Eltern-Komponente arbeiten — die häusliche Eskalations-Spirale läuft sonst weiter'
+        ],
+        frequenz: `<p>Wöchentlich für die ersten zwölf bis sechzehn Wochen, mit eingebauter krisennaher Verfügbarkeit. Eltern-Sitzungen alle zwei bis vier Wochen. Bei SSRI engmaschiger in den ersten vier Wochen. Frequenz-Reduktion erst nach klarer Affekt-Regulations-Verbesserung.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik mit expliziter Erfassung der depressiven Achse hinter der Reizbarkeit. Eltern-Psychoedukation („das ist Depression, nicht Charakter"). Krisen-Plan bei Affekt-Eskalation etabliert. Schlaf-Strukturierung. Bei mittel- bis schwerer Symptomatik SSRI-Entscheidung mit KJP und Familie. Suizidalitäts-Routine. Wochen 1–6.`,
+        phase2: `Affekt-Identifikations-Arbeit: hinter der Wut die anderen Affekte zugänglich machen (Trauer, Ohnmacht, Scham, Hoffnungslosigkeit). DBT-A-Skills für akute Eskalations-Momente. Beginn der kognitiven Arbeit an Wertlosigkeits- und Hoffnungslosigkeits-Überzeugungen. Eltern-Coaching für deeskalierende häusliche Reaktion. Wochen 6–16.`,
+        phase3: `Kognitive Umstrukturierung der depressiven Kern-Überzeugungen. Beziehungs-Arbeit (Familie, Peers). Verhaltens-Aktivierung mit Schwerpunkt auf positiv konnotierte Aktivitäten — Sport, kreative Tätigkeiten, peer-soziale Anbindung. Rückfall-Prophylaxe mit Frühwarn-Plan. Monate 4–9.`,
+        phase4: `Konsolidierung. Bei SSRI Erhaltungsdauer mindestens sechs bis neun Monate nach Remission. Frequenz reduziert. Übergangs-Plan für Lebensphasen-Wechsel (Schul-Übergang, Ausbildungs-Beginn). Ab Monat 9.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Die Schule sieht bei M2 den „schwierigen" Schüler — explosive Reaktionen bei kleinen Anlässen, dauernde Reibung mit Lehrkräften, häufige Pausen-Konflikte mit Mitschülern, gelegentlich aggressive Eskalationen. Die klassische Schul-Reaktion ist disziplinarisch: Ermahnung, Strafarbeit, Verweise, Eltern-Brief, im Eskalations-Fall Klassenwechsel-Diskussion oder Schul-Verweis-Drohung. Diese Linie ist intuitiv plausibel und klinisch destruktiv — sie behandelt das Verhalten, nicht den Affekt, und bestätigt dem Klienten das Bild „ich bin der Böse", das die internalisierte depressive Wertlosigkeit nährt und die Eskalations-Spirale weiter dreht.</p>
+          <p>Was die Schule oft nicht sieht: dass hinter der Reizbarkeit eine depressive Erkrankung steht, dass der Klient morgens erschöpft ist, nicht weil er rebelliert, sondern weil er nicht schläft, dass die explosiven Ausbrüche keine Provokation sind, sondern Affekt-Regulations-Lücken, dass das Selbstbild des Klienten in Wirklichkeit ein Selbst-Hass-Bild ist, hinter dem die Wut als einziger zugelassener Affekt steht. Diese klinische Information muss in die Schule transportiert werden — nicht als entschuldigender Schein, sondern als therapeutische Linie, die die Schule mitträgt.</p>
+          <p>Eine zentrale Aufgabe der Schul-Strategie ist die Differenzierung zwischen Verhaltens-Intervention und Affekt-Begleitung. Eine Verhaltens-Intervention sagt „wenn du das tust, passiert jenes". Eine Affekt-Begleitung sagt „du bist gerade getriggert, lass uns kurz raus, danach reden wir". Beide haben ihren Platz, aber bei depressiver Reizbarkeit ist die Affekt-Begleitung im Akut-Moment notwendig, die Verhaltens-Konsequenz folgt später, in ruhigem Rahmen, mit kognitiver Verarbeitung. Wer im Affekt-Hochpunkt Konsequenzen ausspricht, eskaliert die Situation und zerstört die Beziehung zur Bezugsperson, die der wichtigste schulische Wirkfaktor ist.</p>
+          <p>Ein zweiter Punkt ist die Sozialisations-Achse bei Jungen. Männliche Jugendliche mit irritable Depression haben in der Regel keine Sprache für ihre affektive Lage. Die Schule kann hier einen wichtigen Beitrag leisten, wenn die Bezugsperson — idealerweise ein männlicher Lehrer mit Vertrauens-Kapital — die Affekt-Identifikations-Sprache modelliert: „du wirkst gerade nicht wütend, du wirkst erschöpft", „klingt eher nach Frust als nach Ärger". Diese Mikro-Sprachen-Arbeit ergänzt die Therapie und erreicht den Klienten in dem Setting, in dem er die meiste Zeit verbringt.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer depressiven Störung, die sich primär als Reizbarkeit und externalisierendes Verhalten zeigt. Die DSM-5-Diagnostik erlaubt bei Jugendlichen Reizbarkeit als Kern-Affekt der depressiven Episode statt der gedrückten Stimmung; hinter dem nach außen sichtbaren Verhalten liegt eine depressive Erkrankung mit Anhedonie, Schlafstörung und negativem Selbstbild.</p>
+          <p>Klinisch wichtig: das Verhalten ist Ausdruck der Erkrankung, nicht bewusste Provokation. Eine rein disziplinarische Eskalation verschlechtert den Verlauf, weil sie das negative Selbstbild bestätigt und die Eskalations-Spirale weiter treibt. Was [Name] schulisch braucht, ist eine sichere Bezugsperson mit Affekt-Begleitungs-Sprache, einen vereinbarten Deeskalations-Plan bei Affekt-Hochpunkten und die Trennung von Affekt-Begleitung im Akut-Moment und Verhaltens-Konsequenz im ruhigen Rahmen.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte konstante Bezugsperson, möglichst männlich, mit kurzer Einweisung in Affekt-Begleitungs-Sprache; zweitens, einen schriftlich vereinbarten Deeskalations-Plan mit Rückzugs-Raum und Rückkehr-Protokoll statt sofortiger Sanktion; drittens, die Trennung von Akut-Intervention (deeskalierend) und Verhaltens-Konsequenz (später, ruhig, mit Reflexion); viertens, Verzicht auf öffentliche Beschämung und Kollektiv-Sanktionen.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen abstimmen und die Affekt-Begleitungs-Linie konkret durchgehen können.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Sichere konstante Bezugsperson mit Affekt-Begleitungs-Sprache, möglichst männlich', begruendung: 'Männliche Klienten mit irritable Depression profitieren überdurchschnittlich von einer männlichen Bezugsperson, die die affektive Sprache modelliert, die dem Klienten fehlt. Affekt-Begleitungs-Sprache klingt anders als Mitleids- oder Konsequenz-Sprache: „du wirkst gerade erschöpft, lass uns kurz raus", „klingt nach Frust, nicht nach Wut" — sie benennt den darunter liegenden Affekt und gibt dem Klienten Vokabular. Die Bezugsperson braucht eine kurze fachliche Einweisung von der behandelnden Fachkraft, sonst kippt sie reflexhaft in disziplinarische Reaktion.' },
+          { titel: 'Schriftlich vereinbarter Deeskalations-Plan mit Rückzugs-Raum', begruendung: 'Der Plan enthält eine vereinbarte Sequenz für den Affekt-Hochpunkt: nicht im Affekt diskutieren, nicht im Affekt sanktionieren — sondern kurz aus der Situation raus, ruhiger Raum, Stabilisierung, später Besprechung. Schriftlich, damit die Lehrkraft im Akut-Moment nicht improvisieren muss. Der Plan enthält ein unauffälliges Signal, mit dem der Klient den Raum verlassen kann, ohne sich vor der Klasse erklären zu müssen — das verhindert die Beschämungs-Eskalation.' },
+          { titel: 'Trennung von Akut-Intervention (deeskalierend) und Verhaltens-Konsequenz (später, ruhig)', begruendung: 'Im Affekt-Hochpunkt ist Konsequenz-Aussprache klinisch destruktiv — sie erreicht den Klienten nicht und eskaliert die Situation weiter. Verhaltens-Konsequenzen werden später besprochen, in ruhigem Rahmen, mit kognitiver Verarbeitung des Vorfalls. Diese Trennung ist gegen den Schul-Reflex, der „sofort reagieren" sagt, aber klinisch tragfähig. Die Konsequenzen bleiben — sie kommen nur zum richtigen Zeitpunkt, wenn der Klient sie tatsächlich verarbeiten kann.' },
+          { titel: 'Keine öffentliche Beschämung, keine Kollektiv-Sanktionen', begruendung: 'Beschämung aktiviert die internalisierte Wertlosigkeit direkt und produziert weitere Eskalation. Kollektiv-Sanktionen (Klassen-Strafe wegen eines Vorfalls) treffen einen Klienten, der ohnehin das Bild „ich bin schuld an allem" mit sich trägt, und verstärken es. Beides ist klinisch kontraproduktiv. Konsequenzen sind individuell, nicht kollektiv, und werden ohne öffentliche Bloßstellung kommuniziert.' },
+          { titel: 'Rückzugs-Raum bei beginnender Eskalation, niedrige Schwelle', begruendung: 'Ein verfügbarer ruhiger Raum mit klarer Rückkehr-Vereinbarung. Der Klient soll lernen, die Frühzeichen des Affekt-Anstiegs zu erkennen und vorher rauszugehen, bevor er explodiert — die Schwelle ist niedrig, der Rückzug wird ausdrücklich erlaubt. Mit dem Verlauf der Behandlung wird der Klient die Frühzeichen früher erkennen; in der Anfangsphase muss die Bezugsperson aktiv anbieten, weil der Klient die Steuerung noch nicht hat. Diese Selbstwirksamkeits-Erfahrung ist klinisch ein eigenständiger Wirkfaktor.' },
+          { titel: 'Schlaf-sensible morgendliche Anpassung', begruendung: 'Schlafstörung ist Kern-Symptom; morgendliche Erschöpfung ist Affekt-Regulations-relevant — schlecht-geschlafene Jugendliche eskalieren schneller und intensiver. Eine ruhigere erste Stunde, keine Klassenarbeiten morgens, niedrigschwellige Reibungs-Reduktion in den ersten zwei Stunden sind klinisch sinnvoll. Wird mit der Schlafhygiene-Stabilisierung zurückgenommen.' },
+          { titel: 'Aktivitäts-Vermittlung in Sport-AGs oder Maison des Jeunes', begruendung: 'Körperliche Aktivität und positiv besetzte Peer-Anbindung sind antidepressive Wirkfaktoren. Die Schule kann hier aktiv vermitteln, vor allem in Settings, in denen der Klient nicht primär als „schwieriger Schüler" wahrgenommen wird — Mannschafts-Sport, Maison des Jeunes, kreative AGs. Diese Vermittlung ist konkret und persönlich, nicht eine Empfehlung am Schwarzen Brett. Die Bezugsperson stellt den Klienten der AG-Leitung vor und begleitet den ersten Besuch — ohne diese persönliche Brücke geht der Klient meist nicht hin.' },
+          { titel: 'Bei Übergängen (Klassen-Wechsel, neue Lehrkraft): aktive Übergabe der Affekt-Begleitungs-Linie', begruendung: 'Eine neue Lehrkraft, die den klinischen Hintergrund nicht kennt, reagiert reflexhaft disziplinarisch und entwertet die Behandlungs-Linie in zwei Wochen. Vor jedem Übergang werden die Anpassungen schriftlich übergeben, möglichst mit einem persönlichen Gespräch. Das ist Arbeit, und sie ist klinisch unverzichtbar.' },
+          { titel: 'Routine-Suizidalitäts-Screening durch die Bezugsperson bei Eskalations-Vorfällen', begruendung: 'Klienten mit irritable Depression berichten suizidale Gedanken spontan selten — die externalisierende Affekt-Regulation verdeckt die internalisierte Hoffnungslosigkeit. Nach jedem deutlicheren Eskalations-Vorfall fragt die Bezugsperson in der Nachbesprechung kurz, ruhig und konkret nach suizidalen Gedanken („manche Jugendliche denken in solchen Momenten daran, sich etwas anzutun — kennst du das?"). Diese Routine-Frage ist nicht alarmistisch, sondern klinische Sorgfalt. Berichtete Gedanken werden umgehend an die behandelnde Fachkraft weitergegeben, mit kurzem direktem Draht.' },
+          { titel: 'Eltern-Coaching parallel zur Schul-Linie', begruendung: 'Was die Schule tagsüber an Affekt-Begleitung etabliert, läuft abends zu Hause oft gegen die elterliche Eskalations-Spirale leer. Eine knappe Eltern-Information über die Linie (Trennung von Akut-Intervention und Konsequenz, deeskalierende Sprache, Wahrnehmung des darunter liegenden Affekts) gehört zur schulischen Strategie — nicht als Eltern-Schulung, sondern als kohärente Familien-Schul-Allianz. Quartals-Gespräch mit Eltern und Bezugsperson ist der Mindest-Takt.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine disziplinarische Eskalation bei Affekt-Hochpunkten', begruendung: 'Eine Verweis-Kette als Reaktion auf Affekt-Ausbrüche bestätigt das negative Selbstbild und treibt die Eskalations-Spirale. Konsequenzen sind notwendig, aber sie kommen nicht im Affekt-Moment und nicht eskalierend.' },
+          { titel: 'Keine öffentliche Beschämung oder Bloßstellung vor der Klasse', begruendung: 'Aktiviert die Wertlosigkeits-Achse direkt und produziert oft die nächste Eskalation. Die schulische Linie bei diesem Profil ist diskret in der Konsequenz, transparent im Verfahren.' },
+          { titel: 'Keine Konsequenz-Aussprache im Affekt-Hochpunkt', begruendung: 'Im Affekt ist der Klient nicht erreichbar; Konsequenzen werden in dem Moment als persönliche Demütigung erlebt und zerstören die Beziehung zur Bezugsperson. Konsequenzen werden später ausgesprochen, in ruhigem Rahmen.' },
+          { titel: 'Keine Klassen-Wechsel-Drohung als Disziplinar-Mittel', begruendung: 'Drohungen mit Klassen- oder Schul-Wechsel als Druckmittel sind klinisch destruktiv — sie verstärken die Wertlosigkeits-Achse und produzieren eine Eskalations-Antizipation. Setting-Wechsel können klinisch indiziert sein, aber dann als geplante Schutz-Maßnahme, nicht als Drohung.' },
+          { titel: 'Keine pauschale „Verhaltenstherapie reicht"-Empfehlung', begruendung: 'Eine reine Verhaltens-Intervention ohne Adressierung der depressiven Achse greift bei diesem Profil zu kurz und kann den Klienten in die „böser-Schüler"-Identität festschreiben. Die depressive Achse muss diagnostiziert und behandelt werden.' }
+        ],
+        e_rollen: [
+          'Männliche Bezugsperson (Klassenlehrer, Vertrauenslehrer, Sport-Lehrer) mit Affekt-Begleitungs-Sprache',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) für die klinische Verankerung',
+          'SCAS für die vertiefte therapeutische Begleitung',
+          'KJP für SSRI-Frage und differentialdiagnostische Klärung gegen Bipolar und Verhaltensstörung',
+          'Maison des Jeunes als positiv besetzter Peer-Anbindungs-Ort außerhalb des „Schwierig"-Settings',
+          'Eltern als Verbündete der deeskalierenden Linie — Eltern-Coaching parallel zur Behandlung'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen in der akuten Phase, bei kritischen Eskalationen oder Übergängen engmaschiger. Die Bezugsperson hat einen kurzen direkten Draht zur behandelnden Fachkraft, sodass nach Eskalations-Vorfällen die Linie schnell rekalibriert werden kann, bevor sie sich verfestigt.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson und Aufklärung zur irritable Depression, Affekt-Begleitungs-Sprache eingeführt, Deeskalations-Plan schriftlich vereinbart.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe und Eltern koordiniert; gemeinsame Linie zur Trennung von Affekt-Begleitung und Verhaltens-Konsequenz, Schulungs-Mini-Einheit für relevante Lehrkräfte.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert, Übergänge (Lehrer-, Klassen-Wechsel) proaktiv mit Übergabe-Gespräch begleitet. Verhaltens-Konsequenz-Linie im Kollegium kommuniziert.</li>
+            <li><strong>Stufe 4</strong> — Bei wiederholter Eskalation: erweiterte Behandlung, SSRI-Frage erneut prüfen, ggf. teilstationäre Anbindung. Familien-System aktiv einbinden.</li>
+            <li><strong>Stufe 5</strong> — Bei schwerer Eskalation mit Fremdgefährdung oder Suizidalität: stationäre Behandlung; bei chronischer Schul-Schwierigkeit mit gescheiterter Anpassungs-Linie: therapeutisch begleiteter Setting-Wechsel als geplante Schutz-Maßnahme, nicht als Disziplinar-Konsequenz.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Suizidale Gedanken berichtet (Routine-Screening, Klient berichtet spontan selten). Eskalations-Häufigkeit nimmt zu. Substanzkonsum nimmt zu. Schul-Disziplinar-Spirale eskaliert. Beziehungs-Abbruch mit Eltern oder Peers droht.</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei mittel- bis schwerer Symptomatik. Konkrete Suizidalität. Schwere komorbide Verhaltens-Problematik mit Fremdgefährdung. Therapie-Resistenz bei strukturiertem Verlauf.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Akute Fremdgefährdung mit körperlichem Risiko. Substanzkonsum-Eskalation mit Intoxikations-Risiko. Bei massiver Familien-Eskalation mit Beziehungs-Abbruch-Drohung: Klinik als Schutz-Raum, in Abstimmung mit ONE und KJP.</p>`
+      }
+    }
+  },
   /* M3 — Anhaltend depressive Störung (Dysthymie). */
-  { id: 'depression-dysthymie',     name: 'Anhaltend depressive Störung (Dysthymie)',        bloecke: emptyDepressionBloecke() },
+  {
+    id: 'depression-dysthymie',
+    name: 'Anhaltend depressive Störung (Dysthymie)',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit chronischer depressiver Verstimmung über mindestens ein Jahr, kontinuierlich oder fast kontinuierlich. Die Symptomatik ist weniger intensiv als eine Major-Depression-Episode, aber dauerhaft präsent — gedrückte Stimmung, niedrige Energie, Selbstwert-Probleme, reduzierte Freude-Fähigkeit, Schlaf-Veränderungen, Konzentrationsschwierigkeiten. Der Klient und die Familie beschreiben das oft als „war schon immer so", „sie ist halt so", „er ist eben der ruhige Typ" — als Charakter, nicht als Erkrankung.</p>`,
+        klinischWichtig: `<p>Dysthymie (anhaltende depressive Störung nach DSM-5) ist klinisch heimtückisch, weil sie keine dramatische Verschlechterung zeigt und deshalb diagnostisch wegrutscht. Der Klient wächst in die Verstimmung hinein, sie wird Teil seiner Identität, und weder er selbst noch das Umfeld erkennen sie als Erkrankung. Häufige Aussage in der Anamnese: „seit wann?" — „kann ich gar nicht sagen, irgendwie schon immer". Diese Antwort ist diagnostisch wegweisend — sie zeigt, dass die depressive Achse so früh angelegt wurde, dass sie als Selbst-Bild aufgenommen wurde, nicht als Zustand wahrgenommen wird.</p>
+          <p>Bei Jugendlichen reichen für die DSM-5-Diagnose ein Jahr Dauer (statt zwei Jahre bei Erwachsenen). Die Symptomatik muss durchgehend vorhanden sein, mit Pausen von höchstens zwei Monaten. Häufig liegt eine sogenannte „Double Depression" vor: chronische Dysthymie als Grundlinie, mit aufgesetzten akuten Major-Depression-Episoden. Diese Konstellation hat die schlechteste Prognose aller depressiven Verläufe — und ist gleichzeitig die am häufigsten verpasste, weil die Dysthymie-Baseline vor der akuten Episode nicht erkannt wurde und nach Abklingen der Episode wieder als „normal" gilt.</p>
+          <p>Die zentralen klinischen Wirkfaktoren sind langfristige Beziehungs-Verlässlichkeit, geduldige Identitäts-Arbeit und die Auflösung der Charakter-Erzählung. Der Klient muss lernen, dass das, was er für sein Wesen hält, in Wirklichkeit eine behandelbare Erkrankung ist — und das ist eine schwierige psychische Operation, weil sie das Selbstbild grundlegend verschiebt. Eine zu schnelle „du bist nicht so, du hast nur Depression"-Linie kann den Klienten verstören; die Erzählung muss schrittweise und in seinem Tempo verschoben werden.</p>
+          <p>Bei der Behandlung ist die Erwartungs-Steuerung wichtig: Dysthymie reagiert langsamer auf Behandlung als akute Depression, und „nicht-mehr-depressiv-sein" ist für viele Klienten ein unbekannter Zustand, der zunächst verunsichert. Phasen der Verbesserung können paradoxerweise mit Angst-Anstieg einhergehen, weil die vertraute depressive Baseline wegfällt.</p>`,
+        vergleich: `<p><strong>Vs. M4 (sekundäre Depression nach Versagens-Verlauf):</strong> M4 hat einen erkennbaren Auslöser-Verlauf (Schul-Versagen, Überforderung), M3 ist ohne klaren Auslöser dauerhaft. Bei langer Dauer von M4 kann der Übergang in M3 fließend sein.</p>
+          <p><strong>Vs. „normaler" akuter Major-Depression-Episode:</strong> M3 hat die Ein-Jahres-Dauer-Anforderung und die kontinuierliche, eher mittlere Intensität. Major Depression hat oft kürzeren Verlauf mit höherer Intensität. Double Depression ist die Kombination.</p>
+          <p><strong>Vs. A12 (Borderline-Strukturen):</strong> Bei Borderline-Adoleszenten oft ähnliche affektive Daueranspannung — Differenzierung über Identitätsdiffusion, Beziehungs-Instabilität und Selbstverletzung (Borderline) versus geprägte stabile depressive Identität ohne Identitätsdiffusion (M3).</p>
+          <p><strong>Vs. A01 (Asperger):</strong> Manche Mädchen-Asperger werden über Jahre als „dysthym" eingeordnet, weil die depressive Komorbidität sichtbar ist und das Asperger-Profil camoufliert. Bei „seit immer"-Verläufen Asperger-Differential prüfen.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität — bei Dysthymie kumulativ hoch, weil die Erkrankung jahrelang ohne Hoffnungs-Phase verläuft',
+          'Akute Major-Depression-Episode auf der Dysthymie-Baseline (Double Depression)',
+          'Schwere komorbide Selbstverletzung als Affekt-Regulations-Strategie'
+        ],
+        hoch: [
+          'Chronifizierung über das Erwachsenenalter hinaus bei Nicht-Behandlung',
+          'Sekundäre soziale Isolation mit Festschreibung der depressiven Identität',
+          'Substanzkonsum als Selbstmedikation',
+          'Beziehungs-Schwierigkeiten durch reduzierte affektive Schwingungsfähigkeit',
+          'Schul- und Berufs-Underachievement trotz vorhandener Begabung'
+        ],
+        mittel: [
+          'Identitäts-Festigung als „die ruhige" oder „der unauffällige"',
+          'Beziehungs-Muster mit chronisch depressiven Partnern (Wiederholungs-Dynamik)',
+          'Transgenerationale Weitergabe bei häufiger familiärer Belastung',
+          'Verminderte Bildungs- und Karriere-Trajektorie'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Längerfristige CBT mit Identitäts- und Selbstwert-Schwerpunkt, kombiniert mit interpersoneller Therapie-Komponente (IPT-A). Die Behandlung ist phasen-orientiert wie cPTSD-Therapie: Stabilisierung und Beziehungs-Aufbau zuerst, dann Bearbeitung der depressiven Grundüberzeugungen, dann Konsolidierung. Verhaltens-Aktivierung als zentrales Element. SSRI bei mittel- bis schwerer Symptomatik (Fluoxetin als Erstlinie), Erhaltungs-Therapie länger als bei akuter Depression. Bei Double Depression: SSRI-Indikation niederschwellig.</p>`,
+        begruendung: `<p>Dysthymie reagiert langsamer und braucht längere Behandlung als akute Depression — die depressive Achse ist nicht eine Episode, sondern eine Identitäts-prägende Struktur, die schrittweise verschoben werden muss. Die therapeutische Beziehung ist hier ein eigenständiger Wirkfaktor, weil sie eine konstante alternative Erfahrung anbietet zur depressiven Grundlinie.</p>`,
+        diagnostik: [
+          'BDI-A oder PHQ-A zur Schweregrad-Einschätzung',
+          'CDI-2 (Children\'s Depression Inventory) bei jüngeren Adoleszenten',
+          'K-SADS-PL strukturiert für Dysthymie-Kriterien (Dauer, Kontinuität, Symptom-Anzahl)',
+          'C-SSRS — Suizidalitäts-Routine, bei langem Verlauf kumulativ erhöhtes Risiko',
+          'Asperger-Screening bei „seit immer"-Mädchen-Profilen (AQ-Adolescent, RAADS-14)',
+          'Borderline-Differential bei Identitätsdiffusion strukturiert prüfen',
+          'Familien-Anamnese (depressive Belastung) — hat prognostische Bedeutung'
+        ],
+        wasDuTust: [
+          '„Das, was du für dein Wesen hältst, ist nicht dein Wesen. Es ist eine Erkrankung, die so früh angefangen hat, dass sie sich angefühlt hat wie du."',
+          '„Wir werden nicht in drei Monaten anders. Das hier ist eine längere Strecke. Aber jeder Schritt verändert etwas — auch wenn er sich nicht so anfühlt."',
+          '„Du kennst dich nur als die Person mit dieser Stimmung. Wir lernen jetzt langsam eine andere Version von dir kennen — und am Anfang ist die fremd."',
+          '„Wenn du dich eines Tages besser fühlst und das Angst macht — das ist normal. Vertraut ist gewohnt, nicht gleich gut."',
+          '„Schlaf, Bewegung, soziale Anbindung — die kleinen Dinge wirken bei deinem Profil besonders stark. Das klingt banal und ist es nicht."',
+          '„Was du als ‚typisch ich‘ empfindest — viel davon ist ein langer Schatten. Wir gucken zusammen, was wirklich du bist und was Folge der Erkrankung."'
+        ],
+        wasDuNichtTust: [
+          'Nicht erwarten, dass eine Dysthymie-Behandlung dem Zeitrahmen einer akuten Depression folgt — sie ist länger',
+          'Nicht den Klienten in eine schnelle „du bist nicht so"-Linie drängen — die Identitäts-Verschiebung muss in seinem Tempo passieren',
+          'Nicht voreilig „austherapiert" oder „therapie-resistent" labeln — Dysthymie braucht Zeit, das ist nicht Resistenz',
+          'Nicht die Baseline-Depression übersehen, wenn eine akute Episode aufgesetzt ist — Double Depression diagnostisch ernst nehmen',
+          'Nicht ohne langfristige Beziehungs-Konstanz arbeiten — die Beziehung selbst ist Wirkfaktor'
+        ],
+        frequenz: `<p>Wöchentlich für die ersten vier bis sechs Monate, danach langsame Reduktion auf alle zwei bis drei Wochen, mit langfristiger Erhaltungs-Frequenz. Die Behandlung dauert oft länger als zwölf Monate. Bei SSRI Erhaltungsdauer mindestens neun bis zwölf Monate nach Remission, oft länger.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik mit expliziter Dauer-Klärung, Differential gegen Asperger und Borderline-Strukturen geklärt. Psychoedukation zur Dysthymie als Erkrankung statt Charakter. Beziehungs-Aufbau als Wirkfaktor. Schlafhygiene und Aktivitäts-Strukturierung. Bei mittel- bis schwerer Symptomatik SSRI-Entscheidung mit KJP. Familien-Einbindung. Monate 1–4.`,
+        phase2: `Verhaltens-Aktivierung mit Aufbau positiv besetzter Aktivitäten, die der Klient meist nicht hat („was hat dir je Freude gemacht?" — Antwort oft „weiß ich nicht"). Aufbau von Erlebens-Material durch konkrete Erfahrungen. Interpersonale Arbeit an Beziehungs-Mustern. Beginnende kognitive Arbeit an Grund-Überzeugungen über sich selbst. Monate 4–9.`,
+        phase3: `Identitäts-Arbeit als Kern: Trennung zwischen dem, was Folge der Dysthymie ist, und dem, was eigene Persönlichkeit ist. Erprobung neuer Verhaltens- und Erlebens-Möglichkeiten. Bearbeitung von Verunsicherung bei Stimmungs-Verbesserung („wer bin ich ohne die Depression?"). Rückfall-Prophylaxe. Monate 9–18.`,
+        phase4: `Konsolidierung mit reduzierter Frequenz. Erhaltungs-Therapie. Plan für Belastungs-Phasen. Übergangs-Begleitung in nächste Lebensphase (Schul-Übergang, Ausbildung, Auszug). Bei SSRI: Erhaltungsdauer mindestens neun bis zwölf Monate nach Remission, bei drei oder mehr Episoden lebenslange Erwägung. Ab Monat 18.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht bei M3 oft den unauffälligen Schüler — funktioniert irgendwie, fällt nicht negativ auf, ist nie krank, nie laut, nie problematisch. Genau das ist der klinische Befund: ein Jugendlicher mit jahrelanger depressiver Verstimmung, der gelernt hat, sich nicht bemerkbar zu machen, weil sich nichts ändert, wenn er es täte. Lehrer beschreiben den Klienten als „ruhig", „still", „zurückhaltend" — manchmal mit einer Spur Sorge, manchmal mit Anerkennung („so brav"), aber selten als jemanden, dem man hilft. Die Stimmungs-Achse ist konstant gedrückt, ohne die akuten Verschlechterungen, die Aufmerksamkeit erzeugen würden. Die Leistung ist meistens passabel, manchmal sogar gut — der Klient kompensiert über Pflichterfüllung, was die Diagnose weiter verschleiert.</p>
+          <p>Diese Unauffälligkeit ist die zentrale schulische Herausforderung. Es gibt keinen offensichtlichen Anlass für Intervention, keine Krise, kein Verhaltens-Problem, kein dramatischer Leistungs-Einbruch. Die Schule hat keine Routine, die diese Schüler-Gruppe systematisch erfasst — das stille leidende Kind ist im Schul-Betrieb selten als Hilfs-Adressat sichtbar. Wer aufmerksam hinschaut, sieht: keine wirklichen Freundschaften, kein Engagement über das Pflicht-Maß hinaus, keine Aufhellung in Pausen oder beim Wechsel der Aktivitäten, eine durchgehende verhaltene Affekt-Tönung. Dieses Bild muss als klinisches Signal erkannt werden, nicht als Charakter-Eigenschaft.</p>
+          <p>Was die Schule braucht, ist die Verschiebung der Erwartung: ein „braves" Kind ist nicht automatisch ein gut versorgtes Kind. Aktives Wahrnehmen statt Erleichterung über die Unauffälligkeit. Eine Bezugsperson, die regelmäßig — auch ohne Anlass — kurz nachfragt, signalisiert dem Klienten zum ersten Mal, dass jemand merkt, dass es ihn gibt. Diese scheinbar kleine Geste hat bei diesem Profil überdurchschnittliche klinische Wirkung, weil sie der jahrelangen Erfahrung „niemand merkt, ob es mir gut geht" widerspricht.</p>
+          <p>Ein zweiter Aspekt ist die Dauer der Behandlung. Dysthymie wird nicht in einem Schulhalbjahr behandelt — die schulische Begleitung muss über Jahre angelegt sein, mit der Konsequenz, dass die Bezugspersonen-Konstanz besonders wichtig ist und Übergänge proaktiv begleitet werden müssen. Eine Lehrkraft, die den Klienten ab Klasse 7 kennt und in Klasse 10 noch ansprechbar ist, ist klinisch wertvoller als jede neue Intervention. Diese Konstanz muss organisatorisch geschützt werden, sonst überlebt sie den nächsten Stundenplan-Wechsel nicht.</p>
+          <p>Schließlich die Erwartungs-Steuerung der Schule selbst: Fortschritt bei Dysthymie sieht nicht spektakulär aus. Es sieht aus wie: der Klient lacht zum ersten Mal seit Monaten in der Pause, er meldet sich freiwillig zu einer AG, er nimmt Augen-Kontakt auf, er fragt nach einer Schul-Fahrt. Diese kleinen Marker sind die eigentlichen klinischen Erfolgs-Punkte. Die Bezugsperson sollte trainiert sein, sie wahrzunehmen — sonst denkt sie, „es passiert nichts", obwohl die Behandlung tatsächlich greift.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer anhaltenden depressiven Störung (Dysthymie). Die Symptomatik besteht über mehrere Jahre, ist meist nicht akut auffällig, aber durchgehend belastend — gedrückte Grundstimmung, reduzierte Freude-Fähigkeit, niedriger Antrieb, oft eine sehr ruhige, zurückhaltende Art, die als Charakter erscheint, in Wirklichkeit aber Krankheits-Folge ist.</p>
+          <p>Klinisch wichtig: dieses Profil entgeht im Schul-Betrieb meistens der Aufmerksamkeit, weil keine Krise sichtbar wird. Genau diese Unauffälligkeit ist Teil des Problems. Die Behandlung läuft über Jahre und braucht langfristige Beziehungs-Konstanz, aktives Wahrnehmen und eine Schule, die das stille Profil nicht mit „gut versorgt" verwechselt.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine benannte konstante Bezugsperson über das Schuljahr hinaus, die kurz und regelmäßig nachfragt, auch wenn nichts Akutes anliegt; zweitens, die Berücksichtigung, dass Anhedonie und niedriger Antrieb klinische Symptome sind, keine Charakter-Eigenschaften, und dass Wahl-Möglichkeiten zur Aktivität (AGs, Klassenfahrten) aktiv und unterstützend angeboten werden sollten statt erwartet; drittens, eine proaktive Übergangs-Begleitung bei Lehrer-, Klassen- oder Schul-Wechseln; viertens, Information darüber, dass Fortschritts-Marker bei diesem Profil klein und unspektakulär sind (mehr Augen-Kontakt, gelegentliches Lachen, freiwillige Teilnahme) und nicht übersehen werden sollen.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die Anpassungen abstimmen und die langfristige Begleitung gemeinsam planen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Langfristig konstante Bezugsperson über Schuljahre hinweg', begruendung: 'Beziehungs-Konstanz ist bei Dysthymie der zentrale schulische Wirkfaktor — eine Lehrkraft, die den Klienten über mehrere Jahre kennt und kontinuierlich ansprechbar bleibt, ist klinisch wertvoller als jede neue Intervention. Diese Konstanz muss organisatorisch geschützt werden, weil sie sonst dem nächsten Stundenplan-Wechsel zum Opfer fällt. Schul-Leitung muss diese Logik mittragen, sonst läuft die schönste Bezugspersonen-Idee in einem Schuljahr aus.' },
+          { titel: 'Aktives regelmäßiges Wahrnehmen ohne Anlass', begruendung: 'Eine kurze, regelmäßige Kontakt-Aufnahme der Bezugsperson — „wie geht es dir heute", „hast du am Wochenende was Schönes gemacht" — auch wenn nichts Akutes anliegt. Diese scheinbar banale Geste hat bei diesem Profil überdurchschnittliche klinische Wirkung, weil sie der jahrelangen Erfahrung „niemand merkt mich" widerspricht. Wöchentlich, fest eingebaut in den Rhythmus, nicht spontan und damit vergesslich.' },
+          { titel: 'Aktive Vermittlung in Schul- und Außerschul-Aktivitäten', begruendung: 'Anhedonie und niedriger Antrieb verhindern die spontane Anmeldung zu AGs, Klassenfahrten, Maison-des-Jeunes-Angeboten — der Klient wartet, bis jemand ihn aktiv einlädt. Die Bezugsperson kann hier den Anstoß geben, mit konkreter persönlicher Empfehlung und Begleitung beim Erst-Besuch. Diese Vermittlung ist klinisch eine Verhaltens-Aktivierung im Realsetting und ergänzt die Therapie.' },
+          { titel: 'Pausen-Strukturierung mit Peer-Anbindung', begruendung: 'Soziale Isolation in den Pausen ist häufiges Muster. Eine sanfte Strukturierung — gemeinsames Projekt mit ein zwei Mitschülern, AG-Empfehlung, Maison-Relais-Anbindung am Nachmittag — schafft Beziehungs-Erfahrungen, die der Klient von selbst nicht herstellt. Wichtig ist die Diskretion: keine sichtbare „Hilfs-Konstellation", die den Klienten als bedürftig markiert.' },
+          { titel: 'Fortschritts-Marker erkennen und benennen können', begruendung: 'Fortschritt bei Dysthymie ist klein und unspektakulär: erstes Lachen in der Pause, freiwillige Teilnahme, Augen-Kontakt, eigene Frage. Die Bezugsperson muss trainiert sein, diese Marker zu sehen und positive Rückmeldung zu geben, ohne sie pathologisierend zu kommentieren. Diese Form der Mikro-Verstärkung ist klinisch ein eigenständiger Wirkfaktor. Die Fachkraft kann der Bezugsperson eine kurze Liste solcher Marker bereitstellen.' },
+          { titel: 'Übergänge proaktiv mit Übergabe-Gespräch', begruendung: 'Lehrer-, Klassen- und Schul-Wechsel sind kritische Punkte. Hier passieren Bindungs-Abbrüche, die die depressive Grunderzählung „niemand bleibt, niemand merkt" bestätigen. Eine geplante Übergabe mit Überschneidungs-Phase, Information an die neue Bezugsperson und persönlicher Vorstellung reduziert die Bruch-Last erheblich. Die alte Bezugsperson bleibt für eine Übergangs-Phase erreichbar.' },
+          { titel: 'Bei Double-Depression-Phase: Engmaschige Anwesenheits-Beobachtung', begruendung: 'Wenn eine akute Major-Depression-Episode auf die Dysthymie-Baseline aufsetzt, kann die Symptomatik schnell schwer werden — Schul-Vermeidung, Leistungs-Einbruch, ggf. Suizidalität. Die Bezugsperson hat einen direkten kurzen Draht zur behandelnden Fachkraft und meldet beobachtbare Verschlechterungen früh. Diese frühe Rückmeldung ist klinisch oft prognose-entscheidend.' },
+          { titel: 'Eltern-Schul-Allianz mit gemeinsamer Erwartungs-Steuerung', begruendung: 'Eltern erleben das Profil oft seit Jahren als Charakter („sie war schon immer so") und sind in einer ähnlichen Erschöpfungs-Lage wie der Klient. Eine schulische Allianz mit den Eltern, in der die klinische Linie gemeinsam getragen wird, verhindert, dass die häusliche Erzählung gegen die therapeutische arbeitet. Quartals-Eltern-Gespräche mit Bezugsperson sind hier sinnvoll, nicht erst bei Problem-Anlass.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Erleichterung über die Unauffälligkeit', begruendung: 'Der häufigste schulische Reflex ist Erleichterung — „mit dem haben wir keine Probleme". Genau das verlängert die klinische Lage. Die Bezugsperson muss die Unauffälligkeit als klinisches Signal lesen, nicht als Grund zur Entspannung.' },
+          { titel: 'Keine Mitleids-Sprache oder Sonder-Markierung', begruendung: 'Sätze wie „du Armes, hast es so schwer" oder eine sichtbare Sonder-Behandlung verstärken die depressive Identität und können vom Klienten als Bestätigung „mit mir stimmt was Grundlegendes nicht" gelesen werden. Die Sprache ist ruhig, normal, anerkennend ohne Dramatisierung.' },
+          { titel: 'Keine kurzfristigen Erwartungen an Verbesserung', begruendung: 'Wer in drei Monaten eine sichtbare Veränderung erwartet, wird enttäuscht und gibt auf. Dysthymie-Behandlung läuft in Jahren, nicht Monaten. Die schulische Erwartung wird entsprechend kalibriert, sonst kippt sie in „bringt ja eh nichts".' },
+          { titel: 'Keine Aufgabe der Bezugspersonen-Konstanz bei Schwierigkeiten', begruendung: 'Die Bezugsperson bleibt — auch wenn der Klient sie testet, auch wenn nichts vorangeht, auch wenn andere Lehrkräfte aufgeben würden. Konstanz ist das eigentliche Geschenk, das die Schule machen kann. Wenn die Bezugsperson selbst erschöpft ist, braucht sie Supervision und Kollegiums-Rückendeckung, nicht Wechsel.' },
+          { titel: 'Keine pauschale „braucht eben Zeit"-Resignation', begruendung: 'Die richtige Linie ist nicht passives Warten, sondern aktive geduldige Begleitung mit kleinen konkreten Schritten. Resignation ist eine besondere Form der Aufgabe, die der Klient sofort spürt und die das depressive Bild bestätigt.' }
+        ],
+        e_rollen: [
+          'Konstante Bezugsperson über mehrere Schuljahre, organisatorisch geschützt',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) für die langfristige Verankerung',
+          'SCAS für die vertiefte therapeutische Begleitung',
+          'KJP für SSRI-Frage, besonders bei Double Depression',
+          'Maison Relais und Maison des Jeunes als positiv besetzte Anbindungs-Orte',
+          'Eltern als Verbündete der langfristigen Linie — Eltern-Coaching parallel zur Behandlung',
+          'Schul-Leitung für die organisatorische Absicherung der Bezugspersonen-Konstanz'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier bis sechs Wochen über die gesamte Behandlungs-Dauer, also auch nach Symptom-Verbesserung. Die Übergänge (Halbjahr, Schuljahr, Klassen-Wechsel, Schul-Wechsel) werden proaktiv vorbereitet, nicht laufen gelassen. Bei beginnender Double-Depression-Episode engmaschig.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson etabliert, langfristige Konstanz organisatorisch abgesichert, klinische Information zur Dysthymie als Erkrankung (nicht Charakter) im Lehrer-Team verankert.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologe eingebunden, Anpassungs-Linie multiprofessionell getragen, Fortschritts-Marker-Liste eingeführt, Übergangs-Protokoll dokumentiert.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert, in jedem Schulhalbjahr aktiv überprüft. Eltern-Allianz mit gemeinsamer Erwartungs-Steuerung etabliert. Aktivitäts-Vermittlung als wiederkehrende Aufgabe.</li>
+            <li><strong>Stufe 4</strong> — Bei akuter Verschlechterung (Double Depression): kurzfristige Anpassungs-Verdichtung, intensivere Bezugspersonen-Präsenz, kurzer Draht zur behandelnden Fachkraft. Bei beginnender Schul-Vermeidung: niedrigschwellige Wieder-Einstiegs-Plan.</li>
+            <li><strong>Stufe 5</strong> — Bei schwerer akuter Episode mit Suizidalität oder ausgeprägter Funktions-Einschränkung: stationäre Behandlung mit Schul-Anbindung, damit die Lern- und Beziehungs-Kontinuität nicht abreißt. Der Wieder-Einstieg wird über Wochen vorbereitet, nicht improvisiert; eine Teil-Anwesenheit ist klinisch wertvoller als ein Voll-Einstieg, der nach Tagen kollabiert.</li>
+          </ol>
+          <p>Bei langjährigen Verläufen mit beginnendem Übergang ins Erwachsenenalter wird die Anbindung an das Erwachsenen-System (Hausarzt-Erwachsene, ggf. Erwachsenen-Psychiatrie) frühzeitig vorbereitet, sodass der Übergang nach Schul-Ende nicht in eine Versorgungs-Lücke fällt.</p>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Beginnende akute Major-Depression-Episode auf der Dysthymie-Baseline (Double Depression). Suizidale Gedanken berichtet. Schul-Vermeidung beginnt. Sozialer Rückzug verstärkt sich. Aktivitäts-Pegel kollabiert weiter unter die ohnehin niedrige Baseline.</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei mittel- bis schwerer Symptomatik oder Double Depression. Konkrete Suizidalität. Differentialdiagnostische Frage zu Asperger oder Borderline-Strukturen. Therapie-Resistenz bei strukturiertem Verlauf über sechs Monate.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Schwere Double-Depression-Episode mit kompletter Funktions-Einschränkung. Massive depressive Dekompensation mit Verwahrlosung. Bei langjähriger Chronifizierung mit beginnender erwachsenen-psychiatrischer Übernahme: Übergangs-Planung mit dem Erwachsenen-System.</p>`
+      }
+    }
+  },
   /* M4 — Sekundäre Depression nach chronischem Versagens-Verlauf. */
   { id: 'depression-sekundaer',     name: 'Sekundäre Depression nach chronischem Versagen',  bloecke: emptyDepressionBloecke() },
   /* M5 — Hochbegabter Underachiever mit Depression. */
