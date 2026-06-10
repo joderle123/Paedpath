@@ -11298,9 +11298,269 @@ const PLAN_MUSTER_DEPRESSION = [
     }
   },
   /* M6 — Depression mit akuter Suizidalität (Krisen-Profil). */
-  { id: 'depression-suizidal',      name: 'Depression mit akuter Suizidalität',              bloecke: emptyDepressionBloecke() },
+  {
+    id: 'depression-suizidal',
+    name: 'Depression mit akuter Suizidalität',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit depressiver Grundstörung und aktueller Suizidalität — passive Todeswünsche, Suizidgedanken, konkrete Pläne oder Vorbereitungs-Handlungen. Eingeengte Wahrnehmung, Hoffnungslosigkeit, Schuld- oder Wertlosigkeits-Themen prominent, oft sozialer Rückzug mit Verabschiedungs-Tonalität, manchmal ruhige Distanzierung, die als Verbesserung fehlgedeutet wird. Risikofilter R01 ist mit Vorrang aktiv. Dieses Profil hat klinischen Vorrang vor jeder anderen Achsen-Entscheidung — Sicherheits-Management ist die erste und zentrale Aufgabe.</p>`,
+        klinischWichtig: `<p>Suizidalität bei depressiven Jugendlichen ist kein Symptom unter anderen — sie ist die zentrale Frage jeder Sitzung, jedes Kontakts, jeder schulischen Begegnung. Die wichtigste Regel ist: aktiv und konkret fragen. „Hast du in letzter Zeit daran gedacht, dir das Leben zu nehmen?" — diese Frage produziert keine Suizidalität, sie macht sie ansprechbar. Vermeidung der Frage aus Sorge, „auf Ideen zu bringen", ist ein Mythos, der klinisch nichts taugt und in der Praxis Leben kostet.</p>
+          <p>Die Risiko-Einschätzung läuft strukturiert über die C-SSRS (Columbia Suicide Severity Rating Scale) oder ein vergleichbares Format. Sie unterscheidet passive Todeswünsche, aktive Suizidgedanken ohne Plan, mit Plan, mit Intention, mit Vorbereitungs-Handlungen — und sie erfragt die historischen Marker (frühere Versuche, Methoden-Wissen, Verfügbarkeit von Mitteln). Diese strukturierte Einschätzung ist nicht Bürokratie, sondern klinische Handwerks-Sorgfalt: sie liefert die Entscheidungs-Grundlage für ambulante Begleitung versus Klinik.</p>
+          <p>Ein häufig übersehener Marker ist die paradoxe Beruhigung. Ein Klient, der nach Wochen tiefer Verzweiflung plötzlich ruhig wirkt, distanziert spricht, Dinge ordnet, Briefe schreibt oder Geschenke verteilt, ist nicht in Verbesserung — er ist möglicherweise in Entscheidungs-Ruhe nach Suizidplanung. Diese paradoxe Beruhigung ist klinisch ein hochkritisches Zeichen und muss als solches gelesen werden. Familien und Schulen interpretieren sie häufig erleichtert als „es geht ihm besser" — das ist die gefährlichste Fehl-Lesart.</p>
+          <p>Bei der Risiko-Einschätzung sind auch die Risiko-Verstärker zu erheben: Substanzkonsum am Tag des Risikos, Verfügbarkeit von Methoden (Medikamente, Waffen, hohe Orte), kürzliche Verluste, akute Beschämungs-Erlebnisse, sozialer Status-Verlust. Methoden-Restriktion (Means Restriction) ist eine der wenigen evidenz-basierten Suizid-Präventions-Interventionen — verfügbare Mittel zu Hause sicher wegschließen, Medikamente unter Eltern-Aufsicht, scharfe Gegenstände aus dem Zimmer entfernen. Diese konkreten Schritte gehören in den Sicherheits-Plan.</p>
+          <p>Der schriftliche Sicherheits-Plan (Safety Plan nach Stanley & Brown) ist das zentrale Werkzeug. Er enthält: Frühwarn-Zeichen, eigene Coping-Strategien, Ablenkungs-Aktivitäten, Personen, die kontaktiert werden können (Name plus Nummer), professionelle Notfall-Strukturen (Fachkraft, KJP-Notdienst, SOS Détresse 454545, 112), und die Methoden-Restriktions-Vereinbarung. Der Plan wird gemeinsam erstellt, schriftlich bei sich getragen, mit Eltern und Bezugsperson geteilt. Er ist keine Garantie, aber eine wirksame Struktur.</p>
+          <p>Ein „No-Suicide-Contract" (Versprechen, sich nichts anzutun) ist klinisch obsolet — er produziert Scheinsicherheit für den Therapeuten, ohne den Klienten zu schützen. Stattdessen Safety Plan, Methoden-Restriktion und niedrige Hospitalisierungs-Schwelle.</p>`,
+        vergleich: `<p><strong>Vs. M1–M5, M7:</strong> Wenn bei einem der anderen Depression-Profile akute Suizidalität auftritt, übernimmt M6 die priorisierte Behandlungs-Achse — die zugrundeliegende Depression-Achse bleibt in der Diagnostik, das Krisen-Management hat aber Vorrang. Nach Stabilisierung der akuten Suizidalität wird die spezifische Sub-Profil-Behandlung fortgesetzt.</p>
+          <p><strong>Vs. A12 (Borderline-Strukturen mit Selbstverletzung):</strong> Bei Borderline-Adoleszenten häufig Mischbild. Differenzierung zwischen impulsiver Krisen-Suizidalität (Borderline-Typ, kontextual ausgelöst, dialektisches Behandlungs-Format) und depressiver geplanter Suizidalität (M6-Typ). Beide Achsen können parallel aktiv sein.</p>
+          <p><strong>Vs. A07-Trauma mit Suizidalität:</strong> Bei Trauma-Anamnese mit suizidalen Gedanken Trauma-Achse parallel adressieren, Krisen-Management hat klinischen Vorrang.</p>
+          <p><strong>Vs. A09-Sucht mit Intoxikations-Suizidalität:</strong> Bei Substanzkonsum-Krisen Krisen-Schwelle für Hospitalisierung niedriger.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen — Klinik-Indikation',
+          'Verfügbarkeit von Methoden zu Hause (Medikamente, Waffen, scharfe Gegenstände)',
+          'Akute Substanz-Intoxikation senkt Hemmschwelle dramatisch',
+          'Paradoxe Beruhigung nach Phase tiefer Verzweiflung — Entscheidungs-Ruhe',
+          'Kürzlicher Verlust, akute Beschämung, sozialer Status-Verlust als Auslöser'
+        ],
+        hoch: [
+          'Frühere Suizidversuche in der Anamnese',
+          'Methoden-Wissen oder spezifische Recherche-Aktivität',
+          'Sozialer Rückzug mit Verabschiedungs-Tonalität',
+          'Plötzliches Wegschenken von Gegenständen, Briefe schreiben',
+          'Suizidale Gedanken bei Familien-Anamnese mit Suizid'
+        ],
+        mittel: [
+          'Passive Todeswünsche ohne Plan',
+          'Hoffnungslosigkeit als dominantes Thema ohne konkrete Pläne',
+          'Selbstverletzung als Affekt-Regulation (Querschnitt R02)',
+          'Substanzkonsum als Selbstmedikation'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Krisen-Management hat klinischen Vorrang. Strukturierte Risiko-Einschätzung (C-SSRS), schriftlicher Safety Plan (Stanley/Brown), Methoden-Restriktion, niedrige Hospitalisierungs-Schwelle. Spezifische evidenzbasierte Krisen-Interventionen: CAMS (Collaborative Assessment and Management of Suicidality, Jobes) als kollaboratives Format; DBT-A für rezidivierende suizidale Krisen; bei Major-Depression-Episode SSRI (Fluoxetin, nach TADS) mit engmaschigem Monitoring der Aktivierungs- und Suizidalitäts-Marker in den ersten vier Wochen. Familien-Komponente zentral, Schul-Anbindung für tägliche Stabilisierung.</p>`,
+        begruendung: `<p>Bei akuter Suizidalität ist die einzige Erstlinie das strukturierte Krisen-Management. Spezifische depressions-orientierte Behandlung (Verhaltens-Aktivierung, kognitive Umstrukturierung, existenzielle Arbeit) folgt erst nach Stabilisierung — vorher hat sie kein Wirkungs-Fenster, weil die Krise das Behandlungs-System überlagert. Hospitalisierungs-Schwelle ist bei Adoleszenten klinisch niedrig zu halten: lieber eine Klinik-Aufnahme zu viel als ein versäumter Schutz.</p>`,
+        diagnostik: [
+          'C-SSRS (Columbia Suicide Severity Rating Scale) strukturiert in jeder Sitzung',
+          'BDI-A oder PHQ-A zur Schweregrad-Einschätzung der depressiven Grundstörung',
+          'K-SADS-PL für die strukturierte Komorbiditäts-Klärung',
+          'Methoden- und Mittel-Verfügbarkeits-Anamnese (Medikamente, Waffen, Orte)',
+          'Substanz-Screening (CRAFFT) — Substanzkonsum als akuter Risiko-Verstärker',
+          'Strukturierte Anamnese früherer Suizidversuche und Familien-Suizid-Anamnese',
+          'Borderline-Differential bei impulsivem oder rezidivierendem Profil'
+        ],
+        wasDuTust: [
+          '„Ich frage dich direkt, weil das wichtig ist: hast du in letzter Zeit daran gedacht, dir das Leben zu nehmen?"',
+          '„Wenn du Pläne hast, möchte ich sie wissen. Nicht, um sie dir zu nehmen — sondern, damit ich verstehen kann, wie groß die Gefahr ist und was wir tun."',
+          '„Du sollst nicht sterben. Ich verstehe, warum dir das gerade so vorkommt — und ich glaube trotzdem, dass es einen anderen Weg gibt, den wir noch nicht gesehen haben."',
+          '„Wir machen jetzt einen schriftlichen Plan. Nicht ein Versprechen, sondern eine Struktur. Wenn die Gedanken kommen, hast du eine Liste, was du tust, in welcher Reihenfolge, und wen du anrufst."',
+          '„Es geht jetzt darum, die Mittel aus deiner Reichweite zu nehmen. Nicht weil ich dir nicht traue — sondern weil im akuten Moment niemand sicher entscheidet."',
+          '„Wenn ich denke, dass die Klinik gerade der richtige Ort ist, sage ich dir das. Klinik ist kein Versagen und keine Strafe. Sie ist ein Ort, an dem du sicher bist, während wir die Krise überstehen."'
+        ],
+        wasDuNichtTust: [
+          'Nicht die direkte Frage vermeiden — Vermeidung produziert keine Sicherheit, sondern Risiko',
+          'Nicht „No-Suicide-Contract" als zentrales Instrument — klinisch obsolet',
+          'Nicht Suizidalität als Manipulation oder Aufmerksamkeits-Suche abtun — auch wenn der Klient das selbst so sagt',
+          'Nicht Methoden-Restriktion als „nicht so wichtig" überspringen — sie ist eine der wenigen evidenzbasierten Interventionen',
+          'Nicht alleine arbeiten — Krisen-Behandlung braucht KJP, Familie, Schule, niedrige Hospitalisierungs-Schwelle'
+        ],
+        frequenz: `<p>In der akuten Phase mehrmals wöchentlich oder täglich kurz, mit jederzeitiger Verfügbarkeit für Krisen-Kontakte. SOS Détresse 454545 und 112 explizit im Sicherheits-Plan. Nach Stabilisierung wöchentlich, dann reduziert.</p>`
+      },
+      vierPhasen: {
+        phase1: `Akut-Phase. Strukturierte Risiko-Einschätzung (C-SSRS). Hospitalisierungs-Entscheidung. Bei ambulanter Begleitung: schriftlicher Safety Plan, Methoden-Restriktion mit Eltern, Familien-Aufklärung, engmaschige Kontakte. SSRI-Entscheidung bei Major Episode mit besonders engmaschigem Suizidalitäts-Monitoring in den ersten vier Wochen. Schul-Anbindung für tägliche Stabilisierung. Wochen 1–4.`,
+        phase2: `Stabilisierungs-Phase. CAMS-Format mit kollaborativer Arbeit an den treibenden Faktoren der Suizidalität (Drivers). Aufbau alternativer Bewältigungs-Strategien. Bei rezidivierendem Profil DBT-A-Skills. Spezifische Behandlung der zugrundeliegenden Sub-Profil-Achse (M1–M5, M7) beginnt parallel. Wochen 4–12.`,
+        phase3: `Konsolidierung der Krisen-Stabilität. Spezifische Behandlung des zugrundeliegenden Sub-Profils in den Vordergrund. Rückfall-Prophylaxe mit konkretem Frühwarn-Plan. Familien-Arbeit. Bei längerer suizidaler Vorgeschichte: erweiterte Auseinandersetzung mit dem Leben jenseits der Krise. Monate 3–9.`,
+        phase4: `Erhaltungs-Therapie mit reduzierter Frequenz, aber niedriger Schwelle zur Wiederaufnahme bei Krise. SSRI-Erhaltung mindestens neun bis zwölf Monate nach Remission. Safety Plan bleibt aktuell und wird bei Lebensphasen-Wechseln aktualisiert. Ab Monat 9.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule und Suizidalität ist ein hochkomplexes Verhältnis. Auf der einen Seite ist die Schule oft der Ort, an dem die ersten Suizidalitäts-Hinweise sichtbar werden — durch Lehrkräfte, die etwas in einem Aufsatz lesen, durch eine Sozial-Arbeiterin, der ein Schüler sich anvertraut, durch Mitschüler, die etwas weiterreichen. Auf der anderen Seite ist die Schule oft nicht klinisch geschult und reagiert reflexhaft entweder mit Panik (Notarzt, Klinik-Drängen, Eltern-Anruf in Krisen-Modus) oder mit Bagatellisierung („das hat er nicht so gemeint"). Beide Reaktionen sind klinisch problematisch und müssen durch ein abgestimmtes Verfahren ersetzt werden.</p>
+          <p>Was die Schule braucht, ist erstens klare Information darüber, dass aktuell Suizidalität vorliegt und behandelt wird — diese Information geht nur mit Klient-Zustimmung in das Lehrer-Team, und sie geht nur an klar definierte Personen (in der Regel: konstante Bezugsperson, Schul-Psychologe). Zweitens braucht sie ein abgestimmtes Verfahren für den Fall, dass suizidale Hinweise sichtbar werden: nicht Panik, nicht Bagatellisierung, sondern kurze ruhige Ansprache mit Weiterleitung an die Bezugsperson und Rückmeldung an die behandelnde Fachkraft. Drittens braucht sie die Methoden-Restriktions-Logik auch im schulischen Kontext: bei akut suizidalen Klienten keine alleinige Aufsicht an gefährdenden Orten (Fenster im oberen Stockwerk, Treppen-Häuser), keine Verabschiedung ohne Übergabe an eine andere Bezugsperson am Tag.</p>
+          <p>Eine zentrale schulische Wirkfaktor-Komponente ist die tägliche Stabilisierung. Schul-Anwesenheit gibt dem Klienten eine Struktur, eine soziale Verankerung und eine Bezugsperson, mit der täglich kurzer Kontakt stattfindet — alles antidepressive Wirkfaktoren. Schul-Vermeidung in der akuten Phase ist klinisch ein hoher Risiko-Faktor: der Klient ist allein zu Hause, hat Zugang zu Mitteln, hat keinen sozialen Kontakt und keine Tages-Struktur. Wenn nicht hospitalisiert wird, ist Schul-Anwesenheit klinisch oft das wichtigste ambulante Schutz-Element. Die Schule wird in dieser Logik nicht zum Ort der Beschämung oder Disziplin, sondern zum Stabilisierungs-Anker.</p>
+          <p>Ein heikles Thema ist die Klassen-Kommunikation. Wenn Suizidalität in der Klasse bekannt wird (durch den Klienten selbst, durch Mitschüler), reagieren Jugendliche oft empathisch und hilfsbereit, manchmal aber auch belastet, verunsichert oder ihrerseits suizidal-aktivierbar. Die WHO-Empfehlungen zur Suizid-Berichterstattung gelten auch hier: keine Methoden-Details, keine romantisierende Erzählung, keine Bagatellisierung. Die Schul-Psychologin oder eine geschulte Bezugsperson kann gegebenenfalls eine klassen-orientierte Kurz-Intervention anbieten, in Abstimmung mit der behandelnden Fachkraft. Mitschüler werden auf SOS Détresse und auf die Schul-Psychologin als Anlaufstelle hingewiesen.</p>
+          <p>Bei Schul-Wiedereinstieg nach Klinik-Aufenthalt ist eine vorbereitete Rückkehr klinisch zentral. Die Bezugsperson kennt die Lage, die Klassen-Lehrer sind informiert (in dem Umfang, den der Klient zustimmt), ein konkreter Wieder-Einstiegs-Plan ist abgestimmt — Teil-Anwesenheit, schrittweise Hochfahren, kein voller Tag am ersten Tag. Ohne vorbereitete Rückkehr kollabiert der Wieder-Einstieg häufig in den ersten Tagen, mit massiver Re-Krisen-Gefahr.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer depressiven Störung mit aktuellen suizidalen Gedanken. Die Behandlung umfasst eine strukturierte Krisen-Begleitung mit Safety Plan, Methoden-Restriktion zu Hause, engmaschiger Begleitung und niedriger Hospitalisierungs-Schwelle.</p>
+          <p>Klinisch wichtig: die schulische Anwesenheit von [Name] ist in dieser Phase ein zentraler ambulanter Stabilisierungs-Faktor — Struktur, soziale Verankerung, tägliche Bezugsperson. Schul-Vermeidung würde die Krise verschärfen. Gleichzeitig erfordert die Lage eine besondere schulische Sorgfalt mit einem abgestimmten Verfahren bei suizidalen Hinweisen.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, eine konstante Bezugsperson (Klassenlehrer oder Schul-Psychologe) mit kurzer Einweisung in das Verfahren — keine Panik, keine Bagatellisierung, sondern ruhige Ansprache und Weiterleitung; zweitens, einen direkten Draht zwischen Bezugsperson und mir, mit niedriger Schwelle für Rückmeldung; drittens, im schulischen Kontext keine alleinige Aufsicht an gefährdenden Orten in der akuten Phase; viertens, bei Verabschiedung am Tagesende eine kurze Übergabe an die nächste Bezugsperson (Eltern, Bus-Begleitung); fünftens, bei suizidalen Äußerungen oder beobachtbaren Hinweisen umgehend Rückmeldung an mich; sechstens, bei Klinik-Aufenthalten ein vorbereiteter Wieder-Einstiegs-Plan mit Teil-Anwesenheit.</p>
+          <p>Im Akut-Notfall: KJP-Notdienst (Centre Hospitalier de Luxembourg, Hôpitaux Robert Schuman), SOS Détresse 454545, im lebensbedrohlichen Notfall 112. Diese Nummern liegen bei der Bezugsperson.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir das Verfahren konkret abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Konstante Bezugsperson mit Krisen-Verfahrens-Einweisung', begruendung: 'Die Bezugsperson kennt die aktuelle Lage (Suizidalität, Behandlungs-Stand) und das Verfahren bei Hinweisen — kurze ruhige Ansprache, Weiterleitung an Schul-Psychologin oder direkten Draht zur Fachkraft. Sie ist nicht Therapeutin, sondern stabilisierende tägliche Präsenz. Eine kurze klinische Einweisung von einer halben Stunde ist Voraussetzung, sonst rutscht sie reflexhaft in Panik oder Bagatellisierung.' },
+          { titel: 'Direkter Draht zwischen Bezugsperson und Fachkraft mit niedriger Schwelle', begruendung: 'Wenn die Bezugsperson Hinweise sieht (Aufsatz mit suizidaler Konnotation, plötzliche Stimmungs-Aufhellung mit paradoxer Tönung, Verabschiedungs-Sprache, plötzliches Wegschenken), gibt sie diese ohne Schwellen-Erhebung weiter. Telefonisch oder schriftlich, am selben Tag. Lieber eine Meldung zu viel als eine zu wenig. Die Fachkraft bewertet klinisch und entscheidet die nächste Stufe.' },
+          { titel: 'Keine alleinige Aufsicht an gefährdenden Orten in der akuten Phase', begruendung: 'Fenster im oberen Stockwerk, Treppen-Häuser, isolierte Orte — in der akuten Krisen-Phase wird der Klient hier nicht alleingelassen. Das ist keine Beobachtung, sondern Methoden-Restriktion im Schul-Kontext. In der Praxis: die Klasse wechselt gemeinsam Räume, der Klient wird in der Pause nicht allein gelassen, bei Verabschiedung am Tagesende ist die Übergabe geregelt.' },
+          { titel: 'Übergabe an die nächste Bezugsperson bei Schultag-Ende', begruendung: 'Der Übergang von der Schule nach Hause oder zu Freizeit-Aktivitäten ist klinisch kritisch — viele suizidale Handlungen geschehen am Nachmittag nach der Schule, nicht in der Schule selbst. Eine kurze Übergabe an Eltern, Bus-Begleitung oder Maison-Relais-Betreuung schließt diese Lücke. Bei begleitender ambulanter Krisen-Phase ist diese Übergabe schriftlich geregelt und nicht verhandelbar.' },
+          { titel: 'Schul-Anwesenheit aufrechterhalten als ambulanter Schutz-Faktor', begruendung: 'In der akuten Phase ohne Hospitalisierung ist die Schul-Anwesenheit oft der wichtigste ambulante Schutz: Tagesstruktur, soziale Verankerung, tägliche Bezugsperson-Kontakte. Schul-Vermeidung wird klinisch behandelt — sie ist ein Verschlechterungs-Marker, kein zu akzeptierender Zustand. Anpassungen ja (reduzierte Anforderungen, Notfall-Plan, kurzer Schultag), Total-Vermeidung nein — der Klient wäre dann alleine zu Hause mit Methoden-Zugang.' },
+          { titel: 'Bei suizidalen Äußerungen ruhig ernsthaft ansprechen, nicht bagatellisieren', begruendung: 'Wenn der Klient suizidale Äußerungen macht (mündlich, schriftlich, in Aufsätzen), reagiert die Bezugsperson ruhig und ernsthaft: „danke, dass du das sagst. Lass uns kurz darüber sprechen, und ich werde es deiner Therapeutin sagen — das ist Teil der Vereinbarung." Keine Eskalation, keine Bagatellisierung, klare Weiterleitung. Diese Sprache muss vorab trainiert sein, sie kommt im Moment nicht von selbst, und die Bezugsperson braucht auch das Wissen, dass das offene Ansprechen die Suizidalität nicht verstärkt — sondern sie ansprechbar macht.' },
+          { titel: 'Klassen-Kommunikation nur in Abstimmung und nach WHO-Leitlinien', begruendung: 'Wenn Suizidalität in der Klasse bekannt wird, ist eine klassen-orientierte Kurz-Intervention durch die Schul-Psychologin möglich, in Abstimmung mit der Fachkraft. Sie folgt den WHO-Empfehlungen: keine Methoden-Details, keine Romantisierung, keine Bagatellisierung; Hinweis auf SOS Détresse und die Schul-Psychologin als Anlaufstellen für betroffene Mitschüler.' },
+          { titel: 'Vorbereiteter Wieder-Einstiegs-Plan nach Klinik-Aufenthalt', begruendung: 'Bei Rückkehr aus stationärer Behandlung ist die ersten Tage und Wochen das Re-Krisen-Risiko erhöht. Ein abgestimmter Plan mit Teil-Anwesenheit, schrittweisem Hochfahren, kein voller Tag am ersten Tag, klare Bezugsperson-Präsenz, niedriger Schwelle für Rückmeldung — ist klinisch wirksamer als ein unstrukturierter Voll-Einstieg. Vorbereitung ein bis zwei Wochen vor Entlassung.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Panik-Reaktion mit öffentlicher Eskalation', begruendung: 'Wenn die Schule bei einem Hinweis Notarzt, Polizei, Eltern in Krisen-Modus alarmiert und das öffentlich vor der Klasse abläuft, beschämt sie den Klienten und vertieft die Krise. Stattdessen: ruhige Ansprache, Weiterleitung an Bezugsperson oder Schul-Psychologin, Rückmeldung an die Fachkraft. Eskalation läuft klinisch, nicht öffentlich.' },
+          { titel: 'Keine Bagatellisierung suizidaler Äußerungen', begruendung: '„Das hat er nicht so gemeint", „der will Aufmerksamkeit" — beide Sätze gehören aus dem Lehrer-Vokabular gestrichen. Jede suizidale Äußerung wird weitergeleitet und klinisch bewertet, nicht schulisch entschieden.' },
+          { titel: 'Keine Pflicht-Versprechen oder „No-Suicide-Contract" durch die Schule', begruendung: 'Versprechen, sich nichts anzutun, produzieren Scheinsicherheit, ohne den Klienten zu schützen. Stattdessen Safety Plan als strukturiertes Werkzeug, das die Fachkraft etabliert hat — die Schule unterstützt die Plan-Anwendung, fordert sie nicht.' },
+          { titel: 'Keine Klassen-Konferenz-Diskussion ohne Abstimmung', begruendung: 'Klassenkonferenzen, in denen der Klient als Suizid-Fall öffentlich besprochen wird, sind klinisch destruktiv und verletzen die Schweigepflicht. Falls eine Konferenz notwendig wird, läuft sie diskret, mit klarem Informations-Umfang, in Abstimmung mit der Fachkraft und mit Klient-/Eltern-Zustimmung.' },
+          { titel: 'Keine Eltern-Information ohne Abstimmung bei familiärem Risiko-Kontext', begruendung: 'Wenn die Familie selbst Teil der Krisen-Auslöser ist (Konflikte, Misshandlung, Beziehungs-Abbrüche), kann eine schulische Eltern-Information die Krise verschärfen. Die Fachkraft kennt den familiären Kontext und entscheidet die Eltern-Kommunikation, nicht die Schule allein.' }
+        ],
+        e_rollen: [
+          'Konstante Bezugsperson mit Krisen-Verfahrens-Einweisung',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service) mit Suizid-Krisen-Kompetenz',
+          'SCAS für die vertiefte therapeutische Begleitung',
+          'KJP für Medikation, Hospitalisierungs-Entscheidung, Krisen-Konsil',
+          'KJP-Notdienst (Centre Hospitalier de Luxembourg, Hôpitaux Robert Schuman)',
+          'SOS Détresse 454545 als 24/7-Anlaufstelle',
+          'Notruf 112 im lebensbedrohlichen Notfall',
+          'Eltern als zentrale Verbündete der Methoden-Restriktion und des Safety Plans',
+          'Bei Familien-Risiko-Kontext: ONE, SNJ, ggf. ALUPSE'
+        ],
+        f_frequenz: `<p>In der akuten Phase täglicher kurzer Schul-Kontakt zur Bezugsperson, mit direktem Draht zur Fachkraft. Nach Stabilisierung wöchentlich, dann nach Bedarf. Bei jedem Hinweis sofortige Rückmeldung — die übliche Vier-Wochen-Routine gilt hier nicht.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson und Schul-Psychologin eingewiesen, Verfahren bei Hinweisen geklärt, direkter Draht zur Fachkraft etabliert, Notruf-Nummern bei der Bezugsperson hinterlegt.</li>
+            <li><strong>Stufe 2</strong> — Methoden-Restriktion im schulischen Kontext umgesetzt (keine alleinige Aufsicht an gefährdenden Orten, geregelte Übergaben am Tagesende), Schul-Anwesenheit als Stabilisierungs-Faktor explizit verankert.</li>
+            <li><strong>Stufe 3</strong> — Bei suizidalen Hinweisen: ruhige Ansprache, Weiterleitung, Rückmeldung an Fachkraft am selben Tag. Klassen-Kommunikation nur in Abstimmung und nach WHO-Leitlinien.</li>
+            <li><strong>Stufe 4</strong> — Bei akuter Verschlechterung mit konkretem Suizidalitäts-Hinweis: Hospitalisierungs-Vorbereitung mit KJP-Notdienst, ggf. Eltern-Kontakt im Krisen-Format. Schul-Anbindung bleibt aufrechterhalten.</li>
+            <li><strong>Stufe 5</strong> — Bei stationärem Aufenthalt: schulische Anbindung mit Hausaufgaben-Versorgung, vorbereiteter Wieder-Einstiegs-Plan ein bis zwei Wochen vor Entlassung, Teil-Anwesenheit beim Wieder-Einstieg, niedrige Schwelle für erneute Rückmeldung.</li>
+          </ol>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Jede berichtete Verschlechterung der suizidalen Gedanken. Auftreten konkreter Pläne oder Vorbereitungs-Handlungen. Paradoxe Beruhigung nach Phase tiefer Verzweiflung. Substanzkonsum am Tag des Risikos. Akute Belastungs-Ereignisse (Verlust, Beschämung, Beziehungs-Abbruch). Beobachtbare schulische Hinweise.</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei Major-Depression-Episode unter der Suizidalität. KJP-Konsil zur Hospitalisierungs-Frage. Bei rezidivierender Suizidalität mit Selbstverletzung: DBT-A-Anbindung. Bei Substanzkonsum-Komorbidität: Sucht-spezialisierte Anbindung.</p>`,
+        klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen — Hospitalisierungs-Indikation. Methoden-Verfügbarkeit zu Hause ohne tragfähige Methoden-Restriktion. Familien-Kontext, der Schutz nicht gewährleisten kann. Paradoxe Beruhigung mit unklarer Entscheidungs-Lage. Substanz-Intoxikation mit suizidaler Aktivierung. Versagen ambulanter Stabilisierung trotz strukturierter Begleitung. Schwelle bei Adoleszenten niedrig — lieber eine Aufnahme zu viel als ein versäumter Schutz.</p>`
+      }
+    }
+  },
   /* M7 — Atypische / saisonale Depression. */
-  { id: 'depression-atypisch',      name: 'Atypische / saisonale Depression',                bloecke: emptyDepressionBloecke() }
+  {
+    id: 'depression-atypisch',
+    name: 'Atypische / saisonale Depression',
+    bloecke: {
+      wasDuSiehst: {
+        profilErkennung: `<p>Jugendlicher mit depressiver Symptomatik, die vom klassischen Bild abweicht: Stimmungs-Reaktivität (kurzzeitige Aufhellung bei positiven Ereignissen), vermehrter Schlaf statt Schlafmangel (Hypersomnie), vermehrter Appetit statt Appetit-Verlust (häufig mit Kohlenhydrat-Heißhunger und Gewichts-Zunahme), Blei-Schwere-Gefühl in den Gliedern, ausgeprägte interpersonelle Zurückweisungs-Empfindlichkeit. Bei saisonalem Muster zusätzlich klare Verschlechterung in der dunklen Jahreszeit (Herbst, Winter) und Verbesserung im Frühjahr und Sommer — bei luxemburgischer Lichtlage relevant.</p>`,
+        klinischWichtig: `<p>Atypische Depression ist die häufigste Depressions-Form bei Adoleszenten und wird trotzdem regelmäßig übersehen, weil sie nicht dem klassischen Bild entspricht. Der Klient ist nicht „nichts macht ihm Freude" — er kann durchaus kurz aufhellen, wenn etwas Schönes passiert. Er ist nicht schlaflos — er schläft zu viel und ist trotzdem erschöpft. Er hat nicht weniger Appetit — er hat mehr und nimmt zu. Diese Inversion der klassischen vegetativen Symptome führt im Schul-Betrieb und in der Familie häufig zu Bagatellisierung („er ist halt faul", „sie isst halt gerne") oder zu Fehl-Wahrnehmung als reine Verhaltens-Frage.</p>
+          <p>Die interpersonelle Zurückweisungs-Empfindlichkeit ist ein klinisch wichtiger Marker: der Klient reagiert auf wahrgenommene Zurückweisung (echte oder vermutete) mit massiver depressiver Vertiefung, oft mit tagelangem Rückzug. Diese Empfindlichkeit ist nicht „Drama-Verhalten", sondern Kern-Symptom — sie überlappt mit der Rejection Sensitive Dysphoria, die auch bei ADHS prominent ist (A02.M4 RSD), klinisch differenziert werden sollte.</p>
+          <p>Die saisonale Komponente (Seasonal Affective Disorder, SAD) ist in Luxemburg klinisch besonders relevant — die geografische Breite und die typischen herbst-winterlichen Licht-Verhältnisse begünstigen saisonale Symptomatik. Klassischer Verlauf: Verschlechterung beginnt Oktober/November, Tiefpunkt Januar/Februar, Aufhellung März/April. Lichttherapie (10.000 Lux, morgens, dreißig Minuten täglich) ist evidenz-basiert für saisonale Depression und kann eine erste Linie sein, gerade weil sie ohne Medikation auskommt und Adoleszenten mit ihr leichter beginnen.</p>
+          <p>Bei der Differenzialdiagnose ist wichtig: atypische Symptomatik überlappt mit bipolarer Spektrum-Störung (Hypersomnie, Hyperphagie können auch bei BP-Depression auftreten) und mit hormonell bedingter Symptomatik (PMDD bei weiblichen Adoleszenten). Strukturierte Komorbiditäts-Klärung ist Pflicht. Bei MAO-Hemmer-Indikation in der Erwachsenenmedizin gibt es Hinweise, dass atypische Depression besonders gut anspricht — bei Adoleszenten werden MAO-Hemmer aber selten eingesetzt, SSRI (Fluoxetin) bleibt Erstlinie.</p>`,
+        vergleich: `<p><strong>Vs. M1 (somatisierende Depression):</strong> Bei M1 dominiert die körperliche Beschwerdesymptomatik (Schmerzen, Müdigkeit) ohne die spezifischen atypischen Marker (Stimmungs-Reaktivität, Blei-Schwere). M7 hat das spezifische atypische Profil mit Reaktivität und vegetativer Inversion.</p>
+          <p><strong>Vs. A04 (Bipolare Spektrum-Störung):</strong> Bei bipolarer Depression häufig auch Hypersomnie und Hyperphagie — Differenzialdiagnose über das Vorhandensein hypomanischer oder manischer Phasen in der Anamnese, strukturierte K-SADS-PL.</p>
+          <p><strong>Vs. A02.M4 (ADHS mit RSD):</strong> Rejection Sensitive Dysphoria überlappt mit der interpersonellen Zurückweisungs-Empfindlichkeit. Bei ADHS-Anamnese RSD-Achse, ohne ADHS-Profil atypische Depression.</p>
+          <p><strong>Vs. M3 (Dysthymie):</strong> Bei langem saisonalem Verlauf mit chronischer Sommer-Tönung kann Übergang in Dysthymie sein.</p>`
+      },
+      risikoProfil: {
+        kritisch: [
+          'Suizidalität in winterlicher Tiefphase, besonders Januar/Februar',
+          'Akute interpersonelle Zurückweisungs-Krise mit suizidaler Reaktion',
+          'Adipositas-Risiko mit metabolischen Folgen bei langjährigem Verlauf'
+        ],
+        hoch: [
+          'Schul-Vermeidung in der dunklen Jahreszeit mit morgendlicher Aufstehens-Schwierigkeit',
+          'Sozialer Rückzug nach interpersonellen Reibungen',
+          'Gewichts-Zunahme mit sekundärer Selbstwert-Belastung',
+          'Substanzkonsum als Selbstmedikation, besonders Kohlenhydrat-süchtiges Essen',
+          'Hypersomnie-bedingte Leistungs-Einbruch'
+        ],
+        mittel: [
+          'Chronifizierung der saisonalen Achse über das Erwachsenenalter',
+          'Beziehungs-Schwierigkeiten durch die Zurückweisungs-Empfindlichkeit',
+          'Vermeidung sozialer Risiko-Situationen mit Isolation',
+          'Beruflicher Einschnitt durch winterliche Funktions-Reduktion'
+        ]
+      },
+      therapieansatz: {
+        hauptansatz: `<p>Zweischichtige Behandlung: spezifische Behandlung der atypischen Komponenten (Lichttherapie bei saisonalem Muster, Schlafhygiene gegen Hypersomnie, Aktivierung gegen Antriebs-Reduktion) plus klassische CBT-A für die depressive Achse (Verhaltens-Aktivierung, kognitive Arbeit an Zurückweisungs-Kognitionen). Bei mittel-schwer SSRI (Fluoxetin), häufig mit niedrigerer Wirkungs-Effizienz als bei klassischer Depression — Geduld und Erwartungs-Steuerung. Bei saisonalem Muster Lichttherapie als oft erste Linie.</p>`,
+        begruendung: `<p>Die spezifischen atypischen Komponenten brauchen spezifische Interventionen (Lichttherapie, Schlafhygiene, Aktivierung) — eine rein klassische Depressions-Behandlung adressiert sie nicht ausreichend. Bei saisonalem Muster ist die Behandlung jahreszeit-zyklisch zu planen, mit prophylaktischer Verstärkung im Herbst.</p>`,
+        diagnostik: [
+          'BDI-A oder PHQ-A zur Schweregrad-Einschätzung',
+          'C-SSRS routinemäßig — Suizidalität besonders in Tiefphase',
+          'K-SADS-PL strukturiert für atypische Spezifizierer und bipolare Differenzialdiagnose',
+          'Schlaf-Tagebuch über mehrere Wochen — Hypersomnie und circadianer Rhythmus',
+          'Ess-Tagebuch bei Hyperphagie-Bedenken (EDE-Q bei Verdacht auf sekundäre Essstörung)',
+          'Saisonalitäts-Anamnese über mindestens zwei Jahres-Zyklen (SAD-spezifische Fragebogen)',
+          'Bei weiblichen Adoleszenten: Zyklus-Anamnese (PMDD-Differential)'
+        ],
+        wasDuTust: [
+          '„Deine Depression sieht anders aus als die klassische — du schläfst viel, isst viel, hast Tage, an denen es besser geht. Das ist auch Depression, eine eigene Form."',
+          '„Wenn du im Winter immer schlechter wirst und im Frühjahr besser, ist das nicht zufällig. Wir können das vorhersagen und vorbereiten."',
+          '„Dein Körper braucht im Winter mehr Licht, als er bekommt. Wir können das künstlich zuführen — das ist eine echte Behandlung, keine Lifestyle-Geste."',
+          '„Wenn du auf Zurückweisung besonders heftig reagierst — das ist Teil des Profils, nicht Überempfindlichkeit. Wir lernen, was du tun kannst, wenn der Sturm kommt."',
+          '„Mehr Schlaf macht dich nicht erholter, sondern müder. Das ist paradox, und es ist Teil der Erkrankung. Wir richten den Schlaf neu ein."',
+          '„Wenn das Essen gerade Trost ist — das verstehe ich. Wir machen das nicht zum Vorwurf, aber wir gucken zusammen, wie wir die Lücke anders füllen können."'
+        ],
+        wasDuNichtTust: [
+          'Nicht die atypische Symptomatik als „nicht echte Depression" bagatellisieren — sie ist ein eigenständiges klinisches Profil',
+          'Nicht Hypersomnie als Faulheit deuten — sie ist Kern-Symptom, keine Charakter-Eigenschaft',
+          'Nicht Hyperphagie disziplinarisch behandeln — sie wird klinisch adressiert, nicht moralisch',
+          'Nicht Lichttherapie als „Esoterik" abtun — sie ist eine der wenigen evidenzbasierten Interventionen bei saisonaler Depression',
+          'Nicht die Zurückweisungs-Empfindlichkeit als „Drama" abtun — sie ist Kern-Symptom mit eigenem Behandlungs-Bedarf'
+        ],
+        frequenz: `<p>Wöchentlich für die ersten zwölf Wochen. Bei saisonalem Muster: prophylaktische Verstärkung der Frequenz ab Oktober mit Lichttherapie-Start und Schlafhygiene-Auffrischung. Im Frühjahr und Sommer ggf. reduzierte Frequenz mit Erhaltungs-Format.</p>`
+      },
+      vierPhasen: {
+        phase1: `Diagnostik mit Klärung der atypischen Spezifizierer und der saisonalen Anamnese. Schlafhygiene und circadiane Strukturierung. Bei saisonalem Muster Lichttherapie-Einführung (10.000 Lux, morgens, dreißig Minuten). Psychoedukation zur atypischen Form. Bei mittel-schwer SSRI mit KJP. Wochen 1–6.`,
+        phase2: `Verhaltens-Aktivierung mit Schwerpunkt auf morgendliche Aktivierung gegen Hypersomnie. Kognitive Arbeit an Zurückweisungs-Kognitionen mit konkreten Verhaltens-Experimenten. Bei Hyperphagie kollaborative Ess-Achsen-Arbeit ohne Diät-Druck. Wochen 6–16.`,
+        phase3: `Konsolidierung mit Vorbereitung auf den nächsten saisonalen Zyklus. Aufbau eines persönlichen Frühwarn-Plans für den Herbst. Bearbeitung der Beziehungs-Muster um die Zurückweisungs-Empfindlichkeit. Monate 4–9.`,
+        phase4: `Erhaltungs-Therapie mit jahreszeit-zyklischer Verstärkung (intensivere Begleitung Oktober bis März, leichtere Frequenz im Sommer). Bei SSRI Erhaltung mindestens neun Monate, bei saisonaler Form ggf. ganzjährig oder mit jährlichem herbstlichen Beginn. Ab Monat 9.`
+      },
+      schulstrategie: {
+        a_problem: `<p>Schule sieht bei M7 oft den Klienten, der „eigentlich nicht so schlimm dran" wirkt — kann sich freuen, hat keine sichtbare Energie-Lethargie zur Sommerzeit, ist sozial integriert, leistet halbwegs. Aber: morgens kommt er regelmäßig zu spät, ist erschöpft, schläft im Unterricht ein, nimmt im Laufe des Winters auffällig zu, reagiert auf Mitschüler-Reibungen mit tagelangem Rückzug. Diese Konstellation wird häufig fehlgedeutet als Schlaf-Hygiene-Problem (Smartphone-Nutzung am Abend), Pubertäts-Müdigkeit oder Charakter-Eigenheit. Die klinische Erkrankung dahinter bleibt unbemerkt.</p>
+          <p>Was die Schule braucht, ist erstens die Information, dass eine atypische Depressions-Form vorliegt, mit spezifischen Charakteristika: morgendliche Anstrengung beim Aufstehen ist Symptom, nicht Disziplin-Problem; Hypersomnie ist Kern-Symptom, nicht Lifestyle; die ausgeprägte Reaktion auf Klassen- oder Lehrer-Reibung ist Zurückweisungs-Empfindlichkeit, nicht Drama. Zweitens braucht sie das Wissen um die saisonale Komponente, wenn vorhanden — der Klient wird im Herbst schlechter, das ist vorhersagbar, und die Schule kann mitvorbereiten.</p>
+          <p>Konkret heißt das: in der Tiefphase (Dezember bis Februar) ist eine morgendliche Anpassung sinnvoll (späterer Schulbeginn, keine Klassenarbeiten in der ersten Stunde, ruhigere Eingangs-Phase), kombiniert mit der Empfehlung der Lichttherapie zu Hause vor Schul-Beginn. Die schulische Anpassung wird im Frühjahr zurückgenommen, sobald das Profil es zulässt. Bei der Hyperphagie und Gewichts-Zunahme ist Diskretion klinisch zentral — keine öffentlichen Kommentare, keine Mitschüler-Reibungen, keine Schul-Sport-Bloßstellung. Die Bezugsperson schützt diese Achse aktiv.</p>
+          <p>Die Zurückweisungs-Empfindlichkeit erfordert besondere Aufmerksamkeit. Wenn der Klient nach einer Klassenarbeit-Bewertung, nach einer Mitschüler-Reibung oder nach einer Lehrer-Korrektur plötzlich tagelang fehlt oder sich zurückzieht, ist das nicht „beleidigt", sondern eine depressive Vertiefung mit eigener Behandlungs-Indikation. Die Bezugsperson kontaktiert in solchen Phasen aktiv und niederschwellig — eine kurze Nachricht „ich denke an dich, melde dich, wenn ich was tun kann" reicht oft, um die Vertiefung abzumildern.</p>
+          <p>Ein heikles Thema ist die Schul-Ferien-Achse. Bei saisonaler Depression sind die Weihnachtsferien klinisch hochkritisch — sie fallen mit der tiefsten Jahres-Phase zusammen, der Klient ist ohne Schul-Struktur und ohne Bezugsperson, oft mit familiären Belastungen und sozialer Isolation. Vor jeden Weihnachtsferien wird mit Klient und Familie ein konkreter Tagesplan abgestimmt, mit Lichttherapie-Erhalt, sozialer Verankerung (Maison des Jeunes, Sport-Vereine), Aktivitäts-Struktur. Die Schul-Bezugsperson kann hier durch Vor-Ferien-Gespräch unterstützen.</p>
+          <p>Schließlich die Hyperphagie und mögliche Gewichts-Zunahme: dieses Symptom hat klinisch eine doppelte Achse — die direkte vegetative Symptomatik der atypischen Depression und die sekundäre Selbstwert-Belastung mit Risiko einer sekundären Essstörung. In der Schule ist Diskretion absolute Priorität. Keine öffentlichen Kommentare durch Lehrkräfte, kein Schul-Sport-Vergleich, keine Diät-Empfehlungen, kein „du musst dich nur bewegen". Die Gewichts-Achse gehört in die klinische Behandlung, nicht in den schulischen Alltag. Mitschüler-Kommentare zur Gewichts-Veränderung werden bei Bekanntwerden durch die Bezugsperson aktiv unterbunden — analog zur Anti-Mobbing-Linie, aber spezifisch geschärft.</p>`,
+        b_vorlage: `<p>Sehr geehrte Frau X / Sehr geehrter Herr Y,</p>
+          <p>[Name] befindet sich in psychotherapeutischer und ggf. medikamentöser Behandlung wegen einer Depression mit atypischen Merkmalen (Stimmungs-Reaktivität, vermehrter Schlaf, vermehrter Appetit, ausgeprägte Zurückweisungs-Empfindlichkeit) und ggf. saisonalem Muster.</p>
+          <p>Klinisch wichtig: was als „Faulheit" oder „Drama-Verhalten" erscheinen kann (morgendliche Erschöpfung, intensive Reaktion auf Reibungen), ist Krankheits-Symptom, nicht Charakter. Bei saisonalem Verlauf gibt es eine vorhersagbare Verschlechterung in der dunklen Jahreszeit, die durch Lichttherapie zu Hause behandelt wird.</p>
+          <p>Konkret bitte ich Sie um Folgendes: erstens, in der winterlichen Tiefphase (Dezember bis Februar) eine morgendliche Anpassung — späterer Eingang, keine Klassenarbeiten in der ersten Stunde, ruhigere Erste-Stunden-Phase; zweitens, eine konstante Bezugsperson, die die Hypersomnie als Symptom liest und nicht disziplinarisch behandelt; drittens, bei Reibungen oder Bewertungs-Situationen niedrigschwellige Nachkontakt-Aufnahme, weil die Zurückweisungs-Empfindlichkeit zu tagelangem Rückzug führen kann; viertens, Diskretion bei der Gewichts-Achse — keine öffentlichen Kommentare, keine Sport-Bloßstellung, kein Diät-Druck; fünftens, vor den Weihnachtsferien ein Vor-Ferien-Gespräch mit Klient und Familie zur Sicherstellung der Stabilisierungs-Achsen über die Ferien.</p>
+          <p>Ich biete Ihnen ein Gespräch an, in dem wir die saison-zyklischen Anpassungen abstimmen.</p>
+          <p>Mit kollegialen Grüßen<br>[Name der Fachkraft]</p>`,
+        c_anpassungen: [
+          { titel: 'Morgendliche Anpassung in der winterlichen Tiefphase', begruendung: 'Dezember bis Februar: späterer Eingang um 15-30 Minuten oder ruhigere Erste-Stunden-Phase, keine Klassenarbeiten in der ersten Stunde, Lehrkraft akzeptiert leichte Verspätung ohne Sanktion. Diese Anpassung ist nicht Erleichterung, sondern Anerkennung der circadianen Krankheits-Achse. Sie wird im Frühjahr (ab März) zurückgenommen, sodass keine kumulative Schonung entsteht.' },
+          { titel: 'Lichttherapie-Unterstützung als Behandlungs-Komponente', begruendung: 'Die Lichttherapie (10.000 Lux, morgens, dreißig Minuten) findet zu Hause statt — die Schule muss die Logik kennen und akzeptieren, dass der Klient morgens vor dem Schul-Gang Zeit dafür braucht. Bei Internat oder Maison-Relais-Anbindung kann die Lichttherapie dort stattfinden. Diese Behandlung ist evidenz-basiert und nicht „Esoterik" — die Information ist sachlich klar zu kommunizieren.' },
+          { titel: 'Konstante Bezugsperson mit Symptom-Lesart', begruendung: 'Die Bezugsperson kennt die atypische Symptom-Liste und liest die Verhaltens-Marker entsprechend: Hypersomnie ist Krankheit, nicht Faulheit; Hyperphagie ist Krankheit, nicht Disziplin-Problem; intensive Reaktion auf Reibung ist Zurückweisungs-Empfindlichkeit, nicht Drama. Diese Lesart prägt jede Mikro-Reaktion und ist klinisch der wichtigste schulische Wirkfaktor.' },
+          { titel: 'Niedrigschwellige Nachkontakt-Aufnahme bei Reibungen oder Bewertungen', begruendung: 'Nach Klassenarbeiten, Mitschüler-Konflikten oder Lehrer-Korrekturen kann der Klient in tagelangen Rückzug rutschen. Eine kurze Bezugsperson-Nachricht („ich denke an dich, melde dich, wenn ich was tun kann") wirkt klinisch oft entscheidend, weil sie der inneren Erzählung „niemand merkt, dass ich verschwinde" widerspricht. Aktiv, nicht abwartend.' },
+          { titel: 'Diskretion bei der Gewichts-Achse', begruendung: 'Keine öffentlichen Kommentare zur Gewichts-Zunahme, keine Schul-Sport-Bloßstellung, kein Diät-Druck durch Lehrkräfte oder Mitschüler. Die Gewichts-Achse wird klinisch adressiert, nicht schulisch. Bei Schul-Sport: Anpassungen, die die Teilnahme erhalten, ohne Bloßstellung — Wahl der Übung, ruhige Umkleide-Möglichkeit, kein Vergleich.' },
+          { titel: 'Vor-Ferien-Gespräch vor Weihnachtsferien', begruendung: 'Die Weihnachtsferien fallen mit der tiefsten Jahres-Phase zusammen und sind klinisch hochkritisch. Ein Vor-Ferien-Gespräch zwischen Bezugsperson, Klient und ggf. Eltern stellt sicher, dass Lichttherapie-Erhalt, soziale Verankerung (Maison des Jeunes, Sport-Vereine), Aktivitäts-Struktur und Krisen-Kontakt-Möglichkeiten geklärt sind. Bei suizidaler Vorgeschichte besonders wichtig.' },
+          { titel: 'Aktivierungs-Plan für Schul-Sport oder körperliche Bewegung', begruendung: 'Körperliche Bewegung ist eine der wenigen evidenzbasierten antidepressiven Interventionen, besonders bei atypischer Depression mit Energie-Lethargie. Die Schule kann hier durch aktive Vermittlung in Sport-AGs, Schul-Sport-Anpassung und Maison-des-Jeunes-Sport-Angebote einen klinisch wirksamen Beitrag leisten. Konkrete persönliche Vermittlung ist effektiver als Empfehlung.' },
+          { titel: 'Saisonale Erwartungs-Steuerung im Lehrer-Team', begruendung: 'Das Lehrer-Team wird darüber informiert, dass mit saisonaler Verschlechterung zu rechnen ist und die Anpassungs-Linie im Winter intensiver gefahren wird. Diese Information verhindert, dass im Winter „plötzlich" der Klient als „aufgegeben" wahrgenommen wird — die Verschlechterung ist erwartet und behandelbar, nicht überraschend.' },
+          { titel: 'Schlafhygiene-Unterstützung mit konkreten morgendlichen Strukturen', begruendung: 'Hypersomnie ist nicht durch „früher ins Bett gehen" zu lösen — sie ist ein circadianer Krankheits-Marker. Die schulische Unterstützung umfasst: konkrete morgendliche Anker (eine kurze Begrüßung durch die Bezugsperson am Eingang, eine erste Stunde mit niedrigem Reibungs-Niveau), Vermeidung des Klassen-Lehrer-Wechsels in der ersten Stunde. Wenn die Schule die circadiane Achse mitträgt, wird die Lichttherapie zu Hause wirksamer.' },
+          { titel: 'Bei interpersonellen Reibungen niedrige Schwelle zur Reflexions-Pause', begruendung: 'Wenn der Klient eine Reibung erlebt (Konflikt mit Mitschüler, Lehrer-Bewertung), kann er kurz aus der Situation gehen und in einem ruhigen Raum die Reaktion abklingen lassen — analog zum Notfall-Plan bei anderen Profilen. Diese Mikro-Pause verhindert die Eskalation in den tagelangen Rückzug. Klare Rückkehr-Vereinbarung, sonst wird sie zur Vermeidungs-Stütze.' },
+          { titel: 'Bei Hyperphagie und Heißhunger keine moralische Schul-Kommentierung', begruendung: 'Schul-Verpflegung-Wahl, Snack-Verhalten, Pausen-Essen sind klinisch nicht über Schul-Sanktionen zu adressieren. Die Bezugsperson nimmt die Achse wahr, ohne sie schulisch zu thematisieren, und meldet beobachtbare Eskalation an die behandelnde Fachkraft. Die Fachkraft entscheidet die Intervention. Schul-Mitschüler-Kommentare werden bei Bekanntwerden aktiv unterbunden.' }
+        ],
+        d_kontraindikationen: [
+          { titel: 'Keine Disziplinar-Reaktion auf morgendliche Verspätung in der Tiefphase', begruendung: 'Morgendliche Anstrengung ist Kern-Symptom; Disziplin-Sanktion verstärkt die depressive Vertiefung und produziert Schul-Vermeidung. Anpassung ist klinisch indiziert, nicht „Bevorzugung".' },
+          { titel: 'Keine öffentlichen Gewichts-Kommentare oder Diät-Empfehlungen durch Schul-Personal', begruendung: 'Hyperphagie ist Krankheits-Symptom und sekundär schamhaft besetzt. Schul-Personal-Kommentare zur Gewichts-Achse können massive Selbstwert-Vertiefung und sekundäre Essstörung-Risiken produzieren. Die Gewichts-Achse gehört in die klinische Behandlung.' },
+          { titel: 'Keine Bagatellisierung der Zurückweisungs-Empfindlichkeit als „Drama"', begruendung: 'Die ausgeprägte Reaktion auf Zurückweisung ist Kern-Symptom mit eigenem Behandlungs-Bedarf. Bagatellisierung („nun stell dich nicht so an") verschärft die depressive Vertiefung und zerstört die Bezugspersonen-Allianz.' },
+          { titel: 'Keine Lichttherapie als „Esoterik" abtun', begruendung: 'Lichttherapie ist eine evidenzbasierte Behandlungs-Komponente bei saisonaler Depression. Lehrkräfte, die das gegenüber dem Klienten oder den Eltern abwertend kommentieren, untergraben die Behandlungs-Allianz. Sachliche Information statt persönliche Meinung.' },
+          { titel: 'Keine Total-Befreiung in der Tiefphase ohne Lichttherapie-Ersatz', begruendung: 'Anpassung ja, vollständige Schul-Abwesenheit nein. Schul-Vermeidung in der Winter-Tiefphase erhöht die Suizidalitäts-Gefahr (Isolation, kein Licht, kein Tages-Rhythmus). Wenn morgendliche Anpassung nicht reicht, wird die Lichttherapie und die häusliche Aktivierungs-Achse intensiviert, nicht die Schule weggelassen.' }
+        ],
+        e_rollen: [
+          'Konstante Bezugsperson mit atypischer Symptom-Lesart',
+          'Schul-Psychologe (CDSE-PSY oder PEP-Service)',
+          'SCAS für die vertiefte therapeutische Begleitung',
+          'KJP für SSRI und Lichttherapie-Frage',
+          'Hausarzt für Gewichts-Monitoring und somatische Komorbiditäts-Klärung',
+          'Maison des Jeunes für soziale Verankerung in den Ferien',
+          'Eltern als Verbündete der Lichttherapie und der Aktivierungs-Linie'
+        ],
+        f_frequenz: `<p>Schul-Kontakt alle vier Wochen, in der winterlichen Tiefphase verdichtet auf alle zwei Wochen. Vor und nach den Weihnachtsferien zusätzliche Kontakte. Im Sommer Erhaltungs-Format mit reduzierten Kontakten.</p>
+          <p><strong>Eskalations-Pfad — fünf Stufen:</strong></p>
+          <ol>
+            <li><strong>Stufe 1</strong> — Bezugsperson etabliert, Lehrer-Team-Aufklärung zur atypischen Symptomatik und zur saisonalen Achse, Anpassungs-Plan für die Tiefphase vereinbart.</li>
+            <li><strong>Stufe 2</strong> — Schul-Psychologin eingebunden, Lichttherapie-Logik kommuniziert, saisonale Frühwarn-Marker im Lehrer-Team verankert.</li>
+            <li><strong>Stufe 3</strong> — Anpassungen schriftlich dokumentiert mit jahreszeit-zyklischem Plan, Vor-Weihnachtsferien-Gespräch eingeplant, niedrigschwellige Kontakt-Routine bei Reibungen geklärt.</li>
+            <li><strong>Stufe 4</strong> — Bei tiefer Winter-Phase mit Suizidalität: enger Draht zur Fachkraft, gegebenenfalls Hospitalisierungs-Vorbereitung. Bei Gewichts-Eskalation mit sekundärer Essstörung: zusätzliche Achse-Behandlung.</li>
+            <li><strong>Stufe 5</strong> — Bei schwerer winterlicher Dekompensation: stationäre Behandlung (oft kurz, mit Lichttherapie und SSRI-Anpassung), Wieder-Einstieg therapeutisch begleitet, jahreszeit-zyklischer Erhaltungs-Plan für die folgenden Jahre vereinbart.</li>
+          </ol>
+          <p>Bei wiederkehrendem saisonalem Verlauf über mehrere Jahre wird die Schul-Strategie als wiederkehrendes Protokoll etabliert — die Anpassungs-Liste, das Vor-Weihnachtsferien-Gespräch und die Frühwarn-Routine kehren in jedem Herbst zurück, ohne dass sie jedes Jahr neu verhandelt werden müssen.</p>`
+      },
+      eskalation: {
+        frequenzErhoehen: `<p>Beginnende winterliche Tiefphase mit deutlicher Verschlechterung. Suizidale Gedanken berichtet. Schul-Vermeidung morgens. Gewichts-Eskalation mit beginnender sekundärer Essstörung. Wiederholte tiefgreifende Reaktionen auf Reibungen oder Zurückweisungen. Vor den Weihnachtsferien.</p>`,
+        ueberweisung: `<p>SSRI-Indikation bei mittel-schwer. KJP-Konsil bei saisonaler Form mit kompletter winterlicher Funktions-Einschränkung. Konkrete Suizidalität. Bei sekundärer Essstörung mit Gewichts-Eskalation: spezialisierte Anbindung. Bipolar-Differential strukturiert klären.</p>`,
+        klinik: `<p>Akute Suizidalität in der Tiefphase. Schwere winterliche Dekompensation mit kompletter Funktions-Einschränkung. Bei sekundärer Essstörung mit körperlicher Dekompensation: psychosomatische Klinik mit Gewichts-Stabilisierung und antidepressiver Behandlung.</p>`
+      }
+    }
+  }
 ];
 
 /* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
