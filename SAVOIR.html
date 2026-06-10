@@ -4167,7 +4167,7 @@ const TOPICS = {
         }
       }
     },
-    verwandt: ['adhs-unaufmerksam', 'soziale-angst', 'depression-jugendliche', 'hochsensibilitaet']
+    verwandt: ['adhs-unaufmerksam', 'depression', 'angststoerungen', 'trauma']
   },
   'adhs-unaufmerksam': {
     id: 'adhs-unaufmerksam',
@@ -4714,11 +4714,40 @@ const TOPICS = {
         }
       }
     },
-    verwandt: ['asperger', 'depression-jugendliche', 'angststoerung-generalisiert', 'borderline-entwicklung', 'lernstoerungen']
+    verwandt: ['asperger', 'depression', 'angststoerungen', 'trauma']
   },
-  'depression-jugendliche': {
-    id: 'depression-jugendliche',
-    titel: 'Depression bei Jugendlichen',
+  /* Angststörungen — Topic angelegt in Prompt 10. Wissens-Ebenen sind aktuell
+     leer (Inhalt folgt in späteren Prompts); Profil-Diagnose und Sub-Muster-
+     Tiefe-Container sind über SYMPTOM_DIAGNOSE_ANGST und PLAN_MUSTER_ANGSTSTOERUNGEN
+     funktional. Erreichbar über die globale Diagnostik (A05 → topicKey
+     'angststoerungen') und über die Krankheitsbilder-Übersicht. */
+  'angststoerungen': {
+    id: 'angststoerungen',
+    titel: 'Angststörungen (Adoleszenz)',
+    kategorie: 'C',
+    ebenen: {},
+    verwandt: ['asperger', 'adhs-unaufmerksam', 'depression', 'trauma']
+  },
+  /* Trauma — Topic angelegt in Prompt 14. Wissens-Ebenen aktuell leer (Inhalt
+     folgt); Profil-Diagnose und Sub-Muster-Tiefe-Container sind über
+     SYMPTOM_DIAGNOSE_TRAUMA und PLAN_MUSTER_TRAUMA funktional. Erreichbar über
+     die globale Diagnostik (A07 → topicKey 'trauma') und die Krankheitsbilder-
+     Übersicht. */
+  'trauma': {
+    id: 'trauma',
+    titel: 'PTBS und komplexes Trauma (Adoleszenz)',
+    kategorie: 'D',
+    ebenen: {},
+    verwandt: ['asperger', 'angststoerungen', 'depression']
+  },
+  /* Depression — Topic angelegt in Prompt 18. Wissens-Ebenen aktuell leer
+     (Inhalt folgt); Profil-Diagnose mit Suizidalitäts-Hinweisblock und Krisen-
+     Priorisierung sowie Sub-Muster-Tiefe-Container über SYMPTOM_DIAGNOSE_DEPRESSION
+     und PLAN_MUSTER_DEPRESSION funktional. Erreichbar über die globale Diagnostik
+     (A03 → topicKey 'depression') und die Krankheitsbilder-Übersicht. */
+  'depression': {
+    id: 'depression',
+    titel: 'Depressive Störung (Adoleszenz)',
     untertitel: 'Erkennen, wo sie sich versteckt — behandeln, was wirklich greift',
     kategorie: 'B',
     ebenen: {
@@ -5112,42 +5141,6 @@ const TOPICS = {
         ]
       }
     },
-    verwandt: ['asperger', 'adhs-unaufmerksam', 'angststoerung-generalisiert', 'borderline-entwicklung']
-  },
-  /* Angststörungen — Topic angelegt in Prompt 10. Wissens-Ebenen sind aktuell
-     leer (Inhalt folgt in späteren Prompts); Profil-Diagnose und Sub-Muster-
-     Tiefe-Container sind über SYMPTOM_DIAGNOSE_ANGST und PLAN_MUSTER_ANGSTSTOERUNGEN
-     funktional. Erreichbar über die globale Diagnostik (A05 → topicKey
-     'angststoerungen') und über die Krankheitsbilder-Übersicht. */
-  'angststoerungen': {
-    id: 'angststoerungen',
-    titel: 'Angststörungen (Adoleszenz)',
-    kategorie: 'C',
-    ebenen: {},
-    verwandt: ['asperger', 'adhs-unaufmerksam', 'depression-jugendliche']
-  },
-  /* Trauma — Topic angelegt in Prompt 14. Wissens-Ebenen aktuell leer (Inhalt
-     folgt); Profil-Diagnose und Sub-Muster-Tiefe-Container sind über
-     SYMPTOM_DIAGNOSE_TRAUMA und PLAN_MUSTER_TRAUMA funktional. Erreichbar über
-     die globale Diagnostik (A07 → topicKey 'trauma') und die Krankheitsbilder-
-     Übersicht. */
-  'trauma': {
-    id: 'trauma',
-    titel: 'PTBS und komplexes Trauma (Adoleszenz)',
-    kategorie: 'D',
-    ebenen: {},
-    verwandt: ['asperger', 'angststoerungen', 'depression-jugendliche']
-  },
-  /* Depression — Topic angelegt in Prompt 18. Wissens-Ebenen aktuell leer
-     (Inhalt folgt); Profil-Diagnose mit Suizidalitäts-Hinweisblock und Krisen-
-     Priorisierung sowie Sub-Muster-Tiefe-Container über SYMPTOM_DIAGNOSE_DEPRESSION
-     und PLAN_MUSTER_DEPRESSION funktional. Erreichbar über die globale Diagnostik
-     (A03 → topicKey 'depression') und die Krankheitsbilder-Übersicht. */
-  'depression': {
-    id: 'depression',
-    titel: 'Depressive Störung (Adoleszenz)',
-    kategorie: 'B',
-    ebenen: {},
     verwandt: ['asperger', 'adhs-unaufmerksam', 'angststoerungen', 'trauma']
   }
 };
