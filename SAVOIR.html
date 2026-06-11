@@ -10028,6 +10028,40 @@ const PLAN_MUSTER_ANGSTSTOERUNGEN = [
         frequenzErhoehen: `<p>Wieder-Einstiegs-Versuche scheitern wiederholt. Sekundäre Depression vertieft sich. Vollständige soziale Isolation. Suizidale Gedanken berichtet. Familien-Eskalation um die Schul-Frage.</p>`,
         ueberweisung: `<p>Medikations-Frage (SSRI bei schwerer Belastung). Schwere komorbide Depression. Konkrete Suizidalität. Krankschreibung mit Reha-Charakter braucht ärztliche Begleitung über die KJP.</p>`,
         klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen. Massive Verwahrlosung bei längerem Verlauf. Familien-System bricht zusammen, kein sicherer Container.</p>`
+      },
+      gegenuebertragung: {
+        intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+        reaktionen: [
+          { zug: 'Der Rettungsimpuls',
+            beschreibung: 'Echte Tränen, echte Bauchschmerzen, echte Panik am Morgen ziehen den Wunsch, das Kind da rauszuholen: heimschicken, abholen lassen, die Anforderung wegnehmen. Genau diese Bewegung ist der Treibstoff der Störung — jede Rettung bestätigt dem Angstsystem, dass die Schule gefährlich war. Du wirst dich beim Retten fürsorglich fühlen; das ist die Falle.',
+            gegenmittel: 'Vor jeder Entscheidung die Kontrollfrage: Stütze ich gerade — oder rette ich? Validieren und den Mini-Schritt trotzdem gehen.' },
+          { zug: 'Mit-Ängstlichkeit',
+            beschreibung: 'Die Anspannung der Familie (oft der Mutter) überträgt sich auf Helfer: Man wird vorsichtig, traut dem Kind nichts mehr zu, senkt still die Erwartung. Das Kind liest die gesenkte Erwartung als Bestätigung der eigenen Unfähigkeit.',
+            gegenmittel: 'Ruhige Zuversicht ist Teil der Behandlung — Haltung „du schaffst das, und ich bleibe dabei" hörbar machen.' },
+          { zug: 'Frust über Rückfälle',
+            beschreibung: 'Nach Wochen des Aufbaus kommt der Einbruch — nach Ferien, vor Prüfungen, beim Klassenwechsel. Der Sog: innerlich aufgeben („bringt ja nichts") oder Druck erhöhen. Beides zementiert die Vermeidung.',
+            gegenmittel: 'Rückfälle vorab vorhersagen und einplanen; sie sind Kursverlauf, kein Scheitern.' },
+          { zug: 'Eltern-Abstempeln',
+            beschreibung: 'Wenn Eltern jede Exposition unterlaufen, entsteht der Impuls, sie als das eigentliche Problem zu behandeln und am Kind vorbeizuarbeiten. Damit verlierst du den wirksamsten Hebel des Falls.',
+            gegenmittel: 'Eltern als verängstigte Verbündete adressieren; ein konkreter gemeinsamer Schritt pro Gespräch.' }
+        ]
+      },
+      krisenampel: {
+        gruen: {
+          zeichen: ['Kommt gemäß Stufenplan (auch mit Begleitung)', 'Spricht über die Angst statt nur über Symptome', 'Körperbeschwerden klingen im Lauf des Vormittags ab', 'Familie hält die vereinbarte Linie'],
+          tun: ['Stufenleiter exakt halten — nicht beschleunigen, Erfolg nicht „belohnen" mit Tempo', 'Jedes Erscheinen konkret würdigen (Verhalten benennen, nicht Person loben)', 'Vorhersehbarkeit pflegen: Wechsel und Besonderheiten vorab ankündigen']
+        },
+        gelb: {
+          zeichen: ['Körperbeschwerden am Schulmorgen häufen sich', 'Abmeldungen/Verspätungen nehmen zu, v. a. nach Wochenenden und Ferien', 'Rückzug vor Meilensteinen (Prüfung, PEI, Klassenwechsel)', 'Familie beginnt wieder abzuholen/zu entschuldigen', 'Radius schrumpft auch außerschulisch'],
+          tun: ['Vereinbartes Symptom-Protokoll greift: kommen + Ruheoption, Re-Check nach 30 Minuten', 'Validieren UND Erwartung halten — beides im selben Satz', 'Eltern am selben Tag kontaktieren, eine Linie bestätigen', 'Stufe ggf. eine Sprosse zurück, aber nie auf null', 'Auslöser-Hypothese prüfen (Prüfung? Peer? Zuhause?)'],
+          nicht_tun: ['Heimschicken oder „bis es dir besser geht" pausieren — das ist die verstärkende Rettung', 'Mit Konsequenzen drohen — Angst lernt nicht durch Strafe', 'Die Beschwerden anzweifeln („du hast doch nichts") — sie sind echt, nur ist ihr Ursprung Anspannung']
+        },
+        rot: {
+          zeichen: ['Kompletter Schulabbruch über mehrere Tage trotz Protokoll', 'Panikattacken am Morgen, Kind ist nicht mehr regulierbar', 'Funktionsverlust generalisiert (Freunde, Hobbys, Haus verlassen)', 'Familie ist kollabiert auf Voll-Akkommodation'],
+          tun: ['Fallkonferenz binnen Tagen: Familie, Schule/CDSE-PSY, behandelnde KJP — eine Linie, schriftlich', 'Mini-Wiedereinstieg neu aufsetzen (kleinste haltbare Stufe, tägliche Frequenz)', 'Komorbidität aktiv prüfen (Depression, Trauma, ASS-Schicht) statt mehr vom Gleichen', 'Behandlungsintensität erhöhen (Frequenz, ggf. teilstationäre Optionen prüfen)'],
+          nicht_tun: ['Vollkonfrontation erzwingen („einfach reinsetzen") — Flutung ohne Halt traumatisiert die Beziehung zur Schule', 'Den Fall ruhen lassen, „bis die Familie bereit ist" — Chronifizierung läuft', 'Parallel mehrere neue Akteure einführen — Vorhersehbarkeit ist Behandlung'],
+          schutzhinweis: 'Bei Hinweisen auf Suizidalität oder Selbstverletzung gilt der Krisenpfad vorrangig: depressives Krisen-Profil prüfen, Anbindung KJP, akut SOS Détresse 454545 / 112 bzw. KJP-Notdienst (CHL, Hôpitaux Robert Schuman).'
+        }
       }
     }
   },
@@ -12379,6 +12413,93 @@ const PLAN_MUSTER_DEPRESSION = [
         frequenzErhoehen: `<p>Jede berichtete Verschlechterung der suizidalen Gedanken. Auftreten konkreter Pläne oder Vorbereitungs-Handlungen. Paradoxe Beruhigung nach Phase tiefer Verzweiflung. Substanzkonsum am Tag des Risikos. Akute Belastungs-Ereignisse (Verlust, Beschämung, Beziehungs-Abbruch). Beobachtbare schulische Hinweise.</p>`,
         ueberweisung: `<p>SSRI-Indikation bei Major-Depression-Episode unter der Suizidalität. KJP-Konsil zur Hospitalisierungs-Frage. Bei rezidivierender Suizidalität mit Selbstverletzung: DBT-A-Anbindung. Bei Substanzkonsum-Komorbidität: Sucht-spezialisierte Anbindung.</p>`,
         klinik: `<p>Akute Suizidalität mit Plan oder Vorbereitungs-Handlungen — Hospitalisierungs-Indikation. Methoden-Verfügbarkeit zu Hause ohne tragfähige Methoden-Restriktion. Familien-Kontext, der Schutz nicht gewährleisten kann. Paradoxe Beruhigung mit unklarer Entscheidungs-Lage. Substanz-Intoxikation mit suizidaler Aktivierung. Versagen ambulanter Stabilisierung trotz strukturierter Begleitung. Schwelle bei Adoleszenten niedrig — lieber eine Aufnahme zu viel als ein versäumter Schutz.</p>`
+      },
+      gegenuebertragung: {
+        intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+        reaktionen: [
+          { zug: 'Distanzierung durch Übersicht',
+            beschreibung: 'Du wirst klinisch-effizient: C-SSRS-Punkte abarbeiten, Doku vervollständigen, Struktur halten. Das fühlt sich professionell an, ist aber oft Flucht vor der Stille des Gegenübers — vor der Schwere, die im Raum steht, wenn ein Jugendlicher seine Entscheidung schon halb getroffen hat. Die Checkliste wird zum Schutzschild, hinter dem der echte Kontakt abreißt. Genau dieser Kontakt ist aber dein wichtigstes Instrument bei geplanter Suizidalität.',
+            gegenmittel: 'Erst Beziehung, dann Instrument: Stille einen Moment aushalten, bevor du die nächste Frage stellst. Die C-SSRS bleibt Pflicht — aber als Gespräch, nicht als Verhör.' },
+          { zug: 'Falscher Optimismus',
+            beschreibung: 'Du sehnst dich nach Entlastung und machst kleine Aufhellungen groß: ein Lächeln, ein Termin eingehalten, „es geht schon besser". Besonders gefährlich bei diesem Profil: Die paradoxe Beruhigung — plötzliche Gelassenheit nach langer Verzweiflung — wird als Stabilisierung fehlgelesen, obwohl sie der hochkritischste Marker ist, weil sie eine innerlich getroffene Entscheidung anzeigen kann. Dein Wunsch, dass es bergauf geht, färbt deine Risikoeinschätzung.',
+            gegenmittel: 'Jede plötzliche Ruhe aktiv hinterfragen: „Was hat sich verändert, dass du jetzt so gelassen wirkst?" Aufhellung erst dann als Fortschritt werten, wenn die C-SSRS sie bestätigt.' },
+          { zug: 'Vermeidung der direkten Frage',
+            beschreibung: 'Du fragst um das Thema herum: „Wie geht es dir so?", „Hast du manchmal dunkle Gedanken?" — alles, nur nicht das Wort Suizid. Dahinter steht meist die Angst, jemanden „auf Ideen zu bringen". Das ist ein widerlegter Mythos: Direktes, ruhiges Fragen senkt Anspannung und öffnet das Gespräch; Drumherumreden signalisiert dem Jugendlichen, dass selbst du das Thema nicht aushältst — und er schweigt weiter.',
+            gegenmittel: 'Direkt und konkret fragen: „Denkst du daran, dich zu töten? Hast du einen Plan?" Wenn du merkst, dass du ausweichst, benenne es für dich und korrigiere im selben Gespräch.' },
+          { zug: 'Allmachts-Furcht',
+            beschreibung: 'Du fühlst dich allein verantwortlich dafür, dass dieser Mensch am Leben bleibt. Du ziehst Verantwortung an dich, gibst private Erreichbarkeit, triffst Entscheidungen ohne Team — und planst keine Konsens-Anbindung mehr, weil du „es selbst im Blick hast". Das überfordert dich, isoliert den Fall und nimmt dem Jugendlichen das tragfähige Netz, das er bei geplanter Suizidalität zwingend braucht. Einzelpersonen halten dieses Risiko nicht; Systeme halten es.',
+            gegenmittel: 'Verantwortung sofort teilen: Fall ins Team, KJP-Anbindung klären, Bezugspersonen in den Safety Plan einbinden. Wenn du merkst, dass du Sonderwege gehst, ist das dein Signal zur Supervision.' },
+          { zug: 'Erschöpfungs-Härte',
+            beschreibung: 'Nach mehreren Krisen desselben Jugendlichen wirst du innerlich härter: Du hörst weniger genau hin, ordnest neue Äußerungen als „kennen wir schon" ein, machst Routine aus dem, was Alarm bleiben müsste. Das ist keine Charakterschwäche, sondern ein normales Erschöpfungszeichen — aber es ist genau der Moment, in dem eine echte Eskalation übersehen wird, weil sie klingt wie die letzten drei.',
+            gegenmittel: 'Jede Krise formal neu einschätzen, als wäre es die erste — die C-SSRS schützt dich hier vor deiner eigenen Gewöhnung. Eigene Erschöpfung in Supervision benennen, bevor sie die Einschätzung färbt.' }
+        ]
+      },
+      krisenampel: {
+        gruen: {
+          zeichen: [
+            'Suizidgedanken werden offen berichtet, sind aber passiv und ohne Plan (C-SSRS niedrig)',
+            'Safety Plan nach Stanley/Brown existiert, ist aktuell und der Jugendliche kennt seine Schritte',
+            'Tragfähiger Kontakt zu mindestens einer Bezugsperson (auch im Foyer-Kontext benannt)',
+            'Termine werden eingehalten, Tagesstruktur in Grundzügen vorhanden',
+            'Stimmung gedrückt, aber affektiv erreichbar — Schwankungen werden mitgeteilt'
+          ],
+          tun: [
+            'C-SSRS in jeder Sitzung durchführen, auch wenn es stabil wirkt',
+            'Safety Plan regelmäßig durchgehen und an aktuelle Auslöser anpassen',
+            'Means Restriction mit Bezugspersonen als laufendes Prinzip besprechen, nicht als einmalige Aktion',
+            'Anbindung sichern: feste Folgetermine, klare Erreichbarkeiten, Bezugspersonen im Boot',
+            'Bei SSRI-Beginn das Aktivierungsfenster aktiv ansprechen und engmaschiger einbestellen'
+          ]
+        },
+        gelb: {
+          zeichen: [
+            'Suizidgedanken werden konkreter: Methodengedanken, häufigere oder längere Episoden (C-SSRS steigend)',
+            'Akuter Auslöser eingetreten: Verlust einer Bezugsperson, akute Beschämung, Identitätskrise',
+            'Rückzug aus Kontakten, Termine werden abgesagt oder „vergessen"',
+            'SSRI vor wenigen Tagen begonnen: Antrieb steigt, Stimmung noch nicht — klassisches Risikofenster',
+            'Safety Plan wird entwertet („bringt eh nichts") oder nicht mehr genutzt',
+            'Foyer-/Heimkontext: Bezugsbetreuer wechselt oder fällt aus'
+          ],
+          tun: [
+            'Direkt und konkret nach Plan, Zeitpunkt und Zugang zu Mitteln fragen — vollständige C-SSRS',
+            'Safety Plan im Gespräch überarbeiten: Warnzeichen, interne Strategien, Kontakte, professionelle Anlaufstellen konkretisieren',
+            'Means Restriction sofort erneuern: mit Eltern bzw. Foyer-Team den Zugang zu potenziell gefährlichen Mitteln aktiv reduzieren',
+            'Kontaktdichte erhöhen: kürzere Intervalle, vereinbarter Zwischenkontakt, KJP-Anbindung vorbereiten',
+            'Bezugspersonen und ggf. Foyer-Team einbeziehen — Verantwortung auf mehrere Schultern verteilen'
+          ],
+          nicht_tun: [
+            'Keinen No-Suicide-Contract abschließen — das Instrument ist obsolet und erzeugt Scheinsicherheit',
+            'Nicht aus gut gemeinter Rücksicht die direkte Suizidfrage auslassen, um „nicht zu bohren" — genau jetzt muss sie kommen',
+            'Absagen nicht als Entlastung verbuchen („braucht gerade Ruhe"), sondern aktiv nachgehen',
+            'Vertraulichkeit nicht absolut zusichern — bei akuter Gefahr müssen Bezugspersonen informiert werden, und das muss vorher transparent sein',
+            'Den Fall nicht allein halten: keine privaten Sonderabsprachen statt strukturierter Anbindung'
+          ]
+        },
+        rot: {
+          zeichen: [
+            'Konkreter Plan mit Zeitpunkt oder Vorbereitungshandlungen (C-SSRS hoch)',
+            'Paradoxe Beruhigung: plötzliche Gelassenheit oder Heiterkeit nach langer Verzweiflung — Hinweis auf innerlich getroffene Entscheidung',
+            'Abschiedssignale: Verschenken wichtiger Gegenstände, Abschiedsbotschaften, Dinge „in Ordnung bringen"',
+            'Zugang zu Mitteln trotz besprochener Means Restriction vorhanden oder aktiv beschafft',
+            'Akute Beschämung oder Verlust unmittelbar eingetreten, gleichzeitig Kontaktabbruch',
+            'Im Foyer/Heim: Jugendlicher entzieht sich der Aufsicht, Aufenthaltsort zeitweise unklar'
+          ],
+          tun: [
+            'Jugendlichen nicht allein lassen — durchgehende Begleitung bis zur Übergabe sicherstellen',
+            'Sofort KJP-Notdienst kontaktieren und akute Vorstellung organisieren; bei unmittelbarer Gefahr 112',
+            'Sorgeberechtigte bzw. Foyer-Leitung unverzüglich informieren — Schweigepflicht tritt hinter akuten Schutz zurück',
+            'Zugang zu gefährlichen Mitteln in der unmittelbaren Umgebung sofort unterbrechen lassen (Bezugspersonen, Foyer-Team)',
+            'Ruhig, direkt und ohne Vorwurf im Kontakt bleiben: benennen, was du siehst, und den nächsten Schritt ankündigen'
+          ],
+          nicht_tun: [
+            'Die plötzliche Ruhe nicht als Besserung werten und die Eskalation deshalb abblasen — das ist der klassische, gut gemeinte Fehler bei diesem Profil',
+            'Keinen No-Suicide-Contract oder Versprechen („Du meldest dich doch, bevor…") als Sicherung akzeptieren',
+            'Den Jugendlichen nicht allein nach Hause oder ins Foyer schicken, „damit er zur Ruhe kommt"',
+            'Nicht verhandeln oder Bedenkzeit bis zum nächsten Termin einräumen — geplante Suizidalität wartet nicht auf den Kalender',
+            'Die Einweisung nicht aus Beziehungsschutz hinauszögern („das zerstört unser Vertrauen") — Schutz geht vor Bündnis'
+          ],
+          schutzhinweis: 'Bei akuter Gefahr sofort den KJP-Notdienst (CHL Kannerklinik oder Hôpitaux Robert Schuman) einschalten, bei unmittelbarer Lebensgefahr 112. Für den Jugendlichen und sein Umfeld gilt rund um die Uhr SOS Détresse unter 454545.'
+        }
       }
     }
   },
@@ -12784,6 +12905,93 @@ const PLAN_MUSTER_BORDERLINE = [
         frequenzErhoehen: `<p>Jede berichtete schwere Krise oder Krisen-Häufung. Auftreten von SVV-Eskalation (Schwere, Lokalisation, Frequenz). Akute Trennungs- oder Verlust-Erfahrung. Wegfall einer wichtigen Bezugsperson. Beobachtbare schulische Eskalation. Beginnender Substanzkonsum als Selbstmedikation.</p>`,
         ueberweisung: `<p>Bei rezidivierender schwerer Krise KJP-Konsil für Medikations-Frage (bei begleitender Depression SSRI, bei extremer Affekt-Labilität gegebenenfalls niedrigschwellige Adjuvanz nach KJP-Einschätzung). Bei Trauma-Komorbidität trauma-spezialisierte Anbindung. Bei Substanz-Komorbidität CePT oder KJP-Sucht-Ambulanz.</p>`,
         klinik: `<p>Akute Suizid-Handlung mit Vorbereitungs-Schritten — Hospitalisierungs-Indikation. Schwere SVV mit somatischer Konsequenz. Kontrollverlust-Episode mit Fremdgefährdung. Substanz-Intoxikation im Krisen-Kontext. Versagen ambulanter Stabilisierung trotz strukturierter DBT-Linie über mehrere Wochen. Indikations-Schwelle ist klar, aber nicht reflexhaft niedrig — jede Hospitalisierung wird klinisch begründet, nicht aus Schul-Druck oder Familien-Erschöpfung allein.</p>`
+      },
+      gegenuebertragung: {
+        intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+        reaktionen: [
+          { zug: 'Mitschwingen im Sturm',
+            beschreibung: 'Der Affekt-Pegel dieses Profils ist hoch, wechselt in Stunden — und er ist ansteckend. Du merkst es daran, dass dein eigener Puls im Kontakt steigt, dass du danach aufgewühlt bist oder abends weiter an dem Fall hängst. Die Intensität fühlt sich an wie deine eigene Dringlichkeit: sofort handeln, sofort entscheiden, sofort beruhigen. Genau diese Gleichschaltung nimmt dir die Distanz, die du für die Einschätzung der akuten Suizidalität brauchst — du bewertest dann die Welle, nicht die Lage.',
+            gegenmittel: 'Vor jeder Entscheidung kurz den eigenen Erregungs-Pegel prüfen: Ist die Dringlichkeit meine oder seine? Einschätzung an Kriterien koppeln, nicht an die Lautstärke des Affekts.' },
+          { zug: 'Rettungsdrang',
+            beschreibung: 'Bei akuter Suizidalität und schwerer Selbstverletzung entsteht fast reflexhaft der Impuls, alles gleichzeitig zu tun: sofort Klinik, sofort die Eltern anrufen, alle Verantwortung an dich ziehen, damit die Welle aufhört. Anders als bei der analytisch geplanten Suizidalität der depressiven Krise (vgl. A03.M6) ist dieses Profil impulsiv-reaktiv und klingt typisch in Stunden bis wenigen Tagen ab — reflexhafte Hospitalisierung kann hier zur Verstärkungs-Falle werden. Der Drang sagt oft mehr über deine Anspannung als über die Indikation.',
+            gegenmittel: 'Die Klinik-Frage als klinische Entscheidung mit differenzierten Kriterien behandeln, nicht als Affekt-Entlastung. Erst Lage einschätzen, dann Schritt wählen — nicht umgekehrt.' },
+          { zug: 'Ent-Validierung als Selbstschutz',
+            beschreibung: 'Wenn die dritte interpersonell getriggerte Eskalation in zwei Wochen kommt, schleichen sich innerlich Abwertungen ein: dramatisch, manipulativ, will nur Aufmerksamkeit. Das ist Distanzierung zum Selbstschutz — und es reproduziert exakt das Invalidating Environment nach Linehan, das an der Entstehung des Musters beteiligt ist. Die Person spürt diese innere Haltung, auch wenn du sie nicht aussprichst, und die nächste Eskalation wird wahrscheinlicher, nicht unwahrscheinlicher. SVV und suizidale Kommunikation haben Funktionen, keine Motive, die man entlarven müsste.',
+            gegenmittel: 'Abwertungs-Gedanken als Warnsignal für eigene Überlastung lesen, nicht als Diagnose. Zurück zur Funktions-Analyse: Spannungs-Abfuhr, Selbst-Bestrafung, Anti-Dissoziation oder interpersonelle Kommunikation — was erfüllt das Verhalten gerade?' },
+          { zug: 'Klammern an Verträge',
+            beschreibung: 'Du fragst nach einem Versprechen — kannst du mir zusichern, dass du dir nichts antust? — weil du selbst Sicherheit brauchst, bevor du die Person gehen lässt. Der No-Suicide-Contract ist obsolet: Er hat keine belegte Schutzwirkung, beruhigt vor allem dich und kann Ehrlichkeit blockieren, weil die Person dich beim nächsten Mal schonen will statt zu sagen, wie es wirklich steht. Ein Versprechen, das in ruhiger Verfassung gegeben wird, hält dem impulsiv-reaktiven Zustand nicht stand.',
+            gegenmittel: 'Statt Versprechen ein gemeinsamer Safety-Plan nach Stanley/Brown: persönliche Warnzeichen, eigene Strategien, soziale Kontakte, professionelle Anlaufstellen, Umgebungs-Sicherung. Sicherheit entsteht durch konkrete Schritte, nicht durch Zusagen.' },
+          { zug: 'Frequenz-Verstrickung',
+            beschreibung: 'Nach jeder Krise legst du nach: ein Zusatz-Termin, längere Erreichbarkeit, schnellere Rückrufe. Gut gemeint — aber wenn Kontakt-Intensität zuverlässig auf Eskalation folgt, baust du die Verstärkungs-Falle selbst: Die Krise wird zum wirksamsten Weg, Nähe und Versorgung zu bekommen. Du merkst es daran, dass dein Kalender sich um diesen einen Fall herum verformt und ruhige Phasen mit weniger Kontakt beantwortet werden als stürmische.',
+            gegenmittel: 'Kontakt-Struktur in ruhigen Phasen vereinbaren und in der Krise daran festhalten — DBT-A löst das über Telefon-Coaching mit klaren, vorab definierten Regeln. Stabilität belohnen, nicht nur Eskalation beantworten.' }
+        ]
+      },
+      krisenampel: {
+        gruen: {
+          zeichen: [
+            'Anspannung im tolerierbaren Bereich, schwankt, aber kippt nicht',
+            'SVV-Impulse fehlen oder werden berichtet, ohne dass gehandelt wird',
+            'Konflikte werden angesprochen statt über den Körper ausgetragen',
+            'Alltag trägt: Schule, Schlaf, mindestens eine stabile Bezugsperson im Kontakt',
+            'Safety-Plan ist bekannt, aktuell und greifbar'
+          ],
+          tun: [
+            'Safety-Plan nach Stanley/Brown gemeinsam aktualisieren: Warnzeichen, eigene Strategien, Kontakte, Anlaufstellen, Umgebungs-Sicherung',
+            'Skills-Kategorien aus dem DBT-A-Training festigen (Distress Tolerance, TIPP) — gerade weil es ruhig ist, nicht erst in der Krise',
+            'Zurückliegende SVV-Episoden per Funktions-Analyse nachbesprechen: Was hat die Selbstverletzung in dem Moment geleistet?',
+            'Regeln für Telefon-Coaching klären: wann anrufen, was dort passiert, was nicht',
+            'Mit der Person und dem Umfeld vorbesprechen, wie auf eine Krise reagiert wird — damit Eskalation nicht zum Schalter für mehr Zuwendung wird'
+          ]
+        },
+        gelb: {
+          zeichen: [
+            'Interpersoneller Trigger in den letzten Stunden: Trennung, Streit, wahrgenommene Zurückweisung',
+            'Anspannung steigt schnell und wechselt in Stunden — nicht über Wochen wie bei depressiver Zuspitzung',
+            'SVV-Impulse nehmen zu oder es kam zu einzelnen Handlungen ohne Versorgungs-Bedarf',
+            'Suizidgedanken tauchen auf, noch ohne konkreten Handlungsdruck',
+            'Dissoziatives Abdriften: weggetreten, fern, schwer erreichbar',
+            'Kontakt wird abrupt abgebrochen oder Termine werden plötzlich abgesagt'
+          ],
+          tun: [
+            'Den heutigen Trigger konkret benennen lassen: Was ist zwischen wem passiert? Die Krise hat fast immer ein interpersonelles Datum',
+            'Safety-Plan Stufe für Stufe durchgehen — erst eigene Strategien, dann Kontakte, dann professionelle Hilfe',
+            'Skills aus den trainierten Kategorien abrufen lassen (TIPP, Distress Tolerance) — die Person kennt ihre Übungen aus dem Training',
+            'Telefon-Coaching nach den vereinbarten Regeln anbieten, nicht darüber hinaus',
+            'Konkreten Nachkontakt innerhalb von 24 Stunden vereinbaren und einhalten'
+          ],
+          nicht_tun: [
+            'Ein Versprechen oder einen No-Suicide-Contract einfordern — gut gemeint, aber ohne Schutzwirkung und ein Ehrlichkeits-Killer',
+            'Schmerz-, Kälte- oder Schreck-Reize als SVV-Ersatz vorschlagen — naheliegend, aber sie halten die Funktion der Selbstverletzung aufrecht statt sie zu ersetzen',
+            'SVV bagatellisieren oder als Aufmerksamkeits-Verhalten abwerten',
+            'Im Hocherregungs-Zustand lange biografische Ursachen-Gespräche führen — erst Spannung runter, dann verstehen',
+            'Reflexhaft Termine und Erreichbarkeit vervielfachen — das baut die Verstärkungs-Falle'
+          ]
+        },
+        rot: {
+          zeichen: [
+            'Konkreter suizidaler Handlungsdruck: angekündigt, vorbereitet oder begonnen — bei diesem Profil oft innerhalb von Stunden nach einem interpersonellen Bruch',
+            'Selbstverletzung mit medizinischem Versorgungs-Bedarf',
+            'Akuter Impuls bei gleichzeitigem Zugriff auf Mittel zur Selbstschädigung',
+            'Anhaltende schwere Dissoziation: nicht ansprechbar, nicht orientiert, nicht rückholbar',
+            'Kontaktabbruch mitten in der akuten Eskalation',
+            'Zusätzliche akute Intoxikation mit Alkohol oder Substanzen'
+          ],
+          tun: [
+            'Nicht allein lassen — durchgehende Anwesenheit eines Erwachsenen sicherstellen, bis professionelle Hilfe übernimmt',
+            'Notfallkette aktivieren: KJP-Notdienst, bei unmittelbarer Gefahr 112 — jetzt, nicht nach Abklingen abwarten',
+            'Zugang zu Mitteln sofort und konkret reduzieren, Umfeld dafür einbeziehen',
+            'Sorgeberechtigte informieren — bei Minderjährigen in akuter Gefahr tritt Vertraulichkeit zurück, das vorher transparent machen',
+            'Kurz, konkret, direktiv kommunizieren — und nach Abklingen aktiv nachgehen: Die Krise endet oft in Stunden bis Tagen, danach kommt Scham, und Scham verhindert den nächsten Hilferuf'
+          ],
+          nicht_tun: [
+            'Auf ein abgerungenes Versprechen als Sicherung setzen statt auf reale Schutzmaßnahmen — der häufigste gut gemeinte Fehler in dieser Lage',
+            'Über die Ernsthaftigkeit verhandeln oder diskutieren — impulsiv-reaktiv heißt nicht ungefährlich',
+            'Abwarten, ob die Welle von allein abklingt — im roten Bereich ist das keine Option, auch wenn frühere Krisen schnell vorbei waren',
+            'Die Klinik-Frage nach der eigenen Angst entscheiden — weder reflexhaft einweisen noch aus Sorge vor der Verstärkungs-Falle eine klare Indikation aufschieben',
+            'Die Person mit einem Skills-Auftrag allein nach Hause schicken'
+          ],
+          schutzhinweis: 'Bei akuter Gefahr sofort 112; kinder- und jugendpsychiatrischer Notdienst über das CHL und die Hôpitaux Robert Schuman. SOS Détresse ist unter 454545 erreichbar — auch für Angehörige und Bezugspersonen.'
+        }
       }
     }
   }
@@ -13042,6 +13250,97 @@ const PLAN_MUSTER_ESS = [
         frequenzErhoehen: `<p>Jede neue somatische Marker-Verschlechterung. Beobachtbare schulische Hinweise (Synkope, exzessive Bewegung). Familien-Tragfähigkeits-Erschöpfung. Suizidale Komorbidität. Wieder-Einstieg nach Klinik-Aufenthalt.</p>`,
         ueberweisung: `<p>Pädiatrische / kinder- und jugendpsychiatrische Anbindung Pflicht in der Akut-Phase. Bei Bulimie/BED mit massivem Purging Elektrolyt-Monitoring und gegebenenfalls KJP-Konsil. Bei Komorbidität (Zwang, schwere Depression, Trauma) entsprechende spezialisierte Anbindungen.</p>`,
         klinik: `<p>Bradykardie unter 40, schwere orthostatische Dysregulation mit Synkopen, Elektrolyt-Entgleisung, rapider Gewichtsverlust trotz ambulanter Intervention, BMI deutlich unter 14 bei vollendetem Wachstum (oder äquivalenter Mangel bei Atypischer AN), Versagen ambulanter FBT trotz strukturierter Linie, akute Suizidalität bei Komorbidität, EKG-Auffälligkeiten. Indikation läuft pädiatrisch-kinderpsychiatrisch, die Schwelle ist klinisch und nicht primär BMI-getrieben. Refeeding stationär unter Labor-Monitoring der ersten Tage zur Vermeidung des Refeeding-Syndroms.</p>`
+      },
+      gegenuebertragung: {
+        intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+        reaktionen: [
+          { zug: 'Verhandlungsfalle',
+            beschreibung: 'Du merkst, dass du anfängst, mit der Klientin über Essen, Bewegung oder Ausnahmen zu verhandeln — als wäre die Störung ein Verhandlungspartner mit legitimen Interessen. Jede gewonnene „Einigung" fühlt sich wie therapeutischer Fortschritt an, ist aber meist ein Zugeständnis an den Krankheits-Anteil. Die Störung verhandelt brillant, weil sie ums Überleben verhandelt — aus ihrer Logik heraus. Du verlierst dabei unmerklich die Behandlerrolle und wirst Mitspieler in einem System, das auf Aufschub angelegt ist.',
+            gegenmittel: 'Re-Nutrition ist nicht verhandelbar — das ist Rahmen, nicht Thema. Verhandle über alles andere (Musik beim Essen, wer dabei sitzt), nie über das Ob.' },
+          { zug: 'Imponiert von der Intelligenz',
+            beschreibung: 'Die Klientin argumentiert klar, differenziert, oft eloquenter als du an manchen Tagen. Das verführt dich zu Insight-Arbeit: Wenn sie so reflektiert ist, müsste Einsicht doch tragen. Aber die kognitive Beeinträchtigung durch den Mangelzustand ist real und physiologisch — die brillante Sprache läuft auf einem unterversorgten Gehirn, das rigide, angstgetrieben und in der Sache nicht erreichbar ist. Du behandelst dann die Rhetorik statt den Zustand und wunderst dich, warum nichts greift.',
+            gegenmittel: 'Im Akutzustand keine Einsichts-Arbeit erwarten. Erst somatische Stabilisierung, dann Psychotherapie — die Reihenfolge ist nicht optional.' },
+          { zug: 'Helfer-Triangulierung',
+            beschreibung: 'Die Mutter ruft an, der Vater schreibt separat, die Klinik schickt Berichte, der Hausarzt hat noch eine Meinung. Du wirst zur Schaltzentrale, vermittelst, beruhigst, übersetzt — und bist nach zwei Wochen Koordinator statt Behandler. Das Profil erzeugt diesen Sog systematisch: Je bedrohlicher die Lage, desto mehr Akteure, desto fragmentierter die Verantwortung. In der Fragmentierung kann der Krankheits-Anteil ungestört weiterarbeiten, weil niemand mehr die ganze Lage sieht.',
+            gegenmittel: 'Kläre Rollen explizit und früh: Wer trägt die somatische Überwachung, wer die Re-Nutrition, wer die Therapie. Gemeinsame Termine statt Einzelkanäle.' },
+          { zug: 'Bagatellisierung bei Normalgewicht',
+            beschreibung: 'Bei Atypischer Anorexie sitzt eine normalgewichtig wirkende Jugendliche vor dir, und innerlich sagst du: „So schlimm sieht das nicht aus." Genau dieser Reflex ist der Grund, warum Atypische AN systematisch übersehen wird — auch von erfahrenen Behandlern. Rapider Gewichtsverlust aus jedem Ausgangsgewicht heraus kann dieselben somatischen Komplikationen erzeugen wie klassische AN: Bradykardie, Elektrolytstörungen, Zyklusverlust. Dein Auge ist hier kein valides Messinstrument, es misst Silhouette statt Verlauf.',
+            gegenmittel: 'Entscheide nie nach Anblick oder BMI allein. Verlauf, Vitalparameter, EKG und Elektrolyte zählen — fordere sie aktiv ein, auch wenn „nichts zu sehen" ist.' },
+          { zug: 'Mit-Hunger der Eltern',
+            beschreibung: 'Die Eltern sind nach Wochen oder Monaten von Esskämpfen am Tisch erschöpft, und ihre Erschöpfung überträgt sich auf dich. Du beginnst, Tempo rauszunehmen, „den Druck zu reduzieren", Pausen zuzulassen — aus Mitgefühl mit dem ganzen System. Im FBT-Rahmen ist das gefährlich: Phase 1 lebt davon, dass die Eltern die Re-Nutrition durchtragen, und sie brauchen dich als denjenigen, der die Linie hält, wenn ihnen die Kraft ausgeht. Nimmst du Tempo raus, bestätigst du die Hoffnung, dass Abwarten eine Option wäre. Im Mangelzustand ist es keine.',
+            gegenmittel: 'Stütze die Eltern emotional, ohne das Tempo der Re-Nutrition zu senken. Erschöpfung der Eltern ist ein Behandlungsthema, kein Grund für Behandlungsverlangsamung.' },
+          { zug: 'Allianz-Furcht',
+            beschreibung: 'Du weißt, dass die Schwelle zur stationären Einweisung erreicht ist — und zögerst, es auszusprechen, weil du fürchtest, die mühsam aufgebaute Beziehung zu zerstören. „Wenn ich jetzt Klinik sage, verliere ich sie." Die Sorge ist verständlich und meist falsch herum gedacht: Die Allianz mit dem gesunden Anteil der Klientin trägt klare Schutzentscheidungen oft besser als erwartet — was sie wirklich beschädigt, ist die Erfahrung, dass du in der Gefahr weich geworden bist. Die Beziehung, die du schonst, ist häufig die zur Störung, nicht zur Jugendlichen.',
+            gegenmittel: 'Bei somatischen Alarmzeichen ist die Einweisung keine Beziehungsfrage. Sag die scharfe Linie klar und begründe sie als Schutz — die tragfähige Allianz überlebt das.' }
+        ]
+      },
+      krisenampel: {
+        gruen: {
+          zeichen: [
+            'Vitalparameter stabil, regelmäßige somatische Kontrollen beim Pädiater finden statt und werden eingehalten',
+            'Gewichtsverlauf stabilisiert oder in Erholung gemäß ärztlichem Plan — ohne dass du die Zahlen selbst verwalten musst',
+            'Mahlzeiten finden unter elterlicher Verantwortung statt und werden überwiegend bewältigt',
+            'Die Klientin kann phasenweise über anderes sprechen als Essen, Körper und Kontrolle',
+            'Eltern ziehen am selben Strang und halten die Re-Nutritions-Verantwortung gemeinsam',
+            'Schule oder Alltag in angepasstem Umfang möglich, ohne kompensatorisches Verhalten'
+          ],
+          tun: [
+            'FBT-Rahmen weiterführen: Eltern in der Verantwortung halten und ihre Wirksamkeit stärken',
+            'Somatische Verlaufskontrollen als festen Bestandteil beibehalten, nicht als verhandelbares Extra',
+            'Externalisierung pflegen: Störung und Jugendliche sprachlich konsequent trennen',
+            'Vorsichtig altersgerechte Autonomie-Schritte vorbereiten — nur gekoppelt an stabilen somatischen Verlauf',
+            'Frühwarnzeichen mit Familie und Klientin konkret vereinbaren: Woran merken wir zuerst, dass es kippt'
+          ]
+        },
+        gelb: {
+          zeichen: [
+            'Erneuter oder beschleunigter Gewichtsverlust, zunehmende Restriktion oder neue Kompensationsmechanismen (Bewegungsdrang, Erbrechen, heimliches Wegwerfen)',
+            'Mahlzeiten scheitern wieder häufiger, Esskämpfe am Tisch eskalieren, Eltern beginnen nachzugeben oder sich zu spalten',
+            'Zunehmende Rigidität und Gedankeneinengung auf Essen und Körper, kognitiv schlechter erreichbar als zuvor',
+            'Schwindel, Frieren, Konzentrationseinbruch, sozialer Rückzug nehmen zu',
+            'Somatische Kontrolltermine werden hinausgezögert, abgesagt oder bagatellisiert',
+            'Bei Atypischer AN: rascher Verlust trotz unauffälliger Erscheinung — das System wiegt sich in falscher Sicherheit'
+          ],
+          tun: [
+            'Frequenz erhöhen: Termine engmaschiger, kurzfristige somatische Kontrolle beim Pädiater aktiv einfordern (Puls, RR, EKG, Elektrolyte)',
+            'Eltern refokussieren: Re-Nutritions-Verantwortung explizit zurück in die Elternhand, Spaltungen direkt ansprechen',
+            'Mit der Familie die Kriterien klar benennen, ab denen stationäre Abklärung erfolgt — bevor sie eintreten',
+            'Behandlungsnetz synchronisieren: Pädiater, Familie und du auf einem gemeinsamen, schriftlich festgehaltenen Stand',
+            'Eigene Bagatellisierung prüfen: Wenn du innerlich abwiegelst, hol eine zweite klinische Einschätzung ein'
+          ],
+          nicht_tun: [
+            'Nicht in Verhandlungen über Portionen, Ausnahmen oder Sport einsteigen, um die Stimmung zu retten — das ist der gut gemeinte Standardfehler in dieser Phase',
+            'Nicht auf Einsicht und Motivation setzen, während der Mangelzustand sich vertieft — die kognitive Basis dafür schwindet gerade',
+            'Nicht das Tempo aus Rücksicht auf erschöpfte Eltern drosseln — Entlastung organisieren, nicht Anforderungen senken',
+            'Keine vertieften biografischen oder konfliktzentrierten Themen aufmachen, die jetzt destabilisieren statt tragen',
+            'Die somatische Kontrolle nicht aufschieben, weil die Klientin „eigentlich ganz stabil wirkt"'
+          ]
+        },
+        rot: {
+          zeichen: [
+            'Bradykardie: Ruhepuls unter 50/min, alarmierend unter 40/min — auch bei normalgewichtigem Erscheinungsbild',
+            'Synkopen, Kollaps, ausgeprägte orthostatische Beschwerden oder Hinweise auf Rhythmusstörungen',
+            'Hypokaliämie oder andere relevante Elektrolytentgleisungen, auffälliges EKG',
+            'Rapider Gewichtsverlust in kurzer Zeit, weitgehende oder vollständige Nahrungs- bzw. Flüssigkeitsverweigerung',
+            'Zyklusverlust in Kombination mit fortschreitendem Verlauf als Zeichen der somatischen Dekompensation',
+            'Eltern können die Re-Nutrition zu Hause nicht mehr sichern, jede Mahlzeit scheitert'
+          ],
+          tun: [
+            'Sofort pädiatrisch-somatische Notfallabklärung veranlassen — heute, nicht beim nächsten Termin',
+            'Stationäre Aufnahme aktiv einleiten und gegenüber Familie und Klientin klar als Schutzentscheidung benennen',
+            'Refeeding-Risiko als Konzept an das behandelnde Team kommunizieren: Wiederernährung gehört in den ersten Tagen unter stationäre Überwachung, nicht in Eigenregie',
+            'Eltern handlungsfähig halten: konkrete nächste Schritte (wohin, wann, wer fährt) statt Diskussion über das Ob',
+            'Nach SAHM/MEED-Logik argumentieren: Vitalparameter, EKG, Elektrolyte und Verlauf entscheiden — nicht der BMI allein und nicht der äußere Eindruck'
+          ],
+          nicht_tun: [
+            'Nicht mit dem Krankheits-Anteil über einen „letzten Versuch zu Hause" verhandeln — auch nicht, wenn die Klientin brillant und glaubwürdig argumentiert',
+            'Die Einweisung nicht aufschieben, um die therapeutische Beziehung zu schützen — der naheliegende, gut gemeinte Fehler, der hier Leben kostet',
+            'Keine ambulante Wiederernährung in Eigenregie der Familie starten, wenn Refeeding-Risiko besteht',
+            'Nicht bei Normalgewicht entwarnen — Atypische AN dekompensiert somatisch genauso',
+            'Keine Insight- oder Motivationsarbeit im somatischen Akutzustand — sie verzögert die einzig wirksame Maßnahme'
+          ],
+          schutzhinweis: 'Bei ROT gehört die Klientin in pädiatrische bzw. kinder- und jugendpsychiatrische Akutversorgung — in Luxemburg über die Kannerklinik des CHL oder die Hôpitaux Robert Schuman. Bei akuter Lebensgefahr (Kollaps, Bewusstseinsstörung, Rhythmuszeichen): 112.'
+        }
       }
     }
   }
@@ -13152,7 +13451,45 @@ const PLAN_MUSTER_PSYCHOSE = [
   { id: 'psychose-paranoid',       name: 'Akut-paranoides Profil',                  bloecke: emptyPlanBloecke() },
   { id: 'psychose-desorganisiert', name: 'Desorganisiertes Profil',                 bloecke: emptyPlanBloecke() },
   { id: 'psychose-affektiv',       name: 'Affektiv-überlagertes Profil',            bloecke: emptyPlanBloecke() },
-  { id: 'psychose-krise',          name: 'Erstmanifestations-Krise',                bloecke: emptyPlanBloecke() }
+  { id: 'psychose-krise',          name: 'Erstmanifestations-Krise',                bloecke: Object.assign(emptyPlanBloecke(), {
+    gegenuebertragung: {
+      intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+      reaktionen: [
+        { zug: 'Realitäts-Streit-Sog',
+          beschreibung: 'Der Wahn ist so offensichtlich falsch, dass du anfängst zu argumentieren: „Aber niemand verfolgt dich, das Handy kann das gar nicht." Das fühlt sich an wie Hilfe — du willst die Angst durch Logik auflösen. Für den Jugendlichen heißt es: Du gehörst jetzt zu denen, die ihm nicht glauben, vielleicht sogar zu denen, die dazugehören. Das Misstrauen vertieft sich, der Kontakt reißt, und genau die Beziehung, über die du ihn in die KJP begleiten könntest, ist beschädigt.',
+          gegenmittel: 'Nicht zustimmen, nicht bestreiten — das Erleben und die Angst validieren, nicht den Inhalt: „Ich merke, wie viel Angst dir das macht. Ich nehme das ernst." Die Realitätsprüfung gehört in die KJP, nicht in dein Gespräch.' },
+        { zug: 'Wegrationalisieren',
+          beschreibung: 'Psychose-Verdacht bei einem Jugendlichen macht Angst — auch dir. Der Sog geht dahin, die Symptomatik weicher zu etikettieren: „viel Stress gerade", „wahrscheinlich trauma-bedingt", „eine Belastungsreaktion". Das Differential zu trauma-bedingter Dissoziation (A07.M6) ist real und muss geprüft werden — aber als aktive Prüfung, nicht als Fluchtweg. Wenn du das mildere Label wählst, weil es dich beruhigt, läuft die unbehandelte Psychose weiter, und jede Woche DUP kostet Prognose.',
+          gegenmittel: 'Benenn den Verdacht intern klar und prüf das Differential aktiv statt es als Ausweich-Hypothese zu nutzen. Die Abklärung gehört in die KJP — deine Aufgabe ist der Weg dorthin, nicht die Entwarnung.' },
+        { zug: 'Zögern vor der KJP',
+          beschreibung: 'Du willst noch eine Sitzung abwarten, „erst mal genauer hinschauen", hoffst auf Spontan-Aufhellung — vielleicht auch, weil eine Klinik-Anbindung sich wie eine Eskalation anfühlt, die du dem Jugendlichen ersparen willst. Gut gemeint, aber bei Erstmanifestation ist die Dauer der unbehandelten Psychose der prognose-entscheidende Faktor. Jeder Tag Zögern ist kein neutrales Beobachten, sondern verlorene Behandlungszeit. Die Hoffnung auf Besserung von selbst ist hier statistisch gegen den Jugendlichen.',
+          gegenmittel: 'Kehr die Beweislast um: Nicht die Überweisung braucht eine Begründung, sondern das Warten. Bei begründetem Psychose-Verdacht heute den KJP-Kontakt anstoßen, nicht nächste Woche.' },
+        { zug: 'Schock-Distanzierung',
+          beschreibung: 'Die Fremdheit des Erlebens — Stimmen, Verfolgungsgewissheit, zerfallende Sätze — kann dich innerlich auf Abstand bringen. Du schützt dich, indem du in den Untersuchungsmodus gehst: Symptom-Checkliste, knappe Fragen, klinischer Ton. Der Jugendliche, der ohnehin massive Angst hat und sein eigenes Erleben nicht mehr versteht, erlebt dich dann als kalt und prüfend — ein weiterer Mensch, bei dem er nicht sicher ist. Gerade in der akuten Phase braucht er das Gegenteil: einen ruhigen, warmen, vorhersehbaren Kontakt.',
+          gegenmittel: 'Merkst du, dass du wie ein Fragebogen klingst, geh bewusst zurück in Kontakt: langsames Tempo, ruhige Stimme, einfache Sätze, reizarmer Rahmen. Wenige Fragen, viel Halt.' },
+        { zug: 'Substanz-Falle',
+          beschreibung: 'Cannabis-Konsum ist bei Erstmanifestationen häufig im Spiel, und er bietet eine bequeme Gesamterklärung: „Das ist der Konsum, das klingt ab, wenn er aufhört." Der Sog hat zwei Gesichter — entweder du moralisierst den Konsum und verlierst die Beziehung, oder du verbuchst alles als substanz-induziert (A09) und behandelst die Psychose-Achse nicht parallel. Beides lässt die eigentliche Erkrankung unversorgt, während die DUP weiterläuft. Substanz-Einfluss und Psychose schließen sich nicht aus.',
+          gegenmittel: 'Konsum sachlich erheben, ohne Moral — und unabhängig davon die Psychose-Achse parallel abklären lassen. Die Frage „Cannabis oder Psychose?" entscheidet die KJP, nicht dein Bauchgefühl.' }
+      ]
+    },
+    krisenampel: {
+      gruen: {
+        zeichen: ['KJP-Anbindung steht, Termine werden wahrgenommen', 'Wahn- oder Halluzinations-Erleben tritt zurück oder wird mit Distanz berichtet („ich dachte damals…")', 'Schlaf, Tagesstruktur und Schulbesuch stabilisieren sich', 'Gespräche sind im Kontakt führbar, Gedankengang folgbar', 'Familie ist informiert und trägt die Behandlung mit'],
+        tun: ['Regelmäßigen, reizarmen Gesprächsrahmen halten — Verlässlichkeit ist jetzt das Werkzeug', 'Frühwarnzeichen gemeinsam benennen (Schlafverlust, Rückzug, wiederkehrendes Misstrauen) und festhalten, wer dann was tut', 'Cannabis-Thema offen halten: sachlich nachfragen, Zusammenhang mit Rückfallrisiko erklären, nicht moralisieren', 'Stigma-Schutz wahren: keine Diagnose-Labels in Schule oder Umfeld ohne Absprache mit Jugendlichem, Familie und KJP', 'Kontakt zur KJP-Behandlung halten, statt parallel ein zweites Behandlungs-Gleis aufzumachen']
+      },
+      gelb: {
+        zeichen: ['Misstrauen oder Beziehungsideen nehmen wieder zu („die in der Schule reden über mich")', 'Schlaf bricht ein, Tag-Nacht-Rhythmus kippt', 'Sozialer Rückzug, Schule wird vermieden, Handy- oder Medien-Vermeidung aus Angst', 'Gedankengang wird sprunghafter, Antworten dauern länger oder gehen am Thema vorbei', 'Cannabis-Konsum steigt wieder oder Medikation wird unzuverlässig genommen', 'Familie meldet „er ist wieder so komisch wie damals"'],
+        tun: ['Frühwarnzeichen direkt und ruhig ansprechen, ohne den Inhalt des Erlebens zu bestreiten', 'Sofort Rückmeldung an die behandelnde KJP — gelb ist die Phase, in der Anpassung noch ambulant geht', 'Termindichte erhöhen, kurze Abstände, klare nächste Schritte', 'Reize reduzieren helfen: Schlaf, Struktur, weniger Druck in der Schule organisieren', 'Familie konkret instruieren: ruhig bleiben, nicht diskutieren, worauf achten, wen anrufen'],
+        nicht_tun: ['Den Jugendlichen mit Logik beruhigen wollen („das bildest du dir nur ein") — gut gemeint, vertieft aber das Misstrauen', 'Abwarten, ob es sich „von selbst wieder legt" — jeder Tag zählt', 'Das Wieder-Aufflackern vor der Familie kleinreden, um sie zu schonen', 'Den Konsum zum Hauptthema machen und die Symptomatik darüber aus dem Blick verlieren', 'Konfrontative Krisengespräche mit vielen Beteiligten ansetzen — Reizüberflutung verschärft']
+      },
+      rot: {
+        zeichen: ['Akuter Realitätsverlust: Wahn-Gewissheit oder Halluzinationen bestimmen das Handeln', 'Massive Angst oder Panik durch Verfolgungs-Erleben, Jugendlicher fühlt sich akut bedroht', 'Befehlsgebende Stimmen oder Äußerungen, sich oder anderen etwas anzutun', 'Völlige Verhaltens-Desorganisation: Jugendlicher ist nicht mehr ansprechbar, läuft weg, handelt unverständlich', 'Eigen- oder Fremdgefährdung erkennbar oder nicht sicher ausschließbar', 'Familie kann die Situation zu Hause nicht mehr halten'],
+        tun: ['Ruhig bleiben: langsames Tempo, ruhige Stimme, einfache kurze Sätze, Reize raus (Menschen, Lärm, Bildschirme)', 'Das Erleben weder bestätigen noch bestreiten — die Angst benennen: „Ich sehe, dass du große Angst hast. Ich bleibe bei dir."', 'Umgehend KJP-Notdienst kontaktieren und Vorstellung organisieren, Jugendlichen bis zur Übergabe nicht allein lassen', 'Familie kurz und klar instruieren: was jetzt passiert, wer fährt, wer begleitet — Information ohne Panik', 'Beobachtungen dokumentieren und an den Notdienst übergeben: Symptome, Beginn, Konsum, Gefährdungshinweise'],
+        nicht_tun: ['Den Wahn ausreden oder korrigieren wollen („niemand verfolgt dich") — auch wenn es als Beruhigung gemeint ist, eskaliert es Angst und Misstrauen', 'Festhalten, anfassen oder den Weg versperren, solange keine akute Gefahr es zwingend macht', 'Erst noch eine Nacht abwarten oder einen regulären Termin für nächste Woche vereinbaren', 'Den Jugendlichen allein nach Hause oder allein zur Klinik schicken', 'Vor dem Jugendlichen flüstern oder über ihn statt mit ihm sprechen — das füttert das Verfolgungs-Erleben'],
+        schutzhinweis: 'Bei diesem Bild umgehend den KJP-Notdienst kontaktieren (CHL, Hôpitaux Robert Schuman) — nicht auf den nächsten regulären Termin warten. Bei akuter Selbst- oder Fremdgefährdung sofort 112.'
+      }
+    }
+  }) }
 ];
 
 /* ============ SYMPTOM-DIAGNOSE — A06 Zwangsstörung ============
@@ -13385,7 +13722,45 @@ const MUSTER_KURZ_BIPOLAR = {
 const PLAN_MUSTER_BIPOLAR = [
   /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
   { id: 'bipolar-hypomanie',  name: 'Hypomanes Profil',                       bloecke: emptyPlanBloecke() },
-  { id: 'bipolar-manie',      name: 'Manisches Profil (akut)',                bloecke: emptyPlanBloecke() },
+  { id: 'bipolar-manie',      name: 'Manisches Profil (akut)',                bloecke: Object.assign(emptyPlanBloecke(), {
+    gegenuebertragung: {
+      intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+      reaktionen: [
+        { zug: 'Mit-Schwung',
+          beschreibung: 'Manische Energie ist ansteckend. Der Klient ist witzig, schnell, voller Pläne — und du merkst, dass du mitlachst, das Tempo mitgehst, die Sitzung als angenehm leicht erlebst. Genau diese Leichtigkeit ist das Warnsignal: Du wirst gerade vom Symptom angezündet, nicht von einer Besserung. Je mehr Spaß dir die Stunde macht, desto wahrscheinlicher übersiehst du die Episode.',
+          gegenmittel: 'Nach jeder Sitzung die Kontrollfrage: War das gute Stimmung oder gehobene Stimmung? Schlaf, Tempo und Größen-Ideen systematisch abfragen, gerade wenn die Stunde sich gut anfühlte.' },
+        { zug: 'Pathologisierungs-Zögern',
+          beschreibung: 'Der Klient wirkt nicht krank — er wirkt in Bestform: kreativ, selbstbewusst, produktiv wie nie. Der Sog ist, das als endlich gelungene Entwicklung zu lesen, vor allem nach einer depressiven Phase. Du zögerst, eine Verfasstheit zu pathologisieren, die sich für alle Beteiligten wie Erfolg anfühlt. So vergehen die Wochen, in denen die Episode noch früh zu bremsen wäre.',
+          gegenmittel: 'Episodischen Kontrast prüfen: Ist das der Klient, den du kennst, oder ein anderer? Familien-Anamnese und Schlafverlauf entscheiden, nicht der Eindruck der Stunde.' },
+        { zug: 'Klinik-Scheu',
+          beschreibung: 'Du weißt, dass die Klinik-Frage die Allianz belasten wird — der Klient fühlt sich großartig und wird die Einweisung als Angriff erleben. Also schiebst du die Frage auf, sammelst noch eine Woche Verlauf, formulierst weicher als nötig. Währenddessen laufen finanzielle Schäden, sexuelle Enthemmung und Substanz-Eskalation weiter. Die Beziehung, die du schützen willst, übersteht eine Klinik-Einweisung besser als eine verschleppte Manie.',
+          gegenmittel: 'Die Klinik-Frage ist bei akuter Manie keine Eskalation, sondern Standard — stell sie zeitnah und dokumentiert. Was du der Beziehung schuldest, ist Schutz, nicht Harmonie.' },
+        { zug: 'Realitäts-Verhandlung',
+          beschreibung: 'Größen-Ideen provozieren den Impuls, dagegen zu argumentieren: die Geschäftsidee zerpflücken, die Selbsteinschätzung korrigieren, Beweise verlangen. Der Klient erlebt dich dann als jemanden, der ihn klein machen will, und die Allianz kippt — ohne dass die Idee einen Millimeter wackelt. Größen-Ideen sind Symptom, nicht Meinungsverschiedenheit; sie sind nicht wegzudiskutieren.',
+          gegenmittel: 'Nicht über Inhalte streiten, sondern auf Verhalten und Schutz fokussieren: Was steht konkret an, was lässt sich aufschieben? Entscheidungen mit Tragweite auf nach der Episode vertagen.' },
+        { zug: 'Schlaf-Bagatellisierung',
+          beschreibung: 'Drei Stunden Schlaf, „aber er ist fit" — der gut gemeinte Fehler ist, das als robuste Jugend zu verbuchen statt als Kardinalsymptom. Reduziertes Schlafbedürfnis ohne Erschöpfung ist einer der spezifischsten Manie-Marker und zugleich Treiber der Eskalation: Je weniger Schlaf, desto schneller dreht die Episode hoch. Tag-Nacht-Umkehr ist oft der früheste messbare Vorbote.',
+          gegenmittel: 'Schlaf in Stunden protokollieren lassen, nicht in Befinden. Bei massiv reduziertem Schlafbedürfnis ohne Müdigkeit gilt Manie-Verdacht, bis das Gegenteil belegt ist.' }
+      ]
+    },
+    krisenampel: {
+      gruen: {
+        zeichen: ['Schlaf stabil in alterstypischem Umfang, kein nächtliches Aktivitätshoch', 'Stimmung schwankt im normalen Rahmen, kein episodischer Kontrast zum bekannten Bild', 'Pläne und Projekte bleiben realistisch und werden zu Ende gebracht', 'Geldausgaben und Online-Verhalten unauffällig', 'KJP-Anbindung und ggf. Medikation laufen verlässlich'],
+        tun: ['Schlaf als Frühwarnsystem etablieren: regelmäßige kurze Abfrage oder Protokoll, gerade in stabilen Phasen', 'Mit Klient und Familie individuelle Frühwarnzeichen schriftlich festhalten (weniger Schlaf, mehr Tempo, mehr Pläne, mehr Geld)', 'Familien-Anamnese für bipolare Erkrankungen erheben, falls noch nicht geschehen — sie ist stark prädiktiv', 'Psychoedukation zu Episoden-Logik: Stabilität ist Behandlungserfolg, nicht Anlass, die Anbindung zu lockern', 'Rhythmus schützen: regelmäßige Schlaf- und Tagesstruktur als aktiven Schutzfaktor besprechen']
+      },
+      gelb: {
+        zeichen: ['Schlafbedürfnis sinkt über mehrere Nächte, ohne dass Müdigkeit folgt', 'Beginnende Tag-Nacht-Umkehr: nachts aktiv, produktiv, online', 'Redefluss und Tempo nehmen zu, Reizbarkeit bei Unterbrechung', 'Neue Großprojekte, riskante Käufe oder auffällig gesteigerte Kontaktaufnahme', 'Substanzkonsum steigt (Stimulanzien, Alkohol, Cannabis)', 'Umfeld berichtet: „so kennen wir ihn nicht"'],
+        tun: ['KJP-Termin kurzfristig organisieren — die Frage nach Stimmungs-Stabilisierern (Lithium, Atypika) gehört in ärztliche Hand', 'Schlaf konkret protokollieren lassen und Schlaf-Schutz vereinbaren: feste Zeiten, Bildschirm- und Stimulanzien-Stopp am Abend', 'Familie aktiv einbeziehen: Frühwarnzeichen abgleichen, Konto-/Handy-Zugriffe und Risikosituationen besprechen', 'Termine engmaschiger takten und Verlauf schriftlich dokumentieren', 'Mit dem Klienten vereinbaren, große Entscheidungen (Geld, Verträge, Beziehungen, Schulabbruch) aufzuschieben'],
+        nicht_tun: ['Abwarten, „ob es sich von selbst einpendelt" — hypomane Phasen kippen bei Adoleszenten schnell', 'SSRI-Monotherapie anstoßen oder weiterlaufen lassen, ohne die bipolare Frage ärztlich zu klären — Switch-Risiko in die Manie', 'Die gehobene Stimmung mitfeiern oder als Therapieerfolg verbuchen', 'Gegen Größen-Ideen argumentieren — das kostet Allianz und ändert nichts am Symptom', 'Den Schlafverlust bagatellisieren, weil der Klient fit wirkt']
+      },
+      rot: {
+        zeichen: ['Massiv reduziertes Schlafbedürfnis (wenige Stunden oder durchwachte Nächte) bei voller Energie', 'Ausgeprägte Größen-Ideen, ggf. wahnhaft, oder andere psychotische Symptome', 'Schwere Enthemmung: sexuell riskantes Verhalten, unkontrollierte Ausgaben, Straßenverkehr, öffentliche Eskalationen', 'Reizbarkeit kippt in Aggression — Hinweise auf Eigen- oder Fremdgefährdung', 'Substanz-Eskalation beschleunigt die Episode', 'Familie kann den Jugendlichen nicht mehr halten oder erreichen'],
+        tun: ['Akut-psychiatrische Vorstellung umgehend organisieren — die akute manische Episode ist eine Behandlungs-Indikation für die Klinik, nicht für ambulantes Zuwarten', 'Familie sofort einbeziehen: Aufsicht, Zugriff auf Geld, Karten und Fahrzeug begrenzen, Begleitung zur Vorstellung sicherstellen', 'Klinik-Frage offen und ruhig ansprechen — kurz, konkret, ohne Verhandlung über die Größen-Ideen', 'Gefährdungsmomente konkret erfragen (Verkehr, Sexualität, Geld, Konflikte) und dokumentieren', 'Eigene Erreichbarkeit und nächste Schritte für die Familie schriftlich klären'],
+        nicht_tun: ['Auf den nächsten regulären Termin vertagen — die Episode eskaliert in Tagen, nicht Wochen', 'Mit dem Klienten über den Realitätsgehalt der Größen-Ideen streiten', 'Die Klinik-Frage aus Beziehungsschutz aufschieben', 'Allein auf das Versprechen des Klienten bauen, „sich zu bremsen" — Krankheitseinsicht ist in der Manie typischerweise aufgehoben', 'Beruhigungsversuche über Substanzen oder Eigenmedikation der Familie tolerieren'],
+        schutzhinweis: 'KJP-Notdienst umgehend einschalten: CHL oder Hôpitaux Robert Schuman. Bei akuter Eigen- oder Fremdgefährdung sofort 112 — nicht auf den Termin-Weg ausweichen.'
+      }
+    }
+  }) },
   { id: 'bipolar-depression', name: 'Bipolare Depression (BP-I)',             bloecke: emptyPlanBloecke() },
   { id: 'bipolar-2',          name: 'Bipolar-II-Muster',                      bloecke: emptyPlanBloecke() },
   { id: 'bipolar-mixed',      name: 'Gemischtes Zustandsbild',                bloecke: emptyPlanBloecke() },
@@ -13613,7 +13988,45 @@ const PLAN_MUSTER_SUCHT = [
   { id: 'sucht-stimulanzien', name: 'Stimulanzien- / Partydrogen-Profil',    bloecke: emptyPlanBloecke() },
   { id: 'sucht-gaming',       name: 'Gaming- / Screen-Profil',               bloecke: emptyPlanBloecke() },
   { id: 'sucht-poly',         name: 'Polyvalentes Profil',                   bloecke: emptyPlanBloecke() },
-  { id: 'sucht-krise',        name: 'Intoxikations- / Entzugs-Krise',        bloecke: emptyPlanBloecke() }
+  { id: 'sucht-krise',        name: 'Intoxikations- / Entzugs-Krise',        bloecke: Object.assign(emptyPlanBloecke(), {
+    gegenuebertragung: {
+      intro: 'Typische Reaktionen, die dieses Profil oft auslöst — prüf, ob es bei dir so ist; benannt verliert es seine Wirkung.',
+      reaktionen: [
+        { zug: 'Moralisierungs-Sog',
+          beschreibung: 'Irgendwann in der Stunde merkst du, dass du klingst wie die Eltern: warnend, enttäuscht, appellierend. Der Klient kennt diesen Ton auswendig und hat gelernt, ihn auszublenden — du wirst zur weiteren Stimme im Chor, und die einzige Beziehung, in der ehrlich über Konsum gesprochen werden könnte, schließt sich. Der Sog ist umso stärker, je gefährlicher der Konsum wird, also genau dann, wenn du den Draht am dringendsten brauchst.',
+          gegenmittel: 'Haltung prüfen: neugierig statt warnend. Die Funktions-Frage — was macht die Substanz für dich? — öffnet, was der Appell verschließt.' },
+        { zug: 'Geheimhaltungs-Verstrickung',
+          beschreibung: 'Vertraulichkeit ist dein Arbeitsinstrument — und wird zur Falle, wenn du Informationen hältst, die du bei akuter Gefährdung weitergeben müsstest: Mischkonsum mit Atemdepressions-Risiko, dealende Kontakte, eine Intoxikation, von der niemand weiß. Der gut gemeinte Fehler ist, totale Verschwiegenheit zu versprechen, um die Allianz zu sichern — und dann in der Krise entweder das Versprechen oder die Schutzpflicht zu brechen.',
+          gegenmittel: 'Den vertraulichen Rahmen von Anfang an mit transparenten Grenzen aufsetzen: was bei dir bleibt, was bei Lebensgefahr nicht bleiben kann. Grenzen vorab benannt schützen die Allianz, nachträglich gebrochen zerstören sie sie.' },
+        { zug: 'Glaubens-Wechsel',
+          beschreibung: 'Süchtige Adoleszente bagatellisieren, und irgendwann erwischst du den Klienten bei einer Lüge. Danach pendelt deine Haltung: mal glaubst du alles, um die Beziehung zu halten, mal glaubst du nichts mehr und hörst auch die wahren Anteile nicht. Beide Pole machen dich diagnostisch blind — der eine übersieht die Eskalation, der andere die echten Veränderungsschritte.',
+          gegenmittel: 'Angaben weder glauben noch widerlegen, sondern triangulieren: Verlauf, Funktionsniveau, Umfeld, ggf. somatische Befunde. Diskrepanzen ruhig benennen, ohne Beziehungsentzug.' },
+        { zug: 'Konfrontations-Verzicht',
+          beschreibung: 'Die Allianz ist endlich da, der Klient kommt freiwillig — und du fragst nicht nach Mischkonsum, Benzodiazepinen, Opioiden, weil du das fragile Vertrauen nicht riskieren willst. Damit übersiehst du genau die Konstellation, die tödlich enden kann: Mischkonsum erhöht das Risiko nicht additiv, sondern exponentiell. Eine Allianz, die die gefährlichste Frage nicht trägt, ist keine tragfähige Allianz.',
+          gegenmittel: 'Mischkonsum als Routine-Frage in Harm-Reduction-Logik stellen — sachlich, ohne Moral, in jeder Konsum-Anamnese. Wer nicht fragt, schützt nicht die Beziehung, sondern den blinden Fleck.' },
+        { zug: 'Substanz-Erklärt-Alles',
+          beschreibung: 'Sobald Cannabis im Spiel ist, gibt es für jedes Symptom eine bequeme Erklärung: Stimmen? Cannabis. Verfolgungsideen? Cannabis. Rückzug, Affektverflachung? Cannabis. Der Reflex ist verständlich und gefährlich — er übersieht die echte Psychose-Erstmanifestation (A13), bei der jeder Monat unbehandelter Psychose die Prognose verschlechtert. Substanz-induziert ist eine Verlaufsdiagnose, kein Schnellurteil.',
+          gegenmittel: 'Verlaufs-Kriterien anwenden: Persistieren psychotische Symptome in nüchternen Phasen über Wochen, gilt A13 als führende Hypothese. Differential aktiv dokumentieren statt reflexhaft zuordnen.' }
+      ]
+    },
+    krisenampel: {
+      gruen: {
+        zeichen: ['Konsum ist besprechbar, Angaben über die Zeit konsistent', 'Kein Mischkonsum, keine Intoxikations-Ereignisse im Berichtszeitraum', 'Schule/Ausbildung, Schlaf und soziale Kontakte tragen', 'Funktions-Hypothese ist erarbeitet: Klient kann benennen, wogegen die Substanz hilft', 'Anbindung an Beratung (CePT) oder KJP-Sucht-Ambulanz steht'],
+        tun: ['Den vertraulichen Rahmen mit transparenten Grenzen pflegen — er ist das Arbeitskapital dieses Profils', 'An der Funktion arbeiten, nicht an der Substanz: Schlaf, Angst, ADHS-Symptomatik, Selbstwert als eigentliche Behandlungsziele', 'Harm-Reduction-Vereinbarungen halten und realistische Konsum-Ziele gemeinsam definieren statt Abstinenz zu verordnen', 'Regelmäßig und beiläufig nach Veränderungen im Konsummuster fragen, inklusive Mischkonsum', 'ADHS-, Angst- und Schlaf-Diagnostik vorantreiben, wenn die Selbstmedikations-Hypothese im Raum steht']
+      },
+      gelb: {
+        zeichen: ['Konsumfrequenz oder -menge steigt, Konsum verschiebt sich in den Alltag (vor der Schule, allein)', 'Erste Hinweise auf Mischkonsum oder Wechsel auf riskantere Substanzen oder Konsumformen', 'Entzugszeichen: Reizbarkeit, Schlafstörung, Unruhe, Craving an konsumfreien Tagen', 'Leistungsknick, Fehlzeiten, Rückzug aus nicht-konsumierenden Peer-Kontakten', 'Beschaffungsdruck: Geldprobleme, Verschwinden von Wertsachen, neue Kontakte', 'Flüchtige psychotisch anmutende Erlebnisse im Rausch'],
+        tun: ['Konsum-Anamnese vertiefen: Substanzen, Frequenz, Konsumform, explizit Mischkonsum — sachlich, ohne Moral', 'Harm-Reduction konkretisieren: Risikosituationen identifizieren, Schutzstrategien vereinbaren, ohne Mengen- oder Kombinationsempfehlungen zu geben', 'Anbindung intensivieren: CePT für Beratung, KJP-Sucht-Ambulanz für strukturierte Behandlung anbahnen', 'Somatischen Check anstoßen (Pädiater/Hausarzt) — körperliche Folgen und Entzugszeichen ärztlich einordnen lassen', 'Familie dosiert einbeziehen, mit dem Klienten ausgehandelt — Rahmen transparent halten'],
+        nicht_tun: ['Abstinenz als Bedingung für die Weiterbehandlung setzen — du verlierst den Klienten an die Krise', 'Moralisieren oder mit den Eltern in einen Warn-Chor einstimmen', 'Den Mischkonsum aus Allianz-Schutz nicht ansprechen', 'Totale Verschwiegenheit versprechen, die du bei Gefährdung nicht halten kannst', 'Psychotische Rausch-Erlebnisse reflexhaft als harmlos verbuchen, ohne den Verlauf in nüchternen Phasen zu prüfen']
+      },
+      rot: {
+        zeichen: ['Wiederholte schwere Intoxikationen, insbesondere mit Bewusstseinsstörung oder Erinnerungslücken', 'Riskanter Mischkonsum (Sedativa, Alkohol, Opioide) — exponentiell erhöhtes Risiko für Atemdepression und kardiale Ereignisse', 'Ausgeprägte Entzugs-Symptomatik: Tremor, Schwitzen, Erbrechen, massive Unruhe, ggf. Krampfanfall', 'Substanz-induzierte psychotische Symptome, auch außerhalb des akuten Rauschs', 'Somnolenz, Atem- oder Kreislauf-Auffälligkeiten im oder nach dem Konsum', 'Konsum trotz unmittelbarer Gefahr nicht unterbrechbar, Kontrollverlust komplett'],
+        tun: ['Somatische Abklärung hat Vorrang vor allem anderen — Intoxikation und Entzug sind zuerst medizinische Notfälle', 'Akute Vorstellung in der pädiatrischen/KJP-Notaufnahme organisieren, Begleitung sicherstellen', 'Konkret erfragen und an die Behandler weitergeben: welche Substanzen, wann, in welcher Kombination — diese Information kann lebensrettend sein', 'Familie oder eine tragfähige Bezugsperson jetzt einbeziehen — akute Gefährdung hebt die übliche Vertraulichkeits-Abwägung auf, transparent gegenüber dem Klienten', 'Nach der Akutphase sofort den Anschluss bauen: KJP-Sucht-Ambulanz, CePT, Termin vor Entlassung fixieren — das Zeitfenster nach der Krise ist kurz', 'Differential zu A13 im Verlauf prüfen: persistieren psychotische Symptome nüchtern, Psychose-Pfad aktivieren'],
+        nicht_tun: ['Eine Intoxikation „ausschlafen lassen" oder ambulant abwarten — Atemdepression entwickelt sich auch verzögert', 'Selbst entgiften wollen oder Substanz-Reduktionspläne ohne ärztliche Begleitung in der Akutsituation aufsetzen', 'Die Vertraulichkeit über die Lebensgefahr stellen', 'In der Akutphase konfrontativ über Konsequenzen, Schuld oder Abstinenz verhandeln', 'Psychotische Symptome ohne Verlaufsprüfung endgültig als substanz-induziert ablegen'],
+        schutzhinweis: 'Pädiatrische bzw. KJP-Notfallaufnahme umgehend: CHL oder Hôpitaux Robert Schuman. Bei Atemdepression, Bewusstseinsstörung oder Kreislauf-Symptomatik sofort 112. Für die Anschluss-Versorgung CePT und KJP-Sucht-Ambulanz einbinden.'
+      }
+    }
+  }) }
 ];
 
 /* ============ SYMPTOM-DIAGNOSE — A11 Lernstörungen ============
