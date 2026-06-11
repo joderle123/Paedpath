@@ -521,6 +521,98 @@
     border-left: 4px solid var(--gold);
     padding-left: 14px;
   }
+
+  /* ============ KONTEXT-MODULE (P27) — System-&-Kontext-Schicht ============ */
+  .kontext-modul-sektion { margin-top: 4px; }
+  .kontext-modul-subline {
+    font-size: 0.85rem;
+    color: var(--sage);
+    margin: -2px 0 12px;
+  }
+  .kontext-modul-weitere { margin-top: 12px; }
+  .kontext-modul-weitere summary {
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--sage);
+    padding: 4px 0;
+  }
+  .kontext-modul-weitere[open] summary { margin-bottom: 8px; }
+  .kontext-marker {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 7px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    vertical-align: middle;
+  }
+  .kontext-marker-schutz { background: rgba(163, 80, 31, 0.12); color: var(--rust); }
+  .kontext-marker-fenster { background: rgba(212, 169, 63, 0.16); color: var(--gold); }
+  .kontext-banner {
+    background: var(--cream);
+    border-radius: 4px;
+    margin: 4px 0 14px;
+    padding: 14px 20px;
+  }
+  .kontext-banner-schutz { border-left: 4px solid var(--rust); }
+  .kontext-banner-fenster { border-left: 4px solid var(--gold); }
+  .kontext-banner-titel {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .kontext-banner-schutz .kontext-banner-titel { color: var(--rust); }
+  .kontext-banner-fenster .kontext-banner-titel { color: var(--gold); }
+  .kontext-banner p { margin: 0; font-size: 0.9rem; line-height: 1.5; }
+  .kontext-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 4px;
+  }
+  .kontext-chips-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sage);
+  }
+  .kontext-chip {
+    display: inline-block;
+    padding: 3px 12px;
+    font-size: 0.8rem;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+  }
+  .kontext-chip-schutz { border-color: rgba(163, 80, 31, 0.4); color: var(--rust); }
+  .kontext-chip-fenster { border-color: rgba(212, 169, 63, 0.5); }
+  .kontext-modul-panel {
+    background: var(--cream);
+    border-left: 4px solid var(--sage);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 0 0 18px;
+  }
+  .kontext-modul-panel-schutz { border-left-color: var(--rust); }
+  .kontext-modul-panel-fenster { border-left-color: var(--gold); }
+  .kontext-modul-panel-name {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .kontext-modul-reframe { margin-bottom: 12px; }
+  .kontext-modul-liste {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .kontext-modul-liste li { margin-bottom: 6px; }
   .ebene3-topbar {
     position: sticky;
     top: 0;
@@ -5871,8 +5963,12 @@ function saveTestState(topicId, state) {
 function loadPlanState(topicId) {
   try {
     const all = JSON.parse(localStorage.getItem(LS.PLAN)) || {};
-    return all[topicId] || { faktoren: {}, notizen: '', generiert: null };
-  } catch { return { faktoren: {}, notizen: '', generiert: null }; }
+    const ps = all[topicId] || { faktoren: {}, notizen: '', generiert: null };
+    // Migration P27: Kontext-Module-Feld defensiv nachrüsten — alte States
+    // (vor der System-&-Kontext-Schicht) dürfen nicht brechen.
+    if (!Array.isArray(ps.kontextModule)) ps.kontextModule = [];
+    return ps;
+  } catch { return { faktoren: {}, notizen: '', generiert: null, kontextModule: [] }; }
 }
 function savePlanState(topicId, state) {
   try {
@@ -7504,6 +7600,229 @@ const TOPIC_CRISIS_CONFIG = {
     bannerText: 'Somatische Abklärung hat Vorrang. Bei schwerer Intoxikation oder substanz-induzierter Psychose KJP- oder pädiatrische Notfall-Anbindung; bei Entzugs-Symptomen suchtmedizinische Begleitung. CePT und KJP-Sucht-Ambulanz als luxemburgische Strukturen. Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
   }
 };
+
+/* ============ KONTEXT_MODULE — orthogonale System-/Kontext-Schicht (P27) ============
+   18 Module bilden ab, IN WELCHEM SYSTEM ein Profil lebt (Familie, Helfernetz,
+   Platzierung, Übergänge). Sie sind orthogonal zu den 13 Achsen: ein Modul
+   gehört zu keinem Topic und verändert NIEMALS computeSymptomScores-Ergebnisse
+   oder die Sub-Muster-Rangfolge. Es ergänzt den Behandlungs-Plan um Einschub-
+   Panels („Kontext-Schicht"). achsen_affinitaet steuert nur die UI-Sortierung
+   (vorsortiert bei passenden Achsen), nie das Scoring.
+   Zwei Modul-Typen können zusätzlich einen Banner triggern (KONTEXT_SCHUTZ_CONFIG):
+   'schutz' (Kinderschutz-/Meldekontext) und 'fenster' (bekanntes Risikofenster).
+   Anzeige-Hierarchie: Krise > Schutz > Fenster. */
+function emptyKontextBloecke() {
+  return { reframe: '', haltung: [], tun: [], nicht_tun: [], eskalation: '', psychoedukation: '' };
+}
+
+const KONTEXT_MODULE = {
+  'akkommodation-familie': {
+    id: 'akkommodation-familie',
+    name: 'Familiäre Akkommodation',
+    trigger_frage: 'Baut die Familie den Alltag um die Symptomatik herum (abholen, entschuldigen, Anforderungen abnehmen, Konfrontation vermeiden)?',
+    achsen_affinitaet: ['angststoerungen', 'zwangsstoerung', 'depression', 'essstoerungen'],
+    bloecke: {
+      reframe:
+        'Wenn dieses Muster aktiv ist, behandelst du nicht nur einen Jugendlichen — du behandelst einen Kreislauf. ' +
+        'Jede Fürsorge-Reaktion, die das Vermeiden erleichtert (abholen, heimlassen, Aufgabe abnehmen), sagt dem ' +
+        'ängstlichen System: die Gefahr war echt, gut dass du ausgewichen bist. So wächst die Symptomatik an genau ' +
+        'der Liebe, die sie lindern will. Konsequenz für deine Falllesart: Der Jugendliche ist nicht „unmotiviert", ' +
+        'und die Eltern sind nicht „das Problem" — sie sind verängstigte Verbündete, die den falschen Hebel ziehen. ' +
+        'Die Behandlung zielt damit mindestens zur Hälfte auf die Erwachsenen. Ohne Arbeit an der Akkommodation ' +
+        'drehen sich kindzentrierte Interventionen im Kreis.',
+      haltung: [
+        'Validieren ohne zu retten — die Not ist echt, der kleine Schritt wird trotzdem gemeinsam gegangen.',
+        'Die Eltern als verängstigte Verbündete sehen, nicht als Gegner; Schuldzuweisung beendet die Zusammenarbeit.',
+        'Ein Team, eine Antwort: Familie, Schule und Behandler reagieren identisch auf Symptom-Momente, sonst spielt die Angst die Akteure gegeneinander aus.',
+        'Auf Vermeiden folgt keine Erleichterung; auf den mutigen Mini-Schritt folgt Anerkennung.'
+      ],
+      tun: [
+        'Akkommodations-Inventar erstellen: mit den Eltern konkret listen, was sie täglich übernehmen/ermöglichen — ohne Bewertung, nur sichtbar machen.',
+        'Eine einzige Akkommodation auswählen und gemeinsam reduzieren (SPACE-Logik nach Lebowitz) — klein anfangen, Erfolg sichern.',
+        'Den Eltern unterstützende Standardsätze mitgeben, wörtlich: „Ech weess, et ass schwéier fir dech — an ech weess, dass du et packs."',
+        'Symptom-Momente protokollieren: gleiche Reaktion vereinbart, schriftlich, alle Akteure (z. B. bei Körperbeschwerden am Schulmorgen: kommen + Ruheoption statt heimbleiben).',
+        'Rückfälle vor Meilensteinen (Schulwechsel, Prüfungen, Rentrée) explizit vorhersagen und einplanen — das nimmt ihnen die Beweiskraft.'
+      ],
+      nicht_tun: [
+        'Die Eltern beschämen oder belehren — Scham erhöht die Akkommodation, weil sie die elterliche Angst erhöht.',
+        'Alles auf einmal abbauen — Totalentzug der Akkommodation erzeugt Eskalation und Beziehungsbruch.',
+        'Dem Jugendlichen die Eltern-Arbeit „verkaufen" als Beweis, dass er das Problem ist.',
+        'Uneinheitlich reagieren — eine einzige rettende Ausnahme pro Woche hält den ganzen Kreislauf am Leben.'
+      ],
+      eskalation:
+        'Verschärft den Fall, wenn die Funktionsfähigkeit trotz Eltern-Coaching weiter sinkt (Schulbesuch bricht ein, ' +
+        'Radius schrumpft), wenn ein Elternteil die Arbeit aktiv unterläuft oder wenn Platzierungs-/Gerichtsfragen ' +
+        'in den Raum treten. Dann Fallkonferenz mit allen Akteuren (Schule, KJP/Behandler, ggf. ONE) und die ' +
+        'Akkommodationsarbeit als formales Behandlungselement festschreiben — nicht als freundliche Empfehlung.',
+      psychoedukation:
+        'Familiäre Akkommodation heißt: Angehörige verändern aus Liebe ihr eigenes Verhalten, damit das Kind der ' +
+        'Angst nicht begegnen muss — sie holen ab, entschuldigen, übernehmen, vermeiden Auslöser. Kurzfristig sinkt ' +
+        'die Not aller; langfristig lernt das Angstsystem, dass Vermeiden überlebenswichtig war, und generalisiert. ' +
+        'Die Forschung (Lebowitz, SPACE) zeigt: Reduktion der Akkommodation bei gleichzeitig hoher elterlicher ' +
+        'Unterstützung wirkt auf die kindliche Angst vergleichbar gut wie kindzentrierte KVT — auch wenn das Kind ' +
+        'selbst (noch) nicht mitmacht. Genau deshalb ist dieses Modul ein Hebel erster Ordnung: Du kannst über die ' +
+        'Erwachsenen behandeln, wenn der Jugendliche nicht erreichbar ist. Der Preis ist kurzfristig mehr Distress — ' +
+        'das gehört den Eltern vorab gesagt, sonst brechen sie beim ersten Sturm ab.'
+    }
+  },
+  'helfernetz-fragmentiert': {
+    id: 'helfernetz-fragmentiert',
+    name: 'Fragmentiertes Helfernetz',
+    trigger_frage: 'Sind viele Stellen beteiligt, aber niemand hält den Fall (Diagnose ohne Suivi, Lücken, unklare Führung)?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'behandlungsabbrueche': {
+    id: 'behandlungsabbrueche',
+    name: 'Versandende Behandlung',
+    trigger_frage: 'Brechen Suivis ab, platzen Termine oder laufen ohne den Jugendlichen, versanden Empfehlungen seit langem?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'eltern-uneins-behandlung': {
+    id: 'eltern-uneins-behandlung',
+    name: 'Eltern uneins über Behandlung',
+    trigger_frage: 'Blockieren sich die Eltern gegenseitig bei Medikation oder Therapie (einer dagegen, einer bremst)?',
+    achsen_affinitaet: ['adhs-unaufmerksam', 'depression', 'angststoerungen'],
+    bloecke: emptyKontextBloecke()
+  },
+  'heim-foyer': {
+    id: 'heim-foyer',
+    name: 'Fremdplatzierung / Foyer',
+    trigger_frage: 'Lebt der Jugendliche im Foyer oder fremdplatziert, Herkunftsfamilie ambivalent erreichbar?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'care-leaver': {
+    id: 'care-leaver',
+    name: 'Care-Leaver-Übergang',
+    trigger_frage: 'Ist der Jugendliche 16+ im Heim und die 18er-Klippe absehbar, Anschluss (Wohnen, Einkommen, Anker-Person) ungeklärt?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'lebensmodell-sog': {
+    id: 'lebensmodell-sog',
+    name: 'Konkurrierendes Lebensmodell',
+    trigger_frage: 'Lebt im nahen Umfeld ein attraktives Gegenmodell (Nicht-Arbeit/REVIS, Delinquenz, Substanz)?',
+    achsen_affinitaet: ['verhaltensstoerung', 'sucht', 'adhs-unaufmerksam'],
+    bloecke: emptyKontextBloecke()
+  },
+  'eltern-im-hilfesystem': {
+    id: 'eltern-im-hilfesystem',
+    name: 'Eltern im Hilfesystem',
+    trigger_frage: 'Arbeiten die Eltern selbst im psychosozialen oder pädagogischen Feld (Fachwissen plus Verstrickungsrisiko)?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'ueberkontrolle': {
+    id: 'ueberkontrolle',
+    name: 'Überkontrolle bei Versorgungslücke',
+    trigger_frage: 'Läuft engmaschige Kontrolle (Tracking, begleitete Ausgänge) bei gleichzeitig unversorgten Kernbedarfen?',
+    achsen_affinitaet: ['angststoerungen', 'lernstoerungen', 'depression'],
+    bloecke: emptyKontextBloecke()
+  },
+  'gewalt-verdacht': {
+    id: 'gewalt-verdacht',
+    name: 'Gewalt-Verdacht/-Offenlegung zu Hause',
+    trigger_frage: 'Gibt es Verdacht oder Offenlegung körperlicher oder psychischer Gewalt im Haushalt?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'trennung-loyalitaet': {
+    id: 'trennung-loyalitaet',
+    name: 'Hochkonflikt-Trennung',
+    trigger_frage: 'Läuft eine Trennung/Scheidung mit Drohungen, Loyalitätsdruck oder Instrumentalisierung?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'frische-verluste': {
+    id: 'frische-verluste',
+    name: 'Frische Verluste & Abbrüche',
+    trigger_frage: 'Gab es Tod, Wegzug oder Weggang zentraler Personen (Peers, Bezugspädagogen, Angehörige) in den letzten Monaten?',
+    achsen_affinitaet: ['depression', 'trauma'],
+    bloecke: emptyKontextBloecke()
+  },
+  'signalement-gericht': {
+    id: 'signalement-gericht',
+    name: 'Signalement-/Gerichtskontext',
+    trigger_frage: 'Stehen Signalement, SCAS oder Tribunal de la Jeunesse im Raum oder sind bereits aktiv?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'parentifizierung': {
+    id: 'parentifizierung',
+    name: 'Parentifizierung / Helferrolle',
+    trigger_frage: 'Übernimmt der Jugendliche Erwachsenenaufgaben (sich selbst abmelden, andere versorgen, als „Co-Pädagoge" agieren)?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'stationaer-uebergang': {
+    id: 'stationaer-uebergang',
+    name: 'Stationärer Übergang',
+    trigger_frage: 'Steht eine Aufnahme oder Entlassung aus Klinik/Tagesklinik an oder läuft gerade?',
+    achsen_affinitaet: ['depression', 'borderline', 'psychose', 'essstoerungen'],
+    bloecke: emptyKontextBloecke()
+  },
+  'transport-logistik': {
+    id: 'transport-logistik',
+    name: 'Logistik-/Transportbarrieren',
+    trigger_frage: 'Blockieren wiederkehrende Barrieren (Mobibus, Grenzwohnsitz, verspätete Anträge) real die Beschulung oder Stagen?',
+    achsen_affinitaet: [],
+    bloecke: emptyKontextBloecke()
+  },
+  'adoption-fruehe-geschichte': {
+    id: 'adoption-fruehe-geschichte',
+    name: 'Adoption / unklare frühe Geschichte',
+    trigger_frage: 'Ist der Jugendliche adoptiert oder gibt es frühe biografische Brüche/Unbekanntes (relevant für Bindung und Differentialdiagnostik)?',
+    achsen_affinitaet: ['asperger', 'trauma', 'borderline'],
+    bloecke: emptyKontextBloecke()
+  },
+  'saisonale-muster': {
+    id: 'saisonale-muster',
+    name: 'Datums-/Saisonmuster',
+    trigger_frage: 'Gibt es bekannte wiederkehrende Einbrüche um bestimmte Daten (Geburtstag, Jahrestage, Januar, Ferienenden)?',
+    achsen_affinitaet: ['depression', 'bipolar', 'trauma'],
+    bloecke: emptyKontextBloecke()
+  }
+};
+
+/* Schutz- und Fenster-Banner für Kontext-Module. Strikt getrennt von der
+   Krisen-Engine: verändert keine Muster-Position, nur Anzeige.
+   Hierarchie in der Anzeige: Krise > Schutz > Fenster. */
+const KONTEXT_SCHUTZ_CONFIG = {
+  'gewalt-verdacht': {
+    typ: 'schutz',
+    banner: 'Kinderschutz-Kontext aktiv: Schutz- und Meldewege (ONE, SCAS/signalement, ALUPSE) haben Vorrang vor jedem Behandlungsplan. Keine Detail-Exploration durch die Schule — zuhören, dokumentieren, anbinden.'
+  },
+  'signalement-gericht': {
+    typ: 'schutz',
+    banner: 'Signalement-/Gerichtskontext aktiv: faktische, datierte Dokumentation führen; angekündigte Schritte ohne weitere Schleifen umsetzen — Glaubwürdigkeit ist hier das Schutzinstrument.'
+  },
+  'stationaer-uebergang': {
+    typ: 'fenster',
+    banner: 'Übergangsfenster Klinik/Tagesklinik: Entlassungs- und Wechselphasen sind eigenständige Risikofenster — Anbindung, Kontaktdichte und Zuständigkeiten jetzt aktiv sichern.'
+  }
+};
+
+/* Aktive Kontext-Module eines Profil-States, in Anzeige-Reihenfolge:
+   [schutz]-Module zuerst, dann [fenster], dann übrige. */
+function activeKontextModule(ps) {
+  const ids = Array.isArray(ps && ps.kontextModule) ? ps.kontextModule : [];
+  const mods = ids.map(id => KONTEXT_MODULE[id]).filter(Boolean);
+  const rank = id => {
+    const cfg = KONTEXT_SCHUTZ_CONFIG[id];
+    return cfg ? (cfg.typ === 'schutz' ? 0 : 1) : 2;
+  };
+  mods.sort((a, b) => rank(a.id) - rank(b.id));
+  return mods;
+}
+
+/* Schutz-/Fenster-Banner für die aktiven Module eines States (max. 1 pro Modul). */
+function kontextBannerFor(ps) {
+  return activeKontextModule(ps)
+    .map(m => KONTEXT_SCHUTZ_CONFIG[m.id] ? { id: m.id, name: m.name, ...KONTEXT_SCHUTZ_CONFIG[m.id] } : null)
+    .filter(Boolean);
+}
 
 function topicCrisisActive(topicId, ps) {
   const cfg = TOPIC_CRISIS_CONFIG[topicId];
@@ -15861,6 +16180,43 @@ function renderSubMusterTiefe(topic, ps, container) {
         : placeholderHtml('Schul-Strategie wird in folgenden Prompts gebaut. Vorlage (5B) erscheint im Cream-Block mit gold-Akzent, sobald befüllt.')}
     </section>`;
 
+  // Kontext-Schicht (P27): Einschub-Panels pro aktivem Kontext-Modul,
+  // [schutz]-Module zuerst (Sortierung in activeKontextModule). Module ohne
+  // befüllte Bloecke und States ohne aktive Module rendern NICHTS — kein
+  // leerer Container.
+  const kontextMods = activeKontextModule(ps).filter(m => {
+    const b = m.bloecke || {};
+    return nonEmpty(b.reframe) || (b.haltung || []).length > 0 || (b.tun || []).length > 0;
+  });
+  const kontextModulPanel = m => {
+    const b = m.bloecke;
+    const cfg = KONTEXT_SCHUTZ_CONFIG[m.id];
+    const liste = (titel, arr) => (arr && arr.length > 0) ? `
+      <div class="ebene3-subblock">
+        <div class="ebene3-subblock-titel">${escHtml(titel)}</div>
+        <ul class="kontext-modul-liste">${arr.map(x => `<li>${escHtml(x)}</li>`).join('')}</ul>
+      </div>` : '';
+    return `
+      <div class="kontext-modul-panel${cfg ? ' kontext-modul-panel-' + cfg.typ : ''}">
+        <div class="kontext-modul-panel-name">${escHtml(m.name)}${cfg ? ` <span class="kontext-marker kontext-marker-${cfg.typ}">${cfg.typ === 'schutz' ? 'Schutz' : 'Fenster'}</span>` : ''}</div>
+        ${nonEmpty(b.reframe) ? `<div class="ebene3-prose kontext-modul-reframe">${escHtml(b.reframe)}</div>` : ''}
+        ${liste('Haltung', b.haltung)}
+        ${liste('Was du tust', b.tun)}
+        ${liste('Was du nicht tust', b.nicht_tun)}
+        ${nonEmpty(b.eskalation) ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">Wann es den Fall verschärft</div><div class="ebene3-prose">${escHtml(b.eskalation)}</div></div>` : ''}
+        ${nonEmpty(b.psychoedukation) ? `
+          <details class="ebene3-details">
+            <summary>Psychoedukation — was es ist, warum es wirkt</summary>
+            <div class="ebene3-prose">${escHtml(b.psychoedukation)}</div>
+          </details>` : ''}
+      </div>`;
+  };
+  const kontextSchichtHtml = kontextMods.length > 0 ? `
+    <section class="ebene3-block ebene3-block-kontext">
+      <div class="ebene3-block-eyebrow">Kontext-Schicht — was dein System-Kontext am Plan ändert</div>
+      ${kontextMods.map(kontextModulPanel).join('')}
+    </section>` : '';
+
   // Header (Muster-Name + Kernbotschaft + Switcher)
   const headerHtml = `
     <header class="ebene3-header">
@@ -15890,6 +16246,7 @@ function renderSubMusterTiefe(topic, ps, container) {
         ${block3Html}
         ${block4Html}
         ${block5Html}
+        ${kontextSchichtHtml}
       </div>
       ${footerHtml}
     </section>`;
@@ -16185,6 +16542,35 @@ function renderSymptomAuswahl(topic, ps, container) {
       </div>`;
   }).join('');
 
+  // System & Kontext (P27): orthogonale Modul-Auswahl. Module mit passender
+  // achsen_affinitaet zuerst, Rest aufklappbar. Verändert NIE das Scoring.
+  ps.kontextModule = Array.isArray(ps.kontextModule) ? ps.kontextModule : [];
+  const alleModule = Object.values(KONTEXT_MODULE);
+  const affin = alleModule.filter(m => m.achsen_affinitaet.length === 0 || m.achsen_affinitaet.includes(topic.id));
+  const weitere = alleModule.filter(m => !affin.includes(m));
+  const modulCheckbox = m => {
+    const checked = ps.kontextModule.includes(m.id);
+    const cfg = KONTEXT_SCHUTZ_CONFIG[m.id];
+    const marker = cfg ? `<span class="kontext-marker kontext-marker-${cfg.typ}" title="${cfg.typ === 'schutz' ? 'Kinderschutz-Kontext' : 'Risikofenster'}">${cfg.typ === 'schutz' ? 'Schutz' : 'Fenster'}</span>` : '';
+    return `
+      <label class="symdia-sym kontext-modul-check ${checked ? 'checked' : ''}">
+        <input type="checkbox" data-tool="symdia-kontextmodul" data-id="${escHtml(m.id)}" ${checked ? 'checked' : ''}>
+        <span class="symdia-sym-box" aria-hidden="true"></span>
+        <span class="symdia-sym-text">${escHtml(m.trigger_frage)}${marker}</span>
+      </label>`;
+  };
+  const kontextModulHtml = `
+    <div class="symdia-kat kontext-modul-sektion">
+      <div class="symdia-kat-titel">System &amp; Kontext</div>
+      <div class="kontext-modul-subline">Optional — verändert nicht das Muster-Ranking, ergänzt den Behandlungs-Plan.</div>
+      <div class="symdia-sym-grid">${affin.map(modulCheckbox).join('')}</div>
+      ${weitere.length > 0 ? `
+        <details class="kontext-modul-weitere">
+          <summary>Weitere Kontexte (${weitere.length})</summary>
+          <div class="symdia-sym-grid">${weitere.map(modulCheckbox).join('')}</div>
+        </details>` : ''}
+    </div>`;
+
   const totalSelected = ps.symptome.length;
   const ready = totalSelected > 0;
 
@@ -16241,6 +16627,8 @@ function renderSymptomAuswahl(topic, ps, container) {
 
       <div class="symdia-kontext">${kontextHtml}</div>
 
+      ${kontextModulHtml}
+
       <div class="symdia-symptome">${symHtml}</div>
 
       <div class="plan-actions symdia-actions">
@@ -16278,6 +16666,18 @@ function bindSymdiaInputEvents(topic, ps) {
     });
   });
 
+  root.querySelectorAll('[data-tool="symdia-kontextmodul"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const id = cb.dataset.id;
+      ps.kontextModule = Array.isArray(ps.kontextModule) ? ps.kontextModule : [];
+      const idx = ps.kontextModule.indexOf(id);
+      if (cb.checked && idx === -1) ps.kontextModule.push(id);
+      else if (!cb.checked && idx !== -1) ps.kontextModule.splice(idx, 1);
+      savePlanState(topic.id, ps);
+      renderEbene();
+    });
+  });
+
   root.querySelector('[data-tool="symdia-auswerten"]')?.addEventListener('click', () => {
     ps.generiert = Date.now();
     savePlanState(topic.id, ps);
@@ -16292,6 +16692,7 @@ function bindSymdiaInputEvents(topic, ps) {
     if (!confirm('Alle Symptome und Kontext-Antworten zurücksetzen?')) return;
     ps.kontext = {};
     ps.symptome = [];
+    ps.kontextModule = [];
     ps.generiert = null;
     savePlanState(topic.id, ps);
     renderEbene();
@@ -16367,15 +16768,33 @@ function renderErkanntesMuster(topic, ps, container) {
       <p>${escHtml(crisisCfg.bannerText)}</p>
     </div>` : '';
 
+  // Kontext-Schicht (P27): Schutz-/Fenster-Banner NACH einem ggf. vorhandenen
+  // Krisen-Banner (Hierarchie Krise > Schutz > Fenster) + Chip-Zeile der
+  // aktiven Module. Verändert keine Muster-Position.
+  const kontextBanner = kontextBannerFor(ps);
+  const kontextBannerHtml = kontextBanner.map(b => `
+    <div class="kontext-banner kontext-banner-${b.typ}">
+      <div class="kontext-banner-titel">${b.typ === 'schutz' ? 'Schutz-Kontext' : 'Risikofenster'} · ${escHtml(b.name)}</div>
+      <p>${escHtml(b.banner)}</p>
+    </div>`).join('');
+  const aktiveMods = activeKontextModule(ps);
+  const kontextChipsHtml = aktiveMods.length > 0 ? `
+    <div class="kontext-chips">
+      <span class="kontext-chips-label">Aktiver Kontext:</span>
+      ${aktiveMods.map(m => `<span class="kontext-chip${KONTEXT_SCHUTZ_CONFIG[m.id] ? ' kontext-chip-' + KONTEXT_SCHUTZ_CONFIG[m.id].typ : ''}">${escHtml(m.name)}</span>`).join('')}
+    </div>` : '';
+
   container.innerHTML = `
     <section class="plan symdia-result">
       ${krisenBannerHtml}
+      ${kontextBannerHtml}
       <div class="symdia-primary${crisisActive ? ' symdia-primary-krise' : ''}">
         <div class="symdia-primary-eyebrow">${crisisActive ? 'Krisen-Profil — Erkanntes Muster' : 'Erkanntes Muster'}</div>
         <h2 class="symdia-primary-titel">${escHtml(top.muster.name)}</h2>
         <p class="symdia-primary-kurz">${escHtml(kurz)}</p>
         <div class="symdia-primary-meta">Score ${top.score} · basierend auf ${ps.symptome.length} angekreuzten Symptomen${crisisActive ? ' · krisenpriorisiert' : ''}</div>
       </div>
+      ${kontextChipsHtml}
       ${auchHtml}
       <div class="symdia-cta">
         <button class="plan-generate-btn symdia-cta-btn" data-tool="goto-behandlungs-plan">Behandlungs-Plan öffnen →</button>
