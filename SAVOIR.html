@@ -5348,6 +5348,31 @@ const BEREICH_STRUKTUR = {
   }
 };
 
+/* Diagnostik-Vollausbau (P23/P25): die acht neuen Achsen-Topics teilen
+   dieselbe Drei-Bereich-Struktur wie Angst/Trauma/Depression — WISSEN mit
+   sechs Tabs (Ebenen aktuell leer, Profile-Tab funktioniert über
+   planMusterFor/musterKurzFor), PROFIL-DIAGNOSE funktional, HANDELN nur
+   Behandlungs-Plan. Programmatisch ergänzt statt acht identische Literale. */
+for (const tid of ['borderline', 'essstoerungen', 'psychose', 'zwangsstoerung', 'bipolar', 'verhaltensstoerung', 'sucht', 'lernstoerungen']) {
+  BEREICH_STRUKTUR[tid] = {
+    wissen: [
+      { ebene: 'quintessenz', label: 'Quintessenz', tabClass: 'tab-quintessenz' },
+      { ebene: 'grundlagen', label: 'Grundlagen', tabClass: '' },
+      { ebene: 'klinisch', label: 'Klinisch', tabClass: '' },
+      { ebene: 'spezialfaelle', label: 'Spezialfälle', tabClass: '' },
+      { ebene: 'profile-uebersicht', label: 'Profile', tabClass: '' },
+      { ebene: 'testen', label: 'Testen', tabClass: 'tab-testen' }
+    ],
+    profil: [
+      { ebene: 'symptom-auswahl', label: 'Symptom-Auswahl', tabClass: 'tab-plan' },
+      { ebene: 'erkanntes-muster', label: 'Erkanntes Muster', tabClass: 'tab-plan' }
+    ],
+    handeln: [
+      { ebene: 'behandlungs-plan', label: 'Behandlungs-Plan', tabClass: 'tab-plan' }
+    ]
+  };
+}
+
 /* Placeholder-Texte für Bereiche, die noch nicht inhaltlich gebaut sind.
    Pro Ebene-ID: Überschrift + Beschreibung des geplanten Inhalts. Wird via
    BEREICH_PLACEHOLDERS[ebene]-Lookup in renderEbene aufgelöst. Aktuell leer —
@@ -5357,11 +5382,10 @@ const BEREICH_STRUKTUR = {
 const BEREICH_PLACEHOLDERS = {};
 
 /* ============ SAVOIR_GLOBAL — Globale Diagnostik-Schicht (Phase A1) ============
-   Eingangs-Ebene über alle Krankheitsbild-Hauptachsen. Symptom-Pool und
-   Mappings werden in den folgenden Prompts (P2-P4) befüllt. A01 und A02
-   sind über topicKey mit den bestehenden Topics 'asperger' und
-   'adhs-unaufmerksam' verbunden. Die restlichen elf Achsen haben
-   topicKey: null bis sie inhaltlich angelegt werden. */
+   Eingangs-Ebene über alle Krankheitsbild-Hauptachsen. Alle 13 Achsen sind
+   über topicKey mit ihren Topics verbunden (seit Diagnostik-Vollausbau P23/P25);
+   die globale Symptom-Eingabe führt über die Verdachtsachsen in die
+   Topic-Profil-Diagnose mit Sub-Muster-Erkennung. */
 const SAVOIR_GLOBAL = {
   /* Symptom-Pool (Prompt P2): 16 Kategorien mit insgesamt 126 beobachtungs-orientierten Items.
      IDs (1.1, 2.3 etc.) werden in Prompt P3 für das Achsen-Mapping referenziert.
@@ -5549,16 +5573,16 @@ const SAVOIR_GLOBAL = {
     { id: 'A01', name: 'Autismus-Spektrum-Störung',                    topicKey: 'asperger',           goldstandards: ['ADOS-2', 'ADI-R', 'WISC-V mit Indexprofil'],                              quellenKurz: ['Klin (klinisches Asperger-Profil)', 'Attwood (Adoleszenz-Spezifika)', 'Solden (weibliches Profil)'] },
     { id: 'A02', name: 'ADHS (unaufmerksam und kombiniert)',           topicKey: 'adhs-unaufmerksam',  goldstandards: ['Conners 3', 'BRIEF', 'WISC-V', 'K-SADS-PL'],                               quellenKurz: ['Barkley (executive dysfunction)', 'Solden (Mädchen-Profil)', 'Dodson (RSD)', 'Hallowell (ADHS 2.0)'] },
     { id: 'A03', name: 'Depressive Störung',                           topicKey: 'depression',         goldstandards: ['BDI-A (Beck Depression Inventory for Adolescents)', 'PHQ-A (Patient Health Questionnaire for Adolescents)', 'CDI-2 (Children\'s Depression Inventory)', 'K-SADS-PL', 'Bei Suizidalität: strukturierte Risiko-Einschätzung (z. B. C-SSRS)'], quellenKurz: ['NICE Guidelines (Depression in children/young people)', 'Beck (kognitive Triade)', 'TADS-Studie', 'Harrington'] },
-    { id: 'A04', name: 'Bipolare Spektrum-Störung',                    topicKey: null,                 goldstandards: ['K-SADS-PL', 'YMRS'],                                                        quellenKurz: ['Goodwin & Jamison (juvenile Form)'] },
+    { id: 'A04', name: 'Bipolare Spektrum-Störung',                    topicKey: 'bipolar',            goldstandards: ['K-SADS-PL', 'YMRS (Young Mania Rating Scale)', 'MDQ-A (Mood Disorder Questionnaire, Adolescent)', 'Stimmungs- und Episoden-Kalender über mehrere Monate'], quellenKurz: ['Goodwin & Jamison (juvenile Form)', 'Birmaher (COBY-Verlaufsstudie)', 'Duffy (Frühverlauf bei Hochrisiko-Kindern)'] },
     { id: 'A05', name: 'Angststörungen',                               topicKey: 'angststoerungen',    goldstandards: ['SCARED (Screen for Child Anxiety Related Disorders)', 'MASC-2 (Multidimensional Anxiety Scale for Children)', 'K-SADS-PL', 'LSAS-CA (Liebowitz Social Anxiety Scale, Child/Adolescent)'], quellenKurz: ['Barlow (Anxiety Disorders)', 'Albano (CBT bei CYP)', 'Kendall (Coping Cat)', 'March (Talking Back to OCD)'] },
-    { id: 'A06', name: 'Zwangsstörung',                                topicKey: null,                 goldstandards: ['CY-BOCS', 'K-SADS-PL'],                                                     quellenKurz: ['March & Mulle (CBT für OCD bei CYP)'] },
+    { id: 'A06', name: 'Zwangsstörung',                                topicKey: 'zwangsstoerung',     goldstandards: ['CY-BOCS (Children\'s Yale-Brown Obsessive Compulsive Scale)', 'OCI-CV (Obsessive Compulsive Inventory, Child Version)', 'K-SADS-PL', 'Bei plötzlichem Beginn: Streptokokken-Serologie (PANDAS-Abklärung)'], quellenKurz: ['March & Mulle (CBT/ERP für OCD bei CYP)', 'Swedo (PANDAS/PANS)', 'POTS-Studie (Kombination ERP + SSRI)'] },
     { id: 'A07', name: 'PTBS und komplexes Trauma',                    topicKey: 'trauma',             goldstandards: ['CAPS-CA-5 (Clinician Administered PTSD Scale for Children/Adolescents)', 'UCLA PTSD-RI (PTSD Reaction Index)', 'TSCC (Trauma Symptom Checklist for Children)', 'K-SADS-PL', 'DES-T (Dissociative Experience Scale – Taxon) bei dissoziativer Symptomatik'], quellenKurz: ['van der Kolk (Body Keeps the Score)', 'Cohen (TF-CBT)', 'Schmid (KiKuT-cPTSD)', 'Briere', 'Foa (PE für Adolescents)'] },
-    { id: 'A08', name: 'Essstörungen',                                 topicKey: null,                 goldstandards: ['EDE-Q', 'EDI-3'],                                                           quellenKurz: ['Lock & Le Grange (Family-Based Treatment)'] },
-    { id: 'A09', name: 'Substanz- und Verhaltenssucht',                topicKey: null,                 goldstandards: ['CRAFFT', 'AUDIT-C', 'strukturierte Substanz-Anamnese'],                     quellenKurz: ['NIDA-Prinzipien (Adolescent Substance Use)'] },
-    { id: 'A10', name: 'Verhaltensstörungen (ODD, CD)',                topicKey: null,                 goldstandards: ['K-SADS-PL', 'CBCL', 'TRF'],                                                 quellenKurz: ['Patterson (coercive cycle)', 'Kazdin (Parent Management Training)'] },
-    { id: 'A11', name: 'Lernstörungen',                                topicKey: null,                 goldstandards: ['WISC-V mit Untertests', 'SLRT-II', 'BUEGA', 'ELFE-II', 'ZAREKI-R'],         quellenKurz: ['Shaywitz (Dyslexie)', 'Geary (Dyskalkulie)'] },
-    { id: 'A12', name: 'Borderline-Strukturen und Identitätskrise',    topicKey: null,                 goldstandards: ['SCID-5-PD (adaptiert)', 'BPDSI-IV'],                                        quellenKurz: ['Linehan (DBT)', 'Chanen (adolescent BPD)'] },
-    { id: 'A13', name: 'Psychose-Erstmanifestation',                   topicKey: null,                 goldstandards: ['K-SADS-PL', 'SIPS/SOPS für Prodromal-Phase'],                              quellenKurz: ['Yung (UHR-Kriterien)', 'McGorry (Early Intervention)'] }
+    { id: 'A08', name: 'Essstörungen',                                 topicKey: 'essstoerungen',      goldstandards: ['EDE-Q (Eating Disorder Examination Questionnaire)', 'EDI-3', 'SCOFF (Screening)', 'BMI-Perzentilen mit individuellem Gewichts-Verlauf', 'Somatisches Monitoring (Vitalparameter, EKG, Elektrolyte)'], quellenKurz: ['Lock & Le Grange (Family-Based Treatment / Maudsley)', 'Fairburn (CBT-E)', 'Treasure (Carer-Skills)', 'SAHM / RCPCH MEED (somatische Hospitalisierungs-Kriterien)'] },
+    { id: 'A09', name: 'Substanz- und Verhaltenssucht',                topicKey: 'sucht',              goldstandards: ['CRAFFT (Adoleszenten-Screening)', 'AUDIT-C', 'DUDIT', 'Strukturierte Substanz- und Funktions-Anamnese', 'Bei Gaming: ICD-11 Gaming-Disorder-Kriterien strukturiert'], quellenKurz: ['NIDA-Prinzipien (Adolescent Substance Use)', 'Miller & Rollnick (Motivational Interviewing)', 'CePT (LU-Präventions- und Beratungsstruktur)'] },
+    { id: 'A10', name: 'Verhaltensstörungen (ODD, CD)',                topicKey: 'verhaltensstoerung', goldstandards: ['K-SADS-PL', 'CBCL', 'TRF', 'ICU (Inventory of Callous-Unemotional Traits)'], quellenKurz: ['Patterson (coercive cycle)', 'Kazdin (Parent Management Training)', 'Frick (CU-Traits)', 'Moffitt (Kindheits- vs. Adoleszenz-Typ)'] },
+    { id: 'A11', name: 'Lernstörungen',                                topicKey: 'lernstoerungen',     goldstandards: ['WISC-V mit Untertests und Index-Analyse', 'SLRT-II', 'BUEGA', 'ELFE-II', 'ZAREKI-R', 'M-ABC-2 (bei motorischer Komponente)', 'Pädaudiologische Diagnostik (bei AVWS-Verdacht)'], quellenKurz: ['Shaywitz (Dyslexie)', 'Geary (Dyskalkulie)', 'Blank (DCD / Dysgrafie, EACD-Leitlinie)'] },
+    { id: 'A12', name: 'Borderline-Strukturen und Identitätskrise',    topicKey: 'borderline',         goldstandards: ['CI-BPD (Childhood Interview for Borderline Personality Disorder)', 'BPDSI-IV', 'AIDA (Assessment of Identity Development in Adolescence)', 'MSI-BPD (Screening)', 'DERS (Difficulties in Emotion Regulation Scale)'], quellenKurz: ['Linehan (DBT)', 'Miller & Rathus (DBT-A)', 'Chanen (adolescent BPD, Früh-Intervention)', 'Kernberg/Foelsch (AIT)', 'Bateman & Fonagy (MBT-A)'] },
+    { id: 'A13', name: 'Psychose-Erstmanifestation',                   topicKey: 'psychose',           goldstandards: ['K-SADS-PL', 'SIPS/SOPS für Prodromal-Phase', 'CAARMS (Comprehensive Assessment of At-Risk Mental States)', 'PQ-16 (Prodromal Questionnaire, Screening)'], quellenKurz: ['Yung (UHR-Kriterien)', 'McGorry (Early Intervention, DUP-Minimierung)', 'Schimmelmann (Früherkennung bei Adoleszenten)'] }
   ],
   risikofilter: [
     { id: 'R01', name: 'Suizidalität' },
@@ -16175,6 +16199,26 @@ function renderSymptomAuswahl(topic, ps, container) {
     'depression': {
       titel: 'Klinischer Hinweis — Suizidalität',
       text: 'Bei depressiven Störungen ist die Einschätzung der Suizidalität fester Bestandteil der Diagnostik. Diese Profil-Diagnose ersetzt keine strukturierte Risiko-Einschätzung im persönlichen Kontakt. Bei Hinweisen auf akute Selbstgefährdung sind die luxemburgischen Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112).'
+    },
+    'borderline': {
+      titel: 'Klinischer Hinweis — Diagnose-Sorgfalt und Selbstgefährdung',
+      text: 'Borderline-Strukturen bei Jugendlichen erfordern doppelte Sorgfalt: die Diagnose ist vor dem 18. Lebensjahr möglich und Früh-Intervention ist evidenzbasiert (Chanen), das Label trägt aber Stigma-Risiko und gehört nicht in schulische Kommunikation. Diese Profil-Diagnose dient der symptom-basierten Hypothesen-Bildung. Bei akuter Selbstverletzung oder Suizidalität sind die Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112).'
+    },
+    'essstoerungen': {
+      titel: 'Klinischer Hinweis — somatische Gefährdung',
+      text: 'Essstörungen haben die höchste Mortalität aller psychiatrischen Erkrankungen der Adoleszenz. Die somatische Abklärung (Vitalparameter, EKG, Elektrolyte) gehört an den Anfang jeder Diagnostik — auch bei Normal- oder Übergewicht (Atypische Anorexie wird systematisch bagatellisiert). Gewichts- und körperbezogene Kommunikation gegenüber der Klientin oder dem Klienten unterlassen; die Ernährungs-Verantwortung läuft über Familie und Behandlungs-Team.'
+    },
+    'psychose': {
+      titel: 'Klinischer Hinweis — Früherkennung und sensible Sprache',
+      text: 'Die Dauer der unbehandelten Psychose (DUP) ist prognostisch entscheidend — bei Verdacht zügige fachpsychiatrische Abklärung (KJP). Gleichzeitig gilt: ungewöhnliche Wahrnehmungs-Erlebnisse sind bei Jugendlichen häufig und meist nicht psychotisch; trauma-bedingte Dissoziation (A07) und substanz-induzierte Zustände (A09) sind aktiv abzugrenzen. Keine konfrontative Korrektur des Erlebens, keine vorschnellen Etiketten gegenüber Familie oder Schule.'
+    },
+    'sucht': {
+      titel: 'Klinischer Hinweis — vertraulicher Rahmen',
+      text: 'Substanz-Anamnese bei Jugendlichen funktioniert nur in vertraulichem Rahmen mit transparenten Grenzen der Vertraulichkeit. Die Funktions-Frage (Selbstmedikation gegen Schlaf, Angst, Stimmung, ADHS-Unruhe) ist diagnostisch wichtiger als die Substanz-Frage. Bei akuter Intoxikation somatische Abklärung zuerst. CePT als luxemburgische Beratungs- und Präventions-Struktur.'
+    },
+    'verhaltensstoerung': {
+      titel: 'Klinischer Hinweis — Differential vor Etikett',
+      text: 'Hinter aggressivem und oppositionellem Verhalten stehen klinisch häufig andere Achsen: trauma-bedingte Übererregung (A07), irritable Depression (A03), ADHS-Impulsivität (A02). Die Differential-Klärung gehört vor jedes Verhaltens-Etikett — eine ODD/CD-Zuschreibung ohne Trauma- und Depressions-Anamnese ist ein klinischer Kunstfehler mit Disziplinar-Spirale als Folge.'
     }
   };
   const hinweis = SYMDIA_KLINIK_HINWEIS[topic.id];
