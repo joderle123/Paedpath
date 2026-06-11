@@ -613,6 +613,72 @@
     line-height: 1.55;
   }
   .kontext-modul-liste li { margin-bottom: 6px; }
+
+  /* ============ BLOCK 7 GEGENÜBERTRAGUNG + BLOCK 8 KRISENAMPEL (P28) ============ */
+  .gegen-intro {
+    font-style: italic;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+  .gegen-reaktion {
+    background: var(--cream);
+    border-left: 4px solid var(--sage);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .gegen-zug {
+    font-weight: 700;
+    font-size: 0.98rem;
+    margin-bottom: 6px;
+  }
+  .gegen-mittel {
+    margin-top: 8px;
+    font-size: 0.92rem;
+    color: var(--rust);
+  }
+  .ampel-stufe {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .ampel-gruen { border-left: 4px solid var(--sage); }
+  .ampel-gelb  { border-left: 4px solid var(--gold); }
+  .ampel-rot   { border-left: 4px solid var(--rust); }
+  .ampel-stufe-titel {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ampel-gruen .ampel-stufe-titel { color: var(--sage); }
+  .ampel-gelb  .ampel-stufe-titel { color: var(--gold); }
+  .ampel-rot   .ampel-stufe-titel { color: var(--rust); }
+  .ampel-liste-titel {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin: 10px 0 4px;
+  }
+  .ampel-liste {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .ampel-liste li { margin-bottom: 5px; }
+  .ampel-liste-nicht li strong { color: var(--rust); }
+  .ampel-schutzhinweis {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
   .ebene3-topbar {
     position: sticky;
     top: 0;
@@ -7670,119 +7736,541 @@ const KONTEXT_MODULE = {
     name: 'Fragmentiertes Helfernetz',
     trigger_frage: 'Sind viele Stellen beteiligt, aber niemand hält den Fall (Diagnose ohne Suivi, Lücken, unklare Führung)?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn dieses Muster aktiv ist, ist das Helfernetz selbst Teil der Symptomatik. Viele Akteure — KJP, Schule, ONE-Maßnahme, SCAS, niedergelassene Therapeutin — und trotzdem hält niemand den Fall. Die typische Form: Diagnose liegt vor, Behandlung folgt nicht; jeder denkt, ein anderer kümmert sich; Berichte erreichen einander nicht. Das System reproduziert dabei oft exakt die Erfahrung des Jugendlichen: viele Erwachsene, niemand zuständig, Beziehungen brechen ab. Lies Stagnation deshalb nicht als Therapieresistenz oder Familien-Widerstand, bevor du die Netz-Frage geklärt hast: Wer führt diesen Fall? Oft ist die ehrliche Antwort: niemand — und dann ist genau das die erste Intervention, nicht die zehnte.',
+      haltung: [
+        'Fall-Führung ist eine Entscheidung, kein Zufall — wenn niemand sie getroffen hat, triffst du sie jetzt oder benennst laut, dass sie fehlt.',
+        'Koordination ist klinische Arbeit, nicht Verwaltung — eine gehaltene Fallstruktur wirkt oft mehr als eine zusätzliche Maßnahme.',
+        'Du musst nicht alles machen, aber du musst wissen, wer was macht — und es schriftlich festhalten.',
+        'Das Netz spiegelt den Fall: Wo das System fragmentiert ist, ist es die Bindungsgeschichte meist auch — das ist diagnostische Information, kein Ärgernis.'
+      ],
+      tun: [
+        'Netz-Inventur auf ein Blatt: alle beteiligten Stellen, Auftrag, letzter Kontakt, offene Empfehlungen. Die Löcher springen dir entgegen — meist genau zwischen Diagnostik und Suivi.',
+        'Fallkonferenz aktiv einberufen statt auf sie warten — mit ONE, Schule, Foyer, wem auch immer. Eine Stunde gemeinsamer Tisch erspart Monate Parallelarbeit.',
+        'Die Führungsfrage wörtlich stellen, in der Konferenz oder am Telefon: „Wer hält bei diesem Fall den Faden — wer merkt es, wenn etwas nicht passiert?"',
+        'Familie und Jugendlichem transparent machen, wer wofür da ist, wörtlich: „Et si vill Servicer bedeelegt — ech soen Iech elo, wien fir wat zoustänneg ass."',
+        'Schweigepflichtentbindungen gezielt einholen, damit Befunde fließen dürfen — Informations-Löcher sind oft schlicht fehlende Entbindungen.',
+        'Jede offene Empfehlung mit Namen und Datum versehen: Wer setzt sie bis wann um, und wer prüft nach?'
+      ],
+      nicht_tun: [
+        'Eine weitere Stelle einschalten, bevor die Führung geklärt ist — jeder neue Akteur erhöht die Fragmentierung, wenn niemand koordiniert.',
+        'Annehmen, dass andere informiert sind, weil ein Bericht existiert — Berichte ersetzen keine Übergabe und liegen oft ungelesen in Akten.',
+        'Die Familie zur Postbotin zwischen den Diensten machen — sie trägt dann die Koordinationslast, an der das Profi-Netz scheitert.',
+        'Über andere Dienste vor der Familie schlecht reden — das untergräbt das Vertrauen ins Netz insgesamt, auch in dich.'
+      ],
+      eskalation: 'Verschärft wird der Fall, wenn trotz Gefährdungshinweisen — Suizidalität, Gewalt, Verwahrlosung — niemand die Führung übernimmt; dann darf die Klärung nicht auf die nächste Konferenz warten. Bei Kindeswohlfragen ONE oder SCAS direkt adressieren, bei akuter Selbst- oder Fremdgefährdung KJP-Notdienst (CHL, Hôpitaux Robert Schuman) oder 112. Ungeklärte Zuständigkeit ist bei Gefährdung kein Verwaltungsproblem mehr, sondern selbst das Risiko.',
+      psychoedukation: 'Fragmentierte Helfernetze entstehen selten aus Inkompetenz, sondern aus Systemlogik: Jede Stelle hat einen Teilauftrag, niemand den Gesamtauftrag. Diagnostik wird beauftragt und abgeschlossen, Suivi braucht freie Plätze; Wartelisten und Zuständigkeitswechsel reißen Lücken. Dazu kommt Verantwortungsdiffusion: Je mehr Akteure, desto sicherer fühlt sich jeder, dass ein anderer handelt. Für den Jugendlichen heißt das: Er erzählt seine Geschichte zum fünften Mal, sieht Erwachsene kommen und gehen und lernt, dass Hilfe folgenlos bleibt — das senkt jede künftige Mitwirkung. Wirksam ist das Gegenteil von mehr: weniger Akteure, explizite Führung, eine Person, die den Faden hält und Lücken aktiv bemerkt. Die Case-Management-Forschung zeigt konsistent, dass Koordinationsqualität Behandlungsergebnisse stärker beeinflusst als die Zahl der Maßnahmen. Für bindungsverletzte Jugendliche ist eine gehaltene Struktur zudem selbst korrigierende Erfahrung: Zum ersten Mal merkt jemand, wenn etwas nicht passiert.'
+    }
   },
   'behandlungsabbrueche': {
     id: 'behandlungsabbrueche',
     name: 'Versandende Behandlung',
     trigger_frage: 'Brechen Suivis ab, platzen Termine oder laufen ohne den Jugendlichen, versanden Empfehlungen seit langem?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn Behandlungen seit Jahren versanden, ist der Abbruch selbst der Befund — nicht ein Ärgernis auf dem Weg dorthin. Lies die Abbruchgeschichte wie eine Anamnese: Wann genau bricht es ab? Nach der Diagnostik? Sobald es persönlich wird? Wenn die Mutter fahren müsste? Jedes Muster erzählt etwas anderes — Logistik, Beziehungsangst, Passungsfehler, familiäre Ambivalenz. Die Compliance-Brille („Familie arbeitet nicht mit") beendet das Denken genau dort, wo es anfangen müsste, und übersieht, dass die nächste Überweisung dasselbe Schicksal erleidet, wenn niemand die Barriere versteht. Deine Aufgabe verschiebt sich: nicht die nächste Empfehlung aussprechen, sondern herausfinden, warum die letzten fünf nicht gelandet sind.',
+      haltung: [
+        'Jeder Abbruch hat eine Logik — wer sie versteht, kann die nächste Anbindung anders bauen.',
+        'Geplatzte Termine sind Kommunikation, keine Charakterschwäche — die Frage ist, was sie sagen.',
+        'Die Verantwortung für Passung liegt zuerst beim System, nicht bei der Familie — Angebote müssen erreichbar sein, bevor man Mitwirkung verlangen kann.',
+        'Lieber ein niedrigschwelliger Kontakt, der hält, als ein hochschwelliger, der zum sechsten Mal scheitert.'
+      ],
+      tun: [
+        'Abbruch-Anamnese erheben wie eine Symptom-Anamnese: jede frühere Behandlung, Dauer, Abbruchpunkt, von wem beendet — das Muster zeigt dir die Barriere.',
+        'Die Familie direkt und ohne Vorwurf fragen, wörtlich: „Wat huet deemools dozou gefouert, dass Dir net méi komm sidd? Dat hëlleft mir, et dës Kéier anescht ze maachen."',
+        'Logistik konkret prüfen: Wer fährt, was kostet es, kollidiert der Termin mit Arbeitszeiten oder der Maison-Relais-Abholung der Geschwister? Ein Termin nach Schulschluss löst manchmal mehr als jede Motivationsarbeit.',
+        'Wieder-Anbindung klein bauen: erst kurzer, sicherer Kontakt in niedriger Frequenz, dann steigern — und den ersten geplatzten Termin aktiv nachfassen statt abwarten, wörtlich: „Dir wart net do — ech ruffen net un, fir ze schimpfen, mä well Dir eis wichteg sidd."',
+        'Bei Jugendlichen, die nicht kommen: aufsuchende oder hybride Elemente prüfen — Gespräch in der Schule, im Foyer, per Telefon — statt auf Komm-Struktur zu beharren.',
+        'Therapie-Shopping von Passungsproblemen unterscheiden: viele Starts mit Abbruch bei jeder Vertiefung sprechen für Beziehungsvermeidung — das gehört in die Fallkonzeption, nicht in die Moral.'
+      ],
+      nicht_tun: [
+        'Die nächste Überweisung aussprechen, ohne die Abbruchgeschichte zu verstehen — sie reiht sich sonst nur ein und bestätigt der Familie, dass Hilfe nicht funktioniert.',
+        'Abbrüche moralisch rahmen („nicht motiviert", „arbeitet nicht mit") — das macht aus einer analysierbaren Barriere ein Charakterurteil und beendet jede Neugier.',
+        'Elterngespräche jahrelang als Ersatz akzeptieren, wenn der Jugendliche der Patient ist — eine Behandlung ohne den Patienten behandelt niemanden.',
+        'Nach geplatzten Terminen beleidigt auf Initiative der Familie warten — ambivalente Familien lesen Schweigen als Bestätigung, dass es eh egal ist.'
+      ],
+      eskalation: 'Kritisch wird das Muster, wenn Behandlungsbedarf und Abbruchserie gemeinsam eskalieren: Suizidalität, Selbstverletzung oder massive Funktionseinbrüche bei gleichzeitig versandendem Suivi. Dann reicht eine weitere Empfehlung nicht — der Fall gehört aktiv gehalten, notfalls über Fallkonferenz oder ONE-Maßnahme abgesichert. Bei akuter Gefährdung KJP-Notdienst oder 112; bei wiederholtem Fernbleiben trotz Gefährdung die Schwelle zur Kindeswohl-Frage prüfen, statt still die Akte zu schließen.',
+      psychoedukation: 'Behandlungsabbrüche sind in der Kinder- und Jugendpsychotherapie häufig — Studien sehen Raten von 30 bis 60 Prozent, und sie verteilen sich nicht zufällig: Mehrfachbelastete und beziehungstraumatisierte Familien brechen häufiger ab, also genau die mit dem höchsten Bedarf. Die Gründe liegen selten in fehlender Einsicht, sondern in einer Mischung aus Logistik (Transport, Arbeitszeiten, Geschwisterbetreuung), Beziehungsdynamik (Nähe wird bedrohlich, sobald es wirkt), Passung (Methode oder Person passt nicht) und familiärer Ambivalenz (Besserung des Kindes bedroht ein Gleichgewicht). Jeder unverstandene Abbruch erhöht die Wahrscheinlichkeit des nächsten, weil Familie und Jugendlicher lernen: Hilfe beginnt und endet folgenlos. Die Engagement-Forschung zeigt umgekehrt, dass aktives Nachfassen, niedrige Einstiegsschwellen und das offene Besprechen früherer Abbrüche die Haltequote deutlich erhöhen. Die Behandlung beginnt nicht mit der ersten Sitzung, sondern mit der Frage, was diesmal anders laufen muss.'
+    }
   },
   'eltern-uneins-behandlung': {
     id: 'eltern-uneins-behandlung',
     name: 'Eltern uneins über Behandlung',
     trigger_frage: 'Blockieren sich die Eltern gegenseitig bei Medikation oder Therapie (einer dagegen, einer bremst)?',
     achsen_affinitaet: ['adhs-unaufmerksam', 'depression', 'angststoerungen'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn Eltern sich über Medikation oder Therapie blockieren, behandelst du nicht mehr nur ein Kind — du arbeitest auf einem Kampfplatz, auf dem die Behandlung selbst zur Munition geworden ist. Zustimmen hieße dem anderen recht geben; also wird gebremst, abgesagt, umentschieden. Das Kind hängt mittendrin: Jede Tablette, jeder Termin ist ein Loyalitätstest. Viele vermeintliche „Non-Response"-Verläufe sind in Wahrheit Stop-and-go-Behandlungen — begonnen, sabotiert, abgebrochen, neu begonnen. Lies Therapiestillstand deshalb zuerst als Eltern-Dynamik, bevor du am Kind oder an der Methode zweifelst. Und nimm ernst, dass hinter der Blockade selten Bosheit steht, sondern Angst: vor Stigma, vor „Ruhigstellen", vor dem Eingeständnis, dass das eigene Kind Hilfe braucht.',
+      haltung: [
+        'Du bist Anwalt der Behandlung des Kindes, nicht Schiedsrichter im Elternkrieg — diese Rolle laut zu benennen schützt dich und die Arbeit.',
+        'Hinter dem Nein eines Elternteils steckt fast immer eine Sorge — wer sie ernst nimmt, verhandelt nicht mehr gegen eine Mauer.',
+        'Eine kleine Linie, die beide tragen, schlägt den perfekten Plan, den einer torpediert.',
+        'Das Kind hat ein Recht, aus dem Konflikt herausgehalten zu werden — das ist nicht verhandelbar, auch wenn alles andere es ist.'
+      ],
+      tun: [
+        'Getrennte Elterngespräche anbieten, bevor du gemeinsame erzwingst — getrennt sagen viele Eltern zum ersten Mal, was sie wirklich fürchten, ohne vor dem Ex das Gesicht zu verlieren.',
+        'Die Sorge des bremsenden Elternteils aktiv erfragen, wörtlich: „Ich nehme ernst, dass Sie zögern. Was genau befürchten Sie, wenn Ihr Kind das Medikament nimmt?"',
+        'Sorgerechts-Realität früh klären: Wer hat die autorité parentale, wer entscheidet medizinisch mit? Bei gemeinsamer Sorge brauchen wesentliche Behandlungsentscheidungen beide — das offen auszusprechen verhindert spätere Explosionen.',
+        'Eine Minimal-Linie suchen, die beide unterschreiben können — etwa Probezeitraum mit festem Auswertungstermin, wörtlich: „Mir probéieren et dräi Méint, da kucke mir zesummen op d\'Resultater — an dann entscheede mir nei."',
+        'Befunde und Verlauf beiden Eltern gleich zugänglich machen (gleiche Berichte, beiden Termine anbieten) — Informationsgefälle füttert Misstrauen.',
+        'Bei verhärteten Fronten an Familienmediation weiterverweisen, statt die Paardynamik in der Kindertherapie mitzubehandeln.'
+      ],
+      nicht_tun: [
+        'Das Kind zum Boten oder Zeugen machen („Sag deinem Papa…", „Was sagt Mama dazu?") — es trägt dann die Last des Konflikts plus die Verantwortung für die Behandlung.',
+        'Dich von einem Elternteil als Verbündeten gegen den anderen einspannen lassen — sobald du Partei bist, ist die Behandlung für die andere Seite verbrannt.',
+        'Den bremsenden Elternteil pathologisieren oder übergehen — übergangene Eltern blockieren härter, und rechtlich kann es die Behandlung kippen.',
+        'Medikation am Konflikt vorbei starten, wenn beide zustimmen müssten — der Aufschrei folgt sicher, und der Abbruch trifft das Kind.',
+        'Jahrelang auf Konsens warten, während das Kind unbehandelt bleibt — Stillstand ist auch eine Entscheidung, und sie geht auf Kosten des Kindes.'
+      ],
+      eskalation: 'Eskalationsreif wird die Lage, wenn die Blockade eine dringend indizierte Behandlung dauerhaft verhindert und das Kind sichtbar dekompensiert — etwa schwere Depression ohne jede Therapie, weil ein Elternteil jedes Setting ablehnt. Dann ist das keine Meinungsverschiedenheit mehr, sondern potenziell eine Kindeswohlfrage: Beratung mit ONE oder SCAS prüfen, juristische Klärung der Entscheidungsbefugnis anstoßen. Bei akuter Gefährdung entscheidet nicht der Elternkonflikt, sondern der Notfall: KJP-Notdienst, 112.',
+      psychoedukation: 'Elterliche Uneinigkeit über die Behandlung ist einer der stärksten Prädiktoren für Abbruch und Nicht-Beginn — oft stärker als Schweregrad oder Diagnose. Die Mechanik: Nach Trennungen, aber auch in bestehenden Paaren, wird die Frage „Therapie ja oder nein, Medikament ja oder nein" zur Bühne für ältere Konflikte — wer kennt das Kind besser, wer hat versagt, wer kontrolliert wen. Zustimmung fühlt sich dann wie Niederlage an. Das Kind registriert die Spannung präzise und schützt sich durch Symptom-Anpassung: Beim skeptischen Elternteil geht es ihm „eh gut", beim anderen schlecht — was den Streit weiter füttert. Getrennte Gespräche wirken, weil sie den Gesichtsverlust aus der Gleichung nehmen. Minimal-Linien mit Probezeitraum wirken, weil sie aus einer Identitätsfrage („Bin ich ein Elternteil, das sein Kind ruhigstellt?") eine überprüfbare Sachfrage machen. Und ein gemeinsamer Blick auf Verlaufsdaten — Schlaf, Schule, Nebenwirkungen — ist für viele Eltern der erste kooperative Elternmoment seit Jahren; das allein hat therapeutischen Wert für das Kind.'
+    }
   },
   'heim-foyer': {
     id: 'heim-foyer',
     name: 'Fremdplatzierung / Foyer',
     trigger_frage: 'Lebt der Jugendliche im Foyer oder fremdplatziert, Herkunftsfamilie ambivalent erreichbar?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Bei einem fremdplatzierten Jugendlichen läuft unter jeder Symptomatik eine Konstante mit: Bindungsbrüche. Die Platzierung selbst war einer, davor standen meist andere, und im Foyer gehen sie weiter — Bezugspädagogen wechseln, Praktikanten gehen, Gruppen werden umstrukturiert. Vieles, was als Störung imponiert (Beziehungsabbruch kurz vor Nähe, Provokation bis zum Rauswurf), ist die erwartbare Logik eines Systems, das gelernt hat: Wer geht, bevor er verlassen wird, behält die Kontrolle. Dazu kommt die Loyalität zur Herkunftsfamilie — sie bleibt, auch bei Misshandlung, und jede Abwertung der Eltern trifft den Jugendlichen selbst. Rechne Symptomschwankungen deshalb immer gegen den Platzierungs-Kalender: Besuchswochenenden, Telefonate, Gerichtstermine und Erzieherwechsel erklären oft mehr als jede neue Diagnose.',
+      haltung: [
+        'Du bist eine weitere Beziehung in einer Reihe von Abbrüchen — Verlässlichkeit in kleinen Dingen zählt mehr als jede Technik.',
+        'Die Loyalität zur Herkunftsfamilie respektieren, auch wenn die Akte dagegen spricht — das Kind kann seine Eltern nicht verlieren, ohne einen Teil von sich zu verlieren.',
+        'Das Erzieher-Team ist dein wichtigster therapeutischer Partner, nicht dein Zulieferer — es hält den Alltag, du hältst die Linie.',
+        'Testverhalten erwartbar machen statt persönlich nehmen — der Jugendliche prüft, ob auch du gehst.'
+      ],
+      tun: [
+        'Symptomverläufe an den Platzierungs-Kalender legen: Besuchswochenenden, abgesagte Besuche, Termine beim Tribunal de la Jeunesse, Bezugspädagogen-Wechsel — und das Foyer bitten, dir solche Ereignisse aktiv zu melden.',
+        'Feste, kurze Schnittstellen mit dem Erzieher-Team einrichten (nicht nur bei Krise) und gemeinsame Lesarten bauen, wörtlich: „Wann hien nom Besuchsweekend explodéiert, ass dat keng Provokatioun — da schafft d\'Trauer."',
+        'Besuchswochenenden als bekanntes Destabilisierungs-Fenster vor- und nachbereiten — vorher ankündigen, dass es schwer werden darf, nachher Raum geben, ohne auszufragen.',
+        'Schule und Foyer koordinieren (bei Bedarf mit CDSE-PSY), damit Einbrüche nicht doppelt sanktioniert werden, wörtlich an die Schule: „Méindes no de Besuchsweekender brauch hien e mëllen Start — dat ass keng Erzéiungsfro, dat ass Belaaschtung."',
+        'Bei Erzieherwechseln auf echte Übergaben drängen: Abschied benennen, neue Person einführen — jeder unkommentierte Wechsel wiederholt das alte Muster.',
+        'Bei Hinweisen auf frühere oder aktuelle Misshandlung: nicht ausquetschen, anbinden — dokumentieren, mit Foyer-Leitung klären und an die Schutzstrukturen (ONE, SCAS, ggf. ALUPSE) übergeben, statt den Jugendlichen zum wiederholten Erzählen zu drängen.'
+      ],
+      nicht_tun: [
+        'Die Herkunftseltern vor dem Jugendlichen abwerten — er verteidigt sie dann oder wendet die Abwertung gegen sich selbst.',
+        'Details von Misshandlung explorativ ausfragen — Aufklärung ist Sache der Schutzakteure; dein Auftrag ist Stabilisierung und Anbindung.',
+        'Beziehungsabbrüche des Jugendlichen mit eigenem Rückzug beantworten — genau dieses Muster kennt er, und es bestätigt seine Arbeitshypothese.',
+        'Das Foyer nur als Informationsquelle nutzen statt als Mitbehandler — ohne gemeinsame Haltung verpufft jede Stunde im Alltag der Gruppe.',
+        'Versprechen machen, die vom System abhängen („du bleibst hier", „ich bleibe dein Therapeut") — gebrochene Zusagen wiegen hier doppelt.'
+      ],
+      eskalation: 'Verschärfung, wenn die Platzierung selbst kippt: Rauswurf-Drohung des Foyers, Platzierungswechsel in Serie oder der Jugendliche entzieht sich (Fugues). Jeder weitere Abbruch erhöht das Chronifizierungsrisiko — dann gehört das Halten der Platzierung selbst auf die Tagesordnung der Fallkonferenz mit ONE. Bei akuter Selbst- oder Fremdgefährdung im Foyer-Alltag: KJP-Notdienst oder 112, danach gemeinsame Krisenauswertung statt stiller Verlegung.',
+      psychoedukation: 'Fremdplatzierte Jugendliche tragen fast immer komplexe Beziehungserfahrungen: Vernachlässigung, Brüche, oft Gewalt — und dann eine Platzierung, die rettet und gleichzeitig entwurzelt. Die Bindungsforschung zeigt, dass diese Kinder Nähe gleichzeitig suchen und fürchten; im Foyer-Alltag heißt das: Eskalation gerade dann, wenn es gut läuft, Provokation gegen die freundlichste Erzieherin, Abbruch vor der Vertiefung. Das ist keine Beziehungsunfähigkeit, sondern erlernte Vorhersage — Nähe endete bisher in Verlust. Die Loyalität zur Herkunftsfamilie bleibt davon unberührt: Kinder schützen ihre inneren Eltern, weil das eigene Selbst aus dieser Beziehung gebaut ist. Veränderung entsteht weniger in der Therapiestunde als in hunderten Alltagsmomenten, in denen das System anders reagiert als erwartet — deshalb ist das Erzieher-Team der eigentliche Wirkfaktor und seine Stabilität die wichtigste Variable. Was Therapie hier leisten kann: dem Netz helfen, Verhalten als Geschichte zu lesen statt als Bosheit — und selbst eine Beziehung anbieten, die Testverhalten übersteht.'
+    }
   },
   'care-leaver': {
     id: 'care-leaver',
     name: 'Care-Leaver-Übergang',
     trigger_frage: 'Ist der Jugendliche 16+ im Heim und die 18er-Klippe absehbar, Anschluss (Wohnen, Einkommen, Anker-Person) ungeklärt?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Sobald ein fremdplatzierter Jugendlicher auf die 18 zugeht, bekommt jeder Befund einen zweiten Boden: die Klippe. Was wie neue Symptomatik aussieht — Eskalation, Regelbrüche, Rückzug, Sabotage gut laufender Pläne — ist oft Klippenangst in Verhaltensform: Wer den Verlust nicht aushalten kann, zerstört lieber selbst, was er gleich verliert. Lies Eskalationen ab 16 deshalb immer auch als Übergangsdynamik. Und prüfe nüchtern den Anschluss entlang dreier Achsen: Wohnen, Einkommen, Anker-Person. Sind die drei ungeklärt, ist das die eigentliche Bedrohung, nicht die Diagnose. Die Behandlungsplanung ändert sich entsprechend: nicht mehr nur Symptomarbeit, sondern Übergangsarchitektur — und zwar ab 16, nicht ab 17,9, weil tragfähige Anschlüsse zwei Jahre Vorlauf brauchen.',
+      haltung: [
+        'Der Übergang ist Teil der Behandlung, nicht Verwaltungskram danach — eine gescheiterte Entlassung macht jede Therapieleistung zunichte.',
+        'Drei Achsen sind Pflicht, keine Kür: Wohnen, Einkommen, Anker-Person — fehlt eine, ist der Plan keiner.',
+        'Eskalation vor der Klippe als Angst lesen, nicht als Undankbarkeit — sonst bestätigt das System zum Abschied noch einmal alle Abbruch-Erwartungen.',
+        'Volljährigkeit beendet die Vulnerabilität nicht — sie beendet nur die automatische Zuständigkeit.'
+      ],
+      tun: [
+        'Ab 16 das projet de vie als konkretes Artefakt bauen — schriftlich, mit Daten und Namen statt Absichtsprosa: Wo wohnst du am ersten Tag nach dem Foyer, wovon lebst du, wen rufst du nachts um drei an?',
+        'Anschluss-Strukturen früh anfragen: logement encadré und betreute Wohnformen haben Wartezeiten; die Einkommensachse über Ausbildung, SNJ-Angebote oder Jugendgarantie klären — und nüchtern einplanen, dass REVIS in der Regel erst ab 25 greift.',
+        'Aktiv anbieten, dass ONE-Hilfen auf Antrag über die Volljährigkeit hinaus weiterlaufen können, wörtlich: „Mat 18 ass net automatesch alles eriwwer — wanns du wëlls, kann d\'Hëllef weidergoen. Dat ass deng Entscheedung, an ech hëllefen dir dobäi."',
+        'Behandlungs-Kontinuität ins Erwachsenensystem anbahnen: Übergabe an Erwachsenenpsychiatrie oder Niedergelassene vor dem 18. Geburtstag, idealerweise mit gemeinsamem Übergabetermin statt Adresszettel.',
+        'Die Anker-Person explizit benennen lassen, wörtlich: „Wien ass deng Persoun, déi nom Foyer nach do ass — a wat brauche mir, fir déi Verbindung elo ze stäerken?" Gibt es niemanden, ist der Aufbau einer solchen Beziehung Behandlungsziel Nummer eins.',
+        'Eskalationen vor dem Übergang im Team als Klippenangst rahmen, damit sie nicht mit Rauswurf oder Maßnahmen-Abbruch beantwortet werden.'
+      ],
+      nicht_tun: [
+        'Den Übergang auf die letzten Monate schieben — Plätze im logement encadré und Erwachsenen-Suivis haben Wartezeiten, und Hektik reproduziert das Gefühl, entsorgt zu werden.',
+        'Eskalationen kurz vor 18 mit Maßnahmen-Abbruch beantworten — das System bestätigt sonst exakt die Erwartung, dass am Ende jeder geht.',
+        'Einen Wohnplatz als Lösung verbuchen, wenn Einkommen und Anker-Person fehlen — eine Adresse ohne Netz ist nur eine einsamere Form der Klippe.',
+        'Über den Kopf des Jugendlichen planen — ein projet de vie, das er nicht mitgebaut hat, lässt er an der ersten Hürde fallen.',
+        'Die Therapie zum 18. Geburtstag einfach enden lassen — der Beziehungsabbruch fällt dann exakt mit allen anderen Verlusten zusammen.'
+      ],
+      eskalation: 'Akut wird es, wenn die Klippe näher rückt und keine der drei Achsen steht: Dann steigen Suizidalität, Substanzkonsum und Delinquenz messbar — Care-Leaver sind in den ersten Jahren nach Entlassung eine Hochrisikogruppe für Wohnungslosigkeit und psychiatrische Krisen. Ungeklärter Anschluss drei bis sechs Monate vor 18 ist ein Eskalationsgrund für die Fallkonferenz mit ONE und Foyer-Leitung. Bei akuter Krise: KJP-Notdienst, SOS Détresse 454545, 112.',
+      psychoedukation: 'Care-Leaver müssen mit 18 leisten, was Gleichaltrige mit Familie oft erst Mitte 20 schaffen: eigenständig wohnen, wirtschaften, Krisen ohne Rückfall-Adresse überstehen — mit weniger Ressourcen und mehr Vorbelastung. Die Leaving-Care-Forschung zeigt erhöhte Raten von Wohnungslosigkeit, Erwerbslosigkeit, psychischen Krisen und Behandlungsabbrüchen in den ersten Jahren nach der Entlassung; der wichtigste Schutzfaktor neben materieller Sicherheit ist eine stabile, nicht bezahlte Beziehung — die Anker-Person. Der Übergang wirkt deshalb nur als Prozess: zwei Jahre Vorlauf, ein schriftliches projet de vie mit den drei Achsen Wohnen, Einkommen, Beziehung, dazu geplante Behandlungs-Kontinuität ins Erwachsenensystem — sonst brechen mit 18 gleichzeitig Wohnort, Bezugspersonen, Schule und Therapie weg. In Luxemburg entscheidend: Hilfen enden nicht zwingend mit 18, auf Antrag des jungen Erwachsenen können sie weiterlaufen. Dass viele das zunächst ablehnen, ist meist Autonomie-Demonstration aus Angst — und genau deshalb Beziehungsarbeit, keine Formularfrage.'
+    }
   },
   'lebensmodell-sog': {
     id: 'lebensmodell-sog',
     name: 'Konkurrierendes Lebensmodell',
     trigger_frage: 'Lebt im nahen Umfeld ein attraktives Gegenmodell (Nicht-Arbeit/REVIS, Delinquenz, Substanz)?',
     achsen_affinitaet: ['verhaltensstoerung', 'sucht', 'adhs-unaufmerksam'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn im nahen Umfeld ein gelebtes Gegenmodell steht — der große Bruder, der ohne Arbeit zurechtkommt, der Cousin mit Geld aus Geschäften, die Clique mit Substanz und Status —, konkurrierst du nicht gegen eine Fehleinstellung, sondern gegen ein funktionierendes Angebot. Aus Sicht des Jugendlichen ist das Gegenmodell rational: sofortige Belohnung statt Belohnungsaufschub über Jahre, sichtbarer Status statt abstrakter Abschlüsse, garantierte Zugehörigkeit statt unsicherer Bewerbungen. Schule und Ausbildung verlangen viel und zahlen spät — das Gegenmodell zahlt heute. Diese Lesart ändert deine Strategie grundlegend: Du gewinnst den Vergleich nicht durch Abwertung des Gegenmodells, sondern nur, wenn der legitime Weg erlebbar attraktiver wird — schneller belohnt, statusfähig, zugehörigkeitsstiftend.',
+      haltung: [
+        'Die Wahl des Jugendlichen als Kosten-Nutzen-Rechnung ernst nehmen, nicht als Charakterdefekt — wer die Rechnung versteht, kann an den Posten arbeiten.',
+        'Moralisieren ist keine Intervention — es erhöht nur den Status des Gegenmodells als das Verbotene, Echte.',
+        'Du konkurrierst über Attraktivität, nicht über Argumente — erlebte Erfolge schlagen jede Zukunftsrede.',
+        'Die Beziehung zum Träger des Gegenmodells nicht angreifen — sie ist oft die loyalste Bindung, die der Jugendliche hat.'
+      ],
+      tun: [
+        'Die Attraktivitäts-Rechnung gemeinsam und ehrlich aufmachen, wörtlich: „Mol mir dat duerch: Wat kritt däi Brudder elo — a wat kriss du, wann s du an d\'Schoul gees? Wéini, a wéi sécher?" Erst wenn die Rechnung auf dem Tisch liegt, kann man sie verändern.',
+        'Schnelle, echte Erfolgs-Erfahrungen in legitimen Feldern bauen: Praktikum mit Lohn, Nebenjob, Sport mit Wettkampf, Verantwortung in der Maison des Jeunes — Belohnung in Wochen statt Jahren, und sichtbar fürs Umfeld.',
+        'Status-Quellen ersetzen statt streichen: Wo bekommt er heute Respekt, und welches legitime Feld liefert denselben Respekt — Coaching im Verein, Bühne, Technik, Geld verdienen?',
+        'Identifikations-Figuren mit ähnlicher Herkunft einbinden — Trainer, Educateur, Lehrmeister mit demselben Startpunkt, wörtlich anschlussfähig: „Deen ass do opgewuess, wou s du wunns — fro en, wéi hien et gepackt huet."',
+        'Die langfristigen Kosten des Gegenmodells einmal sachlich verfügbar machen, ohne Predigt — Strafregister und Tribunal de la Jeunesse, gesundheitliche Folgen, Abhängigkeit von REVIS-Logiken — und dann zurück zur Attraktivitätsarbeit.',
+        'Bei Substanz im Umfeld früh mit CePT-Angeboten oder suchtspezifischer Beratung koppeln, bevor aus Zugehörigkeits-Konsum eine eigene Abhängigkeit wird.'
+      ],
+      nicht_tun: [
+        'Das Gegenmodell oder seine Träger abwerten („dein Bruder ist ein Versager") — du zwingst den Jugendlichen in Loyalitätsverteidigung und verlierst den Zugang.',
+        'Mit Fernzielen argumentieren („in zehn Jahren wirst du froh sein") — gegen sofortige Belohnung haben Dekaden-Argumente neurobiologisch keine Chance.',
+        'Den Jugendlichen vor die Alles-oder-nichts-Wahl stellen (Familie und Clique oder Schule) — er wählt dann die Zugehörigkeit, immer.',
+        'Moralische Empörung zeigen, wenn er das Gegenmodell verteidigt — Empörung bestätigt ihm, dass du seine Welt nicht verstehst.',
+        'Aufgebaute Mini-Erfolge entwerten, weil sie klein sind — ein bezahlter Samstagsjob wirkt gegen den Sog mehr als zehn Beratungsgespräche.'
+      ],
+      eskalation: 'Eskalation, wenn aus Sog Handlung wird: eigene Delinquenz mit Kontakt zum Tribunal de la Jeunesse, regelmäßiger Konsum statt Probierverhalten, Schulabbruch ohne Anschluss oder aktives Rekrutieren durch das Umfeld (Dealen, Kurierdienste). Dann reicht Attraktivitätsarbeit allein nicht mehr — Suchtberatung über CePT-Strukturen, Jugendgerichts-Schnittstellen und gegebenenfalls ONE-Maßnahmen gehören dazu, und die Frage, ob das Wohnumfeld noch haltbar ist, muss offen auf den Tisch.',
+      psychoedukation: 'Verhaltensökonomisch ist der Sog eines Gegenmodells gut beschrieben: Jugendliche diskontieren Zukunft steil — Belohnung jetzt zählt um ein Vielfaches mehr als Belohnung in fünf Jahren, und das adoleszente Gehirn verstärkt diese Gewichtung noch, besonders bei impulsivem Profil. Ein Gegenmodell im Nahraum wirkt zusätzlich über soziales Lernen: Es ist kein abstraktes Risiko, sondern ein täglich beobachtbarer Beweis, dass der Weg funktioniert — mit Geld, Status und Zugehörigkeit als sichtbarer Dividende. Aufklärung über Spätfolgen scheitert daran systematisch, weil sie genau die Währung anbietet, die am wenigsten zählt: ferne Zukunft. Wirksam ist, was Kriminologie- und Desistance-Forschung zeigen: legitime Felder mit schneller, sichtbarer Belohnung, reale Statuspositionen und Identifikations-Figuren, die Herkunft und Ausweg glaubwürdig verbinden. Identität entscheidet mehr als Information — Jugendliche bleiben auf Wegen, auf denen sie jemand sein können. Deine Aufgabe ist also Marktarbeit: das legitime Angebot konkurrenzfähig machen, statt das illegitime zu beschimpfen.'
+    }
   },
   'eltern-im-hilfesystem': {
     id: 'eltern-im-hilfesystem',
     name: 'Eltern im Hilfesystem',
     trigger_frage: 'Arbeiten die Eltern selbst im psychosozialen oder pädagogischen Feld (Fachwissen plus Verstrickungsrisiko)?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn ein Elternteil selbst Psychologin, Educateur, Lehrkraft oder Sozialarbeiterin ist, sitzt dir keine Laienfamilie gegenüber — und das verändert die Falllesart. Fachsprache kann hier Abwehr tarnen: Wer „Emotionsregulation" sagt, muss nicht sagen „mein Kind macht mir Angst". Die Symptome des Kindes treffen die Eltern an ihrer Berufsidentität — wer täglich anderen Kindern hilft, erlebt das eigene symptomatische Kind als persönliches Scheitern. Daraus entsteht Behandler-Konkurrenz: „Das weiß ich selbst", vorauseilende Diagnosen, Korrekturen deiner Methodik. Und das Kind verliert etwas Unersetzliches: den Laien-Elternteil, der einfach nur tröstet, statt zu deuten. Compliance-Probleme sind in dieser Konstellation oft Kränkungsschutz, kein Desinteresse — und das Erstgespräch ist bereits Rollenverhandlung, ob du es so nennst oder nicht.',
+      haltung: [
+        'Fachwissen würdigen, ohne ihm die Elternrolle zu opfern — die Person sitzt hier als Mutter oder Vater, nicht als Kollegin.',
+        'Fachsprache als möglichen Schutz hören, nicht als Verständnis-Beleg — wer korrekt benennt, hat noch nicht gefühlt.',
+        'Die Kränkung ist die Achse, nicht der Widerstand: Das symptomatische eigene Kind stellt die Berufsidentität in Frage, und genau dort sitzt der Schmerz.',
+        'Konkurrenz nicht annehmen — du musst nichts beweisen, du musst behandeln.',
+        'Dem Kind seinen Laien-Elternteil zurückgeben — das ist ein Behandlungsziel, kein Nebeneffekt.'
+      ],
+      tun: [
+        'Rollen-Trennung im Erstkontakt explizit verhandeln: „Sie bringen viel Fachwissen mit — und genau deshalb schlage ich vor: Hier drinnen sind Sie Mutter, nicht Fachkraft. Die Behandlung ist mein Job."',
+        'Fachsprache konsequent in Alltagsbeobachtung zurückübersetzen lassen: „Lassen Sie uns das Wort Dysregulation kurz parken — was genau passiert bei Ihnen dienstags um 18 Uhr in der Küche?"',
+        'Die Kränkung aktiv entlasten, bevor sie als Widerstand auftaucht: „Dass Sie beruflich Kindern helfen und es zu Hause trotzdem schwer ist, ist kein Widerspruch — Nähe macht befangen, das gilt für uns alle."',
+        'Systemverstrickung früh prüfen: Arbeitet ein Elternteil in einer Struktur, die im Fall mitspielt (Schule, Maison Relais, ONE-nahe Dienste, KJP-Umfeld)? Dann Informationswege und Zuständigkeiten von Anfang an trennen.',
+        'Mit dem Kind allein klären, wie viel „Behandlung" zu Hause läuft — und mit den Eltern vereinbaren, dass therapeutische Interventionen nicht privat nachgefahren werden.'
+      ],
+      nicht_tun: [
+        'In kollegiales Fachsimpeln einsteigen — jede Minute Fachgespräch ist eine Minute, in der niemand im Raum Elternteil ist.',
+        'Die Eltern fachlich übertrumpfen oder korrigieren — du gewinnst das Duell und verlierst das Arbeitsbündnis.',
+        'Fachsprache als Einsicht verbuchen — sie kann exakt das Gegenteil sein: perfekt benannte, unberührte Not.',
+        'Den Eltern Co-Therapeuten-Aufgaben übertragen — das zementiert die Rollenvermischung, unter der das Kind bereits steht.'
+      ],
+      eskalation: 'Das Modul verschärft den Fall, wenn Eltern ihre Systemkenntnis nutzen, um die Behandlung zu steuern: Diagnose-Shopping, Druck auf Berichte, Helfer gegeneinander ausspielen, Informationszugriff über berufliche Kanäle. Spätestens wenn das Kind keinen unbeobachteten Raum mehr hat oder die Behandlung zur Bühne elterlicher Selbstrechtfertigung wird, brauchst du eine Helferkonferenz mit klar vereinbarten Informationswegen — und notfalls die Abgabe an einen Behandler außerhalb des beruflichen Dunstkreises der Familie.',
+      psychoedukation: 'Eltern aus dem psychosozialen Feld tragen eine Doppelrolle, die sich nicht abschalten lässt: Ihr Beruf gibt ihnen Deutungsroutinen, und Deutungsroutinen sind unter Stress Schutzmechanismen. Fachsprache reguliert den eigenen Affekt — sie schafft Distanz zur Angst, aber eben auch zum Kind. Das Kind erlebt zu Hause keinen Feierabend vom Hilfesystem: Es wird beobachtet, eingeordnet, gefördert — und ihm fehlt der Elternteil, der einfach erschrocken, ratlos oder nur da ist. Gleichzeitig ist das symptomatische Kind für diese Eltern eine Kränkung besonderer Art: Die eigene Wirksamkeit, beruflich täglich bewiesen, scheitert scheinbar am wichtigsten Menschen. Die Konkurrenz mit dir ist dann kein Machtspiel, sondern Selbstrettung. Rollen-Trennung wirkt, weil sie alle entlastet: Die Eltern dürfen aufhören, Profi zu sein — und damit aufhören zu scheitern —, du kannst behandeln, ohne dich zu verteidigen, und das Kind bekommt wieder Eltern statt eines mobilen Fachdienstes.'
+    }
   },
   'ueberkontrolle': {
     id: 'ueberkontrolle',
     name: 'Überkontrolle bei Versorgungslücke',
     trigger_frage: 'Läuft engmaschige Kontrolle (Tracking, begleitete Ausgänge) bei gleichzeitig unversorgten Kernbedarfen?',
     achsen_affinitaet: ['angststoerungen', 'lernstoerungen', 'depression'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Tracking-App, begleitete Ausgänge, kontrollierte Chats — und gleichzeitig: keine Brille seit zwei Jahren, keine Nachhilfe trotz Schulversagen, unbehandelte Angst. Wenn dieses Muster aktiv ist, lautet der Kernsatz: Viel Kontrolle ist nicht viel Fürsorge. Kontrolle ist die billige Form der Zuwendung — sie braucht kein Gespräch, keine Zeit, kein Aushalten — und sie ersetzt schleichend die Beziehung, die sie zu schützen vorgibt. Der Jugendliche liest die Engmaschigkeit als Misstrauen, die Eltern lesen sie als Schutz; beide haben recht und reden aneinander vorbei. Deine Falllesart ändert sich von „überbehütet" zu einem Doppelbefund: überkontrolliert und unterversorgt. Behandelst du nur die Kontrolle, nimmst du der Familie ihr einziges Fürsorge-Instrument; behandelst du nur die Lücke, bleibt das Misstrauensklima stehen.',
+      haltung: [
+        'Kontrolle und Fürsorge konsequent auseinanderhalten — die Menge des einen beweist nichts über das andere.',
+        'Die elterliche Kontrolle nicht als Bosheit lesen — sie ist oft die einzige Fürsorgeform, die ohne Ressourcen und ohne Beziehungsmut funktioniert.',
+        'Beide Lesarten gelten lassen: Misstrauen und Schutz sind dasselbe Verhalten aus zwei Perspektiven — du übersetzt, statt Recht zu sprechen.',
+        'Kontroll-Abbau nie isoliert fordern — erst muss etwas da sein, das die Lücke füllt, sonst füllt sie die Angst.'
+      ],
+      tun: [
+        'Versorgungs-Inventur vor jeder Kontroll-Debatte: Schlaf, Sehen und Hören, Schulmaterial, Nachhilfe, unbehandelte Angst- oder Lernprobleme, letzter Arztbesuch — als konkrete Liste, nicht als Eindruck.',
+        'Die Übersetzung im Familiengespräch leisten: „Sie meinen Schutz — bei Ihrem Sohn kommt Misstrauen an. Beides ist wahr, und genau an dieser Lücke arbeiten wir."',
+        'Autonomie-Inseln vereinbaren, klein und klar begrenzt: „Mittwochnachmittag gehört ihr — kein Tracking, keine Nachfragen. Sie erzählt, wenn sie will."',
+        'Kontroll-Abbau strikt an Versorgungs-Aufbau koppeln und das Tauschprinzip aussprechen: Für jeden neuen Versorgungsbaustein wird ein benanntes Stück Kontrolle abgebaut — im Gleichschritt, nicht als Vorleistung.',
+        'Mit dem Jugendlichen die Funktion erkunden statt die Front zu stärken: Was müssten die Eltern sehen oder wissen, um lockerer lassen zu können?',
+        'Bestehende Bewährungsräume sichtbar machen: Wenn es in Maison Relais oder Maison des Jeunes längst funktionierende unbeaufsichtigte Zonen gibt, nutze sie den Eltern gegenüber als Beleg.'
+      ],
+      nicht_tun: [
+        'Sofortigen Kontroll-Verzicht fordern — Kontrolle bindet elterliche Angst, und Angst ohne Gefäß sucht sich härtere Wege.',
+        'Die Versorgungslücken vor dem Jugendlichen als elterliches Versagen ausbreiten — Beschämung schließt keine Lücke, sie verhärtet die Kontrolle.',
+        'Die Kontrolle als Fürsorge adeln („immerhin kümmern sie sich") — damit übernimmst du genau die Verwechslung, an der die Familie krankt.',
+        'Autonomie-Inseln heimlich mit dem Jugendlichen aushandeln — fliegt es auf, hast du das elterliche Misstrauen bewiesen und beide Seiten verloren.'
+      ],
+      eskalation: 'Verschärfung, wenn die Kontrolle in Isolation kippt — keine Peers, keine Aktivitäten, wachsende Schulfehlzeiten — oder die Versorgungslücke kindeswohlrelevant wird: unbehandelte Erkrankungen, verweigerte notwendige Therapie, fehlende Grundversorgung. Antwortet der Jugendliche mit Weglaufen, Selbstverletzung oder kompletter Verweigerung, reicht Elternarbeit allein nicht mehr: ONE für Hilfen einbinden, bei Gefährdung ein signalement prüfen, bei akuter Zuspitzung KJP-Notdienst.',
+      psychoedukation: 'Überkontrolle bei Versorgungslücke heißt: Die billige Fürsorgeform ist überdosiert, die teure fehlt. Überwachen kostet wenig — eine App, eine Regel, ein Verbot — und liefert den Eltern sofortige Angstreduktion. Versorgen kostet Zeit, Geld, Gespräche, Behördenwege. Kontrolle wirkt darum primär für die Eltern, nicht für das Kind: Sie beruhigt die elterliche Angst, ohne den Bedarf des Jugendlichen zu decken. Entwicklungspsychologisch braucht ein Jugendlicher dosiertes Risiko, um Selbstwirksamkeit aufzubauen; permanente Überwachung sendet die Botschaft „du kannst es nicht allein" — Nährboden für Angststörungen, Vermeidung und depressive Selbstbilder. Bei Lernstörungen bleibt der eigentliche Förderbedarf unbearbeitet, während über Handyzeiten gestritten wird — deshalb die Achsen-Affinität. Die Intervention zielt nie auf bloßen Verzicht, sondern auf Tausch: Versorgung rauf, Kontrolle runter, ausgesprochen und überprüfbar. So verliert kein Elternteil das Gesicht, und der Jugendliche erlebt erstmals beides zugleich: gesehen werden und Raum bekommen.'
+    }
   },
   'gewalt-verdacht': {
     id: 'gewalt-verdacht',
     name: 'Gewalt-Verdacht/-Offenlegung zu Hause',
     trigger_frage: 'Gibt es Verdacht oder Offenlegung körperlicher oder psychischer Gewalt im Haushalt?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Sobald Gewalt im Raum steht — als Verdacht oder als Offenlegung — dreht sich die Reihenfolge deiner Arbeit: Schutzwege vor Behandlungsplan. Aggression, Rückzug, Leistungsknick, Einnässen, Schreckhaftigkeit liest du jetzt zuerst als mögliche Stressreaktion auf ein unsicheres Zuhause, nicht als Störung des Kindes — sonst behandelst du ein Kind dafür, dass es normal auf Bedrohung reagiert. Gleichzeitig gilt: Verdacht ist kein Urteil, und du bist keine Ermittlungsbehörde. Deine Aufgabe ist Sicherung und Anbindung — die Wege über ONE, signalement an den SCAS und ALUPSE kennen, gehen und koordinieren. Diagnostik und Therapieziele treten zurück, bis die Schutzfrage beantwortet ist. Das ist keine Behandlungspause, sondern die Behandlung der wichtigsten Bedingung.',
+      haltung: [
+        'Glauben ohne Suggestion — du nimmst ernst, was das Kind sagt, und legst ihm kein Wort in den Mund.',
+        'Anbinden statt ausquetschen — das Kind braucht einen sicheren Erwachsenen, kein zweites Verhör.',
+        'Ruhe ist hier Methode: Wer auf eine Offenlegung mit Hektik oder Entsetzen reagiert, lehrt das Kind, dass seine Worte Explosionen auslösen — das kennt es schon.',
+        'Das Team darf den Stil des Täters nicht spiegeln — Druck, Drohung und Ultimaten gegenüber der Familie reproduzieren genau das Muster, unter dem das Kind lebt.',
+        'Widerruf einkalkulieren — er ist Teil der Loyalitätsdynamik, kein Beweis der Unwahrheit.'
+      ],
+      tun: [
+        'Schutzweg vor Behandlungsplan klären: bei akuter Gefahr 112, bei Gefährdung signalement an den SCAS, für Hilfen und Koordination ONE, bei Unsicherheit im Verdachtsfall ALUPSE zur Beratung — und festlegen, wer meldet, wer begleitet, wer Bezugsperson bleibt.',
+        'Offenlegungen minimal, wörtlich und datiert dokumentieren: Datum, Uhrzeit, Anlass, deine vorausgehende Frage, die Aussage des Kindes in Anführungszeichen — Beobachtung strikt von Deutung getrennt.',
+        'Dem Kind eine glaubende, nicht-suggestive Rückmeldung geben: „Ech gleewen dir. Et ass net deng Schold. Et ass gutt, datt du dat erzielt hues." — und ehrlich sagen, dass du dir Hilfe dazuholst.',
+        'Schule und Maison Relais explizit briefen: „Ihr müsst nichts herausfinden — nicht ausquetschen, anbinden. Bleibt freundlich und verlässlich, und gebt uns weiter, was das Kind von sich aus erzählt."',
+        'Sicherheit konkret und altersgerecht klären: Wer ist heute Abend zu Hause, was passiert nach Streit, wohin kann das Kind, wen darf es anrufen — ohne Drama und ohne Detailjagd zur Tat.'
+      ],
+      nicht_tun: [
+        'Detail-Exploration durch Schule oder Maison Relais anstoßen oder dulden — ungeschulte Mehrfachbefragung belastet das Kind und kontaminiert spätere Aussagen.',
+        'Die Eltern konfrontieren, bevor der Schutzweg steht — die Rechnung dafür zahlt das Kind am selben Abend zu Hause.',
+        'Dem Kind Geheimhaltung versprechen — du wirst das Versprechen brechen müssen, und das wäre der zweite Vertrauensbruch.',
+        'Mit Druck, Drohkulisse oder Ultimaten in die Familie gehen — das Team würde den Droh-Stil spiegeln und bestätigen, dass die Stärkeren bestimmen.',
+        'Symptombehandlung als Ersatz für Schutzklärung weiterlaufen lassen — Entspannungstraining gegen ein unsicheres Zuhause verfehlt die Ursache.'
+      ],
+      eskalation: 'Sofort eskalieren — nicht abwägen — bei sichtbaren frischen Verletzungen, Angst des Kindes, nach Hause zu gehen, Drohungen nach einer Offenlegung, Gewalt auch gegen Geschwister oder Gewalt in Kombination mit Substanzkonsum oder Waffen im Haushalt. Dann 112 bei Akutgefahr, unverzügliches signalement an den SCAS, ONE für die Anschlusshilfen; bei psychischer Dekompensation des Kindes KJP-Notdienst (CHL, Hôpitaux Robert Schuman).',
+      psychoedukation: 'Gewalt im Haushalt ist für ein Kind kein Ereignis, sondern ein Klima: chronischer Alarm, in dem das Gehirn auf Überleben statt auf Lernen und Bindung schaltet. Deshalb sind die Symptome so unspezifisch — Aggression beim einen, Überangepasstheit beim anderen, Bauchweh, Konzentrationseinbruch, Einnässen. Kinder offenbaren selten linear: Sie testen mit Andeutungen, beobachten die Reaktion, widerrufen unter Loyalitätsdruck — oft braucht es mehrere Anläufe, bis ein Kind vollständig spricht. Genau darum wirkt Glauben ohne Suggestion: Eine ruhige, glaubende Reaktion ohne Nachbohren hält die Tür offen; Entsetzen oder Verhör schließen sie. Und darum gilt Schutz vor Therapie: Kein Verfahren der Welt reguliert ein Kind, das jeden Abend in die Bedrohung zurückkehrt. Sobald Sicherheit hergestellt ist, normalisieren sich viele Symptome von selbst deutlich — was dann noch bleibt, ist dein eigentlicher Behandlungsauftrag. Bis dahin ist der wichtigste therapeutische Wirkstoff ein Erwachsenensystem, das ruhig bleibt, glaubt und handelt.'
+    }
   },
   'trennung-loyalitaet': {
     id: 'trennung-loyalitaet',
     name: 'Hochkonflikt-Trennung',
     trigger_frage: 'Läuft eine Trennung/Scheidung mit Drohungen, Loyalitätsdruck oder Instrumentalisierung?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'In einer Hochkonflikt-Trennung behandelst du selten ein gestörtes Kind — du behandelst ein Kind in einer unmöglichen Position. Es wird Bote („sag deinem Vater…"), Spion („was macht Mama am Wochenende?") oder Trophäe, deren Besitz den Sieg markiert. Symptome sind dabei oft die intelligenteste verfügbare Lösung: Wer am Übergabetag Bauchschmerzen hat, muss sich nicht entscheiden; wer krank ist, zwingt die Kriegsparteien zur Kooperation. Deine Falllesart ändert sich doppelt. Erstens: Das Symptom ist keine Fehlfunktion, sondern eine Loyalitätslösung — und es bleibt, solange es gebraucht wird. Zweitens: Du arbeitest unter Beobachtung. Alles, was du sagst, schreibst oder attestierst, kann im Sorgerechtsstreit oder vor dem Tribunal de la Jeunesse verwertet werden — von beiden Seiten.',
+      haltung: [
+        'Strikte Allparteilichkeit — gerade dann, wenn ein Elternteil objektiv recht hat, denn deine Parteinahme zieht das Kind tiefer in die Front.',
+        'Das Symptom als Loyalitätslösung würdigen, bevor du es wegbehandelst — es ist die beste Antwort, die das Kind auf eine unmögliche Frage gefunden hat.',
+        'Du bist Behandler des Kindes, nicht Schiedsrichter der Trennung — Umgang und Sorgerecht entscheidet das Gericht.',
+        'Rechne damit, dass beide Seiten deine Neutralität als Gegnerschaft lesen — das ist Systemlogik, nicht dein Fehler.'
+      ],
+      tun: [
+        'Informations-Symmetrie als Regel etablieren und beiden Eltern gleich ansagen: „Was ich mit Ihnen bespreche, biete ich genauso dem anderen Elternteil an — das ist keine Parteinahme, das ist der Schutzraum Ihres Kindes."',
+        'Botengänge sichtbar machen und das Kind aktiv entlasten: „Du musst nichts ausrichten und nichts berichten. Was Mama und Papa klären müssen, klären die Erwachsenen."',
+        'Alles Schriftliche mit der Gerichts-Brille verfassen: faktisch, datiert, beschreibend, ohne Diagnosen über die Eltern und ohne Schuldzuweisungen — jede Zeile kann vor dem Tribunal de la Jeunesse zitiert werden.',
+        'Das Setting des Kindes schützen: Einzelstunden ohne inhaltliche Berichtspflicht an die Eltern — berichtet wird über Verlauf und Ziele, nicht über Aussagen.',
+        'Früh klären, ob ein Verfahren läuft und welche Rolle dir zugedacht ist — Behandlung und Begutachtung strikt trennen; wer behandelt, begutachtet nicht.',
+        'Bei Drohungen, Entführungsangst oder instrumentalisierten Vorwürfen das Helfersystem erweitern: ONE zur Koordination, bei Kindeswohlgefährdung signalement an den SCAS.'
+      ],
+      nicht_tun: [
+        'Partei ergreifen, auch nicht subtil durch mehr Wärme für eine Seite — deine Parteinahme bezahlt das Kind zu Hause.',
+        'Aussagen des Kindes über den einen Elternteil an den anderen weitergeben — damit wirst du selbst zum Boten, und das Kind verstummt.',
+        'Atteste oder Stellungnahmen „für" einen Elternteil schreiben — sie tauchen im Verfahren auf und beenden deine Allparteilichkeit unwiderruflich.',
+        'Das Symptom isoliert wegtrainieren, als gäbe es den Elternkrieg nicht — du nimmst dem Kind sein einziges legitimes Druckventil, ohne die Quelle zu ändern.',
+        'Dich zum Schiedsrichter über Umgangsfragen machen lassen — das ist die Zuständigkeit des Gerichts, nicht deine.'
+      ],
+      eskalation: 'Verschärfung, wenn das Kind Übergaben mit Panik oder Erbrechen quittiert, einen Elternteil vollständig verweigert, wenn Missbrauchsvorwürfe als Verfahrensmittel auftauchen oder Drohungen fallen — Entführung, Gewalt, Suizidandrohung eines Elternteils. Dann trägt Allparteilichkeit allein nicht mehr: ONE einschalten, bei Kindeswohlgefährdung signalement an den SCAS, bei konkreten Drohungen 112. Läuft bereits ein Verfahren vor dem Tribunal de la Jeunesse, nimm das Modul signalement-gericht dazu.',
+      psychoedukation: 'Kinder lieben in aller Regel beide Eltern und brauchen die Erlaubnis dazu. In der Hochkonflikt-Trennung wird jede Zuneigung zur einen Seite als Verrat an der anderen verbucht — das erzeugt einen chronischen inneren Spannungszustand, für den Kinder keine Worte haben. Symptome sind dann oft die intelligenteste verfügbare Lösung: Bauchschmerzen am Übergabetag ersparen die Entscheidung, Schulprobleme zwingen die Eltern an einen Tisch, Regression holt Fürsorge statt Krieg. Das Symptom stabilisiert das System — deshalb verschwindet es nicht durch Symptomtraining allein. Allparteilichkeit wirkt, weil sie dem Kind den einzigen Erwachsenenraum gibt, in dem es nicht wählen muss; schon eine Stunde pro Woche ohne Loyalitätsabfrage ist eine korrigierende Erfahrung. Informations-Symmetrie wirkt, weil sie dem System den Stoff für neue Kränkungen entzieht: Wo beide alles gleich erfahren, gibt es keine Geheimbündnisse — und du bleibst für das Kind der eine Ort, an dem es keine Seite verwalten muss.'
+    }
   },
   'frische-verluste': {
     id: 'frische-verluste',
     name: 'Frische Verluste & Abbrüche',
     trigger_frage: 'Gab es Tod, Wegzug oder Weggang zentraler Personen (Peers, Bezugspädagogen, Angehörige) in den letzten Monaten?',
     achsen_affinitaet: ['depression', 'trauma'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Ein frischer Verlust ändert die Lesart aller Symptome — rückwirkend. Was wie eine beginnende Depression aussieht (Rückzug, Reizbarkeit, Schlafstörung, Leistungsknick), kann eine gesunde Trauerreaktion sein, die keine Diagnose braucht, sondern Zeit und Begleitung. Deshalb gehört vor jede Einordnung die Frage: Was ist in den letzten Monaten weggegangen — gestorben, weggezogen, gekündigt, verlegt? Bei Foyer-Jugendlichen verschiebt sich die Gewichtung zusätzlich: Der Abgang einer Bezugspädagogin ist dort kein Personalthema, sondern die x-te Wiederholung des Lebensthemas Beziehungsabbruch — und kann schwerer wiegen als der Tod eines entfernten Verwandten. Frag also nicht nur, was passiert ist, sondern: Der wievielte Abschied war das? Die Antwort entscheidet, ob du Trauer begleitest, eine Depression behandelst oder ein Abbruchmuster bearbeitest.',
+      haltung: [
+        'Trauer ist keine Störung — du begleitest sie, statt sie wegzubehandeln.',
+        'Die Größe eines Verlusts bemisst das Kind, nicht der Verwandtschaftsgrad — eine Bezugspädagogin kann zentraler sein als ein Großonkel.',
+        'Bei Foyer-Jugendlichen ist jeder Personalwechsel ein potenzieller Beziehungsbruch, kein organisatorisches Detail.',
+        'Dein Unbehagen mit fremder Trauer ist dein Thema — aushalten statt zutexten.',
+        'Wellen sind der Normalverlauf: Gute Tage widerlegen die Trauer nicht, schlechte widerlegen den Fortschritt nicht.'
+      ],
+      tun: [
+        'Verlust-Anamnese über die letzten 12 bis 24 Monate systematisch erheben: Todesfälle, Wegzüge, Personalwechsel in Foyer oder Maison Relais, Schulwechsel, abgebrochene Freundschaften — chronologisch neben den Symptombeginn legen.',
+        'Jahrestage und Marker-Daten (Todestag, Auszug, Abschied) im Verlauf mitdenken und vorbesprechen: „Wenn es dir um dieses Datum herum schlechter geht, ist das kein Rückfall — das ist dein Gedächtnis, das den Tag kennt."',
+        'Übergaben bei Personalwechsel aktiv gestalten statt geschehen lassen: angekündigter Abschied, Überlappung mit der Nachfolge, etwas Bleibendes wie Brief, Foto oder Ritual — und dem Team sagen: „Plant den Abschied wie eine Intervention, nicht wie ein Dienstplan-Detail."',
+        'Dem Jugendlichen das Erzählen freistellen statt es zu verordnen: „Du musst hier nicht über sie reden. Aber wenn du willst, hat das Platz — auch beim fünften Mal noch."',
+        'Mit Schule und Maison Relais ein Nachsicht-Fenster vereinbaren: Ein Leistungsknick nach Verlust ist erwartbar und braucht Zeit, keine Sanktionen.',
+        'Prüfen, wer im System trauern darf: Trägt das Kind die Trauer der Familie mit, weil die Erwachsenen nicht können, braucht es Entlastung von dieser Rolle.'
+      ],
+      nicht_tun: [
+        'Trauer vorschnell als Depression diagnostizieren — du pathologisierst einen gesunden Prozess und nimmst ihm die Legitimität.',
+        'Den Verlust therapeutisch „wegmachen" wollen mit Ablenkung und Aktivierung im Akkord — das Kind lernt daraus, dass sein Schmerz falsch ist.',
+        'Einen Foyer-Personalwechsel kleinreden („du kanntest sie doch erst ein Jahr") — für eine Abbruch-Biografie ist genau das die Wunde.',
+        'Phasenmodelle als Soll-Kurve anlegen — Trauer verläuft oszillierend, und Abweichung vom Modell ist keine Pathologie.'
+      ],
+      eskalation: 'Verschärfung, wenn die Trauer nach Monaten durchgängig statt wellenförmig bleibt, Funktionsniveau und Selbstwert dauerhaft einbrechen, Todeswünsche über das „ich will bei ihr sein" hinausgehen oder konkrete Suizidalität auftritt — besonders nach dem Suizid einer nahen Person. Dann KJP-Abklärung statt Begleitung allein: KJP-Notdienst (CHL, Hôpitaux Robert Schuman) bei Akuität, SOS Détresse 454545 als niederschwellige Nummer für den Jugendlichen, 112 bei akuter Gefahr.',
+      psychoedukation: 'Trauer und Depression teilen die Oberfläche und unterscheiden sich im Kern. Trauer kommt in Wellen, ist auf die verlorene Person bezogen, lässt positive Momente zu, und der Selbstwert bleibt meist intakt — die Welt ist ärmer geworden. Depression ist gleichförmiger, und der Selbstwert bricht — ich bin falsch. Diese Unterscheidung entscheidet über alles Weitere: begleiten oder behandeln. Bei Jugendlichen mit Abbruchgeschichte — Foyer, Migration, mehrfache Wechsel — aktiviert jeder neue Verlust den ganzen Stapel: Die Reaktion gilt nicht der einen Pädagogin, sondern allen Abschieden davor. Genau deshalb wirken gestaltete Übergänge so stark: Ein angekündigter, begleiteter, mit etwas Bleibendem versehener Abschied ist die korrigierende Erfahrung, dass Bindung enden kann, ohne dass die Person einfach verschwindet. Jahrestags-Reaktionen sind erwartbare Gedächtnisphänomene; wer sie kennt und vorbespricht, erlebt sie als Erinnerung statt als Rückfall — das allein verhindert viele unnötige Krisendeutungen und Medikationsentscheidungen.'
+    }
   },
   'signalement-gericht': {
     id: 'signalement-gericht',
     name: 'Signalement-/Gerichtskontext',
     trigger_frage: 'Stehen Signalement, SCAS oder Tribunal de la Jeunesse im Raum oder sind bereits aktiv?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Sobald signalement, SCAS oder das Tribunal de la Jeunesse im Raum stehen, arbeitest du in zwei Systemen gleichzeitig: Hilfe und Kontrolle. Das ist kein Widerspruch, den du auflösen musst, sondern eine Doppelstruktur, die du transparent machst. Der häufigste Fehler ist die Drohschleife: melden ankündigen, nicht melden, wieder ankündigen. Jede leere Ankündigung lehrt die Familie, dass das System blufft — und macht die echte Meldung später konfliktreicher und für das Kind gefährlicher. Glaubwürdigkeit ist hier Kinderschutz: eine klare Ankündigung, dann handeln. Zweite Verschiebung der Falllesart: Das Verfahren ersetzt die Behandlung nicht. Ein laufendes signalement ist kein Grund, die Therapie zu pausieren — die Familie braucht den stabilen Behandlungsort gerade jetzt, und du bleibst Behandler, nicht Ermittler.',
+      haltung: [
+        'Freundlich im Ton, hart in der Sache — die Härte gehört in die Entscheidung, nicht in die Stimme.',
+        'Eine Ankündigung, dann handeln — wiederholte Drohungen ohne Folgen sind kein Schutz, sondern Training in Folgenlosigkeit.',
+        'Du bist Behandler, nicht Ermittler — Wahrheitsfindung ist Sache von SCAS und Gericht, deine Sache sind Versorgung und faktische Dokumentation.',
+        'Transparenz vor Taktik — die Familie soll von dir erfahren, was du meldest und warum, nicht aus einem Behördenbrief; einzige Ausnahme ist eine akute Gefährdung des Kindes durch die Vorwarnung.',
+        'Für das Kind ist das Verfahren beängstigend, auch wenn es das Kind schützt — halte beides gleichzeitig.'
+      ],
+      tun: [
+        'Grenzen der Vertraulichkeit früh und beiläufig klären, nicht erst in der Krise: „Was wir besprechen, bleibt unter uns — außer ich mache mir ernsthafte Sorgen um die Sicherheit Ihres Kindes. Dann sage ich es Ihnen zuerst, und dann hole ich Hilfe dazu."',
+        'Ist die Schwelle erreicht: einmal klar ankündigen, dann melden — und den Schritt erklären: „Ich habe es Ihnen angekündigt, und ich tue es jetzt. Nicht gegen Sie — für die Sicherheit Ihres Kindes. Und ich arbeite weiter mit Ihnen."',
+        'Gerichtsfest dokumentieren: Datum, Quelle, wörtliche Zitate in Anführungszeichen, Befund von Deutung getrennt, Lücken als Lücken stehen lassen.',
+        'Rollen schriftlich klären, wenn das Gericht anfragt: Behandlungsbericht ja — Begutachtung oder Sorgerechtsempfehlung nein; beides aus einer Hand zerstört die Behandlung.',
+        'Die Behandlung demonstrativ weiterführen: Termine halten statt ausdünnen, und der Familie ausdrücklich sagen, dass Verfahren und Therapie zwei verschiedene Schienen sind.',
+        'Zuständigkeiten mit ONE und SCAS koordinieren: wer hält Familienkontakt, wer prüft Auflagen, wer behandelt — damit die Familie nicht fünf widersprüchliche Versionen des Systems erlebt.'
+      ],
+      nicht_tun: [
+        'Drohschleifen fahren („beim nächsten Mal melde ich wirklich") — jede folgenlose Ankündigung senkt die Schutzwirkung der nächsten.',
+        'Heimlich melden, wo Transparenz vertretbar wäre — die Familie erfährt es ohnehin, und du bezahlst ein vermiedenes Gespräch mit dem Arbeitsbündnis.',
+        'Dich in die Gutachterrolle ziehen lassen, während du behandelst — das Kind verliert sonst den einzigen Raum, der nicht verwertet wird.',
+        'Dokumentation nachträglich glätten oder anreichern — Nachbesserungen diskreditieren vor Gericht auch das, was korrekt war.',
+        'Die Behandlung ans Verfahren koppeln („erst mal abwarten, was das Gericht sagt") — das Kind braucht Versorgung gerade in der unsichersten Phase.'
+      ],
+      eskalation: 'Sofort melden statt ankündigen bei akuter Gefährdung: frische Verletzungen, Angst des Kindes vor dem Nachhauseweg, konkrete Drohungen — dann signalement ohne Vorlauf und bei Akutgefahr 112. Eskalation auch, wenn die Familie nach der Ankündigung den Kontakt abbricht, das Kind unter Druck gesetzt wird, Aussagen zurückzunehmen, oder Teammitglieder bedroht werden — all das wird dokumentiert und an SCAS beziehungsweise Parquet weitergegeben.',
+      psychoedukation: 'Das luxemburgische Kinderschutzsystem hat zwei Schienen: die freiwillige Hilfe über das ONE (Office National de l\'Enfance), das Unterstützungsmaßnahmen koordiniert, und die justizielle Schiene über Parquet, SCAS und Tribunal de la Jeunesse, die greift, wenn Freiwilligkeit nicht reicht oder die Gefährdung zu groß ist. Ein signalement ist keine Strafanzeige gegen die Eltern, sondern eine Gefährdungsmeldung zum Schutz des Kindes — diese Unterscheidung entlastet auch dein Gespräch mit der Familie. Warum Glaubwürdigkeit wirkt: Familien in Schutzverfahren testen, ob Grenzen real sind; ein System, das ankündigt und dann handelt, ist berechenbar — und Berechenbarkeit beruhigt paradoxerweise auch die Familie. Warum die Behandlung weiterläuft: Verfahren klären Schutz und Zuständigkeit, aber sie behandeln nichts; bricht die Therapie weg, verliert das Kind den stabilsten Ort im unruhigsten Moment. Rollen-Klarheit schützt alle: Du dokumentierst Fakten und versorgst, der SCAS untersucht, das Tribunal entscheidet — und weil jeder sein Feld hält, bleibt dein Raum für das Kind glaubwürdig.'
+    }
   },
   'parentifizierung': {
     id: 'parentifizierung',
     name: 'Parentifizierung / Helferrolle',
     trigger_frage: 'Übernimmt der Jugendliche Erwachsenenaufgaben (sich selbst abmelden, andere versorgen, als „Co-Pädagoge" agieren)?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn dieses Muster aktiv ist, sitzt vor dir ein Jugendlicher, der eine Stelle ausfüllt, die nie ausgeschrieben war: Er meldet sich selbst von der Schule ab, organisiert Geschwister, beruhigt einen Elternteil, übersetzt bei Ämtern. Die naheliegende Lesart — „erstaunlich reif", „der Vernünftige in der Familie" — ist die gefährlichste, denn sie adelt eine Überlastung. Gleichzeitig stimmt sie zur Hälfte: Die Kompetenz ist real, der Jugendliche kann tatsächlich, was er tut. Real ist aber auch der Preis: Eigene Bedürfnisse werden unlesbar, Erschöpfung gilt als Schwäche, und Hilferufe werden vom Umfeld als „Dramatik" oder als untypisch abgetan. Deine Arbeitsrichtung ist dreischrittig: würdigen, dosieren, Erwachsenenaufgaben zurückholen — genau in dieser Reihenfolge.',
+      haltung: [
+        'Würdigen kommt vor Verändern: Wer die Leistung nicht anerkennt, bekommt keinen Zugang zur Last dahinter.',
+        'Die Helferrolle ist Identität, nicht nur Symptom — sie trägt Selbstwert, und das verdient Respekt statt Demontage.',
+        'Kompetenz und Preis sind beide real; deine Aufgabe ist nicht, die Kompetenz abzuerkennen, sondern den Preis sichtbar zu machen.',
+        'Schütze die Glaubwürdigkeit: Wer im Helfernetz als „der Starke" oder „die Dramatische" etikettiert ist, wird bei echter Offenlegung überhört.',
+        'Aufgaben gehen erst zurück, wenn ein Erwachsener sie nachweislich übernimmt — sonst lehrst du nur, dass Loslassen Chaos bedeutet.'
+      ],
+      tun: [
+        'Die Leistung explizit würdigen, bevor du sie problematisierst: „Du hältst seit Langem Dinge zusammen, die nicht deine Aufgabe sind. Das ist eine Leistung — und sie hat einen Preis."',
+        'Ein Aufgaben-Inventar erstellen: konkret durchgehen, wer in der Familie was erledigt — Abmeldungen, Termine, Geschwisterversorgung, Geld, Trösten, Übersetzen — und markieren, was davon Erwachsenenarbeit ist.',
+        'Dosieren statt streichen: gemeinsam eine einzige Aufgabe auswählen, die als erste zurückgeht, und den Effekt auswerten, bevor die nächste folgt.',
+        'Die Übernahme vorher sichern: mit Eltern, Foyer oder ONE-Mandat konkret vereinbaren, wer die Aufgabe auffängt — den Eltern gegenüber etwa: „Wir nehmen Ihrem Kind nichts weg. Wir geben Ihnen etwas zurück."',
+        'Regelmäßig die Eigenversorgung erfragen, auch auf Lëtzebuergesch: „Du këmmers dech ëm vill Leit — a wien këmmert sech ëm dech?"',
+        'Die Helfer-Kompetenz in altersgerechte Kanäle lenken (Peer-Tutorat im Lycée, Engagement in der Maison des Jeunes), damit die Identität bleiben kann, ohne dass die Familie der Arbeitsplatz ist.'
+      ],
+      nicht_tun: [
+        'Die Reife bewundern und es dabei belassen — Bewunderung zementiert die Rolle und macht den Preis unsichtbar.',
+        'Die Rolle abrupt verbieten — sie trägt Selbstwert und Bindungssicherheit; wer sie wegreißt, hinterlässt ein Loch, kein entlastetes Kind.',
+        'Helfer- oder Dramatik-Etiketten im Helfernetz unkommentiert lassen — sie machen alle Beteiligten taub für echte Offenlegungen.',
+        'Aufgaben zurückgeben, ohne dass ein Erwachsener sie real übernimmt — der Jugendliche erlebt sonst, dass Loslassen bestraft wird, und greift fester zu.',
+        'Die Eltern als Täter rahmen — Parentifizierung entsteht meist aus Not, Krankheit oder Überlastung, und Beschämung verschließt den einzigen Hebel.'
+      ],
+      eskalation: 'Das Modul verschärft den Fall, wenn die Helferrolle die eigene Versorgung verdrängt: Schulabsenz wegen Betreuungspflichten, bagatellisierte eigene Symptome, Erschöpfungszeichen oder Suizidäußerungen, die als „Dramatik" abgetan wurden — Letztere immer ernst nehmen, gerade bei diesem Etikett. Versorgt der Jugendliche faktisch allein einen psychisch kranken oder suchtkranken Elternteil oder jüngere Geschwister, ist das eine Kindeswohlfrage: ONE oder SCAS einbeziehen, nicht nur therapeutisch weiterarbeiten.',
+      psychoedukation: 'Parentifizierung heißt: Ein Kind übernimmt dauerhaft Aufgaben und Verantwortung, die entwicklungslogisch Erwachsenen gehören — instrumentell (Haushalt, Geschwister, Behördenwege) oder emotional (Elternteil trösten, Partnerersatz, Konflikte moderieren). Schädlich wird sie durch drei Merkmale: Dauer, fehlende Wahl und fehlende Anerkennung. Die Forschung zu Rollenumkehr zeigt erhöhte Raten von Erschöpfung, Depression und Angst sowie ein erlerntes Muster, eigene Bedürfnisse gar nicht erst wahrzunehmen — was später Beziehungen und Hilfesuche erschwert. Zugleich entstehen reale Stärken: Organisation, Empathie, Verantwortungsgefühl. Genau deshalb wirkt Würdigung als Türöffner: Sie bestätigt die Identität, statt sie anzugreifen, und macht den Preis überhaupt erst besprechbar. Die Rückgabe von Aufgaben funktioniert nur als Staffelübergabe — sichtbar, schrittweise, mit einem Erwachsenen, der wirklich übernimmt. Was sich ändert: Helfen wird vom Zwang zur Wahl, und der Jugendliche bekommt die Erlaubnis, eigene Bedürfnisse zu haben, ohne seine Identität zu verlieren.'
+    }
   },
   'stationaer-uebergang': {
     id: 'stationaer-uebergang',
     name: 'Stationärer Übergang',
     trigger_frage: 'Steht eine Aufnahme oder Entlassung aus Klinik/Tagesklinik an oder läuft gerade?',
     achsen_affinitaet: ['depression', 'borderline', 'psychose', 'essstoerungen'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn eine Entlassung ansteht, behandelst du kein Behandlungsende, sondern ein Risikofenster. Die Wochen nach psychiatrischer Entlassung tragen statistisch das höchste Suizidrisiko des gesamten Verlaufs — gerade dann, wenn alle Beteiligten aufatmen, weil „das Schlimmste vorbei" scheint. Stabilität auf Station ist Stabilität unter Stationsbedingungen: Struktur, Aufsicht, Distanz zu den Konflikten, die zur Aufnahme geführt haben. Zuhause fallen diese Stützen an einem einzigen Tag weg, während die Probleme unverändert warten. Dazu kommt die gefährlichste Zone des Systems: die Zuständigkeits-Lücke zwischen stationär und ambulant, in der sich niemand verantwortlich fühlt. Deine Lesart wechselt also von „geschafft" zu „jetzt beginnt die kritische Phase" — und deine Planung von reaktiv zu vorbereitend.',
+      haltung: [
+        'Entlassung ist ein Risikofenster, kein Erfolgsnachweis — plane sie wie eine Krise mit bekanntem Datum.',
+        'Stationsstabilität ist nicht Alltagsstabilität; der Transfer ist deine Arbeit, nicht die Bringschuld des Jugendlichen.',
+        'Die Zuständigkeits-Lücke ist dein Gegner: Wo sich niemand verantwortlich fühlt, passiert der Absturz.',
+        'In den ersten zwei Wochen darfst du dich aufdrängen — proaktiver Kontakt ist hier klinisch begründet, nicht übergriffig.'
+      ],
+      tun: [
+        'Anbindung vor der Entlassung herstellen: Der erste ambulante Termin steht fest, bevor der Jugendliche die Station verlässt — innerhalb von sieben Tagen, idealerweise mit gemeinsamem Übergabegespräch (du, KJP-Team, Familie).',
+        'Kontaktdichte für die ersten zwei Wochen hochfahren: zwei Kontakte pro Woche, Termin plus kurzes Telefonat reicht — erst danach ausdünnen.',
+        'Krisenplan schriftlich mitgeben und durchsprechen: KJP-Notdienst (CHL, Hôpitaux Robert Schuman), SOS Détresse 454545, 112 — und konkret üben: „Wenn es nachts kippt: Wen rufst du zuerst an? Wir legen das jetzt fest, nicht dann."',
+        'Schul-Wiedereinstieg gestuft planen, mit Lycée und ggf. CDSE-PSY: Teil-Anwesenheit zuerst, klare Steigerungslogik — „Du musst nicht ab Tag eins voll zurück. Wir bauen die Schule in Stufen wieder auf."',
+        'Zuständigkeiten mit Namen festschreiben: wer hält Kontakt zur Familie, wer zur Schule, wer reagiert bei Krise — ein Name pro Aufgabe, kein „wir alle".',
+        'Die Familie vor der Rückkehr briefen: realistische Erwartungen, typische Reibungspunkte der ersten Tage, konkrete Warnzeichen und Meldewege.'
+      ],
+      nicht_tun: [
+        'Die Entlassung als Heilungsbeleg lesen — das Risiko ist in den ersten Wochen danach am höchsten, gerade weil alle entspannen.',
+        'Auf den Klinikbericht warten, bevor du aktiv wirst — Berichte kommen oft Wochen später, dann ist das Fenster vorbei.',
+        'Den Schulstart vertagen, „bis er sich stabil fühlt" — leere Tage zuhause verlängern das Risiko und füttern die Vermeidung.',
+        'Absagen in den ersten zwei Wochen als Terminproblem verbuchen — im Risikofenster ist Nichterscheinen ein Alarmsignal, dem du nachgehst.'
+      ],
+      eskalation: 'Hellhörig werden bei: Nichterscheinen oder Absagen in den ersten zwei Wochen, plötzlicher Ruhe nach Anspannung, „mir geht es gut" ohne Substanz, Verschenken persönlicher Dinge, eskalierenden Konflikten zuhause. Dann Kontakt aktiv suchen statt abwarten, Suizidalität direkt explorieren, Sicherheitsplan aktualisieren; bei akuter Gefährdung KJP-Notdienst oder 112. Eine geplante Wiederaufnahme ist kein Scheitern — eine verpasste Warnung wäre eins.',
+      psychoedukation: 'Warum ist die Zeit nach der Entlassung so riskant? Mehrere Mechanismen überlagern sich: Die äußere Struktur — Tagesablauf, Aufsicht, sofortige Ansprechbarkeit — fällt schlagartig weg; die Rückkehr führt in unveränderte Familien- und Schulkonflikte; bei Depression kehrt der Antrieb oft vor der Stimmungsaufhellung zurück, was bei bestehenden Suizidgedanken gefährlich ist; Scham und Sonderstatus erschweren den Wiedereinstieg ins Lycée; und zwischen stationärem und ambulantem System entsteht Verantwortungs-Diffusion. Die Forschung zeigt das konsistent: Das Suizidrisiko ist in den Wochen nach psychiatrischer Entlassung um ein Vielfaches erhöht, am stärksten in der ersten. Dagegen wirkt Kontinuität: ein fixer Termin vor Entlassung, dichte Kontakte, namentlich geklärte Zuständigkeiten und ein vorbereitetes Umfeld senken das Risiko messbar. Teil-Anwesenheit in der Schule hält die Einstiegsschwelle niedrig, bevor sie unüberwindbar wird. Und ein gebrieftes Familiensystem fällt seltener in genau die Interaktionsmuster zurück, die zur Aufnahme beigetragen haben.'
+    }
   },
   'transport-logistik': {
     id: 'transport-logistik',
     name: 'Logistik-/Transportbarrieren',
     trigger_frage: 'Blockieren wiederkehrende Barrieren (Mobibus, Grenzwohnsitz, verspätete Anträge) real die Beschulung oder Stagen?',
     achsen_affinitaet: [],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn dieses Muster aktiv ist, wird ein Verkehrsproblem als Charakterproblem behandelt. Nicht-Erscheinen liest das Helfernetz reflexhaft psychologisch — unmotiviert, vermeidend, widerständig —, während die tatsächliche Ursache ein fehlender Transport ist: ein hängender Mobibus-Antrag, ein Stage-Ort ohne Busanbindung, ein Wohnsitz jenseits der Grenze ohne Anrecht auf den Schülertransport. Diese Fehllesung kostet doppelt: Die reale Barriere bleibt unbearbeitet, und der Jugendliche übernimmt das Motivations-Etikett irgendwann selbst. Oft ist beides wahr — eine echte Barriere plus sekundäre Vermeidung nach Wochen erzwungener Absenz. Aber die Reihenfolge der Bearbeitung steht fest: erst Logistik prüfen und lösen, dann beurteilen, was psychologisch übrig bleibt. Ein Symptom, das mit einem funktionierenden Transport verschwindet, war keins.',
+      haltung: [
+        'Erst Logistik, dann Psychologie — diese Deutungsreihenfolge ist nicht verhandelbar.',
+        'Nimm berichtete Barrieren wörtlich, bis das Gegenteil belegt ist — der „Ausreden"-Verdacht ist die teurere Fehlannahme.',
+        'Logistik braucht einen Namen, kein Wohlwollen: Wenn alle ein bisschen zuständig sind, ist es niemand.',
+        'Nach Wochen erzwungener Absenz ist der Wiedereinstieg ein eigenes Arbeitsstück — auch wenn die Barriere gefallen ist.'
+      ],
+      tun: [
+        'Ein Barrieren-Inventar erstellen, Frage für Frage statt pauschal: „Beschreib mir einen normalen Morgen: Wann müsstest du los, womit fährst du, und wo genau hakt es?"',
+        'Einen Logistik-Verantwortlichen im Helfernetz benennen — Elternteil, Foyer-Bezugsperson oder Mandatsträger —, der Anträge, Fristen und Rückmeldungen aktiv verfolgt.',
+        'Anträge mit Vorlauf stellen: Mobibus und Transport scolaire brauchen Wochen — vor der rentrée und vor Stage-Beginn einreichen, nicht erst, wenn die Absenz schon läuft.',
+        'Grenzgänger-Lagen explizit prüfen: Wohnsitz in Frankreich, Belgien oder Deutschland bei Lycée in Luxemburg bedeutet oft andere Zuständigkeiten und kein Anrecht auf reguläre Schülertransporte — das gehört geklärt, bevor irgendetwas gedeutet wird.',
+        'Übergangslösungen bauen, bis der Antrag durch ist, und sie der Schule gegenüber vertreten: „Bis der Transport steht, braucht er einen realistischen Stundenplan — lieber verlässlich halbtags als theoretisch ganztags."'
+      ],
+      nicht_tun: [
+        'Nicht-Erscheinen automatisch als Motivationsproblem deuten — die Fehllesung stigmatisiert und lässt die reale Barriere bestehen.',
+        'Die Antragswege der Familie überlassen — überlastete oder systemferne Familien scheitern an Formularen, und die Folgen trägt das Kind.',
+        'Erst bei akuter Absenz aktiv werden — die Vorlaufzeiten von Mobibus und Transport scolaire kosten sonst Monate Beschulung.',
+        'Nach gefallener Barriere sofort volle Präsenz erwarten — lange Absenz erzeugt eigene Schwellenangst, auch ohne ursprüngliche Störung.',
+        'Die Begleitung pausieren, „bis der Transport geklärt ist" — die Beziehung trägt den Wiedereinstieg, und Wartezeit ohne Kontakt füttert den Rückzug.'
+      ],
+      eskalation: 'Verschärfung, wenn die Absenz chronifiziert: Nach mehreren Wochen wächst aus der Logistik-Lücke echte Schulvermeidung mit Angst-, Scham- und Rückzugskomponente — dann läuft beides parallel, und das Zeitfenster schließt sich. Ebenso eskalieren, wenn hinter der Barriere familiäre Desorganisation steht und schlicht kein Erwachsener je einen Antrag stellt: Dann ist es eine Versorgungsfrage für ONE oder SCAS. Droht der Verlust von Stage-Platz oder Schuljahr, gehört der Fall sofort ins Helfernetz.',
+      psychoedukation: 'Helfersysteme attribuieren Verhalten bevorzugt internal — Motivation, Charakter, Störung — und übersehen situative Ursachen; im Schulkontext ist dieser Attributionsfehler besonders teuer. In Luxemburg kommen reale Strukturlagen dazu: spezialisierte Schulwege quer durchs Land, Mobibus-Antragszeiten, Stage-Orte ohne Anbindung und Jugendliche mit Wohnsitz in Frankreich, Belgien oder Deutschland, für deren Transport sich kein System zuständig fühlt. Wochen erzwungener Absenz erzeugen dann Sekundäreffekte — Stofflücken, soziale Entfremdung, Scham beim Wiedereintritt —, die exakt wie das ursprünglich vermutete „Motivationsproblem" aussehen und die Fehldiagnose scheinbar bestätigen: eine sich selbst erfüllende Schleife. Das Modul wirkt über Reihenfolge und Zuständigkeit: Barriere objektiv inventarisieren, eine Person verantwortlich machen, Anträge mit Vorlauf takten, Übergangslösungen bauen, den Wiedereinstieg aktiv begleiten — und erst dann diagnostisch bewerten, was übrig bleibt. Häufig bleibt wenig. Und was bleibt, ist dann klar umrissen statt diffus „unmotiviert".'
+    }
   },
   'adoption-fruehe-geschichte': {
     id: 'adoption-fruehe-geschichte',
     name: 'Adoption / unklare frühe Geschichte',
     trigger_frage: 'Ist der Jugendliche adoptiert oder gibt es frühe biografische Brüche/Unbekanntes (relevant für Bindung und Differentialdiagnostik)?',
     achsen_affinitaet: ['asperger', 'trauma', 'borderline'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn dieses Muster aktiv ist, bekommt deine Diagnostik eine zweite Ebene. Frühe Deprivation — Heimaufenthalte, wechselnde Bezugspersonen, unversorgte erste Lebensjahre — kann Bilder erzeugen, die wie Autismus aussehen: reduzierte soziale Gegenseitigkeit, Stereotypien, auffälliger Blickkontakt. Die Adoptionsforschung an früh institutionalisierten Kindern hat diese quasi-autistischen Muster sauber dokumentiert — und gezeigt, dass sie sich unter stabiler Bindung anders entwickeln als eine ASS. Gleichzeitig trifft die Adoleszenz mit ihrer Kernfrage „Wer bin ich?" auf Herkunfts-Lücken, die diese Frage ins Leere laufen lassen. Was wie Störung aussieht — Wut, Rückzug, Identitätsbrüche, heimliche Suche in sozialen Medien — kann normative Entwicklungsarbeit unter erschwerten Bedingungen sein. Deine Lesart wechselt von „Was hat er?" zu „Was fehlt ihm an Geschichte, und wer hält welche Teile davon?"',
+      haltung: [
+        'Diagnostische Demut: Autistiform ist nicht autistisch — ohne frühe Biografie ist keine ASS-Diagnose vollständig.',
+        'Herkunftssuche ist Entwicklungsarbeit, kein Symptom — sie braucht Begleitung, nicht Pathologisierung.',
+        'Der Jugendliche muss sich nicht zwischen zwei Familien entscheiden — auch nicht innerlich; Loyalität ist keine Entweder-oder-Frage.',
+        'Die Kränkung der Adoptiveltern ist legitim zu fühlen — aber sie darf das Thema nicht verschließen.',
+        'Du balancierst Recht und Tempo: das Recht auf die eigene Geschichte und die Dosis, die gerade tragbar ist.'
+      ],
+      tun: [
+        'Den Wissensstand dreifach klären, bevor du Herkunft thematisierst: Was steht in den Akten, was wissen die Adoptiveltern, was weiß der Jugendliche selbst — und wo klaffen die drei auseinander?',
+        'Bei ASS-Verdacht die frühen Jahre systematisch erheben (Alter beim Bruch, Dauer und Tiefe der Deprivation, frühe Versorgungsqualität) und den Verlauf gewichten: Bindungsbezogene Muster bewegen sich unter stabiler Beziehung deutlich mehr als autistische.',
+        'Herkunftsfragen aktiv normalisieren statt abwarten: „Viele adoptierte Jugendliche denken in deinem Alter viel über ihre Herkunft nach — wie ist das bei dir?"',
+        'Den Loyalitätskonflikt explizit entlasten: „Neugier auf deine Herkunft heißt nicht, dass du deine Eltern weniger liebst. Du musst dich nicht entscheiden."',
+        'Die Adoptiveltern separat vorbereiten: Herkunftsinteresse als normativen Entwicklungsschritt erklären und die Kränkung vorwegnehmen — bevor der Jugendliche sucht, nicht erst, wenn es kracht.',
+        'Akteneinsicht und Suche dosieren: Belastende Inhalte (Gewalt, Verzichtsumstände, unbekannte Elternteile) brauchen Vorbereitung, geschützten Rahmen und geplante Nachsorge.'
+      ],
+      nicht_tun: [
+        'Eine ASS-Diagnose allein aus dem Querschnittsbild stellen — ohne frühe Biografie riskierst du, Deprivationsfolgen lebenslang als Autismus festzuschreiben.',
+        'Warten, bis der Jugendliche „von selbst" mit Herkunftsfragen kommt — viele schweigen aus Loyalitätsschutz, nicht aus Desinteresse.',
+        'Das Thema den Adoptiveltern zuliebe klein halten — der Jugendliche spürt das Tabu und trägt es dann allein weiter.',
+        'Aktenwissen ungefiltert weitergeben — Inhalte über Gewalt, Verzicht oder psychische Erkrankung der Herkunftseltern brauchen Dosierung und Einbettung.',
+        'Jede Auffälligkeit reflexhaft auf die Adoption zurückführen — Adoptierte haben auch gewöhnliche Pubertäten, und die Adoptionsbrille kann genauso fehlleiten wie ihr Fehlen.'
+      ],
+      eskalation: 'Verschärfung bei: unbegleiteter Kontaktaufnahme zur Herkunftsfamilie über soziale Medien (häufig, schnell, unkontrollierbar — danach aktiv fragen), retraumatisierenden Akteninhalten ohne Auffangnetz, offenem Loyalitätskrieg zwischen den Familiensystemen, Identitätskrise mit Selbstverletzung oder Suizidgedanken. Dann Frequenz erhöhen und das Familiensystem einbinden; bei akuter Gefährdung KJP-Notdienst (CHL, Hôpitaux Robert Schuman) oder 112. Finden sich in den Akten Hinweise auf frühe Misshandlung, gehört Trauma-Diagnostik ergänzt.',
+      psychoedukation: 'Frühe Deprivation — das Fehlen einer stabilen, antwortenden Bezugsperson in den ersten Lebensjahren — kann Entwicklungsmuster formen, die autistischen Bildern ähneln: wenig soziale Gegenseitigkeit, repetitives Verhalten, wahllose Freundlichkeit oder Rückzug. Längsschnittstudien an früh institutionalisierten Adoptivkindern zeigen: Diese quasi-autistischen Muster hängen an Dauer und Tiefe der Deprivation und bessern sich unter stabiler Bindung oft deutlich — ein anderer Verlauf als bei ASS, wo das Muster über Kontexte und Beziehungen hinweg stabiler bleibt. Die frühe Biografie ist deshalb kein Hintergrundrauschen, sondern differentialdiagnostisches Kernmaterial. In der Adoleszenz kommt die Identitätsebene dazu: Die normale Frage „Woher komme ich?" läuft bei Herkunfts-Lücken ins Leere und zeigt sich dann als Wut, Risikoverhalten oder Rückzug. Begleitetes Herkunftsinteresse ist normativ und entwicklungsförderlich; tabuisiertes wird zum Untergrundprojekt. Was sich ändert: Die Diagnostik wird vorsichtiger, Herkunft wird besprechbar, der Loyalitätsdruck sinkt — und die Adoptivfamilie bleibt sicherer Hafen, statt zur Gegenpartei der Identitätsarbeit zu werden.'
+    }
   },
   'saisonale-muster': {
     id: 'saisonale-muster',
     name: 'Datums-/Saisonmuster',
     trigger_frage: 'Gibt es bekannte wiederkehrende Einbrüche um bestimmte Daten (Geburtstag, Jahrestage, Januar, Ferienenden)?',
     achsen_affinitaet: ['depression', 'bipolar', 'trauma'],
-    bloecke: emptyKontextBloecke()
+    bloecke: {
+      reframe: 'Wenn dieses Muster aktiv ist, hat der Fall einen Fahrplan — und du kannst ihn lesen. Einbrüche, die „aus dem Nichts" zu kommen scheinen, liegen oft auf wiederkehrenden Daten: Todestage, Trennungs- und Unterbringungsdaten, Geburtstage bei Verlust- oder Heimgeschichte, Ferienenden, die rentrée, der Januar. Was wie unberechenbare Instabilität aussieht, ist ein Kalender. Das ändert die Lesart doppelt: Erstens kannst du vorbereiten statt nur reagieren — Jahrestags-Reaktionen sind die einzige Krisenform mit bekanntem Datum. Zweitens verliert der Einbruch seine Beweiskraft: Ein vorhergesagter Januar-Knick belegt weder ein Scheitern der Behandlung noch, dass der Jugendliche „doch nicht stabil" ist. Er bestätigt ein Muster — und Muster lassen sich bearbeiten, Schicksal nicht.',
+      haltung: [
+        'Vorhersagbar heißt vorbereitbar — Jahrestags-Reaktionen sind Termine, keine Rückfall-Beweise.',
+        'Der Kalender ist ein Befund wie jeder andere: nüchtern erheben, dokumentieren, vorausplanen.',
+        'Die ausgesprochene Vorhersage entlastet — wer weiß, dass der Januar kommt, muss ihn sich nicht als Versagen anrechnen.',
+        'Geburtstage sind nicht automatisch Feste — bei Verlust- und Heimgeschichte sind sie oft die härtesten Tage des Jahres.'
+      ],
+      tun: [
+        'Ein Kalender-Inventar anlegen: kritische Daten mit dem Jugendlichen (und ggf. Eltern oder Foyer) sammeln — Todestage, Trennungsdaten, Geburtstage, Ferienenden, rentrée — und mit den dokumentierten Einbrüchen der letzten Jahre abgleichen.',
+        'Pro kritischem Datum einen Vorlauf-Plan bauen: zwei bis drei Wochen vorher Termine verdichten, Frühwarnzeichen und Anker besprechen, das Umfeld gezielt informieren.',
+        'Die Vorhersage aussprechen und damit entpathologisieren: „Wenn es dir um dieses Datum herum schlechter geht, ist das nicht dein Versagen — es ist der Jahrestag. Wir planen ihn ein."',
+        'Ferienenden und rentrée als Standard-Knickstellen behandeln: Stabilisierungstermin vor jedem Schulstart, Schlafrhythmus eine Woche vorher anpassen, mit dem Lycée bei Bedarf einen gestuften Einstieg klären.',
+        'Geburtstage bei Verlustgeschichte aktiv ansprechen, statt Feierlaune vorauszusetzen: „Geburtstage sind für dich keine einfachen Tage. Wie willst du den Tag dieses Jahr gestalten — und wer soll dabei sein?"',
+        'Bei Wintermustern die Lichtkomponente prüfen: morgendliche Tageslicht-Exposition sichern, Lichttherapie erwägen — Querverweis Achse A03 (atypische/saisonale Depression).'
+      ],
+      nicht_tun: [
+        'Einen vorhergesagten Einbruch als Therapie-Misserfolg verbuchen — Jahrestags-Reaktionen folgen dem Kalender, nicht der Behandlungsqualität.',
+        'Kritische Daten umschiffen, um „nicht daran zu erinnern" — der Körper erinnert ohnehin, und unausgesprochen trifft der Tag härter.',
+        'Nachträglich jeden Einbruch zum Jahrestag erklären — Übermusterung macht den Kalender beliebig und entwertet die echten Daten.',
+        'Die rentrée-Krise jedes Jahr neu als Überraschung behandeln — wiederkehrende Knickstellen gehören in die Jahresplanung der Behandlung.',
+        'Bei Wintermustern ausschließlich Gesprächsarbeit machen — eine unbeachtete saisonale Lichtkomponente unterläuft jede Psychotherapie.'
+      ],
+      eskalation: 'Kalender-Arbeit reicht nicht mehr, wenn um ein kritisches Datum Suizidgedanken, Selbstverletzung oder Substanzkonsum zunehmen: Dann Sicherheitsplan aktualisieren, Kontaktdichte erhöhen, Umfeld briefen und Erreichbarkeiten klären — SOS Détresse 454545, KJP-Notdienst (CHL, Hôpitaux Robert Schuman), 112. Besondere Wachsamkeit beim ersten Jahrestag eines Verlusts und bei Datums-Kumulation, etwa wenn ein Todestag in Ferienende oder Januar fällt.',
+      psychoedukation: 'Jahrestags-Reaktionen sind in Trauer- und Traumaforschung gut beschrieben: Das autobiografische Gedächtnis ist auch zeitlich organisiert — Kalenderdaten, Lichtverhältnisse und saisonale Reize können Verlust- und Traumamaterial reaktivieren, oft ohne bewussten Zusammenhang. Der Jugendliche erlebt dann scheinbar grundloses Kippen, was Ohnmacht und Selbstabwertung füttert. Vorhersage wirkt über zwei Wege: Sie ermöglicht Vorbereitung — dichtere Termine, geübte Skills, informiertes Umfeld — und sie verändert die Attribution: Aus „ich versage wieder" wird „es ist der Januar". Genau diese Umdeutung nimmt dem Einbruch die demoralisierende Beweiskraft. Ferienenden und rentrée wirken über Struktur- und Rhythmusbrüche: Schlafverschiebung, plötzliche soziale Exposition, Leistungsdruck. Der Winter wirkt zusätzlich über Licht — kürzere Tage verschieben die zirkadiane Rhythmik und drücken bei vulnerablen Jugendlichen Stimmung und Antrieb; deshalb gehört bei Wintermustern die Lichtfrage zur Behandlung, nicht nur das Gespräch. Geburtstage schließlich bündeln bei Verlust- und Heimgeschichte alles auf einmal: Herkunft, Fehlendes, Vergleich mit anderen — planbare Schwerlast, keine Launenhaftigkeit.'
+    }
   }
 };
 
@@ -12036,7 +12524,17 @@ function emptyPlanBloecke() {
     therapieansatz: { hauptansatz: '', begruendung: '', diagnostik: [], wasDuTust: [], wasDuNichtTust: [], frequenz: '' },
     vierPhasen:     { phase1: '', phase2: '', phase3: '', phase4: '' },
     schulstrategie: { a_problem: '', b_vorlage: '', c_anpassungen: [], d_kontraindikationen: [], e_rollen: [], f_frequenz: '' },
-    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' }
+    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' },
+    /* Block 7 (P28): Gegenübertragung — profil-typische Sogwirkungen.
+       reaktionen: [{ zug, beschreibung, gegenmittel }] */
+    gegenuebertragung: { intro: '', reaktionen: [] },
+    /* Block 8 (P28): Krisenampel — drei Stufen mit Zeichen/Tun/NICHT.
+       rot.schutzhinweis nennt den LU-Notfallpfad. */
+    krisenampel: {
+      gruen: { zeichen: [], tun: [] },
+      gelb:  { zeichen: [], tun: [], nicht_tun: [] },
+      rot:   { zeichen: [], tun: [], nicht_tun: [], schutzhinweis: '' }
+    }
   };
 }
 
@@ -16180,6 +16678,49 @@ function renderSubMusterTiefe(topic, ps, container) {
         : placeholderHtml('Schul-Strategie wird in folgenden Prompts gebaut. Vorlage (5B) erscheint im Cream-Block mit gold-Akzent, sobald befüllt.')}
     </section>`;
 
+  // Block 7 (P28): Gegenübertragung — nur rendern, wenn Inhalt vorhanden.
+  // Die 30 vor P28 befüllten Sub-Muster tragen das Feld nicht; defensiv.
+  const b7 = (selectedMuster.bloecke && selectedMuster.bloecke.gegenuebertragung) || null;
+  const block7Html = (b7 && Array.isArray(b7.reaktionen) && b7.reaktionen.length > 0) ? `
+    <section class="ebene3-block ebene3-block-gegen">
+      <div class="ebene3-block-eyebrow">Block 07 · Was dieses Profil in dir auslöst</div>
+      ${nonEmpty(b7.intro) ? `<div class="ebene3-prose gegen-intro">${escHtml(b7.intro)}</div>` : ''}
+      ${b7.reaktionen.map(r => `
+        <div class="gegen-reaktion">
+          <div class="gegen-zug">${escHtml(r.zug || '')}</div>
+          ${nonEmpty(r.beschreibung) ? `<div class="ebene3-prose">${escHtml(r.beschreibung)}</div>` : ''}
+          ${nonEmpty(r.gegenmittel) ? `<div class="gegen-mittel">→ <em>${escHtml(r.gegenmittel)}</em></div>` : ''}
+        </div>`).join('')}
+    </section>` : '';
+
+  // Block 8 (P28): Krisenampel — drei Stufen, nur rendern wenn mindestens
+  // eine Stufe Zeichen trägt. NICHT-Listen mit fettem Präfix.
+  const b8 = (selectedMuster.bloecke && selectedMuster.bloecke.krisenampel) || null;
+  const ampelStufe = (key, label, st) => {
+    if (!st || !Array.isArray(st.zeichen) || st.zeichen.length === 0) return '';
+    const liste = (titel, arr, nicht) => (arr && arr.length > 0) ? `
+      <div class="ampel-liste-titel">${escHtml(titel)}</div>
+      <ul class="ampel-liste${nicht ? ' ampel-liste-nicht' : ''}">
+        ${arr.map(x => `<li>${nicht ? '<strong>NICHT:</strong> ' : ''}${escHtml(String(x).replace(/^NICHT:?\s*/i, ''))}</li>`).join('')}
+      </ul>` : '';
+    return `
+      <div class="ampel-stufe ampel-${key}">
+        <div class="ampel-stufe-titel">${escHtml(label)}</div>
+        ${liste('Zeichen', st.zeichen, false)}
+        ${liste('Was du tust', st.tun, false)}
+        ${liste('Was du nicht tust', st.nicht_tun, true)}
+        ${nonEmpty(st.schutzhinweis) ? `<div class="ampel-schutzhinweis">${escHtml(st.schutzhinweis)}</div>` : ''}
+      </div>`;
+  };
+  const b8HasAny = b8 && ['gruen', 'gelb', 'rot'].some(k => b8[k] && Array.isArray(b8[k].zeichen) && b8[k].zeichen.length > 0);
+  const block8Html = b8HasAny ? `
+    <section class="ebene3-block ebene3-block-ampel">
+      <div class="ebene3-block-eyebrow">Block 08 · Frühwarnzeichen &amp; Akut — Krisenampel</div>
+      ${ampelStufe('gruen', 'Grün — stabil', b8.gruen)}
+      ${ampelStufe('gelb', 'Gelb — Frühwarnzeichen', b8.gelb)}
+      ${ampelStufe('rot', 'Rot — Akut', b8.rot)}
+    </section>` : '';
+
   // Kontext-Schicht (P27): Einschub-Panels pro aktivem Kontext-Modul,
   // [schutz]-Module zuerst (Sortierung in activeKontextModule). Module ohne
   // befüllte Bloecke und States ohne aktive Module rendern NICHTS — kein
@@ -16246,6 +16787,8 @@ function renderSubMusterTiefe(topic, ps, container) {
         ${block3Html}
         ${block4Html}
         ${block5Html}
+        ${block7Html}
+        ${block8Html}
         ${kontextSchichtHtml}
       </div>
       ${footerHtml}
