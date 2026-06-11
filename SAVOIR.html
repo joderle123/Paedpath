@@ -5142,6 +5142,78 @@ const TOPICS = {
       }
     },
     verwandt: ['asperger', 'adhs-unaufmerksam', 'angststoerungen', 'trauma']
+  },
+  /* A12 Borderline-Strukturen — Topic-Container für die Diagnostik. Wissens-
+     Ebenen folgen in späteren Prompts; Profil-Diagnose mit Krisen-Priorisierung
+     (M6 SVV/Suizidalität) über SYMPTOM_DIAGNOSE_BORDERLINE, PLAN_MUSTER_BORDERLINE
+     und TOPIC_CRISIS_CONFIG.borderline funktional. */
+  'borderline': {
+    id: 'borderline',
+    titel: 'Borderline-Strukturen (Adoleszenz)',
+    kategorie: 'D',
+    ebenen: {},
+    verwandt: ['depression', 'trauma', 'adhs-unaufmerksam', 'essstoerungen']
+  },
+  /* A08 Essstörungen — Topic-Container. Krisen-Priorisierung über
+     TOPIC_CRISIS_CONFIG.essstoerungen (ess-krise, somatische Warnzeichen). */
+  'essstoerungen': {
+    id: 'essstoerungen',
+    titel: 'Essstörungen (Adoleszenz)',
+    kategorie: 'D',
+    ebenen: {},
+    verwandt: ['depression', 'angststoerungen', 'borderline', 'asperger']
+  },
+  /* A13 Psychose-Erstmanifestation — Topic-Container. Krisen-Priorisierung
+     über TOPIC_CRISIS_CONFIG.psychose (psychose-krise). DUP-Minimierung als
+     Leitlinie. */
+  'psychose': {
+    id: 'psychose',
+    titel: 'Psychose-Erstmanifestation (Adoleszenz)',
+    kategorie: 'D',
+    ebenen: {},
+    verwandt: ['trauma', 'depression', 'sucht', 'bipolar']
+  },
+  /* A06 Zwangsstörung — Topic-Container. */
+  'zwangsstoerung': {
+    id: 'zwangsstoerung',
+    titel: 'Zwangsstörung (Adoleszenz)',
+    kategorie: 'C',
+    ebenen: {},
+    verwandt: ['angststoerungen', 'asperger', 'depression']
+  },
+  /* A04 Bipolare Spektrum-Störung — Topic-Container. Krisen-Priorisierung
+     über TOPIC_CRISIS_CONFIG.bipolar (akute Manie / bipolar-manie). */
+  'bipolar': {
+    id: 'bipolar',
+    titel: 'Bipolare Spektrum-Störung (Adoleszenz)',
+    kategorie: 'B',
+    ebenen: {},
+    verwandt: ['depression', 'borderline', 'adhs-unaufmerksam', 'psychose']
+  },
+  /* A10 Verhaltensstörungen (ODD / CD) — Topic-Container. */
+  'verhaltensstoerung': {
+    id: 'verhaltensstoerung',
+    titel: 'Verhaltensstörungen (ODD / CD)',
+    kategorie: 'C',
+    ebenen: {},
+    verwandt: ['adhs-unaufmerksam', 'depression', 'trauma', 'sucht']
+  },
+  /* A09 Substanz- und Verhaltenssucht — Topic-Container. Krisen-Priorisierung
+     über TOPIC_CRISIS_CONFIG.sucht (Intoxikation/Entzug). */
+  'sucht': {
+    id: 'sucht',
+    titel: 'Substanz- und Verhaltenssucht (Adoleszenz)',
+    kategorie: 'D',
+    ebenen: {},
+    verwandt: ['adhs-unaufmerksam', 'depression', 'verhaltensstoerung', 'psychose']
+  },
+  /* A11 Lernstörungen — Topic-Container. */
+  'lernstoerungen': {
+    id: 'lernstoerungen',
+    titel: 'Lernstörungen (Schul-Diagnostik-Achse)',
+    kategorie: 'A',
+    ebenen: {},
+    verwandt: ['adhs-unaufmerksam', 'asperger', 'depression']
   }
 };
 
@@ -6364,7 +6436,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'symptom-auswahl') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
+    if (symptomDiagnoseFor(topic.id)) {
       const ps = loadPlanState(topic.id);
       renderSymptomAuswahl(topic, ps, body);
     } else {
@@ -6379,7 +6451,7 @@ function renderEbene() {
     return;
   }
   if (ebene === 'erkanntes-muster') {
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
+    if (symptomDiagnoseFor(topic.id)) {
       const ps = loadPlanState(topic.id);
       renderErkanntesMuster(topic, ps, body);
     } else {
@@ -6397,7 +6469,7 @@ function renderEbene() {
     STATE.planMode = 'profil';
     STATE.planView = 'output';
     // Asperger + ADHS + Angststörungen + Trauma nutzen den unified Sub-Muster-Tiefe-Renderer.
-    if (topic.id === 'asperger' || topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
+    if (symptomDiagnoseFor(topic.id)) {
       const ps = loadPlanState(topic.id);
       // Asperger braucht ps.generiert für interne renderPlan-Konsistenz (falls Faktoren-Eingabe genutzt wird).
       if (topic.id === 'asperger' && Array.isArray(ps.symptome) && ps.symptome.length > 0 && !ps.generiert) {
@@ -7349,30 +7421,86 @@ function computeSymptomScores(ps, topicId) {
   return out;
 }
 
-/* Krisen-Priorisierung bei Depression (A03): Selektion eines K6-Suizidalitäts-
-   Items ODER Q4 = konkret/passiv aktiviert das Krisen-Profil. Wird von
-   renderErkanntesMuster UND renderSubMusterTiefe genutzt, damit das im
-   Output priorisierte Muster und der geöffnete Behandlungs-Plan konsistent
-   dasselbe Krisen-Profil zeigen. */
-function depressionCrisisActive(topicId, ps) {
-  if (topicId !== 'depression' || !ps) return false;
-  const k6 = (ps.symptome || []).some(s => /^d6-/.test(s));
-  const q4 = !!(ps.kontext && (ps.kontext.suizidalitaet === 'konkret' || ps.kontext.suizidalitaet === 'passiv'));
-  return k6 || q4;
+/* Krisen-Priorisierung — generisch per Topic-Config. Selektion eines
+   Krisen-Symptoms (symptomPrefix) ODER ein Krisen-Wert in der Kontext-Frage
+   (kontextField/crisisValues) aktiviert das Krisen-Profil des Topics:
+   R01-Banner im Output und das Krisen-Muster als Top, unabhängig vom
+   Symptom-Score. Wird von renderErkanntesMuster UND renderSubMusterTiefe
+   genutzt, damit Output und geöffneter Behandlungs-Plan konsistent dasselbe
+   Krisen-Profil zeigen. Neue Achsen mit Krisen-Profil (A08 Mangelversorgung,
+   A13 Realitätsverlust, A09 Intoxikation, A04 Manie) ergänzen hier nur einen
+   Config-Eintrag. */
+const TOPIC_CRISIS_CONFIG = {
+  'depression': {
+    musterId: 'depression-suizidal',
+    symptomPrefix: /^d6-/,
+    kontextField: 'suizidalitaet',
+    crisisValues: ['konkret', 'passiv'],
+    bannerTitel: 'Hinweis auf akute Selbstgefährdung',
+    bannerText: 'Sicherheits-Einschätzung hat Vorrang. Bei konkreter Suizidalität sind die luxemburgischen Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112). Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
+  },
+  'borderline': {
+    musterId: 'borderline-krise',
+    symptomPrefix: /^p6-/,
+    kontextField: 'selbstgefaehrdung',
+    crisisValues: ['akut'],
+    bannerTitel: 'Hinweis auf akute Selbstgefährdung',
+    bannerText: 'Sicherheits-Einschätzung hat Vorrang. Bei akuter Selbstverletzung oder Suizidalität sind die luxemburgischen Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112). Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
+  },
+  'essstoerungen': {
+    musterId: 'ess-krise',
+    symptomPrefix: /^e6-/,
+    kontextField: 'warnzeichen',
+    crisisValues: ['ausgepraegt'],
+    bannerTitel: 'Hinweis auf somatische Mangelversorgung',
+    bannerText: 'Somatische Abklärung hat Vorrang vor jeder psychotherapeutischen Arbeit. Bei Bradykardie, Synkopen, Elektrolyt-Auffälligkeiten, Zyklus-Verlust oder raschem Gewichtsverlust ist die pädiatrische / kinder- und jugendpsychiatrische Anbindung umgehend einzuleiten. Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
+  },
+  'psychose': {
+    musterId: 'psychose-krise',
+    symptomPrefix: /^q6-/,
+    kontextField: null,
+    crisisValues: [],
+    bannerTitel: 'Hinweis auf akute psychotische Symptomatik',
+    bannerText: 'Sofortige fachpsychiatrische Anbindung (KJP-Notdienst). Die Dauer der unbehandelten Psychose (DUP) ist prognostisch entscheidend. Keine konfrontative Korrektur des Wahn-Erlebens, ruhiger strukturierender Rahmen. Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
+  },
+  'bipolar': {
+    musterId: 'bipolar-manie',
+    symptomPrefix: /^b6-5$/,
+    kontextField: null,
+    crisisValues: [],
+    bannerTitel: 'Hinweis auf akute manische Episode',
+    bannerText: 'Akut-psychiatrische Behandlungs-Indikation. Eigen- und Fremdgefährdung in expansiver Phase aktiv abklären (Risiko-Verhalten, finanzielle Schäden, sexuelle Enthemmung). KJP-Notdienst-Anbindung umgehend, Klinik-Frage zeitnah stellen. Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
+  },
+  'sucht': {
+    musterId: 'sucht-krise',
+    symptomPrefix: /^c6-/,
+    kontextField: null,
+    crisisValues: [],
+    bannerTitel: 'Hinweis auf akute Intoxikations- oder Entzugs-Symptomatik',
+    bannerText: 'Somatische Abklärung hat Vorrang. Bei schwerer Intoxikation oder substanz-induzierter Psychose KJP- oder pädiatrische Notfall-Anbindung; bei Entzugs-Symptomen suchtmedizinische Begleitung. CePT und KJP-Sucht-Ambulanz als luxemburgische Strukturen. Das Krisen-Profil wird unten unabhängig vom Symptom-Score prominent angezeigt.'
+  }
+};
+
+function topicCrisisActive(topicId, ps) {
+  const cfg = TOPIC_CRISIS_CONFIG[topicId];
+  if (!cfg || !ps) return false;
+  const sym = (ps.symptome || []).some(s => cfg.symptomPrefix.test(s));
+  const ctx = !!(cfg.kontextField && ps.kontext && cfg.crisisValues.includes(ps.kontext[cfg.kontextField]));
+  return sym || ctx;
 }
 
-/* Hebt M6 (depression-suizidal) in einer Score-Ergebnisliste an Position 1,
+/* Hebt das Krisen-Muster des Topics in einer Score-Ergebnisliste an Position 1,
    unabhängig vom Symptom-Score. Mutiert results; Rückgabe: ob Krise aktiv. */
 function applyCrisisPriorization(topicId, ps, results) {
-  if (!depressionCrisisActive(topicId, ps)) return false;
-  const M6_ID = 'depression-suizidal';
-  const idx = results.findIndex(r => r.muster.id === M6_ID);
+  if (!topicCrisisActive(topicId, ps)) return false;
+  const cfg = TOPIC_CRISIS_CONFIG[topicId];
+  const idx = results.findIndex(r => r.muster.id === cfg.musterId);
   if (idx > 0) {
-    const m6 = results.splice(idx, 1)[0];
-    results.unshift(m6);
+    const m = results.splice(idx, 1)[0];
+    results.unshift(m);
   } else if (idx === -1) {
-    const m6Muster = planMusterFor(topicId).find(m => m.id === M6_ID);
-    if (m6Muster) results.unshift({ muster: m6Muster, score: 0 });
+    const muster = planMusterFor(topicId).find(m => m.id === cfg.musterId);
+    if (muster) results.unshift({ muster, score: 0 });
   }
   return true;
 }
@@ -11556,31 +11684,969 @@ const PLAN_MUSTER_DEPRESSION = [
   }
 ];
 
-/* Per-Topic-Registries für die generischen Render- und Scoring-Funktionen.
-   Asperger-Pfad bleibt unverändert; ADHS wird zusätzlich ausgeliefert. */
+/* Gemeinsame Factory für leere Behandlungs-Plan-Container der neuen Achsen.
+   Schema identisch zur ADHS-/Angst-/Trauma-/Depression-Vorlage. */
+function emptyPlanBloecke() {
+  return {
+    wasDuSiehst:    { profilErkennung: '', klinischWichtig: '', vergleich: '' },
+    risikoProfil:   { kritisch: [], hoch: [], mittel: [] },
+    therapieansatz: { hauptansatz: '', begruendung: '', diagnostik: [], wasDuTust: [], wasDuNichtTust: [], frequenz: '' },
+    vierPhasen:     { phase1: '', phase2: '', phase3: '', phase4: '' },
+    schulstrategie: { a_problem: '', b_vorlage: '', c_anpassungen: [], d_kontraindikationen: [], e_rollen: [], f_frequenz: '' },
+    eskalation:     { frequenzErhoehen: '', ueberweisung: '', klinik: '' }
+  };
+}
+
+/* ============ SYMPTOM-DIAGNOSE — A12 Borderline-Strukturen (Diagnostik-Vollausbau) ============
+   Sechs Sub-Muster. Symptom-IDs p-prefixiert. Adoleszenten-orientierte
+   Sub-Typisierung (Chanen, Linehan DBT-A, Kernberg/Foelsch AIT) statt
+   Erwachsenen-Millon-Subtypen. Krisen-Profil M6 über TOPIC_CRISIS_CONFIG. */
+const SYMPTOM_DIAGNOSE_BORDERLINE = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'dominanz', titel: 'Dominantes Muster', optionen: [
+      { val: 'affekt', text: 'Affekt-Stürme / Emotions-Achterbahn' },
+      { val: 'svv', text: 'Selbstverletzung im Vordergrund' },
+      { val: 'beziehung', text: 'Beziehungs-Stürme / Verlassenheits-Angst' },
+      { val: 'identitaet', text: 'Identitäts-Diffusion / innere Leere' },
+      { val: 'risiko', text: 'Impulsives Risiko-Verhalten' },
+      { val: 'krise', text: 'Akute Krise' }
+    ]},
+    { id: 'selbstgefaehrdung', titel: 'Aktuelle Selbstgefährdung', optionen: [
+      { val: 'keine', text: 'Keine Hinweise' },
+      { val: 'svv', text: 'Selbstverletzung ohne Suizidalität' },
+      { val: 'akut', text: 'Akute Suizidalität oder schwere SVV-Episode' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'affekt', titel: 'Affekt-Regulation', symptome: [
+      { id: 'p1-1', text: 'Intensive Affekt-Stürme, die in Minuten von null auf hundert gehen' },
+      { id: 'p1-2', text: 'Schnelle Stimmungswechsel innerhalb von Stunden' },
+      { id: 'p1-3', text: 'Intensive, schwer kontrollierbare Wut' },
+      { id: 'p1-4', text: 'Affekt kippt bei kleinen interpersonellen Auslösern' },
+      { id: 'p1-5', text: 'Sehr lange Beruhigungszeit nach Affekt-Spitzen' }
+    ]},
+    { id: 'svv-risiko', titel: 'Selbstverletzung & Risiko', symptome: [
+      { id: 'p2-1', text: 'Wiederholtes selbstverletzendes Verhalten' },
+      { id: 'p2-2', text: 'Selbstverletzung als Spannungs-Regulation beschrieben' },
+      { id: 'p2-3', text: 'Riskantes impulsives Verhalten (Substanzen, Sexualität, Verkehr)' },
+      { id: 'p2-4', text: 'Suizid-Drohungen oder -Gesten in Beziehungs-Krisen' },
+      { id: 'p2-5', text: 'Impulsive Selbst-Schädigung ohne Plan' }
+    ]},
+    { id: 'beziehung', titel: 'Beziehungen', symptome: [
+      { id: 'p3-1', text: 'Wechsel zwischen Idealisierung und Entwertung wichtiger Personen' },
+      { id: 'p3-2', text: 'Panische Angst vor dem Verlassenwerden' },
+      { id: 'p3-3', text: 'Wiederholte Beziehungs-Abbrüche mit schneller Wiederannäherung' },
+      { id: 'p3-4', text: 'Eskalationen bei Trennungs- oder Zurückweisungs-Erfahrungen' },
+      { id: 'p3-5', text: 'Serie kurzer, intensiver, instabiler Freundschaften' }
+    ]},
+    { id: 'identitaet', titel: 'Identität & Selbst', symptome: [
+      { id: 'p4-1', text: 'Chronisches Gefühl innerer Leere' },
+      { id: 'p4-2', text: 'Instabiles, wechselndes Selbstbild' },
+      { id: 'p4-3', text: 'Häufige Wechsel von Stil, Peer-Gruppe, Zielen, Werten' },
+      { id: 'p4-4', text: 'Quälende Wer-bin-ich-Fragen mit Diffusions-Charakter' },
+      { id: 'p4-5', text: 'Ausgeprägter Selbsthass' }
+    ]},
+    { id: 'kognition', titel: 'Kognition unter Stress', symptome: [
+      { id: 'p5-1', text: 'Dissoziative Zustände unter Belastung' },
+      { id: 'p5-2', text: 'Misstrauisch-paranoide Ideen unter Belastung' },
+      { id: 'p5-3', text: 'Ausgeprägtes Schwarz-Weiß-Denken' },
+      { id: 'p5-4', text: 'Gefühl innerer Zerrissenheit, mehrere „Versionen" von sich' }
+    ]},
+    { id: 'krise', titel: 'Akute Krise', symptome: [
+      { id: 'p6-1', text: 'Aktuelle schwere Selbstverletzungs-Episode' },
+      { id: 'p6-2', text: 'Akute Suizidalität im Kontext einer Beziehungs-Krise' },
+      { id: 'p6-3', text: 'Akute Kontroll-Verlust-Episoden' },
+      { id: 'p6-4', text: 'Akute Eskalation mit Fremd- oder Sach-Aggression' }
+    ]}
+  ],
+  musterScores: {
+    'borderline-affekt': {
+      kontext: { dominanz: { 'affekt': 15 } },
+      symptome: { 'p1-1': 3, 'p1-2': 3, 'p1-3': 3, 'p1-4': 3, 'p1-5': 2, 'p3-4': 1, 'p5-3': 1 }
+    },
+    'borderline-nssi': {
+      kontext: { dominanz: { 'svv': 15 }, selbstgefaehrdung: { 'svv': 10 } },
+      symptome: { 'p2-1': 3, 'p2-2': 3, 'p2-5': 2, 'p4-5': 2, 'p1-1': 1, 'p6-1': 1 }
+    },
+    'borderline-beziehung': {
+      kontext: { dominanz: { 'beziehung': 15 } },
+      symptome: { 'p3-1': 3, 'p3-2': 3, 'p3-3': 3, 'p3-4': 3, 'p3-5': 2, 'p2-4': 1 }
+    },
+    'borderline-identitaet': {
+      kontext: { dominanz: { 'identitaet': 15 } },
+      symptome: { 'p4-1': 3, 'p4-2': 3, 'p4-3': 3, 'p4-4': 3, 'p4-5': 2, 'p5-4': 2 }
+    },
+    'borderline-risiko': {
+      kontext: { dominanz: { 'risiko': 15 } },
+      symptome: { 'p2-3': 3, 'p2-5': 2, 'p1-3': 1, 'p5-3': 1 }
+    },
+    'borderline-krise': {
+      kontext: { dominanz: { 'krise': 15 }, selbstgefaehrdung: { 'akut': 15, 'svv': 5 } },
+      symptome: { 'p6-1': 3, 'p6-2': 3, 'p6-3': 2, 'p6-4': 2, 'p2-4': 2, 'p2-1': 1 }
+    }
+  }
+};
+
+const MUSTER_KURZ_BORDERLINE = {
+  'borderline-affekt':     'Emotional-dysreguliertes Profil — Affekt-Stürme als Kern: Emotionen schießen in Minuten hoch, brauchen Stunden zum Abklingen, kippen bei kleinen interpersonellen Auslösern. Die Emotions-Regulations-Lücke ist die zentrale Behandlungs-Achse (DBT-A-Skills). Differential zu irritabler Depression und ADHS-Affekt-Labilität klinisch wichtig.',
+  'borderline-nssi':       'NSSI-dominantes Profil — Selbstverletzung als zentrale Spannungs-Regulations-Strategie, oft mit Selbsthass-Komponente. Querschnitt zum Risikofilter R02. Die Funktions-Analyse der Selbstverletzung (Spannungs-Abfuhr, Selbst-Bestrafung, Anti-Dissoziation) bestimmt die Behandlungs-Linie. DBT-A erste Wahl.',
+  'borderline-beziehung':  'Interpersonell-instabiles Profil — Verlassenheits-Panik, Idealisierung/Entwertung, Beziehungs-Abbrüche mit schneller Wiederannäherung. Beziehungs-Krisen sind die Haupt-Trigger für Affekt- und SVV-Episoden. Die therapeutische Beziehung selbst wird zum Übungsfeld; Abbruch-Prophylaxe gehört in die Behandlungs-Planung.',
+  'borderline-identitaet': 'Identitätsdiffusions-Profil — chronische Leere, instabiles Selbstbild, häufige Wechsel von Stil, Gruppe und Zielen, quälende Wer-bin-ich-Fragen. Bei Adoleszenten von normativer Identitäts-Arbeit abzugrenzen: pathologisch ist die Diffusion mit Leidens-Druck und Funktions-Einbruch (AIT nach Kernberg/Foelsch als spezifischer Ansatz).',
+  'borderline-risiko':     'Impulsiv-risikobetontes Profil — Substanz-Exzesse, riskante Sexualität, gefährliches Verkehrs-Verhalten als Spannungs-Regulation und Leere-Füllung. Hohe Überlappung mit Sucht-Achse (A09). Risiko-Management und Impuls-Aufschub-Training vor tieferer Identitäts-Arbeit.',
+  'borderline-krise':      'Akute Krise mit Suizidalität oder schwerer Selbstverletzung — Krisen-Profil mit Vorrang vor allem anderen. Typisch: Eskalation im Kontext einer Beziehungs-Krise, hohe Impulsivität, wechselnde Suizidalität. Sicherheits-Management, Krisen-Plan, niedrige Hospitalisierungs-Schwelle; Differenzierung impulsive Krisen-Suizidalität vs. depressive geplante Suizidalität.'
+};
+
+const PLAN_MUSTER_BORDERLINE = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'borderline-affekt',     name: 'Emotional-dysreguliertes Profil',            bloecke: emptyPlanBloecke() },
+  { id: 'borderline-nssi',      name: 'NSSI-dominantes Profil',                      bloecke: emptyPlanBloecke() },
+  { id: 'borderline-beziehung',  name: 'Interpersonell-instabiles Profil',           bloecke: emptyPlanBloecke() },
+  { id: 'borderline-identitaet', name: 'Identitätsdiffusions-Profil',                bloecke: emptyPlanBloecke() },
+  { id: 'borderline-risiko',     name: 'Impulsiv-risikobetontes Profil',             bloecke: emptyPlanBloecke() },
+  { id: 'borderline-krise',      name: 'Akute Krise (Suizidalität / schwere SVV)',   bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A08 Essstörungen ============
+   Sieben Sub-Muster. Symptom-IDs e-prefixiert. Krisen-Profil M7
+   (Mangelversorgung) über TOPIC_CRISIS_CONFIG mit somatischen Warnzeichen. */
+const SYMPTOM_DIAGNOSE_ESS = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'gewicht', titel: 'Gewichts-Status (klinischer Eindruck)', optionen: [
+      { val: 'ug-deutlich', text: 'Deutliches Untergewicht' },
+      { val: 'ug-leicht', text: 'Leichtes Untergewicht' },
+      { val: 'normal', text: 'Normalgewicht' },
+      { val: 'ueber', text: 'Übergewicht' }
+    ]},
+    { id: 'warnzeichen', titel: 'Somatische Warnzeichen (Zyklusverlust, Synkopen, Bradykardie, rapider Verlust)', optionen: [
+      { val: 'keine', text: 'Keine' },
+      { val: 'vorhanden', text: 'Vorhanden' },
+      { val: 'ausgepraegt', text: 'Ausgeprägt / ärztlich bestätigt' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'restriktion', titel: 'Restriktion & Gewicht', symptome: [
+      { id: 'e1-1', text: 'Restriktives Essen, Auslassen von Mahlzeiten' },
+      { id: 'e1-2', text: 'Kalorienzählen, starre Essens-Regeln' },
+      { id: 'e1-3', text: 'Deutlicher Gewichtsverlust' },
+      { id: 'e1-4', text: 'Bestehendes Untergewicht' },
+      { id: 'e1-5', text: 'Intensive Angst vor Gewichts-Zunahme' }
+    ]},
+    { id: 'anfaelle', titel: 'Essanfälle & Kompensation', symptome: [
+      { id: 'e2-1', text: 'Essanfälle mit Kontrollverlust' },
+      { id: 'e2-2', text: 'Selbstinduziertes Erbrechen' },
+      { id: 'e2-3', text: 'Laxanzien-, Diuretika- oder Abführmittel-Gebrauch' },
+      { id: 'e2-4', text: 'Exzessiver Sport als Kompensation' },
+      { id: 'e2-5', text: 'Fasten oder strenge Restriktion nach Anfällen' }
+    ]},
+    { id: 'koerperbild', titel: 'Körperbild & Kognition', symptome: [
+      { id: 'e3-1', text: 'Körperschema-Verzerrung (fühlt sich dick trotz Untergewicht)' },
+      { id: 'e3-2', text: 'Selbstwert hängt fast vollständig an Figur und Gewicht' },
+      { id: 'e3-3', text: 'Body-Checking oder Körper-Vermeidung (Spiegel, Waage)' },
+      { id: 'e3-4', text: 'Leugnung des Schweregrads des Untergewichts' },
+      { id: 'e3-5', text: 'Ausgeprägte Schuld- und Scham-Gefühle nach dem Essen' }
+    ]},
+    { id: 'vermeidung', titel: 'Vermeidung & Selektivität (ARFID-Spur)', symptome: [
+      { id: 'e4-1', text: 'Stark eingeschränktes Nahrungs-Spektrum ohne Figur-Motiv' },
+      { id: 'e4-2', text: 'Sensorische Ablehnung (Konsistenz, Geruch, Aussehen)' },
+      { id: 'e4-3', text: 'Angst vor Folgen des Essens (Ersticken, Erbrechen, Bauchschmerz)' },
+      { id: 'e4-4', text: 'Fehlendes Interesse an Essen, „vergisst" zu essen' }
+    ]},
+    { id: 'verhalten', titel: 'Verhalten & Sozial', symptome: [
+      { id: 'e5-1', text: 'Heimliches Essen oder Verstecken von Nahrung' },
+      { id: 'e5-2', text: 'Rituale ums Essen (zerkleinern, sortieren, extrem langsam)' },
+      { id: 'e5-3', text: 'Sozialer Rückzug bei gemeinsamen Mahlzeiten' },
+      { id: 'e5-4', text: 'Kocht oder backt für andere, isst selbst nicht mit' }
+    ]},
+    { id: 'somatisch', titel: 'Somatische Warnzeichen', symptome: [
+      { id: 'e6-1', text: 'Zyklus-Verlust (Amenorrhoe) oder Pubertäts-Stillstand' },
+      { id: 'e6-2', text: 'Schwindel, Synkopen, niedriger Puls (Bradykardie-Verdacht)' },
+      { id: 'e6-3', text: 'Kälte-Empfindlichkeit, Lanugo-Behaarung, Haarausfall' },
+      { id: 'e6-4', text: 'Rapider Gewichtsverlust in kurzer Zeit' },
+      { id: 'e6-5', text: 'Elektrolyt- oder Kreislauf-Probleme ärztlich festgestellt' }
+    ]}
+  ],
+  musterScores: {
+    'ess-an-restriktiv': {
+      kontext: { gewicht: { 'ug-deutlich': 10, 'ug-leicht': 5 } },
+      symptome: { 'e1-1': 3, 'e1-2': 3, 'e1-3': 3, 'e1-4': 3, 'e1-5': 3, 'e3-1': 2, 'e3-2': 2, 'e3-4': 2, 'e5-2': 1, 'e5-4': 1 }
+    },
+    'ess-an-bp': {
+      kontext: { gewicht: { 'ug-deutlich': 10, 'ug-leicht': 5 } },
+      symptome: { 'e1-4': 2, 'e1-5': 2, 'e2-1': 2, 'e2-2': 3, 'e2-3': 2, 'e3-1': 2, 'e3-2': 2 }
+    },
+    'ess-bulimie': {
+      kontext: { gewicht: { 'normal': 5 } },
+      symptome: { 'e2-1': 3, 'e2-2': 3, 'e2-3': 2, 'e2-4': 2, 'e2-5': 2, 'e3-2': 2, 'e3-5': 2, 'e5-1': 2 }
+    },
+    'ess-bed': {
+      kontext: { gewicht: { 'ueber': 5 } },
+      symptome: { 'e2-1': 3, 'e5-1': 3, 'e3-5': 2 },
+      negativ: { symptome: ['e2-2', 'e2-3', 'e2-4'], proSymptom: -10 }
+    },
+    'ess-arfid': {
+      kontext: {},
+      symptome: { 'e4-1': 3, 'e4-2': 3, 'e4-3': 3, 'e4-4': 3 },
+      negativ: { symptome: ['e3-1', 'e3-2'], proSymptom: -10 }
+    },
+    'ess-atypisch': {
+      kontext: { gewicht: { 'normal': 10 } },
+      symptome: { 'e1-1': 2, 'e1-2': 2, 'e1-5': 2, 'e3-1': 2, 'e3-2': 2, 'e3-3': 2 }
+    },
+    'ess-krise': {
+      kontext: { warnzeichen: { 'ausgepraegt': 15, 'vorhanden': 5 } },
+      symptome: { 'e6-1': 2, 'e6-2': 3, 'e6-3': 2, 'e6-4': 3, 'e6-5': 3, 'e1-3': 1, 'e1-4': 1 }
+    }
+  }
+};
+
+const MUSTER_KURZ_ESS = {
+  'ess-an-restriktiv': 'Anorexia nervosa, restriktiver Typ — Untergewicht durch Restriktion, intensive Zunahme-Angst, Körperschema-Verzerrung, oft Leugnung des Schweregrads. Höchste Mortalität aller psychiatrischen Erkrankungen der Adoleszenz; somatisches Monitoring und Family-Based Treatment (Lock & Le Grange) als Erstlinie.',
+  'ess-an-bp':         'Anorexia nervosa, Binge-Purge-Typ — Untergewicht plus Essanfälle und/oder Purging-Verhalten. Medizinisch riskanteste AN-Form (Elektrolyte). Klinische Linie wie AN-restriktiv plus Purging-spezifisches Monitoring (Kalium, Zahnstatus, Ösophagus).',
+  'ess-bulimie':       'Bulimia nervosa — Essanfälle mit Kontrollverlust plus kompensatorisches Verhalten (Erbrechen, Laxanzien, Sport, Fasten) bei meist Normalgewicht. Oft lange verheimlicht; Scham-Achse zentral. CBT-E (Fairburn) evidenzbasiert, somatisches Monitoring (Elektrolyte) parallel.',
+  'ess-bed':           'Binge-Eating-Störung — Essanfälle mit Kontrollverlust ohne Kompensation, häufig mit Übergewicht und ausgeprägter Scham. Differenzierung zu „normalem" Überessen über Kontrollverlust-Erleben und Leidensdruck. CBT-E adaptiert; Gewichts-Stigma in Schule und Familie aktiv adressieren.',
+  'ess-arfid':         'ARFID (vermeidend-restriktive Ernährungsstörung) — stark eingeschränktes Ess-Spektrum ohne Körperbild-Motiv: sensorische Ablehnung, Angst vor dem Essen (Ersticken, Erbrechen) oder fehlendes Interesse. Häufig bei Asperger-Profil (A01-Komorbidität prüfen). Expositions-basierte Behandlung, keine Diät-Logik.',
+  'ess-atypisch':      'Atypische Anorexie — alle AN-Kriterien (Restriktion, Zunahme-Angst, Körperschema-Störung) bei Normal- oder Übergewicht, oft nach massivem Gewichtsverlust von höherem Ausgangsgewicht. Medizinisch genauso riskant wie klassische AN, wird aber wegen „normalem" Gewicht systematisch übersehen und bagatellisiert.',
+  'ess-krise':         'Mangelversorgungs-Krise — somatische Dekompensation: Bradykardie, Synkopen, Elektrolyt-Entgleisung, rapider Gewichtsverlust, Zyklus-Verlust. Krisen-Profil mit Vorrang: somatische Stabilisierung vor jeder psychotherapeutischen Arbeit, pädiatrisches Monitoring, Refeeding nur unter ärztlicher Kontrolle, niedrige Schwelle zur stationären Aufnahme.'
+};
+
+const PLAN_MUSTER_ESS = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'ess-an-restriktiv', name: 'Anorexia nervosa, restriktiver Typ',        bloecke: emptyPlanBloecke() },
+  { id: 'ess-an-bp',         name: 'Anorexia nervosa, Binge-Purge-Typ',         bloecke: emptyPlanBloecke() },
+  { id: 'ess-bulimie',       name: 'Bulimia nervosa',                           bloecke: emptyPlanBloecke() },
+  { id: 'ess-bed',           name: 'Binge-Eating-Störung',                      bloecke: emptyPlanBloecke() },
+  { id: 'ess-arfid',         name: 'ARFID (vermeidend-restriktiv)',             bloecke: emptyPlanBloecke() },
+  { id: 'ess-atypisch',      name: 'Atypische Anorexie',                        bloecke: emptyPlanBloecke() },
+  { id: 'ess-krise',         name: 'Mangelversorgungs-Krise',                   bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A13 Psychose-Erstmanifestation ============
+   Fünf Sub-Muster. Symptom-IDs q-prefixiert. Krisen-Profil M5 (akuter
+   Realitätsverlust) über TOPIC_CRISIS_CONFIG. DUP-Minimierung als Leitlinie. */
+const SYMPTOM_DIAGNOSE_PSYCHOSE = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'verlauf', titel: 'Verlauf', optionen: [
+      { val: 'schleichend', text: 'Schleichend über Monate' },
+      { val: 'akut', text: 'Akut innerhalb von Tagen bis Wochen' },
+      { val: 'episodisch', text: 'Episodisch mit Stimmungs-Bezug' }
+    ]},
+    { id: 'substanz', titel: 'Substanz-Konsum', optionen: [
+      { val: 'kein', text: 'Kein Konsum bekannt' },
+      { val: 'cannabis', text: 'Cannabis-Konsum' },
+      { val: 'andere', text: 'Andere Substanzen' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'wahrnehmung', titel: 'Wahrnehmung', symptome: [
+      { id: 'q1-1', text: 'Hört Stimmen, die andere nicht hören' },
+      { id: 'q1-2', text: 'Andere akustische Phänomene (Geräusche, Rufen des Namens)' },
+      { id: 'q1-3', text: 'Visuelle Wahrnehmungs-Veränderungen' },
+      { id: 'q1-4', text: 'Körper-Wahrnehmungs-Veränderungen (Beeinflussungs-Gefühl)' }
+    ]},
+    { id: 'denken', titel: 'Denken & Überzeugungen', symptome: [
+      { id: 'q2-1', text: 'Verfolgungs- oder Bedrohungs-Ideen' },
+      { id: 'q2-2', text: 'Beziehungs-Ideen (alles bezieht sich auf mich, Anspielungen überall)' },
+      { id: 'q2-3', text: 'Bizarre, nicht korrigierbare Überzeugungen' },
+      { id: 'q2-4', text: 'Gedankeneingebung, -entzug oder -ausbreitung erlebt' },
+      { id: 'q2-5', text: 'Stimmungs-kongruente Wahn-Themen (Schuld, Versündigung, Größe)' }
+    ]},
+    { id: 'sprache', titel: 'Sprache & formales Denken', symptome: [
+      { id: 'q3-1', text: 'Zerfahrene, schwer folgbare Sprache' },
+      { id: 'q3-2', text: 'Gedankenabbrüche mitten im Satz' },
+      { id: 'q3-3', text: 'Wortneuschöpfungen' },
+      { id: 'q3-4', text: 'Sprunghaft-assoziatives Denken ohne roten Faden' }
+    ]},
+    { id: 'negativ', titel: 'Negativ-Symptomatik', symptome: [
+      { id: 'q4-1', text: 'Affekt-Verflachung, reduzierte Mimik' },
+      { id: 'q4-2', text: 'Sprach-Verarmung, einsilbige Antworten neu aufgetreten' },
+      { id: 'q4-3', text: 'Sozialer Rückzug, neu und zunehmend' },
+      { id: 'q4-4', text: 'Antriebs- und Energie-Verlust' },
+      { id: 'q4-5', text: 'Vernachlässigung von Hygiene und Selbstsorge' }
+    ]},
+    { id: 'prodromal', titel: 'Prodromal & Funktionsniveau', symptome: [
+      { id: 'q5-1', text: 'Schleichender Leistungsknick über Monate' },
+      { id: 'q5-2', text: 'Flüchtige ungewöhnliche Wahrnehmungs-Erlebnisse' },
+      { id: 'q5-3', text: 'Zunehmendes Misstrauen' },
+      { id: 'q5-4', text: 'Zunehmendes magisches Denken' },
+      { id: 'q5-5', text: 'Neuartige Konzentrations-Störung' }
+    ]},
+    { id: 'krise', titel: 'Akute Krise', symptome: [
+      { id: 'q6-1', text: 'Akuter Realitätsverlust' },
+      { id: 'q6-2', text: 'Massive Angst durch Wahn oder Halluzinationen' },
+      { id: 'q6-3', text: 'Eigen- oder Fremdgefährdung durch psychotisches Erleben' },
+      { id: 'q6-4', text: 'Völlige Desorganisation von Verhalten und Alltag' }
+    ]}
+  ],
+  musterScores: {
+    'psychose-prodromal': {
+      kontext: { verlauf: { 'schleichend': 15 } },
+      symptome: { 'q5-1': 3, 'q5-2': 3, 'q5-3': 3, 'q5-4': 2, 'q5-5': 2, 'q4-3': 2, 'q4-4': 1 }
+    },
+    'psychose-paranoid': {
+      kontext: { verlauf: { 'akut': 10 } },
+      symptome: { 'q1-1': 3, 'q2-1': 3, 'q2-2': 3, 'q2-4': 2, 'q1-2': 2, 'q5-3': 1 }
+    },
+    'psychose-desorganisiert': {
+      kontext: {},
+      symptome: { 'q3-1': 3, 'q3-2': 3, 'q3-3': 2, 'q3-4': 3, 'q4-5': 2, 'q6-4': 1 }
+    },
+    'psychose-affektiv': {
+      kontext: { verlauf: { 'episodisch': 15 } },
+      symptome: { 'q2-5': 3, 'q1-1': 2, 'q2-1': 1 }
+    },
+    'psychose-krise': {
+      kontext: {},
+      symptome: { 'q6-1': 3, 'q6-2': 3, 'q6-3': 3, 'q6-4': 2, 'q1-1': 1, 'q2-1': 1 }
+    }
+  }
+};
+
+const MUSTER_KURZ_PSYCHOSE = {
+  'psychose-prodromal':      'Prodromal-Profil (Ultra-High-Risk) — schleichender Leistungsknick, flüchtige Wahrnehmungs-Phänomene, zunehmendes Misstrauen und magisches Denken über Monate, ohne manifestes psychotisches Vollbild. Früherkennung nach Yung/McGorry: strukturierte UHR-Abklärung (SIPS/SOPS, CAARMS), engmaschiges Monitoring, keine vorschnelle Antipsychotika-Gabe.',
+  'psychose-paranoid':       'Akut-paranoides Profil — Verfolgungs- und Beziehungs-Ideen, Stimmen, Beeinflussungs-Erleben mit relativ akutem Beginn. DUP-Minimierung (Dauer der unbehandelten Psychose) ist prognose-entscheidend: schnelle KJP-Anbindung. Differential zu trauma-bedingter Dissoziation (A07.M6: Ich-Nähe, Trigger-Bezug) aktiv prüfen.',
+  'psychose-desorganisiert': 'Desorganisiertes Profil — zerfahrene Sprache, Gedankenabbrüche, assoziatives Denken, Verhaltens-Desorganisation und Vernachlässigung der Selbstsorge im Vordergrund. Funktions-Einbruch oft massiv; schulisch früh sichtbar. Schnelle fachpsychiatrische Abklärung, strukturierender Alltags-Rahmen.',
+  'psychose-affektiv':       'Affektiv-überlagertes Profil — psychotische Symptome im Kontext schwerer affektiver Episoden, stimmungs-kongruente Wahn-Themen (Schuld, Versündigung, Größe). Differential zu bipolarer Störung mit psychotischen Merkmalen (A04) und psychotischer Depression; die affektive Achse bestimmt die Behandlungs-Linie mit.',
+  'psychose-krise':          'Erstmanifestations-Krise — akuter Realitätsverlust, massive Angst durch Wahn oder Halluzinationen, Eigen- oder Fremdgefährdung, völlige Desorganisation. Krisen-Profil mit Vorrang: sofortige KJP-Anbindung, gegebenenfalls stationäre Aufnahme, Familie stabilisieren, keine konfrontative Korrektur des Wahn-Erlebens.'
+};
+
+const PLAN_MUSTER_PSYCHOSE = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'psychose-prodromal',      name: 'Prodromal-Profil (Ultra-High-Risk)',      bloecke: emptyPlanBloecke() },
+  { id: 'psychose-paranoid',       name: 'Akut-paranoides Profil',                  bloecke: emptyPlanBloecke() },
+  { id: 'psychose-desorganisiert', name: 'Desorganisiertes Profil',                 bloecke: emptyPlanBloecke() },
+  { id: 'psychose-affektiv',       name: 'Affektiv-überlagertes Profil',            bloecke: emptyPlanBloecke() },
+  { id: 'psychose-krise',          name: 'Erstmanifestations-Krise',                bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A06 Zwangsstörung ============
+   Sieben Sub-Muster. Symptom-IDs o-prefixiert. */
+const SYMPTOM_DIAGNOSE_ZWANG = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'beginn', titel: 'Beginn der Symptomatik', optionen: [
+      { val: 'schleichend', text: 'Schleichend' },
+      { val: 'ploetzlich-infekt', text: 'Plötzlich, zeitnah zu Infekt (PANDAS/PANS-Hinweis)' },
+      { val: 'nach-belastung', text: 'Nach Belastungs-Ereignis' }
+    ]},
+    { id: 'einsicht', titel: 'Einsicht in die Unsinnigkeit', optionen: [
+      { val: 'gut', text: 'Gut vorhanden' },
+      { val: 'wechselnd', text: 'Wechselnd' },
+      { val: 'fehlend', text: 'Weitgehend fehlend' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'kontamination', titel: 'Kontamination & Waschen', symptome: [
+      { id: 'o1-1', text: 'Angst vor Keimen, Schmutz oder Verunreinigung' },
+      { id: 'o1-2', text: 'Exzessives Waschen oder Desinfizieren' },
+      { id: 'o1-3', text: 'Vermeidung von Berührung (Türklinken, gemeinsame Gegenstände)' },
+      { id: 'o1-4', text: 'Ekel-getriebene Rituale' }
+    ]},
+    { id: 'kontrolle', titel: 'Kontrolle & Wiederholung', symptome: [
+      { id: 'o2-1', text: 'Kontrollieren (Tür, Herd, Schultasche) wiederholt' },
+      { id: 'o2-2', text: 'Wiederhol-Rituale, bis es sich „richtig" anfühlt' },
+      { id: 'o2-3', text: 'Zähl-Zwänge' },
+      { id: 'o2-4', text: 'Extrem langsames, ritualisiertes Arbeiten' }
+    ]},
+    { id: 'symmetrie', titel: 'Symmetrie & Ordnung', symptome: [
+      { id: 'o3-1', text: 'Ordnen und Ausrichten von Gegenständen' },
+      { id: 'o3-2', text: 'Starkes Symmetrie-Bedürfnis' },
+      { id: 'o3-3', text: 'Massives Unbehagen bei „falsch" platzierten Dingen' },
+      { id: 'o3-4', text: 'Just-Right-Gefühl wird gesucht, bis es stimmt' }
+    ]},
+    { id: 'verboten', titel: 'Verbotene Gedanken', symptome: [
+      { id: 'o4-1', text: 'Aggressive Intrusionen (jemandem schaden, ohne es zu wollen)' },
+      { id: 'o4-2', text: 'Sexuelle Intrusionen, die massiv beschämen' },
+      { id: 'o4-3', text: 'Blasphemische oder moralische Intrusionen' },
+      { id: 'o4-4', text: 'Massive Scham und Geheimhaltung der Gedanken' },
+      { id: 'o4-5', text: 'Vermeidung von Situationen, die die Gedanken auslösen' }
+    ]},
+    { id: 'horten', titel: 'Horten & Sammeln', symptome: [
+      { id: 'o5-1', text: 'Horten von Gegenständen ohne objektiven Wert' },
+      { id: 'o5-2', text: 'Unfähigkeit, sich von Objekten zu trennen' },
+      { id: 'o5-3', text: 'Zimmer durch Sammlungen zunehmend unbenutzbar' },
+      { id: 'o5-4', text: 'Massives Leid bei Wegwerf-Versuchen durch andere' }
+    ]},
+    { id: 'verlauf', titel: 'Verlauf & Funktion', symptome: [
+      { id: 'o6-1', text: 'Mehr als eine Stunde täglich durch Zwänge gebunden' },
+      { id: 'o6-2', text: 'Deutliche schulische Beeinträchtigung durch Rituale' },
+      { id: 'o6-3', text: 'Familie in Rituale eingebunden (Rückversicherung, Mitmachen)' },
+      { id: 'o6-4', text: 'Plötzlicher dramatischer Beginn zeitnah zu Infekt' },
+      { id: 'o6-5', text: 'Begleitende Tic-Symptomatik' },
+      { id: 'o6-6', text: 'Mentale Rituale ohne sichtbare Handlung (neutralisieren, beten, zählen im Kopf)' },
+      { id: 'o6-7', text: 'Einsicht vorhanden: erkennt Zwänge als übertrieben' }
+    ]}
+  ],
+  musterScores: {
+    'zwang-kontamination': {
+      kontext: {},
+      symptome: { 'o1-1': 3, 'o1-2': 3, 'o1-3': 3, 'o1-4': 2, 'o6-1': 1, 'o6-3': 1 }
+    },
+    'zwang-symmetrie': {
+      kontext: {},
+      symptome: { 'o3-1': 3, 'o3-2': 3, 'o3-3': 3, 'o2-2': 2, 'o2-3': 2 }
+    },
+    'zwang-verboten': {
+      kontext: {},
+      symptome: { 'o4-1': 3, 'o4-2': 3, 'o4-3': 3, 'o4-4': 3, 'o4-5': 2, 'o6-6': 2 }
+    },
+    'zwang-hoarding': {
+      kontext: {},
+      symptome: { 'o5-1': 3, 'o5-2': 3, 'o5-3': 3, 'o5-4': 3 }
+    },
+    'zwang-justright': {
+      kontext: {},
+      symptome: { 'o3-4': 3, 'o2-2': 3, 'o2-4': 2, 'o3-3': 2, 'o6-5': 1 }
+    },
+    'zwang-pandas': {
+      kontext: { beginn: { 'ploetzlich-infekt': 15 } },
+      symptome: { 'o6-4': 3, 'o6-5': 2, 'o2-1': 1, 'o1-2': 1 }
+    },
+    'zwang-gedanken': {
+      kontext: {},
+      symptome: { 'o6-6': 3, 'o4-1': 2, 'o4-2': 2, 'o4-4': 2 },
+      negativ: { symptome: ['o1-2', 'o2-1', 'o3-1'], proSymptom: -5 }
+    }
+  }
+};
+
+const MUSTER_KURZ_ZWANG = {
+  'zwang-kontamination': 'Kontaminations-Profil — Keim- und Schmutz-Angst mit Wasch- und Vermeidungs-Ritualen. Häufigste Zwangs-Form; Schul-Alltag (Toiletten, Kantine, Sport) ist Trigger-dicht. Exposition mit Reaktions-Verhinderung (ERP nach March & Mulle) als Goldstandard; Familie aus den Ritualen herauslösen.',
+  'zwang-symmetrie':     'Symmetrie- und Ordnungs-Profil — Ausrichten, Anordnen, massives Unbehagen bei „falsch" platzierten Dingen. Differential zum Asperger-Profil (A01) klinisch wichtig: Zwang ist ich-dyston mit Leidens-Druck, autistische Routinen sind ich-synton stabilisierend.',
+  'zwang-verboten':      'Profil verbotener Gedanken — aggressive, sexuelle oder blasphemische Intrusionen mit massiver Scham und Geheimhaltung. Die Gedanken sind ich-dyston und sagen nichts über die Person; diese Psychoedukation ist der erste Behandlungs-Schritt. Hohe Dunkelziffer, weil aus Scham nicht berichtet wird — aktiv normalisierend erfragen.',
+  'zwang-hoarding':      'Hortungs-Profil — Sammeln und Unfähigkeit zur Trennung von Objekten, bis Räume unbenutzbar werden. Bei Jugendlichen seltener als bei Erwachsenen, aber früh chronifizierend. Spezifische ERP-Variante; Zwangs-Entrümpelung durch Eltern ist kontraindiziert und verschärft.',
+  'zwang-justright':     'Just-Right-Profil — Wiederholen, bis sich Handlungen „richtig anfühlen", oft ohne kognitive Befürchtung dahinter. Hohe Überlappung mit Tic-Spektrum (Tourette-Differential prüfen). Sensorisch getriebene Variante; ERP angepasst, da klassische Befürchtungs-Exposition oft ins Leere greift.',
+  'zwang-pandas':        'PANDAS/PANS-Verdachts-Profil — plötzlicher dramatischer Zwangs-Beginn zeitnah zu Infekt (klassisch Streptokokken), oft mit Tic-Symptomatik, Ess-Einschränkung oder Enuresis. Pädiatrische Abklärung (Streptokokken-Serologie) zwingend vor rein psychotherapeutischer Linie (Swedo).',
+  'zwang-gedanken':      'Reine Zwangsgedanken (Pure-O) — mentale Rituale (neutralisieren, innerlich zählen, beten) ohne sichtbare Handlungen. Wird regelmäßig übersehen, weil äußerlich nichts beobachtbar ist; Schule sieht nur Konzentrations-Einbruch. ERP auf mentale Rituale fokussiert, Gedanken-Unterdrückung paradox kontraindiziert.'
+};
+
+const PLAN_MUSTER_ZWANG = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'zwang-kontamination', name: 'Kontaminations-Profil',              bloecke: emptyPlanBloecke() },
+  { id: 'zwang-symmetrie',     name: 'Symmetrie- und Ordnungs-Profil',     bloecke: emptyPlanBloecke() },
+  { id: 'zwang-verboten',      name: 'Verbotene Gedanken',                 bloecke: emptyPlanBloecke() },
+  { id: 'zwang-hoarding',      name: 'Hortungs-Profil',                    bloecke: emptyPlanBloecke() },
+  { id: 'zwang-justright',     name: 'Just-Right-Profil',                  bloecke: emptyPlanBloecke() },
+  { id: 'zwang-pandas',        name: 'PANDAS/PANS-Verdacht',               bloecke: emptyPlanBloecke() },
+  { id: 'zwang-gedanken',      name: 'Reine Zwangsgedanken (Pure-O)',      bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A04 Bipolare Spektrum-Störung ============
+   Sechs Sub-Muster. Symptom-IDs b-prefixiert. Krisen-Trigger: akute Manie
+   (b6-5) über TOPIC_CRISIS_CONFIG. Familien-Anamnese als prädiktiver Boost. */
+const SYMPTOM_DIAGNOSE_BIPOLAR = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'phase', titel: 'Aktuelle Phase', optionen: [
+      { val: 'gehoben', text: 'Gehoben / expansiv' },
+      { val: 'gedrueckt', text: 'Gedrückt / depressiv' },
+      { val: 'gemischt', text: 'Gemischt / schnell wechselnd' },
+      { val: 'unklar', text: 'Unklar' }
+    ]},
+    { id: 'familie', titel: 'Bipolare Störung in der Familien-Anamnese', optionen: [
+      { val: 'ja', text: 'Ja' },
+      { val: 'nein', text: 'Nein' },
+      { val: 'unbekannt', text: 'Unbekannt' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'gehoben', titel: 'Gehobene Phase', symptome: [
+      { id: 'b1-1', text: 'Gehobene oder expansive Stimmung über Tage' },
+      { id: 'b1-2', text: 'Deutlich reduziertes Schlafbedürfnis ohne Müdigkeit am Folgetag' },
+      { id: 'b1-3', text: 'Rededrang, Ideenflucht' },
+      { id: 'b1-4', text: 'Größen-Ideen, unrealistische Pläne' },
+      { id: 'b1-5', text: 'Riskantes, enthemmtes Verhalten in der Phase' }
+    ]},
+    { id: 'energie', titel: 'Energie & Aktivität', symptome: [
+      { id: 'b2-1', text: 'Ungewöhnliche Aktivitäts-Schübe' },
+      { id: 'b2-2', text: 'Viele Projekte in kurzer Zeit begonnen' },
+      { id: 'b2-3', text: 'Sozial enthemmt oder distanzlos in Phasen' },
+      { id: 'b2-4', text: 'Phasenhaft gesteigerte Libido oder Geld-Ausgaben' }
+    ]},
+    { id: 'depressiv', titel: 'Depressive Phase', symptome: [
+      { id: 'b3-1', text: 'Tiefe depressive Episoden in der Vorgeschichte' },
+      { id: 'b3-2', text: 'Hypersomnie in depressiven Phasen' },
+      { id: 'b3-3', text: 'Massive psychomotorische Hemmung in der Phase' },
+      { id: 'b3-4', text: 'Suizidalität in depressiven Phasen' }
+    ]},
+    { id: 'zyklik', titel: 'Wechsel & Zyklik', symptome: [
+      { id: 'b4-1', text: 'Klar abgrenzbare Episoden mit Anfang und Ende' },
+      { id: 'b4-2', text: 'Schnelle Phasen-Wechsel innerhalb von Wochen' },
+      { id: 'b4-3', text: 'Saisonale Häufung der Episoden' },
+      { id: 'b4-4', text: 'Vier oder mehr Episoden pro Jahr' }
+    ]},
+    { id: 'gemischt', titel: 'Gemischte Zustände', symptome: [
+      { id: 'b5-1', text: 'Agitation und gedrückte Stimmung gleichzeitig' },
+      { id: 'b5-2', text: 'Reizbarkeit mit Energie-Schub' },
+      { id: 'b5-3', text: 'Quälende innere Unruhe' },
+      { id: 'b5-4', text: 'Suizidalität mit gleichzeitiger Energie (Hochrisiko-Konstellation)' }
+    ]},
+    { id: 'schwere', titel: 'Schwere & Realitätsbezug', symptome: [
+      { id: 'b6-1', text: 'Psychotische Symptome innerhalb einer Phase' },
+      { id: 'b6-2', text: 'Funktions-Zusammenbruch in der Phase' },
+      { id: 'b6-3', text: 'Klinik-Vorgeschichte wegen einer Phase' },
+      { id: 'b6-4', text: 'Fremdgefährdung in expansiver Phase' },
+      { id: 'b6-5', text: 'Akute manische Episode aktuell' }
+    ]}
+  ],
+  musterScores: {
+    'bipolar-hypomanie': {
+      kontext: { phase: { 'gehoben': 10 }, familie: { 'ja': 5 } },
+      symptome: { 'b1-1': 3, 'b1-2': 3, 'b1-3': 2, 'b2-1': 3, 'b2-2': 2, 'b2-3': 1 },
+      negativ: { symptome: ['b6-1', 'b6-2'], proSymptom: -5 }
+    },
+    'bipolar-manie': {
+      kontext: { phase: { 'gehoben': 10 }, familie: { 'ja': 5 } },
+      symptome: { 'b1-1': 3, 'b1-2': 3, 'b1-3': 3, 'b1-4': 3, 'b1-5': 3, 'b6-1': 2, 'b6-2': 2, 'b6-5': 3, 'b2-3': 2, 'b2-4': 2 }
+    },
+    'bipolar-depression': {
+      kontext: { phase: { 'gedrueckt': 10 }, familie: { 'ja': 10 } },
+      symptome: { 'b3-1': 3, 'b3-2': 3, 'b3-3': 3, 'b3-4': 2, 'b4-1': 2 }
+    },
+    'bipolar-2': {
+      kontext: { familie: { 'ja': 5 } },
+      symptome: { 'b3-1': 3, 'b1-1': 2, 'b1-2': 2, 'b4-1': 2, 'b3-2': 2 },
+      negativ: { symptome: ['b6-2', 'b6-5'], proSymptom: -5 }
+    },
+    'bipolar-mixed': {
+      kontext: { phase: { 'gemischt': 15 } },
+      symptome: { 'b5-1': 3, 'b5-2': 3, 'b5-3': 3, 'b5-4': 3 }
+    },
+    'bipolar-rapid': {
+      kontext: {},
+      symptome: { 'b4-2': 3, 'b4-4': 3, 'b4-1': 2, 'b4-3': 2 }
+    }
+  }
+};
+
+const MUSTER_KURZ_BIPOLAR = {
+  'bipolar-hypomanie':  'Hypomanes Profil — gehobene Stimmung, reduziertes Schlafbedürfnis ohne Folgemüdigkeit, Aktivitäts-Schübe, ohne Funktions-Zusammenbruch oder psychotische Symptome. Bei Jugendlichen leicht mit „guter Phase" oder ADHS verwechselt. Diagnostisch zentral: klare Episoden-Abgrenzung mit Anfang und Ende, K-SADS-PL strukturiert.',
+  'bipolar-manie':      'Manisches Profil — voll ausgeprägte Episode mit Größen-Ideen, massiv reduziertem Schlaf, Enthemmung, gegebenenfalls psychotischen Symptomen und Funktions-Zusammenbruch. Akut-psychiatrische Behandlungs-Indikation; bei akuter Manie ist die Klinik-Frage sofort zu stellen (Eigen-/Fremdgefährdung, Reputations-Schäden).',
+  'bipolar-depression': 'Bipolare Depression (BP-I-Verlauf) — tiefe depressive Episoden mit Hypersomnie und psychomotorischer Hemmung, in der Anamnese manische oder hypomane Phasen. Behandlungs-relevant: SSRI-Monotherapie kann Switch-Risiko bergen; Stimmungs-Stabilisierer-Frage gehört zur KJP. Familien-Anamnese stark prädiktiv.',
+  'bipolar-2':          'Bipolar-II-Muster — schwere depressive Episoden plus hypomane Phasen, die nie das Vollbild der Manie erreichen. Wird häufig als rezidivierende unipolare Depression fehldiagnostiziert; die Hypomanie wird nicht berichtet, weil sie als „endlich gute Phase" erlebt wird. Aktiv nach energetisierten Phasen mit wenig Schlaf fragen.',
+  'bipolar-mixed':      'Gemischtes Zustandsbild — Agitation, Reizbarkeit und Energie bei gleichzeitig gedrückter Stimmung. Die gefährlichste Konstellation des bipolaren Spektrums: Suizidalität mit Handlungs-Energie. Engmaschiges Krisen-Management, KJP-Anbindung dringlich, Suizidalitäts-Screening in jeder Sitzung.',
+  'bipolar-rapid':      'Rapid-Cycling-Muster — vier oder mehr Episoden pro Jahr, schnelle Wechsel. Bei Adoleszenten differenzialdiagnostisch heikel: Abgrenzung zu Borderline-Affekt-Instabilität (A12: Stunden-Takt, interpersonell getriggert) gegen echte Zyklik (Tage bis Wochen, autonomer Verlauf). Verlaufs-Kalender als Diagnostik-Werkzeug.'
+};
+
+const PLAN_MUSTER_BIPOLAR = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'bipolar-hypomanie',  name: 'Hypomanes Profil',                       bloecke: emptyPlanBloecke() },
+  { id: 'bipolar-manie',      name: 'Manisches Profil (akut)',                bloecke: emptyPlanBloecke() },
+  { id: 'bipolar-depression', name: 'Bipolare Depression (BP-I)',             bloecke: emptyPlanBloecke() },
+  { id: 'bipolar-2',          name: 'Bipolar-II-Muster',                      bloecke: emptyPlanBloecke() },
+  { id: 'bipolar-mixed',      name: 'Gemischtes Zustandsbild',                bloecke: emptyPlanBloecke() },
+  { id: 'bipolar-rapid',      name: 'Rapid-Cycling-Muster',                   bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A10 Verhaltensstörungen (ODD/CD) ============
+   Fünf Sub-Muster. Symptom-IDs v-prefixiert. Trauma- und Depressions-
+   Differential (A07.M4, A03.M2) klinisch zentral. */
+const SYMPTOM_DIAGNOSE_VERHALTEN = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'beginn', titel: 'Beginn des Verhaltens-Musters', optionen: [
+      { val: 'vor10', text: 'Vor dem 10. Lebensjahr' },
+      { val: 'adoleszenz', text: 'Erst in der Adoleszenz' }
+    ]},
+    { id: 'umfeld', titel: 'Familien-Umfeld', optionen: [
+      { val: 'belastet', text: 'Deutlich belastet (Konflikte, Gewalt, Instabilität)' },
+      { val: 'unauffaellig', text: 'Unauffällig' },
+      { val: 'unklar', text: 'Unklar' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'opposition', titel: 'Opposition', symptome: [
+      { id: 'v1-1', text: 'Häufiger Streit mit Autoritäts-Personen' },
+      { id: 'v1-2', text: 'Aktive Verweigerung von Regeln und Aufforderungen' },
+      { id: 'v1-3', text: 'Ärgert andere absichtlich' },
+      { id: 'v1-4', text: 'Schiebt eigene Fehler anderen zu' },
+      { id: 'v1-5', text: 'Reizbar, leicht verärgert, empfindlich' }
+    ]},
+    { id: 'aggression', titel: 'Aggression', symptome: [
+      { id: 'v2-1', text: 'Körperliche Auseinandersetzungen' },
+      { id: 'v2-2', text: 'Drohungen oder Einschüchterung anderer' },
+      { id: 'v2-3', text: 'Grausamkeit gegenüber Menschen' },
+      { id: 'v2-4', text: 'Grausamkeit gegenüber Tieren' },
+      { id: 'v2-5', text: 'Einsatz von Waffen oder gefährlichen Gegenständen' }
+    ]},
+    { id: 'delinquenz', titel: 'Destruktivität & Delinquenz', symptome: [
+      { id: 'v3-1', text: 'Sachbeschädigung oder Feuerlegen' },
+      { id: 'v3-2', text: 'Stehlen' },
+      { id: 'v3-3', text: 'Einbruch oder schweres Eigentums-Delikt' },
+      { id: 'v3-4', text: 'Systematisches Lügen zur Vorteils-Erlangung' },
+      { id: 'v3-5', text: 'Schule schwänzen, von zu Hause weglaufen' }
+    ]},
+    { id: 'cu', titel: 'Emotionale Kälte (CU-Traits)', symptome: [
+      { id: 'v4-1', text: 'Fehlende Reue oder Schuldgefühle nach Verstößen' },
+      { id: 'v4-2', text: 'Fehlende Empathie für die Folgen bei anderen' },
+      { id: 'v4-3', text: 'Oberflächlicher, wenig tiefgehender Affekt' },
+      { id: 'v4-4', text: 'Gleichgültigkeit gegenüber Leistung und Konsequenzen' }
+    ]},
+    { id: 'reaktiv', titel: 'Reaktivität', symptome: [
+      { id: 'v5-1', text: 'Aggression fast nur bei wahrgenommener Provokation' },
+      { id: 'v5-2', text: 'Sehr schnelle Eskalation aus dem Affekt' },
+      { id: 'v5-3', text: 'Bedauern oder Scham nach dem Vorfall' },
+      { id: 'v5-4', text: 'Hypervigilanz gegenüber Feindseligkeit (sieht Angriffe überall)' }
+    ]},
+    { id: 'verlauf', titel: 'Verlauf & Kontext', symptome: [
+      { id: 'v6-1', text: 'Verhaltens-Muster seit der Kindheit' },
+      { id: 'v6-2', text: 'Beginn erst in der Adoleszenz, deutlich peer-bezogen' },
+      { id: 'v6-3', text: 'Verhalten nur in einem Setting (nur zuhause oder nur Schule)' }
+    ]}
+  ],
+  musterScores: {
+    'verhalten-odd': {
+      kontext: {},
+      symptome: { 'v1-1': 3, 'v1-2': 3, 'v1-3': 3, 'v1-4': 2, 'v1-5': 2, 'v6-3': 1 },
+      negativ: { symptome: ['v2-3', 'v2-4', 'v3-2', 'v3-3'], proSymptom: -5 }
+    },
+    'verhalten-cd-kind': {
+      kontext: { beginn: { 'vor10': 15 } },
+      symptome: { 'v2-1': 3, 'v2-2': 2, 'v2-3': 2, 'v3-1': 2, 'v3-2': 2, 'v6-1': 3 }
+    },
+    'verhalten-cd-adoleszent': {
+      kontext: { beginn: { 'adoleszenz': 10 } },
+      symptome: { 'v6-2': 3, 'v3-2': 2, 'v3-5': 2, 'v2-1': 2, 'v3-4': 1 }
+    },
+    'verhalten-cu': {
+      kontext: {},
+      symptome: { 'v4-1': 3, 'v4-2': 3, 'v4-3': 3, 'v4-4': 2, 'v2-2': 1, 'v2-3': 2, 'v2-4': 2 }
+    },
+    'verhalten-reaktiv': {
+      kontext: { umfeld: { 'belastet': 5 } },
+      symptome: { 'v5-1': 3, 'v5-2': 3, 'v5-3': 3, 'v5-4': 3, 'v2-1': 1 }
+    }
+  }
+};
+
+const MUSTER_KURZ_VERHALTEN = {
+  'verhalten-odd':            'Oppositionelle Trotz-Störung (ODD) — Streit mit Autoritäten, Regel-Verweigerung, absichtliches Ärgern, ohne schwere Aggressions- oder Delinquenz-Marker. Patterson-Zwangsspirale in der Familie häufig aufrechterhaltend; Parent Management Training (Kazdin) evidenzbasiert. Differential zu irritabler Depression (A03.M2) aktiv prüfen.',
+  'verhalten-cd-kind':        'Störung des Sozialverhaltens, Kindheits-Beginn — Aggressions- und Delinquenz-Muster seit der Kindheit. Prognostisch ungünstigster Verlaufstyp mit hohem Persistenz-Risiko; intensive multisystemische Behandlung früh indiziert. Trauma-Anamnese (A07.M4 Gewalt-Zeugenschaft) konsequent erheben.',
+  'verhalten-cd-adoleszent':  'Störung des Sozialverhaltens, Adoleszenz-Beginn — Delinquenz erst ab der Pubertät, deutlich peer-getrieben (Gruppen-Kontext, Status-Motive). Prognostisch deutlich günstiger als der Kindheits-Typ; Peer-Kontext-Arbeit und Ablöse-Begleitung im Vordergrund, keine Pathologisierung normativer Grenz-Austestung.',
+  'verhalten-cu':             'Callous-Unemotional-Profil — fehlende Reue, fehlende Empathie, oberflächlicher Affekt (ICU-Diagnostik, Frick). Spezifische Behandlungs-Implikation: bestrafungs-basierte Ansätze greifen kaum, belohnungs-basierte Systeme und warm-konsequente Beziehungs-Arbeit sind die wirksame Linie.',
+  'verhalten-reaktiv':        'Reaktiv-aggressives Profil — Aggression fast ausschließlich aus wahrgenommener Provokation, schnelle Affekt-Eskalation, danach Scham, Hypervigilanz gegenüber Feindseligkeit (hostile attribution bias). Häufig trauma-assoziiert (A07.M4) — die Aggression ist Symptom, nicht Charakter; Affekt-Regulation vor Konsequenz-Pädagogik.'
+};
+
+const PLAN_MUSTER_VERHALTEN = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'verhalten-odd',           name: 'Oppositionelle Trotz-Störung (ODD)',           bloecke: emptyPlanBloecke() },
+  { id: 'verhalten-cd-kind',       name: 'Störung des Sozialverhaltens, Kindheits-Typ',  bloecke: emptyPlanBloecke() },
+  { id: 'verhalten-cd-adoleszent', name: 'Störung des Sozialverhaltens, Adoleszenz-Typ', bloecke: emptyPlanBloecke() },
+  { id: 'verhalten-cu',            name: 'Callous-Unemotional-Profil',                   bloecke: emptyPlanBloecke() },
+  { id: 'verhalten-reaktiv',       name: 'Reaktiv-aggressives Profil',                   bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A09 Substanz- und Verhaltenssucht ============
+   Sechs Sub-Muster. Symptom-IDs c-prefixiert. Krisen-Profil M6
+   (Intoxikation/Entzug) über TOPIC_CRISIS_CONFIG. CePT als LU-Struktur. */
+const SYMPTOM_DIAGNOSE_SUCHT = {
+  kontextFragen: [
+    { id: 'alter', titel: 'Alter', optionen: [
+      { val: '10-12', text: '10–12' },
+      { val: '13-15', text: '13–15' },
+      { val: '16-18', text: '16–18' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'fokus', titel: 'Substanz- / Verhaltens-Fokus', optionen: [
+      { val: 'cannabis', text: 'Cannabis' },
+      { val: 'alkohol', text: 'Alkohol' },
+      { val: 'party', text: 'Partydrogen / Stimulanzien' },
+      { val: 'gaming', text: 'Gaming / Screen' },
+      { val: 'mehrere', text: 'Mehrere gleichzeitig' },
+      { val: 'unklar', text: 'Unklar' }
+    ]},
+    { id: 'funktion', titel: 'Vermutete Funktion des Konsums', optionen: [
+      { val: 'selbstmedikation', text: 'Selbstmedikation (Schlaf, Angst, Stimmung)' },
+      { val: 'sozial', text: 'Sozial / Peer-Zugehörigkeit' },
+      { val: 'flucht', text: 'Langeweile / Flucht' },
+      { val: 'unklar', text: 'Unklar' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'muster', titel: 'Konsum-Muster', symptome: [
+      { id: 'c1-1', text: 'Regelmäßiger Konsum mehrmals pro Woche' },
+      { id: 'c1-2', text: 'Konsum alleine, nicht nur sozial' },
+      { id: 'c1-3', text: 'Morgendlicher Konsum oder Konsum vor/in der Schule' },
+      { id: 'c1-4', text: 'Toleranz-Steigerung (braucht mehr für gleiche Wirkung)' },
+      { id: 'c1-5', text: 'Kontrollverlust über die Menge' }
+    ]},
+    { id: 'cannabis', titel: 'Cannabis-spezifisch', symptome: [
+      { id: 'c2-1', text: 'Täglicher oder fast täglicher Cannabis-Konsum' },
+      { id: 'c2-2', text: 'Amotivations-Bild mit Leistungsknick' },
+      { id: 'c2-3', text: 'Konsum gegen Schlafprobleme oder innere Unruhe (Selbstmedikation)' },
+      { id: 'c2-4', text: 'Sozialer Rückzug in die Konsum-Peer-Gruppe' }
+    ]},
+    { id: 'alkohol-party', titel: 'Alkohol & Party-Substanzen', symptome: [
+      { id: 'c3-1', text: 'Episodisches Rauschtrinken' },
+      { id: 'c3-2', text: 'Blackouts oder Erinnerungs-Lücken nach Konsum' },
+      { id: 'c3-3', text: 'Riskante Situationen unter Substanz-Einfluss' },
+      { id: 'c3-4', text: 'Stimulanzien- oder Partydrogen-Konsum' }
+    ]},
+    { id: 'gaming', titel: 'Gaming & Screen', symptome: [
+      { id: 'c4-1', text: 'Exzessives Gaming mit Kontrollverlust über die Zeit' },
+      { id: 'c4-2', text: 'Tag-Nacht-Umkehr durch nächtliches Gaming' },
+      { id: 'c4-3', text: 'Vernachlässigung von Schule und realen Kontakten' },
+      { id: 'c4-4', text: 'Massive Reizbarkeit oder Aggression bei Begrenzungs-Versuchen' }
+    ]},
+    { id: 'folgen', titel: 'Folgen & Funktion', symptome: [
+      { id: 'c5-1', text: 'Schulischer Leistungs-Einbruch im Konsum-Zeitraum' },
+      { id: 'c5-2', text: 'Beschaffungs-Verhalten (Geld, Lügen, Dealen)' },
+      { id: 'c5-3', text: 'Gescheiterte eigene Reduktions-Versuche' },
+      { id: 'c5-4', text: 'Konsum trotz erkannter negativer Folgen fortgesetzt' },
+      { id: 'c5-5', text: 'Eskalierende Familien-Konflikte um den Konsum' }
+    ]},
+    { id: 'gefaehrdung', titel: 'Akute Gefährdung', symptome: [
+      { id: 'c6-1', text: 'Wiederholte schwere Intoxikationen' },
+      { id: 'c6-2', text: 'Entzugs-Symptome (Unruhe, Schwitzen, Reizbarkeit bei Pause)' },
+      { id: 'c6-3', text: 'Riskanter Misch-Konsum' },
+      { id: 'c6-4', text: 'Substanz-induzierte psychotische Symptome' }
+    ]}
+  ],
+  musterScores: {
+    'sucht-cannabis': {
+      kontext: { fokus: { 'cannabis': 15 }, funktion: { 'selbstmedikation': 5 } },
+      symptome: { 'c2-1': 3, 'c2-2': 3, 'c2-3': 3, 'c2-4': 2, 'c1-1': 2, 'c1-3': 2, 'c5-1': 2 }
+    },
+    'sucht-alkohol': {
+      kontext: { fokus: { 'alkohol': 15 } },
+      symptome: { 'c3-1': 3, 'c3-2': 3, 'c3-3': 2, 'c1-5': 2, 'c5-4': 1 }
+    },
+    'sucht-stimulanzien': {
+      kontext: { fokus: { 'party': 15 } },
+      symptome: { 'c3-4': 3, 'c3-3': 2, 'c1-4': 2, 'c6-3': 1 }
+    },
+    'sucht-gaming': {
+      kontext: { fokus: { 'gaming': 15 } },
+      symptome: { 'c4-1': 3, 'c4-2': 3, 'c4-3': 3, 'c4-4': 3, 'c5-1': 1 }
+    },
+    'sucht-poly': {
+      kontext: { fokus: { 'mehrere': 15 } },
+      symptome: { 'c1-1': 2, 'c1-4': 2, 'c1-5': 2, 'c6-3': 3, 'c5-2': 2, 'c5-3': 2 }
+    },
+    'sucht-krise': {
+      kontext: {},
+      symptome: { 'c6-1': 3, 'c6-2': 3, 'c6-3': 2, 'c6-4': 3 }
+    }
+  }
+};
+
+const MUSTER_KURZ_SUCHT = {
+  'sucht-cannabis':     'Cannabis-Profil — täglicher oder fast täglicher Konsum, häufig als Selbstmedikation gegen Schlafprobleme, Unruhe oder Stimmung. Amotivations-Bild mit Leistungsknick klassisch. Zentral: die Funktion klären — hinter Cannabis-Selbstmedikation steht oft ADHS (A02.M6), Angst oder Depression. CePT als LU-Anlaufstelle.',
+  'sucht-alkohol':      'Alkohol-Profil — episodisches Rauschtrinken mit Blackouts und Risiko-Situationen, bei Jugendlichen meist sozial-episodisch statt täglich. Akut-Risiko (Intoxikation, Unfälle, sexuelle Übergriffs-Situationen) steht vor Abhängigkeits-Risiko. Eltern-Arbeit und Peer-Kontext zentral.',
+  'sucht-stimulanzien': 'Stimulanzien-/Partydrogen-Profil — Amphetamine, MDMA, Kokain im Party-Kontext, oft mit Misch-Konsum. Kardiale und psychiatrische Akut-Risiken; substanz-induzierte Angst- und psychotische Episoden möglich. Harm-Reduction-Gespräch realistischer Einstieg als Abstinenz-Forderung.',
+  'sucht-gaming':       'Gaming-/Screen-Profil — Kontrollverlust über Spielzeit, Tag-Nacht-Umkehr, Vernachlässigung von Schule und realen Kontakten, massive Reizbarkeit bei Begrenzung (ICD-11 Gaming Disorder). Funktions-Analyse zentral: oft Flucht vor Versagens-Erleben (A03.M4) oder sozialer Angst (A05.M2); reine Verbots-Strategien scheitern.',
+  'sucht-poly':         'Polyvalentes Profil — mehrere Substanzen parallel oder wechselnd, riskanter Misch-Konsum, Beschaffungs-Verhalten, gescheiterte Reduktions-Versuche. Höchste somatische und soziale Risiko-Stufe der Sucht-Achse; spezialisierte suchtmedizinische Anbindung (CePT, KJP-Sucht-Ambulanz) dringlich.',
+  'sucht-krise':        'Intoxikations-/Entzugs-Krise — wiederholte schwere Intoxikationen, Entzugs-Symptomatik, riskanter Misch-Konsum oder substanz-induzierte psychotische Symptome. Krisen-Profil mit Vorrang: somatische Abklärung, gegebenenfalls Entgiftung, bei psychotischen Symptomen KJP-Notfall-Anbindung; Differential zu A13 prüfen.'
+};
+
+const PLAN_MUSTER_SUCHT = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'sucht-cannabis',     name: 'Cannabis-Profil',                       bloecke: emptyPlanBloecke() },
+  { id: 'sucht-alkohol',      name: 'Alkohol-Profil',                        bloecke: emptyPlanBloecke() },
+  { id: 'sucht-stimulanzien', name: 'Stimulanzien- / Partydrogen-Profil',    bloecke: emptyPlanBloecke() },
+  { id: 'sucht-gaming',       name: 'Gaming- / Screen-Profil',               bloecke: emptyPlanBloecke() },
+  { id: 'sucht-poly',         name: 'Polyvalentes Profil',                   bloecke: emptyPlanBloecke() },
+  { id: 'sucht-krise',        name: 'Intoxikations- / Entzugs-Krise',        bloecke: emptyPlanBloecke() }
+];
+
+/* ============ SYMPTOM-DIAGNOSE — A11 Lernstörungen ============
+   Fünf Sub-Muster. Symptom-IDs l-prefixiert. Querverbindung zu A03.M4
+   (sekundäre Depression nach Versagens-Verlauf) klinisch zentral. */
+const SYMPTOM_DIAGNOSE_LERN = {
+  kontextFragen: [
+    { id: 'stufe', titel: 'Klassenstufe', optionen: [
+      { val: 'zyklus2-3', text: 'Grundschule (Zyklus 2–3)' },
+      { val: 'zyklus4', text: 'Zyklus 4' },
+      { val: 'sekundar', text: 'Sekundarstufe' }
+    ]},
+    { id: 'geschlecht', titel: 'Geschlecht', optionen: [
+      { val: 'weiblich', text: 'weiblich' },
+      { val: 'maennlich', text: 'männlich' },
+      { val: 'divers', text: 'divers / keine Angabe' }
+    ]},
+    { id: 'bereich', titel: 'Haupt-Problembereich', optionen: [
+      { val: 'lesen', text: 'Lesen / Rechtschreibung' },
+      { val: 'rechnen', text: 'Rechnen' },
+      { val: 'motorik', text: 'Schreibmotorik / Koordination' },
+      { val: 'hoeren', text: 'Hör-Verarbeitung' },
+      { val: 'mehrere', text: 'Mehrere Bereiche' }
+    ]},
+    { id: 'iq', titel: 'Kognitiver Gesamt-Eindruck', optionen: [
+      { val: 'gut', text: 'Unauffällig bis gut' },
+      { val: 'heterogen', text: 'Auffällig heterogen (stark und schwach gemischt)' },
+      { val: 'unklar', text: 'Unklar' }
+    ]}
+  ],
+  symptomKategorien: [
+    { id: 'lesen', titel: 'Lesen', symptome: [
+      { id: 'l1-1', text: 'Langsames, stockendes Lesen' },
+      { id: 'l1-2', text: 'Lese-Fehler trotz viel Übung' },
+      { id: 'l1-3', text: 'Lese-Verständnis leidet unter der Dekodier-Anstrengung' },
+      { id: 'l1-4', text: 'Vermeidung von Lese-Aufgaben' }
+    ]},
+    { id: 'schreiben', titel: 'Schreiben & Orthografie', symptome: [
+      { id: 'l2-1', text: 'Massive Rechtschreib-Fehler trotz Übung' },
+      { id: 'l2-2', text: 'Regel-Wissen vorhanden, Anwendung scheitert' },
+      { id: 'l2-3', text: 'Schriftliche Leistung weit unter mündlicher' },
+      { id: 'l2-4', text: 'Texte strukturieren gelingt nicht (roter Faden fehlt)' }
+    ]},
+    { id: 'rechnen', titel: 'Rechnen', symptome: [
+      { id: 'l3-1', text: 'Basales Mengen- und Zahlen-Verständnis schwach' },
+      { id: 'l3-2', text: 'Persistierendes Finger-Rechnen' },
+      { id: 'l3-3', text: 'Faktenabruf (Einmaleins) nicht automatisiert' },
+      { id: 'l3-4', text: 'Textaufgaben scheitern an der Zahl-Logik, nicht am Lesen' }
+    ]},
+    { id: 'motorik', titel: 'Motorik & Schrift', symptome: [
+      { id: 'l4-1', text: 'Unleserliche, verkrampfte Handschrift' },
+      { id: 'l4-2', text: 'Schreiben extrem langsam und ermüdend' },
+      { id: 'l4-3', text: 'Allgemeine motorische Ungeschicklichkeit (DCD-Verdacht)' },
+      { id: 'l4-4', text: 'Vermeidung jeder schriftlichen Arbeit' }
+    ]},
+    { id: 'hoeren', titel: 'Hör-Verarbeitung', symptome: [
+      { id: 'l5-1', text: 'Verstehen bei Hintergrund-Lärm massiv erschwert' },
+      { id: 'l5-2', text: 'Mündliche Anweisungen gehen verloren' },
+      { id: 'l5-3', text: 'Häufiges Nachfragen trotz normalem Hörtest' },
+      { id: 'l5-4', text: 'Verwechslung ähnlich klingender Laute' }
+    ]},
+    { id: 'querschnitt', titel: 'Querschnitt & Sekundär-Folgen', symptome: [
+      { id: 'l6-1', text: 'Deutliche Diskrepanz zu den sonstigen Fähigkeiten' },
+      { id: 'l6-2', text: 'Chronische Hausaufgaben-Kämpfe' },
+      { id: 'l6-3', text: 'Versagens-Frust und Selbstabwertung („ich bin dumm")' },
+      { id: 'l6-4', text: 'Mehrere Lern-Bereiche gleichzeitig betroffen' },
+      { id: 'l6-5', text: 'ADHS-Verdacht parallel' },
+      { id: 'l6-6', text: 'Sekundäre Schul-Unlust bis Vermeidung' }
+    ]}
+  ],
+  musterScores: {
+    'lern-dyslexie': {
+      kontext: { bereich: { 'lesen': 15 } },
+      symptome: { 'l1-1': 3, 'l1-2': 3, 'l1-3': 2, 'l1-4': 2, 'l2-1': 3, 'l2-2': 2, 'l2-3': 2, 'l6-1': 1 }
+    },
+    'lern-dyskalkulie': {
+      kontext: { bereich: { 'rechnen': 15 } },
+      symptome: { 'l3-1': 3, 'l3-2': 3, 'l3-3': 3, 'l3-4': 2, 'l6-1': 1 }
+    },
+    'lern-dysgrafie': {
+      kontext: { bereich: { 'motorik': 15 } },
+      symptome: { 'l4-1': 3, 'l4-2': 3, 'l4-3': 3, 'l4-4': 2, 'l2-3': 1 }
+    },
+    'lern-avws': {
+      kontext: { bereich: { 'hoeren': 15 } },
+      symptome: { 'l5-1': 3, 'l5-2': 3, 'l5-3': 3, 'l5-4': 2 }
+    },
+    'lern-kombiniert': {
+      kontext: { bereich: { 'mehrere': 15 }, iq: { 'heterogen': 5 } },
+      symptome: { 'l6-4': 3, 'l6-5': 2, 'l6-1': 2, 'l6-3': 2, 'l1-1': 1, 'l3-1': 1, 'l4-1': 1 }
+    }
+  }
+};
+
+const MUSTER_KURZ_LERN = {
+  'lern-dyslexie':    'Dyslexie / Lese-Rechtschreib-Störung — langsames fehlerhaftes Lesen und massive Orthografie-Probleme trotz Übung, schriftlich weit unter mündlich. Diagnostik: SLRT-II, ELFE-II, WISC-V. Nachteilsausgleich (Laptop, Audio, mündliche Formen) ist strukturelle Korrektur, nicht Erleichterung. Sekundäre Versagens-Depression (A03.M4) aktiv im Blick behalten.',
+  'lern-dyskalkulie': 'Dyskalkulie / Rechenstörung — basales Mengen-Verständnis und Faktenabruf nicht automatisiert, Finger-Rechnen persistiert, konzeptuelles Denken oft intakt. Diagnostik: ZAREKI-R. Spezifische Dyskalkulie-Förderung statt allgemeiner Nachhilfe; Taschenrechner als Nachteilsausgleich bei Aufgaben, die nicht Faktenabruf testen.',
+  'lern-dysgrafie':   'Dysgrafie / DCD-Profil — verkrampfte unleserliche Handschrift, extrem langsames ermüdendes Schreiben, oft allgemeine motorische Ungeschicklichkeit. Diagnostik: M-ABC-2, grafomotorisches Screening. Laptop und Sprach-Eingabe sind die Korrektur; jahrelanges Schreib-Training an der falschen Stelle frustriert nur. Hohe Überlappung mit Asperger (A01).',
+  'lern-avws':        'Auditive Verarbeitungs- und Wahrnehmungsstörung (AVWS) — Verstehen bei Lärm massiv erschwert, mündliche Anweisungen gehen verloren, normaler Hörtest. Pädaudiologische Diagnostik zwingend. Schulisch: Sitzplatz vorne, schriftliche Sicherung mündlicher Anweisungen, Lärm-Reduktion — einfache Anpassungen mit großer Wirkung.',
+  'lern-kombiniert':  'Kombiniertes Profil — mehrere Lern-Bereiche betroffen, oft mit ADHS-Verdacht parallel und heterogenem kognitivem Profil. Umfassende Diagnostik (WISC-V mit Index-Analyse plus spezifische Verfahren) vor jeder Förder-Planung; die Sekundär-Achse (Versagens-Frust, Selbstabwertung, Schul-Unlust) ist hier fast immer schon aktiv und gehört mitbehandelt.'
+};
+
+const PLAN_MUSTER_LERN = [
+  /* Sub-Muster-Tiefen folgen in Folge-Prompts. */
+  { id: 'lern-dyslexie',    name: 'Dyslexie / LRS',                          bloecke: emptyPlanBloecke() },
+  { id: 'lern-dyskalkulie', name: 'Dyskalkulie',                             bloecke: emptyPlanBloecke() },
+  { id: 'lern-dysgrafie',   name: 'Dysgrafie / DCD',                         bloecke: emptyPlanBloecke() },
+  { id: 'lern-avws',        name: 'AVWS (auditive Verarbeitung)',            bloecke: emptyPlanBloecke() },
+  { id: 'lern-kombiniert',  name: 'Kombiniertes Profil',                     bloecke: emptyPlanBloecke() }
+];
+
+/* Per-Topic-Registry für die generischen Render- und Scoring-Funktionen.
+   Eine neue Achse braucht nur noch einen Eintrag hier — Renderer, Scoring,
+   Krisen-Priorisierung und Navigation greifen alle über diese Tabelle. */
+const TOPIC_REGISTRY = {
+  'asperger':          { diagnose: () => SYMPTOM_DIAGNOSE_ASPERGER,   kurz: () => MUSTER_KURZ_ASPERGER,   plan: () => (typeof PLAN_MUSTER_ASPERGER !== 'undefined' ? PLAN_MUSTER_ASPERGER : []) },
+  'adhs-unaufmerksam': { diagnose: () => SYMPTOM_DIAGNOSE_ADHS,       kurz: () => MUSTER_KURZ_ADHS,       plan: () => PLAN_MUSTER_ADHS_UNAUFMERKSAM },
+  'angststoerungen':   { diagnose: () => SYMPTOM_DIAGNOSE_ANGST,      kurz: () => MUSTER_KURZ_ANGST,      plan: () => PLAN_MUSTER_ANGSTSTOERUNGEN },
+  'trauma':            { diagnose: () => SYMPTOM_DIAGNOSE_TRAUMA,     kurz: () => MUSTER_KURZ_TRAUMA,     plan: () => PLAN_MUSTER_TRAUMA },
+  'depression':        { diagnose: () => SYMPTOM_DIAGNOSE_DEPRESSION, kurz: () => MUSTER_KURZ_DEPRESSION, plan: () => PLAN_MUSTER_DEPRESSION },
+  'borderline':        { diagnose: () => SYMPTOM_DIAGNOSE_BORDERLINE, kurz: () => MUSTER_KURZ_BORDERLINE, plan: () => PLAN_MUSTER_BORDERLINE },
+  'essstoerungen':     { diagnose: () => SYMPTOM_DIAGNOSE_ESS,        kurz: () => MUSTER_KURZ_ESS,        plan: () => PLAN_MUSTER_ESS },
+  'psychose':          { diagnose: () => SYMPTOM_DIAGNOSE_PSYCHOSE,   kurz: () => MUSTER_KURZ_PSYCHOSE,   plan: () => PLAN_MUSTER_PSYCHOSE },
+  'zwangsstoerung':    { diagnose: () => SYMPTOM_DIAGNOSE_ZWANG,      kurz: () => MUSTER_KURZ_ZWANG,      plan: () => PLAN_MUSTER_ZWANG },
+  'bipolar':           { diagnose: () => SYMPTOM_DIAGNOSE_BIPOLAR,    kurz: () => MUSTER_KURZ_BIPOLAR,    plan: () => PLAN_MUSTER_BIPOLAR },
+  'verhaltensstoerung':{ diagnose: () => SYMPTOM_DIAGNOSE_VERHALTEN,  kurz: () => MUSTER_KURZ_VERHALTEN,  plan: () => PLAN_MUSTER_VERHALTEN },
+  'sucht':             { diagnose: () => SYMPTOM_DIAGNOSE_SUCHT,      kurz: () => MUSTER_KURZ_SUCHT,      plan: () => PLAN_MUSTER_SUCHT },
+  'lernstoerungen':    { diagnose: () => SYMPTOM_DIAGNOSE_LERN,       kurz: () => MUSTER_KURZ_LERN,       plan: () => PLAN_MUSTER_LERN }
+};
 function symptomDiagnoseFor(topicId) {
-  if (topicId === 'asperger') return SYMPTOM_DIAGNOSE_ASPERGER;
-  if (topicId === 'adhs-unaufmerksam') return SYMPTOM_DIAGNOSE_ADHS;
-  if (topicId === 'angststoerungen') return SYMPTOM_DIAGNOSE_ANGST;
-  if (topicId === 'trauma') return SYMPTOM_DIAGNOSE_TRAUMA;
-  if (topicId === 'depression') return SYMPTOM_DIAGNOSE_DEPRESSION;
-  return null;
+  const r = TOPIC_REGISTRY[topicId];
+  return r ? r.diagnose() : null;
 }
 function musterKurzFor(topicId) {
-  if (topicId === 'asperger') return MUSTER_KURZ_ASPERGER;
-  if (topicId === 'adhs-unaufmerksam') return MUSTER_KURZ_ADHS;
-  if (topicId === 'angststoerungen') return MUSTER_KURZ_ANGST;
-  if (topicId === 'trauma') return MUSTER_KURZ_TRAUMA;
-  if (topicId === 'depression') return MUSTER_KURZ_DEPRESSION;
-  return {};
+  const r = TOPIC_REGISTRY[topicId];
+  return r ? r.kurz() : {};
 }
 function planMusterFor(topicId) {
-  if (topicId === 'asperger' && typeof PLAN_MUSTER_ASPERGER !== 'undefined') return PLAN_MUSTER_ASPERGER;
-  if (topicId === 'adhs-unaufmerksam') return PLAN_MUSTER_ADHS_UNAUFMERKSAM;
-  if (topicId === 'angststoerungen') return PLAN_MUSTER_ANGSTSTOERUNGEN;
-  if (topicId === 'trauma') return PLAN_MUSTER_TRAUMA;
-  if (topicId === 'depression') return PLAN_MUSTER_DEPRESSION;
-  return [];
+  const r = TOPIC_REGISTRY[topicId];
+  return r ? r.plan() : [];
 }
 
 const SYMPTOM_KATEGORIEN = [
@@ -14293,7 +15359,9 @@ function normalizeBehandlungsPlan(topic, muster) {
       }
     };
   }
-  if (topic.id === 'adhs-unaufmerksam' || topic.id === 'angststoerungen' || topic.id === 'trauma' || topic.id === 'depression') {
+  // Alle Topics außer Asperger nutzen das einheitliche nested Bloecke-Schema
+  // (wasDuSiehst / risikoProfil / therapieansatz / vierPhasen / schulstrategie / eskalation).
+  if (topic.id !== 'asperger') {
     const b = muster.bloecke || {};
     const ws = b.wasDuSiehst    || {};
     const rp = b.risikoProfil   || {};
@@ -14347,16 +15415,16 @@ function renderSubMusterTiefe(topic, ps, container) {
   const musterList = planMusterFor(topic.id);
 
   // Top-Muster aus Profil-Diagnose ermitteln. Bei aktiver Krisen-
-  // Priorisierung (Depression mit Suizidalitäts-Markern) übersteuert M6
+  // Priorisierung (TOPIC_CRISIS_CONFIG) übersteuert das Krisen-Muster
   // den Symptom-Score — identisch zur Logik in renderErkanntesMuster.
   let topMusterId = null;
   if (Array.isArray(ps.symptome) && ps.symptome.length > 0) {
     const results = computeSymptomScores(ps, topic.id);
     applyCrisisPriorization(topic.id, ps, results);
     if (results.length > 0) topMusterId = results[0].muster.id;
-  } else if (depressionCrisisActive(topic.id, ps)) {
-    // Krise nur über Q4 (ohne Symptom-Auswahl): M6 trotzdem laden.
-    topMusterId = 'depression-suizidal';
+  } else if (topicCrisisActive(topic.id, ps)) {
+    // Krise nur über die Kontext-Frage (ohne Symptom-Auswahl): Krisen-Muster trotzdem laden.
+    topMusterId = TOPIC_CRISIS_CONFIG[topic.id].musterId;
   }
 
   // Aktives Muster: manuell überschreibt Diagnose-Top
@@ -14960,10 +16028,11 @@ function renderErkanntesMuster(topic, ps, container) {
     return;
   }
 
-  // Krisen-Priorisierung (Depression / A03): R01-Banner + M6 als Top-Muster,
-  // unabhängig vom Symptom-Score. Shared helper, identische Logik wie im
-  // Behandlungs-Plan (renderSubMusterTiefe).
+  // Krisen-Priorisierung (TOPIC_CRISIS_CONFIG): R01-Banner + Krisen-Muster
+  // als Top, unabhängig vom Symptom-Score. Shared helper, identische Logik
+  // wie im Behandlungs-Plan (renderSubMusterTiefe).
   const crisisActive = applyCrisisPriorization(topic.id, ps, results);
+  const crisisCfg = crisisActive ? TOPIC_CRISIS_CONFIG[topic.id] : null;
 
   const top = results[0];
   const threshold = top.score * 0.7;
@@ -14982,10 +16051,10 @@ function renderErkanntesMuster(topic, ps, container) {
     </div>
   ` : '';
 
-  const krisenBannerHtml = crisisActive ? `
+  const krisenBannerHtml = crisisCfg ? `
     <div class="symdia-krisen-banner">
-      <div class="symdia-krisen-banner-titel">Hinweis auf akute Selbstgefährdung</div>
-      <p>Sicherheits-Einschätzung hat Vorrang. Bei konkreter Suizidalität sind die luxemburgischen Krisen-Strukturen einzubeziehen (KJP-Notdienst, SOS Détresse 454545, im Notfall 112). Das Krisen-Profil (M6) wird unten unabhängig vom Symptom-Score prominent angezeigt.</p>
+      <div class="symdia-krisen-banner-titel">${escHtml(crisisCfg.bannerTitel)}</div>
+      <p>${escHtml(crisisCfg.bannerText)}</p>
     </div>` : '';
 
   container.innerHTML = `
