@@ -679,6 +679,140 @@
     font-size: 0.9rem;
     font-weight: 600;
   }
+
+  /* ============ SYNTHESE-COMPILER (P29) ============ */
+  .synthese-tab {
+    padding: 20px 24px 32px;
+    background: var(--paper);
+  }
+  .synthese-block {
+    margin-top: 22px;
+    padding: 18px 20px;
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+  }
+  .synthese-block-titel {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .synthese-session-tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 7px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    background: rgba(136, 145, 134, 0.18);
+    color: var(--sage);
+    border-radius: 3px;
+  }
+  .synthese-hint {
+    font-size: 0.86rem;
+    color: var(--sage);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .synthese-hint em { font-style: italic; }
+  .synthese-profil-zeile {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    padding: 3px 0;
+  }
+  .synthese-profil-label {
+    display: inline-block;
+    min-width: 170px;
+    font-weight: 600;
+    color: var(--sage);
+  }
+  .synthese-profil-score {
+    color: var(--sage);
+    font-size: 0.86rem;
+  }
+  .synthese-profil-krise {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(163, 80, 31, 0.12);
+    color: var(--rust);
+    font-weight: 600;
+    border-radius: 3px;
+    font-size: 0.88rem;
+  }
+  .synthese-profil-leer p { margin: 4px 0; font-size: 0.92rem; }
+  .synthese-alias-input,
+  .synthese-freitext,
+  .synthese-output {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .synthese-alias-input { font-weight: 600; }
+  .synthese-freitext,
+  .synthese-output {
+    resize: vertical;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .synthese-output { background: var(--cream); }
+  .synthese-radios {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .synthese-radio {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.92rem;
+    cursor: pointer;
+  }
+  .synthese-radio input { margin-top: 4px; }
+  .synthese-zaehler {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .synthese-gate {
+    border-left-color: var(--rust);
+  }
+  .synthese-gate .synthese-block-titel,
+  .synthese-gate-label { color: var(--ink); }
+  .synthese-gate-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    cursor: pointer;
+    margin-bottom: 14px;
+  }
+  .synthese-gate-label input { margin-top: 5px; }
+  .synthese-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .synthese-copy-status {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
   .ebene3-topbar {
     position: sticky;
     top: 0;
@@ -5531,6 +5665,18 @@ for (const tid of ['borderline', 'essstoerungen', 'psychose', 'zwangsstoerung', 
   };
 }
 
+/* Synthese-Compiler (P29): vierter Sub-Tab im HANDELN-Bereich aller Topics.
+   Kompiliert Profil-Diagnose + Grounding + 11-Sektionen-Template zu einem
+   anonymisierten Prompt fuer eine externe KI. Reine Clipboard-Ausgabe,
+   keine Netzwerk-Calls. Programmatisch ergaenzt, damit Topics nicht doppelt
+   gepflegt werden muessen. */
+for (const tid of Object.keys(BEREICH_STRUKTUR)) {
+  const hasSynthese = BEREICH_STRUKTUR[tid].handeln.some(t => t.ebene === 'synthese');
+  if (!hasSynthese) {
+    BEREICH_STRUKTUR[tid].handeln.push({ ebene: 'synthese', label: 'Synthese-Prompt', tabClass: 'tab-plan' });
+  }
+}
+
 /* Placeholder-Texte für Bereiche, die noch nicht inhaltlich gebaut sind.
    Pro Ebene-ID: Überschrift + Beschreibung des geplanten Inhalts. Wird via
    BEREICH_PLACEHOLDERS[ebene]-Lookup in renderEbene aufgelöst. Aktuell leer —
@@ -6555,7 +6701,7 @@ function setupTopicNavigation(topic) {
       <button class="tab tab-praxis" data-ebene="praxis">Praxis</button>
       <button class="tab tab-testen" data-ebene="testen">Testen</button>
     `;
-    if (!STATE.currentEbene || ['symptom-auswahl','erkanntes-muster','behandlungs-plan','symptom-fokus'].includes(STATE.currentEbene)) {
+    if (!STATE.currentEbene || ['symptom-auswahl','erkanntes-muster','behandlungs-plan','synthese','symptom-fokus'].includes(STATE.currentEbene)) {
       STATE.currentEbene = 'quintessenz';
     }
     ebenenTabs.querySelectorAll('.tab').forEach(t =>
@@ -6670,6 +6816,15 @@ function renderEbene() {
       return;
     }
     renderPlan(topic, body);
+    audioPanel.style.display = 'none';
+    audioCtrls.style.display = 'none';
+    readBtn.style.display = 'none';
+    stopSpeech();
+    return;
+  }
+  if (ebene === 'synthese') {
+    const ps = loadPlanState(topic.id);
+    renderSynthesePrompt(topic, ps, body);
     audioPanel.style.display = 'none';
     audioCtrls.style.display = 'none';
     readBtn.style.display = 'none';
@@ -8310,6 +8465,324 @@ function kontextBannerFor(ps) {
   return activeKontextModule(ps)
     .map(m => KONTEXT_SCHUTZ_CONFIG[m.id] ? { id: m.id, name: m.name, ...KONTEXT_SCHUTZ_CONFIG[m.id] } : null)
     .filter(Boolean);
+}
+
+/* ============ SYNTHESE-COMPILER (P29) — Paket C ============
+   Kompiliert Profil-Diagnose + Grounding + 11-Sektionen-Template zu einem
+   anonymisierten Prompt fuer eine externe KI. STRIKT offline:
+   - Kein fetch, kein XHR, nichts.
+   - Output ausschliesslich Textarea + Clipboard (mit execCommand-Fallback).
+   - Keine Klient-Identifikatoren persistiert; Freitext ist session-only und
+     wird NICHT in SAVOIR_STATE_V1 gespeichert.
+   - Pflicht-Gate (Checkbox) vor Kompilieren.
+   - Verändert NICHTS am Scoring oder an der Sub-Muster-Rangfolge. */
+
+const LS_SYNTHESE = 'savoir_synthese_state';
+
+function loadSyntheseState(topicId) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS_SYNTHESE)) || {};
+    const s = all[topicId] || {};
+    return {
+      alias: typeof s.alias === 'string' && s.alias.length > 0 ? s.alias : 'Jugendliche:r A',
+      umfang: s.umfang === 'kompakt' ? 'kompakt' : 'voll'
+    };
+  } catch { return { alias: 'Jugendliche:r A', umfang: 'voll' }; }
+}
+function saveSyntheseState(topicId, s) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LS_SYNTHESE)) || {};
+    all[topicId] = { alias: s.alias || 'Jugendliche:r A', umfang: s.umfang === 'kompakt' ? 'kompakt' : 'voll' };
+    localStorage.setItem(LS_SYNTHESE, JSON.stringify(all));
+  } catch {}
+}
+
+/* HTML-Tags strippen, sodass Grounding-Bloecke als Plaintext im Prompt landen.
+   <li>...</li>, <p>...</p>, <ul>/<ol>-Strukturen werden in `- `-Listen umgewandelt. */
+function stripHtmlForPrompt(html) {
+  if (!html) return '';
+  let s = String(html);
+  // Listen-Items zu `- ` (vor <li> und am Ende </li> Zeilenumbruch)
+  s = s.replace(/<\/li>\s*/gi, '\n');
+  s = s.replace(/<li[^>]*>/gi, '- ');
+  // Absatz- und Block-Umbrüche
+  s = s.replace(/<br\s*\/?>/gi, '\n');
+  s = s.replace(/<\/(p|div|h[1-6]|section|article|ul|ol|details|summary|tr)>/gi, '\n');
+  s = s.replace(/<(p|div|h[1-6]|section|article|ul|ol|details|summary)[^>]*>/gi, '');
+  // Fett/kursiv: Klartext, kein Markdown
+  s = s.replace(/<\/(strong|b|em|i|u|code|span)>/gi, '');
+  s = s.replace(/<(strong|b|em|i|u|code|span)[^>]*>/gi, '');
+  // Sonstige verbliebene Tags entfernen
+  s = s.replace(/<[^>]+>/g, '');
+  // Entitaeten
+  s = s.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+  // Whitespace normalisieren
+  s = s.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+  return s;
+}
+
+/* Hilfsfunktionen fuer den Compiler. */
+function syntheseProfilZusammenfassung(topicId, ps) {
+  const topic = TOPICS[topicId];
+  const out = { topicTitel: topic ? topic.titel : topicId, top: null, auchMoeglich: [], crisisActive: false, symptomeCount: 0, kontextModule: [] };
+  out.symptomeCount = Array.isArray(ps.symptome) ? ps.symptome.length : 0;
+  out.kontextModule = activeKontextModule(ps).map(m => m.name);
+  if (out.symptomeCount > 0) {
+    const results = computeSymptomScores(ps, topicId);
+    out.crisisActive = applyCrisisPriorization(topicId, ps, results);
+    if (results.length > 0) {
+      out.top = { id: results[0].muster.id, name: results[0].muster.name, score: results[0].score };
+      const threshold = results[0].score * 0.7;
+      out.auchMoeglich = results.slice(1).filter(r => r.score >= threshold).map(r => ({
+        id: r.muster.id, name: r.muster.name, score: r.score,
+        pct: results[0].score > 0 ? Math.round(r.score / results[0].score * 100) : 0
+      }));
+    }
+  } else if (topicCrisisActive(topicId, ps)) {
+    const cfg = TOPIC_CRISIS_CONFIG[topicId];
+    const plan = planMusterFor(topicId);
+    const m = plan.find(x => x.id === cfg.musterId);
+    if (m) out.top = { id: m.id, name: m.name, score: 0 };
+    out.crisisActive = true;
+  }
+  return out;
+}
+
+function syntheseKontextQA(topicId, ps) {
+  const diag = symptomDiagnoseFor(topicId);
+  if (!diag || !Array.isArray(diag.kontextFragen)) return [];
+  return diag.kontextFragen
+    .map(f => {
+      const val = (ps.kontext || {})[f.id];
+      if (!val) return null;
+      const opt = (f.optionen || []).find(o => o.val === val);
+      return { titel: f.titel, antwort: opt ? opt.text : val };
+    })
+    .filter(Boolean);
+}
+
+function syntheseSymptomeQA(topicId, ps) {
+  const diag = symptomDiagnoseFor(topicId);
+  const ids = Array.isArray(ps.symptome) ? ps.symptome : [];
+  if (!diag || ids.length === 0) return [];
+  const out = [];
+  for (const kat of diag.symptomKategorien || []) {
+    const treffer = (kat.symptome || []).filter(s => ids.includes(s.id)).map(s => s.text);
+    if (treffer.length > 0) out.push({ kategorie: kat.titel, items: treffer });
+  }
+  return out;
+}
+
+/* Grounding aus Sub-Muster-Tiefen-Bloecken zusammenstellen.
+   "voll": Block 1+3+4+5+6+7+8 des Top-Musters + Kurztexte der Auch-moeglich-Muster
+           + volle aktive Kontext-Module
+   "kompakt": Block 1+3+8 des Top-Musters + Kurztexte + Kontext-Module nur
+              reframe + tun + nicht_tun
+   Quellmarker pro Grounding-Block: [SAVOIR-WISSEN: <id>] ... [/SAVOIR-WISSEN] */
+function syntheseGrounding(topicId, ps, summary, opts) {
+  const blocks = [];
+  const umfang = opts && opts.umfang === 'kompakt' ? 'kompakt' : 'voll';
+  if (summary.top) {
+    const muster = (planMusterFor(topicId) || []).find(m => m.id === summary.top.id);
+    if (muster && muster.bloecke) {
+      blocks.push(syntheseGroundingMuster(muster, umfang));
+    }
+  }
+  const kurzTbl = musterKurzFor(topicId) || {};
+  for (const a of summary.auchMoeglich) {
+    const kurz = kurzTbl[a.id];
+    if (kurz) blocks.push('[SAVOIR-WISSEN: ' + a.id + '-kurz]\n' + stripHtmlForPrompt(kurz) + '\n[/SAVOIR-WISSEN]');
+  }
+  for (const m of activeKontextModule(ps)) {
+    blocks.push(syntheseGroundingKontext(m, umfang));
+  }
+  return blocks.join('\n\n');
+}
+
+function syntheseGroundingMuster(muster, umfang) {
+  const b = muster.bloecke || {};
+  const lines = ['[SAVOIR-WISSEN: ' + muster.id + ']', 'Sub-Muster: ' + muster.name, ''];
+  const push = (titel, txt) => {
+    const clean = stripHtmlForPrompt(txt);
+    if (clean) { lines.push(titel + ':'); lines.push(clean); lines.push(''); }
+  };
+  const pushList = (titel, arr) => {
+    if (Array.isArray(arr) && arr.length > 0) {
+      lines.push(titel + ':');
+      for (const x of arr) {
+        if (typeof x === 'string') lines.push('- ' + stripHtmlForPrompt(x));
+        else if (x && x.titel) lines.push('- ' + stripHtmlForPrompt(x.titel) + (x.begruendung ? ': ' + stripHtmlForPrompt(x.begruendung) : ''));
+      }
+      lines.push('');
+    }
+  };
+  // Block 1
+  if (b.wasDuSiehst) {
+    push('Profil-Erkennung', b.wasDuSiehst.profilErkennung);
+    push('Klinisch wichtig', b.wasDuSiehst.klinischWichtig);
+    push('Vergleich/Differential', b.wasDuSiehst.vergleich);
+  }
+  // Block 3
+  if (b.therapieansatz) {
+    push('Hauptansatz', b.therapieansatz.hauptansatz);
+    push('Begruendung', b.therapieansatz.begruendung);
+    pushList('Diagnostik-Instrumente', b.therapieansatz.diagnostik);
+    pushList('Was du tust', b.therapieansatz.wasDuTust);
+    pushList('Was du nicht tust', b.therapieansatz.wasDuNichtTust);
+    push('Frequenz', b.therapieansatz.frequenz);
+  }
+  if (umfang === 'voll') {
+    // Block 4
+    if (b.vierPhasen) {
+      ['phase1','phase2','phase3','phase4'].forEach((k, i) => push('Phase ' + (i+1), b.vierPhasen[k]));
+    }
+    // Block 5
+    if (b.schulstrategie) {
+      push('Schul-Problem', b.schulstrategie.a_problem);
+      push('Schul-Brief-Vorlage', b.schulstrategie.b_vorlage);
+      pushList('Schul-Anpassungen', b.schulstrategie.c_anpassungen);
+      pushList('Schul-Kontraindikationen', b.schulstrategie.d_kontraindikationen);
+      pushList('Schul-Rollen (LU-Strukturen)', b.schulstrategie.e_rollen);
+      push('Schul-Frequenz / Eskalations-Pfad', b.schulstrategie.f_frequenz);
+    }
+    // Block 6
+    if (b.eskalation) {
+      push('Frequenz erhoehen', b.eskalation.frequenzErhoehen);
+      push('Ueberweisung KJP', b.eskalation.ueberweisung);
+      push('Klinik-Indikation', b.eskalation.klinik);
+    }
+    // Block 7
+    if (b.gegenuebertragung && Array.isArray(b.gegenuebertragung.reaktionen) && b.gegenuebertragung.reaktionen.length > 0) {
+      lines.push('Gegenuebertragung (profil-typisch):');
+      lines.push(stripHtmlForPrompt(b.gegenuebertragung.intro || ''));
+      for (const r of b.gegenuebertragung.reaktionen) {
+        lines.push('- ' + r.zug + ': ' + stripHtmlForPrompt(r.beschreibung || '') + (r.gegenmittel ? ' Gegenmittel: ' + stripHtmlForPrompt(r.gegenmittel) : ''));
+      }
+      lines.push('');
+    }
+  }
+  // Block 8 — in beiden Umfaengen
+  if (b.krisenampel) {
+    const stufe = (label, st) => {
+      if (!st || !Array.isArray(st.zeichen) || st.zeichen.length === 0) return;
+      lines.push('Krisenampel ' + label + ':');
+      pushAmpel('Zeichen', st.zeichen);
+      pushAmpel('Tun', st.tun);
+      if (st.nicht_tun) pushAmpel('NICHT tun', st.nicht_tun);
+      if (st.schutzhinweis) lines.push('  Schutzhinweis: ' + stripHtmlForPrompt(st.schutzhinweis));
+      lines.push('');
+    };
+    function pushAmpel(t, arr) { if (Array.isArray(arr) && arr.length > 0) { lines.push('  ' + t + ':'); for (const x of arr) lines.push('  - ' + stripHtmlForPrompt(x)); } }
+    stufe('GRUEN', b.krisenampel.gruen);
+    stufe('GELB', b.krisenampel.gelb);
+    stufe('ROT', b.krisenampel.rot);
+  }
+  lines.push('[/SAVOIR-WISSEN]');
+  return lines.join('\n');
+}
+
+function syntheseGroundingKontext(modul, umfang) {
+  const b = modul.bloecke || {};
+  const lines = ['[SAVOIR-WISSEN: kontext-' + modul.id + ']', 'Kontext-Modul: ' + modul.name, ''];
+  if (b.reframe) { lines.push('Reframe:'); lines.push(stripHtmlForPrompt(b.reframe)); lines.push(''); }
+  if (Array.isArray(b.tun) && b.tun.length > 0) { lines.push('Was du tust:'); for (const x of b.tun) lines.push('- ' + stripHtmlForPrompt(x)); lines.push(''); }
+  if (Array.isArray(b.nicht_tun) && b.nicht_tun.length > 0) { lines.push('Was du nicht tust:'); for (const x of b.nicht_tun) lines.push('- ' + stripHtmlForPrompt(x)); lines.push(''); }
+  if (umfang === 'voll') {
+    if (Array.isArray(b.haltung) && b.haltung.length > 0) { lines.push('Haltung:'); for (const x of b.haltung) lines.push('- ' + stripHtmlForPrompt(x)); lines.push(''); }
+    if (b.eskalation) { lines.push('Wann es den Fall verschaerft:'); lines.push(stripHtmlForPrompt(b.eskalation)); lines.push(''); }
+    if (b.psychoedukation) { lines.push('Psychoedukation:'); lines.push(stripHtmlForPrompt(b.psychoedukation)); lines.push(''); }
+  }
+  lines.push('[/SAVOIR-WISSEN]');
+  return lines.join('\n');
+}
+
+/* Der eigentliche Compiler. Gibt einen vollstaendigen Prompt-String zurueck. */
+function compileSynthesisPrompt(topicId, ps, opts) {
+  opts = opts || {};
+  const alias = (opts.alias && String(opts.alias).trim()) || 'Jugendliche:r A';
+  const umfang = opts.umfang === 'kompakt' ? 'kompakt' : 'voll';
+  const freitext = (opts.freitext || '').trim();
+  const summary = syntheseProfilZusammenfassung(topicId, ps);
+  const kontextQA = syntheseKontextQA(topicId, ps);
+  const symptomeQA = syntheseSymptomeQA(topicId, ps);
+
+  const krisenStatus = (() => {
+    const teile = [];
+    if (summary.crisisActive) {
+      const cfg = TOPIC_CRISIS_CONFIG[topicId];
+      teile.push('Krisen-Profil aktiv: ' + (cfg ? cfg.bannerTitel : 'akute Selbstgefaehrdung'));
+    }
+    const banner = kontextBannerFor(ps);
+    for (const b of banner) teile.push((b.typ === 'schutz' ? 'Schutz-Kontext' : 'Risikofenster') + ': ' + b.name);
+    return teile.length > 0 ? teile.join(' | ') : 'kein Krisen- oder Schutz-Hinweis aus der Profil-Diagnose';
+  })();
+
+  const kontextQAStr = kontextQA.length > 0
+    ? kontextQA.map(q => '- ' + q.titel + ': ' + q.antwort).join('\n')
+    : '- (keine Kontext-Antworten angegeben)';
+
+  const symptomeStr = symptomeQA.length > 0
+    ? symptomeQA.map(k => k.kategorie + ':\n' + k.items.map(t => '  - ' + t).join('\n')).join('\n')
+    : '(keine Symptome angekreuzt)';
+
+  const auchMoeglichStr = summary.auchMoeglich.length > 0
+    ? summary.auchMoeglich.map(a => a.name + ' (' + a.pct + '% Uebereinstimmung)').join('; ')
+    : 'keine relevanten Alternativ-Hypothesen ueber Schwelle';
+
+  const kontextModuleStr = summary.kontextModule.length > 0
+    ? summary.kontextModule.join('; ')
+    : 'keine aktiven System-Kontexte';
+
+  const grounding = syntheseGrounding(topicId, ps, summary, { umfang });
+
+  const ALIAS = alias;
+  const TOPIC_TITEL = summary.topicTitel;
+  const TOP_MUSTER = summary.top ? summary.top.name : 'kein eindeutiges Muster';
+  const TOP_SCORE = summary.top ? 'Score ' + summary.top.score : '-';
+  const FREITEXT = freitext.length > 0 ? freitext : '(kein anonymisierter Verlauf angegeben)';
+
+  return [
+    'Du bist ein erfahrener Kinder- und Jugendpsychiater / klinischer Psychologe (20+ Jahre, Versorgungskontext Luxemburg) und schreibst fuer eine Fachkollegin/einen Fachkollegen eine kollegiale FALLSYNTHESE ueber ' + ALIAS + '. Sprache: Deutsch, Du-Ansprache an die Fachkraft, klinisch-direkt, warm, ohne Floskeln, keine Emojis.',
+    '',
+    'I. REGELN (hart, nicht verhandelbar)',
+    '1. Alles sind ARBEITSHYPOTHESEN auf Basis von Sekundaermaterial — keine definitiven Diagnosen. Staffle deine Konfidenz ausdruecklich (gut belegt / plausibel / duenn) und benenne, welche Beobachtung welche Hypothese traegt.',
+    '2. Wenn die Falldaten fuer eine Aussage nicht reichen: sag das und stelle stattdessen eine praezise Frage. Fuelle Luecken NICHT mit Plausibilitaet.',
+    '3. Sicherheit: Bei Suizidalitaet/Selbstverletzung keine Methoden-Details, keine Schmerz-/Kaelte-/Schock-Skills; Safety-Plan-Logik (Stanley/Brown), Anbindung, Luxemburger Pfade (KJP-Notdienst CHL / Hopitaux Robert Schuman, SOS Detresse 454545, 112). Kinderschutz (ONE, SCAS/signalement, ALUPSE) hat Vorrang vor jedem Behandlungsplan.',
+    '4. Differentialdenken ist Pflicht: Erklaere, was fuer das Top-Muster spricht, was fuer die Alternativen — und was beide unterscheiden wuerde (naechster diagnostischer Schritt).',
+    '5. Das mitgelieferte SAVOIR-WISSEN ist dein fachliches Grounding: nutze es, widersprich ihm nur mit Begruendung, erfinde keine Quellen darueber hinaus.',
+    '6. Keine Re-Identifikationsversuche; arbeite ausschliesslich mit ' + ALIAS + ' und Rollenbezeichnungen.',
+    '',
+    'II. FALLDATEN AUS DER STRUKTURIERTEN PROFIL-DIAGNOSE',
+    'Achse: ' + TOPIC_TITEL,
+    'Kontext-Antworten:',
+    kontextQAStr,
+    'Beobachtete Symptome (angekreuzt):',
+    symptomeStr,
+    'Muster-Ergebnis: Top = ' + TOP_MUSTER + ' (' + TOP_SCORE + '); auch moeglich: ' + auchMoeglichStr,
+    'Krisen-/Schutz-Status: ' + krisenStatus,
+    'Aktive System-Kontexte: ' + kontextModuleStr,
+    '',
+    'III. ANONYMISIERTER VERLAUF & BEOBACHTUNGEN (Laengsschnitt, vom Behandlungsteam)',
+    FREITEXT,
+    '',
+    'IV. SAVOIR-WISSEN (Grounding, Umfang: ' + umfang + ')',
+    grounding || '(kein Grounding verfuegbar — bitte erst Profil-Diagnose ausfuellen)',
+    '',
+    'V. AUSGABEFORMAT — schreibe die Synthese EXAKT in diesen 11 Sektionen',
+    '1. Wie wir den Fall sehen muessen (Fallverstaendnis) — beginne mit einem Ein-Satz-Reframe („Das ist kein …, sondern …"), dann 3–5 Absaetze echte Interpretation: Innenperspektive des Jugendlichen, zeitliche Logik des Verlaufs, Systemdynamik; schliesse mit „Die Kernpunkte in Kuerze" (5–6 Bullets).',
+    '2. Ressourcen & Anker — konkrete Staerken, Interessen, tragende Beziehungen, belegte Erfolgsmomente; jeweils mit Nutzungsidee.',
+    '3. Unsere Haltung — 6–8 Haltungssaetze, die das ganze Team teilen soll; jeder mit einem Halbsatz Warum.',
+    '4. Was dieses Kind in uns ausloest (Gegenuebertragung) — Rahmung woertlich: „Typische Reaktionen, die dieses Profil oft ausloest — prueft, ob es bei euch so ist." 3–5 Sogwirkungen mit Gegenmittel.',
+    '5. Konkret: Was und Wie — 6–9 Unterpunkte mit Beispielsaetzen in woertlicher Rede (auch Luxemburgisch erlaubt, wenn der Verlauf es nahelegt), inkl. eines Unterpunkts „Koerper & Regulation".',
+    '6. Konzepte verstehen — kurz erklaert: jedes im Text benutzte Fachkonzept in 80–150 W (was es ist · wie es sich hier zeigt · was es fuer uns aendert).',
+    '7. Fruehwarnzeichen & Akut (Krisenampel) — GRUEN/GELB/ROT mit Zeichen, Tun und expliziten NICHT-tun; bei Risikothemen Regel I.3 beachten.',
+    '8. Risiko & Sicherheit — Risiko- und Schutzfaktoren getrennt; ein kurzer Kasten „Mini-Sicherheitslogik fuers Team".',
+    '9. Konkrete naechste Schritte (priorisiert, 6–8) + „Realistischer Verlauf" (was \'gut\' in 6–12 Monaten heisst — Erwartungsmanagement, nicht-linear).',
+    '10. Offene Fragen an das Team — 6–9 praezise Fragen; jede Frage benennt, welche Entscheidung von der Antwort abhaengt.',
+    '11. Evidenzbasis & Einstiegsliteratur — nur etablierte Autoren/Leitlinien, integriert statt zitiert; Schlusszeile: „Quellen = Einstiegspunkte, keine fallspezifischen Belege; Ausgaben/Jahre und LU-Strukturen pruefen."',
+    '',
+    'Beginne direkt mit Sektion 1. Kein Vorwort, keine Meta-Kommentare.'
+  ].join('\n');
 }
 
 function topicCrisisActive(topicId, ps) {
@@ -16928,6 +17401,172 @@ function normalizeBehandlungsPlan(topic, muster) {
 
 function placeholderHtml(label) {
   return `<div class="ebene3-placeholder"><em>${escHtml(label)}</em></div>`;
+}
+
+function renderSynthesePrompt(topic, ps, container) {
+  ps.kontext = ps.kontext || {};
+  ps.symptome = ps.symptome || [];
+  ps.kontextModule = Array.isArray(ps.kontextModule) ? ps.kontextModule : [];
+
+  const sState = loadSyntheseState(topic.id);
+  // Freitext bleibt session-only — NICHT in localStorage. Wir merken ihn auf STATE,
+  // damit ein Tab-Wechsel innerhalb derselben Session ihn nicht verliert.
+  STATE.synthese = STATE.synthese || {};
+  STATE.synthese[topic.id] = STATE.synthese[topic.id] || { freitext: '', gateOk: false, output: '' };
+  const sess = STATE.synthese[topic.id];
+
+  const summary = syntheseProfilZusammenfassung(topic.id, ps);
+  const hasProfil = summary.symptomeCount > 0 || summary.crisisActive;
+
+  const profilHtml = hasProfil ? `
+    <div class="synthese-profil">
+      <div class="synthese-profil-zeile"><span class="synthese-profil-label">Achse</span>${escHtml(summary.topicTitel)}</div>
+      <div class="synthese-profil-zeile"><span class="synthese-profil-label">Top-Sub-Muster</span>${summary.top ? escHtml(summary.top.name) + ' <span class="synthese-profil-score">Score ' + summary.top.score + (summary.crisisActive ? ' · krisenpriorisiert' : '') + '</span>' : '(kein eindeutiges Muster)'}</div>
+      ${summary.auchMoeglich.length > 0 ? `<div class="synthese-profil-zeile"><span class="synthese-profil-label">Auch möglich</span>${summary.auchMoeglich.map(a => escHtml(a.name) + ' (' + a.pct + '%)').join(', ')}</div>` : ''}
+      <div class="synthese-profil-zeile"><span class="synthese-profil-label">Symptome angekreuzt</span>${summary.symptomeCount}</div>
+      <div class="synthese-profil-zeile"><span class="synthese-profil-label">System-Kontexte</span>${summary.kontextModule.length > 0 ? escHtml(summary.kontextModule.join(', ')) : '<em>keine aktiv</em>'}</div>
+      ${summary.crisisActive ? `<div class="synthese-profil-krise">Krisen-Profil aktiv — wird im Prompt prominent markiert.</div>` : ''}
+    </div>` : `
+    <div class="synthese-profil synthese-profil-leer">
+      <p><strong>Noch keine Profil-Diagnose.</strong> Geh erst zur Profil-Diagnose → Symptom-Auswahl und kreuze Symptome an. Der Compiler braucht eine ausgewertete Profil-Diagnose als Grundlage.</p>
+    </div>`;
+
+  container.innerHTML = `
+    <section class="synthese-tab">
+      <div class="plan-eyebrow">Synthese-Prompt · ${escHtml(topic.titel)}</div>
+      <div class="plan-intro">Kompiliert deine Profil-Diagnose + das SAVOIR-Wissen + ein 11-Sektionen-Template zu einem anonymisierten Prompt, den du in eine externe KI kopieren kannst. Alles bleibt offline. Du fügst keinerlei Klient-Daten in die App ein außer dem, was du selbst in das Verlaufs-Feld tippst.</div>
+
+      <div class="synthese-block">
+        <div class="synthese-block-titel">1. Profil-Zusammenfassung</div>
+        ${profilHtml}
+      </div>
+
+      <div class="synthese-block">
+        <div class="synthese-block-titel">2. Alias</div>
+        <div class="synthese-hint">Pflichtfeld. Wird als Platzhalter im Prompt verwendet.</div>
+        <input type="text" class="synthese-alias-input" data-tool="synthese-alias" maxlength="80" value="${escHtml(sState.alias)}" placeholder="Jugendliche:r A">
+      </div>
+
+      <div class="synthese-block">
+        <div class="synthese-block-titel">3. Anonymisierter Verlauf &amp; Beobachtungen <span class="synthese-session-tag">session-only</span></div>
+        <div class="synthese-hint">Hier den anonymisierten Verlaufs-Export aus der Team-Dossier-App einfügen oder eigene Beobachtungen (Längsschnitt!) notieren. Checkliste: nur Alias · Behandler als Rollen („Pedopsychiater", „Therapeutin") · Institutionen dürfen generisch bleiben (KJP, Foyer, Lycée) · keine exakten Geburtsdaten/Adressen. <em>Dieses Feld wird nicht gespeichert und ist beim Schließen des Tabs weg.</em></div>
+        <textarea class="synthese-freitext" data-tool="synthese-freitext" rows="10" placeholder="Anonymisierte Beobachtungen, Verlauf, Familien-System, bisherige Behandlungs-Schritte ...">${escHtml(sess.freitext)}</textarea>
+      </div>
+
+      <div class="synthese-block">
+        <div class="synthese-block-titel">4. Grounding-Umfang</div>
+        <div class="synthese-radios">
+          <label class="synthese-radio"><input type="radio" name="synthese-umfang" data-tool="synthese-umfang" value="voll" ${sState.umfang === 'voll' ? 'checked' : ''}> <span>Voll &mdash; alle 8 Blöcke des Top-Musters + Kurztexte der Alternativen + volle Kontext-Module</span></label>
+          <label class="synthese-radio"><input type="radio" name="synthese-umfang" data-tool="synthese-umfang" value="kompakt" ${sState.umfang === 'kompakt' ? 'checked' : ''}> <span>Kompakt &mdash; Block 1, 3, 8 des Top-Musters + Kurztexte + Kontext-Module nur reframe/tun/nicht_tun</span></label>
+        </div>
+        <div class="synthese-zaehler" data-tool="synthese-zaehler">&nbsp;</div>
+      </div>
+
+      <div class="synthese-block synthese-gate">
+        <label class="synthese-gate-label">
+          <input type="checkbox" data-tool="synthese-gate" ${sess.gateOk ? 'checked' : ''}>
+          <span>Ich habe im Freitext alle Namen, Orte, exakten Daten und Behandler-Namen entfernt oder durch Alias/Rollen ersetzt. Es sind keine re-identifizierbaren Daten enthalten.</span>
+        </label>
+        <div class="synthese-actions">
+          <button class="plan-generate-btn" data-tool="synthese-compile" ${sess.gateOk ? '' : 'disabled'}>Prompt kompilieren</button>
+          <button class="plan-reset-btn" data-tool="synthese-reset">Freitext &amp; Output zurücksetzen</button>
+        </div>
+      </div>
+
+      <div class="synthese-block synthese-output-block" ${sess.output ? '' : 'style="display:none"'}>
+        <div class="synthese-block-titel">5. Kompilierter Prompt</div>
+        <div class="synthese-hint">Read-only. Kopier ihn in deine externe KI. Länge: <span data-tool="synthese-output-len">${sess.output ? sess.output.length.toLocaleString('de-DE') : '0'}</span> Zeichen.</div>
+        <textarea class="synthese-output" data-tool="synthese-output" rows="14" readonly>${escHtml(sess.output)}</textarea>
+        <div class="synthese-actions">
+          <button class="plan-generate-btn" data-tool="synthese-copy">In Zwischenablage kopieren</button>
+          <span class="synthese-copy-status" data-tool="synthese-copy-status"></span>
+        </div>
+      </div>
+    </section>`;
+
+  bindSyntheseEvents(topic, ps, sState, sess);
+}
+
+function bindSyntheseEvents(topic, ps, sState, sess) {
+  const root = document.getElementById('articleBody');
+
+  // Live-Zeichenzähler updaten
+  function updateZaehler() {
+    const z = root.querySelector('[data-tool="synthese-zaehler"]');
+    if (!z) return;
+    const probe = compileSynthesisPrompt(topic.id, ps, {
+      alias: (root.querySelector('[data-tool="synthese-alias"]') || {}).value || sState.alias,
+      umfang: sState.umfang,
+      freitext: (root.querySelector('[data-tool="synthese-freitext"]') || {}).value || ''
+    });
+    z.textContent = 'Voraussichtliche Prompt-Länge: ' + probe.length.toLocaleString('de-DE') + ' Zeichen';
+  }
+  updateZaehler();
+
+  root.querySelector('[data-tool="synthese-alias"]')?.addEventListener('input', e => {
+    sState.alias = e.target.value.trim() || 'Jugendliche:r A';
+    saveSyntheseState(topic.id, sState);
+    updateZaehler();
+  });
+  root.querySelectorAll('[data-tool="synthese-umfang"]').forEach(r => {
+    r.addEventListener('change', e => {
+      if (!e.target.checked) return;
+      sState.umfang = e.target.value === 'kompakt' ? 'kompakt' : 'voll';
+      saveSyntheseState(topic.id, sState);
+      updateZaehler();
+    });
+  });
+  root.querySelector('[data-tool="synthese-freitext"]')?.addEventListener('input', e => {
+    sess.freitext = e.target.value;
+    updateZaehler();
+  });
+  root.querySelector('[data-tool="synthese-gate"]')?.addEventListener('change', e => {
+    sess.gateOk = !!e.target.checked;
+    const btn = root.querySelector('[data-tool="synthese-compile"]');
+    if (btn) btn.disabled = !sess.gateOk;
+  });
+  root.querySelector('[data-tool="synthese-compile"]')?.addEventListener('click', () => {
+    if (!sess.gateOk) return;
+    sess.output = compileSynthesisPrompt(topic.id, ps, {
+      alias: sState.alias,
+      umfang: sState.umfang,
+      freitext: sess.freitext
+    });
+    renderEbene();
+  });
+  root.querySelector('[data-tool="synthese-reset"]')?.addEventListener('click', () => {
+    if (!confirm('Freitext, Gate-Häkchen und kompilierten Prompt zurücksetzen?')) return;
+    sess.freitext = '';
+    sess.gateOk = false;
+    sess.output = '';
+    renderEbene();
+  });
+  root.querySelector('[data-tool="synthese-copy"]')?.addEventListener('click', () => {
+    const txt = sess.output || '';
+    const status = root.querySelector('[data-tool="synthese-copy-status"]');
+    const okText = '✓ In Zwischenablage kopiert.';
+    const failText = '✗ Kopieren fehlgeschlagen — markiere den Text manuell.';
+    const showStatus = msg => { if (status) { status.textContent = msg; setTimeout(() => { if (status) status.textContent = ''; }, 3500); } };
+    if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(txt).then(() => showStatus(okText)).catch(() => fallbackCopy(txt) ? showStatus(okText) : showStatus(failText));
+    } else {
+      showStatus(fallbackCopy(txt) ? okText : failText);
+    }
+  });
+
+  function fallbackCopy(txt) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch { return false; }
+  }
 }
 
 function renderSubMusterTiefe(topic, ps, container) {
