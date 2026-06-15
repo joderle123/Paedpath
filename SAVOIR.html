@@ -613,6 +613,20 @@
     line-height: 1.55;
   }
   .kontext-modul-liste li { margin-bottom: 6px; }
+  .kontext-modul-variante {
+    margin-top: 12px;
+    background: rgba(212, 169, 63, 0.06);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 3px 3px 0;
+    padding: 10px 14px;
+  }
+  .kontext-modul-variante summary {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--gold);
+    cursor: pointer;
+  }
+  .kontext-modul-variante[open] summary { margin-bottom: 8px; }
 
   /* ============ BLOCK 7 GEGENÜBERTRAGUNG + BLOCK 8 KRISENAMPEL (P28) ============ */
   .gegen-intro {
@@ -8425,6 +8439,52 @@ const KONTEXT_MODULE = {
         'selbst (noch) nicht mitmacht. Genau deshalb ist dieses Modul ein Hebel erster Ordnung: Du kannst über die ' +
         'Erwachsenen behandeln, wenn der Jugendliche nicht erreichbar ist. Der Preis ist kurzfristig mehr Distress — ' +
         'das gehört den Eltern vorab gesagt, sonst brechen sie beim ersten Sturm ab.'
+    },
+    varianten: {
+      'angststoerungen': {
+        zusatz: 'Bei Angststörungen ist die Akkommodation oft der wichtigste Aufrechterhaltungs-Faktor. SPACE (Lebowitz) wirkt evidenzbasiert auf die kindliche Angst auch dann, wenn das Kind selbst nicht in Therapie kommt. Mache den Eltern klar: ihre Reaktionsänderung IST die Behandlung — nicht ein Vorspiel zur „eigentlichen" Therapie.',
+        tun_achse: [
+          'SPACE-Inventar konkret erstellen: welche Akkommodation, in welcher Situation, wie oft täglich',
+          'Eine einzige niedrigschwellige Akkommodation als erste reduzieren — nicht die schwerste',
+          'Eltern-Coaching parallel oder primär anbieten, auch wenn das Kind „die Therapie ist"'
+        ],
+        nicht_tun_achse: [
+          'Nicht das Kind als „eigentlichen Patienten" framen und die Eltern als Beiwerk — bei Angst behandelt man oft beide oder primär die Eltern'
+        ]
+      },
+      'zwangsstoerung': {
+        zusatz: 'Bei OCD ist Familien-Akkommodation noch stärker behandlungs-bestimmend als bei reiner Angst. Rückversicherungs-Fragen, Mitmachen bei Ritualen, Vermeidung von Triggern durch die ganze Familie — all das hält das Zwangs-System am Leben. ERP-Behandlung scheitert systematisch, wenn die Familie nicht aus den Ritualen gelöst wird.',
+        tun_achse: [
+          'Familien-Akkommodation als Teil der ERP-Planung formal erheben (z. B. mit FAS-PR oder strukturiertem Inventar)',
+          'Rückversicherungs-Stopp explizit mit den Eltern üben — wörtliche Standard-Antwort vorbereiten',
+          'Eltern-Coaching VOR oder parallel zur kindlichen ERP'
+        ],
+        nicht_tun_achse: [
+          'Nicht ERP starten, ohne dass die Familie die Rückversicherungs-Stopp-Strategie geübt hat — der Zwang nutzt sonst die elterliche Lücke'
+        ]
+      },
+      'depression': {
+        zusatz: 'Bei Depression läuft Akkommodation oft als „Schonungs-Spirale" — Aufgaben werden abgenommen, Anforderungen reduziert, Schul-Vermeidung toleriert. Kurzfristig erleichtert das, langfristig verstärkt es die Aktivitäts-Hemmung und die Hoffnungslosigkeit. Verhaltens-Aktivierung scheitert systematisch in akkommodierten Familien.',
+        tun_achse: [
+          'Akkommodations-Inventar mit Schwerpunkt Schule, Hausaufgaben, soziale Aktivitäten',
+          'Verhaltens-Aktivierungs-Plan mit Eltern abstimmen — kleine, konkrete tägliche Aktivierung',
+          'Schul-Anbindung halten (Akkommodation der Schul-Vermeidung gehört aktiv adressiert)'
+        ],
+        nicht_tun_achse: [
+          'Nicht den Eltern „mehr Schonung" empfehlen, weil das Kind „so erschöpft" wirkt — bei Depression ist Aktivierung die Behandlung'
+        ]
+      },
+      'essstoerungen': {
+        zusatz: 'Bei Essstörungen ist die Unterscheidung zentral: FBT (Maudsley) verlangt aktive elterliche Re-Nutrition — das ist KEINE Akkommodation der Krankheit, sondern strukturierte Behandlungs-Verantwortung. Akkommodation wäre dagegen das Nachgeben bei Verhandlungen mit dem Krankheits-Anteil (Portionen, Bewegung, Ausnahmen). Eltern müssen die FBT-Logik verstehen, sonst kippt das Setting in Verhandlung.',
+        tun_achse: [
+          'FBT-Phase-1-Verantwortung der Eltern explizit von „Akkommodation" abgrenzen — schriftlich',
+          'Verhandelbare vs. nicht-verhandelbare Items mit Eltern festlegen (z. B. Musik beim Essen verhandelbar, Mahlzeit selbst nicht)',
+          'Bei Geschwistern: Akkommodation der Geschwister-Bedürfnisse durch das System mitdenken'
+        ],
+        nicht_tun_achse: [
+          'Nicht SPACE-Logik auf FBT übertragen — sie widerspricht der Phase-1-Verantwortung der Eltern bei AN'
+        ]
+      }
     }
   },
   'helfernetz-fragmentiert': {
@@ -8773,6 +8833,30 @@ const KONTEXT_MODULE = {
       ],
       eskalation: 'Verschärfung, wenn die Trauer nach Monaten durchgängig statt wellenförmig bleibt, Funktionsniveau und Selbstwert dauerhaft einbrechen, Todeswünsche über das „ich will bei ihr sein" hinausgehen oder konkrete Suizidalität auftritt — besonders nach dem Suizid einer nahen Person. Dann KJP-Abklärung statt Begleitung allein: KJP-Notdienst (CHL, Hôpitaux Robert Schuman) bei Akuität, SOS Détresse 454545 als niederschwellige Nummer für den Jugendlichen, 112 bei akuter Gefahr.',
       psychoedukation: 'Trauer und Depression teilen die Oberfläche und unterscheiden sich im Kern. Trauer kommt in Wellen, ist auf die verlorene Person bezogen, lässt positive Momente zu, und der Selbstwert bleibt meist intakt — die Welt ist ärmer geworden. Depression ist gleichförmiger, und der Selbstwert bricht — ich bin falsch. Diese Unterscheidung entscheidet über alles Weitere: begleiten oder behandeln. Bei Jugendlichen mit Abbruchgeschichte — Foyer, Migration, mehrfache Wechsel — aktiviert jeder neue Verlust den ganzen Stapel: Die Reaktion gilt nicht der einen Pädagogin, sondern allen Abschieden davor. Genau deshalb wirken gestaltete Übergänge so stark: Ein angekündigter, begleiteter, mit etwas Bleibendem versehener Abschied ist die korrigierende Erfahrung, dass Bindung enden kann, ohne dass die Person einfach verschwindet. Jahrestags-Reaktionen sind erwartbare Gedächtnisphänomene; wer sie kennt und vorbespricht, erlebt sie als Erinnerung statt als Rückfall — das allein verhindert viele unnötige Krisendeutungen und Medikationsentscheidungen.'
+    },
+    varianten: {
+      'depression': {
+        zusatz: 'Bei depressiven Jugendlichen mit frischem Verlust ist die Differenzierung Trauer vs. Depression besonders kritisch. Eine reaktiv-depressive Episode nach Verlust kann sich verfestigen; gleichzeitig wäre es ein klinischer Fehler, eine normale Trauerreaktion durch SSRI-Behandlung zu pathologisieren. Verlauf über mehrere Monate ist hier diagnostisch wichtiger als Quer-Schnitt.',
+        tun_achse: [
+          'Verlauf konkret tracken: Wellen vs. gleichförmiger Boden — über 2–3 Monate, nicht in einer Sitzung entscheiden',
+          'Selbstwert-Erleben gezielt erfragen („ich bin schlecht" vs. „die Welt ist ärmer")',
+          'SSRI-Indikation aufschieben in den ersten Trauer-Monaten, außer schwere Funktions-Einschränkung oder Suizidalität'
+        ],
+        nicht_tun_achse: [
+          'Nicht jeden Verlust als „auslösendes Ereignis einer Depression" framen — manchmal ist es einfach Trauer, die Zeit braucht'
+        ]
+      },
+      'trauma': {
+        zusatz: 'Bei trauma-vorbelasteten Jugendlichen aktiviert ein neuer Verlust oft den ganzen Trauma-Stapel — Bindungsbrüche der Vergangenheit reaktivieren sich. Komplizierte Trauer (prolonged grief disorder) und cPTSD-Reaktivierung können gleichzeitig laufen. Der frische Verlust ist dann nicht „neues Trauma", sondern Echo.',
+        tun_achse: [
+          'Bindungs-Anamnese aktiv erweitern — wo aktiviert dieser Verlust frühere?',
+          'Jahrestage und Marker-Daten in den Plan aufnehmen, auch retrospektiv',
+          'Gestaltete Übergangs-Rituale anbieten (Brief, Erinnerungsgegenstand, Abschiedsgeste)'
+        ],
+        nicht_tun_achse: [
+          'Nicht den frischen Verlust isoliert behandeln — die Wunde liegt meist tiefer'
+        ]
+      }
     }
   },
   'signalement-gericht': {
@@ -27116,6 +27200,29 @@ function renderSubMusterTiefe(topic, ps, container) {
     const b = m.bloecke || {};
     return nonEmpty(b.reframe) || (b.haltung || []).length > 0 || (b.tun || []).length > 0;
   });
+  // Variante-Slot (P33): Module können achsen-spezifische Ergänzungen via
+  // m.varianten[topicId] tragen. Wenn vorhanden, wird die passende
+  // Variante als zusätzliches Detail-Panel unter den Standard-Inhalten
+  // gerendert. Orthogonalität bleibt erhalten — die Variante ERGÄNZT,
+  // ersetzt nicht.
+  const renderVariante = (m, topicId) => {
+    const v = m.varianten && m.varianten[topicId];
+    if (!v) return '';
+    const liste = (titel, arr) => (arr && arr.length > 0) ? `
+      <div class="ebene3-subblock">
+        <div class="ebene3-subblock-titel">${escHtml(titel)}</div>
+        <ul class="kontext-modul-liste">${arr.map(x => `<li>${escHtml(x)}</li>`).join('')}</ul>
+      </div>` : '';
+    const hasContent = nonEmpty(v.zusatz) || (v.tun_achse || []).length > 0 || (v.nicht_tun_achse || []).length > 0;
+    if (!hasContent) return '';
+    return `
+      <details class="ebene3-details kontext-modul-variante">
+        <summary>Wenn es um diese Achse geht — zusätzliche Schicht</summary>
+        ${nonEmpty(v.zusatz) ? `<div class="ebene3-prose">${escHtml(v.zusatz)}</div>` : ''}
+        ${liste('Achsen-spezifisch tun', v.tun_achse)}
+        ${liste('Achsen-spezifisch nicht tun', v.nicht_tun_achse)}
+      </details>`;
+  };
   const kontextModulPanel = m => {
     const b = m.bloecke;
     const cfg = KONTEXT_SCHUTZ_CONFIG[m.id];
@@ -27132,6 +27239,7 @@ function renderSubMusterTiefe(topic, ps, container) {
         ${liste('Was du tust', b.tun)}
         ${liste('Was du nicht tust', b.nicht_tun)}
         ${nonEmpty(b.eskalation) ? `<div class="ebene3-subblock"><div class="ebene3-subblock-titel">Wann es den Fall verschärft</div><div class="ebene3-prose">${escHtml(b.eskalation)}</div></div>` : ''}
+        ${renderVariante(m, topic.id)}
         ${nonEmpty(b.psychoedukation) ? `
           <details class="ebene3-details">
             <summary>Psychoedukation — was es ist, warum es wirkt</summary>
