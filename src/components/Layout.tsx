@@ -1,91 +1,68 @@
-import { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from "react-router-dom";
 import {
-  LayoutDashboard,
+  Map,
+  UserX,
+  GraduationCap,
   Users,
-  FileText,
-  Menu,
-  X,
-  Stethoscope,
-} from 'lucide-react';
+  BarChart3,
+  Settings as SettingsIcon,
+} from "lucide-react";
 
-const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/patients', icon: Users, label: 'Patienten' },
-  { to: '/reports', icon: FileText, label: 'Berichte' },
+const NAV = [
+  { to: "/", label: "Karte", icon: Map, end: true },
+  { to: "/absences", label: "Ausfall & Ersatz", icon: UserX },
+  { to: "/classes", label: "Klassen", icon: GraduationCap },
+  { to: "/people", label: "Personen", icon: Users },
+  { to: "/statistics", label: "Statistik", icon: BarChart3 },
+  { to: "/settings", label: "Einstellungen", icon: SettingsIcon },
 ];
 
 export default function Layout() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/30 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 lg:translate-x-0 lg:static lg:z-auto ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-200">
-          <div className="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center">
-            <Stethoscope className="w-5 h-5 text-white" />
+    <div className="flex h-full">
+      <aside className="w-60 shrink-0 border-r border-edge bg-abyss/70 flex flex-col">
+        <div className="px-5 py-5 border-b border-edge">
+          <div className="flex items-center gap-2">
+            <div className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_2px_rgba(53,214,240,0.7)]" />
+            <span
+              className="text-ink font-bold tracking-wide"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              CDSE·PLAN
+            </span>
           </div>
-          <div>
-            <h1 className="text-lg font-bold text-gray-900">PaedPath</h1>
-            <p className="text-xs text-gray-500">Pädiatrische Diagnostik</p>
-          </div>
+          <div className="label-tech mt-1">Classes de participation</div>
         </div>
 
-        <nav className="px-3 py-4 space-y-1">
-          {navItems.map((item) => (
+        <nav className="flex-1 p-3 space-y-1">
+          {NAV.map(({ to, label, icon: Icon, end }) => (
             <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              onClick={() => setSidebarOpen(false)}
+              key={to}
+              to={to}
+              end={end}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                [
+                  "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                   isActive
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`
+                    ? "bg-panel-2 text-ink border border-edge-2 shadow-[0_0_12px_rgba(53,214,240,0.12)]"
+                    : "text-muted hover:text-ink hover:bg-panel-2/60 border border-transparent",
+                ].join(" ")
               }
             >
-              <item.icon className="w-5 h-5" />
-              {item.label}
+              <Icon size={17} />
+              {label}
             </NavLink>
           ))}
         </nav>
+
+        <div className="p-4 border-t border-edge label-tech">
+          Lokal gespeichert · v1
+        </div>
       </aside>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile header */}
-        <header className="lg:hidden flex items-center gap-3 px-4 py-3 bg-white border-b border-gray-200">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-1.5 rounded-md hover:bg-gray-100"
-          >
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-          <div className="flex items-center gap-2">
-            <Stethoscope className="w-5 h-5 text-indigo-600" />
-            <span className="font-semibold text-gray-900">PaedPath</span>
-          </div>
-        </header>
-
-        <main className="flex-1 p-4 lg:p-8 overflow-auto">
-          <Outlet />
-        </main>
-      </div>
+      <main className="flex-1 overflow-auto grid-bg">
+        <Outlet />
+      </main>
     </div>
   );
 }

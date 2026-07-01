@@ -1,27 +1,27 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import PatientList from './pages/PatientList';
-import PatientDetail from './pages/PatientDetail';
-import NewPatient from './pages/NewPatient';
-import DiagnosticSession from './pages/DiagnosticSession';
-import Reports from './pages/Reports';
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import MapHome from "./pages/MapHome";
+import ClassDetail from "./pages/ClassDetail";
+import Absences from "./pages/Absences";
+import Classes from "./pages/Classes";
+import People from "./pages/People";
+import Statistics from "./pages/Statistics";
+import Settings from "./pages/Settings";
 
-function App() {
+export default function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="patients" element={<PatientList />} />
-          <Route path="patients/new" element={<NewPatient />} />
-          <Route path="patients/:id" element={<PatientDetail />} />
-          <Route path="patients/:id/diagnostic" element={<DiagnosticSession />} />
-          <Route path="reports" element={<Reports />} />
+        <Route element={<Layout />}>
+          <Route index element={<MapHome />} />
+          <Route path="class/:id" element={<ClassDetail />} />
+          <Route path="absences" element={<Absences />} />
+          <Route path="classes" element={<Classes />} />
+          <Route path="people" element={<People />} />
+          <Route path="statistics" element={<Statistics />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
-
-export default App;
