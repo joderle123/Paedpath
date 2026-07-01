@@ -96,26 +96,33 @@ const people: Person[] = [
   ]),
   mkPerson("p10", "Ben Thoma", "springer", true, "strassen", [
     free("mo-am", "strassen"),
+    free("mo-pm", "strassen"),
     free("di-am", "strassen"),
     free("mi-am", "strassen"),
     busy("mi-pm", "luxembourg"), // Mi nachmittags belegt
     free("do-am", "strassen"),
     free("fr-am", "strassen"),
+    free("fr-pm", "strassen"),
   ]),
   mkPerson("p11", "Mia Faber", "springer", true, "diekirch", [
     free("mo-am", "ettelbruck"),
+    free("mo-pm", "diekirch"),
     free("di-am", "diekirch"),
     free("mi-am", "diekirch"),
+    free("mi-pm", "diekirch"),
     free("do-am", "diekirch"),
     free("fr-am", "diekirch"),
+    free("fr-pm", "diekirch"),
   ]),
   mkPerson("p12", "Luc Simon", "springer", true, "junglinster", [
     free("mo-am", "junglinster"),
     free("mo-pm", "junglinster"),
     free("di-am", "junglinster"),
     free("mi-am", "junglinster"),
+    free("mi-pm", "junglinster"),
     free("do-am", "junglinster"),
     free("fr-am", "junglinster"),
+    free("fr-pm", "junglinster"),
   ]),
 ];
 
@@ -155,18 +162,22 @@ const demoPeople: Person[] = [
   // zusätzliche Springer
   mkPerson("p17", "Emma Rausch", "springer", true, "mersch", [
     free("mo-am", "mersch"),
+    free("mo-pm", "mersch"),
     free("di-am", "mersch"),
     free("mi-am", "mersch"),
     free("mi-pm", "mersch"),
     free("do-am", "mersch"),
     free("fr-am", "mersch"),
+    free("fr-pm", "mersch"),
   ]),
   mkPerson("p18", "Nina Kirsch", "springer", true, "grevenmacher", [
     free("mo-am", "grevenmacher"),
+    free("mo-pm", "grevenmacher"),
     free("di-am", "grevenmacher"),
     free("mi-am", "grevenmacher"),
     free("do-am", "junglinster"),
     free("fr-am", "grevenmacher"),
+    free("fr-pm", "grevenmacher"),
   ]),
 ];
 
@@ -195,14 +206,13 @@ const rep = (
 ): Replacement => ({ id, classId, blockId, absentPersonId, substituteId, createdAt: T });
 
 const demoReplacements: Replacement[] = [
+  // Ein Teil ist bereits gedeckt (zeigt den Status "gedeckt")...
   rep("r1", "c1", "mo-am", "p1", "p10"), // Ben deckt CP Belair
   rep("r2", "c2", "di-am", "p3", "p9"), // Sophie deckt Esch
   rep("r3", "c3", "mi-am", "p5", "p12"), // Luc deckt Mersch
   rep("r4", "c3", "mi-pm", "p5", "p9"), // Sophie deckt Mersch Nachmittag
-  rep("r5", "c3", "do-am", "p6", "p12"), // Luc deckt Mersch Do
-  rep("r6", "c4", "fr-am", "p8", "p11"), // Mia deckt Diekirch
-  rep("r7", "c5", "mo-am", "p13", "p18"), // Nina deckt Grevenmacher
-  // c6 di-am (p15 fehlt) bleibt offen -> zeigt "Ersatz nötig" in der App
+  // ...der Rest bleibt offen -> die App zeigt automatisch die beste Wahl:
+  //   c3 do-am (p6), c4 fr-am (p8), c5 mo-am (p13), c6 di-am (p15)
 ];
 
 export function demoScenario(): AppData {

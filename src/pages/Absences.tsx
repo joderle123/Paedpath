@@ -4,18 +4,22 @@ import { useStore } from "../store/useStore";
 import { PageHeader, Field, Empty } from "../components/ui";
 import SubstitutePicker from "../components/SubstitutePicker";
 import { DAY_NAMES, classRunsInBlock } from "../lib/schedule";
-import { UserX, Plus, Trash2, Wand2, Check, ArrowRight } from "lucide-react";
+import {
+  UserX,
+  Plus,
+  Trash2,
+  Check,
+  Award,
+  MapPin,
+  Navigation,
+  ListFilter,
+} from "lucide-react";
+import { recommendSubstitutes } from "../lib/recommend";
+import { findSlot } from "../lib/schedule";
 
 export default function Absences() {
-  const {
-    people,
-    classes,
-    absences,
-    replacements,
-    settings,
-    addAbsence,
-    removeAbsence,
-  } = useStore();
+  const { people, classes, absences, settings, addAbsence, removeAbsence } =
+    useStore();
 
   const [personId, setPersonId] = useState("");
   const [selectedBlocks, setSelectedBlocks] = useState<string[]>([]);
@@ -199,54 +203,22 @@ export default function Absences() {
                     <div className="label-tech">
                       Betroffene Klassen · Ersatz nötig
                     </div>
-                    {impacts.map((im) => {
-                      const slot = settings.schedule.days
-                        .flatMap((d) => d.blocks)
-                        .find((b) => b.id === im.blockId);
-                      const covered = replacements.some(
-                        (r) =>
-                          r.classId === im.classId &&
-                          r.blockId === im.blockId &&
-                          r.absentPersonId === a.personId
-                      );
-                      return (
-                        <div
-                          key={im.classId + im.blockId}
-                          className="panel p-3 flex items-center justify-between"
-                        >
-                          <div>
-                            <Link
-                              to={`/class/${im.classId}`}
-                              className="text-ink font-medium hover:text-cyan"
-                            >
-                              {im.className}
-                            </Link>
-                            <span className="text-muted text-sm ml-2">
-                              {slot ? `${slot.start}–${slot.end}` : im.blockId}
-                            </span>
-                          </div>
-                          {covered ? (
-                            <span className="chip border-lime text-lime">
-                              <Check size={12} /> gedeckt
-                            </span>
-                          ) : (
-                            <button
-                              className="btn btn-primary !py-1 !px-3 text-xs"
-                              onClick={() =>
-                                setPicker({
-                                  classId: im.classId,
-                                  blockId: im.blockId,
-                                  absentPersonId: a.personId,
-                                })
-                              }
-                            >
-                              <Wand2 size={13} /> Springer finden
-                              <ArrowRight size={13} />
-                            </button>
-                          )}
-                        </div>
-                      );
-                    })}
+                    {impacts.map((im) => (
+                      <ImpactRow
+                        key={im.classId + im.blockId}
+                        classId={im.classId}
+                        className={im.className}
+                        blockId={im.blockId}
+                        absentPersonId={a.personId}
+                        onOpenAll={() =>
+                          setPicker({
+                            classId: im.classId,
+                            blockId: im.blockId,
+                            absentPersonId: a.personId,
+                          })
+                        }
+                      />
+                    ))}
                   </div>
                 )}
               </div>
@@ -263,6 +235,184 @@ export default function Absences() {
           absentPersonId={picker.absentPersonId}
           onClose={() => setPicker(null)}
         />
+      )}
+    </div>
+  );
+}
+
+// Eine betroffene Klasse/Block: zeigt AUTOMATISCH die beste(n) Springer.
+function ImpactRow({
+  classId,
+  className,
+  blockId,
+  absentPersonId,
+  onOpenAll,
+}: {
+  classId: string;
+  className: string;
+  blockId: string;
+  absentPersonId: string;
+  onOpenAll: () => void;
+}) {
+  const {
+    classes,
+    people,
+    replacements,
+    absences,
+    localities,
+    settings,
+    addReplacement,
+    removeReplacement,
+  } = useStore();
+
+  const cls = classes.find((c) => c.id === classId);
+  const slot = findSlot(settings.schedule, blockId);
+  const covered = replacements.filter(
+    (r) =>
+      r.classId === classId &&
+      r.blockId === blockId &&
+      r.absentPersonId === absentPersonId
+  );
+
+  const ranked = useMemo(() => {
+    if (!cls) return [];
+    return recommendSubstitutes(cls, blockId, absentPersonId, {
+      people,
+      classes,
+      replacements,
+      absences,
+      localities,
+      settings,
+    });
+  }, [cls, blockId, absentPersonId, people, classes, replacements, absences, localities, settings]);
+
+  const localityName = (id?: string) =>
+    id ? localities.find((l) => l.id === id)?.name : undefined;
+
+  return (
+    <div className="panel p-3">
+      <div className="flex items-center justify-between">
+        <div>
+          <Link
+            to={`/class/${classId}`}
+            className="text-ink font-medium hover:text-cyan"
+          >
+            {className}
+          </Link>
+          <span className="text-muted text-sm ml-2">
+            {slot ? `${slot.block.start}–${slot.block.end}` : blockId}
+          </span>
+        </div>
+        {covered.length > 0 ? (
+          <span className="chip border-lime text-lime">
+            <Check size={12} /> gedeckt
+          </span>
+        ) : (
+          <span className="chip border-amber text-amber">Ersatz nötig</span>
+        )}
+      </div>
+
+      {covered.length > 0 ? (
+        <div className="mt-2 space-y-1.5">
+          {covered.map((r) => {
+            const p = people.find((x) => x.id === r.substituteId);
+            return (
+              <div
+                key={r.id}
+                className="flex items-center justify-between text-sm"
+              >
+                <span className="flex items-center gap-2 text-lime">
+                  <Check size={14} /> {p?.name ?? "?"}{" "}
+                  <span className="text-faint">springt ein</span>
+                </span>
+                <button
+                  className="btn btn-ghost btn-danger !py-0.5 !px-2 text-xs"
+                  onClick={() => removeReplacement(r.id)}
+                >
+                  ändern
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="mt-3">
+          <div className="label-tech mb-2">
+            Beste Wahl · automatisch vorgeschlagen
+          </div>
+          {ranked.length === 0 ? (
+            <div className="text-sm text-muted">
+              Kein verfügbarer Springer für diesen Block (alle belegt oder
+              abwesend).
+            </div>
+          ) : (
+            <div className="space-y-1.5">
+              {ranked.slice(0, 3).map((c, i) => (
+                <div
+                  key={c.person.id}
+                  className={`flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 ${
+                    i === 0
+                      ? "bg-cyan/10 border border-cyan-dim"
+                      : "bg-abyss/60"
+                  }`}
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      {i === 0 && <Award size={14} className="text-cyan" />}
+                      <span className="text-ink font-medium truncate">
+                        {c.person.name}
+                      </span>
+                      {i === 0 && (
+                        <span className="chip border-cyan-dim text-cyan !py-0">
+                          beste Wahl
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-faint mt-0.5">
+                      <span className="flex items-center gap-1">
+                        <Navigation size={11} />
+                        {c.distanceKm != null
+                          ? `${Math.round(c.distanceKm)} km`
+                          : "—"}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MapPin size={11} />
+                        {localityName(c.fromLocalityId) ?? "Ort unbekannt"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span
+                      className="text-cyan font-bold"
+                      style={{ fontFamily: "var(--font-mono)" }}
+                    >
+                      {Math.round(c.total * 100)}
+                    </span>
+                    <button
+                      className="btn btn-primary !py-1 !px-3 text-xs"
+                      onClick={() =>
+                        addReplacement({
+                          classId,
+                          blockId,
+                          absentPersonId,
+                          substituteId: c.person.id,
+                        })
+                      }
+                    >
+                      einteilen
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <button
+                className="btn btn-ghost !py-1 !px-2 text-xs"
+                onClick={onOpenAll}
+              >
+                <ListFilter size={13} /> alle {ranked.length} anzeigen
+              </button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
