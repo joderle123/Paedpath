@@ -16,10 +16,10 @@ import {
 } from "lucide-react";
 import { recommendSubstitutes } from "../lib/recommend";
 import { findSlot } from "../lib/schedule";
+import type { Absence } from "../types";
 
 export default function Absences() {
-  const { people, classes, absences, settings, addAbsence, removeAbsence } =
-    useStore();
+  const { people, absences, settings, addAbsence } = useStore();
 
   const [personId, setPersonId] = useState("");
   const [selectedBlocks, setSelectedBlocks] = useState<string[]>([]);
@@ -29,11 +29,6 @@ export default function Absences() {
     blockId: string;
     absentPersonId: string;
   } | null>(null);
-
-  const personById = useMemo(
-    () => new Map(people.map((p) => [p.id, p])),
-    [people]
-  );
 
   const days = settings.schedule.days.filter((d) => d.enabled && d.blocks.length);
 
@@ -150,80 +145,9 @@ export default function Absences() {
           {absences.length === 0 && (
             <Empty>Kein Ausfall erfasst. Melde links eine Abwesenheit.</Empty>
           )}
-          {absences.map((a) => {
-            const person = personById.get(a.personId);
-            // betroffene Klassen/Blöcke
-            const impacts: { classId: string; className: string; blockId: string }[] =
-              [];
-            for (const bid of a.blockIds) {
-              for (const c of classes) {
-                if (
-                  c.teacherIds.includes(a.personId) &&
-                  classRunsInBlock(c, bid)
-                ) {
-                  impacts.push({
-                    classId: c.id,
-                    className: c.name,
-                    blockId: bid,
-                  });
-                }
-              }
-            }
-            return (
-              <div key={a.id} className="panel p-5">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-ink text-lg">
-                        {person?.name ?? "?"}
-                      </span>
-                      <span className="chip border-amber text-amber">
-                        {a.blockIds.length} Block(e)
-                      </span>
-                    </div>
-                    {a.note && (
-                      <div className="text-sm text-muted mt-1">{a.note}</div>
-                    )}
-                  </div>
-                  <button
-                    className="btn btn-ghost btn-danger !p-2"
-                    onClick={() => removeAbsence(a.id)}
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-
-                {impacts.length === 0 ? (
-                  <div className="text-sm text-muted mt-3">
-                    Keine Klasse betroffen (Person ist in diesen Blöcken keiner
-                    laufenden Klasse fest zugeteilt).
-                  </div>
-                ) : (
-                  <div className="mt-4 space-y-2">
-                    <div className="label-tech">
-                      Betroffene Klassen · Ersatz nötig
-                    </div>
-                    {impacts.map((im) => (
-                      <ImpactRow
-                        key={im.classId + im.blockId}
-                        classId={im.classId}
-                        className={im.className}
-                        blockId={im.blockId}
-                        absentPersonId={a.personId}
-                        onOpenAll={() =>
-                          setPicker({
-                            classId: im.classId,
-                            blockId: im.blockId,
-                            absentPersonId: a.personId,
-                          })
-                        }
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {absences.map((a) => (
+            <AbsenceCard key={a.id} absence={a} onOpenPicker={setPicker} />
+          ))}
         </div>
       </div>
 
@@ -235,6 +159,131 @@ export default function Absences() {
           absentPersonId={picker.absentPersonId}
           onClose={() => setPicker(null)}
         />
+      )}
+    </div>
+  );
+}
+
+// Eine erfasste Abwesenheit: betroffene Klassen automatisch, sonst Fallback.
+function AbsenceCard({
+  absence,
+  onOpenPicker,
+}: {
+  absence: Absence;
+  onOpenPicker: (p: {
+    classId: string;
+    blockId: string;
+    absentPersonId: string;
+  }) => void;
+}) {
+  const { people, classes, removeAbsence } = useStore();
+  const [fallbackClassId, setFallbackClassId] = useState("");
+  const person = people.find((p) => p.id === absence.personId);
+
+  const impacts = useMemo(() => {
+    const arr: { classId: string; className: string; blockId: string }[] = [];
+    for (const bid of absence.blockIds) {
+      for (const c of classes) {
+        if (
+          c.teacherIds.includes(absence.personId) &&
+          classRunsInBlock(c, bid)
+        ) {
+          arr.push({ classId: c.id, className: c.name, blockId: bid });
+        }
+      }
+    }
+    return arr;
+  }, [absence, classes]);
+
+  const fallbackClass = classes.find((c) => c.id === fallbackClassId);
+  const fbRuns = fallbackClass
+    ? absence.blockIds.filter((bid) => classRunsInBlock(fallbackClass, bid))
+    : [];
+  const fbBlocks = fbRuns.length ? fbRuns : absence.blockIds;
+
+  return (
+    <div className="panel p-5">
+      <div className="flex items-start justify-between">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-ink text-lg">
+              {person?.name ?? "?"}
+            </span>
+            <span className="chip border-amber text-amber">
+              {absence.blockIds.length} Block(e)
+            </span>
+          </div>
+          {absence.note && (
+            <div className="text-sm text-muted mt-1">{absence.note}</div>
+          )}
+        </div>
+        <button
+          className="btn btn-ghost btn-danger !p-2"
+          onClick={() => removeAbsence(absence.id)}
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
+
+      {impacts.length > 0 ? (
+        <div className="mt-4 space-y-2">
+          <div className="label-tech">Betroffene Klassen · Ersatz nötig</div>
+          {impacts.map((im) => (
+            <ImpactRow
+              key={im.classId + im.blockId}
+              classId={im.classId}
+              className={im.className}
+              blockId={im.blockId}
+              absentPersonId={absence.personId}
+              onOpenAll={() =>
+                onOpenPicker({
+                  classId: im.classId,
+                  blockId: im.blockId,
+                  absentPersonId: absence.personId,
+                })
+              }
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-4">
+          <div className="text-sm text-muted mb-2">
+            Diese Person ist keiner Klasse fest zugeteilt. Für welche Klasse
+            suchst du Ersatz?
+          </div>
+          <select
+            className="select"
+            value={fallbackClassId}
+            onChange={(e) => setFallbackClassId(e.target.value)}
+          >
+            <option value="">— Klasse wählen —</option>
+            {classes.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+          {fallbackClass && (
+            <div className="mt-3 space-y-2">
+              {fbBlocks.map((bid) => (
+                <ImpactRow
+                  key={bid}
+                  classId={fallbackClass.id}
+                  className={fallbackClass.name}
+                  blockId={bid}
+                  absentPersonId={absence.personId}
+                  onOpenAll={() =>
+                    onOpenPicker({
+                      classId: fallbackClass.id,
+                      blockId: bid,
+                      absentPersonId: absence.personId,
+                    })
+                  }
+                />
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
