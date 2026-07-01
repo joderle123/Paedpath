@@ -10,14 +10,16 @@ Ausfällen automatisch den **besten Springer / Remplacementer** vor.
   glühenden Nodes je Standort; Klick öffnet die Klassen-Detailseite.
 - **Ausfall & Ersatz:** eingeben wer fehlt (Person + Blöcke) → das Tool zeigt
   betroffene Klassen und rankt verfügbare Springer als „beste Wahl".
-- **Springer-Bewertung** nach vier gewichtbaren Kriterien:
-  - **Verfügbarkeit** – nicht selbst in dem Block eingeteilt / abwesend
-  - **Qualifikation** – passende Kompetenzen für die Klasse
-  - **Faire Verteilung** – wer bisher am wenigsten eingesprungen ist
-  - **Distanz** – Luftlinie (Haversine) vom Wohnort zum Standort
+- **Springer-Bewertung** ausschließlich nach zwei gewichtbaren Kriterien:
+  - **Verfügbarkeit** – aus dem individuellen Wochenplan jeder Person; wer in
+    dem Block belegt (in einer anderen Klasse) oder abwesend ist, fällt raus.
+  - **Distanz** – Luftlinie (Haversine) vom **aktuellen Aufenthaltsort** der
+    Person in genau diesem Block zur Schule in Not (nicht vom Wohnort).
+- **Individueller Wochenplan pro Person:** pro Block frei/belegt setzen **und**
+  den Ort wählen, an dem die Person in dem Moment ist.
 - **Voll konfigurierbar:** beliebig viele Klassen, Personen & Rollen,
-  Stundenplan-Vorlage, benötigte Betreuer (Default 2), Qualifikationen,
-  Schultypen, Gewichtung der Kriterien, eigene Ortschaften.
+  Stundenplan-Vorlage, benötigte Betreuer (Default 2), Schultypen,
+  Gewichtung der Kriterien, eigene Ortschaften.
 - **Statistik:** Einsätze & Stunden pro Springer, Ausfälle pro Person,
   Auslastung der Klassen, Verteilungs-Spread — inkl. **PDF-Export**.
 - **Lokale Speicherung** im Browser + **Export/Import** als JSON-Datei
@@ -35,11 +37,26 @@ Ausfällen automatisch den **besten Springer / Remplacementer** vor.
 
 Frei änderbar unter **Einstellungen → Stundenplan-Vorlage**.
 
-## Entwicklung
+## App öffnen
+
+Die Quelldatei `index.html` lässt sich **nicht** direkt per Doppelklick öffnen
+(sie lädt ES-Module, die der Browser über `file://` blockiert). Zwei Wege:
+
+**A · Eigenständige Datei (einfachster Weg, kein Terminal nötig)**
 
 ```bash
 npm install
-npm run dev      # Dev-Server
+npm run build:standalone   # erzeugt dist-standalone/index.html
+```
+
+Die Datei `dist-standalone/index.html` enthält alles (JS/CSS eingebettet) und
+kann direkt im Browser per Doppelklick geöffnet werden.
+
+**B · Lokaler Server (für Entwicklung)**
+
+```bash
+npm install
+npm run dev      # Dev-Server, öffnet http://localhost:5173
 npm run build    # Produktions-Build nach dist/
 npm run preview  # Build lokal ansehen
 ```

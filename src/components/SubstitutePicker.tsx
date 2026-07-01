@@ -4,7 +4,7 @@ import { recommendSubstitutes } from "../lib/recommend";
 import type { CandidateScore } from "../lib/recommend";
 import { findSlot, slotLabel } from "../lib/schedule";
 import { Modal } from "./ui";
-import { Award, Check, MapPin, Scale, ShieldCheck, Clock } from "lucide-react";
+import { Award, Check, MapPin, Clock, Navigation } from "lucide-react";
 
 interface Props {
   classId: string;
@@ -51,6 +51,8 @@ export default function SubstitutePicker({
   const assigned = replacements.filter(
     (r) => r.classId === classId && r.blockId === blockId
   );
+  const localityName = (id?: string) =>
+    id ? localities.find((l) => l.id === id)?.name : undefined;
 
   if (!cls) return null;
 
@@ -73,15 +75,9 @@ export default function SubstitutePicker({
             </>
           )}
         </div>
-        {cls.requiredQualifications.length > 0 && (
-          <div className="flex gap-1 flex-wrap justify-end">
-            {cls.requiredQualifications.map((q) => (
-              <span key={q} className="chip border-cyan-dim text-cyan">
-                {settings.qualifications.find((x) => x.id === q)?.label ?? q}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="chip">
+          Ziel: {localityName(cls.localityId) ?? "kein Standort"}
+        </div>
       </div>
 
       {assigned.length > 0 && (
@@ -117,7 +113,8 @@ export default function SubstitutePicker({
       </div>
       {ranked.length === 0 && (
         <div className="text-sm text-muted panel p-4">
-          Kein verfügbarer Springer für diesen Block gefunden.
+          Kein verfügbarer Springer für diesen Block gefunden (alle belegt oder
+          abwesend).
         </div>
       )}
       <div className="space-y-2">
@@ -129,11 +126,7 @@ export default function SubstitutePicker({
             alreadyAssigned={assigned.some(
               (r) => r.substituteId === c.person.id
             )}
-            localityName={
-              c.person.localityId
-                ? localities.find((l) => l.id === c.person.localityId)?.name
-                : undefined
-            }
+            fromName={localityName(c.fromLocalityId)}
             onAssign={() =>
               addReplacement({
                 classId,
@@ -153,13 +146,13 @@ function CandidateRow({
   c,
   best,
   alreadyAssigned,
-  localityName,
+  fromName,
   onAssign,
 }: {
   c: CandidateScore;
   best: boolean;
   alreadyAssigned: boolean;
-  localityName?: string;
+  fromName?: string;
   onAssign: () => void;
 }) {
   return (
@@ -177,11 +170,10 @@ function CandidateRow({
           {best && (
             <span className="chip border-cyan-dim text-cyan">beste Wahl</span>
           )}
-          {!c.isQualified && (
-            <span className="chip border-amber text-amber">Qualifikation ⚠</span>
-          )}
-          {!c.isOnContract && (
-            <span className="chip border-faint">außerplanmäßig</span>
+          {c.isPlanned ? (
+            <span className="chip border-lime/50 text-lime">im Plan frei</span>
+          ) : (
+            <span className="chip border-faint">Status offen</span>
           )}
         </div>
         <div className="flex items-center gap-3 shrink-0">
@@ -201,19 +193,23 @@ function CandidateRow({
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-2 mt-3">
-        <ScoreBar icon={<Clock size={12} />} label="Verfügbar" v={c.availabilityScore} />
-        <ScoreBar icon={<ShieldCheck size={12} />} label="Qualif." v={c.qualificationScore} />
-        <ScoreBar icon={<Scale size={12} />} label="Fairness" v={c.fairnessScore} />
+      <div className="grid grid-cols-2 gap-3 mt-3">
         <ScoreBar
-          icon={<MapPin size={12} />}
+          icon={<Clock size={12} />}
+          label="Verfügbarkeit"
+          v={c.availabilityScore}
+        />
+        <ScoreBar
+          icon={<Navigation size={12} />}
           label={c.distanceKm != null ? `${Math.round(c.distanceKm)} km` : "Distanz"}
           v={c.distanceScore}
         />
       </div>
-      <div className="text-xs text-faint mt-2">
+      <div className="flex items-center gap-1.5 text-xs text-faint mt-2">
+        <MapPin size={12} />
+        {fromName ? `gerade in ${fromName}` : "Aufenthaltsort unbekannt"}
+        <span className="text-edge-2">·</span>
         {c.substitutionCount} bisherige Einsätze
-        {localityName ? ` · ${localityName}` : ""}
       </div>
     </div>
   );

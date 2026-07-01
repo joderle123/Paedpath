@@ -206,15 +206,6 @@ export default function ClassDetail() {
             >
               {cls.requiredStaff}
             </div>
-            {cls.requiredQualifications.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-3">
-                {cls.requiredQualifications.map((q) => (
-                  <span key={q} className="chip border-cyan-dim text-cyan">
-                    {settings.qualifications.find((x) => x.id === q)?.label ?? q}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </div>

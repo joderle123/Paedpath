@@ -1,6 +1,7 @@
 // ---------------------------------------------------------------------------
 // Domänen-Modell für die CDSE Classe-de-participation Planung
 // UI-Texte sind Deutsch, Fachbegriffe bleiben französisch.
+// Springer-Bewertung ausschließlich nach: Verfügbarkeit + Distanz.
 // ---------------------------------------------------------------------------
 
 export type ID = string;
@@ -32,22 +33,27 @@ export interface ScheduleTemplate {
   days: DaySchedule[];
 }
 
-/** Verfügbarkeit einer Person: an welchen Blöcken sie regulär arbeitet. */
-export interface Availability {
-  blockId: string;
-}
-
 export type PersonRole = "teacher" | "springer";
+
+/**
+ * Der Stundenplan-Eintrag einer Person für einen Block:
+ * wo sie in diesem Block ist und ob sie belegt (nicht abkömmlich) ist.
+ * Kein Eintrag für einen Block = Status unbekannt (gilt als grundsätzlich frei).
+ */
+export interface PersonBlock {
+  blockId: string;
+  busy: boolean; // true = bereits in einer Klasse/anderweitig belegt
+  localityId?: string; // Aufenthaltsort in diesem Block (für Distanz)
+}
 
 export interface Person {
   id: ID;
   name: string;
   role: PersonRole; // Hauptrolle
   canSubstitute: boolean; // darf einspringen
-  localityId?: string; // Wohnort / Basis für Distanz
-  qualifications: string[]; // qualification ids
-  /** Blöcke, an denen die Person regulär verfügbar ist. Leer = immer verfügbar. */
-  availability: Availability[];
+  localityId?: string; // Basis/Wohnort — Fallback-Aufenthaltsort
+  /** Individueller Wochenplan: pro Block Ort + belegt/frei. */
+  schedule: PersonBlock[];
   weeklyHours?: number;
   color?: string;
   active: boolean;
@@ -61,7 +67,6 @@ export interface SchoolClass {
   schoolType: string; // "Lycée" | "Primärschule" | frei
   room?: string;
   requiredStaff: number; // Guideline: 2
-  requiredQualifications: string[];
   teacherIds: ID[]; // feste Lehrer (den ganzen Tag)
   /** Blöcke, an denen die Klasse läuft. Leer = alle aktiven Blöcke. */
   activeBlockIds: string[];
@@ -88,21 +93,13 @@ export interface Replacement {
   createdAt: string;
 }
 
-export interface Qualification {
-  id: string;
-  label: string;
-}
-
 export interface Weights {
   availability: number;
-  qualification: number;
-  fairness: number;
   distance: number;
 }
 
 export interface Settings {
   schedule: ScheduleTemplate;
-  qualifications: Qualification[];
   schoolTypes: string[];
   weights: Weights;
   defaultRequiredStaff: number;

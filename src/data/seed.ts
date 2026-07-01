@@ -4,6 +4,7 @@ import type {
   Settings,
   Person,
   SchoolClass,
+  PersonBlock,
 } from "../types";
 import { LUX_LOCALITIES } from "./localities";
 
@@ -50,45 +51,77 @@ export const DEFAULT_SCHEDULE: ScheduleTemplate = {
   ],
 };
 
-const AM_BLOCKS = ["mo-am", "di-am", "mi-am", "do-am", "fr-am"];
-
 export const DEFAULT_SETTINGS: Settings = {
   schedule: DEFAULT_SCHEDULE,
-  qualifications: [
-    { id: "q-edu", label: "Éducateur gradué" },
-    { id: "q-inst", label: "Instituteur / Enseignant" },
-    { id: "q-autisme", label: "Autismus-Spektrum" },
-    { id: "q-comm", label: "Kommunikation / Sprache" },
-    { id: "q-soins", label: "Pflege / Soins" },
-  ],
   schoolTypes: ["Lycée", "Primärschule", "Précoce", "Cycle 1"],
-  weights: { availability: 3, qualification: 3, fairness: 2, distance: 2 },
+  weights: { availability: 3, distance: 3 },
   defaultRequiredStaff: 2,
   maxDistanceKm: 30,
 };
 
+// Stundenplan-Helfer: frei / belegt an einem Ort
+const free = (blockId: string, localityId: string): PersonBlock => ({
+  blockId,
+  busy: false,
+  localityId,
+});
+const busy = (blockId: string, localityId: string): PersonBlock => ({
+  blockId,
+  busy: true,
+  localityId,
+});
+
 const people: Person[] = [
-  // --- Feste Lehrer ---
-  mkPerson("p1", "Anne Weber", "teacher", false, "luxembourg", ["q-edu", "q-autisme"]),
-  mkPerson("p2", "Marc Schmit", "teacher", true, "hesperange", ["q-inst", "q-comm"]),
-  mkPerson("p3", "Lea Hoffmann", "teacher", false, "esch-alzette", ["q-edu", "q-comm"]),
-  mkPerson("p4", "Tom Reuter", "teacher", true, "dudelange", ["q-inst", "q-soins"]),
-  mkPerson("p5", "Nora Klein", "teacher", false, "mersch", ["q-edu"]),
-  mkPerson("p6", "Paul Muller", "teacher", true, "ettelbruck", ["q-inst", "q-autisme"]),
-  mkPerson("p7", "Julie Becker", "teacher", false, "lorentzweiler", ["q-comm", "q-edu"]),
-  mkPerson("p8", "Nico Weis", "teacher", true, "diekirch", ["q-inst"]),
-  // --- Springer / Remplacementer ---
-  mkPerson("p9", "Sophie Wagner", "springer", true, "bertrange", ["q-edu", "q-autisme", "q-comm"], []),
-  mkPerson("p10", "Ben Thoma", "springer", true, "strassen", ["q-inst", "q-soins"], AM_BLOCKS),
-  mkPerson("p11", "Mia Faber", "springer", true, "diekirch", ["q-edu", "q-comm"], []),
-  mkPerson("p12", "Luc Simon", "springer", true, "junglinster", ["q-inst", "q-comm"], []),
+  // --- Feste Lehrer (den ganzen Tag in ihrer Klasse) ---
+  mkPerson("p1", "Anne Weber", "teacher", false, "luxembourg"),
+  mkPerson("p2", "Marc Schmit", "teacher", false, "hesperange"),
+  mkPerson("p3", "Lea Hoffmann", "teacher", false, "esch-alzette"),
+  mkPerson("p4", "Tom Reuter", "teacher", false, "dudelange"),
+  mkPerson("p5", "Nora Klein", "teacher", false, "mersch"),
+  mkPerson("p6", "Paul Muller", "teacher", false, "ettelbruck"),
+  mkPerson("p7", "Julie Becker", "teacher", false, "lorentzweiler"),
+  mkPerson("p8", "Nico Weis", "teacher", false, "diekirch"),
+  // --- Springer / Remplacementer mit individuellem Wochenplan ---
+  mkPerson("p9", "Sophie Wagner", "springer", true, "bertrange", [
+    busy("mo-am", "esch-alzette"), // Mo morgens schon in Esch im Einsatz
+    free("mo-pm", "bertrange"),
+    free("di-am", "bertrange"),
+    free("mi-am", "bertrange"),
+    free("mi-pm", "bertrange"),
+    free("do-am", "luxembourg"), // Do morgens in Luxembourg unterwegs
+    free("fr-am", "bertrange"),
+    free("fr-pm", "bertrange"),
+  ]),
+  mkPerson("p10", "Ben Thoma", "springer", true, "strassen", [
+    free("mo-am", "strassen"),
+    free("di-am", "strassen"),
+    free("mi-am", "strassen"),
+    busy("mi-pm", "luxembourg"), // Mi nachmittags belegt
+    free("do-am", "strassen"),
+    free("fr-am", "strassen"),
+  ]),
+  mkPerson("p11", "Mia Faber", "springer", true, "diekirch", [
+    free("mo-am", "ettelbruck"),
+    free("di-am", "diekirch"),
+    free("mi-am", "diekirch"),
+    free("do-am", "diekirch"),
+    free("fr-am", "diekirch"),
+  ]),
+  mkPerson("p12", "Luc Simon", "springer", true, "junglinster", [
+    free("mo-am", "junglinster"),
+    free("mo-pm", "junglinster"),
+    free("di-am", "junglinster"),
+    free("mi-am", "junglinster"),
+    free("do-am", "junglinster"),
+    free("fr-am", "junglinster"),
+  ]),
 ];
 
 const classes: SchoolClass[] = [
-  mkClass("c1", "CP Belair", "luxembourg", "Lycée", ["p1", "p2"], ["q-edu"], "Bât. A · R.12"),
-  mkClass("c2", "CP Esch-Centre", "esch-alzette", "Primärschule", ["p3", "p4"], ["q-inst"], "R.4"),
-  mkClass("c3", "CP Mersch", "mersch", "Cycle 1", ["p5", "p6"], ["q-edu"], "R.1"),
-  mkClass("c4", "CP Diekirch", "diekirch", "Lycée", ["p7", "p8"], ["q-comm"], "Annexe"),
+  mkClass("c1", "CP Belair", "luxembourg", "Lycée", ["p1", "p2"], "Bât. A · R.12"),
+  mkClass("c2", "CP Esch-Centre", "esch-alzette", "Primärschule", ["p3", "p4"], "R.4"),
+  mkClass("c3", "CP Mersch", "mersch", "Cycle 1", ["p5", "p6"], "R.1"),
+  mkClass("c4", "CP Diekirch", "diekirch", "Lycée", ["p7", "p8"], "Annexe"),
 ];
 
 export function seedData(): AppData {
@@ -99,7 +132,7 @@ export function seedData(): AppData {
     absences: [],
     replacements: [],
     settings: DEFAULT_SETTINGS,
-    version: 1,
+    version: 2,
   };
 }
 
@@ -110,19 +143,9 @@ function mkPerson(
   role: "teacher" | "springer",
   canSubstitute: boolean,
   localityId: string,
-  qualifications: string[],
-  availabilityBlockIds?: string[]
+  schedule: PersonBlock[] = []
 ): Person {
-  return {
-    id,
-    name,
-    role,
-    canSubstitute,
-    localityId,
-    qualifications,
-    availability: (availabilityBlockIds ?? []).map((blockId) => ({ blockId })),
-    active: true,
-  };
+  return { id, name, role, canSubstitute, localityId, schedule, active: true };
 }
 
 function mkClass(
@@ -131,7 +154,6 @@ function mkClass(
   localityId: string,
   schoolType: string,
   teacherIds: string[],
-  requiredQualifications: string[],
   room?: string
 ): SchoolClass {
   return {
@@ -141,7 +163,6 @@ function mkClass(
     schoolType,
     room,
     requiredStaff: 2,
-    requiredQualifications,
     teacherIds,
     activeBlockIds: [],
   };

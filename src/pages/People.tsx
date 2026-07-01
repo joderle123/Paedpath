@@ -1,29 +1,22 @@
 import { useMemo, useState } from "react";
 import { useStore } from "../store/useStore";
 import { PageHeader, Modal, Field } from "../components/ui";
-import type { Person } from "../types";
+import type { Person, PersonBlock } from "../types";
 import { DAY_SHORT } from "../lib/schedule";
-import { Plus, Pencil, Trash2, UserCheck, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, UserCheck, Search, MapPin } from "lucide-react";
 
 const emptyPerson: Omit<Person, "id"> = {
   name: "",
   role: "springer",
   canSubstitute: true,
   localityId: "",
-  qualifications: [],
-  availability: [],
+  schedule: [],
   active: true,
 };
 
 export default function People() {
-  const {
-    people,
-    localities,
-    settings,
-    addPerson,
-    updatePerson,
-    removePerson,
-  } = useStore();
+  const { people, localities, settings, addPerson, updatePerson, removePerson } =
+    useStore();
   const [editing, setEditing] = useState<Person | null>(null);
   const [draft, setDraft] = useState<Omit<Person, "id">>(emptyPerson);
   const [open, setOpen] = useState(false);
@@ -31,6 +24,10 @@ export default function People() {
 
   const localityById = useMemo(
     () => new Map(localities.map((l) => [l.id, l])),
+    [localities]
+  );
+  const sortedLocalities = useMemo(
+    () => localities.slice().sort((a, b) => a.name.localeCompare(b.name)),
     [localities]
   );
 
@@ -47,7 +44,7 @@ export default function People() {
     setEditing(p);
     const { id, ...rest } = p;
     void id;
-    setDraft(rest);
+    setDraft({ ...rest, schedule: rest.schedule ?? [] });
     setOpen(true);
   }
   function save() {
@@ -55,6 +52,41 @@ export default function People() {
     if (editing) updatePerson(editing.id, draft);
     else addPerson(draft);
     setOpen(false);
+  }
+
+  // Wochenplan-Helfer
+  function entryOf(blockId: string): PersonBlock | undefined {
+    return draft.schedule.find((s) => s.blockId === blockId);
+  }
+  function setStatus(blockId: string, status: "open" | "free" | "busy") {
+    if (status === "open") {
+      setDraft({
+        ...draft,
+        schedule: draft.schedule.filter((s) => s.blockId !== blockId),
+      });
+      return;
+    }
+    const existing = entryOf(blockId);
+    const next: PersonBlock = {
+      blockId,
+      busy: status === "busy",
+      localityId: existing?.localityId ?? (draft.localityId || undefined),
+    };
+    setDraft({
+      ...draft,
+      schedule: [
+        ...draft.schedule.filter((s) => s.blockId !== blockId),
+        next,
+      ],
+    });
+  }
+  function setEntryLocality(blockId: string, localityId: string) {
+    setDraft({
+      ...draft,
+      schedule: draft.schedule.map((s) =>
+        s.blockId === blockId ? { ...s, localityId } : s
+      ),
+    });
   }
 
   const scheduleDays = settings.schedule.days.filter(
@@ -65,7 +97,7 @@ export default function People() {
     <div className="p-6">
       <PageHeader
         title="Personen"
-        subtitle="Feste Lehrer und Springer — Rollen, Qualifikationen, Verfügbarkeit."
+        subtitle="Feste Lehrer und Springer — Rolle, Basis-Ort und individueller Wochenplan (wo & frei/belegt)."
         actions={
           <button className="btn btn-primary" onClick={startNew}>
             <Plus size={16} /> Person
@@ -89,8 +121,8 @@ export default function People() {
             <tr className="text-left border-b border-edge">
               <th className="p-3 label-tech">Name</th>
               <th className="p-3 label-tech">Rolle</th>
-              <th className="p-3 label-tech">Ort</th>
-              <th className="p-3 label-tech">Qualifikationen</th>
+              <th className="p-3 label-tech">Basis-Ort</th>
+              <th className="p-3 label-tech">Plan-Blöcke</th>
               <th className="p-3 label-tech">Springer</th>
               <th className="p-3"></th>
             </tr>
@@ -110,15 +142,8 @@ export default function People() {
                 <td className="p-3 text-muted">
                   {p.localityId ? localityById.get(p.localityId)?.name : "—"}
                 </td>
-                <td className="p-3">
-                  <div className="flex flex-wrap gap-1">
-                    {p.qualifications.map((qid) => (
-                      <span key={qid} className="chip">
-                        {settings.qualifications.find((x) => x.id === qid)
-                          ?.label ?? qid}
-                      </span>
-                    ))}
-                  </div>
+                <td className="p-3 text-muted">
+                  {(p.schedule ?? []).length || "—"}
                 </td>
                 <td className="p-3">
                   {p.canSubstitute ? (
@@ -153,110 +178,120 @@ export default function People() {
         open={open}
         onClose={() => setOpen(false)}
         title={editing ? "Person bearbeiten" : "Neue Person"}
+        width="max-w-2xl"
       >
-        <Field label="Name">
-          <input
-            className="input"
-            value={draft.name}
-            onChange={(e) => setDraft({ ...draft, name: e.target.value })}
-          />
-        </Field>
-
         <div className="grid grid-cols-2 gap-4">
+          <Field label="Name">
+            <input
+              className="input"
+              value={draft.name}
+              onChange={(e) => setDraft({ ...draft, name: e.target.value })}
+            />
+          </Field>
           <Field label="Rolle">
             <select
               className="select"
               value={draft.role}
               onChange={(e) =>
-                setDraft({
-                  ...draft,
-                  role: e.target.value as Person["role"],
-                })
+                setDraft({ ...draft, role: e.target.value as Person["role"] })
               }
             >
               <option value="teacher">Fester Lehrer</option>
               <option value="springer">Springer</option>
             </select>
           </Field>
-          <Field label="Wohnort (für Distanz)">
-            <select
-              className="select"
-              value={draft.localityId ?? ""}
-              onChange={(e) =>
-                setDraft({ ...draft, localityId: e.target.value })
-              }
-            >
-              <option value="">— kein Ort —</option>
-              {localities
-                .slice()
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((l) => (
-                  <option key={l.id} value={l.id}>
-                    {l.name}
-                  </option>
-                ))}
-            </select>
-          </Field>
         </div>
 
-        <Field label="Qualifikationen">
-          <div className="flex flex-wrap gap-1.5">
-            {settings.qualifications.map((qd) => {
-              const on = draft.qualifications.includes(qd.id);
-              return (
-                <button
-                  key={qd.id}
-                  onClick={() =>
-                    setDraft({
-                      ...draft,
-                      qualifications: on
-                        ? draft.qualifications.filter((x) => x !== qd.id)
-                        : [...draft.qualifications, qd.id],
-                    })
-                  }
-                  className={`chip !px-2.5 !py-1 ${
-                    on ? "border-cyan-dim !text-cyan bg-cyan/10" : ""
-                  }`}
-                >
-                  {qd.label}
-                </button>
-              );
-            })}
-          </div>
+        <Field
+          label="Basis-Ort (Wohnort)"
+          hint="Fallback-Aufenthaltsort, wenn im Wochenplan kein Ort gesetzt ist."
+        >
+          <select
+            className="select"
+            value={draft.localityId ?? ""}
+            onChange={(e) => setDraft({ ...draft, localityId: e.target.value })}
+          >
+            <option value="">— kein Ort —</option>
+            {sortedLocalities.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.name}
+              </option>
+            ))}
+          </select>
         </Field>
 
         <Field
-          label="Reguläre Verfügbarkeit"
-          hint="Leer = immer verfügbar. Sonst nur markierte Blöcke."
+          label="Wochenplan — wo & frei/belegt"
+          hint="Pro Block: Belegt = kann nicht einspringen. Ort = wo die Person in dem Block ist (für die Distanz zur Schule in Not)."
         >
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             {scheduleDays.map((d) => (
-              <div key={d.day} className="flex items-center gap-2">
-                <span className="label-tech w-6">{DAY_SHORT[d.day]}</span>
-                <div className="flex flex-wrap gap-1.5">
+              <div key={d.day}>
+                <div className="label-tech mb-1">{DAY_SHORT[d.day]}</div>
+                <div className="space-y-1.5">
                   {d.blocks.map((b) => {
-                    const on = draft.availability.some(
-                      (a) => a.blockId === b.id
-                    );
+                    const entry = entryOf(b.id);
+                    const status = !entry
+                      ? "open"
+                      : entry.busy
+                      ? "busy"
+                      : "free";
                     return (
-                      <button
+                      <div
                         key={b.id}
-                        onClick={() =>
-                          setDraft({
-                            ...draft,
-                            availability: on
-                              ? draft.availability.filter(
-                                  (a) => a.blockId !== b.id
-                                )
-                              : [...draft.availability, { blockId: b.id }],
-                          })
-                        }
-                        className={`chip !px-2 !py-0.5 !text-[0.65rem] ${
-                          on ? "border-cyan-dim !text-cyan bg-cyan/10" : ""
-                        }`}
+                        className="flex items-center gap-2 flex-wrap"
                       >
-                        {b.start}–{b.end}
-                      </button>
+                        <span
+                          className="text-xs text-muted w-24 shrink-0"
+                          style={{ fontFamily: "var(--font-mono)" }}
+                        >
+                          {b.start}–{b.end}
+                        </span>
+                        <div className="flex rounded-lg overflow-hidden border border-edge">
+                          {(
+                            [
+                              ["open", "Offen"],
+                              ["free", "Frei"],
+                              ["busy", "Belegt"],
+                            ] as const
+                          ).map(([val, lbl]) => (
+                            <button
+                              key={val}
+                              onClick={() => setStatus(b.id, val)}
+                              className={`px-2.5 py-1 text-xs ${
+                                status === val
+                                  ? val === "busy"
+                                    ? "bg-amber/20 text-amber"
+                                    : val === "free"
+                                    ? "bg-lime/15 text-lime"
+                                    : "bg-panel-2 text-ink"
+                                  : "text-faint hover:text-muted"
+                              }`}
+                            >
+                              {lbl}
+                            </button>
+                          ))}
+                        </div>
+                        {status !== "open" && (
+                          <span className="flex items-center gap-1">
+                            <MapPin size={13} className="text-cyan" />
+                            <select
+                              className="select !py-1 !w-40 text-xs"
+                              value={entry?.localityId ?? ""}
+                              onChange={(e) =>
+                                setEntryLocality(b.id, e.target.value)
+                              }
+                            >
+                              <option value="">— Ort —</option>
+                              {sortedLocalities.map((l) => (
+                                <option key={l.id} value={l.id}>
+                                  {l.name}
+                                </option>
+                              ))}
+                            </select>
+                          </span>
+                        )}
+                      </div>
                     );
                   })}
                 </div>
@@ -280,9 +315,7 @@ export default function People() {
             <input
               type="checkbox"
               checked={draft.active}
-              onChange={(e) =>
-                setDraft({ ...draft, active: e.target.checked })
-              }
+              onChange={(e) => setDraft({ ...draft, active: e.target.checked })}
             />
             Aktiv
           </label>

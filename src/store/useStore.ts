@@ -11,7 +11,6 @@ import type {
   Settings,
   ScheduleTemplate,
   Weights,
-  Qualification,
 } from "../types";
 import { seedData } from "../data/seed";
 
@@ -37,7 +36,6 @@ interface StoreState extends AppData {
   updateSettings: (patch: Partial<Settings>) => void;
   updateWeights: (patch: Partial<Weights>) => void;
   setSchedule: (schedule: ScheduleTemplate) => void;
-  setQualifications: (q: Qualification[]) => void;
   setSchoolTypes: (t: string[]) => void;
   // Datenverwaltung
   exportJson: () => string;
@@ -149,8 +147,6 @@ export const useStore = create<StoreState>()(
         })),
       setSchedule: (schedule) =>
         set((s) => ({ settings: { ...s.settings, schedule } })),
-      setQualifications: (qualifications) =>
-        set((s) => ({ settings: { ...s.settings, qualifications } })),
       setSchoolTypes: (schoolTypes) =>
         set((s) => ({ settings: { ...s.settings, schoolTypes } })),
 
@@ -189,6 +185,6 @@ export const useStore = create<StoreState>()(
       },
       resetToSeed: () => set({ ...seedData() }),
     }),
-    { name: "cdse-planner-v1" }
+    { name: "cdse-planner-v2" }
   )
 );

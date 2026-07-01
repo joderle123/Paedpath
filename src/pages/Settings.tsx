@@ -18,10 +18,16 @@ import {
 } from "lucide-react";
 
 const WEIGHT_LABELS: { key: keyof Weights; label: string; desc: string }[] = [
-  { key: "availability", label: "Verfügbarkeit", desc: "Regulär an dem Block eingeteilt" },
-  { key: "qualification", label: "Qualifikation", desc: "Passende Kompetenzen für die Klasse" },
-  { key: "fairness", label: "Faire Verteilung", desc: "Wenig-Eingesprungene bevorzugen" },
-  { key: "distance", label: "Distanz", desc: "Kurzer Weg zum Standort" },
+  {
+    key: "availability",
+    label: "Verfügbarkeit",
+    desc: "Im eigenen Wochenplan frei (belegte Blöcke fallen raus)",
+  },
+  {
+    key: "distance",
+    label: "Distanz",
+    desc: "Kurzer Weg vom aktuellen Aufenthaltsort zur Schule in Not",
+  },
 ];
 
 export default function Settings() {
@@ -32,7 +38,6 @@ export default function Settings() {
     updateWeights,
     updateSettings,
     setSchedule,
-    setQualifications,
     setSchoolTypes,
     addLocality,
     exportJson,
@@ -244,22 +249,9 @@ export default function Settings() {
         </div>
       </Section>
 
-      {/* Qualifikationen & Schultypen */}
-      <Section icon={<Tags size={16} />} title="Qualifikationen & Schultypen">
-        <div className="grid grid-cols-2 gap-8">
-          <TagEditor
-            label="Qualifikationen"
-            items={settings.qualifications.map((q) => q.label)}
-            onAdd={(label) =>
-              setQualifications([
-                ...settings.qualifications,
-                { id: uuid().slice(0, 8), label },
-              ])
-            }
-            onRemove={(i) =>
-              setQualifications(settings.qualifications.filter((_, x) => x !== i))
-            }
-          />
+      {/* Schultypen */}
+      <Section icon={<Tags size={16} />} title="Schultypen">
+        <div className="max-w-md">
           <TagEditor
             label="Schultypen"
             items={settings.schoolTypes}

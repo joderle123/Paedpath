@@ -13,7 +13,6 @@ function emptyClass(defaultStaff: number): Omit<SchoolClass, "id"> {
     schoolType: "",
     room: "",
     requiredStaff: defaultStaff,
-    requiredQualifications: [],
     teacherIds: [],
     activeBlockIds: [],
   };
@@ -234,34 +233,6 @@ export default function Classes() {
                   </button>
                 );
               })}
-          </div>
-        </Field>
-
-        <Field label="Benötigte Qualifikationen">
-          <div className="flex flex-wrap gap-1.5">
-            {settings.qualifications.map((qd) => {
-              const on = draft.requiredQualifications.includes(qd.id);
-              return (
-                <button
-                  key={qd.id}
-                  onClick={() =>
-                    setDraft({
-                      ...draft,
-                      requiredQualifications: on
-                        ? draft.requiredQualifications.filter(
-                            (x) => x !== qd.id
-                          )
-                        : [...draft.requiredQualifications, qd.id],
-                    })
-                  }
-                  className={`chip !px-2.5 !py-1 ${
-                    on ? "border-cyan-dim !text-cyan bg-cyan/10" : ""
-                  }`}
-                >
-                  {qd.label}
-                </button>
-              );
-            })}
           </div>
         </Field>
 
