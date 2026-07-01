@@ -8,5 +8,23 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Sicherheitsnetz: Wird diese Quelldatei versehentlich per Doppelklick
+         (file://) geöffnet, lädt die App nicht. Dann Hinweis auf die richtige
+         Datei zeigen, statt einer weißen Seite. -->
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          var root = document.getElementById("root");
+          if (root && root.childElementCount === 0) {
+            document.body.innerHTML =
+              '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#05070d;color:#dbe6f5;font-family:system-ui,Segoe UI,sans-serif;text-align:center;padding:24px;box-sizing:border-box;">' +
+              '<div style="max-width:540px;">' +
+              '<div style="font-size:24px;font-weight:700;margin-bottom:14px;color:#35d6f0;">Diese Datei bitte nicht direkt öffnen</div>' +
+              '<p style="line-height:1.7;color:#9fb0cc;font-size:15px;">Die <b>index.html</b> ist nur die Quelldatei und kann per Doppelklick nicht angezeigt werden.<br><br>Öffne stattdessen die Datei<br><b style="color:#dbe6f5;font-size:17px;">CDSE-Planer.html</b><br>(liegt im selben Ordner) per Doppelklick.</p>' +
+              "</div></div>";
+          }
+        }, 2000);
+      });
+    </script>
   </body>
 </html>
