@@ -15,6 +15,7 @@ import {
   Tags,
   MapPinPlus,
   Database,
+  Wand2,
 } from "lucide-react";
 
 const WEIGHT_LABELS: { key: keyof Weights; label: string; desc: string }[] = [
@@ -43,6 +44,7 @@ export default function Settings() {
     exportJson,
     importJson,
     resetToSeed,
+    loadDemo,
   } = store;
   const fileRef = useRef<HTMLInputElement>(null);
   const [msg, setMsg] = useState<string>("");
@@ -284,6 +286,16 @@ export default function Settings() {
           <div className="chip border-cyan-dim text-cyan mb-3">{msg}</div>
         )}
         <div className="flex flex-wrap gap-2">
+          <button
+            className="btn btn-primary"
+            onClick={() =>
+              confirm(
+                "Demo-Szenario laden? Ersetzt die aktuellen Daten durch ein Beispiel mit Klassen, Ausfällen und Ersätzen."
+              ) && loadDemo()
+            }
+          >
+            <Wand2 size={16} /> Demo-Szenario laden
+          </button>
           <button className="btn" onClick={doExport}>
             <Download size={16} /> Als Datei exportieren
           </button>

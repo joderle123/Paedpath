@@ -12,7 +12,7 @@ import type {
   ScheduleTemplate,
   Weights,
 } from "../types";
-import { seedData } from "../data/seed";
+import { seedData, demoScenario } from "../data/seed";
 
 interface StoreState extends AppData {
   // Personen
@@ -41,6 +41,7 @@ interface StoreState extends AppData {
   exportJson: () => string;
   importJson: (raw: string) => { ok: boolean; error?: string };
   resetToSeed: () => void;
+  loadDemo: () => void;
 }
 
 const initial = seedData();
@@ -184,6 +185,7 @@ export const useStore = create<StoreState>()(
         }
       },
       resetToSeed: () => set({ ...seedData() }),
+      loadDemo: () => set({ ...demoScenario() }),
     }),
     { name: "cdse-planner-v2" }
   )

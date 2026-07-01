@@ -5,6 +5,8 @@ import type {
   Person,
   SchoolClass,
   PersonBlock,
+  Absence,
+  Replacement,
 } from "../types";
 import { LUX_LOCALITIES } from "./localities";
 
@@ -131,6 +133,85 @@ export function seedData(): AppData {
     classes,
     absences: [],
     replacements: [],
+    settings: DEFAULT_SETTINGS,
+    version: 2,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Hypothetisches Demo-Szenario — zeigt alle Funktionen der App auf einen Klick:
+// mehr Klassen/Standorte auf der Karte, mehrere Ausfälle und bereits
+// zugeteilte Ersätze (füllt die Statistik).
+// ---------------------------------------------------------------------------
+const T = "2026-01-12T08:00:00.000Z";
+
+const demoPeople: Person[] = [
+  ...people,
+  // zusätzliche feste Lehrer für neue Klassen
+  mkPerson("p13", "Sarah Klein", "teacher", false, "grevenmacher"),
+  mkPerson("p14", "David Hoffmann", "teacher", false, "echternach"),
+  mkPerson("p15", "Claire Weis", "teacher", false, "wiltz"),
+  mkPerson("p16", "Georges Thill", "teacher", false, "ettelbruck"),
+  // zusätzliche Springer
+  mkPerson("p17", "Emma Rausch", "springer", true, "mersch", [
+    free("mo-am", "mersch"),
+    free("di-am", "mersch"),
+    free("mi-am", "mersch"),
+    free("mi-pm", "mersch"),
+    free("do-am", "mersch"),
+    free("fr-am", "mersch"),
+  ]),
+  mkPerson("p18", "Nina Kirsch", "springer", true, "grevenmacher", [
+    free("mo-am", "grevenmacher"),
+    free("di-am", "grevenmacher"),
+    free("mi-am", "grevenmacher"),
+    free("do-am", "junglinster"),
+    free("fr-am", "grevenmacher"),
+  ]),
+];
+
+const demoClasses: SchoolClass[] = [
+  ...classes,
+  mkClass("c5", "CP Grevenmacher", "grevenmacher", "Primärschule", ["p13", "p14"], "R.2"),
+  mkClass("c6", "CP Wiltz", "wiltz", "Lycée", ["p15", "p16"], "Bloc B"),
+];
+
+const demoAbsences: Absence[] = [
+  { id: "a1", personId: "p1", blockIds: ["mo-am"], note: "Krankheit", createdAt: T },
+  { id: "a2", personId: "p3", blockIds: ["di-am"], note: "Fortbildung", createdAt: T },
+  { id: "a3", personId: "p5", blockIds: ["mi-am", "mi-pm"], note: "Arzttermin", createdAt: T },
+  { id: "a4", personId: "p6", blockIds: ["do-am"], createdAt: T },
+  { id: "a5", personId: "p8", blockIds: ["fr-am"], note: "Urlaub", createdAt: T },
+  { id: "a6", personId: "p13", blockIds: ["mo-am"], createdAt: T },
+  { id: "a7", personId: "p15", blockIds: ["di-am"], note: "Krankheit", createdAt: T },
+];
+
+const rep = (
+  id: string,
+  classId: string,
+  blockId: string,
+  absentPersonId: string,
+  substituteId: string
+): Replacement => ({ id, classId, blockId, absentPersonId, substituteId, createdAt: T });
+
+const demoReplacements: Replacement[] = [
+  rep("r1", "c1", "mo-am", "p1", "p10"), // Ben deckt CP Belair
+  rep("r2", "c2", "di-am", "p3", "p9"), // Sophie deckt Esch
+  rep("r3", "c3", "mi-am", "p5", "p12"), // Luc deckt Mersch
+  rep("r4", "c3", "mi-pm", "p5", "p9"), // Sophie deckt Mersch Nachmittag
+  rep("r5", "c3", "do-am", "p6", "p12"), // Luc deckt Mersch Do
+  rep("r6", "c4", "fr-am", "p8", "p11"), // Mia deckt Diekirch
+  rep("r7", "c5", "mo-am", "p13", "p18"), // Nina deckt Grevenmacher
+  // c6 di-am (p15 fehlt) bleibt offen -> zeigt "Ersatz nötig" in der App
+];
+
+export function demoScenario(): AppData {
+  return {
+    localities: LUX_LOCALITIES,
+    people: demoPeople,
+    classes: demoClasses,
+    absences: demoAbsences,
+    replacements: demoReplacements,
     settings: DEFAULT_SETTINGS,
     version: 2,
   };

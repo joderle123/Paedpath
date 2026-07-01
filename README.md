@@ -20,6 +20,9 @@ Ausfällen automatisch den **besten Springer / Remplacementer** vor.
 - **Voll konfigurierbar:** beliebig viele Klassen, Personen & Rollen,
   Stundenplan-Vorlage, benötigte Betreuer (Default 2), Schultypen,
   Gewichtung der Kriterien, eigene Ortschaften.
+- **Demo-Szenario:** auf einen Klick (Startseite oder Einstellungen) ein
+  komplettes Beispiel laden — mehrere Klassen, Ausfälle und Ersätze — um alle
+  Funktionen inkl. Statistik sofort zu sehen.
 - **Statistik:** Einsätze & Stunden pro Springer, Ausfälle pro Person,
   Auslastung der Klassen, Verteilungs-Spread — inkl. **PDF-Export**.
 - **Lokale Speicherung** im Browser + **Export/Import** als JSON-Datei

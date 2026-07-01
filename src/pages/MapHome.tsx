@@ -2,10 +2,10 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/useStore";
 import LuxMap from "../components/LuxMap";
-import { MapPin, ArrowRight, Users } from "lucide-react";
+import { MapPin, ArrowRight, Users, Wand2 } from "lucide-react";
 
 export default function MapHome() {
-  const { classes, localities, people, absences } = useStore();
+  const { classes, localities, people, absences, loadDemo } = useStore();
   const [selected, setSelected] = useState<string | undefined>();
   const navigate = useNavigate();
 
@@ -40,7 +40,17 @@ export default function MapHome() {
             Wo ist welche Klasse?
           </h1>
         </div>
-        <div className="flex gap-6 text-right">
+        <div className="flex gap-6 text-right items-center">
+          <button
+            className="btn btn-primary"
+            onClick={() =>
+              confirm(
+                "Demo-Szenario laden? Ersetzt die aktuellen Daten durch ein Beispiel mit Klassen, Ausfällen und Ersätzen."
+              ) && loadDemo()
+            }
+          >
+            <Wand2 size={16} /> Demo-Szenario
+          </button>
           <div>
             <div
               className="text-2xl font-bold text-cyan"
