@@ -1,81 +1,118 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useStore } from "../store/useStore";
-import { PageHeader, Field, Empty } from "../components/ui";
+import { PageHeader } from "../components/ui";
 import SubstitutePicker from "../components/SubstitutePicker";
-import { DAY_NAMES, classRunsInBlock } from "../lib/schedule";
+import { recommendSubstitutes } from "../lib/recommend";
+import { allSlots, slotLabel, classRunsInBlock, findSlot } from "../lib/schedule";
 import {
   UserX,
-  Plus,
-  Trash2,
-  Check,
   Award,
   MapPin,
   Navigation,
+  Check,
+  Trash2,
   ListFilter,
 } from "lucide-react";
-import { recommendSubstitutes } from "../lib/recommend";
-import { findSlot } from "../lib/schedule";
-import type { Absence } from "../types";
 
 export default function Absences() {
-  const { people, absences, settings, addAbsence } = useStore();
+  const store = useStore();
+  const {
+    people,
+    classes,
+    absences,
+    replacements,
+    localities,
+    settings,
+    addAbsence,
+    addReplacement,
+    removeReplacement,
+    removeAbsence,
+  } = store;
 
   const [personId, setPersonId] = useState("");
-  const [selectedBlocks, setSelectedBlocks] = useState<string[]>([]);
-  const [note, setNote] = useState("");
+  const [blockId, setBlockId] = useState("");
+  const [classId, setClassId] = useState("");
   const [picker, setPicker] = useState<{
     classId: string;
     blockId: string;
     absentPersonId: string;
   } | null>(null);
 
-  const days = settings.schedule.days.filter((d) => d.enabled && d.blocks.length);
+  const slots = useMemo(() => allSlots(settings.schedule), [settings.schedule]);
+  const localityName = (id?: string) =>
+    id ? localities.find((l) => l.id === id)?.name : undefined;
 
-  function toggleBlock(id: string) {
-    setSelectedBlocks((s) =>
-      s.includes(id) ? s.filter((x) => x !== id) : [...s, id]
+  // Klassen, denen die Person im gewählten Block fest zugeteilt ist
+  const autoClasses = useMemo(() => {
+    if (!personId || !blockId) return [];
+    return classes.filter(
+      (c) => c.teacherIds.includes(personId) && classRunsInBlock(c, blockId)
     );
-  }
-  function toggleDay(dayBlocks: string[]) {
-    const allSel = dayBlocks.every((b) => selectedBlocks.includes(b));
-    setSelectedBlocks((s) =>
-      allSel
-        ? s.filter((x) => !dayBlocks.includes(x))
-        : [...new Set([...s, ...dayBlocks])]
+  }, [personId, blockId, classes]);
+
+  // effektive Klasse: manuell gewählt, sonst automatisch
+  const effectiveClassId =
+    classId || (autoClasses.length === 1 ? autoClasses[0].id : "");
+  const effectiveClass = classes.find((c) => c.id === effectiveClassId);
+
+  const ranked = useMemo(() => {
+    if (!effectiveClass || !blockId) return [];
+    return recommendSubstitutes(effectiveClass, blockId, personId || undefined, {
+      people,
+      classes,
+      replacements,
+      absences,
+      localities,
+      settings,
+    });
+  }, [effectiveClass, blockId, personId, people, classes, replacements, absences, localities, settings]);
+
+  const alreadyAssigned = replacements.filter(
+    (r) => r.classId === effectiveClassId && r.blockId === blockId
+  );
+
+  function assign(substituteId: string) {
+    if (!effectiveClass || !blockId) return;
+    // Ausfall protokollieren (falls noch nicht vorhanden)
+    const exists = absences.find(
+      (a) => a.personId === personId && a.blockIds.includes(blockId)
     );
+    if (!exists && personId) addAbsence({ personId, blockIds: [blockId] });
+    addReplacement({
+      classId: effectiveClass.id,
+      blockId,
+      absentPersonId: personId || "",
+      substituteId,
+    });
   }
 
-  function submit() {
-    if (!personId || selectedBlocks.length === 0) return;
-    addAbsence({ personId, blockIds: selectedBlocks, note: note || undefined });
-    setPersonId("");
-    setSelectedBlocks([]);
-    setNote("");
-  }
+  const needClassChoice =
+    personId && blockId && !effectiveClassId; // keine eindeutige Zuordnung
 
   return (
     <div className="p-6">
       <PageHeader
         title="Ausfall & Ersatz"
-        subtitle="Eingeben wer fehlt — das Tool schlägt sofort den besten Springer vor."
+        subtitle="Wer fällt aus? → sofort die beste Ersatz-Wahl."
       />
 
-      <div className="grid grid-cols-[360px_1fr] gap-6">
-        {/* Eingabe */}
-        <div className="panel p-5 h-fit">
-          <div className="flex items-center gap-2 mb-4">
-            <UserX size={18} className="text-amber" />
-            <span className="font-semibold text-ink">Ausfall melden</span>
-          </div>
-
-          <Field label="Person">
+      {/* Sofort-Erfassung: Eingabe + direkt die Empfehlung */}
+      <div className="panel p-5 mb-6">
+        <div className="grid grid-cols-3 gap-4 mb-2">
+          <label className="block">
+            <div className="label-tech mb-1.5 flex items-center gap-1">
+              <UserX size={12} className="text-amber" /> Wer fällt aus?
+            </div>
             <select
               className="select"
               value={personId}
-              onChange={(e) => setPersonId(e.target.value)}
+              onChange={(e) => {
+                setPersonId(e.target.value);
+                setClassId("");
+              }}
             >
-              <option value="">— wählen —</option>
+              <option value="">— Person wählen —</option>
               {people
                 .filter((p) => p.active)
                 .map((p) => (
@@ -84,72 +121,132 @@ export default function Absences() {
                   </option>
                 ))}
             </select>
-          </Field>
+          </label>
 
-          <Field label="Betroffene Blöcke" hint="Tag anklicken = ganzer Tag">
-            <div className="space-y-2">
-              {days.map((d) => {
-                const dayBlockIds = d.blocks.map((b) => b.id);
-                return (
-                  <div key={d.day}>
-                    <button
-                      className="label-tech hover:text-cyan mb-1"
-                      onClick={() => toggleDay(dayBlockIds)}
-                    >
-                      {DAY_NAMES[d.day]}
-                    </button>
-                    <div className="flex flex-wrap gap-1.5">
-                      {d.blocks.map((b) => {
-                        const on = selectedBlocks.includes(b.id);
-                        return (
-                          <button
-                            key={b.id}
-                            onClick={() => toggleBlock(b.id)}
-                            className={`chip !text-xs !px-2.5 !py-1 ${
-                              on
-                                ? "border-cyan-dim !text-cyan bg-cyan/10"
-                                : "hover:border-edge-2"
-                            }`}
-                          >
-                            {b.start}–{b.end}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Field>
+          <label className="block">
+            <div className="label-tech mb-1.5">Wann?</div>
+            <select
+              className="select"
+              value={blockId}
+              onChange={(e) => {
+                setBlockId(e.target.value);
+                setClassId("");
+              }}
+            >
+              <option value="">— Block wählen —</option>
+              {slots.map((s) => (
+                <option key={s.block.id} value={s.block.id}>
+                  {slotLabel(s)}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          <Field label="Notiz (optional)">
-            <input
-              className="input"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="z.B. Krankheit, Fortbildung…"
-            />
-          </Field>
-
-          <button
-            className="btn btn-primary w-full justify-center"
-            onClick={submit}
-            disabled={!personId || selectedBlocks.length === 0}
-          >
-            <Plus size={16} /> Ausfall erfassen
-          </button>
+          <label className="block">
+            <div className="label-tech mb-1.5">Welche Klasse?</div>
+            <select
+              className="select"
+              value={effectiveClassId}
+              onChange={(e) => setClassId(e.target.value)}
+              disabled={!personId || !blockId}
+            >
+              <option value="">
+                {autoClasses.length > 1 ? "— Klasse wählen —" : "— Klasse —"}
+              </option>
+              {classes.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                  {autoClasses.some((x) => x.id === c.id) ? " ★" : ""}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
-        {/* Liste + Empfehlungen */}
-        <div className="space-y-4">
-          {absences.length === 0 && (
-            <Empty>Kein Ausfall erfasst. Melde links eine Abwesenheit.</Empty>
+        {/* Empfehlung — sofort und direkt */}
+        <div className="mt-4">
+          {!personId || !blockId ? (
+            <div className="text-sm text-muted">
+              Person und Block wählen — die beste Ersatz-Wahl erscheint sofort.
+            </div>
+          ) : !effectiveClassId ? (
+            <div className="text-sm text-amber">
+              {needClassChoice && autoClasses.length === 0
+                ? "Diese Person ist keiner Klasse in diesem Block zugeteilt — bitte Klasse oben wählen."
+                : "Bitte Klasse wählen."}
+            </div>
+          ) : (
+            <Recommendation
+              ranked={ranked}
+              alreadyAssignedIds={alreadyAssigned.map((r) => r.substituteId)}
+              localityName={localityName}
+              onAssign={assign}
+              onOpenAll={() =>
+                setPicker({
+                  classId: effectiveClassId,
+                  blockId,
+                  absentPersonId: personId,
+                })
+              }
+            />
           )}
-          {absences.map((a) => (
-            <AbsenceCard key={a.id} absence={a} onOpenPicker={setPicker} />
-          ))}
         </div>
       </div>
+
+      {/* Übersicht bereits eingeteilter Ersätze (flach) */}
+      {replacements.length > 0 && (
+        <div className="panel p-5">
+          <div className="label-tech mb-3">Eingeteilte Ersätze</div>
+          <div className="space-y-2">
+            {replacements.map((r) => {
+              const cls = classes.find((c) => c.id === r.classId);
+              const sub = people.find((p) => p.id === r.substituteId);
+              const absent = people.find((p) => p.id === r.absentPersonId);
+              const slot = findSlot(settings.schedule, r.blockId);
+              return (
+                <div
+                  key={r.id}
+                  className="flex items-center justify-between text-sm border-b border-edge/40 pb-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <Check size={14} className="text-lime" />
+                    <span className="text-ink font-medium">{sub?.name}</span>
+                    <span className="text-faint">→</span>
+                    <Link
+                      to={`/class/${r.classId}`}
+                      className="text-muted hover:text-cyan"
+                    >
+                      {cls?.name ?? "?"}
+                    </Link>
+                    <span className="text-faint">
+                      {slot ? slotLabel(slot) : r.blockId}
+                    </span>
+                    {absent && (
+                      <span className="text-faint">· für {absent.name}</span>
+                    )}
+                  </div>
+                  <button
+                    className="btn btn-ghost btn-danger !py-0.5 !px-2 text-xs"
+                    onClick={() => removeReplacement(r.id)}
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Offene Ausfälle ohne Ersatz (flach) */}
+      <OpenAbsences
+        absences={absences}
+        classes={classes}
+        people={people}
+        replacements={replacements}
+        schedule={settings.schedule}
+        onRemove={removeAbsence}
+      />
 
       {picker && (
         <SubstitutePicker
@@ -164,305 +261,182 @@ export default function Absences() {
   );
 }
 
-// Eine erfasste Abwesenheit: betroffene Klassen automatisch, sonst Fallback.
-function AbsenceCard({
-  absence,
-  onOpenPicker,
+// Direkte, flache Empfehlungsanzeige (beste Wahl groß, Alternativen darunter).
+function Recommendation({
+  ranked,
+  alreadyAssignedIds,
+  localityName,
+  onAssign,
+  onOpenAll,
 }: {
-  absence: Absence;
-  onOpenPicker: (p: {
-    classId: string;
-    blockId: string;
-    absentPersonId: string;
-  }) => void;
+  ranked: ReturnType<typeof recommendSubstitutes>;
+  alreadyAssignedIds: string[];
+  localityName: (id?: string) => string | undefined;
+  onAssign: (id: string) => void;
+  onOpenAll: () => void;
 }) {
-  const { people, classes, removeAbsence } = useStore();
-  const [fallbackClassId, setFallbackClassId] = useState("");
-  const person = people.find((p) => p.id === absence.personId);
-
-  const impacts = useMemo(() => {
-    const arr: { classId: string; className: string; blockId: string }[] = [];
-    for (const bid of absence.blockIds) {
-      for (const c of classes) {
-        if (
-          c.teacherIds.includes(absence.personId) &&
-          classRunsInBlock(c, bid)
-        ) {
-          arr.push({ classId: c.id, className: c.name, blockId: bid });
-        }
-      }
-    }
-    return arr;
-  }, [absence, classes]);
-
-  const fallbackClass = classes.find((c) => c.id === fallbackClassId);
-  const fbRuns = fallbackClass
-    ? absence.blockIds.filter((bid) => classRunsInBlock(fallbackClass, bid))
-    : [];
-  const fbBlocks = fbRuns.length ? fbRuns : absence.blockIds;
-
+  if (ranked.length === 0) {
+    return (
+      <div className="text-sm text-muted">
+        Kein verfügbarer Springer für diesen Block (alle belegt oder abwesend).
+      </div>
+    );
+  }
+  const best = ranked[0];
+  const rest = ranked.slice(1, 4);
   return (
-    <div className="panel p-5">
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-ink text-lg">
-              {person?.name ?? "?"}
-            </span>
-            <span className="chip border-amber text-amber">
-              {absence.blockIds.length} Block(e)
-            </span>
+    <div>
+      <div className="label-tech mb-2">Beste Wahl</div>
+      <div className="panel p-4 border-cyan-dim shadow-[0_0_18px_rgba(53,214,240,0.18)] flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <Award size={22} className="text-cyan shrink-0" />
+          <div className="min-w-0">
+            <div className="text-lg font-bold text-ink truncate">
+              {best.person.name}
+            </div>
+            <div className="flex items-center gap-3 text-xs text-muted mt-0.5">
+              <span className="flex items-center gap-1">
+                <Navigation size={12} />
+                {best.distanceKm != null
+                  ? `${Math.round(best.distanceKm)} km`
+                  : "—"}
+              </span>
+              <span className="flex items-center gap-1">
+                <MapPin size={12} />
+                {localityName(best.fromLocalityId) ?? "Ort unbekannt"}
+              </span>
+              <span>{best.isPlanned ? "im Plan frei" : "Status offen"}</span>
+            </div>
           </div>
-          {absence.note && (
-            <div className="text-sm text-muted mt-1">{absence.note}</div>
-          )}
         </div>
-        <button
-          className="btn btn-ghost btn-danger !p-2"
-          onClick={() => removeAbsence(absence.id)}
-        >
-          <Trash2 size={16} />
-        </button>
+        <div className="flex items-center gap-4 shrink-0">
+          <div
+            className="text-3xl font-bold text-cyan"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
+            {Math.round(best.total * 100)}
+          </div>
+          <button
+            className="btn btn-primary"
+            onClick={() => onAssign(best.person.id)}
+            disabled={alreadyAssignedIds.includes(best.person.id)}
+          >
+            {alreadyAssignedIds.includes(best.person.id)
+              ? "eingeteilt"
+              : "einteilen"}
+          </button>
+        </div>
       </div>
 
-      {impacts.length > 0 ? (
-        <div className="mt-4 space-y-2">
-          <div className="label-tech">Betroffene Klassen · Ersatz nötig</div>
-          {impacts.map((im) => (
-            <ImpactRow
-              key={im.classId + im.blockId}
-              classId={im.classId}
-              className={im.className}
-              blockId={im.blockId}
-              absentPersonId={absence.personId}
-              onOpenAll={() =>
-                onOpenPicker({
-                  classId: im.classId,
-                  blockId: im.blockId,
-                  absentPersonId: absence.personId,
-                })
-              }
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="mt-4">
-          <div className="text-sm text-muted mb-2">
-            Diese Person ist keiner Klasse fest zugeteilt. Für welche Klasse
-            suchst du Ersatz?
-          </div>
-          <select
-            className="select"
-            value={fallbackClassId}
-            onChange={(e) => setFallbackClassId(e.target.value)}
-          >
-            <option value="">— Klasse wählen —</option>
-            {classes.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
+      {rest.length > 0 && (
+        <div className="mt-3">
+          <div className="label-tech mb-2">Alternativen</div>
+          <div className="space-y-1.5">
+            {rest.map((c) => (
+              <div
+                key={c.person.id}
+                className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 bg-abyss/60"
+              >
+                <div className="min-w-0">
+                  <span className="text-ink font-medium">{c.person.name}</span>
+                  <span className="text-xs text-faint ml-2">
+                    {c.distanceKm != null ? `${Math.round(c.distanceKm)} km` : "—"}
+                    {" · "}
+                    {localityName(c.fromLocalityId) ?? "Ort unbekannt"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span
+                    className="text-cyan font-bold"
+                    style={{ fontFamily: "var(--font-mono)" }}
+                  >
+                    {Math.round(c.total * 100)}
+                  </span>
+                  <button
+                    className="btn !py-1 !px-3 text-xs"
+                    onClick={() => onAssign(c.person.id)}
+                    disabled={alreadyAssignedIds.includes(c.person.id)}
+                  >
+                    {alreadyAssignedIds.includes(c.person.id)
+                      ? "eingeteilt"
+                      : "einteilen"}
+                  </button>
+                </div>
+              </div>
             ))}
-          </select>
-          {fallbackClass && (
-            <div className="mt-3 space-y-2">
-              {fbBlocks.map((bid) => (
-                <ImpactRow
-                  key={bid}
-                  classId={fallbackClass.id}
-                  className={fallbackClass.name}
-                  blockId={bid}
-                  absentPersonId={absence.personId}
-                  onOpenAll={() =>
-                    onOpenPicker({
-                      classId: fallbackClass.id,
-                      blockId: bid,
-                      absentPersonId: absence.personId,
-                    })
-                  }
-                />
-              ))}
-            </div>
-          )}
+          </div>
         </div>
       )}
+
+      <button
+        className="btn btn-ghost !py-1 !px-2 text-xs mt-2"
+        onClick={onOpenAll}
+      >
+        <ListFilter size={13} /> alle {ranked.length} anzeigen
+      </button>
     </div>
   );
 }
 
-// Eine betroffene Klasse/Block: zeigt AUTOMATISCH die beste(n) Springer.
-function ImpactRow({
-  classId,
-  className,
-  blockId,
-  absentPersonId,
-  onOpenAll,
+// Kompakte, flache Liste offener Ausfälle (ohne zugewiesenen Ersatz).
+function OpenAbsences({
+  absences,
+  classes,
+  people,
+  replacements,
+  schedule,
+  onRemove,
 }: {
-  classId: string;
-  className: string;
-  blockId: string;
-  absentPersonId: string;
-  onOpenAll: () => void;
+  absences: ReturnType<typeof useStore.getState>["absences"];
+  classes: ReturnType<typeof useStore.getState>["classes"];
+  people: ReturnType<typeof useStore.getState>["people"];
+  replacements: ReturnType<typeof useStore.getState>["replacements"];
+  schedule: ReturnType<typeof useStore.getState>["settings"]["schedule"];
+  onRemove: (id: string) => void;
 }) {
-  const {
-    classes,
-    people,
-    replacements,
-    absences,
-    localities,
-    settings,
-    addReplacement,
-    removeReplacement,
-  } = useStore();
-
-  const cls = classes.find((c) => c.id === classId);
-  const slot = findSlot(settings.schedule, blockId);
-  const covered = replacements.filter(
-    (r) =>
-      r.classId === classId &&
-      r.blockId === blockId &&
-      r.absentPersonId === absentPersonId
-  );
-
-  const ranked = useMemo(() => {
-    if (!cls) return [];
-    return recommendSubstitutes(cls, blockId, absentPersonId, {
-      people,
-      classes,
-      replacements,
-      absences,
-      localities,
-      settings,
-    });
-  }, [cls, blockId, absentPersonId, people, classes, replacements, absences, localities, settings]);
-
-  const localityName = (id?: string) =>
-    id ? localities.find((l) => l.id === id)?.name : undefined;
-
+  // offene (person, block) Kombinationen aus Ausfällen, die nicht gedeckt sind
+  const open: { absId: string; personId: string; blockId: string }[] = [];
+  for (const a of absences) {
+    for (const bid of a.blockIds) {
+      const covered = replacements.some(
+        (r) => r.absentPersonId === a.personId && r.blockId === bid
+      );
+      const affects = classes.some(
+        (c) => c.teacherIds.includes(a.personId) && classRunsInBlock(c, bid)
+      );
+      if (!covered && affects)
+        open.push({ absId: a.id, personId: a.personId, blockId: bid });
+    }
+  }
+  if (open.length === 0) return null;
   return (
-    <div className="panel p-3">
-      <div className="flex items-center justify-between">
-        <div>
-          <Link
-            to={`/class/${classId}`}
-            className="text-ink font-medium hover:text-cyan"
-          >
-            {className}
-          </Link>
-          <span className="text-muted text-sm ml-2">
-            {slot ? `${slot.block.start}–${slot.block.end}` : blockId}
-          </span>
-        </div>
-        {covered.length > 0 ? (
-          <span className="chip border-lime text-lime">
-            <Check size={12} /> gedeckt
-          </span>
-        ) : (
-          <span className="chip border-amber text-amber">Ersatz nötig</span>
-        )}
-      </div>
-
-      {covered.length > 0 ? (
-        <div className="mt-2 space-y-1.5">
-          {covered.map((r) => {
-            const p = people.find((x) => x.id === r.substituteId);
-            return (
-              <div
-                key={r.id}
-                className="flex items-center justify-between text-sm"
-              >
-                <span className="flex items-center gap-2 text-lime">
-                  <Check size={14} /> {p?.name ?? "?"}{" "}
-                  <span className="text-faint">springt ein</span>
+    <div className="panel p-5 mt-6">
+      <div className="label-tech mb-3">Offene Ausfälle ohne Ersatz</div>
+      <div className="space-y-2">
+        {open.map((o, i) => {
+          const person = people.find((p) => p.id === o.personId);
+          const slot = findSlot(schedule, o.blockId);
+          return (
+            <div
+              key={o.absId + o.blockId + i}
+              className="flex items-center justify-between text-sm border-b border-edge/40 pb-2"
+            >
+              <span className="text-ink">
+                {person?.name}{" "}
+                <span className="text-faint">
+                  · {slot ? slotLabel(slot) : o.blockId}
                 </span>
-                <button
-                  className="btn btn-ghost btn-danger !py-0.5 !px-2 text-xs"
-                  onClick={() => removeReplacement(r.id)}
-                >
-                  ändern
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="mt-3">
-          <div className="label-tech mb-2">
-            Beste Wahl · automatisch vorgeschlagen
-          </div>
-          {ranked.length === 0 ? (
-            <div className="text-sm text-muted">
-              Kein verfügbarer Springer für diesen Block (alle belegt oder
-              abwesend).
-            </div>
-          ) : (
-            <div className="space-y-1.5">
-              {ranked.slice(0, 3).map((c, i) => (
-                <div
-                  key={c.person.id}
-                  className={`flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 ${
-                    i === 0
-                      ? "bg-cyan/10 border border-cyan-dim"
-                      : "bg-abyss/60"
-                  }`}
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      {i === 0 && <Award size={14} className="text-cyan" />}
-                      <span className="text-ink font-medium truncate">
-                        {c.person.name}
-                      </span>
-                      {i === 0 && (
-                        <span className="chip border-cyan-dim text-cyan !py-0">
-                          beste Wahl
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-faint mt-0.5">
-                      <span className="flex items-center gap-1">
-                        <Navigation size={11} />
-                        {c.distanceKm != null
-                          ? `${Math.round(c.distanceKm)} km`
-                          : "—"}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin size={11} />
-                        {localityName(c.fromLocalityId) ?? "Ort unbekannt"}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span
-                      className="text-cyan font-bold"
-                      style={{ fontFamily: "var(--font-mono)" }}
-                    >
-                      {Math.round(c.total * 100)}
-                    </span>
-                    <button
-                      className="btn btn-primary !py-1 !px-3 text-xs"
-                      onClick={() =>
-                        addReplacement({
-                          classId,
-                          blockId,
-                          absentPersonId,
-                          substituteId: c.person.id,
-                        })
-                      }
-                    >
-                      einteilen
-                    </button>
-                  </div>
-                </div>
-              ))}
+              </span>
               <button
-                className="btn btn-ghost !py-1 !px-2 text-xs"
-                onClick={onOpenAll}
+                className="btn btn-ghost btn-danger !py-0.5 !px-2 text-xs"
+                onClick={() => onRemove(o.absId)}
               >
-                <ListFilter size={13} /> alle {ranked.length} anzeigen
+                <Trash2 size={13} />
               </button>
             </div>
-          )}
-        </div>
-      )}
+          );
+        })}
+      </div>
     </div>
   );
 }
